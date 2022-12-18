@@ -8,7 +8,6 @@
   import iconBookFull from "@iconify-icons/ic/round-book";
   import { page } from "$app/stores";
   import { base } from "$app/paths";
-  $: console.log($page.url.pathname, base);
 </script>
 
 <div class="parentContainer">
@@ -18,7 +17,7 @@
         mainItems={[
           {
             name: "Demo",
-            active: $page.url.pathname == base + "/",
+            active: $page.url.pathname == base,
             activeIcon: iconMonitorFull,
             inactiveIcon: iconMonitor,
           },
