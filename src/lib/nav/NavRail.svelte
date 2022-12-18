@@ -27,6 +27,7 @@
       <FAB {...fab} on:click={(event) => dispatch("chosen", { name: "fab", data: fab, event })} />
     </div>
   {/if}
+  <div class="spacer" />
   <div class="navAligner">
     {#each mainItems as item}
       <button
@@ -65,6 +66,9 @@
     border: none;
     color: rgb(var(--md-sys-color-on-surface-variant));
     cursor: pointer;
+  }
+  .spacer {
+    height: 6rem;
   }
 
   .relative {

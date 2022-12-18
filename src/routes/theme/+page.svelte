@@ -13,17 +13,6 @@
     theme = themeFromSourceColor(sourceColor);
     console.log(theme);
   }
-  $: if (sourceFile) {
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const image = new Image();
-      image.src = reader.result;
-      console.log("loading color", image);
-      sourceColor = await sourceColorFromImage(image);
-      console.log("obtained color", sourceColor);
-    };
-    reader.readAsDataURL(sourceFile[0]);
-  }
   const pairs = [
     ["primary", "onPrimary"],
     ["primaryContainer", "onPrimaryContainer"],
@@ -54,7 +43,21 @@
       on:change={() => (sourceColor = argbFromHex(sourceColorInput.value))}
     />
   </label>
-  <input type="file" bind:files={sourceFile} />
+  <input
+    type="file"
+    bind:files={sourceFile}
+    on:change={() => {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const image = new Image();
+        image.src = reader.result;
+        console.log("loading color", image);
+        sourceColor = await sourceColorFromImage(image);
+        console.log("obtained color", sourceColor);
+      };
+      reader.readAsDataURL(sourceFile[0]);
+    }}
+  />
 </p>
 {#if theme}
   {#each Object.entries( { Light: theme.schemes.light.props, Dark: theme.schemes.dark.props } ) as [name, colors]}
