@@ -1,6 +1,6 @@
 <script>
   import Icon from "@iconify/svelte";
-  import iconCheck from "@iconify-icons/mdi/check";
+  import iconCheck from "@iconify-icons/ic/outline-check";
   export let options;
   export let maxOptions = 0;
   export let chosenOptions = [];

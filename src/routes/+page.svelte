@@ -9,10 +9,10 @@
   import Slider from "$lib/forms/Slider.svelte";
 
   import Icon from "@iconify/svelte";
-  import iconEdit from "@iconify-icons/mdi/edit";
-  import iconTriangle from "@iconify-icons/mdi/triangle";
-  import iconSquare from "@iconify-icons/mdi/square";
-  import iconCircle from "@iconify-icons/mdi/circle";
+  import iconEdit from "@iconify-icons/ic/outline-edit";
+  import iconTriangle from "@iconify-icons/ic/outline-change-history";
+  import iconSquare from "@iconify-icons/ic/outline-square";
+  import iconCircle from "@iconify-icons/ic/outline-circle";
   let chosen1 = [];
   let chosen2 = [];
   let chosen3 = "o1";

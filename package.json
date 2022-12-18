@@ -9,7 +9,7 @@
     "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
-    "@iconify-icons/mdi": "^1.2.35",
+    "@iconify-icons/ic": "^1.2.11",
     "@iconify/svelte": "^3.0.1",
     "@sveltejs/adapter-static": "^1.0.0",
     "@sveltejs/kit": "^1.0.0",
