@@ -12,8 +12,8 @@
 <svelte:head>
   <title>M3 Svelte</title>
 </svelte:head>
-<h1 class="md-headline-large">M3 Svelte</h1>
-<p>Check out the code to understand how it works.</p>
+<h1 class="md-display-large">M3 Svelte</h1>
+<p>A project by KTibow. See the GitHub for code examples.</p>
 <div class="container">
   <div>
     <p>Elevated</p>
