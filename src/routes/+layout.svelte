@@ -7,6 +7,7 @@
   import iconBook from "@iconify-icons/ic/outline-book";
   import iconBookFull from "@iconify-icons/ic/round-book";
   import { page } from "$app/stores";
+  import { base } from "$app/paths";
 </script>
 
 <div class="parentContainer">
@@ -16,19 +17,19 @@
         mainItems={[
           {
             name: "Demo",
-            active: $page.url.pathname == "/",
+            active: $page.url.pathname == base + "/",
             activeIcon: iconMonitorFull,
             inactiveIcon: iconMonitor,
           },
           {
             name: "Theme",
-            active: $page.url.pathname == "/theme",
+            active: $page.url.pathname == base + "/theme",
             activeIcon: iconThemeFull,
             inactiveIcon: iconTheme,
           },
           {
             name: "Docs",
-            active: $page.url.pathname == "/docs",
+            active: $page.url.pathname == base + "/docs",
             activeIcon: iconBookFull,
             inactiveIcon: iconBook,
           },
