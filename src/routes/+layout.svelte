@@ -8,6 +8,7 @@
   import iconBookFull from "@iconify-icons/ic/round-book";
   import { page } from "$app/stores";
   import { base } from "$app/paths";
+  $: console.log($page.url.pathname, base);
 </script>
 
 <div class="parentContainer">
