@@ -8,6 +8,8 @@
   import iconBookFull from "@iconify-icons/ic/round-book";
   import { page } from "$app/stores";
   import { base } from "$app/paths";
+  import { goto } from "$app/navigation";
+  $: hereNormalized = ($page.url.pathname + "/").replace(/\/\/$/, "/");
 </script>
 
 <div class="parentContainer">
@@ -17,23 +19,27 @@
         mainItems={[
           {
             name: "Demo",
-            active: $page.url.pathname == base,
+            url: base + "/",
+            active: hereNormalized == base + "/",
             activeIcon: iconMonitorFull,
             inactiveIcon: iconMonitor,
           },
           {
             name: "Theme",
-            active: $page.url.pathname == base + "/theme",
+            url: base + "/theme/",
+            active: hereNormalized == base + "/theme/",
             activeIcon: iconThemeFull,
             inactiveIcon: iconTheme,
           },
           {
             name: "Docs",
-            active: $page.url.pathname == base + "/docs",
+            url: base + "/docs/",
+            active: hereNormalized == base + "/docs/",
             activeIcon: iconBookFull,
             inactiveIcon: iconBook,
           },
         ]}
+        on:chosen={(e) => goto(e.detail.data.url)}
       />
     </div>
   </div>
@@ -46,6 +52,7 @@
   }
   .railSpace {
     width: 5rem;
+    flex-shrink: 0;
   }
   .railPlacer {
     position: fixed;
