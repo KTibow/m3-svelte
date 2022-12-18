@@ -2,9 +2,12 @@
   import Button from "$lib/buttons/Button.svelte";
   import SegmentedButton from "$lib/buttons/SegmentedButton.svelte";
   import FAB from "$lib/buttons/FAB.svelte";
+
   import LinearProgress from "$lib/forms/LinearProgress.svelte";
   import CircularProgress from "$lib/forms/CircularProgress.svelte";
   import Radio from "$lib/forms/Radio.svelte";
+  import Slider from "$lib/forms/Slider.svelte";
+
   import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/mdi/edit";
   import iconTriangle from "@iconify-icons/mdi/triangle";
@@ -12,7 +15,8 @@
   import iconCircle from "@iconify-icons/mdi/circle";
   let chosen1 = [];
   let chosen2 = [];
-  let chosen3 = "o4";
+  let chosen3 = "o1";
+  let chosen4 = 60;
 </script>
 
 <svelte:head>
@@ -112,6 +116,11 @@
         <Radio name="r1" value="o4" bind:group={chosen3} disabled /> Option 4
       </label>
     </p>
+  </div>
+  <div>
+    <p>Slider</p>
+    <p>Chose {chosen4}</p>
+    <Slider bind:value={chosen4} />
   </div>
 </div>
 
