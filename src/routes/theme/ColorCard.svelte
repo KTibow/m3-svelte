@@ -1,5 +1,5 @@
 <script>
-  import { hexFromArgb } from "@material/material-color-utilities";
+  import { hexFromArgb } from "@importantimport/material-color-utilities";
   export let text;
   export let bg;
   export let fg;

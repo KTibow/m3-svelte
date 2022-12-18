@@ -5,7 +5,7 @@
     hexFromArgb,
     themeFromSourceColor,
     sourceColorFromImage,
-  } from "@material/material-color-utilities";
+  } from "@importantimport/material-color-utilities";
   import ColorCard from "./ColorCard.svelte";
   let sourceFile, sourceColorInput;
   let sourceColor, theme;
