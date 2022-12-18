@@ -4,11 +4,15 @@
   import FAB from "$lib/buttons/FAB.svelte";
   import LinearProgress from "$lib/forms/LinearProgress.svelte";
   import CircularProgress from "$lib/forms/CircularProgress.svelte";
+  import Radio from "$lib/forms/Radio.svelte";
   import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/mdi/edit";
   import iconTriangle from "@iconify-icons/mdi/triangle";
   import iconSquare from "@iconify-icons/mdi/square";
   import iconCircle from "@iconify-icons/mdi/circle";
+  let chosen1 = [];
+  let chosen2 = [];
+  let chosen3 = "o4";
 </script>
 
 <svelte:head>
@@ -20,39 +24,45 @@
 <div class="container">
   <div>
     <p>Elevated</p>
-    <Button type="elevated">Enabled</Button>
+    <Button type="elevated" on:click={() => alert("Pressed")}>Enabled</Button>
     <Button type="elevated" disabled>Disabled</Button>
   </div>
   <div>
     <p>Filled</p>
-    <Button type="filled">Enabled</Button>
+    <Button type="filled" on:click={() => alert("Pressed")}>Enabled</Button>
     <Button type="filled" disabled>Disabled</Button>
   </div>
   <div>
     <p>Tonal</p>
-    <Button type="tonal">Enabled</Button>
+    <Button type="tonal" on:click={() => alert("Pressed")}>Enabled</Button>
     <Button type="tonal" disabled>Disabled</Button>
   </div>
   <div>
     <p>Outlined</p>
-    <Button type="outlined">Enabled</Button>
+    <Button type="outlined" on:click={() => alert("Pressed")}>Enabled</Button>
     <Button type="outlined" disabled>Disabled</Button>
   </div>
   <div>
     <p>Text</p>
-    <Button type="text">Enabled</Button>
+    <Button type="text" on:click={() => alert("Pressed")}>Enabled</Button>
     <Button type="text" disabled>Disabled</Button>
   </div>
   <div>
     <p>Icon</p>
-    <Button type="filled"><Icon icon={iconEdit} style="height: 18px; width: 18px;" />Filled</Button>
-    <Button type="text"><Icon icon={iconEdit} style="height: 18px; width: 18px;" /></Button>
+    <Button type="filled" on:click={() => alert("Pressed")}>
+      <Icon icon={iconEdit} style="height: 18px; width: 18px;" /> Filled
+    </Button>
+    <Button type="text" on:click={() => alert("Pressed")}>
+      <Icon icon={iconEdit} style="height: 18px; width: 18px;" />
+    </Button>
   </div>
   <div>
-    <p>Chooser</p>
+    <p>Segmented Chooser</p>
     <SegmentedButton
       options={[{ label: "$" }, { label: "$$" }, { label: "$$$" }, { label: "$$$$" }]}
+      bind:chosenOptions={chosen1}
     />
+    <p>Chose {chosen1.map((o) => o.label)}</p>
     <SegmentedButton
       options={[
         { label: "Tab A", icon: iconTriangle },
@@ -60,16 +70,18 @@
         { label: "Tab C", icon: iconCircle },
       ]}
       maxOptions="1"
+      bind:chosenOptions={chosen2}
     />
+    <p>Chose {chosen2.map((o) => o.label)}</p>
   </div>
   <div>
     <p>Floating</p>
     <div class="container">
-      <FAB icon={iconEdit} size="small" />
-      <FAB icon={iconEdit} size="normal" color="surface" />
-      <FAB icon={iconEdit} size="large" color="secondary" />
-      <FAB text="extended fab" color="tertiary" />
-      <FAB icon={iconEdit} text="extended fab" />
+      <FAB icon={iconEdit} on:click={() => alert("Pressed")} size="small" />
+      <FAB icon={iconEdit} on:click={() => alert("Pressed")} size="normal" color="surface" />
+      <FAB icon={iconEdit} on:click={() => alert("Pressed")} size="large" color="secondary" />
+      <FAB text="extended fab" on:click={() => alert("Pressed")} color="tertiary" />
+      <FAB icon={iconEdit} text="extended fab" on:click={() => alert("Pressed")} />
     </div>
   </div>
 </div>
@@ -83,6 +95,24 @@
     <CircularProgress percent="60" />
     <CircularProgress />
   </div>
+  <div>
+    <p>Radio</p>
+    <p>Chose {chosen3}</p>
+    <p>
+      <label for={undefined}><Radio name="r1" value="o1" bind:group={chosen3} /> Option 1</label>
+    </p>
+    <p>
+      <label for={undefined}><Radio name="r1" value="o2" bind:group={chosen3} /> Option 2</label>
+    </p>
+    <p>
+      <label for={undefined}><Radio name="r1" value="o3" bind:group={chosen3} /> Option 3</label>
+    </p>
+    <p>
+      <label for={undefined}>
+        <Radio name="r1" value="o4" bind:group={chosen3} disabled /> Option 4
+      </label>
+    </p>
+  </div>
 </div>
 
 <style>
@@ -90,5 +120,10 @@
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+  label {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
   }
 </style>

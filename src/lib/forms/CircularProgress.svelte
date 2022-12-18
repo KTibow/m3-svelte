@@ -8,6 +8,7 @@
   xmlns="http://www.w3.org/2000/svg"
   class:indeterminate={percent === false}
   style="display: {display}; --percent: {percent}px;"
+  role="progressbar"
 >
   <circle
     cx="24"
@@ -58,34 +59,4 @@
       stroke-dashoffset: 125.66;
     }
   }
-  /* .progress {
-    width: 3rem;
-    height: 3rem;
-    background-image: conic-gradient(
-      rgb(var(--md-sys-color-primary)) var(--percent),
-      0,
-      transparent 100%
-    );
-    clip-path: circle(50% at 50% 50%);
-    mask: radial-gradient(1.2rem, #0000 99.9%, #000);
-  } */
-  /* .percent {
-    background-color: rgb(var(--md-sys-color-primary));
-    transition: all 150ms;
-  }
-  .indeterminate {
-    animation: progress infinite 1s ease-out;
-    width: 50%;
-    top: 0;
-    bottom: 0;
-    position: absolute;
-  }
-  @keyframes progress {
-    0% {
-      left: -50%;
-    }
-    100% {
-      left: 100%;
-    }
-  } */
 </style>

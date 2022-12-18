@@ -3,7 +3,7 @@
   export let display = "inline-flex";
 </script>
 
-<div class="parent" style="display: {display};">
+<div class="parent" style="display: {display};" role="progressbar">
   <div class="percent" class:indeterminate={percent === false} style="width: {percent}%;" />
 </div>
 
