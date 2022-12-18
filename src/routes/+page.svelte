@@ -2,6 +2,8 @@
   import Button from "$lib/buttons/Button.svelte";
   import SegmentedButton from "$lib/buttons/SegmentedButton.svelte";
   import FAB from "$lib/buttons/FAB.svelte";
+  import LinearProgress from "$lib/forms/LinearProgress.svelte";
+  import CircularProgress from "$lib/forms/CircularProgress.svelte";
   import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/mdi/edit";
   import iconTriangle from "@iconify-icons/mdi/triangle";
@@ -14,6 +16,7 @@
 </svelte:head>
 <h1 class="md-display-large">M3 Svelte</h1>
 <p>A project by KTibow. See the GitHub for code examples.</p>
+<h2 class="md-headline-small">Button-related components</h2>
 <div class="container">
   <div>
     <p>Elevated</p>
@@ -68,6 +71,17 @@
       <FAB text="extended fab" color="tertiary" />
       <FAB icon={iconEdit} text="extended fab" />
     </div>
+  </div>
+</div>
+
+<h2 class="md-headline-small">Form-related components</h2>
+<div class="container">
+  <div>
+    <p>Progress</p>
+    <LinearProgress percent="60" />
+    <LinearProgress />
+    <CircularProgress percent="60" />
+    <CircularProgress />
   </div>
 </div>
 
