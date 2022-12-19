@@ -1,14 +1,16 @@
-<script>
+<script lang="ts">
   import { browser } from "$app/environment";
   import {
     argbFromHex,
     hexFromArgb,
     themeFromSourceColor,
     sourceColorFromImage,
+    type Theme,
+    Scheme,
   } from "@importantimport/material-color-utilities";
   import ColorCard from "./ColorCard.svelte";
-  let sourceFile, sourceColorInput;
-  let sourceColor, theme;
+  let sourceFile: FileList, sourceColorInput: HTMLInputElement;
+  let sourceColor: number, theme: Theme;
   $: if (sourceColor && browser) {
     theme = themeFromSourceColor(sourceColor);
     console.log(theme);
@@ -24,6 +26,10 @@
     ["surface", "onSurface"],
     ["error", "onError"],
   ];
+  const getCardData = (colors: Scheme, bg: string, fg: string) => ({
+    bg: colors[bg as keyof Scheme] as number,
+    fg: colors[fg as keyof Scheme] as number,
+  });
 </script>
 
 <svelte:head>
@@ -50,7 +56,7 @@
       const reader = new FileReader();
       reader.onload = async () => {
         const image = new Image();
-        image.src = reader.result;
+        image.src = String(reader.result);
         console.log("loading color", image);
         sourceColor = await sourceColorFromImage(image);
         console.log("obtained color", sourceColor);
@@ -60,14 +66,13 @@
   />
 </p>
 {#if theme}
-  {#each Object.entries( { Light: theme.schemes.light.props, Dark: theme.schemes.dark.props } ) as [name, colors]}
+  {#each Object.entries({ Light: theme.schemes.light, Dark: theme.schemes.dark }) as [name, colors]}
     <h2 class="md-headline-large">{name}</h2>
     <div class="container">
       {#each pairs as [bgName, fgName]}
         <ColorCard
           text={`${fgName} text\n${bgName} background`}
-          bg={colors[bgName]}
-          fg={colors[fgName]}
+          {...getCardData(colors, bgName, fgName)}
         />
       {/each}
     </div>

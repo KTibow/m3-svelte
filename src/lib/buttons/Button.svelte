@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
   export let disabled = false;
-  export let type;
+  export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
   export let display = "inline-flex";
 </script>
 

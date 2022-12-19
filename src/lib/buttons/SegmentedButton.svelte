@@ -1,9 +1,16 @@
-<script>
-  import Icon from "@iconify/svelte";
+<script lang="ts" context="module">
+  export interface ButtonData {
+    icon?: IconifyIcon;
+    label?: string;
+  }
+</script>
+
+<script lang="ts">
+  import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconCheck from "@iconify-icons/ic/outline-check";
-  export let options;
+  export let options: ButtonData[];
   export let maxOptions = 0;
-  export let chosenOptions = [];
+  export let chosenOptions: ButtonData[] = [];
   export let display = "inline-flex";
 </script>
 

@@ -1,12 +1,12 @@
-<script>
-  export let percent = false;
+<script lang="ts">
+  export let percent: number | null = null;
   export let display = "inline-flex";
 </script>
 
 <svg
   viewBox="0 0 48 48"
   xmlns="http://www.w3.org/2000/svg"
-  class:indeterminate={percent === false}
+  class:indeterminate={percent === null}
   style="display: {display}; --percent: {percent}px;"
   role="progressbar"
 >

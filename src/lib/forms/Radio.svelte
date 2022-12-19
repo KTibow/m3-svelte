@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
   export let disabled = false;
-  export let value;
+  export let value: string;
   export let display = "inline-flex";
-  export let group;
-  let radio;
+  export let group: string;
+  let radio: HTMLElement;
 </script>
 
 <div class="container" style="display: {display};">

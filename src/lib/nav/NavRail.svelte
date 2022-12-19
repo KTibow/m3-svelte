@@ -1,13 +1,18 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from "svelte";
   import FAB from "$lib/buttons/FAB.svelte";
-  import Icon from "@iconify/svelte";
+  import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconHamburger from "@iconify-icons/ic/outline-menu";
 
   export let display = "flex";
   export let hamburger = false;
-  export let fab = false;
-  export let mainItems;
+  export let fab: false | object = false;
+  export let mainItems: {
+    active: boolean;
+    activeIcon: IconifyIcon;
+    inactiveIcon: IconifyIcon;
+    name: string;
+  }[];
 
   const dispatch = createEventDispatcher();
 </script>

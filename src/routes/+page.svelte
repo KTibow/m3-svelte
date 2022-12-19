@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
   import Button from "$lib/buttons/Button.svelte";
-  import SegmentedButton from "$lib/buttons/SegmentedButton.svelte";
+  import SegmentedButton, { type ButtonData } from "$lib/buttons/SegmentedButton.svelte";
   import FAB from "$lib/buttons/FAB.svelte";
 
   import LinearProgress from "$lib/forms/LinearProgress.svelte";
@@ -13,8 +13,8 @@
   import iconTriangle from "@iconify-icons/ic/outline-change-history";
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
-  let chosen1 = [];
-  let chosen2 = [];
+  let chosen1: ButtonData[] = [];
+  let chosen2: ButtonData[] = [];
   let chosen3 = "o1";
   let chosen4 = 60;
 </script>
@@ -73,7 +73,7 @@
         { label: "Tab B", icon: iconSquare },
         { label: "Tab C", icon: iconCircle },
       ]}
-      maxOptions="1"
+      maxOptions={1}
       bind:chosenOptions={chosen2}
     />
     <p>Chose {chosen2.map((o) => o.label)}</p>
@@ -94,9 +94,9 @@
 <div class="container">
   <div>
     <p>Progress</p>
-    <LinearProgress percent="60" />
+    <LinearProgress percent={60} />
     <LinearProgress />
-    <CircularProgress percent="60" />
+    <CircularProgress percent={60} />
     <CircularProgress />
   </div>
   <div>

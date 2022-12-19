@@ -1,10 +1,10 @@
-<script>
-  export let percent = false;
+<script lang="ts">
+  export let percent: number | null = null;
   export let display = "inline-flex";
 </script>
 
 <div class="parent" style="display: {display};" role="progressbar">
-  <div class="percent" class:indeterminate={percent === false} style="width: {percent}%;" />
+  <div class="percent" class:indeterminate={percent === null} style="width: {percent}%;" />
 </div>
 
 <style>

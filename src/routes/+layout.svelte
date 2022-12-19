@@ -10,36 +10,28 @@
   import { base } from "$app/paths";
   import { goto } from "$app/navigation";
   $: hereNormalized = ($page.url.pathname + "/").replace(/\/\/$/, "/");
+  const pages = [
+    { name: "Demo", url: base + "/", icon: iconMonitor, iconHighlight: iconMonitorFull },
+    { name: "Theme", url: base + "/theme/", icon: iconTheme, iconHighlight: iconThemeFull },
+    { name: "Docs", url: base + "/docs/", icon: iconBook, iconHighlight: iconBookFull },
+  ];
 </script>
 
 <div class="parentContainer">
   <div class="railSpace">
     <div class="railPlacer">
       <NavRail
-        mainItems={[
-          {
-            name: "Demo",
-            url: base + "/",
-            active: hereNormalized == base + "/",
-            activeIcon: iconMonitorFull,
-            inactiveIcon: iconMonitor,
-          },
-          {
-            name: "Theme",
-            url: base + "/theme/",
-            active: hereNormalized == base + "/theme/",
-            activeIcon: iconThemeFull,
-            inactiveIcon: iconTheme,
-          },
-          {
-            name: "Docs",
-            url: base + "/docs/",
-            active: hereNormalized == base + "/docs/",
-            activeIcon: iconBookFull,
-            inactiveIcon: iconBook,
-          },
-        ]}
-        on:chosen={(e) => goto(e.detail.data.url)}
+        mainItems={pages.map((page) => ({
+          name: page.name,
+          active: hereNormalized == page.url,
+          activeIcon: page.iconHighlight,
+          inactiveIcon: page.icon,
+        }))}
+        on:chosen={(e) => {
+          const page = pages.find((p) => p.name == e.detail.data.name);
+          if (!page) return;
+          goto(page.url);
+        }}
       />
     </div>
   </div>

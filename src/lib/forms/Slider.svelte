@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   /* This is a partial implementation. It took way too long to make this, so I'm moving on.
   Things that aren't implemented:
   - disabling
@@ -9,12 +9,12 @@
   If you need one of these, let me know, or consider contributing to the project with a PR to add them.
   */
   export let display = "inline-flex";
-  export let value;
-  let range, percent;
+  export let value: number;
+  let range: HTMLInputElement, percent: number;
   $: {
-    const min = range?.min || 0;
-    const max = range?.max || 100;
-    percent = Number(((value - min) * 100) / (max - min));
+    const min = Number(range?.min || 0);
+    const max = Number(range?.max || 100);
+    percent = ((value - min) * 100) / (max - min);
   }
   /* offset:
   we use calc to include the base percentage
