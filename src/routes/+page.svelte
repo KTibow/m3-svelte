@@ -7,13 +7,15 @@
   import CircularProgress from "$lib/forms/CircularProgress.svelte";
   import Radio from "$lib/forms/Radio.svelte";
   import Slider from "$lib/forms/Slider.svelte";
+  import Chip from "$lib/forms/Chip.svelte";
+
+  import Card from "$lib/containers/Card.svelte";
 
   import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/ic/outline-edit";
   import iconTriangle from "@iconify-icons/ic/outline-change-history";
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
-  import Card from "$lib/containers/Card.svelte";
   let chosen1: ButtonData[] = [];
   let chosen2: ButtonData[] = [];
   let chosen3 = "o1";
@@ -122,6 +124,11 @@
     <p>Slider</p>
     <p>Chose {chosen4}</p>
     <Slider bind:value={chosen4} />
+  </div>
+  <div class="container">
+    <p>Chip(s)</p>
+    <Chip text="Assist w/ action" type="assist" />
+    <Chip text="Filter" type="input" icon={iconEdit} selected />
   </div>
 </div>
 <h2 class="md-headline-small">Containers</h2>
