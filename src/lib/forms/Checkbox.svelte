@@ -3,7 +3,7 @@
   import iconChecked from "@iconify-icons/ic/outline-check";
 
   export let disabled = false;
-  export let checked: boolean = false;
+  export let checked = false;
   export let display = "inline-flex";
   let checkbox: HTMLElement;
 </script>

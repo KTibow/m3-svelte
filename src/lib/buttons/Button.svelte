@@ -1,4 +1,5 @@
 <script lang="ts">
+  // TODO: better icon support
   export let disabled = false;
   export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
   export let display = "inline-flex";

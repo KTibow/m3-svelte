@@ -6,6 +6,8 @@
   import LinearProgress from "$lib/forms/LinearProgress.svelte";
   import CircularProgress from "$lib/forms/CircularProgress.svelte";
   import Radio from "$lib/forms/Radio.svelte";
+  import Checkbox from "$lib/forms/Checkbox.svelte";
+  import Switch from "$lib/forms/Switch.svelte";
   import Slider from "$lib/forms/Slider.svelte";
   import Chip from "$lib/forms/Chip.svelte";
 
@@ -16,12 +18,12 @@
   import iconTriangle from "@iconify-icons/ic/outline-change-history";
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
-  import Checkbox from "$lib/forms/Checkbox.svelte";
   let chosen1: ButtonData[] = [];
   let chosen2: ButtonData[] = [];
   let chosen3 = "o1";
-  let chosen4 = 60;
+  let chosen4 = false;
   let chosen5 = false;
+  let chosen6 = 60;
 </script>
 
 <svelte:head>
@@ -105,39 +107,24 @@
     <CircularProgress />
   </div>
   <div>
-    <p>Radio</p>
+    <p>Radio, checkbox, switch</p>
     <p>Chose {chosen3}</p>
-    <p>
-      <label for={undefined}><Radio name="r1" value="o1" bind:group={chosen3} /> Option 1</label>
-    </p>
-    <p>
-      <label for={undefined}><Radio name="r1" value="o2" bind:group={chosen3} /> Option 2</label>
-    </p>
-    <p>
-      <label for={undefined}><Radio name="r1" value="o3" bind:group={chosen3} /> Option 3</label>
-    </p>
-    <p>
-      <label for={undefined}>
-        <Radio name="r1" value="o4" bind:group={chosen3} disabled /> Option 4
-      </label>
-    </p>
+    <label for={undefined}><Radio name="r1" value="o1" bind:group={chosen3} /> Option 1</label>
+    <label for={undefined}><Radio name="r1" value="o2" bind:group={chosen3} /> Option 2</label>
+    <p>Chose {chosen4}</p>
+    <label for={undefined}><Checkbox bind:checked={chosen4} /> Option 1</label>
+    <p>Chose {chosen5}</p>
+    <label for={undefined}><Switch bind:checked={chosen5} /> Option 1</label>
   </div>
   <div>
     <p>Slider</p>
-    <p>Chose {chosen4}</p>
-    <Slider bind:value={chosen4} />
+    <p>Chose {chosen6}</p>
+    <Slider bind:value={chosen6} />
   </div>
   <div class="container">
     <p>Chip(s)</p>
     <Chip text="Assist w/ action" type="assist" />
     <Chip text="Filter" type="input" icon={iconEdit} selected />
-  </div>
-  <div>
-    <p>Checkbox</p>
-    <p>Chose {chosen5}</p>
-    <p>
-      <label for={undefined}><Checkbox value="o1" bind:checked={chosen5} /> Option 1</label>
-    </p>
   </div>
 </div>
 <h2 class="md-headline-small">Containers</h2>
@@ -157,7 +144,7 @@
     flex-wrap: wrap;
   }
   label {
-    display: inline-flex;
+    display: flex;
     gap: 0.5rem;
     align-items: center;
   }

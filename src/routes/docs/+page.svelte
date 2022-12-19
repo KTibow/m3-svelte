@@ -175,7 +175,8 @@
   <Component
     name="Switch"
     mtLink="https://m3.material.io/components/switch"
-    desc="Coming soon"
+    ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Switch.svelte"
+    desc="A checkbox styled into a switch. Everything except icons implemented. It also lets you drag it instead of clicking. I'm a bit proud of it."
     category="Forms"
   />
   <Component
