@@ -6,6 +6,7 @@
   import iconThemeFull from "@iconify-icons/ic/round-palette";
   import iconBook from "@iconify-icons/ic/outline-book";
   import iconBookFull from "@iconify-icons/ic/round-book";
+  import iconCode from "@iconify-icons/ic/outline-code";
   import { page } from "$app/stores";
   import { base } from "$app/paths";
   import { goto } from "$app/navigation";
@@ -21,6 +22,7 @@
   <div class="railSpace">
     <div class="railPlacer">
       <NavRail
+        fab={{ icon: iconCode }}
         mainItems={pages.map((page) => ({
           name: page.name,
           active: hereNormalized == page.url,
@@ -28,6 +30,7 @@
           inactiveIcon: page.icon,
         }))}
         on:chosen={(e) => {
+          if (e.detail.name == "fab") return window.open("https://github.com/KTibow/m3-svelte");
           const page = pages.find((p) => p.name == e.detail.data.name);
           if (!page) return;
           goto(page.url);

@@ -19,6 +19,7 @@
 </script>
 
 <div class="container" class:horizontal style="display: {display};">
+  <div class="spacer" />
   {#if hamburger}
     <button
       class="menuItem relative"
@@ -33,7 +34,6 @@
       <FAB {...fab} on:click={(event) => dispatch("chosen", { name: "fab", data: fab, event })} />
     </div>
   {/if}
-  <div class="spacer" />
   <div class="navAligner">
     {#each mainItems as item}
       <button

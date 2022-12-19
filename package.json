@@ -32,5 +32,10 @@
   "dependencies": {
     "svelte": "^3.55.0"
   },
-  "type": "module"
+  "type": "module",
+  "author": {
+    "name": "KTibow"
+  },
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/KTibow/m3-svelte"
 }
