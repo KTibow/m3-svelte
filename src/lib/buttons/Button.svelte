@@ -4,7 +4,13 @@
   export let display = "inline-flex";
 </script>
 
-<button on:click {...$$props} {disabled} class="md-label-large {type}" style="display: {display};">
+<button
+  on:click|stopPropagation
+  {...$$props}
+  {disabled}
+  class="md-label-large {type}"
+  style="display: {display};"
+>
   <div class="layer" />
   <slot />
 </button>

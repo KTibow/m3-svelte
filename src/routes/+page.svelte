@@ -13,6 +13,7 @@
   import iconTriangle from "@iconify-icons/ic/outline-change-history";
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
+  import Card from "$lib/containers/Card.svelte";
   let chosen1: ButtonData[] = [];
   let chosen2: ButtonData[] = [];
   let chosen3 = "o1";
@@ -121,6 +122,15 @@
     <p>Slider</p>
     <p>Chose {chosen4}</p>
     <Slider bind:value={chosen4} />
+  </div>
+</div>
+<h2 class="md-headline-small">Containers</h2>
+<div class="container">
+  <div>
+    <p>Card</p>
+    <Card type="elevated" clickable>Text</Card>
+    <Card type="filled" clickable>Text</Card>
+    <Card type="outlined" clickable>Text</Card>
   </div>
 </div>
 

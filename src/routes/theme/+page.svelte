@@ -24,6 +24,7 @@
     ["tertiaryContainer", "onTertiaryContainer"],
     ["background", "onBackground"],
     ["surface", "onSurface"],
+    ["surfaceVariant", "onSurfaceVariant"],
     ["error", "onError"],
   ];
   const getCardData = (colors: Scheme, bg: string, fg: string) => ({
@@ -98,7 +99,11 @@
   }
   .container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+  }
+  @media (orientation: landscape) {
+    .container {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 </style>
