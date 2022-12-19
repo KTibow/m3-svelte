@@ -85,7 +85,8 @@
   <Component
     name="Checkbox"
     mtLink="https://m3.material.io/components/checkbox"
-    desc="Coming soon"
+    ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Checkbox.svelte"
+    desc="A styled checkbox, similar to the radio button."
     category="Forms"
   />
   <Component

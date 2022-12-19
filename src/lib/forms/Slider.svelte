@@ -94,12 +94,15 @@
     color: rgb(var(--md-sys-color-on-primary));
     pointer-events: none;
     transition: background-color 150ms;
+    opacity: 0;
   }
   input:hover + .bubble {
     background-color: rgb(var(--md-sys-color-primary) / 0.08);
+    opacity: 1;
   }
   input:focus + .bubble,
   input:active + .bubble {
     background-color: rgb(var(--md-sys-color-primary) / 0.12);
+    opacity: 1;
   }
 </style>

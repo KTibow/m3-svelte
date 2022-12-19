@@ -16,10 +16,12 @@
   import iconTriangle from "@iconify-icons/ic/outline-change-history";
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
+  import Checkbox from "$lib/forms/Checkbox.svelte";
   let chosen1: ButtonData[] = [];
   let chosen2: ButtonData[] = [];
   let chosen3 = "o1";
   let chosen4 = 60;
+  let chosen5 = false;
 </script>
 
 <svelte:head>
@@ -129,6 +131,13 @@
     <p>Chip(s)</p>
     <Chip text="Assist w/ action" type="assist" />
     <Chip text="Filter" type="input" icon={iconEdit} selected />
+  </div>
+  <div>
+    <p>Checkbox</p>
+    <p>Chose {chosen5}</p>
+    <p>
+      <label for={undefined}><Checkbox value="o1" bind:checked={chosen5} /> Option 1</label>
+    </p>
   </div>
 </div>
 <h2 class="md-headline-small">Containers</h2>

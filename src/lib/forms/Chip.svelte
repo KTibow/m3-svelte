@@ -28,7 +28,7 @@
   {#if icon}
     <Icon {icon} />
   {/if}
-  <span class="label-large">{text}</span>
+  <span class="md-label-large">{text}</span>
   {#if trailingIcon}
     <Button type="text" on:click={() => dispatch("trailing")}>
       <Icon icon={trailingIcon} />
