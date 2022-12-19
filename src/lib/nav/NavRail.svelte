@@ -7,6 +7,7 @@
   export let display = "flex";
   export let hamburger = false;
   export let fab: false | object = false;
+  export let horizontal = false;
   export let mainItems: {
     active: boolean;
     activeIcon: IconifyIcon;
@@ -17,7 +18,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="container" style="display: {display};">
+<div class="container" class:horizontal style="display: {display};">
   {#if hamburger}
     <button
       class="menuItem relative"
@@ -55,9 +56,16 @@
     background-color: rgb(var(--md-sys-color-surface));
     width: 5rem;
     gap: 0.75rem;
-    padding-top: 5rem;
     flex-direction: column;
     flex-grow: 1;
+  }
+  .horizontal {
+    flex-direction: row;
+    width: unset;
+    height: 5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 1rem;
+    box-sizing: border-box;
   }
   .container :global(svg) {
     width: 1.5rem;
@@ -74,6 +82,9 @@
   }
   .spacer {
     height: 6rem;
+  }
+  .horizontal .spacer {
+    display: none;
   }
 
   .relative {
@@ -123,6 +134,10 @@
     max-height: 48rem;
     gap: 0.75rem;
   }
+  .horizontal .navAligner {
+    flex-direction: row;
+    justify-content: space-around;
+  }
   .pill {
     display: flex;
     align-items: center;
@@ -131,6 +146,9 @@
     height: 2rem;
     border-radius: 1rem;
     overflow: hidden;
+  }
+  .horizontal .pill {
+    width: 4rem;
   }
   .active {
     color: rgb(var(--md-sys-color-on-surface));

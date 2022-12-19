@@ -74,11 +74,6 @@
   />
   <Component name="Menus" mtLink="https://m3.material.io/components/menus" desc="Might come" />
   <Component
-    name="Navigation bar"
-    mtLink="https://m3.material.io/components/navigation-bar"
-    desc="Coming soon, might be integrated into the rail"
-  />
-  <Component
     name="Navigation drawer"
     mtLink="https://m3.material.io/components/navigation-drawer"
     desc="Coming soon"
@@ -87,7 +82,7 @@
     name="Navigation rail"
     mtLink="https://m3.material.io/components/navigation-rail"
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/NavRail.svelte"
-    desc="A component suitable to go on the left side of the screen that lets the user tap icons."
+    desc="A component suitable to go on the left/top of the screen that lets the user tap icons. Navigation bar is included in this component. Positioning is up to the parent."
   />
   <Component
     name="Progress indicators"
