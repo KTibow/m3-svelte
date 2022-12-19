@@ -101,6 +101,39 @@
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Radio.svelte"
     desc="A styled radio button. Try using flexbox to position it."
   />
+  <Component name="Search" mtLink="https://m3.material.io/components/search" desc="Coming soon" />
+  <Component
+    name="Sliders"
+    mtLink="https://m3.material.io/components/sliders"
+    ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"
+    desc="Implemented but janky, see the code"
+  />
+  <Component
+    name="Snackbar"
+    mtLink="https://m3.material.io/components/snackbar"
+    desc="Coming soon"
+  />
+  <Component name="Switch" mtLink="https://m3.material.io/components/switch" desc="Coming soon" />
+  <Component
+    name="Tabs"
+    mtLink="https://m3.material.io/components/tabs"
+    desc="Coming soon, might be integrated into the rail"
+  />
+  <Component
+    name="Text fields"
+    mtLink="https://m3.material.io/components/text-fields"
+    desc="Coming soon"
+  />
+  <Component
+    name="Time pickers"
+    mtLink="https://m3.material.io/components/time-pickers"
+    desc="Might come"
+  />
+  <Component
+    name="Top app bar"
+    mtLink="https://m3.material.io/components/top-app-bar"
+    desc="Might come, might be integrated into the other app bar"
+  />
 </div>
 
 <style>
