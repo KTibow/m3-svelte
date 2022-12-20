@@ -18,12 +18,15 @@
   import iconTriangle from "@iconify-icons/ic/outline-change-history";
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
+  import TextField from "$lib/forms/TextField.svelte";
   let chosen1: ButtonData[] = [];
   let chosen2: ButtonData[] = [];
   let chosen3 = "o1";
   let chosen4 = false;
   let chosen5 = false;
   let chosen6 = 60;
+  let chosen7 = "";
+  let chosen8 = "";
 </script>
 
 <svelte:head>
@@ -123,8 +126,14 @@
   </div>
   <div class="container">
     <p>Chip(s)</p>
-    <Chip text="Assist w/ action" type="assist" />
-    <Chip text="Filter" type="input" icon={iconEdit} selected />
+    <Chip text="Assist w/ action" type="assist" on:click={() => alert("Pressed")} />
+    <Chip text="Filter" type="input" icon={iconEdit} selected on:click={() => alert("Pressed")} />
+  </div>
+  <div class="container col">
+    <p>Text field</p>
+    <p>Chose {chosen7}, {chosen8}</p>
+    <TextField type="filled" name="Option" icon={iconTriangle} bind:value={chosen7} />
+    <TextField type="outlined" name="Other option" icon={iconTriangle} bind:value={chosen8} />
   </div>
 </div>
 <h2 class="md-headline-small">Containers</h2>
@@ -142,6 +151,9 @@
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+  .col {
+    flex-direction: column;
   }
   label {
     display: flex;
