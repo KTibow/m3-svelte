@@ -37,5 +37,12 @@
     "name": "KTibow"
   },
   "license": "GPL-3.0",
-  "homepage": "https://github.com/KTibow/m3-svelte"
+  "homepage": "https://github.com/KTibow/m3-svelte",
+  "keywords": [
+    "svelte",
+    "material",
+    "m3",
+    "ui",
+    "front-end"
+  ]
 }
