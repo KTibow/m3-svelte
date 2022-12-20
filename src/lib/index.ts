@@ -10,4 +10,5 @@ export { default as Radio } from "./forms/Radio.svelte";
 export { default as Slider } from "./forms/Slider.svelte";
 export { default as Switch } from "./forms/Switch.svelte";
 export { default as TextField } from "./forms/TextField.svelte";
+export { default as NavDrawer } from "./nav/NavDrawer.svelte";
 export { default as NavRail } from "./nav/NavRail.svelte";
