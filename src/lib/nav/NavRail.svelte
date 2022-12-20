@@ -1,4 +1,8 @@
 <script lang="ts">
+  // Tip from Material: Avoid using a navigation drawer with other primary navigation components,
+  // such as a navigation bar. Instead, choose a single navigation component based on product requirements
+  // and device size: Navigation bars for small screens, navigation rails for tablet screens,
+  // and standard navigation drawers for desktop screens.
   import { createEventDispatcher } from "svelte";
   import FAB from "$lib/buttons/FAB.svelte";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
@@ -19,7 +23,6 @@
 </script>
 
 <div class="container" class:horizontal style="display: {display};">
-  <div class="spacer" />
   {#if hamburger}
     <button
       class="menuItem relative"
@@ -58,6 +61,7 @@
     gap: 0.75rem;
     flex-direction: column;
     flex-grow: 1;
+    padding-top: 1rem;
   }
   .horizontal {
     flex-direction: row;
@@ -79,12 +83,6 @@
     border: none;
     color: rgb(var(--md-sys-color-on-surface-variant));
     cursor: pointer;
-  }
-  .spacer {
-    height: 6rem;
-  }
-  .horizontal .spacer {
-    display: none;
   }
 
   .relative {
