@@ -1,6 +1,6 @@
 <script lang="ts">
-  // TODO: better icon support
   export let disabled = false;
+  export let iconType: "none" | "left" | "full" = "none";
   export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
   export let display = "inline-flex";
 </script>
@@ -9,10 +9,11 @@
   on:click|stopPropagation
   {...$$props}
   {disabled}
-  class="md-label-large {type}"
+  class="md-label-large {type} icon-{iconType}"
   style="display: {display};"
 >
-  <div class="layer" />
+  <div class="layer tonal" />
+  <div class="layer state" />
   <slot />
 </button>
 
@@ -21,13 +22,22 @@
     border: none;
     height: 2.5rem;
     padding: 0 1.5rem;
-    border-radius: 1.25rem;
-    transition: all 150ms;
+    border-radius: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    align-items: center;
-    gap: 0.5rem;
+    color: rgb(var(--text));
+    transition: all 150ms;
+  }
+  button.icon-left {
+    padding-left: 1rem;
+  }
+  button.icon-full {
+    width: 2.5rem;
+    padding: 0;
   }
   button:disabled {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
@@ -46,36 +56,33 @@
 
   button:enabled.elevated {
     background-color: rgb(var(--md-sys-color-surface));
-    color: rgb(var(--md-sys-color-primary));
+    --text: var(--md-sys-color-primary);
     box-shadow: var(--md-sys-elevation-1);
+  }
+  button:enabled.elevated > .layer.tonal {
+    background-color: rgb(var(--text) / 0.05);
+  }
+  button:enabled.elevated:hover > .layer.tonal {
+    background-color: rgb(var(--text) / 0.08);
   }
   button:enabled.elevated:hover {
     box-shadow: var(--md-sys-elevation-2);
   }
-  button:enabled.elevated:hover > .layer {
-    background-color: rgb(var(--md-sys-color-primary) / 0.08);
-  }
 
   button:enabled.filled {
     background-color: rgb(var(--md-sys-color-primary));
-    color: rgb(var(--md-sys-color-on-primary));
+    --text: var(--md-sys-color-on-primary);
   }
   button:enabled.filled:hover {
     box-shadow: var(--md-sys-elevation-1);
   }
-  button:enabled.filled:hover > .layer {
-    background-color: rgb(var(--md-sys-color-on-primary) / 0.08);
-  }
 
   button:enabled.tonal {
     background-color: rgb(var(--md-sys-color-secondary-container));
-    color: rgb(var(--md-sys-color-on-secondary-container));
+    --text: var(--md-sys-color-on-secondary-container);
   }
   button:enabled.tonal:hover {
     box-shadow: var(--md-sys-elevation-1);
-  }
-  button:enabled.tonal:hover > .layer {
-    background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.08);
   }
 
   button.outlined {
@@ -84,25 +91,23 @@
   }
   button:enabled.outlined {
     border: 1px solid rgb(var(--md-sys-color-outline));
-    color: rgb(var(--md-sys-color-primary));
-  }
-  button:enabled.outlined:hover > .layer {
-    background-color: rgb(var(--md-sys-color-primary) / 0.08);
+    --text: var(--md-sys-color-primary);
   }
 
   button.text {
     background-color: transparent;
     padding: 0 0.75rem;
+    --text: var(--md-sys-color-primary);
   }
-  button:enabled.text {
-    color: rgb(var(--md-sys-color-primary));
-  }
-  button:enabled.text:hover > .layer {
-    background-color: rgb(var(--md-sys-color-primary) / 0.08);
+  button.text.icon-left {
+    padding-right: 1rem;
   }
 
-  button:enabled:focus > .layer,
-  button:enabled:active > .layer {
-    background-color: rgb(var(--md-sys-color-primary) / 0.12);
+  button:enabled:hover > .layer.state {
+    background-color: rgb(var(--text) / 0.08);
+  }
+  button:enabled:focus > .layer.state,
+  button:enabled:active > .layer.state {
+    background-color: rgb(var(--text) / 0.12);
   }
 </style>

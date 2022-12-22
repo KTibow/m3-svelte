@@ -63,10 +63,10 @@
   </div>
   <div>
     <p>Icon</p>
-    <Button type="filled" on:click={() => alert("Pressed")}>
+    <Button type="filled" on:click={() => alert("Pressed")} iconType="left">
       <Icon icon={iconEdit} style="height: 18px; width: 18px;" /> Filled
     </Button>
-    <Button type="text" on:click={() => alert("Pressed")}>
+    <Button type="text" on:click={() => alert("Pressed")} iconType="full">
       <Icon icon={iconEdit} style="height: 18px; width: 18px;" />
     </Button>
   </div>
