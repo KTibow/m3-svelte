@@ -44,7 +44,7 @@
     width: 3.25rem;
     height: 2rem;
     margin: 0;
-    border-radius: 1rem;
+    border-radius: 2rem;
     border: solid 2px rgb(var(--md-sys-color-outline));
     background-color: rgb(var(--md-sys-color-surface-variant));
     cursor: pointer;
@@ -97,7 +97,7 @@
     top: 50%;
     width: 3rem;
     height: 3rem;
-    border-radius: 1.5rem;
+    border-radius: 3rem;
     transition: all 150ms;
     transform: translate(0, -50%);
     cursor: pointer;

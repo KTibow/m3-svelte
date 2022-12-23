@@ -22,7 +22,7 @@
     top: 50%;
     width: 3rem;
     height: 3rem;
-    border-radius: 1.5rem;
+    border-radius: 3rem;
     transition: all 150ms;
     transform: translate(-50%, -50%);
     cursor: pointer;

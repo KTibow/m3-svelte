@@ -47,7 +47,7 @@
   .container {
     border: 1px solid rgb(var(--md-sys-color-outline));
     height: 2.5rem;
-    border-radius: 1.25rem;
+    border-radius: 2.5rem;
     overflow: hidden;
   }
   .container > button {
