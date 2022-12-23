@@ -24,7 +24,8 @@
 
 <p>
   ⚠️ Jank be here! This is a fun project, and a lot of stuff may not be present or not work. Feel
-  free to talk to me about any part of it. With that said:
+  free to talk to me about any part of it. However the docs are a bit inconsistent too, and I'm
+  trying to implement stuff to spec. With that said:
 </p>
 <h2 class="display-medium">Usage steps</h2>
 <p>

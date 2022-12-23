@@ -67,7 +67,7 @@
       <Icon icon={iconEdit} style="height: 18px; width: 18px;" /> Filled
     </Button>
     <Button type="text" on:click={() => alert("Pressed")} iconType="full">
-      <Icon icon={iconEdit} style="height: 18px; width: 18px;" />
+      <Icon icon={iconEdit} style="height: 24px; width: 24px;" />
     </Button>
   </div>
   <div>

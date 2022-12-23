@@ -3,7 +3,7 @@
 
   export let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
   export let size: "small" | "normal" | "large" = "normal";
-  export let elevation: "normal" | "lowered" = "normal";
+  export let elevation: "normal" | "lowered" | "none" = "normal";
   export let icon: IconifyIcon | null = null;
   export let text: string | null = null;
   export let display = "inline-flex";
@@ -31,6 +31,7 @@
     position: relative;
     overflow: hidden;
     align-items: center;
+    justify-content: center;
     transition: all 150ms;
   }
   .layer {

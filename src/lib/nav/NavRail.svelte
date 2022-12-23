@@ -34,7 +34,11 @@
   {/if}
   {#if fab}
     <div class="menuItem no-pointer">
-      <FAB {...fab} on:click={(event) => dispatch("chosen", { name: "fab", data: fab, event })} />
+      <FAB
+        elevation="none"
+        {...fab}
+        on:click={(event) => dispatch("chosen", { name: "fab", data: fab, event })}
+      />
     </div>
   {/if}
   <div class="navAligner">
