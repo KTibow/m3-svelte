@@ -5,7 +5,7 @@
   export let fg: number;
 </script>
 
-<div style="background-color: {hexFromArgb(bg)}; color: {hexFromArgb(fg)};" class="label-large">
+<div style="background-color: {hexFromArgb(bg)}; color: {hexFromArgb(fg)};" class="md-label-large">
   {text}
 </div>
 

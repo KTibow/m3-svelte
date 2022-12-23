@@ -73,7 +73,12 @@
   <div>
     <p>Segmented Chooser</p>
     <SegmentedButton
-      options={[{ label: "$" }, { label: "$$" }, { label: "$$$" }, { label: "$$$$" }]}
+      options={[
+        { label: "$" },
+        { label: "$$" },
+        { label: "$$$" },
+        { label: "$$$$", disabled: true },
+      ]}
       bind:chosenOptions={chosen1}
     />
     <p>Chose {chosen1.map((o) => o.label)}</p>

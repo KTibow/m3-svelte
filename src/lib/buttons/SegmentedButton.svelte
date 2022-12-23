@@ -2,6 +2,7 @@
   export interface ButtonData {
     icon?: IconifyIcon;
     label?: string;
+    disabled?: boolean;
   }
 </script>
 
@@ -9,6 +10,7 @@
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconCheck from "@iconify-icons/ic/outline-check";
   export let options: ButtonData[];
+  export let minOptions = 1;
   export let maxOptions = 0;
   export let chosenOptions: ButtonData[] = [];
   export let display = "inline-flex";
@@ -18,8 +20,10 @@
   {#each options as option}
     {@const icon = chosenOptions.includes(option) ? iconCheck : option.icon}
     <button
-      class="label-large"
+      class="md-label-large"
       class:selected={chosenOptions.includes(option)}
+      disabled={option.disabled ||
+        (chosenOptions.includes(option) && chosenOptions.length <= minOptions)}
       on:click={() => {
         if (chosenOptions.includes(option))
           chosenOptions = chosenOptions.filter((opt) => opt != option);
@@ -63,6 +67,10 @@
   .container > button + button {
     border-left: 1px solid rgb(var(--md-sys-color-outline));
   }
+  button:disabled {
+    color: rgb(var(--md-sys-color-on-surface) / 0.38);
+    cursor: auto;
+  }
   .container > .selected {
     background-color: rgb(var(--md-sys-color-secondary-container));
     color: rgb(var(--md-sys-color-on-secondary-container));
@@ -75,16 +83,16 @@
     bottom: 0;
     transition: all 150ms;
   }
-  button:hover > .layer {
+  button:hover:enabled > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  button.selected:hover > .layer {
+  button.selected:hover:enabled > .layer {
     background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.08);
   }
-  button:focus > .layer {
+  button:focus:enabled > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
-  button.selected:focus > .layer {
+  button.selected:focus:enabled > .layer {
     background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.12);
   }
   .pad,
