@@ -9,6 +9,7 @@
   class:indeterminate={percent === null}
   style="display: {display}; --percent: {percent}px;"
   role="progressbar"
+  {...$$props}
 >
   <circle
     cx="24"

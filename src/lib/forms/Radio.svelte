@@ -34,9 +34,9 @@
     appearance: none;
   }
   input::before {
-    width: 0.75rem;
-    height: 0.75rem;
-    padding: 0.125rem;
+    width: 0;
+    height: 0;
+    padding: 0.5rem;
     border-radius: 100%;
     content: " ";
     border: solid 0.125rem rgb(var(--md-sys-color-on-surface-variant));
@@ -47,6 +47,9 @@
   input:checked::before {
     border-color: rgb(var(--md-sys-color-primary));
     background-color: rgb(var(--md-sys-color-primary));
+    width: 0.75rem;
+    height: 0.75rem;
+    padding: 0.125rem;
   }
 
   .container:hover > input:not(:checked):not(:disabled)::before {

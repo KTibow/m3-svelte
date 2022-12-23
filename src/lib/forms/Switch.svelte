@@ -1,8 +1,10 @@
 <script lang="ts">
+  import Icon from "@iconify/svelte";
+  import iconChecked from "@iconify-icons/ic/outline-check";
   export let disabled = false;
   export let checked = false;
-  $: console.log(checked);
   export let display = "inline-flex";
+
   let checkbox: HTMLInputElement;
   let startX: number | undefined;
   const handleMouseUp = (e: MouseEvent) => {
@@ -30,6 +32,7 @@
   />
   <!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
   <div class="layer" on:mousedown={(e) => (startX = e.clientX)} />
+  <Icon icon={iconChecked} />
 </div>
 
 <style>
@@ -109,6 +112,12 @@
   input:checked:hover + .layer {
     background-color: rgb(var(--md-sys-color-primary) / 0.08);
   }
+  input:enabled:is(:hover, :focus)::before {
+    background-color: rgb(var(--md-sys-color-on-surface-variant));
+  }
+  input:enabled:checked:is(:hover, :focus)::before {
+    background-color: rgb(var(--md-sys-color-primary-container));
+  }
   input:focus + .layer,
   .layer:active {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
@@ -122,9 +131,29 @@
     width: 1.75rem;
     height: 1.75rem;
     left: 0;
+    background-color: rgb(var(--md-sys-color-on-surface-variant));
   }
   .container:active input:enabled:checked::before {
     left: calc(100% - 1.75rem - 0.125rem);
+    background-color: rgb(var(--md-sys-color-primary-container));
+  }
+
+  .container > :global(svg) {
+    position: absolute;
+    left: 0.625rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 1rem;
+    height: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    color: rgb(var(--md-sys-color-surface-variant));
+    transition: all 150ms;
+  }
+  .container > :global(:checked ~ svg) {
+    left: calc(100% - 1rem - 0.5rem);
+    color: rgb(var(--md-sys-color-on-primary-container));
+    opacity: 1;
   }
 
   input:disabled + .layer {

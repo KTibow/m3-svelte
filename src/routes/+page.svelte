@@ -163,6 +163,7 @@
   label {
     display: flex;
     gap: 0.5rem;
+    margin: 0.5rem 0;
     align-items: center;
   }
 </style>
