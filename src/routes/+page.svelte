@@ -1,7 +1,7 @@
 <script lang="ts">
   import Button from "$lib/buttons/Button.svelte";
   import FAB from "$lib/buttons/FAB.svelte";
-  import SegmentedButton, { type ButtonData } from "$lib/buttons/SegmentedButton.svelte";
+  import SegmentedButton from "$lib/buttons/SegmentedButton.svelte";
 
   import Card from "$lib/containers/Card.svelte";
 
@@ -20,8 +20,8 @@
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
   import iconX from "@iconify-icons/ic/outline-close";
-  let chosen1: ButtonData[] = [];
-  let chosen2: ButtonData[] = [];
+  let chosen1: number[] = [];
+  let chosen2: number[] = [];
   let chosen3 = "o1";
   let chosen4 = false;
   let chosen5 = false;
@@ -86,17 +86,17 @@
       ]}
       bind:chosenOptions={chosen1}
     />
-    <p>Chose {chosen1.map((o) => o.label)}</p>
+    <p>Chose {chosen1}</p>
     <SegmentedButton
       options={[
         { label: "Tab A", icon: iconTriangle },
         { label: "Tab B", icon: iconSquare },
         { label: "Tab C", icon: iconCircle },
       ]}
-      maxOptions={1}
+      multiSelect={false}
       bind:chosenOptions={chosen2}
     />
-    <p>Chose {chosen2.map((o) => o.label)}</p>
+    <p>Chose {chosen2}</p>
   </div>
   <div>
     <p>Floating</p>

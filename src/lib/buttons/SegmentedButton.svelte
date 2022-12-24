@@ -1,46 +1,45 @@
-<script lang="ts" context="module">
-  export interface ButtonData {
+<script lang="ts">
+  interface labelData {
     icon?: IconifyIcon;
-    label?: string;
+    label: string;
     disabled?: boolean;
   }
-</script>
-
-<script lang="ts">
-  // TODO: Update to use input checkbox/radio
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconCheck from "@iconify-icons/ic/outline-check";
-  export let options: ButtonData[];
-  export let minOptions = 1;
-  export let maxOptions = 0;
-  export let chosenOptions: ButtonData[] = [];
+  export let options: labelData[];
+  export let multiSelect = true;
+  export let chosenOptions: number[] | number = [];
   export let display = "inline-flex";
+  const name = crypto.randomUUID();
 </script>
 
 <div class="container" style="display: {display};" {...$$props}>
-  {#each options as option}
-    {@const icon = chosenOptions.includes(option) ? iconCheck : option.icon}
-    <button
-      class="md-label-large"
-      class:selected={chosenOptions.includes(option)}
-      disabled={option.disabled ||
-        (chosenOptions.includes(option) && chosenOptions.length <= minOptions)}
-      on:click={() => {
-        if (chosenOptions.includes(option))
-          chosenOptions = chosenOptions.filter((opt) => opt != option);
-        else chosenOptions = [...chosenOptions, option];
-        if (maxOptions && chosenOptions.length > maxOptions)
-          chosenOptions = chosenOptions.slice(-maxOptions);
-      }}
-    >
+  {#each options as option, i}
+    {@const id = crypto.randomUUID()}
+    {@const selected =
+      chosenOptions instanceof Array ? chosenOptions.includes(i) : chosenOptions == i}
+    {@const icon = selected ? iconCheck : option.icon}
+    {#if multiSelect}
+      <input type="checkbox" {id} value={i} disabled={option.disabled} bind:group={chosenOptions} />
+    {:else}
+      <input
+        type="radio"
+        {id}
+        {name}
+        value={i}
+        disabled={option.disabled}
+        bind:group={chosenOptions}
+      />
+    {/if}
+    <label class="md-label-large" class:selected for={id}>
       <div class="layer" />
       <div class="pad" class:hidden={icon} />
       <div class="icon" class:hidden={!icon}>
-        <Icon {icon} />
+        <Icon icon={icon || iconCheck} />
       </div>
       {option.label}
       <div class="pad" class:hidden={icon} />
-    </button>
+    </label>
   {/each}
 </div>
 
@@ -51,7 +50,12 @@
     border-radius: 2.5rem;
     overflow: hidden;
   }
-  .container > button {
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .container > label {
     padding: 0 1rem;
     flex: 1;
     display: flex;
@@ -60,15 +64,14 @@
     position: relative;
 
     cursor: pointer;
-    background-color: transparent;
-    border: none;
     color: rgb(var(--md-sys-color-on-surface));
     transition: all 150ms;
   }
-  .container > button + button {
+
+  .container > label ~ label {
     border-left: 1px solid rgb(var(--md-sys-color-outline));
   }
-  button:disabled {
+  input:disabled + label {
     color: rgb(var(--md-sys-color-on-surface) / 0.38);
     cursor: auto;
   }
@@ -84,16 +87,16 @@
     bottom: 0;
     transition: all 150ms;
   }
-  button:hover:enabled > .layer {
+  label:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  button.selected:hover:enabled > .layer {
+  label.selected:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.08);
   }
-  button:focus-visible:enabled > .layer {
+  input:focus-visible + label > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
-  button.selected:focus-visible:enabled > .layer {
+  input:focus-visible + label.selected > .layer {
     background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.12);
   }
   .pad,

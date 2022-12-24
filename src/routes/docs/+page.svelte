@@ -16,9 +16,9 @@
     { icon: iconLocation, label: "Nav" },
     { icon: iconWrench, label: "Utility" },
   ];
-  let chosenCategories = categories;
-  const categoryStore = writable(chosenCategories);
-  $: $categoryStore = chosenCategories;
+  let chosenCategories = [0, 2];
+  const categoryStore = writable();
+  $: $categoryStore = chosenCategories.map((c) => categories[c]);
   setContext("categories", categoryStore);
 </script>
 
