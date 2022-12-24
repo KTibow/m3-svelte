@@ -1,24 +1,25 @@
 <script lang="ts">
   import Button from "$lib/buttons/Button.svelte";
-  import SegmentedButton, { type ButtonData } from "$lib/buttons/SegmentedButton.svelte";
   import FAB from "$lib/buttons/FAB.svelte";
-
-  import LinearProgress from "$lib/forms/LinearProgress.svelte";
-  import CircularProgress from "$lib/forms/CircularProgress.svelte";
-  import Radio from "$lib/forms/Radio.svelte";
-  import Checkbox from "$lib/forms/Checkbox.svelte";
-  import Switch from "$lib/forms/Switch.svelte";
-  import Slider from "$lib/forms/Slider.svelte";
-  import Chip from "$lib/forms/Chip.svelte";
+  import SegmentedButton, { type ButtonData } from "$lib/buttons/SegmentedButton.svelte";
 
   import Card from "$lib/containers/Card.svelte";
+
+  import Checkbox from "$lib/forms/Checkbox.svelte";
+  import Chip from "$lib/forms/Chip.svelte";
+  import CircularProgress from "$lib/forms/CircularProgress.svelte";
+  import LinearProgress from "$lib/forms/LinearProgress.svelte";
+  import Radio from "$lib/forms/Radio.svelte";
+  import Slider from "$lib/forms/Slider.svelte";
+  import Switch from "$lib/forms/Switch.svelte";
+  import TextField from "$lib/forms/TextField.svelte";
 
   import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/ic/outline-edit";
   import iconTriangle from "@iconify-icons/ic/outline-change-history";
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
-  import TextField from "$lib/forms/TextField.svelte";
+  import iconX from "@iconify-icons/ic/outline-close";
   let chosen1: ButtonData[] = [];
   let chosen2: ButtonData[] = [];
   let chosen3 = "o1";
@@ -132,8 +133,18 @@
   </div>
   <div class="container">
     <p>Chip(s)</p>
-    <Chip text="Assist w/ action" type="assist" on:click={() => alert("Pressed")} />
-    <Chip text="Filter" type="input" icon={iconEdit} selected on:click={() => alert("Pressed")} />
+    <Chip type="assist" on:click={() => alert("Pressed")} icon={iconEdit}>Assist</Chip>
+    <Chip type="filter" on:click={() => alert("Pressed")} icon={iconEdit} selected>Filter</Chip>
+    <Chip
+      type="input"
+      on:click={() => alert("Pressed")}
+      icon={iconEdit}
+      selected
+      trailingIcon={iconX}
+    >
+      Input
+    </Chip>
+    <Chip type="suggestion" on:click={() => alert("Pressed")}>Suggestion</Chip>
   </div>
   <div class="container col">
     <p>Text field</p>

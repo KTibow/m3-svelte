@@ -2,14 +2,7 @@
   import Button from "$lib/buttons/Button.svelte";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import { createEventDispatcher } from "svelte";
-
   export let display = "inline-flex";
-  export let elevated = false;
-  export let selected = false;
-  export let disabled = false;
-  export let icon: IconifyIcon | null = null;
-  export let trailingIcon: IconifyIcon | null = null;
-  export let text: string;
   /**
    * | name       | use              | example                       | phrasing           |
    * |------------|------------------|-------------------------------|--------------------|
@@ -17,29 +10,44 @@
    * | filter     | selection        | like in a search page         | category           |
    * | input      | information item | like a person in the to field | user-entered thing |
    * | suggestion | smart actions    | like a chat response          | query/message      |
+   *
+   * note that the only difference this makes is when you specify assist
+   * anyway try to use the right type for stuff and dont set stuff
+   * on types that shouldn't support them (eg selected on assist)
    */
   export let type: "assist" | "filter" | "input" | "suggestion";
+  export let icon: IconifyIcon | null = null;
+  export let trailingIcon: IconifyIcon | null = null;
+  export let selected = false;
+  export let elevated = false;
+  export let disabled = false;
   const dispatch = createEventDispatcher();
 </script>
 
 <button
   class="container type-{type}"
-  class:elevated
   class:selected
-  class:has-icon={icon}
-  class:has-trailing-icon={trailingIcon}
+  class:elevated
+  class:icon-left={icon}
+  class:icon-right={trailingIcon}
   {disabled}
   style="display: {display};"
   on:click
   {...$$props}
 >
-  <div class="layer" />
+  <div class="layer tonal" />
+  <div class="layer state" />
   {#if icon}
     <Icon {icon} />
   {/if}
-  <span class="md-label-large">{text}</span>
+  <span class="md-label-large"><slot /></span>
   {#if trailingIcon}
-    <Button type="text" on:click={() => dispatch("trailing")}>
+    <Button
+      type="text"
+      iconType="full"
+      style="display: inline-flex; color: var(--text-for-icon) !important;"
+      on:click={() => dispatch("trailingClicked")}
+    >
       <Icon icon={trailingIcon} />
     </Button>
   {/if}
@@ -52,12 +60,13 @@
     border-radius: 0.5rem;
     align-items: center;
     position: relative;
-    overflow: hidden;
-    background-color: transparent;
-    border: solid 1px rgb(var(--md-sys-color-outline));
-    --text-color: var(--md-sys-color-on-surface-variant);
-    color: rgb(var(--text-color));
     cursor: pointer;
+    overflow: hidden;
+
+    background-color: transparent;
+    --text: var(--md-sys-color-on-surface-variant);
+    border: solid 1px rgb(var(--md-sys-color-outline));
+    color: rgb(var(--text));
     transition: all 150ms;
   }
   .layer {
@@ -68,25 +77,42 @@
     bottom: 0;
     transition: all 150ms;
   }
-  .elevated {
-    border: none;
-    box-shadow: var(--md-sys-elevation-1);
-  }
-  .has-icon {
-    padding-left: 0;
-  }
-  .has-trailing-icon {
-    padding-right: 0;
-  }
   .container > :global(svg) {
     margin: 0 0.5rem;
     width: 1.125rem;
     height: 1.125rem;
   }
-  .container:enabled > :global(svg) {
+  .icon-left {
+    padding-left: 0;
+  }
+  .icon-right {
+    padding-right: 0;
+    --text-for-icon: var(--md-sys-color-on-surface-variant);
+  }
+
+  .elevated {
+    border: none;
+    box-shadow: var(--md-sys-elevation-1);
+    background-color: rgb(var(--md-sys-color-surface));
+  }
+  .elevated > .layer.tonal {
+    background-color: rgb(var(--md-sys-color-primary) / 0.05);
+  }
+  .selected {
+    border: none;
+    background-color: rgb(var(--md-sys-color-secondary-container));
+    --text: var(--md-sys-color-on-secondary-container);
+  }
+  .selected > .layer.tonal {
+    background-color: transparent;
+  }
+  .type-assist {
+    --text: var(--md-sys-color-on-surface);
+  }
+  .type-assist > :global(svg) {
     color: rgb(var(--md-sys-color-primary));
   }
-  .container:disabled {
+  :disabled {
     border-color: rgb(var(--md-sys-color-on-surface) / 0.12);
     color: rgb(var(--md-sys-color-on-surface) / 0.38);
     box-shadow: none;
@@ -96,25 +122,17 @@
   .elevated:disabled {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
+  :disabled > .layer {
+    display: none;
+  }
 
-  .container:enabled:hover .layer {
-    background-color: rgb(var(--text-color) / 0.08);
+  .container:enabled:hover > .layer.state {
+    background-color: rgb(var(--text) / 0.08);
   }
   .elevated:enabled:hover {
     box-shadow: var(--md-sys-elevation-2);
   }
-  .container:enabled:focus-visible .layer {
-    background-color: rgb(var(--text-color) / 0.12);
-  }
-  .elevated:enabled:focus-visible {
-    border-color: rgb(var(--text-color));
-  }
-  .type-assist {
-    --text-color: var(--md-sys-color-on-surface);
-  }
-  .selected {
-    background-color: rgb(var(--md-sys-color-secondary-container));
-    --text-color: var(--md-sys-color-on-secondary-container);
-    border: none;
+  .container:enabled:focus-visible > .layer.state {
+    background-color: rgb(var(--text) / 0.12);
   }
 </style>
