@@ -57,7 +57,7 @@
   .clickable:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  .clickable:focus > .layer {
+  .clickable:focus-visible > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
   .clickable:active > .layer {

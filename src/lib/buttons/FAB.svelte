@@ -46,7 +46,7 @@
   button:hover .layer {
     opacity: 0.08;
   }
-  button:focus .layer,
+  button:focus-visible .layer,
   button:active .layer {
     opacity: 0.12;
   }

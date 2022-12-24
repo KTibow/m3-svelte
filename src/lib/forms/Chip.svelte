@@ -44,7 +44,7 @@
     align-items: center;
     position: relative;
     overflow: hidden;
-    background: transparent;
+    background-color: transparent;
     border: solid 1px rgb(var(--md-sys-color-outline));
     --text-color: var(--md-sys-color-on-surface-variant);
     color: rgb(var(--text-color));
@@ -94,10 +94,10 @@
   .elevated:enabled:hover {
     box-shadow: var(--md-sys-elevation-2);
   }
-  .container:enabled:focus .layer {
+  .container:enabled:focus-visible .layer {
     background-color: rgb(var(--text-color) / 0.12);
   }
-  .elevated:enabled:focus {
+  .elevated:enabled:focus-visible {
     border-color: rgb(var(--text-color));
   }
   .type-assist {

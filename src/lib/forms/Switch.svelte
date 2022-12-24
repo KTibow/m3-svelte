@@ -112,17 +112,17 @@
   input:checked:hover + .layer {
     background-color: rgb(var(--md-sys-color-primary) / 0.08);
   }
-  input:enabled:is(:hover, :focus)::before {
+  input:enabled:is(:hover, :focus-visible)::before {
     background-color: rgb(var(--md-sys-color-on-surface-variant));
   }
-  input:enabled:checked:is(:hover, :focus)::before {
+  input:enabled:checked:is(:hover, :focus-visible)::before {
     background-color: rgb(var(--md-sys-color-primary-container));
   }
-  input:focus + .layer,
+  input:focus-visible + .layer,
   .layer:active {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
-  input:focus:checked + .layer,
+  input:focus-visible:checked + .layer,
   input:checked + .layer:active {
     background-color: rgb(var(--md-sys-color-primary) / 0.12);
   }

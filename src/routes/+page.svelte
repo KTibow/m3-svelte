@@ -128,6 +128,7 @@
     <p>Slider</p>
     <p>Chose {chosen6}</p>
     <Slider bind:value={chosen6} />
+    <Slider bind:value={chosen6} step={10} accuracy="ticks" />
   </div>
   <div class="container">
     <p>Chip(s)</p>

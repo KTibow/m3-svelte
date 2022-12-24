@@ -62,7 +62,7 @@
     background-color: rgb(var(--md-sys-color-primary));
   }
 
-  .container:hover > input:not(:checked):not(:disabled)::before {
+  .container:hover > input:not(:checked):enabled::before {
     border-color: rgb(var(--md-sys-color-on-surface));
   }
   .layer:hover {
@@ -72,13 +72,13 @@
     background-color: rgb(var(--md-sys-color-primary) / 0.08);
   }
 
-  input:not(:checked):not(:disabled):focus::before {
+  input:not(:checked):enabled:focus-visible::before {
     border-color: rgb(var(--md-sys-color-on-surface));
   }
-  input:focus + .layer {
+  input:focus-visible + .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
-  input:focus:checked + .layer {
+  input:focus-visible:checked + .layer {
     background-color: rgb(var(--md-sys-color-primary) / 0.12);
   }
 

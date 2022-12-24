@@ -7,6 +7,7 @@
 </script>
 
 <script lang="ts">
+  // TODO: Update to use input checkbox/radio
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconCheck from "@iconify-icons/ic/outline-check";
   export let options: ButtonData[];
@@ -89,10 +90,10 @@
   button.selected:hover:enabled > .layer {
     background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.08);
   }
-  button:focus:enabled > .layer {
+  button:focus-visible:enabled > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
-  button.selected:focus:enabled > .layer {
+  button.selected:focus-visible:enabled > .layer {
     background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.12);
   }
   .pad,

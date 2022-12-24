@@ -64,11 +64,11 @@
   .destination.selected:hover .layer {
     background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.08);
   }
-  .destination:focus .layer,
+  .destination:focus-visible .layer,
   .destination:active .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
-  .destination.selected:focus .layer,
+  .destination.selected:focus-visible .layer,
   .destination.selected:active .layer {
     background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.12);
   }

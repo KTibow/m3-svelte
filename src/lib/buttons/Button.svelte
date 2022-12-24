@@ -106,7 +106,7 @@
   button:enabled:hover > .layer.state {
     background-color: rgb(var(--text) / 0.08);
   }
-  button:enabled:focus > .layer.state,
+  button:enabled:focus-visible > .layer.state,
   button:enabled:active > .layer.state {
     background-color: rgb(var(--text) / 0.12);
   }

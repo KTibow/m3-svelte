@@ -83,7 +83,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: transparent;
+    background-color: transparent;
     border: none;
     color: rgb(var(--md-sys-color-on-surface-variant));
     cursor: pointer;
@@ -116,14 +116,14 @@
   .menuItem:hover .layer {
     background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.08);
   }
-  .menuItem:focus .layer,
+  .menuItem:focus-visible .layer,
   .menuItem:active .layer {
     background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.12);
   }
   .menuItem.active:hover .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  .menuItem.active:focus .layer,
+  .menuItem.active:focus-visible .layer,
   .menuItem.active:active .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
