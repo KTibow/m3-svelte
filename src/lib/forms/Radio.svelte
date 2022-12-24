@@ -7,7 +7,7 @@
 </script>
 
 <div class="container" style="display: {display};">
-  <input type="radio" {...$$props} {value} {disabled} bind:this={radio} bind:group />
+  <input type="radio" {value} {disabled} bind:this={radio} bind:group {...$$props} />
   <!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
   <div class="layer" on:click={radio.click} />
 </div>

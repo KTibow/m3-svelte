@@ -3,19 +3,35 @@
   export let iconType: "none" | "left" | "full" = "none";
   export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
   export let display = "inline-flex";
+  export let href = "";
 </script>
 
-<button
-  on:click|stopPropagation
-  {...$$props}
-  {disabled}
-  class="md-label-large {type} icon-{iconType}"
-  style="display: {display};"
->
-  <div class="layer tonal" />
-  <div class="layer state" />
-  <slot />
-</button>
+{#if href}
+  <a
+    on:click|stopPropagation
+    {href}
+    {disabled}
+    class="md-label-large {type} icon-{iconType}"
+    style="display: {display};"
+    {...$$props}
+  >
+    <div class="layer tonal" />
+    <div class="layer state" />
+    <slot />
+  </a>
+{:else}
+  <button
+    on:click|stopPropagation
+    {disabled}
+    class="md-label-large {type} icon-{iconType}"
+    style="display: {display};"
+    {...$$props}
+  >
+    <div class="layer tonal" />
+    <div class="layer state" />
+    <slot />
+  </button>
+{/if}
 
 <style>
   button {

@@ -7,7 +7,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="container" style="display: {display};">
+<div class="container" style="display: {display};" {...$$props}>
   {#each destinations as destination}
     <button
       class="destination"

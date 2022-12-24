@@ -17,7 +17,7 @@
   export let display = "inline-flex";
 </script>
 
-<div class="container" style="display: {display};">
+<div class="container" style="display: {display};" {...$$props}>
   {#each options as option}
     {@const icon = chosenOptions.includes(option) ? iconCheck : option.icon}
     <button

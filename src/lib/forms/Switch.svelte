@@ -20,7 +20,6 @@
 <div class="container" style="display: {display};" on:mousedown={(e) => (startX = e.clientX)}>
   <input
     type="checkbox"
-    {...$$props}
     bind:checked
     {disabled}
     bind:this={checkbox}
@@ -29,6 +28,7 @@
       if (e.code == "ArrowLeft") checked = false;
       if (e.code == "ArrowRight") checked = true;
     }}
+    {...$$props}
   />
   <!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
   <div class="layer" on:mousedown={(e) => (startX = e.clientX)} />

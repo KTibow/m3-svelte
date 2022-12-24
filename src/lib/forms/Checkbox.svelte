@@ -9,7 +9,7 @@
 </script>
 
 <div class="container" style="display: {display};">
-  <input type="checkbox" {...$$props} bind:checked {disabled} bind:this={checkbox} />
+  <input type="checkbox" bind:checked {disabled} bind:this={checkbox} {...$$props} />
   {#if checked}
     <Icon icon={iconChecked} />
   {/if}

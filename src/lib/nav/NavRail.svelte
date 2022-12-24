@@ -22,7 +22,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="container" class:horizontal style="display: {display};">
+<div class="container" class:horizontal style="display: {display};" {...$$props}>
   {#if hamburger}
     <button
       class="menuItem relative"

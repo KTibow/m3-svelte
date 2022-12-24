@@ -32,6 +32,7 @@
     bind:value
     class="md-body-large"
     {id}
+    {...$$props}
   />
   {#if type == "outlined" && (focused || value)}
     <fieldset transition:fade={{ duration: 150 }}>

@@ -165,7 +165,7 @@
     name="Sliders"
     mtLink="https://m3.material.io/components/sliders"
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"
-    desc="Implemented but janky, see the code"
+    desc="Implemented with most features. See the code."
     category="Forms"
   />
   <Component

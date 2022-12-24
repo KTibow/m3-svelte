@@ -10,6 +10,14 @@
   export let icon: IconifyIcon | null = null;
   export let trailingIcon: IconifyIcon | null = null;
   export let text: string;
+  /**
+   * | name       | use              | example                       | phrasing           |
+   * |------------|------------------|-------------------------------|--------------------|
+   * | assist     | smart actions    | like add to calendar          | start with a verb  |
+   * | filter     | selection        | like in a search page         | category           |
+   * | input      | information item | like a person in the to field | user-entered thing |
+   * | suggestion | smart actions    | like a chat response          | query/message      |
+   */
   export let type: "assist" | "filter" | "input" | "suggestion";
   const dispatch = createEventDispatcher();
 </script>
@@ -23,6 +31,7 @@
   {disabled}
   style="display: {display};"
   on:click
+  {...$$props}
 >
   <div class="layer" />
   {#if icon}

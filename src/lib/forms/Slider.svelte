@@ -34,8 +34,8 @@
     bind:this={rangeElem}
     value={$valueDisplayed}
     {disabled}
-    {...$$props}
     on:input={updateValue}
+    {...$$props}
   />
   <div class="track" />
   {#if accuracy == "ticks"}

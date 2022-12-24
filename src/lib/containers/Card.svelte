@@ -5,12 +5,12 @@
 </script>
 
 {#if clickable}
-  <button class="container type-{type} clickable" style="display: {display};" on:click>
+  <button class="container type-{type} clickable" style="display: {display};" on:click {...$$props}>
     <div class="layer" />
     <slot />
   </button>
 {:else}
-  <div class="container type-{type}" style="display: {display};">
+  <div class="container type-{type}" style="display: {display};" {...$$props}>
     <slot />
   </div>
 {/if}

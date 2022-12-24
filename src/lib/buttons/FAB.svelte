@@ -11,9 +11,9 @@
 
 <button
   on:click
-  {...$$props}
   class="md-label-large color-{color} size-{size} elevation-{elevation}"
   style="display: {display};"
+  {...$$props}
 >
   <div class="layer" />
   {#if icon}
