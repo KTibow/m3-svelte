@@ -11,7 +11,7 @@
     on:click|stopPropagation
     {href}
     {disabled}
-    class="md-label-large {type} icon-{iconType}"
+    class="container md-label-large {type} icon-{iconType}"
     style="display: {display};"
     {...$$props}
   >
@@ -23,7 +23,7 @@
   <button
     on:click|stopPropagation
     {disabled}
-    class="md-label-large {type} icon-{iconType}"
+    class="container md-label-large {type} icon-{iconType}"
     style="display: {display};"
     {...$$props}
   >
@@ -34,7 +34,7 @@
 {/if}
 
 <style>
-  button {
+  .container {
     border: none;
     height: 2.5rem;
     padding: 0 1.5rem;
@@ -48,14 +48,14 @@
     color: rgb(var(--text));
     transition: all 150ms;
   }
-  button.icon-left {
+  .container.icon-left {
     padding-left: 1rem;
   }
-  button.icon-full {
+  .container.icon-full {
     width: 2.5rem;
     padding: 0;
   }
-  button:disabled {
+  .container:disabled {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
     color: rgb(var(--md-sys-color-on-surface) / 0.38);
     box-shadow: var(--md-sys-elevation-0);
@@ -70,60 +70,60 @@
     transition: all 150ms;
   }
 
-  button:enabled.elevated {
+  .container:not(:disabled).elevated {
     background-color: rgb(var(--md-sys-color-surface));
     --text: var(--md-sys-color-primary);
     box-shadow: var(--md-sys-elevation-1);
   }
-  button:enabled.elevated > .layer.tonal {
+  .container:not(:disabled).elevated > .layer.tonal {
     background-color: rgb(var(--text) / 0.05);
   }
-  button:enabled.elevated:hover > .layer.tonal {
+  .container:not(:disabled).elevated:hover > .layer.tonal {
     background-color: rgb(var(--text) / 0.08);
   }
-  button:enabled.elevated:hover {
+  .container:not(:disabled).elevated:hover {
     box-shadow: var(--md-sys-elevation-2);
   }
 
-  button:enabled.filled {
+  .container:not(:disabled).filled {
     background-color: rgb(var(--md-sys-color-primary));
     --text: var(--md-sys-color-on-primary);
   }
-  button:enabled.filled:hover {
+  .container:not(:disabled).filled:hover {
     box-shadow: var(--md-sys-elevation-1);
   }
 
-  button:enabled.tonal {
+  .container:not(:disabled).tonal {
     background-color: rgb(var(--md-sys-color-secondary-container));
     --text: var(--md-sys-color-on-secondary-container);
   }
-  button:enabled.tonal:hover {
+  .container:not(:disabled).tonal:hover {
     box-shadow: var(--md-sys-elevation-1);
   }
 
-  button.outlined {
+  .container.outlined {
     background-color: transparent;
     border: 1px solid rgb(var(--md-sys-color-on-surface) / 0.12);
   }
-  button:enabled.outlined {
+  .container:not(:disabled).outlined {
     border: 1px solid rgb(var(--md-sys-color-outline));
     --text: var(--md-sys-color-primary);
   }
 
-  button.text {
+  .container.text {
     background-color: transparent;
     padding: 0 0.75rem;
     --text: var(--md-sys-color-primary);
   }
-  button.text.icon-left {
+  .container.text.icon-left {
     padding-right: 1rem;
   }
 
-  button:enabled:hover > .layer.state {
+  .container:not(:disabled):hover > .layer.state {
     background-color: rgb(var(--text) / 0.08);
   }
-  button:enabled:focus-visible > .layer.state,
-  button:enabled:active > .layer.state {
+  .container:not(:disabled):focus-visible > .layer.state,
+  .container:not(:disabled):active > .layer.state {
     background-color: rgb(var(--text) / 0.12);
   }
 </style>

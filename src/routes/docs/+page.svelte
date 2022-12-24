@@ -94,7 +94,7 @@
     name="Chips"
     mtLink="https://m3.material.io/components/chips"
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Chip.svelte"
-    desc="A chip with many configuration options. This component doesn't exactly conform to the spec."
+    desc="A chip with many configuration options."
     category="Forms"
   />
   <Component

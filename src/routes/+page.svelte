@@ -63,6 +63,10 @@
     <Button type="text" disabled>Disabled</Button>
   </div>
   <div>
+    <p>Link</p>
+    <Button type="outlined" href="https://google.com" target="_blank">Enabled</Button>
+  </div>
+  <div>
     <p>Icon</p>
     <Button type="filled" on:click={() => alert("Pressed")} iconType="left">
       <Icon icon={iconEdit} style="height: 18px; width: 18px;" /> Filled
