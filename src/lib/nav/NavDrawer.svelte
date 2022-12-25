@@ -51,25 +51,22 @@
     border: none;
     border-radius: 1.75rem;
     background-color: transparent;
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    --text: rgb(var(--md-sys-color-on-surface-variant));
+    color: rgb(var(--text));
     cursor: pointer;
+  }
+  .destination:hover {
+    --text: var(--md-sys-color-on-surface);
   }
   .destination.selected {
     background-color: rgb(var(--md-sys-color-secondary-container));
-    color: rgb(var(--md-sys-color-on-secondary-container));
+    --text: var(--md-sys-color-on-secondary-container);
   }
   .destination:hover .layer {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
-  }
-  .destination.selected:hover .layer {
-    background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.08);
+    background-color: rgb(var(--text) / 0.08);
   }
   .destination:focus-visible .layer,
   .destination:active .layer {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
-  }
-  .destination.selected:focus-visible .layer,
-  .destination.selected:active .layer {
-    background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.12);
+    background-color: rgb(var(--text) / 0.12);
   }
 </style>

@@ -131,14 +131,14 @@
     name="Navigation drawer"
     mtLink="https://m3.material.io/components/navigation-drawer"
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/NavDrawer.svelte"
-    desc="A component that lets the user click on categories on the side of the screen. Positioning is up to the parent. Grouping and headings are not implemented."
+    desc="A component that lets the user click on categories on the side of the screen. Positioning is up to the parent. If you want to use other content, just wrap this component and add headings/groups as needed."
     category="Nav"
   />
   <Component
     name="Navigation rail"
     mtLink="https://m3.material.io/components/navigation-rail"
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/NavRail.svelte"
-    desc="A component suitable to go on the left/top of the screen that lets the user tap icons. Navigation bar is included in this component. Positioning is up to the parent."
+    desc="A component suitable to go on the left/bottom of the screen that lets the user tap icons. Navigation bar is included in this component. Positioning is up to the parent."
     category="Nav"
   />
   <Component
