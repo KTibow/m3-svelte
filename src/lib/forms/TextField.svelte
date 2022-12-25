@@ -1,6 +1,5 @@
 <script lang="ts">
   import Icon, { type IconifyIcon } from "@iconify/svelte";
-  import { fade } from "svelte/transition";
   export let display = "inline-flex";
   export let type: "filled" | "outlined";
   export let icon: IconifyIcon | null = null;
@@ -18,7 +17,6 @@
   class:move-label={focused || value}
   class:has-icon={icon}
   style="display: {display};"
-  on:click={() => input.focus()}
 >
   <div class="layer" />
   {#if icon}
@@ -41,6 +39,7 @@
 
 <style>
   .container {
+    min-width: 15rem;
     height: 3.5rem;
     transition: all 150ms;
     position: relative;
@@ -50,24 +49,8 @@
     height: 1.5rem;
     align-self: center;
   }
-  .container :global(svg:not(input + svg)) {
+  .container :global(svg) {
     margin: 0 1rem 0 0.75rem;
-  }
-  .type-filled {
-    background-color: rgb(var(--md-sys-color-surface-variant));
-    border-radius: 0.25rem 0.25rem 0 0;
-  }
-  .type-filled > .layer {
-    border-bottom: solid 1px rgb(var(--md-sys-color-on-surface-variant));
-  }
-  .focused.type-filled > .layer {
-    border-bottom: solid 2px rgb(var(--md-sys-color-primary));
-  }
-  .type-outlined {
-    border-radius: 0.25rem;
-  }
-  .type-outlined > .layer {
-    border: solid 1px rgb(var(--md-sys-color-outline));
   }
   .layer {
     position: absolute;
@@ -77,26 +60,21 @@
     bottom: 0;
     transition: all 150ms;
     border-radius: inherit;
-  }
-  .type-filled .layer:hover {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
-  }
-  .type-outlined:hover {
-    border-color: rgb(var(--md-sys-color-on-surface));
-  }
-  .type-outlined:hover fieldset {
-    color: rgb(var(--md-sys-color-on-surface));
-  }
-  .type-outlined:hover label {
-    color: rgb(var(--md-sys-color-on-surface));
+    pointer-events: none;
   }
   input {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    height: 100%;
     background-color: transparent;
     border: none;
     color: inherit;
     outline: none;
     padding: 0 1rem;
-    flex-grow: 1;
   }
   label {
     left: 1rem;
@@ -105,22 +83,7 @@
     position: absolute;
     transition: all 150ms;
     color: rgb(var(--md-sys-color-on-surface-variant));
-  }
-  .has-icon input {
-    padding-left: 0;
-  }
-  .has-icon label {
-    left: 3.25rem;
-  }
-  .move-label label {
-    top: 0.5rem;
-    transform: none;
-  }
-  .focused label {
-    color: rgb(var(--md-sys-color-primary));
-  }
-  .move-label.type-outlined > .layer {
-    border: none;
+    pointer-events: none;
   }
   fieldset {
     position: absolute;
@@ -135,6 +98,42 @@
     border: solid 2px currentColor;
     opacity: 0;
     transition: all 150ms;
+    pointer-events: none;
+  }
+  .type-filled {
+    background-color: rgb(var(--md-sys-color-surface-variant));
+    border-radius: 0.25rem 0.25rem 0 0;
+  }
+  .type-filled > .layer {
+    border-bottom: solid 1px rgb(var(--md-sys-color-on-surface-variant));
+  }
+  .focused.type-filled > .layer {
+    border-bottom: solid 2px rgb(var(--md-sys-color-primary));
+  }
+  .type-filled .layer:hover {
+    background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
+  }
+  .type-filled.move-label > input {
+    padding-top: 1.25rem;
+    padding-bottom: 0.5rem;
+  }
+  .type-outlined {
+    border-radius: 0.25rem;
+  }
+  .type-outlined > .layer {
+    border: solid 1px rgb(var(--md-sys-color-outline));
+  }
+  .type-outlined:hover {
+    border-color: rgb(var(--md-sys-color-on-surface));
+  }
+  .type-outlined:hover fieldset {
+    color: rgb(var(--md-sys-color-on-surface));
+  }
+  .type-outlined:hover label {
+    color: rgb(var(--md-sys-color-on-surface));
+  }
+  .move-label.type-outlined > .layer {
+    border: none;
   }
   .type-outlined.move-label fieldset {
     opacity: 1;
@@ -148,8 +147,17 @@
     transform: none;
     opacity: 0;
   }
-  .type-filled.move-label input {
-    align-self: flex-end;
-    margin-bottom: 0.5rem;
+  .has-icon input {
+    padding-left: 3.25rem;
+  }
+  .has-icon label {
+    left: 3.25rem;
+  }
+  .move-label label {
+    top: 0.5rem;
+    transform: none;
+  }
+  .focused label {
+    color: rgb(var(--md-sys-color-primary));
   }
 </style>
