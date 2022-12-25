@@ -43,6 +43,7 @@
     height: 3.5rem;
     transition: all 150ms;
     position: relative;
+    color: rgb(var(--md-sys-color-on-surface-variant));
   }
   .container :global(svg) {
     width: 1.5rem;
@@ -72,7 +73,7 @@
     height: 100%;
     background-color: transparent;
     border: none;
-    color: inherit;
+    color: rgb(var(--md-sys-color-on-surface));
     outline: none;
     padding: 0 1rem;
   }
@@ -82,7 +83,6 @@
     transform: translate(0, -50%);
     position: absolute;
     transition: all 150ms;
-    color: rgb(var(--md-sys-color-on-surface-variant));
     pointer-events: none;
   }
   fieldset {
@@ -90,7 +90,7 @@
     top: -0.5rem;
     bottom: -1px;
     left: -1px;
-    right: -2px;
+    right: -1px;
     margin: 0;
     padding: 0 0.75rem;
     border-radius: inherit;
@@ -107,13 +107,16 @@
   .type-filled > .layer {
     border-bottom: solid 1px rgb(var(--md-sys-color-on-surface-variant));
   }
-  .focused.type-filled > .layer {
+  .type-filled.focused > .layer {
     border-bottom: solid 2px rgb(var(--md-sys-color-primary));
   }
-  .type-filled .layer:hover {
+  .type-filled.focused > label {
+    color: rgb(var(--md-sys-color-primary));
+  }
+  .type-filled:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  .type-filled.move-label > input {
+  .move-label.type-filled > input {
     padding-top: 1.25rem;
     padding-bottom: 0.5rem;
   }
@@ -123,41 +126,36 @@
   .type-outlined > .layer {
     border: solid 1px rgb(var(--md-sys-color-outline));
   }
-  .type-outlined:hover {
-    border-color: rgb(var(--md-sys-color-on-surface));
-  }
-  .type-outlined:hover fieldset {
-    color: rgb(var(--md-sys-color-on-surface));
-  }
-  .type-outlined:hover label {
-    color: rgb(var(--md-sys-color-on-surface));
-  }
   .move-label.type-outlined > .layer {
     border: none;
   }
-  .type-outlined.move-label fieldset {
+  .move-label.type-outlined > fieldset {
     opacity: 1;
   }
-  .type-outlined.focused fieldset {
-    color: rgb(var(--md-sys-color-primary));
-  }
-  .move-label.type-outlined label {
+  .move-label.type-outlined > label {
     left: 0.5rem;
     top: -0.5rem;
     transform: none;
     opacity: 0;
   }
-  .has-icon input {
+  .type-outlined:hover > .layer {
+    border-color: rgb(var(--md-sys-color-on-surface));
+  }
+  .type-outlined:hover > fieldset,
+  .type-outlined:hover > label {
+    color: rgb(var(--md-sys-color-on-surface));
+  }
+  .type-outlined.focused > fieldset {
+    color: rgb(var(--md-sys-color-primary));
+  }
+  .has-icon > input {
     padding-left: 3.25rem;
   }
-  .has-icon label {
+  .has-icon > label {
     left: 3.25rem;
   }
-  .move-label label {
+  .move-label > label {
     top: 0.5rem;
     transform: none;
-  }
-  .focused label {
-    color: rgb(var(--md-sys-color-primary));
   }
 </style>
