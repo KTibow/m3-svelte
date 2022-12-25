@@ -9,12 +9,11 @@
   import iconCode from "@iconify-icons/ic/outline-code";
   import { page } from "$app/stores";
   import { base } from "$app/paths";
-  import { goto } from "$app/navigation";
   $: hereNormalized = ($page.url.pathname + "/").replace(/\/\/$/, "/");
   const pages = [
-    { name: "Demo", url: base + "/", icon: iconMonitor, iconHighlight: iconMonitorFull },
-    { name: "Theme", url: base + "/theme/", icon: iconTheme, iconHighlight: iconThemeFull },
-    { name: "Docs", url: base + "/docs/", icon: iconBook, iconHighlight: iconBookFull },
+    { name: "Demo", href: base + "/", activeIcon: iconMonitorFull, inactiveIcon: iconMonitor },
+    { name: "Theme", href: base + "/theme/", activeIcon: iconThemeFull, inactiveIcon: iconTheme },
+    { name: "Docs", href: base + "/docs/", activeIcon: iconBookFull, inactiveIcon: iconBook },
   ];
 </script>
 
@@ -24,16 +23,11 @@
       <NavRail
         fab={{ icon: iconCode }}
         mainItems={pages.map((page) => ({
-          name: page.name,
-          active: hereNormalized == page.url,
-          activeIcon: page.iconHighlight,
-          inactiveIcon: page.icon,
+          ...page,
+          active: hereNormalized == page.href,
         }))}
         on:chosen={(e) => {
           if (e.detail.name == "fab") return window.open("https://github.com/KTibow/m3-svelte");
-          const page = pages.find((p) => p.name == e.detail.data.name);
-          if (!page) return;
-          goto(page.url);
         }}
       />
     </div>

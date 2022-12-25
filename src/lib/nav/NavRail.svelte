@@ -17,6 +17,7 @@
     activeIcon: IconifyIcon;
     inactiveIcon: IconifyIcon;
     name: string;
+    href?: string;
   }[];
 
   const dispatch = createEventDispatcher();
@@ -24,16 +25,18 @@
 
 <div class="container" class:horizontal style="display: {display};" {...$$props}>
   {#if hamburger}
-    <button
-      class="menuItem relative"
-      on:click={(event) => dispatch("chosen", { name: "hamburger", event })}
-    >
-      <div class="layer circle" />
-      <Icon icon={iconHamburger} />
-    </button>
+    <div class="menuItem">
+      <button
+        class="relative hoverable"
+        on:click={(event) => dispatch("chosen", { name: "hamburger", event })}
+      >
+        <div class="layer circle" />
+        <Icon icon={iconHamburger} />
+      </button>
+    </div>
   {/if}
   {#if fab}
-    <div class="menuItem no-pointer">
+    <div class="menuItem">
       <FAB
         elevation="none"
         {...fab}
@@ -41,59 +44,86 @@
       />
     </div>
   {/if}
-  <div class="navAligner">
+  <div class="aligner">
     {#each mainItems as item}
-      <button
-        class="menuItem"
-        class:active={item.active}
-        on:click={(event) => dispatch("chosen", { name: "item", data: item, event })}
-      >
-        <div class="pill relative">
-          <div class="layer full" />
-          <Icon icon={item.active ? item.activeIcon : item.inactiveIcon} />
-        </div>
-        <span class="md-label-medium">{item.name}</span>
-      </button>
+      {#if item.href}
+        <a href={item.href} class="menuItem hoverable" class:active={item.active}>
+          <div class="pill relative">
+            <div class="layer full" />
+            <Icon icon={item.active ? item.activeIcon : item.inactiveIcon} />
+          </div>
+          <span class="md-label-medium">{item.name}</span>
+        </a>
+      {:else}
+        <button
+          class="menuItem hoverable"
+          class:active={item.active}
+          on:click={(event) => dispatch("chosen", { name: "item", data: item, event })}
+        >
+          <div class="pill relative">
+            <div class="layer full" />
+            <Icon icon={item.active ? item.activeIcon : item.inactiveIcon} />
+          </div>
+          <span class="md-label-medium">{item.name}</span>
+        </button>
+      {/if}
     {/each}
   </div>
 </div>
 
 <style>
-  .container {
-    background-color: rgb(var(--md-sys-color-surface));
-    width: 5rem;
-    gap: 0.75rem;
+  .container,
+  .aligner {
+    display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    padding-top: 1rem;
+    gap: 0.75rem;
   }
-  .horizontal {
+  .container {
+    width: 5rem;
+    padding-top: 3.5rem;
+    background-color: rgb(var(--md-sys-color-surface));
+  }
+  .aligner {
+    flex-grow: 1;
+    justify-content: center;
+  }
+  .horizontal.container,
+  .horizontal .aligner {
     flex-direction: row;
-    width: unset;
+  }
+  .horizontal.container {
+    width: 100%;
     height: 5rem;
+    padding-top: 0;
+  }
+  .horizontal .aligner {
     padding-top: 0.75rem;
     padding-bottom: 1rem;
-    box-sizing: border-box;
-  }
-  .container :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
+    justify-content: space-evenly;
   }
   .menuItem {
     display: flex;
     flex-direction: column;
     align-items: center;
+    --text: var(--md-sys-color-on-surface-variant);
+    color: rgb(var(--text));
+  }
+  .container :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  button,
+  a {
+    display: inline-flex;
     background-color: transparent;
+    color: inherit;
     border: none;
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    padding: 0;
+    margin: 0;
     cursor: pointer;
   }
-
   .relative {
     position: relative;
-  }
-  .no-pointer {
-    cursor: auto;
   }
   .layer {
     position: absolute;
@@ -113,32 +143,11 @@
     bottom: 0;
     left: 0;
   }
-  .menuItem:hover .layer {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.08);
+  .menuItem > span {
+    margin: 0.25rem 0;
   }
-  .menuItem:focus-visible .layer,
-  .menuItem:active .layer {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.12);
-  }
-  .menuItem.active:hover .layer {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
-  }
-  .menuItem.active:focus-visible .layer,
-  .menuItem.active:active .layer {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
-  }
-
-  .navAligner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-grow: 1;
-    max-height: 48rem;
-    gap: 0.75rem;
-  }
-  .horizontal .navAligner {
-    flex-direction: row;
-    justify-content: space-around;
+  .horizontal .menuItem > span {
+    margin-bottom: 0;
   }
   .pill {
     display: flex;
@@ -146,19 +155,25 @@
     justify-content: center;
     width: 3.5rem;
     height: 2rem;
-    border-radius: 1rem;
+    border-radius: 2rem;
     overflow: hidden;
   }
   .horizontal .pill {
     width: 4rem;
   }
-  .active {
-    color: rgb(var(--md-sys-color-on-surface));
+
+  .menuItem.active {
+    --text: var(--md-sys-color-on-surface);
   }
-  .active .pill {
+  .menuItem.active > .pill {
     background-color: rgb(var(--md-sys-color-secondary-container));
+    color: rgb(var(--md-sys-color-on-secondary-container));
   }
-  .menuItem .md-label-medium {
-    margin-top: 0.25rem;
+  .hoverable:hover .layer {
+    background-color: rgb(var(--text) / 0.08);
+  }
+  .hoverable:focus-visible .layer,
+  .hoverable:active .layer {
+    background-color: rgb(var(--text) / 0.12);
   }
 </style>
