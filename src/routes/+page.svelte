@@ -159,7 +159,7 @@
 </div>
 <h2 class="md-headline-small">Containers</h2>
 <div class="container">
-  <div>
+  <div class="container">
     <p>Card</p>
     <Card type="elevated" clickable>Text</Card>
     <Card type="filled" clickable>Text</Card>

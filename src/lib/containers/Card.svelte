@@ -5,12 +5,14 @@
 </script>
 
 {#if clickable}
-  <button class="container type-{type} clickable" style="display: {display};" on:click {...$$props}>
-    <div class="layer" />
+  <button class="container type-{type}" style="display: {display};" on:click {...$$props}>
+    <div class="layer tonal" />
+    <div class="layer state" />
     <slot />
   </button>
 {:else}
   <div class="container type-{type}" style="display: {display};" {...$$props}>
+    <div class="layer tonal" />
     <slot />
   </div>
 {/if}
@@ -35,7 +37,10 @@
   }
   .type-outlined {
     background-color: rgb(var(--md-sys-color-surface));
-    border: solid 1px rgb(var(--md-sys-color-border));
+    border: solid 1px rgb(var(--md-sys-color-outline));
+  }
+  :is(.type-elevated, .type-outlined) > .layer.tonal {
+    background-color: rgb(var(--md-sys-color-primary) / 0.05);
   }
   .layer {
     position: absolute;
@@ -45,22 +50,22 @@
     bottom: 0;
     transition: all 150ms;
   }
-  .clickable {
+  button {
     cursor: pointer;
   }
-  .clickable:hover {
+  button:hover {
     box-shadow: var(--md-sys-elevation-1);
   }
-  .clickable.type-elevated:hover {
+  button.type-elevated:hover {
     box-shadow: var(--md-sys-elevation-1);
   }
-  .clickable:hover > .layer {
+  button:hover > .layer.state {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  .clickable:focus-visible > .layer {
+  button:focus-visible > .layer.state {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
-  .clickable:active > .layer {
+  button:active > .layer.state {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
 </style>
