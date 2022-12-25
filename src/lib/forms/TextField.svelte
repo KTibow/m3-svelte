@@ -34,11 +34,9 @@
     {id}
     {...$$props}
   />
-  {#if type == "outlined" && (focused || value)}
-    <fieldset transition:fade={{ duration: 150 }}>
-      <legend class="md-body-small">{name}</legend>
-    </fieldset>
-  {/if}
+  <fieldset>
+    <legend class="md-body-small">{name}</legend>
+  </fieldset>
 </div>
 
 <style>
@@ -57,15 +55,19 @@
   }
   .type-filled {
     background-color: rgb(var(--md-sys-color-surface-variant));
-    border-bottom: solid 1px rgb(var(--md-sys-color-on-surface-variant));
     border-radius: 0.25rem 0.25rem 0 0;
   }
-  .focused.type-filled {
+  .type-filled > .layer {
+    border-bottom: solid 1px rgb(var(--md-sys-color-on-surface-variant));
+  }
+  .focused.type-filled > .layer {
     border-bottom: solid 2px rgb(var(--md-sys-color-primary));
   }
   .type-outlined {
-    border: solid 1px rgb(var(--md-sys-color-outline));
     border-radius: 0.25rem;
+  }
+  .type-outlined > .layer {
+    border: solid 1px rgb(var(--md-sys-color-outline));
   }
   .layer {
     position: absolute;
@@ -74,7 +76,6 @@
     top: 0;
     bottom: 0;
     transition: all 150ms;
-    cursor: text;
     border-radius: inherit;
   }
   .type-filled .layer:hover {
@@ -102,7 +103,6 @@
     top: 50%;
     transform: translate(0, -50%);
     position: absolute;
-    cursor: text;
     transition: all 150ms;
     color: rgb(var(--md-sys-color-on-surface-variant));
   }
@@ -119,7 +119,7 @@
   .focused label {
     color: rgb(var(--md-sys-color-primary));
   }
-  .move-label.type-outlined {
+  .move-label.type-outlined > .layer {
     border: none;
   }
   fieldset {
@@ -133,13 +133,17 @@
     border-radius: inherit;
     color: rgb(var(--md-sys-color-outline));
     border: solid 2px currentColor;
-    cursor: text;
+    opacity: 0;
     transition: all 150ms;
+  }
+  .type-outlined.move-label fieldset {
+    opacity: 1;
   }
   .type-outlined.focused fieldset {
     color: rgb(var(--md-sys-color-primary));
   }
   .move-label.type-outlined label {
+    left: 0.5rem;
     top: -0.5rem;
     transform: none;
     opacity: 0;
