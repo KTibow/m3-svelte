@@ -5,14 +5,13 @@
   export let icon: IconifyIcon | null = null;
   export let name = "";
   export let value = "";
-  let input: HTMLInputElement;
   let focused: boolean;
   let id = `input-${crypto.randomUUID()}`;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
 <div
-  class="container type-{type}"
+  class="m3-container type-{type}"
   class:focused
   class:move-label={focused || value}
   class:has-icon={icon}
@@ -26,7 +25,6 @@
   <input
     on:focus={() => (focused = true)}
     on:blur={() => (focused = false)}
-    bind:this={input}
     bind:value
     class="md-body-large"
     {id}
@@ -38,19 +36,19 @@
 </div>
 
 <style>
-  .container {
+  .m3-container {
     min-width: 15rem;
     height: 3.5rem;
     transition: all 150ms;
     position: relative;
     color: rgb(var(--md-sys-color-on-surface-variant));
   }
-  .container :global(svg) {
+  .m3-container :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
     align-self: center;
   }
-  .container :global(svg) {
+  .m3-container :global(svg) {
     margin: 0 1rem 0 0.75rem;
   }
   .layer {

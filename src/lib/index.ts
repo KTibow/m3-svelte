@@ -15,3 +15,8 @@ export { default as TextField } from "./forms/TextField.svelte";
 
 export { default as NavDrawer } from "./nav/NavDrawer.svelte";
 export { default as NavRail } from "./nav/NavRail.svelte";
+
+export { default as BaseStyles } from "./themeUtils/BaseStyles.svelte";
+export { default as ColorGen } from "./themeUtils/ColorGen.svelte";
+export { default as ColorScheme } from "./themeUtils/ColorScheme.svelte";
+export { default as ColorTheme } from "./themeUtils/ColorTheme.svelte";

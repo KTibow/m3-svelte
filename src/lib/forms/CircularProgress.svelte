@@ -6,6 +6,7 @@
 <svg
   viewBox="0 0 48 48"
   xmlns="http://www.w3.org/2000/svg"
+  class="m3-container"
   class:indeterminate={percent === null}
   style="display: {display}; --percent: {percent}px;"
   role="progressbar"

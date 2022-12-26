@@ -22,19 +22,43 @@
   setContext("categories", categoryStore);
 </script>
 
-<p>
-  ⚠️ Jank be here! This is a fun project, and a lot of stuff may not be present or not work. Feel
-  free to talk to me about any part of it. However the docs are a bit inconsistent too, and I'm
-  trying to implement stuff to spec. With that said:
-</p>
-<h2 class="display-medium">Usage steps</h2>
-<p>
-  This library requires a number of Material design tokens to be present as CSS variables, like
-  --md-sys-color-primary and --md-sys-elevation-1. It also requires some CSS classes like
-  md-label-large. The easiest way to get these is with the theme generator on the left.
-</p>
-<p>Once you apply those, import from the package whatever components you need.</p>
-<h2 class="display-medium">Components (ordered as on Material)</h2>
+<article>
+  <p>
+    ⚠️ Jank be here! This is a fun project, and a lot of stuff may not be present or not work. Feel
+    free to talk to me about any part of it. However the docs are a bit inconsistent too, and I'm
+    trying to implement stuff to spec. With that said:
+  </p>
+  <h2 class="md-headline-medium">Usage steps</h2>
+  <p>
+    This library used to require a lot of external CSS variables. Now you use components to set your
+    theme and provide utilities. There are 3 options.
+  </p>
+  <ol>
+    <li>
+      ColorTheme: Do you already have a Theme object from the official Material color utilities
+      library? Pass it to this component and it'll extract the arguments needed so they're
+      available.
+    </li>
+    <li>
+      ColorScheme: If you just have a list of different colors (eg manually extracted from your
+      theme) this component will make them available.
+    </li>
+    <li>
+      ColorGen: Pass in a single source color as a hex code and this component will generate a theme
+      and make it available.
+    </li>
+  </ol>
+  <p>
+    Add one of those to your +layout.svelte. You may want to import Roboto (or another font and
+    customize it), set body styling (eg background/foreground/font), and <a
+      href="https://github.com/KTibow/m3-svelte/tree/main/src/lib/themeUtils"
+    >
+      also check out the code for theming utilities.
+    </a>
+  </p>
+  <p>Once you apply those, import from the package whatever components you need.</p>
+</article>
+<h2 class="md-headline-medium">Components (ordered as on Material)</h2>
 <SegmentedButton options={categories} bind:chosenOptions={chosenCategories} />
 <div class="container">
   <Component
@@ -209,6 +233,12 @@
 </div>
 
 <style>
+  article {
+    max-width: 65ch;
+  }
+  a {
+    color: rgb(var(--md-sys-color-primary));
+  }
   .container {
     display: grid;
     gap: 1rem;

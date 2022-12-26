@@ -5,20 +5,20 @@
 </script>
 
 {#if clickable}
-  <button class="container type-{type}" style="display: {display};" on:click {...$$props}>
+  <button class="m3-container type-{type}" style="display: {display};" on:click {...$$props}>
     <div class="layer tonal" />
     <div class="layer state" />
     <slot />
   </button>
 {:else}
-  <div class="container type-{type}" style="display: {display};" {...$$props}>
+  <div class="m3-container type-{type}" style="display: {display};" {...$$props}>
     <div class="layer tonal" />
     <slot />
   </div>
 {/if}
 
 <style>
-  .container {
+  .m3-container {
     border-radius: 0.75rem;
     padding: 1rem;
     position: relative;

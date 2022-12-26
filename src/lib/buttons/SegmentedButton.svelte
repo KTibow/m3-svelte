@@ -13,7 +13,7 @@
   const name = crypto.randomUUID();
 </script>
 
-<div class="container" style="display: {display};" {...$$props}>
+<div class="m3-container" style="display: {display};" {...$$props}>
   {#each options as option, i}
     {@const id = crypto.randomUUID()}
     {@const selected =
@@ -44,7 +44,7 @@
 </div>
 
 <style>
-  .container {
+  .m3-container {
     border: 1px solid rgb(var(--md-sys-color-outline));
     height: 2.5rem;
     border-radius: 2.5rem;
@@ -55,7 +55,7 @@
     opacity: 0;
     pointer-events: none;
   }
-  .container > label {
+  .m3-container > label {
     padding: 0 1rem;
     flex: 1;
     display: flex;
@@ -68,14 +68,14 @@
     transition: all 150ms;
   }
 
-  .container > label ~ label {
+  .m3-container > label ~ label {
     border-left: 1px solid rgb(var(--md-sys-color-outline));
   }
   input:disabled + label {
     color: rgb(var(--md-sys-color-on-surface) / 0.38);
     cursor: auto;
   }
-  .container > .selected {
+  .m3-container > .selected {
     background-color: rgb(var(--md-sys-color-secondary-container));
     color: rgb(var(--md-sys-color-on-secondary-container));
   }

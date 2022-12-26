@@ -3,16 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
-    <link rel="stylesheet" href="%sveltekit.assets%/theme/theme.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       body {
         margin: 0;
+        background-color: rgb(var(--md-sys-color-background));
+        color: rgb(var(--md-sys-color-on-background));
       }
     </style>
     %sveltekit.head%
   </head>
-  <body class="md-background md-body-medium">
+  <body class="md-background md-body-large">
     <div>%sveltekit.body%</div>
   </body>
 </html>

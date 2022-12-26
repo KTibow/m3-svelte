@@ -35,7 +35,7 @@
 </svelte:head>
 <h1 class="md-display-large">M3 Svelte</h1>
 <p>A project by KTibow. See the GitHub for code examples.</p>
-<h2 class="md-headline-small">Button-related components</h2>
+<h2 class="md-headline-medium">Button-related components</h2>
 <div class="container">
   <div>
     <p>Elevated</p>
@@ -110,7 +110,7 @@
   </div>
 </div>
 
-<h2 class="md-headline-small">Form-related components</h2>
+<h2 class="md-headline-medium">Form-related components</h2>
 <div class="container">
   <div>
     <p>Progress</p>
@@ -157,7 +157,7 @@
     <TextField type="outlined" name="Other option" icon={iconTriangle} bind:value={chosen8} />
   </div>
 </div>
-<h2 class="md-headline-small">Containers</h2>
+<h2 class="md-headline-medium">Containers</h2>
 <div class="container">
   <div class="container">
     <p>Card</p>

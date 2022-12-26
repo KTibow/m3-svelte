@@ -25,7 +25,7 @@
 </script>
 
 <button
-  class="container type-{type}"
+  class="m3-container type-{type}"
   class:selected
   class:elevated
   class:icon-left={icon}
@@ -54,7 +54,7 @@
 </button>
 
 <style>
-  .container {
+  .m3-container {
     height: 2rem;
     padding: 0 1rem;
     border-radius: 0.5rem;
@@ -77,7 +77,7 @@
     bottom: 0;
     transition: all 150ms;
   }
-  .container > :global(svg) {
+  .m3-container > :global(svg) {
     margin: 0 0.5rem;
     width: 1.125rem;
     height: 1.125rem;
@@ -126,13 +126,13 @@
     display: none;
   }
 
-  .container:enabled:hover > .layer.state {
+  .m3-container:enabled:hover > .layer.state {
     background-color: rgb(var(--text) / 0.08);
   }
   .elevated:enabled:hover {
     box-shadow: var(--md-sys-elevation-2);
   }
-  .container:enabled:focus-visible > .layer.state {
+  .m3-container:enabled:focus-visible > .layer.state {
     background-color: rgb(var(--text) / 0.12);
   }
 </style>

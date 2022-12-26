@@ -3,12 +3,12 @@
   export let display = "inline-flex";
 </script>
 
-<div class="parent" style="display: {display};" role="progressbar" {...$$props}>
+<div class="m3-container" style="display: {display};" role="progressbar" {...$$props}>
   <div class="percent" class:indeterminate={percent === null} style="width: {percent}%;" />
 </div>
 
 <style>
-  .parent {
+  .m3-container {
     background-color: rgb(var(--md-sys-color-surface-variant));
     height: 0.25rem;
     min-width: 8rem;

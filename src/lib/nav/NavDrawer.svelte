@@ -7,7 +7,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="container" style="display: {display};" {...$$props}>
+<div class="m3-container" style="display: {display};" {...$$props}>
   {#each destinations as destination}
     <button
       class="destination"
@@ -22,7 +22,7 @@
 </div>
 
 <style>
-  .container {
+  .m3-container {
     flex-direction: column;
     width: 22.5rem;
     padding: 1rem 0.75rem 0 0.75rem;
@@ -36,7 +36,7 @@
     bottom: 0;
     transition: all 150ms;
   }
-  .container :global(svg) {
+  .m3-container :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
   }

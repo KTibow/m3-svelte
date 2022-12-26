@@ -8,7 +8,7 @@
   let checkbox: HTMLElement;
 </script>
 
-<div class="container" style="display: {display};">
+<div class="m3-container" style="display: {display};">
   <input type="checkbox" bind:checked {disabled} bind:this={checkbox} {...$$props} />
   {#if checked}
     <Icon icon={iconChecked} />
@@ -18,7 +18,7 @@
 </div>
 
 <style>
-  .container {
+  .m3-container {
     position: relative;
   }
   .layer {
@@ -32,7 +32,7 @@
     transform: translate(-50%, -50%);
     cursor: pointer;
   }
-  .container :global(svg) {
+  .m3-container :global(svg) {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -48,8 +48,8 @@
     appearance: none;
   }
   input::before {
-    width: 1rem;
-    height: 1rem;
+    width: 1.25rem;
+    height: 1.25rem;
     border-radius: 0.125rem;
     content: " ";
     border: solid 0.125rem rgb(var(--md-sys-color-on-surface-variant));
@@ -62,7 +62,7 @@
     background-color: rgb(var(--md-sys-color-primary));
   }
 
-  .container:hover > input:not(:checked):enabled::before {
+  .m3-container:hover > input:not(:checked):enabled::before {
     border-color: rgb(var(--md-sys-color-on-surface));
   }
   .layer:hover {

@@ -11,7 +11,7 @@
 
 <button
   on:click
-  class="md-label-large color-{color} size-{size} elevation-{elevation}"
+  class="m3-container md-label-large color-{color} size-{size} elevation-{elevation}"
   style="display: {display};"
   {...$$props}
 >

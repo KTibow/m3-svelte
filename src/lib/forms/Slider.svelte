@@ -25,7 +25,7 @@
 </script>
 
 <div
-  class="container"
+  class="m3-container"
   class:show-value={accuracy != "none"}
   style="display: {display}; --percent: {percent * 100}%;"
 >
@@ -53,7 +53,7 @@
 </div>
 
 <style>
-  .container {
+  .m3-container {
     position: relative;
     align-items: center;
     height: 2.5rem;

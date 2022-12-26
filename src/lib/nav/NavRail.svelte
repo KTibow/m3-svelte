@@ -4,9 +4,9 @@
   // and device size: Navigation bars for small screens, navigation rails for tablet screens,
   // and standard navigation drawers for desktop screens.
   import { createEventDispatcher } from "svelte";
-  import FAB from "$lib/buttons/FAB.svelte";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconHamburger from "@iconify-icons/ic/outline-menu";
+  import FAB from "$lib/buttons/FAB.svelte";
 
   export let display = "flex";
   export let hamburger = false;
@@ -23,7 +23,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="container" class:horizontal style="display: {display};" {...$$props}>
+<div class="m3-container" class:horizontal style="display: {display};" {...$$props}>
   {#if hamburger}
     <div class="menuItem">
       <button
@@ -72,13 +72,13 @@
 </div>
 
 <style>
-  .container,
+  .m3-container,
   .aligner {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
-  .container {
+  .m3-container {
     width: 5rem;
     padding-top: 3.5rem;
     background-color: rgb(var(--md-sys-color-surface));
@@ -87,11 +87,11 @@
     flex-grow: 1;
     justify-content: center;
   }
-  .horizontal.container,
+  .horizontal.m3-container,
   .horizontal .aligner {
     flex-direction: row;
   }
-  .horizontal.container {
+  .horizontal.m3-container {
     width: 100%;
     height: 5rem;
     padding-top: 0;
@@ -108,7 +108,7 @@
     --text: var(--md-sys-color-on-surface-variant);
     color: rgb(var(--text));
   }
-  .container :global(svg) {
+  .m3-container :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
   }

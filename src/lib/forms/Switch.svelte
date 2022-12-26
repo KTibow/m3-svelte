@@ -5,7 +5,6 @@
   export let checked = false;
   export let display = "inline-flex";
 
-  let checkbox: HTMLInputElement;
   let startX: number | undefined;
   const handleMouseUp = (e: MouseEvent) => {
     if (!startX) return;
@@ -17,12 +16,11 @@
 </script>
 
 <svelte:window on:mouseup={handleMouseUp} />
-<div class="container" style="display: {display};" on:mousedown={(e) => (startX = e.clientX)}>
+<div class="m3-container" style="display: {display};" on:mousedown={(e) => (startX = e.clientX)}>
   <input
     type="checkbox"
     bind:checked
     {disabled}
-    bind:this={checkbox}
     on:keydown={(e) => {
       if (e.code == "Enter") checked = !checked;
       if (e.code == "ArrowLeft") checked = false;
@@ -36,7 +34,7 @@
 </div>
 
 <style>
-  .container {
+  .m3-container {
     position: relative;
   }
   input {
@@ -127,18 +125,18 @@
     background-color: rgb(var(--md-sys-color-primary) / 0.12);
   }
 
-  .container:active input:enabled:before {
+  .m3-container:active input:enabled:before {
     width: 1.75rem;
     height: 1.75rem;
     left: 0;
     background-color: rgb(var(--md-sys-color-on-surface-variant));
   }
-  .container:active input:enabled:checked::before {
+  .m3-container:active input:enabled:checked::before {
     left: calc(100% - 1.75rem - 0.125rem);
     background-color: rgb(var(--md-sys-color-primary-container));
   }
 
-  .container > :global(svg) {
+  .m3-container > :global(svg) {
     position: absolute;
     left: 0.625rem;
     top: 50%;
@@ -150,7 +148,7 @@
     color: rgb(var(--md-sys-color-surface-variant));
     transition: all 150ms;
   }
-  .container > :global(:checked ~ svg) {
+  .m3-container > :global(:checked ~ svg) {
     left: calc(100% - 1rem - 0.5rem);
     color: rgb(var(--md-sys-color-on-primary-container));
     opacity: 1;
