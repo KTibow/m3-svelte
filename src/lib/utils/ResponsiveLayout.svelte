@@ -1,10 +1,12 @@
 <script lang="ts">
   import type { ComponentProps } from "svelte";
+  import { createEventDispatcher } from "svelte";
   import NavRail from "$lib/nav/NavRail.svelte";
   import FAB from "$lib/buttons/FAB.svelte";
 
   export let railOptions: ComponentProps<NavRail>;
   export let fabOptions: false | ComponentProps<FAB>;
+  const dispatch = createEventDispatcher();
   let windowWidth: number;
   let windowHeight: number;
   $: portrait = windowHeight > windowWidth;
@@ -15,9 +17,9 @@
 <div class="parent">
   <div class="railSpace">
     <div class="rail">
-      <!-- svelte-ignore -->
       <NavRail
         {...railOptions}
+        hamburger={false}
         fab={portrait ? false : fabOptions}
         horizontal={portrait}
         on:chosen
@@ -28,7 +30,10 @@
     <slot />
     {#if portrait && fabOptions}
       <div class="fab">
-        <FAB {...fabOptions} />
+        <FAB
+          {...fabOptions}
+          on:click={(event) => dispatch("chosen", { name: "fab", data: fabOptions, event })}
+        />
       </div>
     {/if}
   </div>
@@ -64,6 +69,7 @@
   .content {
     flex: 1;
     position: relative;
+    overflow: scroll;
     margin: 1rem;
   }
   .fab {
