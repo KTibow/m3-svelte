@@ -9,6 +9,7 @@
   import FAB from "$lib/buttons/FAB.svelte";
 
   export let display = "flex";
+  export let alignment: "top" | "center" | "bottom" = "center";
   export let hamburger = false;
   export let fab: false | object = false;
   export let horizontal = false;
@@ -44,7 +45,7 @@
       />
     </div>
   {/if}
-  <div class="aligner">
+  <div class="aligner {alignment}">
     {#each mainItems as item}
       {#if item.href}
         <a href={item.href} class="menuItem hoverable" class:active={item.active}>
@@ -84,8 +85,19 @@
     background-color: rgb(var(--md-sys-color-surface));
   }
   .aligner {
-    flex-grow: 1;
+    padding: 3.5rem 0;
+  }
+  .aligner.center {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     justify-content: center;
+  }
+  .aligner.bottom {
+    flex-grow: 1;
+    justify-content: flex-end;
   }
   .horizontal.m3-container,
   .horizontal .aligner {
@@ -107,6 +119,7 @@
     align-items: center;
     --text: var(--md-sys-color-on-surface-variant);
     color: rgb(var(--text));
+    z-index: 1;
   }
   .m3-container :global(svg) {
     width: 1.5rem;
