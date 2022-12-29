@@ -24,9 +24,8 @@
 
 <article>
   <p>
-    ⚠️ Jank be here! This is a fun project, and a lot of stuff may not be present or not work. Feel
-    free to talk to me about any part of it. However the docs are a bit inconsistent too, and I'm
-    trying to implement stuff to spec. With that said:
+    ⚠️ You may encounter jank while using this library. I've tried to implement stuff to spec, but
+    things may be missing or not correct. Talk to me if you have any questions. With that said:
   </p>
   <h2 class="md-headline-medium">Usage steps</h2>
   <p>
