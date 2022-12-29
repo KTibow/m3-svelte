@@ -116,6 +116,7 @@
   }
   .parentContent {
     flex-grow: 1;
+    min-width: 0;
     margin: 1rem;
   }
 </style>
