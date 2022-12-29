@@ -16,7 +16,8 @@ export { default as TextField } from "./forms/TextField.svelte";
 export { default as NavDrawer } from "./nav/NavDrawer.svelte";
 export { default as NavRail } from "./nav/NavRail.svelte";
 
-export { default as BaseStyles } from "./themeUtils/BaseStyles.svelte";
-export { default as ColorGen } from "./themeUtils/ColorGen.svelte";
-export { default as ColorScheme } from "./themeUtils/ColorScheme.svelte";
-export { default as ColorTheme } from "./themeUtils/ColorTheme.svelte";
+export { default as BaseStyles } from "./utils/BaseStyles.svelte";
+export { default as ColorGen } from "./utils/ColorGen.svelte";
+export { default as ColorScheme } from "./utils/ColorScheme.svelte";
+export { default as ColorTheme } from "./utils/ColorTheme.svelte";
+export { default as ResponsiveLayout } from "./utils/ResponsiveLayout.svelte";

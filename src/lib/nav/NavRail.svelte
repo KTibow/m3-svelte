@@ -3,6 +3,7 @@
   // such as a navigation bar. Instead, choose a single navigation component based on product requirements
   // and device size: Navigation bars for small screens, navigation rails for tablet screens,
   // and standard navigation drawers for desktop screens.
+  import type { ComponentProps } from "svelte";
   import { createEventDispatcher } from "svelte";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconHamburger from "@iconify-icons/ic/outline-menu";
@@ -11,7 +12,7 @@
   export let display = "flex";
   export let alignment: "top" | "center" | "bottom" = "center";
   export let hamburger = false;
-  export let fab: false | object = false;
+  export let fab: false | ComponentProps<FAB> = false;
   export let horizontal = false;
   export let mainItems: {
     active: boolean;
@@ -24,7 +25,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="m3-container" class:horizontal style="display: {display};" {...$$props}>
+<div class="m3-container relative" class:horizontal style="display: {display};" {...$$props}>
   {#if hamburger}
     <div class="menuItem">
       <button

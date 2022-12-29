@@ -49,10 +49,13 @@
   </ol>
   <p>
     Add one of those to your +layout.svelte. You may want to import Roboto (or another font and
-    customize it), set body styling (eg background/foreground/font), and <a
-      href="https://github.com/KTibow/m3-svelte/tree/main/src/lib/themeUtils"
+    customize it), set body styling (eg background/foreground/font), use <a
+      href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/utils/ResponsiveLayout.svelte"
+      >ResponsiveLayout</a
     >
-      also check out the code for theming utilities.
+    and
+    <a href="https://github.com/KTibow/m3-svelte/tree/main/src/lib/utils">
+      also check out the code for utilities.
     </a>
   </p>
   <p>Once you apply those, import from the package whatever components you need.</p>

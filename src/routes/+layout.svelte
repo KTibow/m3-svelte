@@ -8,8 +8,8 @@
   import iconCode from "@iconify-icons/ic/outline-code";
   import { page } from "$app/stores";
   import { base } from "$app/paths";
-  import NavRail from "$lib/nav/NavRail.svelte";
-  import ColorScheme from "$lib/themeUtils/ColorScheme.svelte";
+  import ColorScheme from "$lib/utils/ColorScheme.svelte";
+  import ResponsiveLayout from "$lib/utils/ResponsiveLayout.svelte";
   $: hereNormalized = ($page.url.pathname + "/").replace(/\/\/$/, "/");
   const pages = [
     { name: "Demo", href: base + "/", activeIcon: iconMonitorFull, inactiveIcon: iconMonitor },
@@ -82,41 +82,17 @@
     ["inversePrimary", 4284960932],
   ]}
 />
-<div class="parentContainer">
-  <div class="railSpace">
-    <div class="railPlacer">
-      <NavRail
-        fab={{ icon: iconCode }}
-        mainItems={pages.map((page) => ({
-          ...page,
-          active: hereNormalized == page.href,
-        }))}
-        on:chosen={(e) => {
-          if (e.detail.name == "fab") return window.open("https://github.com/KTibow/m3-svelte");
-        }}
-      />
-    </div>
-  </div>
-  <div class="parentContent"><slot /></div>
-</div>
-
-<style>
-  .parentContainer {
-    display: flex;
-  }
-  .railSpace {
-    width: 5rem;
-    flex-shrink: 0;
-  }
-  .railPlacer {
-    position: fixed;
-    top: 0;
-    height: 100vh;
-    display: flex;
-  }
-  .parentContent {
-    flex-grow: 1;
-    min-width: 0;
-    margin: 1rem;
-  }
-</style>
+<ResponsiveLayout
+  fabOptions={{ icon: iconCode }}
+  railOptions={{
+    mainItems: pages.map((page) => ({
+      ...page,
+      active: hereNormalized == page.href,
+    })),
+  }}
+  on:chosen={(e) => {
+    if (e.detail.name == "fab") return window.open("https://github.com/KTibow/m3-svelte");
+  }}
+>
+  <slot />
+</ResponsiveLayout>

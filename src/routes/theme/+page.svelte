@@ -1,7 +1,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import Button from "$lib/buttons/Button.svelte";
-  import ColorTheme from "$lib/themeUtils/ColorTheme.svelte";
+  import ColorTheme from "$lib/utils/ColorTheme.svelte";
   import {
     argbFromHex,
     hexFromArgb,
