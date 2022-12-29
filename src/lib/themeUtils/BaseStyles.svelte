@@ -126,7 +126,7 @@ or for very small text in the content body, such as captions. */
 *, *::before, *::after {
   box-sizing: inherit;
 }
-.m3-container a {
+.m3-container a, a.m3-container {
   text-decoration: none;
 }
 </style>`}
