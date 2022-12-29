@@ -111,7 +111,7 @@
     name="Checkbox"
     mtLink="https://m3.material.io/components/checkbox"
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Checkbox.svelte"
-    desc="A styled checkbox, similar to the radio button."
+    desc="A styled checkbox, similar to the radio button. Must be wrapped in a <label>."
     category="Forms"
   />
   <Component
@@ -176,7 +176,7 @@
     name="Radio button"
     mtLink="https://m3.material.io/components/radio-button"
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Radio.svelte"
-    desc="A styled radio button. Try using flexbox to position it."
+    desc="A styled radio button. Try using flexbox to position it. Must be wrapped in a <label>."
     category="Forms"
   />
   <Component

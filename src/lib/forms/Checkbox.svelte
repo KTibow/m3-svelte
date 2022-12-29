@@ -5,16 +5,15 @@
   export let disabled = false;
   export let checked = false;
   export let display = "inline-flex";
-  let checkbox: HTMLElement;
+  // MUST BE WRAPPED IN A <label>
 </script>
 
 <div class="m3-container" style="display: {display};">
-  <input type="checkbox" bind:checked {disabled} bind:this={checkbox} {...$$props} />
+  <input type="checkbox" bind:checked {disabled} {...$$props} />
   {#if checked}
     <Icon icon={iconChecked} />
   {/if}
-  <!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
-  <div class="layer" on:click={checkbox.click} />
+  <div class="layer" />
 </div>
 
 <style>

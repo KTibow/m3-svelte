@@ -119,11 +119,14 @@ or for very small text in the content body, such as captions. */
   line-height: var(--md-sys-typescale-body-small-height, 16px);
   letter-spacing: var(--md-sys-typescale-body-small-tracking, 0.4);
 }
-/* Needed for width/height to work */
+/* Fix some browser stuff */
 .m3-container {
   box-sizing: border-box;
 }
 *, *::before, *::after {
   box-sizing: inherit;
+}
+.m3-container a {
+  text-decoration: none;
 }
 </style>`}

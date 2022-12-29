@@ -3,13 +3,12 @@
   export let value: string;
   export let display = "inline-flex";
   export let group: string;
-  let radio: HTMLElement;
+  // MUST BE WRAPPED IN A <label>
 </script>
 
 <div class="m3-container" style="display: {display};">
-  <input type="radio" {value} {disabled} bind:this={radio} bind:group {...$$props} />
-  <!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
-  <div class="layer" on:click={radio.click} />
+  <input type="radio" {value} {disabled} bind:group {...$$props} />
+  <div class="layer" />
 </div>
 
 <style>
