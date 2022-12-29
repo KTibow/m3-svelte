@@ -22,6 +22,7 @@
   import iconX from "@iconify-icons/ic/outline-close";
   let chosen1: number[] = [];
   let chosen2: number[] = [];
+  let showProgress = false;
   let chosen3 = "o1";
   let chosen4 = false;
   let chosen5 = false;
@@ -114,10 +115,16 @@
 <div class="container">
   <div>
     <p>Progress</p>
-    <LinearProgress percent={60} />
-    <LinearProgress />
-    <CircularProgress percent={60} />
-    <CircularProgress />
+    {#if showProgress}
+      <LinearProgress percent={60} />
+      <LinearProgress />
+      <CircularProgress percent={60} />
+      <CircularProgress />
+    {:else}
+      <Button type="outlined" on:click={() => (showProgress = true)}>
+        Show progress indicators
+      </Button>
+    {/if}
   </div>
   <div>
     <p>Radio, checkbox, switch</p>
