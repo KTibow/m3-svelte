@@ -33,6 +33,7 @@
 
 <svelte:head>
   <title>M3 Svelte</title>
+  <meta name="description" content="The home of M3 Svelte, with many components from Material 3." />
 </svelte:head>
 <h1 class="md-display-large">M3 Svelte</h1>
 <p>A project by KTibow. See the GitHub for code examples.</p>

@@ -44,6 +44,10 @@
 
 <svelte:head>
   <title>M3 Svelte: Theme</title>
+  <meta
+    name="description"
+    content="Generate a Material 3/You theme for use with the library M3 Svelte."
+  />
 </svelte:head>
 {#if theme}
   <ColorTheme {theme} />

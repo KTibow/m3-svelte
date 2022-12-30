@@ -22,6 +22,13 @@
   setContext("categories", categoryStore);
 </script>
 
+<svelte:head>
+  <title>M3 Svelte: Docs</title>
+  <meta
+    name="description"
+    content="Documentation about using the library M3 Svelte, including components, theming, and more."
+  />
+</svelte:head>
 <article>
   <p>
     ⚠️ You may encounter jank while using this library. I've tried to implement stuff to spec, but
