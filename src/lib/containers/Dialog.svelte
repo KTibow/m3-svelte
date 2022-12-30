@@ -36,7 +36,7 @@
       dispatch("closed", { method: "clickedOutside" });
     }}
   >
-    <div class="wrapper" on:click|stopPropagation>
+    <div class="m3-container" on:click|stopPropagation>
       {#if icon}
         <Icon {icon} />
       {/if}
@@ -79,7 +79,7 @@
   dialog::backdrop {
     background-color: rgb(var(--md-sys-color-scrim) / 0.5);
   }
-  .wrapper {
+  .m3-container {
     display: flex;
     flex-direction: column;
     background-color: rgb(var(--md-sys-color-primary) / 0.05);
@@ -87,7 +87,7 @@
     min-width: 17.5rem;
     max-width: 35rem;
   }
-  .wrapper :global(svg) {
+  .m3-container :global(svg) {
     color: rgb(var(--md-sys-color-secondary));
     width: 1.5rem;
     height: 1.5rem;
@@ -97,7 +97,7 @@
     color: rgb(var(--md-sys-color-on-surface));
     margin: 0 0 1rem 0;
   }
-  .wrapper :global(svg + h2) {
+  .m3-container :global(svg + h2) {
     margin-top: 1rem;
     text-align: center;
   }

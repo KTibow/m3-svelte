@@ -4,6 +4,10 @@
   import SegmentedButton from "$lib/buttons/SegmentedButton.svelte";
 
   import Card from "$lib/containers/Card.svelte";
+  import Dialog from "$lib/containers/Dialog.svelte";
+  import Snackbar from "$lib/containers/Snackbar.svelte";
+
+  import Divider from "$lib/misc/Divider.svelte";
 
   import Checkbox from "$lib/forms/Checkbox.svelte";
   import Chip from "$lib/forms/Chip.svelte";
@@ -20,8 +24,7 @@
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
   import iconX from "@iconify-icons/ic/outline-close";
-  import Divider from "$lib/misc/Divider.svelte";
-  import Dialog from "$lib/containers/Dialog.svelte";
+  import SnackbarPlacer from "$lib/utils/SnackbarPlacer.svelte";
   let chosen1: number[] = [];
   let chosen2: number[] = [];
 
@@ -34,6 +37,7 @@
   let chosen8 = "";
 
   let chosen9 = false;
+  let chosen10 = false;
 </script>
 
 <svelte:head>
@@ -182,7 +186,7 @@
   <div>
     <p>Modals</p>
     <label for={undefined}>
-      <Checkbox bind:checked={chosen9} /> Open
+      <Checkbox bind:checked={chosen9} /> Dialog
     </label>
     <Dialog title="Lorem" bind:open={chosen9} icon={iconEdit} cancelLabel="nah" confirmLabel="GO">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni velit ea sunt iste ullam dolor
@@ -191,6 +195,10 @@
       dolorem sint autem. Impedit debitis labore recusandae eius aspernatur reiciendis, saepe harum
       molestiae?
     </Dialog>
+    <SnackbarPlacer>
+      <Snackbar bind:open={chosen10} action="Undo">Hi</Snackbar>
+    </SnackbarPlacer>
+    <Button type="outlined" on:click={() => (chosen10 = true)}>Show snackbar</Button>
   </div>
 </div>
 

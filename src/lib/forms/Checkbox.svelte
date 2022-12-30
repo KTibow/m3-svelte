@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import iconChecked from "@iconify-icons/ic/outline-check";
+  import iconCheck from "@iconify-icons/ic/outline-check";
 
   export let disabled = false;
   export let checked = false;
@@ -11,7 +11,7 @@
 <div class="m3-container" style="display: {display};">
   <input type="checkbox" bind:checked {disabled} {...$$props} />
   {#if checked}
-    <Icon icon={iconChecked} />
+    <Icon icon={iconCheck} />
   {/if}
   <div class="layer" />
 </div>

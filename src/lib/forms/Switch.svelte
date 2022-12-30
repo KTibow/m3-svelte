@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import iconChecked from "@iconify-icons/ic/outline-check";
+  import iconCheck from "@iconify-icons/ic/outline-check";
   export let disabled = false;
   export let checked = false;
   export let display = "inline-flex";
@@ -30,7 +30,7 @@
   />
   <!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
   <div class="layer" on:mousedown={(e) => (startX = e.clientX)} />
-  <Icon icon={iconChecked} />
+  <Icon icon={iconCheck} />
 </div>
 
 <style>
