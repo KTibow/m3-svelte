@@ -42,6 +42,7 @@
 <style>
   .parent {
     display: flex;
+    overflow-x: auto;
   }
   .railSpace {
     width: 5rem;
@@ -69,7 +70,6 @@
   .content {
     flex: 1;
     position: relative;
-    overflow: scroll;
     margin: 1rem;
   }
   .fab {

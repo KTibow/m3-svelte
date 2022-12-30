@@ -98,7 +98,7 @@
   }
   .aligner.bottom {
     flex-grow: 1;
-    justify-content: flex-end;
+    justify-content: end;
   }
   .horizontal.m3-container,
   .horizontal .aligner {

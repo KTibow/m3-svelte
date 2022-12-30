@@ -9,12 +9,12 @@ export const genCSS = (light: [string, number][], dark: [string, number][]) => {
   const lightColors = light.map((colorInfo) => genColorVariable(...colorInfo)).join("\n");
   const darkColors = dark.map((colorInfo) => genColorVariable(...colorInfo)).join("\n");
   const colors = `@media (prefers-color-scheme: light) {
-  :root {
+  :root, ::backdrop {
 ${lightColors}
   }
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root, ::backdrop {
 ${darkColors}
   }
 }`;

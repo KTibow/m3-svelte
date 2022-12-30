@@ -20,8 +20,11 @@
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
   import iconX from "@iconify-icons/ic/outline-close";
+  import Divider from "$lib/misc/Divider.svelte";
+  import Dialog from "$lib/containers/Dialog.svelte";
   let chosen1: number[] = [];
   let chosen2: number[] = [];
+
   let showProgress = false;
   let chosen3 = "o1";
   let chosen4 = false;
@@ -29,6 +32,8 @@
   let chosen6 = 60;
   let chosen7 = "";
   let chosen8 = "";
+
+  let chosen9 = false;
 </script>
 
 <svelte:head>
@@ -37,6 +42,7 @@
 </svelte:head>
 <h1 class="md-display-large">M3 Svelte</h1>
 <p>A project by KTibow. See the GitHub for code examples.</p>
+<Divider />
 <h2 class="md-headline-medium">Button-related components</h2>
 <div class="container">
   <div>
@@ -172,6 +178,19 @@
     <Card type="elevated" clickable>Text</Card>
     <Card type="filled" clickable>Text</Card>
     <Card type="outlined" clickable>Text</Card>
+  </div>
+  <div>
+    <p>Modals</p>
+    <label for={undefined}>
+      <Checkbox bind:checked={chosen9} /> Open
+    </label>
+    <Dialog title="Lorem" bind:open={chosen9} icon={iconEdit} cancelLabel="nah" confirmLabel="GO">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni velit ea sunt iste ullam dolor
+      atque numquam nemo aspernatur, quae mollitia, officiis repudiandae consectetur nulla, alias
+      tempore recusandae eum assumenda. Nulla eveniet ab impedit delectus voluptatibus, error
+      dolorem sint autem. Impedit debitis labore recusandae eius aspernatur reiciendis, saepe harum
+      molestiae?
+    </Dialog>
   </div>
 </div>
 
