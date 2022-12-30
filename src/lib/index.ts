@@ -4,6 +4,7 @@ export { default as SegmentedButton } from "./buttons/SegmentedButton.svelte";
 
 export { default as Card } from "./containers/Card.svelte";
 export { default as Dialog } from "./containers/Dialog.svelte";
+export { default as Snackbar } from "./containers/Snackbar.svelte";
 
 export { default as Checkbox } from "./forms/Checkbox.svelte";
 export { default as Chip } from "./forms/Chip.svelte";
@@ -24,3 +25,4 @@ export { default as ColorGen } from "./utils/ColorGen.svelte";
 export { default as ColorScheme } from "./utils/ColorScheme.svelte";
 export { default as ColorTheme } from "./utils/ColorTheme.svelte";
 export { default as ResponsiveLayout } from "./utils/ResponsiveLayout.svelte";
+export { default as SnackbarPlacer } from "./containers/SnackbarPlacer.svelte";

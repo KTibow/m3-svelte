@@ -14,7 +14,7 @@
 
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
 
-<div class="parent">
+<div class="parent" class:navBarOffset={portrait}>
   <div class="railSpace">
     <div class="rail">
       <NavRail

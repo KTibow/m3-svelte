@@ -95,7 +95,7 @@
     name="FAB"
     mtLink="https://m3.material.io/components/floating-action-button"
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/FAB.svelte"
-    desc="A customizable FAB component. Extended FAB is included in this component. Positioning is up to the parent."
+    desc="A customizable FAB component. Extended FAB is included in this component. Positioning is up to the parent (or ResponsiveLayout)."
     category="Buttons"
   />
   <Component
@@ -169,7 +169,7 @@
     name="Navigation rail"
     mtLink="https://m3.material.io/components/navigation-rail"
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/NavRail.svelte"
-    desc="A component suitable to go on the left/bottom of the screen that lets the user tap icons. Navigation bar is included in this component. Positioning is up to the parent."
+    desc="A component suitable to go on the left/bottom of the screen that lets the user tap icons. Navigation bar is included in this component. Positioning is up to the parent (or ResponsiveLayout)."
     category="Nav"
   />
   <Component
@@ -202,7 +202,8 @@
   <Component
     name="Snackbar"
     mtLink="https://m3.material.io/components/snackbar"
-    desc="Coming soon"
+    ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Snackbar.svelte"
+    desc="A snackbar that can display a message. Try using SnackbarPlacer (from utils) to position it."
     category="Containers"
   />
   <Component
