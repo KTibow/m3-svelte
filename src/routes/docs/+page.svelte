@@ -135,13 +135,15 @@
   <Component
     name="Dialogs"
     mtLink="https://m3.material.io/components/dialogs"
-    desc="Might come"
+    ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Dialog.svelte"
+    desc="A dialog that can go over other things. Tell me if it doesn't work for your contents."
     category="Containers"
   />
   <Component
     name="Dividers"
     mtLink="https://m3.material.io/components/divider"
-    desc="Might come"
+    ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/misc/Divider.svelte"
+    desc="Just a styled <hr>, from what I can tell from the docs."
     category="Utility"
   />
   <Component
