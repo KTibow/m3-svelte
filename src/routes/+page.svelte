@@ -25,6 +25,7 @@
   import iconCircle from "@iconify-icons/ic/outline-circle";
   import iconX from "@iconify-icons/ic/outline-close";
   import SnackbarPlacer from "$lib/utils/SnackbarPlacer.svelte";
+  import List from "$lib/containers/List.svelte";
   let chosen1: number[] = [];
   let chosen2: number[] = [];
 
@@ -200,6 +201,37 @@
     </SnackbarPlacer>
     <Button type="outlined" on:click={() => (chosen10 = true)}>Show snackbar</Button>
   </div>
+  <div>
+    <p>List</p>
+    <div class="max-w-body">
+      <List
+        items={[
+          { headline: "Lorem", desc: '"desc" >', trailing: { type: "text", content: "123" } },
+          {
+            headline: "Ipsum",
+            desc: '"supporting text"',
+            leading: { type: "icon", content: iconEdit },
+            trailing: { type: "icon", content: iconCircle },
+            tapAction: true,
+          },
+          {
+            headline: "Dolor",
+            desc: "dolorem sint autem. Impedit debitis labore recusandae eius aspernatur reiciendis, saepe harum dolorem sint autem. Impedit debitis labore recusandae eius aspernatur reiciendis, saepe harum",
+            leading: { type: "avatar", content: "https://placedog.net/128/128" },
+            trailing: { type: "checkbox" },
+          },
+          {
+            headline: "Sit",
+            desc: "i know these are dumb placeholders",
+            leading: { type: "photo", content: "https://placedog.net/128/128" },
+            trailing: { type: "switch" },
+          },
+        ]}
+        lines={2}
+        divider={"full"}
+      />
+    </div>
+  </div>
 </div>
 
 <style>
@@ -216,5 +248,8 @@
     gap: 0.5rem;
     margin: 0.5rem 0;
     align-items: center;
+  }
+  .max-w-body {
+    max-width: 50ch;
   }
 </style>

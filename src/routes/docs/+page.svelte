@@ -149,7 +149,8 @@
   <Component
     name="Lists"
     mtLink="https://m3.material.io/components/lists"
-    desc="Not a separate component, and not implemented"
+    ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/List.svelte"
+    desc="A list component that probably works, check out the implementation"
     category="Containers"
   />
   <Component
