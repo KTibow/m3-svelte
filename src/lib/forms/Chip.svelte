@@ -99,7 +99,7 @@
     background-color: rgb(var(--md-sys-color-primary) / 0.05);
   }
   .selected {
-    border: none;
+    border-color: transparent;
     background-color: rgb(var(--md-sys-color-secondary-container));
     --text: var(--md-sys-color-on-secondary-container);
   }

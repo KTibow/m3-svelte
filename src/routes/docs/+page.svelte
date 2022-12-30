@@ -7,8 +7,8 @@
   import { writable } from "svelte/store";
   import { setContext } from "svelte";
 
-  import SegmentedButton from "$lib/buttons/SegmentedButton.svelte";
   import Component from "./Component.svelte";
+  import ChipChooser from "$lib/utils/ChipChooser.svelte";
   const categories = [
     { icon: iconRightArrow, label: "Buttons" },
     { icon: iconBoxes, label: "Containers" },
@@ -49,11 +49,7 @@
   </ol>
   <p>
     Add one of those to your +layout.svelte. You may want to import Roboto (or another font and
-    customize it), set body styling (eg background/foreground/font), use <a
-      href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/utils/ResponsiveLayout.svelte"
-      >ResponsiveLayout</a
-    >
-    and
+    customize it), set body styling (eg background/foreground/font), and
     <a href="https://github.com/KTibow/m3-svelte/tree/main/src/lib/utils">
       also check out the code for utilities.
     </a>
@@ -61,7 +57,7 @@
   <p>Once you apply those, import from the package whatever components you need.</p>
 </article>
 <h2 class="md-headline-medium">Components (ordered as on Material)</h2>
-<SegmentedButton options={categories} bind:chosenOptions={chosenCategories} />
+<ChipChooser options={categories} bind:chosenOptions={chosenCategories} />
 <div class="container">
   <Component
     name="Badge"
