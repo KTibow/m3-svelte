@@ -25,11 +25,6 @@
   const dispatch = createEventDispatcher();
   const isItemTogglable = (item: Item) =>
     item.trailing && ["checkbox", "switch"].includes(item.trailing.type);
-  const toggleChecked = (item: Item) => {
-    // @ts-ignore
-    item.trailing.checked = !item.trailing.checked;
-    return item;
-  };
   /*
   the list docs are crazy
   i dont have any fancy touch gestures, like swiping for actions,
@@ -41,9 +36,7 @@
 
 <div class="m3-container lines-{lines}">
   {#each items as item, i}
-    {@const clickAction = item.tapAction
-      ? () => dispatch("chosen", item)
-      : isItemTogglable(item) && (() => (item = toggleChecked(item)))}
+    {@const clickAction = item.tapAction && (() => dispatch("chosen", item))}
     {#if divider && i != 0}
       <Divider
         inset={divider == "full" ? "none" : "list-inset"}
@@ -53,7 +46,7 @@
     {/if}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <svelte:element
-      this={clickAction ? "button" : "div"}
+      this={item.tapAction ? "button" : isItemTogglable(item) ? "label" : "div"}
       on:click={clickAction || null}
       class="item"
     >
@@ -87,13 +80,13 @@
       {:else if item.trailing?.type == "icon"}
         <span class="trailing"><Icon icon={item.trailing.content} /></span>
       {:else if item.trailing?.type == "checkbox"}
-        <label class="trailing" for={undefined}>
+        <span class="trailing">
           <Checkbox bind:checked={item.trailing.checked} />
-        </label>
+        </span>
       {:else if item.trailing?.type == "switch"}
-        <label class="trailing" for={undefined}>
+        <span class="trailing">
           <Switch bind:checked={item.trailing.checked} />
-        </label>
+        </span>
       {/if}
     </svelte:element>
   {/each}
@@ -117,7 +110,6 @@
     background-color: transparent;
     margin: 0;
     text-align: left;
-    cursor: pointer;
   }
   .lines-1 > .item {
     height: 3.5rem;
@@ -131,11 +123,14 @@
     padding-bottom: 0.75rem;
   }
 
-  button:hover {
+  .item:is(button, label) {
+    cursor: pointer;
+  }
+  .item:is(button, label):hover {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  button:focus-visible,
-  button:active {
+  .item:is(button, label):focus-visible,
+  .item:is(button, label):active {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
 
