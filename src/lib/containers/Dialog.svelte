@@ -3,6 +3,7 @@
   import { fly } from "svelte/transition";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import Button from "$lib/buttons/Button.svelte";
+  export let display = "flex";
   export let icon: IconifyIcon | null = null;
   export let title: string;
   export let confirmLabel: string;
@@ -36,7 +37,7 @@
       dispatch("closed", { method: "clickedOutside" });
     }}
   >
-    <div class="m3-container" on:click|stopPropagation>
+    <div class="m3-container" on:click|stopPropagation style="display: {display};">
       {#if icon}
         <Icon {icon} />
       {/if}

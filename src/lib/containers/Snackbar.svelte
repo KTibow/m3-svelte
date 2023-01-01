@@ -4,6 +4,7 @@
   import Icon from "@iconify/svelte";
   import iconX from "@iconify-icons/ic/outline-close";
 
+  export let display = "flex";
   export let open = false;
   export let action: string | null = null;
   export let showClose = false;
@@ -20,8 +21,7 @@
 </script>
 
 {#if open}
-  <!-- TODO: min-height breaks slide -->
-  <div class="wrapper" transition:slide={{ duration: 150 }}>
+  <div class="wrapper" transition:slide={{ duration: 150 }} style="display: {display};">
     <div class="m3-container" class:showClose>
       <p class="md-body-medium"><slot /></p>
       {#if action}
@@ -53,7 +53,6 @@
 <style>
   .wrapper {
     position: relative;
-    display: flex;
     z-index: 3;
   }
   .m3-container {

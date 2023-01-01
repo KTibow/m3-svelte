@@ -19,6 +19,7 @@
       | { type: "checkbox"; checked?: boolean }
       | { type: "switch"; checked?: boolean };
   }
+  export let display = "flex";
   export let items: Item[];
   export let divider: "full" | "inset" | null = null;
   export let lines: 1 | 2 | 3;
@@ -34,7 +35,7 @@
   */
 </script>
 
-<div class="m3-container lines-{lines}">
+<div class="m3-container lines-{lines}" style="display: {display};">
   {#each items as item, i}
     {@const clickAction = item.tapAction && (() => dispatch("chosen", item))}
     {#if divider && i != 0}
@@ -94,7 +95,6 @@
 
 <style>
   .m3-container {
-    display: flex;
     flex-direction: column;
     background-color: rgb(var(--md-sys-color-surface));
     padding: 0.5rem 0;

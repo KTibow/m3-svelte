@@ -26,6 +26,7 @@
   import iconX from "@iconify-icons/ic/outline-close";
   import SnackbarPlacer from "$lib/utils/SnackbarPlacer.svelte";
   import List from "$lib/containers/List.svelte";
+  import Tabs from "$lib/nav/Tabs.svelte";
   let chosen1: number[] = [];
   let chosen2: number[] = [];
 
@@ -231,6 +232,14 @@
         divider={"full"}
       />
     </div>
+  </div>
+  <div>
+    <p>Tabs (closest category)</p>
+    <Tabs
+      style="primary"
+      items={[{ name: "this is" }, { name: "my attempt" }, { name: "at tabs" }]}
+      activeItem={0}
+    />
   </div>
 </div>
 
