@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
 
   export let display = "flex";
@@ -9,18 +8,20 @@
     name: string;
   }[];
   export let activeItem: number;
-  const dispatch = createEventDispatcher();
+  const name = crypto.randomUUID();
 </script>
 
 <div class="m3-container {style}" style="display: {display};">
   {#each items as item, i}
-    <button class="item" class:icon={item.primaryIcon} class:active={i == activeItem}>
+    {@const id = crypto.randomUUID()}
+    <input type="radio" {name} {id} value={i} bind:group={activeItem} />
+    <label class="item" class:icon={item.primaryIcon} for={id}>
       <div class="layer" />
       {#if item.primaryIcon}
         <Icon icon={item.primaryIcon} />
       {/if}
       <span class="md-title-small">{item.name}</span>
-    </button>
+    </label>
   {/each}
   <div
     class="indicatorSpace"
@@ -34,6 +35,11 @@
   .m3-container {
     position: relative;
     border-bottom: 1px solid rgb(var(--md-sys-color-surface-variant));
+  }
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
   .item {
     min-width: 5rem;
@@ -69,30 +75,32 @@
     height: 1.5rem;
   }
 
-  .item:hover {
+  .item:hover,
+  input:focus-visible + .item {
     --text: var(--md-sys-color-on-surface);
   }
   .item:hover > .layer {
     background-color: rgb(var(--text) / 0.08);
   }
-  .item:focus-visible > .layer,
+  input:focus-visible + .item > .layer,
   .item:active > .layer {
     background-color: rgb(var(--text) / 0.12);
   }
-  .item.active {
+  input:checked + .item {
     --text: var(--md-sys-color-primary);
   }
   .secondary > .item {
     --text: var(--md-sys-color-on-surface);
     color: rgb(var(--md-sys-color-on-surface-variant));
   }
-  .secondary > .item.active {
+  .secondary > input:checked + .item {
     color: rgb(var(--text));
   }
 
   .indicatorSpace {
     position: absolute;
     bottom: 0;
+    transition: all 150ms;
   }
   .primary .indicator {
     margin: auto;

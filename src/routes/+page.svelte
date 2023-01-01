@@ -40,6 +40,7 @@
 
   let chosen9 = false;
   let chosen10 = false;
+  let chosen11 = 0;
 </script>
 
 <svelte:head>
@@ -237,8 +238,12 @@
     <p>Tabs (closest category)</p>
     <Tabs
       style="primary"
-      items={[{ name: "this is" }, { name: "my attempt" }, { name: "at tabs" }]}
-      activeItem={0}
+      items={[
+        { name: "this is", primaryIcon: iconCircle },
+        { name: "my attempt", primaryIcon: iconSquare },
+        { name: "at tabs", primaryIcon: iconTriangle },
+      ]}
+      activeItem={chosen11}
     />
   </div>
 </div>
