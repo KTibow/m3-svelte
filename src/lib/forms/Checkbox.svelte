@@ -10,9 +10,7 @@
 
 <div class="m3-container" style="display: {display};">
   <input type="checkbox" bind:checked {disabled} {...$$props} />
-  {#if checked}
-    <Icon icon={iconCheck} />
-  {/if}
+  <Icon icon={iconCheck} />
   <div class="layer" />
 </div>
 
@@ -59,6 +57,9 @@
   input:checked::before {
     border-color: rgb(var(--md-sys-color-primary));
     background-color: rgb(var(--md-sys-color-primary));
+  }
+  input:not(:checked) + :global(svg) {
+    opacity: 0;
   }
 
   .m3-container:hover > input:not(:checked):enabled::before {

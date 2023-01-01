@@ -39,7 +39,7 @@
   />
   <div class="track" />
   {#if accuracy == "ticks"}
-    {#each generateTicks(range, Number(rangeElem?.step) || 1) as tick}
+    {#each generateTicks(range, $$props.step || 1) as tick}
       <div
         class="tick"
         class:active={tick / 100 < value / range}

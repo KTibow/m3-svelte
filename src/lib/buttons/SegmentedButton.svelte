@@ -31,7 +31,7 @@
         bind:group={chosenOptions}
       />
     {/if}
-    <label class="md-label-large" class:selected for={id}>
+    <label class="md-label-large" for={id}>
       <div class="layer" />
       <div class="pad" class:hidden={icon} />
       <div class="icon" class:hidden={!icon}>
@@ -75,7 +75,7 @@
     color: rgb(var(--md-sys-color-on-surface) / 0.38);
     cursor: auto;
   }
-  .m3-container > .selected {
+  .m3-container > input:checked + label {
     background-color: rgb(var(--md-sys-color-secondary-container));
     color: rgb(var(--md-sys-color-on-secondary-container));
   }
@@ -90,13 +90,13 @@
   label:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  label.selected:hover > .layer {
+  input:checked + label:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.08);
   }
   input:focus-visible + label > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
-  input:focus-visible + label.selected > .layer {
+  input:checked:focus-visible + label > .layer {
     background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.12);
   }
   .pad,

@@ -10,26 +10,21 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
-<div
-  class="m3-container type-{type}"
-  class:focused
-  class:move-label={focused || value}
-  class:has-icon={icon}
-  style="display: {display};"
->
-  <div class="layer" />
-  {#if icon}
-    <Icon {icon} />
-  {/if}
-  <label for={id} class={focused || value ? "md-body-small" : "md-body-large"}>{name}</label>
+<div class="m3-container type-{type}" class:has-icon={icon} style="display: {display};">
   <input
     on:focus={() => (focused = true)}
     on:blur={() => (focused = false)}
     bind:value
     class="md-body-large"
+    class:value
     {id}
     {...$$props}
   />
+  <div class="layer" />
+  {#if icon}
+    <Icon {icon} />
+  {/if}
+  <label for={id} class={focused || value ? "md-body-small" : "md-body-large"}>{name}</label>
   <fieldset>
     <legend class="md-body-small">{name}</legend>
   </fieldset>
@@ -105,16 +100,16 @@
   .type-filled > .layer {
     border-bottom: solid 1px rgb(var(--md-sys-color-on-surface-variant));
   }
-  .type-filled.focused > .layer {
+  .type-filled:focus-within > .layer {
     border-bottom: solid 2px rgb(var(--md-sys-color-primary));
   }
-  .type-filled.focused > label {
+  .type-filled:focus-within > label {
     color: rgb(var(--md-sys-color-primary));
   }
   .type-filled:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  .move-label.type-filled > input {
+  .type-filled > input:is(:focus, .value) {
     padding-top: 1.25rem;
     padding-bottom: 0.5rem;
   }
@@ -124,13 +119,13 @@
   .type-outlined > .layer {
     border: solid 1px rgb(var(--md-sys-color-outline));
   }
-  .move-label.type-outlined > .layer {
+  .type-outlined > input:is(:focus, .value) + .layer {
     border: none;
   }
-  .move-label.type-outlined > fieldset {
+  .type-outlined > input:is(:focus, .value) ~ fieldset {
     opacity: 1;
   }
-  .move-label.type-outlined > label {
+  .type-outlined > input:is(:focus, .value) ~ label {
     left: 0.5rem;
     top: -0.5rem;
     transform: none;
@@ -143,7 +138,7 @@
   .type-outlined:hover > label {
     color: rgb(var(--md-sys-color-on-surface));
   }
-  .type-outlined.focused > fieldset {
+  .type-outlined:focus-within > fieldset {
     color: rgb(var(--md-sys-color-primary));
   }
   .has-icon > input {
@@ -152,7 +147,7 @@
   .has-icon > label {
     left: 3.25rem;
   }
-  .move-label > label {
+  input:is(:focus, .value) ~ label {
     top: 0.5rem;
     transform: none;
   }
