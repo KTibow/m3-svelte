@@ -217,7 +217,8 @@
   <Component
     name="Tabs"
     mtLink="https://m3.material.io/components/tabs"
-    desc="Coming soon, might be integrated into the rail"
+    ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/Tabs.svelte"
+    desc="A tab component built with radio buttons. There isn't any mechanism for the content yet."
     category="Nav"
   />
   <Component
