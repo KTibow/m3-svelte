@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let display = "block";
+  export let display = "flex";
   export let type: "elevated" | "filled" | "outlined";
   export let clickable = false;
 </script>
@@ -23,7 +23,9 @@
     padding: 1rem;
     position: relative;
     border: none;
+    flex-direction: column;
     text-align: left;
+    align-items: flex-start;
     overflow: hidden;
     background-color: transparent;
     color: rgb(var(--md-sys-color-on-surface));
@@ -49,6 +51,7 @@
     top: 0;
     bottom: 0;
     transition: all 150ms;
+    pointer-events: none;
   }
   button {
     cursor: pointer;

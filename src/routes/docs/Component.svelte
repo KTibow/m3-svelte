@@ -12,13 +12,21 @@
 </script>
 
 {#if $categoriesToShow.some((c) => c.label == category)}
-  <Card type="filled" clickable on:click={() => window.open(mtLink, "_blank")}>
+  <Card type="filled">
     <h3 class="md-headline-large">{name}</h3>
-    {#if ghLink}
-      <Button type="outlined" on:click={() => window.open(ghLink, "_blank")}>
-        Open implementation
-      </Button>
-    {/if}
     <p>{desc}</p>
+    <div class="buttons">
+      <Button type="filled" href={mtLink} target="_blank">Open Material</Button>
+      {#if ghLink}
+        <Button type="outlined" href={ghLink} target="_blank">Open implementation</Button>
+      {/if}
+    </div>
+    <style>
+      .buttons {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: auto;
+      }
+    </style>
   </Card>
 {/if}
