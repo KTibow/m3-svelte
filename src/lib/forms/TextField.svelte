@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon, { type IconifyIcon } from "@iconify/svelte";
+  import iconError from "@iconify-icons/ic/error-outline";
   export let display = "inline-flex";
   export let inputStyle: "filled" | "outlined";
   export let icon: IconifyIcon | null = null;
@@ -25,7 +26,14 @@
     />
     <div class="layer" />
     {#if icon}
-      <Icon {icon} />
+      <span class="leadingIcon">
+        <Icon {icon} />
+      </span>
+    {/if}
+    {#if error}
+      <span class="trailingIcon">
+        <Icon icon={iconError} />
+      </span>
     {/if}
     <label for={id} class={focused || value ? "md-body-small" : "md-body-large"}>{name}</label>
     <fieldset>
@@ -48,10 +56,22 @@
   .m3-container :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
+  }
+  .leadingIcon,
+  .trailingIcon {
+    display: inline-flex;
+    pointer-events: none;
+  }
+  .leadingIcon {
+    margin: 0 1rem 0 0.75rem;
     align-self: center;
   }
-  .m3-container :global(svg) {
-    margin: 0 1rem 0 0.75rem;
+  .trailingIcon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    color: rgb(var(--error));
   }
   .layer {
     position: absolute;

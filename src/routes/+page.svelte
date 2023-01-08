@@ -12,6 +12,7 @@
   import Checkbox from "$lib/forms/Checkbox.svelte";
   import Chip from "$lib/forms/Chip.svelte";
   import CircularProgress from "$lib/forms/CircularProgress.svelte";
+  import DateField from "$lib/forms/DateField.svelte";
   import LinearProgress from "$lib/forms/LinearProgress.svelte";
   import Radio from "$lib/forms/Radio.svelte";
   import Slider from "$lib/forms/Slider.svelte";
@@ -27,7 +28,6 @@
   import SnackbarPlacer from "$lib/utils/SnackbarPlacer.svelte";
   import List from "$lib/containers/List.svelte";
   import Tabs from "$lib/nav/Tabs.svelte";
-  import DatePicker from "$lib/forms/DatePicker.svelte";
   let chosen1: number[] = [];
   let chosen2: number[] = [];
 
@@ -199,7 +199,7 @@
       supportingText="sus"
       required={false}
     />
-    <DatePicker name="Date" bind:value={chosen12} />
+    <DateField name="Date" bind:value={chosen12} />
   </div>
 </div>
 <h2 class="md-headline-medium">Containers</h2>

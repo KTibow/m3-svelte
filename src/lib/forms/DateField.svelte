@@ -1,6 +1,12 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+  import Icon from "@iconify/svelte";
+  import iconCalendar from "@iconify-icons/ic/outline-calendar-today";
   export let name: string;
   export let value = "";
+  export let supportingText: null | string = null;
+  export let showPicker = true;
+  const dispatch = createEventDispatcher();
   let focused: boolean;
 </script>
 
@@ -14,10 +20,18 @@
     on:blur={() => (focused = false)}
     on:click|preventDefault
   />
+  {#if showPicker}
+    <button class="showPicker" on:click={() => dispatch("showPicker")}>
+      <Icon icon={iconCalendar} />
+    </button>
+  {/if}
   <fieldset>
     <legend class="md-body-small">{name}</legend>
   </fieldset>
 </div>
+{#if supportingText}
+  <p class="supporting md-body-small">{supportingText}</p>
+{/if}
 
 <style>
   .m3-container {
@@ -57,14 +71,45 @@
   input::-webkit-calendar-picker-indicator {
     display: none;
   }
+  .showPicker {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: 2.75rem;
+    width: 2.75rem;
+    border-radius: 3rem;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    color: rgb(var(--md-sys-color-on-surface-variant));
+    cursor: pointer;
+    transition: all 150ms;
+  }
+  .showPicker :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .supporting {
+    color: rgb(var(--md-sys-color-on-surface-variant));
+    margin: 0.25rem 0 0 1rem;
+  }
+
   .m3-container:hover > fieldset {
     color: rgb(var(--md-sys-color-on-surface));
   }
-  input:is(:focus, .value) + fieldset {
+  input:is(:focus, .value) ~ fieldset {
     border-width: 2px;
     padding: 0 14px;
   }
   .m3-container:focus-within > fieldset {
     color: rgb(var(--md-sys-color-primary));
+  }
+  .showPicker:hover {
+    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.08);
+  }
+  .showPicker:focus-visible,
+  .showPicker:active {
+    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.08);
   }
 </style>
