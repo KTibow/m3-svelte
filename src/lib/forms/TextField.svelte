@@ -3,7 +3,7 @@
   export let display = "inline-flex";
   export let type: "filled" | "outlined";
   export let icon: IconifyIcon | null = null;
-  export let name = "";
+  export let name: string;
   export let value = "";
   let focused: boolean;
   let id = `input-${crypto.randomUUID()}`;
@@ -15,6 +15,7 @@
     on:focus={() => (focused = true)}
     on:blur={() => (focused = false)}
     bind:value
+    required
     class="md-body-large"
     class:value
     {id}
@@ -109,7 +110,7 @@
   .type-filled:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  .type-filled > input:is(:focus, .value) {
+  .type-filled > input:is(:focus, .value, :required:valid) {
     padding-top: 1.25rem;
     padding-bottom: 0.5rem;
   }
@@ -119,13 +120,13 @@
   .type-outlined > .layer {
     border: solid 1px rgb(var(--md-sys-color-outline));
   }
-  .type-outlined > input:is(:focus, .value) + .layer {
+  .type-outlined > input:is(:focus, .value, :required:valid) + .layer {
     border: none;
   }
-  .type-outlined > input:is(:focus, .value) ~ fieldset {
+  .type-outlined > input:is(:focus, .value, :required:valid) ~ fieldset {
     opacity: 1;
   }
-  .type-outlined > input:is(:focus, .value) ~ label {
+  .type-outlined > input:is(:focus, .value, :required:valid) ~ label {
     left: 0.5rem;
     top: -0.5rem;
     transform: none;
@@ -147,7 +148,7 @@
   .has-icon > label {
     left: 3.25rem;
   }
-  input:is(:focus, .value) ~ label {
+  input:is(:focus, .value, :required:valid) ~ label {
     top: 0.5rem;
     transform: none;
   }

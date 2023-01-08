@@ -163,4 +163,10 @@
     background-color: rgb(var(--md-sys-color-on-surface) / 0.38);
     box-shadow: none;
   }
+  input:disabled ~ .layer {
+    display: none;
+  }
+  input:disabled ~ .value {
+    display: none;
+  }
 </style>

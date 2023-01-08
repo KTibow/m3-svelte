@@ -89,7 +89,7 @@
     background-color: rgb(var(--md-sys-color-primary) / 0.12);
   }
 
-  input:disabled + .layer {
+  input:disabled ~ .layer {
     display: none;
   }
   input:disabled::before {

@@ -27,6 +27,7 @@
   import SnackbarPlacer from "$lib/utils/SnackbarPlacer.svelte";
   import List from "$lib/containers/List.svelte";
   import Tabs from "$lib/nav/Tabs.svelte";
+  import DatePicker from "$lib/forms/DatePicker.svelte";
   let chosen1: number[] = [];
   let chosen2: number[] = [];
 
@@ -37,6 +38,7 @@
   let chosen6 = 60;
   let chosen7 = "";
   let chosen8 = "";
+  let chosen12 = "";
 
   let chosen9 = false;
   let chosen10 = false;
@@ -145,16 +147,22 @@
     <p>Chose {chosen3}</p>
     <label for={undefined}><Radio name="r1" value="o1" bind:group={chosen3} /> Option 1</label>
     <label for={undefined}><Radio name="r1" value="o2" bind:group={chosen3} /> Option 2</label>
+    <label for={undefined}>
+      <Radio name="r1" value="o3" bind:group={chosen3} disabled /> Option 3
+    </label>
     <p>Chose {chosen4}</p>
     <label for={undefined}><Checkbox bind:checked={chosen4} /> Option 1</label>
+    <label for={undefined}><Checkbox bind:checked={chosen4} disabled /> Option 1</label>
     <p>Chose {chosen5}</p>
     <label for={undefined}><Switch bind:checked={chosen5} /> Option 1</label>
+    <label for={undefined}><Switch bind:checked={chosen5} disabled /> Option 1</label>
   </div>
-  <div>
+  <div class="container col">
     <p>Slider</p>
     <p>Chose {chosen6}</p>
     <Slider bind:value={chosen6} />
     <Slider bind:value={chosen6} step={10} accuracy="ticks" />
+    <Slider bind:value={chosen6} disabled />
   </div>
   <div class="container">
     <p>Chip(s)</p>
@@ -173,9 +181,16 @@
   </div>
   <div class="container col">
     <p>Text field</p>
-    <p>Chose {chosen7}, {chosen8}</p>
+    <p>Chose {chosen7}, {chosen8}, {chosen12}</p>
     <TextField type="filled" name="Option" icon={iconTriangle} bind:value={chosen7} />
-    <TextField type="outlined" name="Other option" icon={iconTriangle} bind:value={chosen8} />
+    <TextField
+      type="outlined"
+      name="Other option"
+      icon={iconTriangle}
+      bind:value={chosen8}
+      required={false}
+    />
+    <DatePicker name="Date" bind:value={chosen12} />
   </div>
 </div>
 <h2 class="md-headline-medium">Containers</h2>
