@@ -75,7 +75,7 @@
     border: none;
     background-color: rgb(var(--md-sys-color-surface));
     border-radius: 1.75rem;
-    overflow: scroll;
+    overflow: auto;
   }
   dialog::backdrop {
     background-color: rgb(var(--md-sys-color-scrim) / 0.5);
