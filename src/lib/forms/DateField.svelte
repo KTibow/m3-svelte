@@ -18,7 +18,9 @@
     bind:value
     on:focus={() => (focused = true)}
     on:blur={() => (focused = false)}
-    on:click|preventDefault
+    on:click={(e) => {
+      if (showPicker) e.preventDefault();
+    }}
   />
   {#if showPicker}
     <button class="showPicker" on:click={() => dispatch("showPicker")}>
@@ -78,9 +80,13 @@
     transform: translate(0, -50%);
     height: 2.75rem;
     width: 2.75rem;
-    border-radius: 3rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     padding: 0;
+    border-radius: 3rem;
     background-color: transparent;
     color: rgb(var(--md-sys-color-on-surface-variant));
     cursor: pointer;

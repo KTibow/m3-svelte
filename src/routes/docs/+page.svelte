@@ -225,7 +225,7 @@
     name="Text fields"
     mtLink="https://m3.material.io/components/text-fields"
     ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextField.svelte"
-    desc="A text input that works decently. Note that supporting text, the clear button, multi-line text, prefixes, suffixes, characters, and errors are not supported."
+    desc="A text input that works decently. Note that the clear button, multi-line text, prefixes, suffixes, and characters are not supported."
     category="Forms"
   />
   <Component

@@ -199,7 +199,7 @@
       supportingText="sus"
       required={false}
     />
-    <DateField name="Date" bind:value={chosen12} />
+    <DateField name="Date" bind:value={chosen12} on:showPicker={() => alert("picker")} />
   </div>
 </div>
 <h2 class="md-headline-medium">Containers</h2>

@@ -29,6 +29,7 @@
     overflow: hidden;
     background-color: transparent;
     color: rgb(var(--md-sys-color-on-surface));
+    transition: all 150ms;
   }
   .type-elevated {
     background-color: rgb(var(--md-sys-color-surface));
@@ -41,7 +42,7 @@
     background-color: rgb(var(--md-sys-color-surface));
     border: solid 1px rgb(var(--md-sys-color-outline));
   }
-  :is(.type-elevated, .type-outlined) > .layer.tonal {
+  .type-elevated > .layer.tonal {
     background-color: rgb(var(--md-sys-color-primary) / 0.05);
   }
   .layer {
@@ -54,6 +55,7 @@
     pointer-events: none;
   }
   button {
+    font: inherit;
     cursor: pointer;
   }
   button:hover {
