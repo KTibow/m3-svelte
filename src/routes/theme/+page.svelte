@@ -26,8 +26,10 @@
     ["tertiaryContainer", "onTertiaryContainer"],
     ["background", "onBackground"],
     ["surface", "onSurface"],
+    ["inverseSurface", "inverseOnSurface"],
     ["surfaceVariant", "onSurfaceVariant"],
     ["error", "onError"],
+    ["errorContainer", "onErrorContainer"],
   ];
   const getCardData = (colors: Scheme, bg: string, fg: string) => ({
     bg: colors[bg as keyof Scheme] as number,
@@ -88,10 +90,7 @@
     <h2 class="md-headline-large">{name}</h2>
     <div class="container">
       {#each pairs as [bgName, fgName]}
-        <ColorCard
-          text={`${fgName} text\n${bgName} background`}
-          {...getCardData(colors, bgName, fgName)}
-        />
+        <ColorCard headline={bgName} sub="{fgName} text" {...getCardData(colors, bgName, fgName)} />
       {/each}
     </div>
   {/each}

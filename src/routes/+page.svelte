@@ -182,12 +182,21 @@
   <div class="container col">
     <p>Text field</p>
     <p>Chose {chosen7}, {chosen8}, {chosen12}</p>
-    <TextField type="filled" name="Option" icon={iconTriangle} bind:value={chosen7} />
     <TextField
-      type="outlined"
+      inputStyle="filled"
+      name="Option"
+      icon={iconTriangle}
+      bind:value={chosen7}
+      error
+      supportingText="support"
+    />
+    <TextField
+      inputStyle="outlined"
       name="Other option"
       icon={iconTriangle}
       bind:value={chosen8}
+      error
+      supportingText="sus"
       required={false}
     />
     <DatePicker name="Date" bind:value={chosen12} />

@@ -1,12 +1,14 @@
 <script lang="ts">
   import { hexFromArgb } from "@importantimport/material-color-utilities";
-  export let text: string;
+  export let headline: string;
+  export let sub: string;
   export let bg: number;
   export let fg: number;
 </script>
 
 <div style="background-color: {hexFromArgb(bg)}; color: {hexFromArgb(fg)};" class="md-label-large">
-  {text}
+  <p class="md-headline-small">{headline}</p>
+  <p>{sub}</p>
 </div>
 
 <style>

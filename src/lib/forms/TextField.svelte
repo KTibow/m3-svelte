@@ -1,34 +1,40 @@
 <script lang="ts">
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   export let display = "inline-flex";
-  export let type: "filled" | "outlined";
+  export let inputStyle: "filled" | "outlined";
   export let icon: IconifyIcon | null = null;
   export let name: string;
   export let value = "";
+  export let error = false;
+  export let supportingText: null | string = null;
   let focused: boolean;
   let id = `input-${crypto.randomUUID()}`;
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
-<div class="m3-container type-{type}" class:has-icon={icon} style="display: {display};">
-  <input
-    on:focus={() => (focused = true)}
-    on:blur={() => (focused = false)}
-    bind:value
-    required
-    class="md-body-large"
-    class:value
-    {id}
-    {...$$props}
-  />
-  <div class="layer" />
-  {#if icon}
-    <Icon {icon} />
+<div class:error>
+  <div class="m3-container type-{inputStyle}" class:has-icon={icon} style="display: {display};">
+    <input
+      on:focus={() => (focused = true)}
+      on:blur={() => (focused = false)}
+      bind:value
+      required
+      class="md-body-large"
+      class:value
+      {id}
+      {...$$props}
+    />
+    <div class="layer" />
+    {#if icon}
+      <Icon {icon} />
+    {/if}
+    <label for={id} class={focused || value ? "md-body-small" : "md-body-large"}>{name}</label>
+    <fieldset>
+      <legend class="md-body-small">{name}</legend>
+    </fieldset>
+  </div>
+  {#if supportingText}
+    <p class="supporting md-body-small">{supportingText}</p>
   {/if}
-  <label for={id} class={focused || value ? "md-body-small" : "md-body-large"}>{name}</label>
-  <fieldset>
-    <legend class="md-body-small">{name}</legend>
-  </fieldset>
 </div>
 
 <style>
@@ -78,6 +84,7 @@
     position: absolute;
     transition: all 150ms;
     pointer-events: none;
+    color: rgb(var(--error));
   }
   fieldset {
     position: absolute;
@@ -88,24 +95,28 @@
     margin: 0;
     padding: 0 0.75rem;
     border-radius: inherit;
-    color: rgb(var(--md-sys-color-outline));
+    color: rgb(var(--error, var(--md-sys-color-outline)));
     border: solid 2px currentColor;
     opacity: 0;
     transition: all 150ms;
     pointer-events: none;
+  }
+  .supporting {
+    color: rgb(var(--md-sys-color-on-surface-variant));
+    margin: 0.25rem 0 0 1rem;
   }
   .type-filled {
     background-color: rgb(var(--md-sys-color-surface-variant));
     border-radius: 0.25rem 0.25rem 0 0;
   }
   .type-filled > .layer {
-    border-bottom: solid 1px rgb(var(--md-sys-color-on-surface-variant));
+    border-bottom: solid 1px rgb(var(--error, var(--md-sys-color-on-surface-variant)));
   }
   .type-filled:focus-within > .layer {
-    border-bottom: solid 2px rgb(var(--md-sys-color-primary));
+    border-bottom: solid 2px rgb(var(--error, var(--md-sys-color-primary)));
   }
   .type-filled:focus-within > label {
-    color: rgb(var(--md-sys-color-primary));
+    color: rgb(var(--error, var(--md-sys-color-primary)));
   }
   .type-filled:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
@@ -118,7 +129,7 @@
     border-radius: 0.25rem;
   }
   .type-outlined > .layer {
-    border: solid 1px rgb(var(--md-sys-color-outline));
+    border: solid 1px rgb(var(--error, var(--md-sys-color-outline)));
   }
   .type-outlined > input:is(:focus, .value, :required:valid) + .layer {
     border: none;
@@ -133,14 +144,23 @@
     opacity: 0;
   }
   .type-outlined:hover > .layer {
-    border-color: rgb(var(--md-sys-color-on-surface));
+    border-color: rgb(var(--error, var(--md-sys-color-on-surface)));
   }
   .type-outlined:hover > fieldset,
   .type-outlined:hover > label {
-    color: rgb(var(--md-sys-color-on-surface));
+    color: rgb(var(--error, var(--md-sys-color-on-surface)));
   }
   .type-outlined:focus-within > fieldset {
-    color: rgb(var(--md-sys-color-primary));
+    color: rgb(var(--error, var(--md-sys-color-primary)));
+  }
+  .error {
+    --error: var(--md-sys-color-error);
+  }
+  .error:hover {
+    --error: var(--md-sys-color-on-error-container);
+  }
+  .error > .supporting {
+    color: rgb(var(--md-sys-color-error));
   }
   .has-icon > input {
     padding-left: 3.25rem;
