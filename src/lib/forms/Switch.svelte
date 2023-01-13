@@ -5,13 +5,13 @@
   export let checked = false;
   export let display = "inline-flex";
 
-  let startX: number | undefined;
+  let startX: number | null;
   const handleMouseUp = (e: MouseEvent) => {
     if (!startX) return;
     const distance = e.clientX - startX;
     if (distance > 16 && !checked) checked = true;
     if (distance < -16 && checked) checked = false;
-    startX = undefined;
+    startX = null;
   };
 </script>
 

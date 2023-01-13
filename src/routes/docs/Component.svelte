@@ -5,7 +5,7 @@
   import Card from "$lib/containers/Card.svelte";
   export let name: string;
   export let mtLink: string;
-  export let ghLink: string | undefined = undefined;
+  export let ghLink: string | null = null;
   export let desc: string;
   export let category: string;
   const categoriesToShow: Writable<{ label: string }[]> = getContext("categories");

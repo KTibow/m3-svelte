@@ -5,14 +5,17 @@
 
   import Card from "$lib/containers/Card.svelte";
   import Dialog from "$lib/containers/Dialog.svelte";
+  import List from "$lib/containers/List.svelte";
   import Snackbar from "$lib/containers/Snackbar.svelte";
 
+  import Tabs from "$lib/nav/Tabs.svelte";
   import Divider from "$lib/misc/Divider.svelte";
+  import DateFieldAndPicker from "$lib/utils/DateFieldAndPicker.svelte";
+  import SnackbarPlacer from "$lib/utils/SnackbarPlacer.svelte";
 
   import Checkbox from "$lib/forms/Checkbox.svelte";
   import Chip from "$lib/forms/Chip.svelte";
   import CircularProgress from "$lib/forms/CircularProgress.svelte";
-  import DateField from "$lib/forms/DateField.svelte";
   import LinearProgress from "$lib/forms/LinearProgress.svelte";
   import Radio from "$lib/forms/Radio.svelte";
   import Slider from "$lib/forms/Slider.svelte";
@@ -25,9 +28,6 @@
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
   import iconX from "@iconify-icons/ic/outline-close";
-  import SnackbarPlacer from "$lib/utils/SnackbarPlacer.svelte";
-  import List from "$lib/containers/List.svelte";
-  import Tabs from "$lib/nav/Tabs.svelte";
   let chosen1: number[] = [];
   let chosen2: number[] = [];
 
@@ -199,7 +199,7 @@
       supportingText="sus"
       required={false}
     />
-    <DateField name="Date" bind:value={chosen12} on:showPicker={() => alert("picker")} />
+    <DateFieldAndPicker fieldOptions={{ name: "Date" }} clearable={true} bind:value={chosen12} />
   </div>
 </div>
 <h2 class="md-headline-medium">Containers</h2>

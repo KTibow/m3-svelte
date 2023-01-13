@@ -116,6 +116,6 @@
   }
   .showPicker:focus-visible,
   .showPicker:active {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.08);
+    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.12);
   }
 </style>
