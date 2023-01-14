@@ -187,6 +187,7 @@
     height: 2rem;
     border-radius: 2rem;
     overflow: hidden;
+    transition: all 150ms;
   }
   .horizontal-true .pill {
     width: 4rem;

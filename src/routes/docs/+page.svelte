@@ -129,7 +129,8 @@
   <Component
     name="Date pickers"
     mtLink="https://m3.material.io/components/date-pickers"
-    desc="Might come"
+    ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/DatePickerDocked.svelte"
+    desc="An implementation of the date picker. Use DateFieldAndPicker from utils to position it."
     category="Forms"
   />
   <Component
