@@ -13,7 +13,7 @@
   export let alignment: "top" | "center" | "bottom" = "center";
   export let hamburger = false;
   export let fab: false | ComponentProps<FAB> = false;
-  export let horizontal = false;
+  export let horizontal: boolean | "auto";
   export let mainItems: {
     active: boolean;
     activeIcon: IconifyIcon;
@@ -25,7 +25,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="m3-container relative" class:horizontal style="display: {display};" {...$$props}>
+<div class="m3-container relative horizontal-{horizontal}" style="display: {display};" {...$$props}>
   {#if hamburger}
     <div class="menuItem">
       <button
@@ -100,19 +100,35 @@
     flex-grow: 1;
     justify-content: end;
   }
-  .horizontal.m3-container,
-  .horizontal .aligner {
+  .horizontal-true.m3-container,
+  .horizontal-true .aligner {
     flex-direction: row;
   }
-  .horizontal.m3-container {
+  .horizontal-true.m3-container {
     width: 100%;
     height: 5rem;
     padding-top: 0;
   }
-  .horizontal .aligner {
+  .horizontal-true .aligner {
     padding-top: 0.75rem;
     padding-bottom: 1rem;
     justify-content: space-evenly;
+  }
+  @media (orientation: portrait) {
+    .horizontal-auto.m3-container,
+    .horizontal-auto .aligner {
+      flex-direction: row;
+    }
+    .horizontal-auto.m3-container {
+      width: 100%;
+      height: 5rem;
+      padding-top: 0;
+    }
+    .horizontal-auto .aligner {
+      padding-top: 0.75rem;
+      padding-bottom: 1rem;
+      justify-content: space-evenly;
+    }
   }
   .menuItem {
     display: flex;
@@ -160,7 +176,7 @@
   .menuItem > span {
     margin: 0.25rem 0;
   }
-  .horizontal .menuItem > span {
+  .horizontal-true .menuItem > span {
     margin-bottom: 0;
   }
   .pill {
@@ -172,8 +188,16 @@
     border-radius: 2rem;
     overflow: hidden;
   }
-  .horizontal .pill {
+  .horizontal-true .pill {
     width: 4rem;
+  }
+  @media (orientation: portrait) {
+    .horizontal-auto .menuItem > span {
+      margin-bottom: 0;
+    }
+    .horizontal-auto .pill {
+      width: 4rem;
+    }
   }
 
   .menuItem.active {

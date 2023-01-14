@@ -203,7 +203,7 @@
   </div>
 </div>
 <h2 class="md-headline-medium">Containers</h2>
-<div class="container">
+<div class="container parent">
   <div class="container">
     <p>Card</p>
     <Card type="elevated" clickable>Text</Card>
@@ -277,6 +277,9 @@
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+  .parent > div {
+    overflow: hidden;
   }
   .col {
     flex-direction: column;

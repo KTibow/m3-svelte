@@ -21,7 +21,7 @@
         {...railOptions}
         hamburger={false}
         fab={portrait ? false : fabOptions}
-        horizontal={portrait}
+        horizontal="auto"
         on:chosen
       />
     </div>
