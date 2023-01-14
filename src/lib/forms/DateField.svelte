@@ -12,7 +12,7 @@
   const dispatch = createEventDispatcher();
   let focused: boolean;
   let windowWidth: number, windowHeight: number;
-  $: landscape = windowWidth > windowHeight;
+  $: portrait = windowHeight > windowWidth;
   $: if (dateValidator(value)) value = "";
 </script>
 
@@ -20,16 +20,16 @@
 <div class="m3-container">
   <input
     type="date"
-    required={!clearable || showPicker == "enable" || (showPicker == "auto" && landscape)}
+    required={!clearable || showPicker == "enable" || (showPicker == "auto" && !portrait)}
     class:value
     bind:value
     on:focus={() => (focused = true)}
     on:blur={() => (focused = false)}
     on:click={(e) => {
-      if (clickAction == "disable" || (clickAction == "auto" && landscape)) e.preventDefault();
+      if (clickAction == "disable" || (clickAction == "auto" && !portrait)) e.preventDefault();
     }}
   />
-  {#if showPicker == "enable" || (showPicker == "auto" && landscape)}
+  {#if showPicker == "enable" || (showPicker == "auto" && !portrait)}
     <button class="showPicker" on:click={() => dispatch("showPicker")}>
       <Icon icon={iconCalendar} />
     </button>
