@@ -3,10 +3,11 @@
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import type { ComponentProps } from "svelte";
   import { fade } from "svelte/transition";
-  export let fieldOptions: ComponentProps<DateField>;
+  export let fieldOptions: Omit<ComponentProps<DateField>, "dateValidator">;
   export let clearable = true;
   export let value: string;
-  export let align: "left" | "auto-width" | "right" = "auto-width";
+  export let align: "left" | "auto" | "right" = "auto";
+  export let dateValidator: (date: string) => boolean = () => false; /* return true if invalid */
   let showingPicker = false;
   let container: HTMLElement;
   function clickOutside(_: Node) {
@@ -25,11 +26,17 @@
 </script>
 
 <div class="m3-container" bind:this={container}>
-  <DateField {...fieldOptions} bind:value on:showPicker={() => (showingPicker = !showingPicker)} />
+  <DateField
+    {...fieldOptions}
+    {dateValidator}
+    bind:value
+    on:showPicker={() => (showingPicker = !showingPicker)}
+  />
   {#if showingPicker}
     <div class="picker align-{align}" transition:fade={{ duration: 150 }} use:clickOutside>
       <DatePickerDocked
         {clearable}
+        {dateValidator}
         date={value}
         on:close={() => (showingPicker = false)}
         on:setDate={(e) => {
@@ -55,11 +62,11 @@
     left: 0;
   }
   .align-right,
-  .align-auto-width {
+  .align-auto {
     right: 0;
   }
   @media (orientation: portrait) {
-    .align-auto-width {
+    .align-auto {
       left: 0;
       right: unset;
     }

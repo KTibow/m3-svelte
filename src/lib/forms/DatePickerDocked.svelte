@@ -12,6 +12,7 @@
   export let display = "flex";
   export let date: string = "";
   export let clearable = false;
+  export let dateValidator: (date: string) => boolean;
   export let focusedMonth = parseInt(date.slice(5, 7)) - 1 || now.getMonth(),
     focusedYear = parseInt(date.slice(0, 4)) || now.getFullYear(),
     startYear = (Math.floor(now.getFullYear() / 100) - 1) * 100,
@@ -28,6 +29,12 @@
     new Date(0, month).toLocaleDateString(undefined, { month: "short" });
   const getLongMonth = (month: number) =>
     new Date(0, month).toLocaleDateString(undefined, { month: "short" });
+  const constructDate = (year: number, month: number, day: number) =>
+    year.toString().padStart(4, "0") +
+    "-" +
+    (month + 1).toString().padStart(2, "0") +
+    "-" +
+    day.toString().padStart(2, "0");
   const getOptions = (focusedView: number) =>
     focusedView == 1
       ? (Array.from({ length: 12 }, (_, i) => [i, getLongMonth(i)]) as [number, string][])
@@ -41,7 +48,10 @@
     for (let day = 1; ; day++) {
       const date = new Date(focusedYear, focusedMonth, day);
       if (date.getMonth() != focusedMonth) break;
-      days[currentRow][date.getDay()] = { day };
+      days[currentRow][date.getDay()] = {
+        disabled: dateValidator(constructDate(focusedYear, focusedMonth, day)),
+        day,
+      };
       if (date.getDay() == 6) currentRow++;
     }
     for (let day = 0; ; day--) {
@@ -150,12 +160,7 @@
       {#each calendar as row}
         <div>
           {#each row as day}
-            {@const date =
-              focusedYear.toString().padStart(4, "0") +
-              "-" +
-              (focusedMonth + 1).toString().padStart(2, "0") +
-              "-" +
-              day.day.toString().padStart(2, "0")}
+            {@const date = constructDate(focusedYear, focusedMonth, day.day)}
             <DateItem
               {day}
               chosen={!day.disabled && chosenDate == date}

@@ -4,13 +4,13 @@
   export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
   export let display = "inline-flex";
   export let href = "";
+  $: if (href && disabled) console.warn("links cant be disabled");
 </script>
 
 {#if href}
   <a
     on:click|stopPropagation
     {href}
-    {disabled}
     class="m3-container md-label-large {type} icon-{iconType}"
     style="display: {display};"
     {...$$props}

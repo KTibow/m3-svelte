@@ -5,24 +5,31 @@
   export let name: string;
   export let value = "";
   export let supportingText: null | string = null;
-  export let showPicker = true;
+  export let clearable = false;
+  export let dateValidator: (date: string) => boolean;
+  export let clickAction: "disable" | "default" | "auto" = "auto";
+  export let showPicker: "disable" | "enable" | "auto" = "auto";
   const dispatch = createEventDispatcher();
   let focused: boolean;
+  let windowWidth: number, windowHeight: number;
+  $: landscape = windowWidth > windowHeight;
+  $: if (dateValidator(value)) value = "";
 </script>
 
+<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
 <div class="m3-container">
   <input
     type="date"
-    required
+    required={!clearable || showPicker == "enable" || (showPicker == "auto" && landscape)}
     class:value
     bind:value
     on:focus={() => (focused = true)}
     on:blur={() => (focused = false)}
     on:click={(e) => {
-      if (showPicker) e.preventDefault();
+      if (clickAction == "disable" || (clickAction == "auto" && landscape)) e.preventDefault();
     }}
   />
-  {#if showPicker}
+  {#if showPicker == "enable" || (showPicker == "auto" && landscape)}
     <button class="showPicker" on:click={() => dispatch("showPicker")}>
       <Icon icon={iconCalendar} />
     </button>
