@@ -29,3 +29,4 @@ export { default as ColorTheme } from "./utils/ColorTheme.svelte";
 export { default as DateFieldAndPicker } from "./utils/DateFieldAndPicker.svelte";
 export { default as ResponsiveLayout } from "./utils/ResponsiveLayout.svelte";
 export { default as SnackbarPlacer } from "./utils/SnackbarPlacer.svelte";
+export * from "./utils/animation.js";

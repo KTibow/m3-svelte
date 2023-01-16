@@ -43,6 +43,7 @@
   .parent {
     display: flex;
     overflow-x: auto;
+    min-height: 100vh;
   }
   .railSpace {
     width: 5rem;
