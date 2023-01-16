@@ -1,8 +1,8 @@
 <script lang="ts">
   import { tick, createEventDispatcher } from "svelte";
-  import { fly } from "svelte/transition";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import Button from "$lib/buttons/Button.svelte";
+  import { easeEmphasizedAccel, easeEmphasizedDecel, enterExit } from "$lib/utils/animation";
   export let display = "flex";
   export let icon: IconifyIcon | null = null;
   export let title: string;
@@ -30,11 +30,20 @@
       open = false;
       dispatch("closed", { method: "browser" });
     }}
-    transition:fly={{ duration: 150, y: -50 }}
+    in:enterExit={{ duration: 400, easing: easeEmphasizedDecel }}
+    out:enterExit={{ duration: 200, easing: easeEmphasizedAccel }}
     on:click={() => {
       if (preventDismiss) return;
       open = false;
       dispatch("closed", { method: "clickedOutside" });
+    }}
+    on:outrostart={(e) => {
+      if (!(e.target instanceof Element)) return;
+      e.target.classList.add("leaving");
+    }}
+    on:outroend={(e) => {
+      if (!(e.target instanceof Element)) return;
+      e.target.classList.remove("leaving");
     }}
   >
     <div class="m3-container" on:click|stopPropagation style="display: {display};">
@@ -79,6 +88,26 @@
   }
   dialog::backdrop {
     background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+    animation: backdropIn 400ms;
+  }
+  :global(.leaving):is(dialog)::backdrop {
+    animation: backdropOut 400ms;
+  }
+  @keyframes backdropIn {
+    0% {
+      background-color: rgb(var(--md-sys-color-scrim) / 0);
+    }
+    100% {
+      background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+    }
+  }
+  @keyframes backdropOut {
+    0% {
+      background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+    }
+    100% {
+      background-color: rgb(var(--md-sys-color-scrim) / 0);
+    }
   }
   .m3-container {
     display: flex;

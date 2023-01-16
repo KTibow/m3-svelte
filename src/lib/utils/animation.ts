@@ -5,16 +5,18 @@ interface transitionOptions {
   delay?: number;
   duration?: number;
   easing?: typeof cubicOut;
+}
+interface containerFallbackOption {
   fallback?: (
     node: Element,
     params: transitionActionOptions,
     isLeaving: boolean
   ) => TransitionConfig;
 }
-interface transitionActionOptions extends transitionOptions {
+interface transitionActionOptions extends transitionOptions, containerFallbackOption {
   key: string;
 }
-export const containerTransform = (options: transitionOptions) => {
+export const containerTransform = (options: transitionOptions & containerFallbackOption) => {
   const haveStarted = new Map();
   const haveDelivered = new Map();
   const transform = (
@@ -69,6 +71,14 @@ clip-path: inset(${heightOffset}px ${widthOffset}px ${heightOffset}px ${widthOff
     _makeTransition(haveStarted, haveDelivered, true),
     _makeTransition(haveDelivered, haveStarted, false),
   ];
+};
+export const enterExit = (_: Element, options: transitionOptions) => {
+  return {
+    delay: options.delay,
+    duration: options.duration || 300,
+    easing: options.easing || cubicOut,
+    css: (_: number, u: number) => `clip-path: inset(0 0 ${u * 100}% 0 round 1rem)`,
+  };
 };
 
 const createBezierLUT = (points: [number, number][], pointCount = 100) => {
