@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { TonalPalette } from "@importantimport/material-color-utilities";
+  import { Hct, type TonalPalette } from "@importantimport/material-color-utilities";
 
   export let tone: number;
   export let neutralHCT: TonalPalette;
@@ -10,18 +10,21 @@
     const blue = argb & 255;
     return `${red} ${green} ${blue}`;
   };
+  $: grayTone = createRGB(Hct.from(0, 0, tone).toInt());
   $: neutralTone = createRGB(neutralHCT.tone(tone));
   $: neutralVariantTone = createRGB(neutralVariantHCT.tone(tone));
 </script>
 
 <div
   class="m3-container"
-  style="--tone-neutral: {neutralTone};
+  style="--tone-gray: {grayTone};
+--tone-neutral: {neutralTone};
 --tone-neutral-variant: {neutralVariantTone};
 --contrast-color: {tone > 50 ? 'black' : 'white'};"
 >
   <span>{tone}</span>
   <div>
+    <div class="card gray">Gray <span>({grayTone})</span></div>
     <div class="card neutral">Neutral <span>({neutralTone})</span></div>
     <div class="card neutral-variant">Neutral Variant <span>({neutralVariantTone})</span></div>
   </div>
@@ -52,6 +55,9 @@
   }
   .card > span {
     margin-left: auto;
+  }
+  .gray {
+    background-color: rgb(var(--tone-gray));
   }
   .neutral {
     background-color: rgb(var(--tone-neutral));
