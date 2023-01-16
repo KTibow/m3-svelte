@@ -11,6 +11,8 @@
     Scheme,
   } from "@importantimport/material-color-utilities";
   import ColorCard from "./ColorCard.svelte";
+  import NeutralComparisonCard from "./NeutralComparisonCard.svelte";
+  import PaletteCard from "./PaletteCard.svelte";
   let sourceFile: FileList, sourceColorInput: HTMLInputElement;
   let sourceColor: number, theme: Theme;
   $: if (sourceColor && browser) {
@@ -86,6 +88,21 @@
   {/if}
 </p>
 {#if theme}
+  <h2 class="md-headline-large">Palettes</h2>
+  <div class="pallette">
+    {#each Object.entries(theme.palettes) as [name, hct]}
+      <PaletteCard {name} {hct} />
+    {/each}
+  </div>
+  <div class="pallette">
+    {#each [10, 20, 50, 80, 90] as tone}
+      <NeutralComparisonCard
+        {tone}
+        neutralHCT={theme.palettes.neutral}
+        neutralVariantHCT={theme.palettes.neutralVariant}
+      />
+    {/each}
+  </div>
   {#each Object.entries({ Light: theme.schemes.light, Dark: theme.schemes.dark }) as [name, colors]}
     <h2 class="md-headline-large">{name}</h2>
     <div class="container">
@@ -113,6 +130,12 @@
   input[type="color"] {
     display: none;
   }
+  .pallette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
   .container {
     display: grid;
     gap: 1rem;
@@ -120,6 +143,11 @@
   @media (orientation: landscape) {
     .container {
       grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (min-width: 1280px) {
+    .container {
+      grid-template-columns: repeat(6, 1fr);
     }
   }
 </style>

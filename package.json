@@ -11,7 +11,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
-    "@importantimport/material-color-utilities": "^0.2.0",
+    "@importantimport/material-color-utilities": "^0.2.1-alpha.0",
     "@sveltejs/adapter-static": "^1.0.4",
     "@sveltejs/kit": "^1.1.1",
     "@sveltejs/package": "^1.0.2",
