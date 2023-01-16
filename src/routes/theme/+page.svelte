@@ -105,6 +105,7 @@
   .colorDisc {
     width: 2.5rem;
     height: 2.5rem;
+    padding: 0;
     border-radius: 1.25rem;
     border: none;
     cursor: pointer;

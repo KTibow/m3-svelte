@@ -13,7 +13,7 @@
   export let alignment: "top" | "center" | "bottom" = "center";
   export let hamburger = false;
   export let fab: false | ComponentProps<FAB> = false;
-  export let horizontal: boolean | "auto";
+  export let horizontal: boolean | "auto" = false;
   export let mainItems: {
     active: boolean;
     activeIcon: IconifyIcon;
