@@ -61,6 +61,9 @@
     box-shadow: var(--md-sys-elevation-0);
     cursor: auto;
   }
+  .m3-container > :global(*) {
+    flex-shrink: 0;
+  }
   .layer {
     position: absolute;
     left: 0;

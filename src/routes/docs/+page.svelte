@@ -31,37 +31,26 @@
 </svelte:head>
 <article>
   <p>
-    ⚠️ You may encounter jank while using this library. I've tried to implement stuff to spec, but
-    things may be missing or not correct. Talk to me if you have any questions. With that said:
+    M3 Svelte is an effort to implement some of the components and theming from Material 3 in
+    Svelte. Note the "effort" - you may encounter jank or annoyance, in which case you should let me
+    (KTibow) know. Anyway:
   </p>
-  <h2 class="md-headline-medium">Usage steps</h2>
+  <h2 class="md-headline-medium">Setting up M3 Svelte</h2>
+  <p>1. Install the library into a Svelte project (eg npm i m3-svelte).</p>
   <p>
-    This library used to require a lot of external CSS variables. Now you use components to set your
-    theme and provide utilities. There are 3 options.
+    2. Use the theme page to construct your theme. This is needed for components to function, as it
+    gives some base styling, and your theme's colors. Drop the component in +layout.svelte and
+    import it.
   </p>
-  <ol>
-    <li>
-      ColorTheme: Do you already have a Theme object from the official Material color utilities
-      library? Pass it to this component and it'll extract the arguments needed so they're
-      available.
-    </li>
-    <li>
-      ColorScheme: If you just have a list of different colors (eg manually extracted from your
-      theme) this component will make them available.
-    </li>
-    <li>
-      ColorGen: Pass in a single source color as a hex code and this component will generate a theme
-      and make it available.
-    </li>
-  </ol>
   <p>
-    Add one of those to your +layout.svelte. You may want to import Roboto (or another font and
-    customize it), set body styling (eg background/foreground/font), and
-    <a href="https://github.com/KTibow/m3-svelte/tree/main/src/lib/utils">
-      also check out the code for utilities.
-    </a>
+    3. Set up your typography (you can customize it with CSS variables, or just import Roboto). Set
+    up your body defaults (eg background/foreground and default font).
   </p>
-  <p>Once you apply those, import from the package whatever components you need.</p>
+  <p>4. That's all, import components as needed!</p>
+  <p>
+    Note: Aside from the components listed here, there are some utility and theming components.
+    Check out the source code (click the FAB).
+  </p>
 </article>
 <h2 class="md-headline-medium">Components (ordered as on Material)</h2>
 <ChipChooser options={categories} bind:chosenOptions={chosenCategories} />
@@ -246,9 +235,6 @@
 <style>
   article {
     max-width: 65ch;
-  }
-  a {
-    color: rgb(var(--md-sys-color-primary));
   }
   .container {
     display: grid;

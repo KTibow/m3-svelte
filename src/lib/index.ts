@@ -2,6 +2,7 @@ export { default as Button } from "./buttons/Button.svelte";
 export { default as FAB } from "./buttons/FAB.svelte";
 export { default as SegmentedButton } from "./buttons/SegmentedButton.svelte";
 
+export { type SerializedScheme, schemesFromPalettes } from "./colors/utils";
 export { default as Card } from "./containers/Card.svelte";
 export { default as Dialog } from "./containers/Dialog.svelte";
 export { default as Snackbar } from "./containers/Snackbar.svelte";

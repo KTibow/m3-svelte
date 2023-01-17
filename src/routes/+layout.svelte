@@ -8,7 +8,7 @@
   import iconCode from "@iconify-icons/ic/outline-code";
   import { page } from "$app/stores";
   import { base } from "$app/paths";
-  import ColorScheme from "$lib/utils/ColorScheme.svelte";
+  import StyleFromScheme from "$lib/colors/StyleFromScheme.svelte";
   import ResponsiveLayout from "$lib/utils/ResponsiveLayout.svelte";
   $: hereNormalized = ($page.url.pathname + "/").replace(/\/\/$/, "/");
   const pages = [
@@ -18,8 +18,8 @@
   ];
 </script>
 
-<ColorScheme
-  light={[
+<StyleFromScheme
+  lightScheme={[
     ["primary", 4284960932],
     ["onPrimary", 4294967295],
     ["primaryContainer", 4293516799],
@@ -50,7 +50,7 @@
     ["inverseOnSurface", 4294242292],
     ["inversePrimary", 4291804415],
   ]}
-  dark={[
+  darkScheme={[
     ["primary", 4291804415],
     ["onPrimary", 4281867890],
     ["primaryContainer", 4283381642],

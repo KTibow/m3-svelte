@@ -1,24 +1,28 @@
 <script lang="ts">
   import { browser } from "$app/environment";
-  import Button from "$lib/buttons/Button.svelte";
-  import ColorTheme from "$lib/utils/ColorTheme.svelte";
+  import Icon from "@iconify/svelte";
+  import iconEdit from "@iconify-icons/ic/outline-edit";
+  import iconImage from "@iconify-icons/ic/outline-wallpaper";
+  import iconCopy from "@iconify-icons/ic/outline-content-copy";
   import {
+    CorePalette,
     argbFromHex,
     hexFromArgb,
-    themeFromSourceColor,
     sourceColorFromImage,
-    type Theme,
     Scheme,
   } from "@importantimport/material-color-utilities";
-  import ColorCard from "./ColorCard.svelte";
-  import NeutralComparisonCard from "./NeutralComparisonCard.svelte";
+  import { schemesFromPalettes, type SerializedScheme } from "$lib/colors/utils";
+  import Button from "$lib/buttons/Button.svelte";
   import PaletteCard from "./PaletteCard.svelte";
-  let sourceFile: FileList, sourceColorInput: HTMLInputElement;
-  let sourceColor: number, theme: Theme;
-  $: if (sourceColor && browser) {
-    theme = themeFromSourceColor(sourceColor);
-    console.log(theme);
-  }
+  import NeutralComparisonCard from "./NeutralComparisonCard.svelte";
+  import ColorCard from "./ColorCard.svelte";
+  import StyleFromScheme from "$lib/colors/StyleFromScheme.svelte";
+
+  let sourceColorInput: HTMLInputElement, sourceFileInput: HTMLInputElement;
+  let sourceColor: number, sourcePalettes: CorePalette, schemeLight: Scheme, schemeDark: Scheme;
+  $: if (sourceColor) sourcePalettes = CorePalette.of(sourceColor);
+  $: if (sourcePalettes) [schemeLight, schemeDark] = schemesFromPalettes(sourcePalettes);
+
   const pairs = [
     ["primary", "onPrimary"],
     ["primaryContainer", "onPrimaryContainer"],
@@ -37,13 +41,13 @@
     bg: colors[bg as keyof Scheme] as number,
     fg: colors[fg as keyof Scheme] as number,
   });
-  const copyUsage = () => {
-    const lightColors = Object.entries(theme.schemes.light.toJSON());
-    const darkColors = Object.entries(theme.schemes.dark.toJSON());
+  const serializeScheme = (scheme: Scheme) => Object.entries(scheme.toJSON()) as SerializedScheme;
+  const copyUsage = () =>
     navigator.clipboard.writeText(
-      `<ColorScheme light={${JSON.stringify(lightColors)}} dark={${JSON.stringify(darkColors)}} />`
+      `<ColorScheme light={${JSON.stringify(serializeScheme(schemeLight))}} dark={${JSON.stringify(
+        serializeScheme(schemeDark)
+      )}} />`
     );
-  };
 </script>
 
 <svelte:head>
@@ -53,44 +57,51 @@
     content="Generate a Material 3/You theme for use with the library M3 Svelte."
   />
 </svelte:head>
-{#if theme}
-  <ColorTheme {theme} />
-{/if}
 <h1 class="md-display-large">Theme</h1>
 <p class="sourceChooser">
-  Source color <button
+  Source color <span
     style="background-color: {browser && hexFromArgb(sourceColor)};"
     class="colorDisc"
-    on:click={() => sourceColorInput.click()}
   />
+  <Button type="text" iconType="full" on:click={() => sourceColorInput.click()}>
+    <Icon icon={iconEdit} width="24" height="24" />
+  </Button>
+  <Button type="text" iconType="full" on:click={() => sourceFileInput.click()}>
+    <Icon icon={iconImage} width="24" height="24" />
+  </Button>
   <input
     type="color"
+    class="hidden"
     bind:this={sourceColorInput}
     on:change={() => (sourceColor = argbFromHex(sourceColorInput.value))}
   />
   <input
     type="file"
-    bind:files={sourceFile}
-    on:change={() => {
+    class="hidden"
+    bind:this={sourceFileInput}
+    on:change={(e) => {
+      if (!(e.target instanceof HTMLInputElement) || !e.target.files) return;
       const reader = new FileReader();
       reader.onload = async () => {
         const image = new Image();
         image.src = String(reader.result);
-        console.log("loading color", image);
         sourceColor = await sourceColorFromImage(image);
-        console.log("obtained color", sourceColor);
       };
-      reader.readAsDataURL(sourceFile[0]);
+      reader.readAsDataURL(e.target.files[0]);
     }}
   />
-  {#if theme}
-    <Button type="filled" on:click={copyUsage}>Copy theme usage</Button>
+  {#if schemeLight}
+    <Button type="filled" iconType="left" on:click={copyUsage}>
+      <Icon icon={iconCopy} width="18" height="18" />
+      Copy usage
+    </Button>
   {/if}
 </p>
-{#if theme}
+
+{#if sourcePalettes}
   <h2 class="md-headline-large">Palettes</h2>
   <div class="pallette">
-    {#each Object.entries(theme.palettes) as [name, hct]}
+    {#each Object.entries( { primary: sourcePalettes.a1, secondary: sourcePalettes.a2, tertiary: sourcePalettes.a3, neutral: sourcePalettes.n1, neutralVariant: sourcePalettes.n2, error: sourcePalettes.error } ) as [name, hct]}
       <PaletteCard {name} {hct} />
     {/each}
   </div>
@@ -98,12 +109,18 @@
     {#each [10, 20, 50, 80, 90] as tone}
       <NeutralComparisonCard
         {tone}
-        neutralHCT={theme.palettes.neutral}
-        neutralVariantHCT={theme.palettes.neutralVariant}
+        neutralHCT={sourcePalettes.n1}
+        neutralVariantHCT={sourcePalettes.n2}
       />
     {/each}
   </div>
-  {#each Object.entries({ Light: theme.schemes.light, Dark: theme.schemes.dark }) as [name, colors]}
+{/if}
+{#if schemeLight}
+  <StyleFromScheme
+    lightScheme={serializeScheme(schemeLight)}
+    darkScheme={serializeScheme(schemeDark)}
+  />
+  {#each Object.entries({ Light: schemeLight, Dark: schemeDark }) as [name, colors]}
     <h2 class="md-headline-large">{name}</h2>
     <div class="container">
       {#each pairs as [bgName, fgName]}
@@ -125,11 +142,11 @@
     padding: 0;
     border-radius: 1.25rem;
     border: none;
-    cursor: pointer;
   }
-  input[type="color"] {
+  .hidden {
     display: none;
   }
+
   .pallette {
     display: flex;
     flex-wrap: wrap;
