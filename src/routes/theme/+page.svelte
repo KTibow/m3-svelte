@@ -10,6 +10,7 @@
     hexFromArgb,
     sourceColorFromImage,
     Scheme,
+    TonalPalette,
   } from "@importantimport/material-color-utilities";
   import { schemesFromPalettes, type SerializedScheme } from "$lib/colors/utils";
   import Button from "$lib/buttons/Button.svelte";
@@ -48,6 +49,11 @@
         serializeScheme(schemeDark)
       )}} />`
     );
+  const changeColor = (palette: TonalPalette, newPalette: TonalPalette) => {
+    const paletteName = Object.entries(sourcePalettes).find((item) => item[1] == palette)?.[0];
+    if (!paletteName || !(paletteName in sourcePalettes)) return;
+    sourcePalettes[paletteName as keyof CorePalette] = newPalette;
+  };
 </script>
 
 <svelte:head>
@@ -102,7 +108,7 @@
   <h2 class="md-headline-large">Palettes</h2>
   <div class="pallette">
     {#each Object.entries( { primary: sourcePalettes.a1, secondary: sourcePalettes.a2, tertiary: sourcePalettes.a3, neutral: sourcePalettes.n1, neutralVariant: sourcePalettes.n2, error: sourcePalettes.error } ) as [name, hct]}
-      <PaletteCard {name} {hct} />
+      <PaletteCard {name} {hct} on:changeColor={(e) => changeColor(hct, e.detail)} />
     {/each}
   </div>
   <div class="pallette">

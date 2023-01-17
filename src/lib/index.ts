@@ -3,6 +3,9 @@ export { default as FAB } from "./buttons/FAB.svelte";
 export { default as SegmentedButton } from "./buttons/SegmentedButton.svelte";
 
 export { type SerializedScheme, schemesFromPalettes } from "./colors/utils";
+export { default as BaseStyles } from "./colors/BaseStyles.svelte";
+export { default as StyleFromScheme } from "./colors/StyleFromScheme.svelte";
+
 export { default as Card } from "./containers/Card.svelte";
 export { default as Dialog } from "./containers/Dialog.svelte";
 export { default as Snackbar } from "./containers/Snackbar.svelte";
@@ -23,10 +26,6 @@ export { default as Divider } from "./misc/Divider.svelte";
 export { default as NavDrawer } from "./nav/NavDrawer.svelte";
 export { default as NavRail } from "./nav/NavRail.svelte";
 
-export { default as BaseStyles } from "./utils/BaseStyles.svelte";
-export { default as ColorGen } from "./utils/ColorGen.svelte";
-export { default as ColorScheme } from "./utils/ColorScheme.svelte";
-export { default as ColorTheme } from "./utils/ColorTheme.svelte";
 export { default as DateFieldAndPicker } from "./utils/DateFieldAndPicker.svelte";
 export { default as ResponsiveLayout } from "./utils/ResponsiveLayout.svelte";
 export { default as SnackbarPlacer } from "./utils/SnackbarPlacer.svelte";
