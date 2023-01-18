@@ -6,23 +6,26 @@ interface transitionOptions {
   duration?: number;
   easing?: typeof cubicOut;
 }
-interface containerFallbackOption {
+interface containerOptions {
   fallback?: (
     node: Element,
-    params: transitionActionOptions,
+    params: transitionOptions & containerOptions,
     isLeaving: boolean
   ) => TransitionConfig;
 }
-interface transitionActionOptions extends transitionOptions, containerFallbackOption {
+interface containerParamOptions {
   key: string;
 }
-export const containerTransform = (options: transitionOptions & containerFallbackOption) => {
+interface inOutOptions {
+  start?: "top" | "bottom" | "left" | "right";
+}
+export const containerTransform = (options: transitionOptions & containerOptions) => {
   const haveStarted = new Map();
   const haveDelivered = new Map();
   const transform = (
     from: DOMRect,
     node: Element,
-    params: transitionActionOptions,
+    params: transitionOptions & containerOptions & containerParamOptions,
     isLeaving: boolean
   ): TransitionConfig => {
     const to = node.getBoundingClientRect();
@@ -53,7 +56,10 @@ clip-path: inset(${heightOffset}px ${widthOffset}px ${heightOffset}px ${widthOff
     ending: typeof haveDelivered,
     isLeaving: boolean
   ) => {
-    return (node: Element, params: transitionActionOptions) => {
+    return (
+      node: Element,
+      params: transitionOptions & containerOptions & containerParamOptions
+    ) => {
       starting.set(params.key, { rect: node.getBoundingClientRect() });
       return () => {
         if (ending.has(params.key)) {
@@ -72,12 +78,29 @@ clip-path: inset(${heightOffset}px ${widthOffset}px ${heightOffset}px ${widthOff
     _makeTransition(haveDelivered, haveStarted, false),
   ];
 };
-export const enterExit = (_: Element, options: transitionOptions) => {
+export const enterExit = (_: Element, options: transitionOptions & inOutOptions) => {
+  options.start ||= "top";
+  const scaleDir = ["top", "bottom"].includes(options.start) ? "Y" : "X";
+  const getClipPath = (n: string) => {
+    if (options.start == "top") return `0 0 ${n} 0`;
+    else if (options.start == "bottom") return `${n} 0 0 0`;
+    else if (options.start == "left") return `0 ${n} 0 0`;
+    else if (options.start == "right") return `0 0 0 ${n}`;
+  };
+  const getTransform = (n: number) => {
+    if (options.start == "top") return `translateY(${-n}rem)`;
+    else if (options.start == "bottom") return `translateY(${n}rem)`;
+    else if (options.start == "left") return `translateX(${-n}rem)`;
+    else if (options.start == "right") return `translateX(${n}rem)`;
+  };
   return {
     delay: options.delay,
     duration: options.duration || 300,
     easing: options.easing || cubicOut,
-    css: (_: number, u: number) => `clip-path: inset(0 0 ${u * 100}% 0 round 1rem)`,
+    css: (t: number, u: number) =>
+      `clip-path: inset(${getClipPath(u * 100 + "%")} round 1rem);
+transform-origin: ${options.start};
+transform: scale${scaleDir}(${(t * 0.3 + 0.7) * 100}%) ${getTransform(u * 2)};`,
   };
 };
 
@@ -127,6 +150,7 @@ https://cdn.discordapp.com/attachments/1058124584286683237/1064238129306927124/H
 cubic-bezier(0.271, -0.011, 0, 1.449) is the most accurate to the acceleration (but has a large overshoot)
 the deceleration is the same as before
 cubic-bezier(0.278, 0.195, 0, 1.251) has no weighting
+the m3 docs randomly mention 0.2, 0, 0, 1 but that seems off
 */
 export const easeEmphasizedDecel = createEase([
   [
