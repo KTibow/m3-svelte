@@ -45,9 +45,9 @@
   const serializeScheme = (scheme: Scheme) => Object.entries(scheme.toJSON()) as SerializedScheme;
   const copyUsage = () =>
     navigator.clipboard.writeText(
-      `<ColorScheme light={${JSON.stringify(serializeScheme(schemeLight))}} dark={${JSON.stringify(
-        serializeScheme(schemeDark)
-      )}} />`
+      `<StyleFromScheme
+  lightScheme={${JSON.stringify(serializeScheme(schemeLight))}}
+  darkScheme={${JSON.stringify(serializeScheme(schemeDark))}} />`
     );
   const changeColor = (palette: TonalPalette, newPalette: TonalPalette) => {
     const paletteName = Object.entries(sourcePalettes).find((item) => item[1] == palette)?.[0];
