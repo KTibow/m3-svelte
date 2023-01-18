@@ -20,6 +20,7 @@
 <div class="m3-container">
   <input
     type="date"
+    class="md-body-large"
     required={!clearable || showPicker == "enable" || (showPicker == "auto" && !portrait)}
     class:value
     bind:value
