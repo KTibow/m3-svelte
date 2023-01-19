@@ -10,7 +10,7 @@
   import { base } from "$app/paths";
   import StyleFromScheme from "$lib/colors/StyleFromScheme.svelte";
   import ResponsiveLayout from "$lib/utils/ResponsiveLayout.svelte";
-  $: hereNormalized = ($page.url.pathname + "/").replace(/\/\/$/, "/");
+  $: hereNormalized = $page.url.pathname.replace(/\/\/$/, "/");
   const pages = [
     { name: "Demo", href: base + "/", activeIcon: iconMonitorFull, inactiveIcon: iconMonitor },
     { name: "Theme", href: base + "/theme", activeIcon: iconThemeFull, inactiveIcon: iconTheme },
