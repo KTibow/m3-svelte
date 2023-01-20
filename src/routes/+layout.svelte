@@ -12,7 +12,7 @@
   import ResponsiveLayout from "$lib/utils/ResponsiveLayout.svelte";
   $: hereNormalized = $page.url.pathname.replace(/\/\/$/, "/");
   const pages = [
-    { name: "Demo", href: base + "/", activeIcon: iconMonitorFull, inactiveIcon: iconMonitor },
+    { name: "Demo", href: base, activeIcon: iconMonitorFull, inactiveIcon: iconMonitor },
     { name: "Theme", href: base + "/theme", activeIcon: iconThemeFull, inactiveIcon: iconTheme },
     { name: "Docs", href: base + "/docs", activeIcon: iconBookFull, inactiveIcon: iconBook },
   ];
