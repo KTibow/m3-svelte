@@ -16,9 +16,6 @@ interface containerOptions {
 interface containerParamOptions {
   key: string;
 }
-interface inOutOptions {
-  start?: "top" | "bottom" | "left" | "right";
-}
 export const containerTransform = (options: transitionOptions & containerOptions) => {
   const haveStarted = new Map();
   const haveDelivered = new Map();
@@ -78,6 +75,10 @@ clip-path: inset(${heightOffset}px ${widthOffset}px ${heightOffset}px ${widthOff
     _makeTransition(haveDelivered, haveStarted, false),
   ];
 };
+
+interface inOutOptions {
+  start?: "top" | "bottom" | "left" | "right";
+}
 export const enterExit = (_: Element, options: transitionOptions & inOutOptions) => {
   options.start ||= "top";
   const scaleDir = ["top", "bottom"].includes(options.start) ? "Y" : "X";
@@ -101,6 +102,18 @@ export const enterExit = (_: Element, options: transitionOptions & inOutOptions)
       `clip-path: inset(${getClipPath(u * 100 + "%")} round 1rem);
 transform-origin: ${options.start};
 transform: scale${scaleDir}(${(t * 0.3 + 0.7) * 100}%) ${getTransform(u * 2)};`,
+  };
+};
+
+interface heightOptions {
+  height: number;
+}
+export const heightTransition = (node: Element, options: transitionOptions & heightOptions) => {
+  return {
+    delay: options.delay,
+    duration: options.duration || 400,
+    easing: options.easing || cubicOut,
+    css: (t: number) => `height: ${t * options.height}px`,
   };
 };
 

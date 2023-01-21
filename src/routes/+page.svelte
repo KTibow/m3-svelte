@@ -28,6 +28,7 @@
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
   import iconX from "@iconify-icons/ic/outline-close";
+  import BottomSheet from "$lib/containers/BottomSheet.svelte";
   let chosen1: number[] = [];
   let chosen2: number[] = [];
 
@@ -43,6 +44,7 @@
   let chosen9 = false;
   let chosen10 = false;
   let chosen11 = 0;
+  let chosen13 = false;
 </script>
 
 <svelte:head>
@@ -257,6 +259,26 @@
         divider={"full"}
       />
     </div>
+  </div>
+  <div>
+    <p>Bottom sheet</p>
+    {#if chosen13}
+      <BottomSheet on:close={() => (chosen13 = false)}>
+        lorem100 is cool
+        <Button type="outlined" on:click={() => alert("no way")}>this is a button</Button>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, aperiam reiciendis, earum delectus
+        fugiat dignissimos, suscipit unde dolorum officia accusantium quo? Repellendus obcaecati consectetur
+        reprehenderit dolor quisquam hic libero exercitationem, dolorem doloribus quod, aliquid placeat
+        quae molestias vel? Necessitatibus, assumenda fugit a eius repellat, aspernatur excepturi itaque
+        nisi consequuntur voluptatum accusamus numquam est aliquid labore dolores repellendus commodi?
+        Vel ea fugiat dolores molestias sequi. Deleniti voluptate, maxime id cupiditate iusto quibusdam
+        culpa quod expedita reprehenderit earum animi sed magni voluptates laudantium reiciendis error.
+        Ratione est alias voluptates sunt? Repellendus animi facilis quas quam quasi dolore voluptates
+        vero quos ullam omnis.
+      </BottomSheet>
+    {/if}
+
+    <Button type="outlined" on:click={() => (chosen13 = true)}>Show bottom sheet</Button>
   </div>
   <div>
     <p>Tabs (closest category)</p>
