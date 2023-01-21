@@ -2,7 +2,14 @@
   export let container: HTMLDivElement | null = null;
 </script>
 
-<div class="m3-container" bind:this={container}>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div
+  class="m3-container"
+  bind:this={container}
+  on:wheel|preventDefault
+  on:touchstart|preventDefault
+  on:mousedown|stopPropagation
+>
   <slot />
 </div>
 

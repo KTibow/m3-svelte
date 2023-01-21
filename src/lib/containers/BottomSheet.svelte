@@ -5,7 +5,7 @@
 
   export let height = 80;
   export let showHandle = true;
-  // export let isDialog = true; TODO
+  export let isDialog = true;
   export let closeOnMinimize = true;
 
   const dispatch = createEventDispatcher();
@@ -24,6 +24,15 @@
     height -= distance;
     startY = e.clientY;
   };
+  let goingUp = false;
+  const moveSheet = () => {
+    if (!sheet) return;
+    if (height == sheet.offsetHeight) goingUp = false;
+    if (height == 48) goingUp = true;
+    if (goingUp) height = height + 160;
+    else height = Math.max(height - 160, 48);
+  };
+  const open = (node: HTMLDialogElement) => node.showModal();
 </script>
 
 <svelte:window
@@ -32,18 +41,29 @@
   on:mouseup={() => (isDragging = false)}
   on:touchend={() => (isDragging = false)}
 />
-<div
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<svelte:element
+  this={isDialog ? "dialog" : "div"}
   class="m3-container"
   class:no-drag={!isDragging}
   style="max-height: {height}px;"
-  on:wheel|preventDefault={(e) => (height += e.deltaY)}
-  on:touchstart|preventDefault={(e) => {
-    isDragging = true;
-    startY = e.touches[0].clientY;
-  }}
+  use:open
   transition:heightTransition={{ height }}
+  on:cancel|preventDefault={() => {
+    dispatch("close", "browser");
+  }}
+  on:mousedown={() => {
+    if (isDialog) dispatch("close", "click");
+  }}
 >
-  <Sheet bind:container={sheet}>
+  <Sheet
+    bind:container={sheet}
+    on:wheel={(e) => (height += e.deltaY)}
+    on:touchstart={(e) => {
+      isDragging = true;
+      startY = e.touches[0].clientY;
+    }}
+  >
     {#if showHandle}
       <div
         class="handleContainer"
@@ -52,12 +72,12 @@
           startY = e.clientY;
         }}
       >
-        <div />
+        <button on:click={moveSheet} />
       </div>
     {/if}
     <slot />
   </Sheet>
-</div>
+</svelte:element>
 
 <style>
   .m3-container {
@@ -74,6 +94,27 @@
     border-radius: 1.75rem 1.75rem 0 0;
     z-index: 1;
   }
+  dialog.m3-container {
+    bottom: 0;
+    left: 0;
+    transform: none;
+    margin-bottom: 0;
+    padding: 0;
+    border: none;
+  }
+
+  dialog::backdrop {
+    background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+    animation: backdropIn 400ms;
+  }
+  @keyframes backdropIn {
+    0% {
+      background-color: rgb(var(--md-sys-color-scrim) / 0);
+    }
+    100% {
+      background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+    }
+  }
   .no-drag {
     transition: all 150ms;
   }
@@ -88,10 +129,18 @@
     width: 100%;
     height: 3rem;
   }
-  .handleContainer > div {
+  .handleContainer > button {
     background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.4);
     width: 2rem;
     height: 0.25rem;
+    padding: 0;
+    border: none;
     border-radius: 0.25rem;
+  }
+  .handleContainer > button:focus-visible {
+    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.5);
+  }
+  .handleContainer > button:active {
+    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.6);
   }
 </style>
