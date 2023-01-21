@@ -76,7 +76,7 @@
   .size-normal {
     height: 3.5rem;
     padding: 1rem;
-    gap: 1rem;
+    gap: 0.75rem;
     border-radius: 1rem;
   }
   .size-large {

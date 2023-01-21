@@ -64,13 +64,14 @@
   <Component
     name="Bottom app bar"
     mtLink="https://m3.material.io/components/bottom-app-bar"
-    desc="Coming soon"
+    desc="Might come"
     category="Nav"
   />
   <Component
     name="Bottom sheets"
     mtLink="https://m3.material.io/components/bottom-sheets"
-    desc="Might come"
+    ghLink="https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/BottomSheet.svelte"
+    desc="Bottom sheet that's customizable and works well, lmk if it doesn't"
     category="Containers"
   />
   <Component
@@ -180,7 +181,7 @@
   <Component
     name="Search"
     mtLink="https://m3.material.io/components/search"
-    desc="Coming soon"
+    desc="Might come"
     category="Nav"
   />
   <Component
