@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { heightTransition } from "$lib/utils/animation";
   import { createEventDispatcher } from "svelte";
+  import { heightTransition, outroClass } from "$lib/utils/animation";
+  import { easeEmphasizedDecel, easeEmphasizedAccel } from "$lib/utils/easing";
   import Sheet from "./_Sheet.svelte";
 
   export let height = 80;
@@ -24,7 +25,7 @@
     height -= distance;
     startY = e.clientY;
   };
-  let goingUp = false;
+  let goingUp = true;
   const moveSheet = () => {
     if (!sheet) return;
     if (height == sheet.offsetHeight) goingUp = false;
@@ -48,7 +49,9 @@
   class:no-drag={!isDragging}
   style="max-height: {height}px;"
   use:open
-  transition:heightTransition={{ height }}
+  use:outroClass
+  in:heightTransition={{ height, duration: 400, easing: easeEmphasizedDecel }}
+  out:heightTransition={{ height, duration: 200, easing: easeEmphasizedAccel }}
   on:cancel|preventDefault={() => {
     dispatch("close", "browser");
   }}
@@ -107,12 +110,23 @@
     background-color: rgb(var(--md-sys-color-scrim) / 0.5);
     animation: backdropIn 400ms;
   }
+  :global(.leaving)::backdrop {
+    animation: backdropOut 400ms !important;
+  }
   @keyframes backdropIn {
     0% {
       background-color: rgb(var(--md-sys-color-scrim) / 0);
     }
     100% {
       background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+    }
+  }
+  @keyframes backdropOut {
+    0% {
+      background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+    }
+    100% {
+      background-color: rgb(var(--md-sys-color-scrim) / 0);
     }
   }
   .no-drag {

@@ -2,7 +2,8 @@
   import { tick, createEventDispatcher } from "svelte";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import Button from "$lib/buttons/Button.svelte";
-  import { easeEmphasizedAccel, easeEmphasizedDecel, enterExit } from "$lib/utils/animation";
+  import { enterExit, outroClass } from "$lib/utils/animation";
+  import { easeEmphasizedAccel, easeEmphasizedDecel } from "$lib/utils/easing";
   export let display = "flex";
   export let icon: IconifyIcon | null = null;
   export let title: string;
@@ -37,14 +38,7 @@
       open = false;
       dispatch("closed", { method: "clickedOutside" });
     }}
-    on:outrostart={(e) => {
-      if (!(e.target instanceof Element)) return;
-      e.target.classList.add("leaving");
-    }}
-    on:outroend={(e) => {
-      if (!(e.target instanceof Element)) return;
-      e.target.classList.remove("leaving");
-    }}
+    use:outroClass
   >
     <div class="m3-container" on:click|stopPropagation style="display: {display};">
       {#if icon}
