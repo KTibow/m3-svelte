@@ -49,7 +49,6 @@
   .m3-container {
     min-width: 15rem;
     height: 3.5rem;
-    transition: all 150ms;
     position: relative;
     color: rgb(var(--md-sys-color-on-surface-variant));
   }
@@ -102,9 +101,12 @@
     top: 50%;
     transform: translate(0, -50%);
     position: absolute;
-    transition: all 150ms;
+    transition: all 300ms;
     pointer-events: none;
     color: rgb(var(--error));
+  }
+  legend {
+    opacity: 0;
   }
   fieldset {
     position: absolute;
@@ -118,7 +120,7 @@
     color: rgb(var(--error, var(--md-sys-color-outline)));
     border: solid 2px currentColor;
     opacity: 0;
-    transition: all 150ms;
+    transition: all 300ms;
     pointer-events: none;
   }
   .supporting {
@@ -158,10 +160,9 @@
     opacity: 1;
   }
   .type-outlined > input:is(:focus, .value, :required:valid) ~ label {
-    left: 0.5rem;
+    left: 15px;
     top: -0.5rem;
     transform: none;
-    opacity: 0;
   }
   .type-outlined:hover > .layer {
     border-color: rgb(var(--error, var(--md-sys-color-on-surface)));
