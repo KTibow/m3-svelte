@@ -5,46 +5,15 @@ An attempt to make Material 3 in Svelte. See the [website](https://ktibow.github
 
 ## Getting started
 
-```
-npm create svelte@latest my-app
-cd my-app
-npm install m3-svelte
-npm run dev
-```
+1. Install the library into a Svelte project (e.g. `npm install m3-svelte`) 
+1. Use [the theme creator](https://ktibow.github.io/m3-svelte/theme) to construct your theme. This is needed for components to function, as it gives some base styling, and your theme's colors. Drop the component in `+layout.svelte` and import it.
+1. Set up your typography. You can customize it with CSS variables or just import [Roboto](https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap). The CSS variables used for font styles are:
+    * font-family: `--md-sys-typescale-body`
+    * font-weight: `--md-sys-typescale-body-weight`
+1. Set up your body defaults, such as foreground/background and default fonts. You can optionally use the classes `md-body-large`, `md-body-medium`, or `md-body-small` depending on the desired root font size.
+1. That's all; import components as needed!
 
-In `app.html`:
-1. add the following stylesheet for the Roboto font:
-```html
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-/>
-```
-2. Add either `md-body-large`, `md-body-medium`, or `md-body-small` to your body's class, depending on the desired root font size:
-
-```html
-<body class="md-body-large">
-	<div style="display: contents">%sveltekit.body%</div>
-</body>
-```
-
-Next:
-
-1. Go to https://ktibow.github.io/m3-svelte/theme, pick a color for your desired theme, and click "Copy usage".
-2. Create `+layout.svelte` and add the following:
-```xml
-<script>
-	import { StyleFromScheme } from 'm3-svelte';
-</script>
-
-<!-- Here, paste the <StyleFromScheme /> that you copied -->
-
-<slot/>
-```
-
-Lastly, import and add components as desired into your Svelte pages:
-
-`+page.svelte`
+Example `+page.svelte`:
 ```xml
 <script>
 	import { Card, Button } from 'm3-svelte';

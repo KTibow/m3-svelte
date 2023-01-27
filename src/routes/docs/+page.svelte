@@ -36,17 +36,25 @@
     (KTibow) know. Anyway:
   </p>
   <h2 class="md-headline-medium">Setting up M3 Svelte</h2>
-  <p>1. Install the library into a Svelte project (eg npm i m3-svelte).</p>
-  <p>
-    2. Use the theme page to construct your theme. This is needed for components to function, as it
-    gives some base styling, and your theme's colors. Drop the component in +layout.svelte and
-    import it.
-  </p>
-  <p>
-    3. Set up your typography (you can customize it with CSS variables, or just import Roboto). Set
-    up your body defaults (eg background/foreground and default font).
-  </p>
-  <p>4. That's all, import components as needed!</p>
+  <ol>
+    <li>Install the library into a Svelte project (e.g. <code>npm i m3-svelte</code>).</li>
+    <li>
+      Use the <a href='/theme'>theme page</a> to construct your theme. This is needed for components to function, as it
+      gives some base styling, and your theme's colors. Drop the component in <code>+layout.svelte</code> and
+      import it.
+    </li>
+    <li>
+      Set up your typography. You can customize it with CSS variables or just import <a href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">Roboto</a>. The CSS variables used for font styles are:
+      <ul>
+        <li>font-family: <code>--md-sys-typescale-body</code></li>
+        <li>font-weight: <code>--md-sys-typescale-body-weight</code></li>
+      </ul>
+    </li>
+    <li>
+      Set up your body defaults, such as foreground/background and default fonts. You can optionally use the classes <code>md-body-large</code>, <code>md-body-medium</code>, or <code>md-body-small</code> depending on the desired root font size.
+    </li>
+    <li>That's all, import components as needed!</li>
+  </ol>
   <p>
     Note: Aside from the components listed here, there are some utility and theming components.
     Check out the source code (click the FAB).
@@ -246,5 +254,8 @@
     .container {
       grid-template-columns: repeat(4, 1fr);
     }
+  }
+  code, a {
+    color: rgb(var(--md-sys-color-primary));
   }
 </style>
