@@ -184,22 +184,13 @@
   <div class="container col">
     <p>Text field</p>
     <p>Chose {chosen7}, {chosen8}, {chosen12}</p>
-    <TextField
-      inputStyle="filled"
-      name="Option"
-      icon={iconTriangle}
-      bind:value={chosen7}
-      error
-      supportingText="support"
-    />
+    <TextField inputStyle="filled" name="Option" icon={iconTriangle} bind:value={chosen7} />
     <TextField
       inputStyle="outlined"
       name="Other option"
       icon={iconTriangle}
       bind:value={chosen8}
-      error
       supportingText="sus"
-      required={false}
     />
     <DateFieldAndPicker fieldOptions={{ name: "Date" }} clearable={true} bind:value={chosen12} />
   </div>

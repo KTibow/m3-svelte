@@ -86,7 +86,7 @@
     padding: 0 1rem;
   }
   .supporting.error {
-    color: var(--md-sys-color-error);
+    color: rgb(var(--md-sys-color-error));
   }
 
   .type-filled {
