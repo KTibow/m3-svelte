@@ -79,7 +79,7 @@ clip-path: inset(${heightOffset}px ${widthOffset}px ${heightOffset}px ${widthOff
 interface inOutOptions {
   start?: "top" | "bottom" | "left" | "right";
 }
-export const enterExit = (_: Element, options: transitionOptions & inOutOptions) => {
+export const enterExit = (_: Element, options: transitionOptions & inOutOptions): TransitionConfig => {
   options.start ||= "top";
   const scaleDir = ["top", "bottom"].includes(options.start) ? "Y" : "X";
   const getClipPath = (n: string) => {
@@ -98,12 +98,49 @@ export const enterExit = (_: Element, options: transitionOptions & inOutOptions)
     delay: options.delay,
     duration: options.duration || 300,
     easing: options.easing || cubicOut,
-    css: (t: number, u: number) =>
+    css: (t, u) =>
       `clip-path: inset(${getClipPath(u * 100 + "%")} round 1rem);
 transform-origin: ${options.start};
 transform: scale${scaleDir}(${(t * 0.3 + 0.7) * 100}%) ${getTransform(u * 2)};`,
   };
 };
+
+interface slideFadeOptions {
+  /**
+   * Starting opacity when fading in, ending opacity when fading out
+   */
+  opacity?: number;
+}
+export const slideFade = (_: Element, options: transitionOptions & slideFadeOptions): TransitionConfig => {
+  
+  const startOpacity = options.opacity || 0;
+  
+  const style = getComputedStyle(_);
+	const endOpacity = +style.opacity;
+	const height = parseFloat(style.height);
+	const padding_top = parseFloat(style.paddingTop);
+	const padding_bottom = parseFloat(style.paddingBottom);
+	const margin_top = parseFloat(style.marginTop);
+	const margin_bottom = parseFloat(style.marginBottom);
+	const border_top_width = parseFloat(style.borderTopWidth);
+	const border_bottom_width = parseFloat(style.borderBottomWidth);
+  console.log(options.easing);
+	return {
+    delay: options.delay,
+    duration: options.duration || 300,
+    easing: options.easing || cubicOut,
+		css: t =>
+			'overflow: hidden;' +
+			`opacity: ${startOpacity + (endOpacity - startOpacity) * t};` + 
+			`height: ${t * height}px;` +
+			`padding-top: ${t * padding_top}px;` +
+			`padding-bottom: ${t * padding_bottom}px;` +
+			`margin-top: ${t * margin_top}px;` +
+			`margin-bottom: ${t * margin_bottom}px;` +
+			`border-top-width: ${t * border_top_width}px;` +
+			`border-bottom-width: ${t * border_bottom_width}px;`
+	};
+}
 
 interface heightOptions {
   height: number;

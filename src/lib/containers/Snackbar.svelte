@@ -1,8 +1,10 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import { slide } from "svelte/transition";
+  import { fade } from "svelte/transition";
   import Icon from "@iconify/svelte";
   import iconX from "@iconify-icons/ic/outline-close";
+  import { slideFade } from "$lib/utils/animation";
+  import { easeEmphasized } from "$lib/utils/easing";
 
   export let display = "flex";
   export let open = false;
@@ -21,7 +23,7 @@
 </script>
 
 {#if open}
-  <div class="wrapper" transition:slide={{ duration: 150 }} style="display: {display};">
+  <div class="wrapper" in:slideFade={{ duration: 500, easing: easeEmphasized }} out:fade={{ duration: 100 }} style="display: {display};">
     <div class="m3-container" class:showClose>
       <p class="md-body-medium"><slot /></p>
       {#if action}
