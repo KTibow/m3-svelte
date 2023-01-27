@@ -5,6 +5,7 @@
   import iconLocation from "@iconify-icons/ic/outline-navigation";
   import iconWrench from "@iconify-icons/ic/outline-build";
   import { writable } from "svelte/store";
+  import { base } from "$app/paths";
   import { setContext } from "svelte";
 
   import Component from "./Component.svelte";
@@ -39,19 +40,24 @@
   <ol>
     <li>Install the library into a Svelte project (e.g. <code>npm i m3-svelte</code>).</li>
     <li>
-      Use the <a href='/theme'>theme page</a> to construct your theme. This is needed for components to function, as it
-      gives some base styling, and your theme's colors. Drop the component in <code>+layout.svelte</code> and
-      import it.
+      Use the <a href="{base}/theme">theme page</a> to construct your theme. This is needed for
+      components to function, as it gives some base styling, and your theme's colors. Drop the
+      component in <code>+layout.svelte</code> and import it.
     </li>
     <li>
-      Set up your typography. You can customize it with CSS variables or just import <a href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">Roboto</a>. The CSS variables used for font styles are:
+      Set up your typography. You can customize it with CSS variables or just import <a
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        >Roboto</a
+      >. The CSS variables used for font styles are:
       <ul>
         <li>font-family: <code>--md-sys-typescale-body</code></li>
         <li>font-weight: <code>--md-sys-typescale-body-weight</code></li>
       </ul>
     </li>
     <li>
-      Set up your body defaults, such as foreground/background and default fonts. You can optionally use the classes <code>md-body-large</code>, <code>md-body-medium</code>, or <code>md-body-small</code> depending on the desired root font size.
+      Set up your body defaults, such as foreground/background and default fonts. You can optionally
+      use the classes <code>md-body-large</code>, <code>md-body-medium</code>, or
+      <code>md-body-small</code> depending on the desired root font size.
     </li>
     <li>That's all, import components as needed!</li>
   </ol>
@@ -255,7 +261,8 @@
       grid-template-columns: repeat(4, 1fr);
     }
   }
-  code, a {
+  code,
+  a {
     color: rgb(var(--md-sys-color-primary));
   }
 </style>
