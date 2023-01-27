@@ -1,8 +1,12 @@
 <script lang="ts">
+  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconError from "@iconify-icons/ic/error-outline";
+
   export let display = "inline-flex";
-  export let inputStyle: "filled" | "outlined";
+  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
+  export let extraInputOptions: HTMLInputAttributes = {};
+  export let style: "filled" | "outlined";
   export let error = false;
   export let icon: IconifyIcon | null = null;
   export let name: string;
@@ -13,12 +17,13 @@
 
 <div>
   <div
-    class="m3-container type-{inputStyle}"
+    class="m3-container style-{style}"
     class:has-icon={icon}
     class:error
     style="display: {display}"
+    {...extraWrapperOptions}
   >
-    <input bind:value required {id} {...$$props} class="md-body-large" class:value />
+    <input bind:value required {id} class="md-body-large" class:value {...extraInputOptions} />
     {#if icon}
       <span class="leadingIcon">
         <Icon {icon} />
@@ -89,33 +94,33 @@
     color: rgb(var(--md-sys-color-error));
   }
 
-  .type-filled {
+  .style-filled {
     background-color: rgb(var(--md-sys-color-surface-variant));
     border-radius: 0.25rem 0.25rem 0 0;
   }
-  .type-filled > .layer {
+  .style-filled > .layer {
     color: rgb(var(--error, var(--md-sys-color-on-surface-variant)));
     border-bottom: solid 1px currentColor;
   }
-  .type-filled:hover > .layer {
+  .style-filled:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  .type-filled > input {
+  .style-filled > input {
     padding-top: 1.25rem;
     padding-bottom: 0.5rem;
   }
-  .type-filled input:is(:focus, .value, :required:valid) ~ label {
+  .style-filled input:is(:focus, .value, :required:valid) ~ label {
     top: 0.5rem;
   }
 
-  .type-outlined {
+  .style-outlined {
     border-radius: 0.25rem;
   }
-  .type-outlined > .layer {
+  .style-outlined > .layer {
     color: rgb(var(--error, var(--md-sys-color-outline)));
     border: solid 1px currentColor;
   }
-  .type-outlined input:is(:focus, .value, :required:valid) ~ label {
+  .style-outlined input:is(:focus, .value, :required:valid) ~ label {
     top: -0.5rem;
     left: 0.75rem;
     padding: 0 0.25rem;

@@ -1,6 +1,8 @@
 <script lang="ts">
-  export let percent: number | null = null;
+  import type { HTMLAttributes } from "svelte/elements";
   export let display = "inline-flex";
+  export let extraOptions: HTMLAttributes<SVGElement> = {};
+  export let percent: number | null = null;
 </script>
 
 <svg
@@ -10,7 +12,7 @@
   class:indeterminate={percent === null}
   style="display: {display}; --percent: {percent}px;"
   role="progressbar"
-  {...$$props}
+  {...extraOptions}
 >
   <circle
     cx="24"
@@ -31,7 +33,7 @@
   }
   circle {
     stroke-dashoffset: calc((var(--percent) / -100 + 1px) * 125.66);
-    transition: all 150ms;
+    transition: all 200ms;
   }
   .indeterminate {
     animation: progressRotate 2.5s infinite linear;

@@ -1,9 +1,13 @@
 <script lang="ts">
+  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
   import Icon from "@iconify/svelte";
   import iconCheck from "@iconify-icons/ic/outline-check";
+
+  export let display = "inline-flex";
+  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
+  export let extraInputOptions: HTMLInputAttributes = {};
   export let disabled = false;
   export let checked = false;
-  export let display = "inline-flex";
 
   let startX: number | null;
   const handleMouseUp = (e: MouseEvent) => {
@@ -16,7 +20,12 @@
 </script>
 
 <svelte:window on:mouseup={handleMouseUp} />
-<div class="m3-container" style="display: {display};" on:mousedown={(e) => (startX = e.clientX)}>
+<div
+  class="m3-container"
+  style="display: {display};"
+  on:mousedown={(e) => (startX = e.clientX)}
+  {...extraWrapperOptions}
+>
   <input
     type="checkbox"
     bind:checked
@@ -26,7 +35,7 @@
       if (e.code == "ArrowLeft") checked = false;
       if (e.code == "ArrowRight") checked = true;
     }}
-    {...$$props}
+    {...extraInputOptions}
   />
   <!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
   <div class="layer" on:mousedown={(e) => (startX = e.clientX)} />
@@ -47,10 +56,10 @@
     background-color: rgb(var(--md-sys-color-surface-variant));
     cursor: pointer;
     position: relative;
-    transition: all 150ms;
+    transition: all 300ms;
   }
   input:checked {
-    border: none;
+    border-width: 0;
   }
   input:disabled:checked {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
@@ -74,7 +83,7 @@
     top: 50%;
     transform: translate(0%, -50%);
     background-color: rgb(var(--md-sys-color-outline));
-    transition: all 150ms;
+    transition: all 300ms;
   }
   input:checked::before {
     background-color: rgb(var(--md-sys-color-on-primary));
@@ -96,7 +105,7 @@
     width: 3rem;
     height: 3rem;
     border-radius: 3rem;
-    transition: all 150ms;
+    transition: all 200ms;
     transform: translate(0, -50%);
     cursor: pointer;
   }
@@ -146,7 +155,7 @@
     opacity: 0;
     pointer-events: none;
     color: rgb(var(--md-sys-color-surface-variant));
-    transition: all 150ms;
+    transition: all 300ms;
   }
   .m3-container > :global(:checked ~ svg) {
     left: calc(100% - 1rem - 0.5rem);

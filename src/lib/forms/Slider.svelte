@@ -1,8 +1,13 @@
 <script lang="ts">
+  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
   import { tweened } from "svelte/motion";
-  import { cubicOut } from "svelte/easing";
+  import { easeEmphasized } from "$lib/utils/easing";
+
   export let display = "inline-flex";
+  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
+  export let extraInputOptions: HTMLInputAttributes = {};
   export let value: number;
+  export let step: number = 1;
   export let accuracy: "none" | "value" | "ticks" = "value";
   export let disabled = false;
 
@@ -13,7 +18,7 @@
     range = max - min;
     percent = ($valueDisplayed - min) / range;
   }
-  const valueDisplayed = tweened(value || 0, { duration: 150, easing: cubicOut });
+  const valueDisplayed = tweened(value || 0, { duration: 200, easing: easeEmphasized });
   const updateValue = (e: any) => {
     value = Number(e.target.value);
     e.target.value = $valueDisplayed;
@@ -28,18 +33,20 @@
   class="m3-container"
   class:show-value={accuracy != "none"}
   style="display: {display}; --percent: {percent * 100}%;"
+  {...extraWrapperOptions}
 >
   <input
     type="range"
     bind:this={rangeElem}
     value={$valueDisplayed}
+    {step}
     {disabled}
     on:input={updateValue}
-    {...$$props}
+    {...extraInputOptions}
   />
   <div class="track" />
   {#if accuracy == "ticks"}
-    {#each generateTicks(range, $$props.step || 1) as tick}
+    {#each generateTicks(range, step) as tick}
       <div
         class="tick"
         class:active={tick / 100 < value / range}
@@ -99,7 +106,7 @@
     height: 2.5rem;
     border-radius: 1.25rem;
     pointer-events: none;
-    transition: background-color 150ms;
+    transition: background-color 200ms;
   }
   .value {
     position: absolute;
@@ -115,7 +122,7 @@
     background-color: rgb(var(--md-sys-color-primary));
     color: rgb(var(--md-sys-color-on-primary));
     opacity: 0;
-    transition: opacity 150ms;
+    transition: opacity 200ms;
     pointer-events: none;
   }
   .value > span {

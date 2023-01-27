@@ -1,13 +1,18 @@
 <script lang="ts">
-  export let disabled = false;
-  export let value: string;
+  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
+
   export let display = "inline-flex";
+  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
+  export let extraInputOptions: HTMLInputAttributes = {};
+  export let disabled = false;
+  export let name: string;
+  export let value: string;
   export let group: string;
   // MUST BE WRAPPED IN A <label>
 </script>
 
-<div class="m3-container" style="display: {display};">
-  <input type="radio" {value} {disabled} bind:group {...$$props} />
+<div class="m3-container" style="display: {display};" {...extraWrapperOptions}>
+  <input type="radio" {value} {disabled} {name} bind:group {...extraInputOptions} />
   <div class="layer" />
 </div>
 
@@ -22,7 +27,7 @@
     width: 3rem;
     height: 3rem;
     border-radius: 3rem;
-    transition: all 150ms;
+    transition: all 200ms;
     transform: translate(-50%, -50%);
     cursor: pointer;
   }
@@ -38,14 +43,14 @@
     padding: 0.5rem;
     border-radius: 100%;
     content: " ";
+    background-color: rgb(var(--md-sys-color-primary));
     border: solid 0.125rem rgb(var(--md-sys-color-on-surface-variant));
     display: inline-block;
     background-clip: content-box;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   input:checked::before {
     border-color: rgb(var(--md-sys-color-primary));
-    background-color: rgb(var(--md-sys-color-primary));
     padding: 0.125rem;
   }
 

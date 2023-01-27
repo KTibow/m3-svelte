@@ -1,10 +1,12 @@
 <script lang="ts">
-  export let percent: number | null = null;
+  import type { HTMLAttributes } from "svelte/elements";
   export let display = "inline-flex";
+  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
+  export let percent: number | null = null;
 </script>
 
-<div class="m3-container" style="display: {display};" role="progressbar" {...$$props}>
-  <div class="percent" class:indeterminate={percent === null} style="width: {percent}%;" />
+<div class="m3-container" style="display: {display};" role="progressbar" {...extraOptions}>
+  <div class="percent" class:indeterminate={percent == null} style="width: {percent}%;" />
 </div>
 
 <style>
@@ -17,10 +19,10 @@
   }
   .percent {
     background-color: rgb(var(--md-sys-color-primary));
-    transition: all 150ms;
+    transition: all 200ms;
   }
   .indeterminate {
-    animation: progress infinite 1s ease-out;
+    animation: progress infinite 1.5s ease-out;
     width: 50%;
     top: 0;
     bottom: 0;
@@ -31,7 +33,7 @@
       left: -50%;
     }
     100% {
-      left: 100%;
+      left: 125%;
     }
   }
 </style>

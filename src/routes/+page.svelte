@@ -186,9 +186,9 @@
   <div class="container col">
     <p>Text field</p>
     <p>Chose {chosen7}, {chosen8}, {chosen12}</p>
-    <TextField inputStyle="filled" name="Option" icon={iconTriangle} bind:value={chosen7} />
+    <TextField style="filled" name="Option" icon={iconTriangle} bind:value={chosen7} />
     <TextField
-      inputStyle="outlined"
+      style="outlined"
       name="Other option"
       icon={iconTriangle}
       bind:value={chosen8}

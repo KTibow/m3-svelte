@@ -1,15 +1,18 @@
 <script lang="ts">
+  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
   import Icon from "@iconify/svelte";
   import iconCheck from "@iconify-icons/ic/outline-check";
 
+  export let display = "inline-flex";
+  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
+  export let extraInputOptions: HTMLInputAttributes = {};
   export let disabled = false;
   export let checked = false;
-  export let display = "inline-flex";
   // MUST BE WRAPPED IN A <label>
 </script>
 
-<div class="m3-container" style="display: {display};">
-  <input type="checkbox" bind:checked {disabled} {...$$props} />
+<div class="m3-container" style="display: {display};" {...extraWrapperOptions}>
+  <input type="checkbox" bind:checked {disabled} {...extraInputOptions} />
   <Icon icon={iconCheck} />
   <div class="layer" />
 </div>
@@ -25,7 +28,7 @@
     width: 3rem;
     height: 3rem;
     border-radius: 3rem;
-    transition: all 150ms;
+    transition: all 200ms;
     transform: translate(-50%, -50%);
     cursor: pointer;
   }
@@ -35,6 +38,7 @@
     top: 50%;
     width: 1rem;
     height: 1rem;
+    transition: all 200ms;
     transform: translate(-50%, -50%);
     color: rgb(var(--md-sys-color-on-primary));
   }
@@ -52,7 +56,7 @@
     border: solid 0.125rem rgb(var(--md-sys-color-on-surface-variant));
     display: inline-block;
     background-clip: content-box;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   input:checked::before {
     border-color: rgb(var(--md-sys-color-primary));
