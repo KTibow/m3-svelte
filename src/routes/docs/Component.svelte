@@ -16,9 +16,11 @@
     <h3 class="md-headline-large">{name}</h3>
     <p>{desc}</p>
     <div class="buttons">
-      <Button type="filled" href={mtLink} target="_blank">Material</Button>
+      <Button type="filled" href={mtLink} extraOptions={{ target: "_blank" }}>Material</Button>
       {#if ghLink}
-        <Button type="outlined" href={ghLink} target="_blank">Implementation</Button>
+        <Button type="outlined" href={ghLink} extraOptions={{ target: "_blank" }}>
+          Implementation
+        </Button>
       {/if}
     </div>
     <style>

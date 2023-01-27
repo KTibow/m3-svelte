@@ -1,9 +1,11 @@
 <script lang="ts">
-  export let disabled = false;
+  import type { HTMLAnchorAttributes, HTMLButtonAttributes } from "svelte/elements";
+  export let display = "inline-flex";
+  export let extraOptions: HTMLAnchorAttributes & HTMLButtonAttributes = {};
   export let iconType: "none" | "left" | "full" = "none";
   export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
-  export let display = "inline-flex";
   export let href = "";
+  export let disabled = false;
   $: if (href && disabled) console.warn("links cant be disabled");
 </script>
 
@@ -13,7 +15,7 @@
     {href}
     class="m3-container md-label-large {type} icon-{iconType}"
     style="display: {display};"
-    {...$$props}
+    {...extraOptions}
   >
     <div class="layer tonal" />
     <div class="layer state" />
@@ -25,7 +27,7 @@
     {disabled}
     class="m3-container md-label-large {type} icon-{iconType}"
     style="display: {display};"
-    {...$$props}
+    {...extraOptions}
   >
     <div class="layer tonal" />
     <div class="layer state" />
@@ -46,7 +48,7 @@
     position: relative;
     overflow: hidden;
     color: rgb(var(--text));
-    transition: all 150ms;
+    transition: all 200ms;
   }
   .m3-container.icon-left {
     padding-left: 1rem;
@@ -70,7 +72,16 @@
     right: 0;
     top: 0;
     bottom: 0;
-    transition: all 150ms;
+    transition: all 200ms;
+  }
+
+  .icon-left > :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+  .icon-full > :global(svg) {
+    width: 24px;
+    height: 24px;
   }
 
   .m3-container:not(:disabled).elevated {

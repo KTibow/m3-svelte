@@ -45,8 +45,8 @@
     <Button
       type="text"
       iconType="full"
-      style="display: inline-flex; color: var(--text-for-icon) !important;"
       on:click={() => dispatch("trailingClicked")}
+      extraOptions={{ style: "display: inline-flex; color: var(--text-for-icon) !important;" }}
     >
       <Icon icon={trailingIcon} />
     </Button>

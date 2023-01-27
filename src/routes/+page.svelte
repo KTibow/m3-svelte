@@ -83,15 +83,17 @@
   </div>
   <div>
     <p>Link</p>
-    <Button type="outlined" href="https://google.com" target="_blank">Enabled</Button>
+    <Button type="outlined" href="https://google.com" extraOptions={{ target: "_blank" }}>
+      Enabled
+    </Button>
   </div>
   <div>
     <p>Icon</p>
     <Button type="filled" on:click={() => alert("Pressed")} iconType="left">
-      <Icon icon={iconEdit} style="height: 18px; width: 18px;" /> Filled
+      <Icon icon={iconEdit} /> Filled
     </Button>
     <Button type="text" on:click={() => alert("Pressed")} iconType="full">
-      <Icon icon={iconEdit} style="height: 24px; width: 24px;" />
+      <Icon icon={iconEdit} />
     </Button>
   </div>
   <div>

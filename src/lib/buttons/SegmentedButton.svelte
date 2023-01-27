@@ -1,26 +1,36 @@
 <script lang="ts">
-  interface labelData {
+  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
+  interface LabelData {
     icon?: IconifyIcon;
     label: string;
     disabled?: boolean;
   }
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconCheck from "@iconify-icons/ic/outline-check";
-  export let options: labelData[];
+  export let display = "inline-flex";
+  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
+  export let extraInputOptions: HTMLInputAttributes = {};
+  export let options: LabelData[];
   export let multiSelect = true;
   export let chosenOptions: number[] | number = [];
-  export let display = "inline-flex";
   const name = crypto.randomUUID();
 </script>
 
-<div class="m3-container" style="display: {display};" {...$$props}>
+<div class="m3-container" style="display: {display};" {...extraWrapperOptions}>
   {#each options as option, i}
     {@const id = crypto.randomUUID()}
     {@const selected =
       chosenOptions instanceof Array ? chosenOptions.includes(i) : chosenOptions == i}
     {@const icon = selected ? iconCheck : option.icon}
     {#if multiSelect}
-      <input type="checkbox" {id} value={i} disabled={option.disabled} bind:group={chosenOptions} />
+      <input
+        type="checkbox"
+        {id}
+        value={i}
+        disabled={option.disabled}
+        bind:group={chosenOptions}
+        {...extraInputOptions}
+      />
     {:else}
       <input
         type="radio"
@@ -29,6 +39,7 @@
         value={i}
         disabled={option.disabled}
         bind:group={chosenOptions}
+        {...extraInputOptions}
       />
     {/if}
     <label class="md-label-large" for={id}>
@@ -62,6 +73,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    white-space: nowrap;
 
     cursor: pointer;
     color: rgb(var(--md-sys-color-on-surface));
@@ -104,7 +116,7 @@
   .icon > :global(*) {
     width: 18px;
     height: 18px;
-    transition: all 150ms;
+    transition: all 200ms;
     overflow: hidden;
   }
   .pad {

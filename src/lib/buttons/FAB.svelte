@@ -1,19 +1,25 @@
 <script lang="ts">
+  import type { HTMLButtonAttributes } from "svelte/elements";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
 
+  export let display = "inline-flex";
+  export let extraOptions: HTMLButtonAttributes = {};
   export let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
   export let size: "small" | "normal" | "large" = "normal";
   export let elevation: "normal" | "lowered" | "none" = "normal";
   export let icon: IconifyIcon | null = null;
   export let text: string | null = null;
-  export let display = "inline-flex";
+  $: {
+    if (!icon && !text) console.warn("you need at least something in a FAB");
+    if (size != "normal" && text) console.warn("extended fabs are supposed to use size normal");
+  }
 </script>
 
 <button
   on:click
   class="m3-container md-label-large color-{color} size-{size} elevation-{elevation}"
   style="display: {display};"
-  {...$$props}
+  {...extraOptions}
 >
   <div class="layer" />
   {#if icon}
@@ -32,7 +38,7 @@
     overflow: hidden;
     align-items: center;
     justify-content: center;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   .layer {
     position: absolute;
@@ -40,7 +46,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    transition: all 150ms;
+    transition: all 200ms;
     opacity: 0;
   }
   button:hover .layer {
