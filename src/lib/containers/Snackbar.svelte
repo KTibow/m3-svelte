@@ -1,8 +1,10 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import { slide } from "svelte/transition";
+  import { fade } from "svelte/transition";
   import Icon from "@iconify/svelte";
   import iconX from "@iconify-icons/ic/outline-close";
+  import { enterExit } from "$lib/utils/animation";
+  import { easeEmphasizedDecel } from "$lib/utils/easing";
 
   export let display = "flex";
   export let open = false;
@@ -21,40 +23,40 @@
 </script>
 
 {#if open}
-  <div class="wrapper" transition:slide={{ duration: 150 }} style="display: {display};">
-    <div class="m3-container" class:showClose>
-      <p class="md-body-medium"><slot /></p>
-      {#if action}
-        <button
-          class="action md-label-large"
-          on:click={() => {
-            open = false;
-            dispatch("closed", { method: "action" });
-          }}
-        >
-          {action}
-        </button>
-      {/if}
-      {#if showClose}
-        <button
-          class="closeIcon"
-          on:click={() => {
-            open = false;
-            dispatch("closed", { method: "closeIcon" });
-          }}
-        >
-          <Icon icon={iconX} />
-        </button>
-      {/if}
-    </div>
+  <div
+    class="m3-container"
+    in:enterExit={{ duration: 400, start: "bottom", easing: easeEmphasizedDecel }}
+    out:fade={{ duration: 200 }}
+    style="display: {display};"
+    class:showClose
+  >
+    <p class="md-body-medium"><slot /></p>
+    {#if action}
+      <button
+        class="action md-label-large"
+        on:click={() => {
+          open = false;
+          dispatch("closed", { method: "action" });
+        }}
+      >
+        {action}
+      </button>
+    {/if}
+    {#if showClose}
+      <button
+        class="closeIcon"
+        on:click={() => {
+          open = false;
+          dispatch("closed", { method: "closeIcon" });
+        }}
+      >
+        <Icon icon={iconX} />
+      </button>
+    {/if}
   </div>
 {/if}
 
 <style>
-  .wrapper {
-    position: relative;
-    z-index: 3;
-  }
   .m3-container {
     display: flex;
     min-width: 20rem;
@@ -66,6 +68,8 @@
     background-color: rgb(var(--md-sys-color-inverse-surface));
     color: rgb(var(--md-sys-color-inverse-on-surface));
     border-radius: 0.25rem;
+    position: relative;
+    z-index: 3;
   }
   .showClose {
     padding-right: 0;

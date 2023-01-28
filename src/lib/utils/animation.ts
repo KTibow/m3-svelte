@@ -37,7 +37,7 @@ export const containerTransform = (options: transitionOptions & containerOptions
       delay: params.delay || options.delay,
       duration: params.duration || options.duration || 500,
       easing: params.easing || options.easing || cubicOut,
-      css: (t: number, u: number) => {
+      css: (t, u) => {
         const currentWidth = to.width * (1 - u) + from.width * u;
         const currentHeight = to.height * (1 - u) + from.height * u;
         const widthOffset = (to.width - currentWidth) / 2;
@@ -79,7 +79,10 @@ clip-path: inset(${heightOffset}px ${widthOffset}px ${heightOffset}px ${widthOff
 interface inOutOptions {
   start?: "top" | "bottom" | "left" | "right";
 }
-export const enterExit = (_: Element, options: transitionOptions & inOutOptions) => {
+export const enterExit = (
+  node: Element,
+  options: transitionOptions & inOutOptions
+): TransitionConfig => {
   options.start ||= "top";
   const scaleDir = ["top", "bottom"].includes(options.start) ? "Y" : "X";
   const getClipPath = (n: string) => {
@@ -88,20 +91,28 @@ export const enterExit = (_: Element, options: transitionOptions & inOutOptions)
     else if (options.start == "left") return `0 ${n} 0 0`;
     else if (options.start == "right") return `0 0 0 ${n}`;
   };
-  const getTransform = (n: number) => {
-    if (options.start == "top") return `translateY(${-n}rem)`;
-    else if (options.start == "bottom") return `translateY(${n}rem)`;
-    else if (options.start == "left") return `translateX(${-n}rem)`;
-    else if (options.start == "right") return `translateX(${n}rem)`;
+  const getTransform = (u: number) => {
+    if (options.start == "top") return `translateY(${u * -10}%)`;
+    else if (options.start == "bottom") return `translateY(${u * 10}%)`;
+    else if (options.start == "left") return `translateX(${u * -10}%)`;
+    else if (options.start == "right") return `translateX(${u * 10}%)`;
   };
+  const { borderRadius } = getComputedStyle(node);
+  const radius =
+    (borderRadius.endsWith("px")
+      ? +borderRadius.slice(0, -2)
+      : borderRadius.endsWith("rem")
+      ? +borderRadius.slice(0, -3) * 16
+      : null) || 0;
   return {
     delay: options.delay,
     duration: options.duration || 300,
     easing: options.easing || cubicOut,
-    css: (t: number, u: number) =>
-      `clip-path: inset(${getClipPath(u * 100 + "%")} round 1rem);
+    css: (t, u) =>
+      `clip-path: inset(${getClipPath(u * 100 + "%")} round ${radius}px);
 transform-origin: ${options.start};
-transform: scale${scaleDir}(${(t * 0.3 + 0.7) * 100}%) ${getTransform(u * 2)};`,
+transform: scale${scaleDir}(${(t * 0.3 + 0.7) * 100}%) ${getTransform(u)};
+opacity: ${Math.min(t * 5, 1)};`,
   };
 };
 

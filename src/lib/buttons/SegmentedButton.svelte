@@ -77,7 +77,7 @@
 
     cursor: pointer;
     color: rgb(var(--md-sys-color-on-surface));
-    transition: all 150ms;
+    transition: all 200ms;
   }
 
   .m3-container > label ~ label {
@@ -97,7 +97,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   label:hover > .layer {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
