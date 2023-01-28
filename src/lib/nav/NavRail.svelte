@@ -3,13 +3,15 @@
   // such as a navigation bar. Instead, choose a single navigation component based on product requirements
   // and device size: Navigation bars for small screens, navigation rails for tablet screens,
   // and standard navigation drawers for desktop screens.
-  import type { ComponentProps } from "svelte";
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, type ComponentProps } from "svelte";
+  import type { HTMLAnchorAttributes, HTMLAttributes, HTMLButtonAttributes } from "svelte/elements";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconHamburger from "@iconify-icons/ic/outline-menu";
   import FAB from "$lib/buttons/FAB.svelte";
 
   export let display = "flex";
+  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
+  export let extraItemOptions: HTMLAnchorAttributes & HTMLButtonAttributes = {};
   export let alignment: "top" | "center" | "bottom" = "center";
   export let hamburger = false;
   export let fab: false | ComponentProps<FAB> = false;
@@ -25,7 +27,11 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="m3-container relative horizontal-{horizontal}" style="display: {display};" {...$$props}>
+<div
+  class="m3-container relative horizontal-{horizontal}"
+  style="display: {display};"
+  {...extraWrapperOptions}
+>
   {#if hamburger}
     <div class="menuItem">
       <button
@@ -49,7 +55,12 @@
   <div class="aligner {alignment}">
     {#each mainItems as item}
       {#if item.href}
-        <a href={item.href} class="menuItem hoverable" class:active={item.active}>
+        <a
+          href={item.href}
+          class="menuItem hoverable"
+          class:active={item.active}
+          {...extraItemOptions}
+        >
           <div class="pill relative">
             <div class="layer full" />
             <Icon icon={item.active ? item.activeIcon : item.inactiveIcon} />
@@ -61,6 +72,7 @@
           class="menuItem hoverable"
           class:active={item.active}
           on:click={(event) => dispatch("chosen", { name: "item", data: item, event })}
+          {...extraItemOptions}
         >
           <div class="pill relative">
             <div class="layer full" />
@@ -157,7 +169,7 @@
   }
   .layer {
     position: absolute;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   .layer.circle {
     left: 50%;
@@ -187,7 +199,7 @@
     height: 2rem;
     border-radius: 2rem;
     overflow: hidden;
-    transition: all 150ms;
+    transition: all 300ms;
   }
   .horizontal-true .pill {
     width: 4rem;

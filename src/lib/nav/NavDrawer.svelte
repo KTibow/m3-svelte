@@ -1,18 +1,22 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import type { HTMLAttributes, HTMLButtonAttributes } from "svelte/elements";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
 
   export let display = "flex";
+  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
+  export let extraButtonOptions: HTMLButtonAttributes = {};
   export let destinations: { selected: boolean; icon: IconifyIcon; label: string }[];
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="m3-container" style="display: {display};" {...$$props}>
+<div class="m3-container" style="display: {display};" {...extraWrapperOptions}>
   {#each destinations as destination}
     <button
       class="destination"
       class:selected={destination.selected}
       on:click={(event) => dispatch("chosen", { name: "item", data: destination, event })}
+      {...extraButtonOptions}
     >
       <div class="layer" />
       <Icon icon={destination.icon} />
@@ -34,7 +38,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   .m3-container :global(svg) {
     width: 1.5rem;
@@ -51,7 +55,7 @@
     border: none;
     border-radius: 1.75rem;
     background-color: transparent;
-    --text: rgb(var(--md-sys-color-on-surface-variant));
+    --text: var(--md-sys-color-on-surface-variant);
     color: rgb(var(--text));
     cursor: pointer;
   }

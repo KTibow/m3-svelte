@@ -1,7 +1,10 @@
 <script lang="ts">
+  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
 
   export let display = "flex";
+  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
+  export let extraInputOptions: HTMLInputAttributes = {};
   export let style: "primary" | "secondary";
   export let items: {
     primaryIcon?: IconifyIcon;
@@ -11,10 +14,10 @@
   const name = crypto.randomUUID();
 </script>
 
-<div class="m3-container {style}" style="display: {display};">
+<div class="m3-container {style}" style="display: {display};" {...extraWrapperOptions}>
   {#each items as item, i}
     {@const id = crypto.randomUUID()}
-    <input type="radio" {name} {id} value={i} bind:group={activeItem} />
+    <input type="radio" {name} {id} value={i} bind:group={activeItem} {...extraInputOptions} />
     <label class="item" class:icon={item.primaryIcon} for={id}>
       <div class="layer" />
       {#if item.primaryIcon}
@@ -57,7 +60,7 @@
     border: none;
     padding: 0 1rem;
     cursor: pointer;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   .layer {
     position: absolute;
@@ -65,7 +68,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   .item.icon {
     height: 4rem;
@@ -100,7 +103,7 @@
   .indicatorSpace {
     position: absolute;
     bottom: 0;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   .primary .indicator {
     margin: auto;
