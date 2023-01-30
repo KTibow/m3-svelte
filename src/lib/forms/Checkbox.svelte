@@ -96,6 +96,9 @@
   input:disabled ~ .layer {
     display: none;
   }
+  input:disabled + :global(svg) {
+    color: rgb(var(--md-sys-color-surface));
+  }
   input:disabled::before {
     border-color: rgb(var(--md-sys-color-on-surface) / 0.38);
   }

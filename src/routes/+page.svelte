@@ -3,6 +3,7 @@
   import FAB from "$lib/buttons/FAB.svelte";
   import SegmentedButton from "$lib/buttons/SegmentedButton.svelte";
 
+  import BottomSheet from "$lib/containers/BottomSheet.svelte";
   import Card from "$lib/containers/Card.svelte";
   import Dialog from "$lib/containers/Dialog.svelte";
   import List from "$lib/containers/List.svelte";
@@ -28,7 +29,6 @@
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
   import iconX from "@iconify-icons/ic/outline-close";
-  import BottomSheet from "$lib/containers/BottomSheet.svelte";
   let chosen1: number[] = [];
   let chosen2: number[] = [];
 
@@ -170,18 +170,32 @@
   </div>
   <div class="container">
     <p>Chip(s)</p>
-    <Chip type="assist" on:click={() => alert("Pressed")} icon={iconEdit}>Assist</Chip>
-    <Chip type="filter" on:click={() => alert("Pressed")} icon={iconEdit} selected>Filter</Chip>
-    <Chip
-      type="input"
-      on:click={() => alert("Pressed")}
-      icon={iconEdit}
-      selected
-      trailingIcon={iconX}
-    >
-      Input
-    </Chip>
-    <Chip type="suggestion" on:click={() => alert("Pressed")}>Suggestion</Chip>
+    <table>
+      <tr>
+        <th />
+        <th>Nothing</th>
+        <th>Elevated</th>
+        <th>Icon</th>
+        <th>Elevated + icon</th>
+      </tr>
+      {#each Object.entries( { Nothing: {}, Selected: { selected: true }, Disabled: { disabled: true }, "Selected + Disabled": { selected: true, disabled: true } } ) as [name, options]}
+        <tr>
+          <td>{name}</td>
+          <td><Chip type="suggestion" {...options}>Hello</Chip></td>
+          <td><Chip type="suggestion" elevated {...options}>Hello</Chip></td>
+          <td>
+            <Chip type="suggestion" icon={iconTriangle} trailingIcon={iconX} {...options}>
+              Hello
+            </Chip>
+          </td>
+          <td>
+            <Chip type="suggestion" elevated icon={iconTriangle} trailingIcon={iconX} {...options}>
+              Hello
+            </Chip>
+          </td>
+        </tr>
+      {/each}
+    </table>
   </div>
   <div class="container col">
     <p>Text field</p>
@@ -292,6 +306,7 @@
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    align-items: flex-start;
   }
   .parent > div {
     overflow: hidden;
@@ -307,5 +322,12 @@
   }
   .max-w-body {
     max-width: 50ch;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  td {
+    padding: 1rem;
+    border: solid 1px rgb(var(--md-sys-color-on-surface) / 0.12);
   }
 </style>
