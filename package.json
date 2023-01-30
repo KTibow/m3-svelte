@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@iconify-icons/ic": "^1.2.13",
-    "@iconify/svelte": "^3.0.1",
+    "@iconify/svelte": "^3.1.0",
     "@importantimport/material-color-utilities": "^0.2.1-alpha.0",
     "svelte": "^3.55.1"
   },
