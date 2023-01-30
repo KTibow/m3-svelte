@@ -1,12 +1,14 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import { fade } from "svelte/transition";
+  import type { HTMLAttributes } from "svelte/elements";
   import Icon from "@iconify/svelte";
   import iconX from "@iconify-icons/ic/outline-close";
   import { enterExit } from "$lib/utils/animation";
   import { easeEmphasizedDecel } from "$lib/utils/easing";
 
   export let display = "flex";
+  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
   export let open = false;
   export let action: string | null = null;
   export let showClose = false;
@@ -29,6 +31,7 @@
     out:fade={{ duration: 200 }}
     style="display: {display};"
     class:showClose
+    {...extraOptions}
   >
     <p class="md-body-medium"><slot /></p>
     {#if action}
@@ -84,7 +87,7 @@
     background-color: transparent;
     color: rgb(var(--text));
     cursor: pointer;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   button:hover {
     background-color: rgb(var(--text) / 0.08);

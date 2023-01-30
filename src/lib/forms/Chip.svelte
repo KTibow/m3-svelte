@@ -23,7 +23,7 @@
    * if this is false then the border will be transparent instead of gone, which may look weird with elevated
    * i *could* use a different method for the border or for the background to make it consistent but idk
    * as always, prs are welcome */
-  export let inconsistentWidthOk = true;
+  export let inconsistentWidthOk = elevated;
 </script>
 
 <div

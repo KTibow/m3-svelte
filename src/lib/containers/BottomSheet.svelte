@@ -4,7 +4,7 @@
   import { easeEmphasizedDecel, easeEmphasizedAccel } from "$lib/utils/easing";
   import Sheet from "./_Sheet.svelte";
 
-  export let height = 80;
+  export let height = 160;
   export let showHandle = true;
   export let isDialog = true;
   export let closeOnMinimize = true;
@@ -26,8 +26,9 @@
     startY = e.clientY;
   };
   let goingUp = true;
-  const moveSheet = () => {
+  const moveSheet = (e: MouseEvent) => {
     if (!sheet) return;
+    if (e.detail) return;
     if (height == sheet.offsetHeight) goingUp = false;
     if (height == 48) goingUp = true;
     if (goingUp) height = height + 160;
@@ -130,7 +131,7 @@
     }
   }
   .no-drag {
-    transition: all 150ms;
+    transition: all 200ms;
   }
   :global(.navBarOffset) .m3-container {
     bottom: 5rem;
@@ -150,6 +151,7 @@
     padding: 0;
     border: none;
     border-radius: 0.25rem;
+    cursor: inherit;
   }
   .handleContainer > button:focus-visible {
     background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.5);

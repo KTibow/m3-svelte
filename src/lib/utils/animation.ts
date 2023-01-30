@@ -85,11 +85,11 @@ export const enterExit = (
 ): TransitionConfig => {
   options.start ||= "top";
   const scaleDir = ["top", "bottom"].includes(options.start) ? "Y" : "X";
-  const getClipPath = (n: string) => {
-    if (options.start == "top") return `0 0 ${n} 0`;
-    else if (options.start == "bottom") return `${n} 0 0 0`;
-    else if (options.start == "left") return `0 ${n} 0 0`;
-    else if (options.start == "right") return `0 0 0 ${n}`;
+  const getClipPath = (n: string, t: number) => {
+    if (options.start == "top") return `${t * -100}% ${t * -100}% ${n} ${t * -100}%`;
+    else if (options.start == "bottom") return `${n} ${t * -100}% ${t * -100}% ${t * -100}%`;
+    else if (options.start == "left") return `${t * -100}% ${n} ${t * -100}% ${t * -100}%`;
+    else if (options.start == "right") return `${t * -100}% ${t * -100}% ${t * -100}% ${n}`;
   };
   const getTransform = (u: number) => {
     if (options.start == "top") return `translateY(${u * -10}%)`;
@@ -108,11 +108,10 @@ export const enterExit = (
     delay: options.delay,
     duration: options.duration || 300,
     easing: options.easing || cubicOut,
-    css: (t, u) =>
-      `clip-path: inset(${getClipPath(u * 100 + "%")} round ${radius}px);
+    css: (t, u) => `clip-path: inset(${getClipPath(u * 100 + "%", t)} round ${radius}px);
 transform-origin: ${options.start};
 transform: scale${scaleDir}(${(t * 0.3 + 0.7) * 100}%) ${getTransform(u)};
-opacity: ${Math.min(t * 5, 1)};`,
+opacity: ${Math.min(t * 3, 1)};`,
   };
 };
 

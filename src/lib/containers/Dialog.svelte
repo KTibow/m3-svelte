@@ -1,10 +1,13 @@
 <script lang="ts">
   import { tick, createEventDispatcher } from "svelte";
+  import type { HTMLDialogAttributes } from "svelte/elements";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import Button from "$lib/buttons/Button.svelte";
   import { enterExit, outroClass } from "$lib/utils/animation";
   import { easeEmphasizedAccel, easeEmphasizedDecel } from "$lib/utils/easing";
+
   export let display = "flex";
+  export let extraDialogOptions: HTMLDialogAttributes = {};
   export let icon: IconifyIcon | null = null;
   export let title: string;
   export let confirmLabel: string;
@@ -31,14 +34,15 @@
       open = false;
       dispatch("closed", { method: "browser" });
     }}
-    in:enterExit={{ duration: 400, easing: easeEmphasizedDecel }}
-    out:enterExit={{ duration: 200, easing: easeEmphasizedAccel }}
     on:click={() => {
       if (preventDismiss) return;
       open = false;
       dispatch("closed", { method: "clickedOutside" });
     }}
+    in:enterExit={{ duration: 400, easing: easeEmphasizedDecel }}
+    out:enterExit={{ duration: 200, easing: easeEmphasizedAccel }}
     use:outroClass
+    {...extraDialogOptions}
   >
     <div class="m3-container" on:click|stopPropagation style="display: {display};">
       {#if icon}

@@ -103,7 +103,7 @@
     display: flex;
     gap: 1rem;
     padding: 0.5rem 1.5rem 0.5rem 1rem;
-    transition: all 150ms;
+    transition: all 200ms;
   }
   button {
     border: none;
@@ -129,8 +129,7 @@
   .item:is(button, label):hover {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
   }
-  .item:is(button, label):focus-visible,
-  .item:is(button, label):active {
+  .item:is(button, label):is(:focus-visible, :active) {
     background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
   }
 
