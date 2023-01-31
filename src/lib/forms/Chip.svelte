@@ -51,7 +51,7 @@
     <span class="md-label-large"><slot /></span>
   </button>
   {#if trailingIcon}
-    <button class="trailing">
+    <button class="trailing" {disabled}>
       <div class="layer state" />
       <Icon icon={trailingIcon} />
     </button>

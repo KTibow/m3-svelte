@@ -2,6 +2,7 @@
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconError from "@iconify-icons/ic/error-outline";
+  import { createEventDispatcher } from "svelte";
 
   export let display = "inline-flex";
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
@@ -9,9 +10,12 @@
   export let style: "filled" | "outlined";
   export let error = false;
   export let icon: IconifyIcon | null = null;
+  export let trailingIcon: IconifyIcon | null = null;
   export let name: string;
   export let supportingText: null | string = null;
   export let value = "";
+  export let isDate = false;
+  const dispatch = createEventDispatcher();
   let id = `input-${crypto.randomUUID()}`;
 </script>
 
@@ -19,11 +23,21 @@
   <div
     class="m3-container style-{style}"
     class:has-icon={icon}
+    class:has-trailing-icon={error || trailingIcon}
     class:error
     style="display: {display}"
     {...extraWrapperOptions}
   >
-    <input bind:value required {id} class="md-body-large" class:value {...extraInputOptions} />
+    <input
+      bind:value
+      required
+      {id}
+      class="md-body-large"
+      class:value
+      on:click|preventDefault
+      {...isDate ? { type: "date" } : {}}
+      {...extraInputOptions}
+    />
     {#if icon}
       <span class="leadingIcon">
         <Icon {icon} />
@@ -33,6 +47,11 @@
       <span class="trailingIcon">
         <Icon icon={iconError} />
       </span>
+    {/if}
+    {#if trailingIcon}
+      <button class="trailingButton" on:click={() => dispatch("trailingClicked")}>
+        <Icon icon={trailingIcon} />
+      </button>
     {/if}
     <div class="layer" />
     <label class="md-body-large" for={id}>{name}</label>
@@ -109,7 +128,7 @@
     padding-top: 1.25rem;
     padding-bottom: 0.5rem;
   }
-  .style-filled input:is(:focus, .value, :required:valid) ~ label {
+  .style-filled input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
     top: 0.5rem;
   }
 
@@ -120,7 +139,7 @@
     color: rgb(var(--error, var(--md-sys-color-outline)));
     border: solid 1px currentColor;
   }
-  .style-outlined input:is(:focus, .value, :required:valid) ~ label {
+  .style-outlined input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
     top: -0.5rem;
     left: 0.75rem;
     padding: 0 0.25rem;
@@ -134,7 +153,7 @@
     border-width: 2px;
     color: rgb(var(--error, var(--md-sys-color-primary)));
   }
-  input:is(:focus, .value, :required:valid) ~ label {
+  input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
     font-size: var(--md-sys-typescale-body-small-size, 12px);
     line-height: var(--md-sys-typescale-body-small-height, 16px);
     letter-spacing: var(--md-sys-typescale-body-small-tracking, 0.4);
@@ -153,13 +172,71 @@
     margin: 0 0.75rem 0 auto;
     color: rgb(var(--error));
   }
+  .trailingButton {
+    position: absolute;
+    width: 3.25rem;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+    transition: all 200ms;
+    border: none;
+    cursor: pointer;
+  }
+  .trailingButton:hover {
+    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.08);
+  }
+  .trailingButton:is(:focus-visible, :active) {
+    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.12);
+  }
   .has-icon > input {
     padding-left: 3.25rem;
   }
   .has-icon > label {
     left: 3.25rem;
   }
-  .error > input {
+  .has-trailing-icon > input {
     padding-right: 3.25rem;
+  }
+
+  input[type="date"] {
+    padding-left: 0.875rem;
+  }
+  .has-icon > input[type="date"] {
+    padding-left: 3.125rem;
+  }
+  @supports (-moz-appearance: none) {
+    input[type="date"] {
+      padding-left: 0.75rem;
+    }
+    .has-icon > input[type="date"] {
+      padding-left: 3rem;
+    }
+  }
+  @media (orientation: landscape) {
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+    @supports not selector(::-webkit-calendar-picker-indicator) {
+      input[type="date"] {
+        clip-path: inset(0 3.25rem 0 0);
+      }
+      .has-trailing-icon input[type="date"] {
+        padding-right: 0;
+      }
+    }
+  }
+  @media (orientation: portrait) {
+    input[type="date"] {
+      padding-right: 1rem;
+    }
+    input[type="date"] ~ .trailingButton {
+      display: none;
+    }
   }
 </style>

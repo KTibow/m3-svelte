@@ -1,15 +1,17 @@
 <script lang="ts">
-  import DateField from "$lib/forms/DateField.svelte";
-  import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import type { ComponentProps } from "svelte";
-  import { fade } from "svelte/transition";
-  export let fieldOptions: Omit<ComponentProps<DateField>, "dateValidator">;
+  import iconCalendar from "@iconify-icons/ic/outline-calendar-today";
+  import TextField from "$lib/forms/TextField.svelte";
+  import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
+  import { enterExit } from "./animation";
+
+  type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+  export let fieldOptions: Optional<ComponentProps<TextField>, "style">;
   export let clearable = true;
   export let value: string;
-  export let align: "left" | "auto" | "right" = "auto";
   export let dateValidator: (date: string) => boolean = () => false; /* return true if invalid */
-  let showingPicker = false;
-  let container: HTMLElement;
+  let showingPicker = false,
+    container: HTMLDivElement;
   function clickOutside(_: Node) {
     const handleClick = (event: Event) => {
       if (!container.contains(event.target as Node)) {
@@ -26,14 +28,16 @@
 </script>
 
 <div class="m3-container" bind:this={container}>
-  <DateField
-    {...fieldOptions}
-    {dateValidator}
+  <TextField
+    style="outlined"
+    isDate={true}
     bind:value
-    on:showPicker={() => (showingPicker = !showingPicker)}
+    trailingIcon={iconCalendar}
+    on:trailingClicked={() => (showingPicker = !showingPicker)}
+    {...fieldOptions}
   />
   {#if showingPicker}
-    <div class="picker align-{align}" transition:fade={{ duration: 150 }} use:clickOutside>
+    <div class="picker" transition:enterExit={{ duration: 400 }} use:clickOutside>
       <DatePickerDocked
         {clearable}
         {dateValidator}
@@ -57,18 +61,5 @@
     position: absolute;
     top: 4.5rem;
     z-index: 3;
-  }
-  .align-left {
-    left: 0;
-  }
-  .align-right,
-  .align-auto {
-    right: 0;
-  }
-  @media (orientation: portrait) {
-    .align-auto {
-      left: 0;
-      right: unset;
-    }
   }
 </style>
