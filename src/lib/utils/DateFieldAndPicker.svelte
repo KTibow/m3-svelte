@@ -37,7 +37,7 @@
     {...fieldOptions}
   />
   {#if showingPicker}
-    <div class="picker" transition:enterExit={{ duration: 400 }} use:clickOutside>
+    <div class="picker" transition:enterExit={{ duration: 400, moveY: false }} use:clickOutside>
       <DatePickerDocked
         {clearable}
         {dateValidator}

@@ -78,12 +78,14 @@ clip-path: inset(${heightOffset}px ${widthOffset}px ${heightOffset}px ${widthOff
 
 interface inOutOptions {
   start?: "top" | "bottom" | "left" | "right";
+  moveY?: boolean;
 }
 export const enterExit = (
   node: Element,
   options: transitionOptions & inOutOptions
 ): TransitionConfig => {
   options.start ||= "top";
+  options.moveY ??= true;
   const scaleDir = ["top", "bottom"].includes(options.start) ? "Y" : "X";
   const getClipPath = (n: string, t: number) => {
     if (options.start == "top") return `${t * -100}% ${t * -100}% ${n} ${t * -100}%`;
@@ -92,6 +94,7 @@ export const enterExit = (
     else if (options.start == "right") return `${t * -100}% ${t * -100}% ${t * -100}% ${n}`;
   };
   const getTransform = (u: number) => {
+    if (!options.moveY) return "";
     if (options.start == "top") return `translateY(${u * -10}%)`;
     else if (options.start == "bottom") return `translateY(${u * 10}%)`;
     else if (options.start == "left") return `translateX(${u * -10}%)`;
