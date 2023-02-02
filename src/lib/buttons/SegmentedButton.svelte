@@ -76,7 +76,8 @@
     white-space: nowrap;
 
     cursor: pointer;
-    color: rgb(var(--md-sys-color-on-surface));
+    --text: var(--md-sys-color-on-surface);
+    color: rgb(var(--text));
     transition: all 200ms;
   }
 
@@ -89,7 +90,7 @@
   }
   .m3-container > input:checked + label {
     background-color: rgb(var(--md-sys-color-secondary-container));
-    color: rgb(var(--md-sys-color-on-secondary-container));
+    --text: rgb(var(--md-sys-color-on-secondary-container));
   }
   .layer {
     position: absolute;
@@ -99,17 +100,12 @@
     bottom: 0;
     transition: all 200ms;
   }
-  label:hover > .layer {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
+  input:enabled + label:hover > .layer {
+    background-color: rgb(var(--text) / 0.08);
   }
-  input:checked + label:hover > .layer {
-    background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.08);
-  }
-  input:focus-visible + label > .layer {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
-  }
-  input:checked:focus-visible + label > .layer {
-    background-color: rgb(var(--md-sys-color-on-secondary-container) / 0.12);
+  input:enabled:focus-visible + label > .layer,
+  input:enabled + label:active > .layer {
+    background-color: rgb(var(--text) / 0.12);
   }
   .pad,
   .icon,
