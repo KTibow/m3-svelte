@@ -36,6 +36,11 @@
     on:trailingClicked={() => (showingPicker = !showingPicker)}
     {...fieldOptions}
   />
+  <!-- TODO: add error states when text field is invalid
+  problems:
+  - error icon overlaps
+  - im using a custom thing, ill need to move it to :valid
+  - might need to move to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/setCustomValidity-->
   {#if showingPicker}
     <div class="picker" transition:enterExit={{ duration: 400, moveY: false }} use:clickOutside>
       <DatePickerDocked
@@ -61,5 +66,6 @@
     position: absolute;
     top: 4.5rem;
     z-index: 3;
+    border-radius: 1rem;
   }
 </style>

@@ -208,7 +208,15 @@
       bind:value={chosen8}
       supportingText="sus"
     />
-    <DateFieldAndPicker fieldOptions={{ name: "Date" }} clearable={true} bind:value={chosen12} />
+    <DateFieldAndPicker
+      fieldOptions={{ name: "Date" }}
+      clearable={true}
+      dateValidator={(d) => {
+        const lastChar = d.charCodeAt(9);
+        return Boolean(lastChar && lastChar % 2);
+      }}
+      bind:value={chosen12}
+    />
   </div>
 </div>
 <h2 class="md-headline-medium">Containers</h2>

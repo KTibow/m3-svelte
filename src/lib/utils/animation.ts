@@ -87,11 +87,20 @@ export const enterExit = (
   options.start ||= "top";
   options.moveY ??= true;
   const scaleDir = ["top", "bottom"].includes(options.start) ? "Y" : "X";
-  const getClipPath = (n: string, t: number) => {
-    if (options.start == "top") return `${t * -100}% ${t * -100}% ${n} ${t * -100}%`;
-    else if (options.start == "bottom") return `${n} ${t * -100}% ${t * -100}% ${t * -100}%`;
-    else if (options.start == "left") return `${t * -100}% ${n} ${t * -100}% ${t * -100}%`;
-    else if (options.start == "right") return `${t * -100}% ${t * -100}% ${t * -100}% ${n}`;
+  const { borderRadius, boxShadow } = getComputedStyle(node);
+  const radius =
+    (borderRadius.endsWith("px")
+      ? +borderRadius.slice(0, -2)
+      : borderRadius.endsWith("rem")
+      ? +borderRadius.slice(0, -3) * 16
+      : null) || 0;
+  const getClipPath = (n: string) => {
+    const out = boxShadow && boxShadow != "none" ? "-100%" : "0";
+    /* the above allows box shadows to show, ideally i would use a wrapper for this instead */
+    if (options.start == "top") return `-100% ${out} ${n} ${out}`;
+    else if (options.start == "bottom") return `${n} ${out} -100% ${out}`;
+    else if (options.start == "left") return `${out} ${n} ${out} -100%`;
+    else if (options.start == "right") return `${out} -100% ${out} ${n}`;
   };
   const getTransform = (u: number) => {
     if (!options.moveY) return "";
@@ -100,18 +109,11 @@ export const enterExit = (
     else if (options.start == "left") return `translateX(${u * -10}%)`;
     else if (options.start == "right") return `translateX(${u * 10}%)`;
   };
-  const { borderRadius } = getComputedStyle(node);
-  const radius =
-    (borderRadius.endsWith("px")
-      ? +borderRadius.slice(0, -2)
-      : borderRadius.endsWith("rem")
-      ? +borderRadius.slice(0, -3) * 16
-      : null) || 0;
   return {
     delay: options.delay,
     duration: options.duration || 300,
     easing: options.easing || cubicOut,
-    css: (t, u) => `clip-path: inset(${getClipPath(u * 100 + "%", t)} round ${radius}px);
+    css: (t, u) => `clip-path: inset(${getClipPath(u * 100 + "%")} round ${radius}px);
 transform-origin: ${options.start};
 transform: scale${scaleDir}(${(t * 0.3 + 0.7) * 100}%) ${getTransform(u)};
 opacity: ${Math.min(t * 3, 1)};`,

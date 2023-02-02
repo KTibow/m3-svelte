@@ -1,0 +1,64 @@
+<script lang="ts">
+  import { createEventDispatcher } from "svelte";
+  import Icon from "@iconify/svelte";
+  import iconCheck from "@iconify-icons/ic/outline-check";
+
+  const dispatch = createEventDispatcher();
+  const conditionalScroll = (node: Element, shouldScroll: boolean) => {
+    if (shouldScroll) node.scrollIntoView({ block: "nearest" });
+  };
+  export let options: { id: number; name: string; selected: boolean }[];
+</script>
+
+<div class="m3-container">
+  {#each options as { id, name, selected }}
+    <button
+      class="md-body-large"
+      on:click={() => dispatch("chosen", id)}
+      use:conditionalScroll={selected}
+    >
+      {#if selected}
+        <Icon icon={iconCheck} />
+      {/if}
+      {name}
+    </button>
+  {/each}
+</div>
+
+<style>
+  .m3-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0;
+    overflow: auto;
+    margin-bottom: 1.25rem;
+  }
+  button {
+    display: inline-flex;
+    align-items: center;
+    height: 3rem;
+    padding: 0 0 0 3.5rem;
+    flex-shrink: 0;
+
+    background-color: transparent;
+    color: rgb(var(--md-sys-color-on-surface));
+    border: none;
+    position: relative;
+    cursor: pointer;
+    transition: all 200ms;
+  }
+  button :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  button:hover {
+    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.08);
+  }
+  button:is(:focus-visible, :active) {
+    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.12);
+  }
+</style>
