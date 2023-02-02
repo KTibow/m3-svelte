@@ -8,8 +8,9 @@ on:
 
 permissions:
   contents: read
+
 jobs:
-  deploy:
+  check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

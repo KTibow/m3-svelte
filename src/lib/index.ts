@@ -15,7 +15,6 @@ export { default as Snackbar } from "./containers/Snackbar.svelte";
 export { default as Checkbox } from "./forms/Checkbox.svelte";
 export { default as Chip } from "./forms/Chip.svelte";
 export { default as CircularProgress } from "./forms/CircularProgress.svelte";
-export { default as DateField } from "./forms/DateField.svelte";
 export { default as DatePickerDocked } from "./forms/DatePickerDocked.svelte";
 export { default as LinearProgress } from "./forms/LinearProgress.svelte";
 export { default as Radio } from "./forms/Radio.svelte";
