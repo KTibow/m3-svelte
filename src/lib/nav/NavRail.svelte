@@ -112,6 +112,14 @@
     flex-grow: 1;
     justify-content: end;
   }
+  @media (max-height: 30rem) {
+    .aligner,
+    .aligner.center {
+      position: static;
+      flex-grow: 1;
+      padding: 0;
+    }
+  }
   .horizontal-true.m3-container,
   .horizontal-true .aligner {
     flex-direction: row;
