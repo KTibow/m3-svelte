@@ -47,6 +47,7 @@
   }
   .railSpace {
     width: 5rem;
+    flex-shrink: 0;
   }
   .rail {
     position: fixed;
