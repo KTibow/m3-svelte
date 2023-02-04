@@ -33,14 +33,14 @@
     border-radius: 3rem;
     transition: all 200ms;
     cursor: pointer;
-    --color: var(--md-sys-color-on-surface-variant);
+    --color: var(--m3-scheme-on-surface-variant);
   }
   input {
     width: 1.25rem;
     height: 1.25rem;
     margin: 0;
     appearance: none;
-    --color: var(--md-sys-color-on-surface-variant);
+    --color: var(--m3-scheme-on-surface-variant);
   }
   input::before {
     width: 1.25rem;
@@ -57,10 +57,10 @@
   }
   input:hover,
   input:focus-visible {
-    --color: var(--md-sys-color-on-surface);
+    --color: var(--m3-scheme-on-surface);
   }
   input:hover + .layer {
-    --color: var(--md-sys-color-on-surface);
+    --color: var(--m3-scheme-on-surface);
     background-color: rgb(var(--color) / 0.08);
   }
   input:active + .layer,
@@ -70,13 +70,13 @@
 
   input:checked,
   input:checked + .layer {
-    --color: var(--md-sys-color-primary);
+    --color: var(--m3-scheme-primary);
   }
   input:checked::before {
     padding: 3px;
   }
   input:disabled {
-    --color: var(--md-sys-color-on-surface) / 0.38;
+    --color: var(--m3-scheme-on-surface) / 0.38;
   }
   input:disabled + .layer {
     display: none;

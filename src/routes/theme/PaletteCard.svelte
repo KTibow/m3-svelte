@@ -35,7 +35,7 @@
   --tone-90: {hexCode(hct.tone(90))};"
 >
   <div class="top-color" />
-  <p class="md-headline-small">
+  <p class="m3-font-headline-small">
     {name}
     <Button type="text" iconType="full" on:click={() => (chooserOpen = true)}>
       <Icon icon={iconEdit} width="24" height="24" />
@@ -76,7 +76,7 @@
     flex: 1;
     border-radius: 1rem;
     overflow: hidden;
-    outline: solid 1px rgb(var(--md-sys-color-outline));
+    outline: solid 1px rgb(var(--m3-scheme-outline));
     min-width: 6.625rem;
   }
   .top-color {

@@ -64,7 +64,7 @@
     position: relative;
     overflow: hidden;
     flex-direction: column;
-    background-color: rgb(var(--md-sys-color-surface));
+    background-color: rgb(var(--m3-scheme-surface));
     width: 20.5rem;
     height: 26.75rem;
     border-radius: 1rem;
@@ -75,7 +75,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgb(var(--md-sys-color-primary) / 0.11);
+    background-color: rgb(var(--m3-scheme-primary) / 0.11);
     pointer-events: none;
   }
 </style>

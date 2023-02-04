@@ -6,8 +6,11 @@
   export let fg: number;
 </script>
 
-<div style="background-color: {hexFromArgb(bg)}; color: {hexFromArgb(fg)};" class="md-label-large">
-  <p class="md-headline-small">{headline}</p>
+<div
+  style="background-color: {hexFromArgb(bg)}; color: {hexFromArgb(fg)};"
+  class="m3-font-label-large"
+>
+  <p class="m3-font-headline-small">{headline}</p>
   <p>{sub}</p>
 </div>
 

@@ -36,37 +36,36 @@
     Svelte. Note the "effort" - you may encounter jank or annoyance, in which case you should let me
     (KTibow) know. Anyway:
   </p>
-  <h2 class="md-headline-medium">Setting up M3 Svelte</h2>
+  <h2 class="m3-font-headline-medium">Setting up M3 Svelte</h2>
   <ol>
-    <li>Install the library into a Svelte project (e.g. <code>npm i m3-svelte</code>).</li>
+    <li>Install the library into a Svelte project (<code>npm i m3-svelte</code>).</li>
     <li>
-      Use the <a href="{base}/theme">theme page</a> to construct your theme. This is needed for
-      components to function, as it gives some base styling, and your theme's colors. Drop the
-      component in <code>+layout.svelte</code> and import it.
+      Use the <a href="{base}/theme">theme page</a> to construct a theme. Copy the usage, and paste
+      it in <code>+layout.svelte</code> (don't forget to import it first).
     </li>
     <li>
-      Set up your typography. You can customize it with CSS variables or just import <a
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-        >Roboto</a
-      >. The CSS variables used for font styles are:
-      <ul>
-        <li>font-family: <code>--md-sys-typescale-body</code></li>
-        <li>font-weight: <code>--md-sys-typescale-body-weight</code></li>
-      </ul>
+      Set up your typography. By default, M3 Svelte uses Roboto, but you need to import it from <code
+        >https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap</code
+      >. You could also customize the font (see
+      <a href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/colors/BaseStyles.svelte">
+        BaseStyles.svelte</a
+      >).
     </li>
     <li>
-      Set up your body defaults, such as foreground/background and default fonts. You can optionally
-      use the classes <code>md-body-large</code>, <code>md-body-medium</code>, or
-      <code>md-body-small</code> depending on the desired root font size.
+      Set up your body to use the theme's background and text color, as well as its font. See <a
+        href="https://github.com/KTibow/m3-svelte/blob/main/src/app.html"
+      >
+        M3 Svelte's app.html
+      </a> for an example.
     </li>
-    <li>That's all, import components as needed!</li>
   </ol>
+  <p>That's all, import components as needed!</p>
   <p>
     Note: Aside from the components listed here, there are some utility and theming components.
     Check out the source code (click the FAB).
   </p>
 </article>
-<h2 class="md-headline-medium">Components (ordered as on Material)</h2>
+<h2 class="m3-font-headline-medium">Components (ordered as on Material)</h2>
 <ChipChooser options={categories} bind:chosenOptions={chosenCategories} />
 <div class="container">
   <Component
@@ -261,8 +260,10 @@
       grid-template-columns: repeat(4, 1fr);
     }
   }
-  code,
+  code {
+    color: rgb(var(--m3-scheme-on-surface-variant));
+  }
   a {
-    color: rgb(var(--md-sys-color-primary));
+    color: rgb(var(--m3-scheme-primary));
   }
 </style>

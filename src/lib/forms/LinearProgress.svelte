@@ -11,14 +11,14 @@
 
 <style>
   .m3-container {
-    background-color: rgb(var(--md-sys-color-surface-variant));
+    background-color: rgb(var(--m3-scheme-surface-variant));
     height: 0.25rem;
     min-width: 8rem;
     position: relative;
     overflow: hidden;
   }
   .percent {
-    background-color: rgb(var(--md-sys-color-primary));
+    background-color: rgb(var(--m3-scheme-primary));
     transition: all 200ms;
   }
   .indeterminate {

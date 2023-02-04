@@ -13,7 +13,7 @@
 
 {#if $categoriesToShow.some((c) => c.label == category)}
   <Card type="filled">
-    <h3 class="md-headline-large">{name}</h3>
+    <h3 class="m3-font-headline-large">{name}</h3>
     <p>{desc}</p>
     <div class="buttons">
       <Button type="filled" href={mtLink} extraOptions={{ target: "_blank" }}>Material</Button>

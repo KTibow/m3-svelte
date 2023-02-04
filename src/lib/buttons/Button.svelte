@@ -13,7 +13,7 @@
   <a
     on:click|stopPropagation
     {href}
-    class="m3-container md-label-large {type} icon-{iconType}"
+    class="m3-container m3-font-label-large {type} icon-{iconType}"
     style="display: {display};"
     {...extraOptions}
   >
@@ -25,7 +25,7 @@
   <button
     on:click|stopPropagation
     {disabled}
-    class="m3-container md-label-large {type} icon-{iconType}"
+    class="m3-container m3-font-label-large {type} icon-{iconType}"
     style="display: {display};"
     {...extraOptions}
   >
@@ -58,9 +58,9 @@
     padding: 0;
   }
   .m3-container:disabled {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
-    color: rgb(var(--md-sys-color-on-surface) / 0.38);
-    box-shadow: var(--md-sys-elevation-0);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    box-shadow: var(--m3-util-elevation-0);
     cursor: auto;
   }
   .m3-container > :global(*) {
@@ -85,9 +85,9 @@
   }
 
   .m3-container:not(:disabled).elevated {
-    background-color: rgb(var(--md-sys-color-surface));
-    --text: var(--md-sys-color-primary);
-    box-shadow: var(--md-sys-elevation-1);
+    background-color: rgb(var(--m3-scheme-surface));
+    --text: var(--m3-scheme-primary);
+    box-shadow: var(--m3-util-elevation-1);
   }
   .m3-container:not(:disabled).elevated > .layer.tonal {
     background-color: rgb(var(--text) / 0.05);
@@ -96,38 +96,38 @@
     background-color: rgb(var(--text) / 0.08);
   }
   .m3-container:not(:disabled).elevated:hover {
-    box-shadow: var(--md-sys-elevation-2);
+    box-shadow: var(--m3-util-elevation-2);
   }
 
   .m3-container:not(:disabled).filled {
-    background-color: rgb(var(--md-sys-color-primary));
-    --text: var(--md-sys-color-on-primary);
+    background-color: rgb(var(--m3-scheme-primary));
+    --text: var(--m3-scheme-on-primary);
   }
   .m3-container:not(:disabled).filled:hover {
-    box-shadow: var(--md-sys-elevation-1);
+    box-shadow: var(--m3-util-elevation-1);
   }
 
   .m3-container:not(:disabled).tonal {
-    background-color: rgb(var(--md-sys-color-secondary-container));
-    --text: var(--md-sys-color-on-secondary-container);
+    background-color: rgb(var(--m3-scheme-secondary-container));
+    --text: var(--m3-scheme-on-secondary-container);
   }
   .m3-container:not(:disabled).tonal:hover {
-    box-shadow: var(--md-sys-elevation-1);
+    box-shadow: var(--m3-util-elevation-1);
   }
 
   .m3-container.outlined {
     background-color: transparent;
-    border: 1px solid rgb(var(--md-sys-color-on-surface) / 0.12);
+    border: 1px solid rgb(var(--m3-scheme-on-surface) / 0.12);
   }
   .m3-container:not(:disabled).outlined {
-    border: 1px solid rgb(var(--md-sys-color-outline));
-    --text: var(--md-sys-color-primary);
+    border: 1px solid rgb(var(--m3-scheme-outline));
+    --text: var(--m3-scheme-primary);
   }
 
   .m3-container.text {
     background-color: transparent;
     padding: 0 0.75rem;
-    --text: var(--md-sys-color-primary);
+    --text: var(--m3-scheme-primary);
   }
   .m3-container.text.icon-left {
     padding-right: 1rem;

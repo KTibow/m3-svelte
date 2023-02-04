@@ -17,7 +17,11 @@
     <button class="mover" on:click={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}>
       <Icon icon={iconLeft} />
     </button>
-    <button class="chooser md-label-large" on:click={monthClick} disabled={currentView == "year"}>
+    <button
+      class="chooser m3-font-label-large"
+      on:click={monthClick}
+      disabled={currentView == "year"}
+    >
       {getShortMonth(focusedMonth)}
       <Icon icon={iconDown} />
     </button>
@@ -29,7 +33,11 @@
     <button class="mover" disabled={focusedYear <= startYear} on:click={() => focusedYear--}>
       <Icon icon={iconLeft} />
     </button>
-    <button class="chooser md-label-large" on:click={yearClick} disabled={currentView == "month"}>
+    <button
+      class="chooser m3-font-label-large"
+      on:click={yearClick}
+      disabled={currentView == "month"}
+    >
       {focusedYear}
       <Icon icon={iconDown} />
     </button>
@@ -52,7 +60,7 @@
     flex: 1;
   }
   .choosing {
-    border-color: rgb(var(--md-sys-color-outline-variant));
+    border-color: rgb(var(--m3-scheme-outline-variant));
   }
 
   button {
@@ -61,21 +69,21 @@
     justify-content: center;
 
     background-color: transparent;
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    color: rgb(var(--m3-scheme-on-surface-variant));
     border: none;
     padding: 0;
     transition: all 200ms;
     cursor: pointer;
   }
   button:enabled:hover {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.08);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
   }
   button:enabled:is(:focus-visible, :active) {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.12);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
   button:disabled {
     cursor: auto;
-    color: rgb(var(--md-sys-color-on-surface-variant) / 0.38);
+    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
   }
 
   .chooser {

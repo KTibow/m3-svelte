@@ -82,10 +82,10 @@
     border-radius: 0.25rem;
     background-image: linear-gradient(
       to right,
-      rgb(var(--md-sys-color-primary)) 0%,
-      rgb(var(--md-sys-color-primary)) var(--percent),
-      rgb(var(--md-sys-color-surface-variant)) var(--percent),
-      rgb(var(--md-sys-color-surface-variant)) 100%
+      rgb(var(--m3-scheme-primary)) 0%,
+      rgb(var(--m3-scheme-primary)) var(--percent),
+      rgb(var(--m3-scheme-surface-variant)) var(--percent),
+      rgb(var(--m3-scheme-surface-variant)) 100%
     );
     pointer-events: none;
   }
@@ -95,8 +95,8 @@
     width: 1.25rem;
     height: 1.25rem;
     border-radius: 1.25rem;
-    background-color: rgb(var(--md-sys-color-primary));
-    box-shadow: var(--md-sys-elevation-1);
+    background-color: rgb(var(--m3-scheme-primary));
+    box-shadow: var(--m3-util-elevation-1);
     pointer-events: none;
   }
   .layer {
@@ -119,8 +119,8 @@
     align-items: center;
     border-radius: 1.75rem 1.75rem 0 1.75rem;
     transform: rotate(45deg);
-    background-color: rgb(var(--md-sys-color-primary));
-    color: rgb(var(--md-sys-color-on-primary));
+    background-color: rgb(var(--m3-scheme-primary));
+    color: rgb(var(--m3-scheme-on-primary));
     opacity: 0;
     transition: opacity 200ms;
     pointer-events: none;
@@ -136,17 +136,17 @@
     border-radius: 2px;
     top: 50%;
     transform: translate(0, -50%);
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.38);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
   }
   .tick.active {
-    background-color: rgb(var(--md-sys-color-on-primary) / 0.38);
+    background-color: rgb(var(--m3-scheme-on-primary) / 0.38);
   }
   input:hover ~ .layer {
-    background-color: rgb(var(--md-sys-color-primary) / 0.08);
+    background-color: rgb(var(--m3-scheme-primary) / 0.08);
   }
   input:focus-visible ~ .layer,
   input:active ~ .layer {
-    background-color: rgb(var(--md-sys-color-primary) / 0.12);
+    background-color: rgb(var(--m3-scheme-primary) / 0.12);
   }
   .show-value > input:hover ~ .value,
   .show-value > input:focus-visible ~ .value,
@@ -160,14 +160,14 @@
   input:disabled + .track {
     background-image: linear-gradient(
       to right,
-      rgb(var(--md-sys-color-on-surface) / 0.38) 0%,
-      rgb(var(--md-sys-color-on-surface) / 0.38) var(--percent),
-      rgb(var(--md-sys-color-on-surface) / 0.12) var(--percent),
-      rgb(var(--md-sys-color-on-surface) / 0.12) 100%
+      rgb(var(--m3-scheme-on-surface) / 0.38) 0%,
+      rgb(var(--m3-scheme-on-surface) / 0.38) var(--percent),
+      rgb(var(--m3-scheme-on-surface) / 0.12) var(--percent),
+      rgb(var(--m3-scheme-on-surface) / 0.12) 100%
     );
   }
   input:disabled ~ .thumb {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.38);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
     box-shadow: none;
   }
   input:disabled ~ .layer {

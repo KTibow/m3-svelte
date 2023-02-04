@@ -33,10 +33,10 @@
     class:showClose
     {...extraOptions}
   >
-    <p class="md-body-medium"><slot /></p>
+    <p class="m3-font-body-medium"><slot /></p>
     {#if action}
       <button
-        class="action md-label-large"
+        class="action m3-font-label-large"
         on:click={() => {
           open = false;
           dispatch("closed", { method: "action" });
@@ -67,9 +67,9 @@
     min-height: 3rem;
     padding: 0 1rem;
     align-items: center;
-    box-shadow: var(--md-sys-elevation-3);
-    background-color: rgb(var(--md-sys-color-inverse-surface));
-    color: rgb(var(--md-sys-color-inverse-on-surface));
+    box-shadow: var(--m3-util-elevation-3);
+    background-color: rgb(var(--m3-scheme-inverse-surface));
+    color: rgb(var(--m3-scheme-inverse-on-surface));
     border-radius: 0.25rem;
     position: relative;
     z-index: 3;
@@ -100,11 +100,11 @@
     margin-left: auto;
   }
   .action {
-    --text: var(--md-sys-color-inverse-primary);
+    --text: var(--m3-scheme-inverse-primary);
     padding: 0 0.5rem;
   }
   .closeIcon {
-    --text: var(--md-sys-color-inverse-on-surface);
+    --text: var(--m3-scheme-inverse-on-surface);
     padding: 0 0.75rem;
   }
   .m3-container :global(svg) {

@@ -65,7 +65,7 @@
             <div class="layer full" />
             <Icon icon={item.active ? item.activeIcon : item.inactiveIcon} />
           </div>
-          <span class="md-label-medium">{item.name}</span>
+          <span class="m3-font-label-medium">{item.name}</span>
         </a>
       {:else}
         <button
@@ -78,7 +78,7 @@
             <div class="layer full" />
             <Icon icon={item.active ? item.activeIcon : item.inactiveIcon} />
           </div>
-          <span class="md-label-medium">{item.name}</span>
+          <span class="m3-font-label-medium">{item.name}</span>
         </button>
       {/if}
     {/each}
@@ -95,7 +95,7 @@
   .m3-container {
     width: 5rem;
     padding-top: 3.5rem;
-    background-color: rgb(var(--md-sys-color-surface));
+    background-color: rgb(var(--m3-scheme-surface));
   }
   .aligner {
     padding: 3.5rem 0;
@@ -154,7 +154,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    --text: var(--md-sys-color-on-surface-variant);
+    --text: var(--m3-scheme-on-surface-variant);
     color: rgb(var(--text));
     z-index: 1;
   }
@@ -222,11 +222,11 @@
   }
 
   .menuItem.active {
-    --text: var(--md-sys-color-on-surface);
+    --text: var(--m3-scheme-on-surface);
   }
   .menuItem.active > .pill {
-    background-color: rgb(var(--md-sys-color-secondary-container));
-    color: rgb(var(--md-sys-color-on-secondary-container));
+    background-color: rgb(var(--m3-scheme-secondary-container));
+    color: rgb(var(--m3-scheme-on-secondary-container));
   }
   .hoverable:hover .layer {
     background-color: rgb(var(--text) / 0.08);

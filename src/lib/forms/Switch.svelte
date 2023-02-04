@@ -52,8 +52,8 @@
     height: 2rem;
     margin: 0;
     border-radius: 2rem;
-    border: solid 2px rgb(var(--md-sys-color-outline));
-    background-color: rgb(var(--md-sys-color-surface-variant));
+    border: solid 2px rgb(var(--m3-scheme-outline));
+    background-color: rgb(var(--m3-scheme-surface-variant));
     cursor: pointer;
     position: relative;
     transition: all 300ms;
@@ -62,14 +62,14 @@
     border-width: 0;
   }
   input:disabled:checked {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
   input:enabled:checked {
-    background-color: rgb(var(--md-sys-color-primary));
+    background-color: rgb(var(--m3-scheme-primary));
   }
   input:disabled {
-    background-color: rgb(var(--md-sys-color-surface-variant) / 0.12);
-    border-color: rgb(var(--md-sys-color-outline) / 0.12);
+    background-color: rgb(var(--m3-scheme-surface-variant) / 0.12);
+    border-color: rgb(var(--m3-scheme-outline) / 0.12);
     cursor: auto;
   }
   input::before {
@@ -82,20 +82,20 @@
     left: 0.5rem;
     top: 50%;
     transform: translate(0%, -50%);
-    background-color: rgb(var(--md-sys-color-outline));
+    background-color: rgb(var(--m3-scheme-outline));
     transition: all 300ms;
   }
   input:checked::before {
-    background-color: rgb(var(--md-sys-color-on-primary));
+    background-color: rgb(var(--m3-scheme-on-primary));
     left: calc(100% - 1.5rem - 0.25rem);
     width: 1.5rem;
     height: 1.5rem;
   }
   input:disabled::before {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.38);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
   input:disabled:checked:before {
-    background-color: rgb(var(--md-sys-color-surface));
+    background-color: rgb(var(--m3-scheme-surface));
   }
 
   .layer {
@@ -114,35 +114,35 @@
   }
 
   input:hover + .layer {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
   input:checked:hover + .layer {
-    background-color: rgb(var(--md-sys-color-primary) / 0.08);
+    background-color: rgb(var(--m3-scheme-primary) / 0.08);
   }
   input:enabled:is(:hover, :focus-visible)::before {
-    background-color: rgb(var(--md-sys-color-on-surface-variant));
+    background-color: rgb(var(--m3-scheme-on-surface-variant));
   }
   input:enabled:checked:is(:hover, :focus-visible)::before {
-    background-color: rgb(var(--md-sys-color-primary-container));
+    background-color: rgb(var(--m3-scheme-primary-container));
   }
   input:focus-visible + .layer,
   .layer:active {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
   input:focus-visible:checked + .layer,
   input:checked + .layer:active {
-    background-color: rgb(var(--md-sys-color-primary) / 0.12);
+    background-color: rgb(var(--m3-scheme-primary) / 0.12);
   }
 
   .m3-container:active input:enabled:before {
     width: 1.75rem;
     height: 1.75rem;
     left: 0;
-    background-color: rgb(var(--md-sys-color-on-surface-variant));
+    background-color: rgb(var(--m3-scheme-on-surface-variant));
   }
   .m3-container:active input:enabled:checked::before {
     left: calc(100% - 1.75rem - 0.125rem);
-    background-color: rgb(var(--md-sys-color-primary-container));
+    background-color: rgb(var(--m3-scheme-primary-container));
   }
 
   .m3-container > :global(svg) {
@@ -154,12 +154,12 @@
     height: 1rem;
     opacity: 0;
     pointer-events: none;
-    color: rgb(var(--md-sys-color-surface-variant));
+    color: rgb(var(--m3-scheme-surface-variant));
     transition: all 300ms;
   }
   .m3-container > :global(:checked ~ svg) {
     left: calc(100% - 1rem - 0.5rem);
-    color: rgb(var(--md-sys-color-on-primary-container));
+    color: rgb(var(--m3-scheme-on-primary-container));
     opacity: 1;
   }
 

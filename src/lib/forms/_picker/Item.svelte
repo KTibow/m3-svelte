@@ -10,7 +10,7 @@
 <svelte:element
   this={isButton ? "button" : "span"}
   {disabled}
-  class="item md-body-small"
+  class="item m3-font-body-small"
   class:today
   class:selected
   on:click
@@ -21,7 +21,7 @@
 <style>
   .item {
     display: inline-flex;
-    --text: var(--md-sys-color-on-surface);
+    --text: var(--m3-scheme-on-surface);
     color: rgb(var(--text));
     align-items: center;
     justify-content: center;
@@ -43,14 +43,14 @@
   }
   button:disabled {
     cursor: auto;
-    color: rgb(var(--md-sys-color-on-surface-variant) / 0.38);
+    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
   }
   .today {
     border: solid 1px rgb(var(--text));
-    --text: var(--md-sys-color-primary);
+    --text: var(--m3-scheme-primary);
   }
   .selected {
-    background-color: rgb(var(--md-sys-color-primary)) !important;
-    --text: var(--md-sys-color-on-primary);
+    background-color: rgb(var(--m3-scheme-primary)) !important;
+    --text: var(--m3-scheme-on-primary);
   }
 </style>

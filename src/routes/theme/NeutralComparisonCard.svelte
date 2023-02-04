@@ -36,7 +36,7 @@
     display: flex;
     border-radius: 1rem;
     overflow: hidden;
-    outline: solid 1px rgb(var(--md-sys-color-outline));
+    outline: solid 1px rgb(var(--m3-scheme-outline));
   }
   .m3-container > span {
     align-self: center;

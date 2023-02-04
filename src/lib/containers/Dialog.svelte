@@ -48,7 +48,7 @@
       {#if icon}
         <Icon {icon} />
       {/if}
-      <h2 class="md-headline-small">{title}</h2>
+      <h2 class="m3-font-headline-small">{title}</h2>
       <div class="desc body-medium"><slot /></div>
       <div class="buttons">
         {#if cancelLabel}
@@ -80,12 +80,12 @@
   dialog {
     padding: 0;
     border: none;
-    background-color: rgb(var(--md-sys-color-surface));
+    background-color: rgb(var(--m3-scheme-surface));
     border-radius: 1.75rem;
     overflow: auto;
   }
   dialog::backdrop {
-    background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+    background-color: rgb(var(--m3-scheme-scrim) / 0.5);
     animation: backdropIn 400ms;
   }
   :global(.leaving):is(dialog)::backdrop {
@@ -93,36 +93,36 @@
   }
   @keyframes backdropIn {
     0% {
-      background-color: rgb(var(--md-sys-color-scrim) / 0);
+      background-color: rgb(var(--m3-scheme-scrim) / 0);
     }
     100% {
-      background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
     }
   }
   @keyframes backdropOut {
     0% {
-      background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
     }
     100% {
-      background-color: rgb(var(--md-sys-color-scrim) / 0);
+      background-color: rgb(var(--m3-scheme-scrim) / 0);
     }
   }
   .m3-container {
     display: flex;
     flex-direction: column;
-    background-color: rgb(var(--md-sys-color-primary) / 0.05);
+    background-color: rgb(var(--m3-scheme-primary) / 0.05);
     padding: 1.5rem;
     min-width: 17.5rem;
     max-width: 35rem;
   }
   .m3-container :global(svg) {
-    color: rgb(var(--md-sys-color-secondary));
+    color: rgb(var(--m3-scheme-secondary));
     width: 1.5rem;
     height: 1.5rem;
     align-self: center;
   }
   h2 {
-    color: rgb(var(--md-sys-color-on-surface));
+    color: rgb(var(--m3-scheme-on-surface));
     margin: 0 0 1rem 0;
   }
   .m3-container :global(svg + h2) {
@@ -130,7 +130,7 @@
     text-align: center;
   }
   .desc {
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    color: rgb(var(--m3-scheme-on-surface-variant));
   }
   .buttons {
     display: flex;

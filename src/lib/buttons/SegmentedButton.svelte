@@ -42,7 +42,7 @@
         {...extraInputOptions}
       />
     {/if}
-    <label class="md-label-large" for={id}>
+    <label class="m3-font-label-large" for={id}>
       <div class="layer" />
       <div class="pad" class:hidden={icon} />
       <div class="icon" class:hidden={!icon}>
@@ -56,7 +56,7 @@
 
 <style>
   .m3-container {
-    border: 1px solid rgb(var(--md-sys-color-outline));
+    border: 1px solid rgb(var(--m3-scheme-outline));
     height: 2.5rem;
     border-radius: 2.5rem;
     overflow: hidden;
@@ -76,21 +76,21 @@
     white-space: nowrap;
 
     cursor: pointer;
-    --text: var(--md-sys-color-on-surface);
+    --text: var(--m3-scheme-on-surface);
     color: rgb(var(--text));
     transition: all 200ms;
   }
 
   .m3-container > label ~ label {
-    border-left: 1px solid rgb(var(--md-sys-color-outline));
+    border-left: 1px solid rgb(var(--m3-scheme-outline));
   }
   input:disabled + label {
-    color: rgb(var(--md-sys-color-on-surface) / 0.38);
+    color: rgb(var(--m3-scheme-on-surface) / 0.38);
     cursor: auto;
   }
   .m3-container > input:checked + label {
-    background-color: rgb(var(--md-sys-color-secondary-container));
-    --text: rgb(var(--md-sys-color-on-secondary-container));
+    background-color: rgb(var(--m3-scheme-secondary-container));
+    --text: rgb(var(--m3-scheme-on-secondary-container));
   }
   .layer {
     position: absolute;

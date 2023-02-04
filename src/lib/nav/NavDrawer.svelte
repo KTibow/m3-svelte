@@ -20,7 +20,7 @@
     >
       <div class="layer" />
       <Icon icon={destination.icon} />
-      <span class="md-label-large">{destination.label}</span>
+      <span class="m3-font-label-large">{destination.label}</span>
     </button>
   {/each}
 </div>
@@ -30,7 +30,7 @@
     flex-direction: column;
     width: 22.5rem;
     padding: 1rem 0.75rem 0 0.75rem;
-    background-color: rgb(var(--md-sys-color-surface));
+    background-color: rgb(var(--m3-scheme-surface));
   }
   .layer {
     position: absolute;
@@ -55,16 +55,16 @@
     border: none;
     border-radius: 1.75rem;
     background-color: transparent;
-    --text: var(--md-sys-color-on-surface-variant);
+    --text: var(--m3-scheme-on-surface-variant);
     color: rgb(var(--text));
     cursor: pointer;
   }
   .destination:hover {
-    --text: var(--md-sys-color-on-surface);
+    --text: var(--m3-scheme-on-surface);
   }
   .destination.selected {
-    background-color: rgb(var(--md-sys-color-secondary-container));
-    --text: var(--md-sys-color-on-secondary-container);
+    background-color: rgb(var(--m3-scheme-secondary-container));
+    --text: var(--m3-scheme-on-secondary-container);
   }
   .destination:hover .layer {
     background-color: rgb(var(--text) / 0.08);

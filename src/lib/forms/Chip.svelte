@@ -48,7 +48,7 @@
     {#if icon}
       <Icon {icon} />
     {/if}
-    <span class="md-label-large"><slot /></span>
+    <span class="m3-font-label-large"><slot /></span>
   </button>
   {#if trailingIcon}
     <button class="trailing" {disabled}>
@@ -60,13 +60,13 @@
 
 <style>
   .m3-container {
-    background-color: rgb(var(--md-sys-color-surface));
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    background-color: rgb(var(--m3-scheme-surface));
+    color: rgb(var(--m3-scheme-on-surface-variant));
     height: 2rem;
     border-radius: 0.5rem;
     position: relative;
     overflow: hidden;
-    border: solid 1px rgb(var(--md-sys-color-outline));
+    border: solid 1px rgb(var(--m3-scheme-outline));
     transition: all 200ms;
   }
   button {
@@ -97,10 +97,10 @@
   }
 
   .type-assist {
-    color: rgb(var(--md-sys-color-on-surface));
+    color: rgb(var(--m3-scheme-on-surface));
   }
   .type-assist:not(.disabled) :global(svg) {
-    color: rgb(var(--md-sys-color-primary));
+    color: rgb(var(--m3-scheme-primary));
   }
   .type-input .content {
     padding: 0 0.75rem;
@@ -108,29 +108,29 @@
 
   .elevated {
     border-color: transparent;
-    box-shadow: var(--md-sys-elevation-1);
+    box-shadow: var(--m3-util-elevation-1);
   }
   .fully-remove-border.elevated {
     border-width: 0;
   }
   .elevated:not(.selected) .layer.tonal {
     opacity: 0.05;
-    background-color: rgb(var(--md-sys-color-primary));
+    background-color: rgb(var(--m3-scheme-primary));
   }
   .selected {
     border-color: transparent;
-    background-color: rgb(var(--md-sys-color-secondary-container));
-    color: rgb(var(--md-sys-color-on-secondary-container));
+    background-color: rgb(var(--m3-scheme-secondary-container));
+    color: rgb(var(--m3-scheme-on-secondary-container));
   }
   .fully-remove-border.selected {
     border-width: 0;
   }
 
   .selected:hover:not(.disabled) {
-    box-shadow: var(--md-sys-elevation-1);
+    box-shadow: var(--m3-util-elevation-1);
   }
   .elevated:hover:not(.disabled) {
-    box-shadow: var(--md-sys-elevation-2);
+    box-shadow: var(--m3-util-elevation-2);
   }
   button:is(:hover, :focus-visible):enabled > .layer.state {
     background-color: currentColor;
@@ -145,15 +145,15 @@
   }
   .m3-container.disabled {
     box-shadow: none;
-    border-color: rgb(var(--md-sys-color-on-surface) / 0.12);
-    color: rgb(var(--md-sys-color-on-surface) / 0.38);
+    border-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+    color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
   :is(.elevated, .selected).disabled .layer.tonal {
     opacity: 0.12;
-    background-color: rgb(var(--md-sys-color-on-surface));
+    background-color: rgb(var(--m3-scheme-on-surface));
   }
   .selected.disabled {
-    background-color: rgb(var(--md-sys-color-surface));
+    background-color: rgb(var(--m3-scheme-surface));
   }
 
   .content.icon {

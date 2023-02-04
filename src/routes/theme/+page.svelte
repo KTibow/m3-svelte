@@ -63,7 +63,7 @@
     content="Generate a Material 3/You theme for use with the library M3 Svelte."
   />
 </svelte:head>
-<h1 class="md-display-large">Theme</h1>
+<h1 class="m3-font-display-large">Theme</h1>
 <p class="sourceChooser">
   Source color <span
     style="background-color: {browser && hexFromArgb(sourceColor)};"
@@ -105,7 +105,7 @@
 </p>
 
 {#if sourcePalettes}
-  <h2 class="md-headline-large">Palettes</h2>
+  <h2 class="m3-font-headline-large">Palettes</h2>
   <div class="pallette">
     {#each Object.entries( { primary: sourcePalettes.a1, secondary: sourcePalettes.a2, tertiary: sourcePalettes.a3, neutral: sourcePalettes.n1, neutralVariant: sourcePalettes.n2, error: sourcePalettes.error } ) as [name, hct]}
       <PaletteCard {name} {hct} on:changeColor={(e) => changeColor(hct, e.detail)} />
@@ -127,7 +127,7 @@
     darkScheme={serializeScheme(schemeDark)}
   />
   {#each Object.entries({ Light: schemeLight, Dark: schemeDark }) as [name, colors]}
-    <h2 class="md-headline-large">{name}</h2>
+    <h2 class="m3-font-headline-large">{name}</h2>
     <div class="container">
       {#each pairs as [bgName, fgName]}
         <ColorCard headline={bgName} sub="{fgName} text" {...getCardData(colors, bgName, fgName)} />

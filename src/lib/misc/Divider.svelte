@@ -30,9 +30,9 @@
   }
 
   .color-outline {
-    color: rgb(var(--md-sys-color-outline-variant));
+    color: rgb(var(--m3-scheme-outline-variant));
   }
   .color-surface {
-    color: rgb(var(--md-sys-color-surface-variant));
+    color: rgb(var(--m3-scheme-surface-variant));
   }
 </style>

@@ -27,8 +27,8 @@
     padding: 1rem; /* protip: use margin: -1rem (adjust as needed) to make images stretch to the end */
     border: none;
     border-radius: 0.75rem;
-    background-color: rgb(var(--md-sys-color-surface));
-    color: rgb(var(--md-sys-color-on-surface));
+    background-color: rgb(var(--m3-scheme-surface));
+    color: rgb(var(--m3-scheme-on-surface));
     transition: all 200ms;
   }
   button {
@@ -47,26 +47,26 @@
   }
 
   .type-elevated > .layer.tonal {
-    background-color: rgb(var(--md-sys-color-primary) / 0.05);
+    background-color: rgb(var(--m3-scheme-primary) / 0.05);
   }
   .type-outlined {
-    border: solid 1px rgb(var(--md-sys-color-outline));
+    border: solid 1px rgb(var(--m3-scheme-outline));
   }
   .type-filled {
-    background-color: rgb(var(--md-sys-color-surface-variant));
+    background-color: rgb(var(--m3-scheme-surface-variant));
   }
 
   .type-elevated,
   button:hover {
-    box-shadow: var(--md-sys-elevation-1);
+    box-shadow: var(--m3-util-elevation-1);
   }
   button.type-elevated:hover {
-    box-shadow: var(--md-sys-elevation-2);
+    box-shadow: var(--m3-util-elevation-2);
   }
   button:hover > .layer.state {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
   button:is(:focus-visible, :active) > .layer.state {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
 </style>

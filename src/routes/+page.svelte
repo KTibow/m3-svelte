@@ -51,10 +51,10 @@
   <title>M3 Svelte</title>
   <meta name="description" content="The home of M3 Svelte, with many components from Material 3." />
 </svelte:head>
-<h1 class="md-display-large">M3 Svelte</h1>
+<h1 class="m3-font-display-large">M3 Svelte</h1>
 <p>A project by KTibow. See the GitHub for code examples.</p>
 <Divider />
-<h2 class="md-headline-medium">Button-related components</h2>
+<h2 class="m3-font-headline-medium">Button-related components</h2>
 <div class="container">
   <div>
     <p>Elevated</p>
@@ -131,7 +131,7 @@
   </div>
 </div>
 
-<h2 class="md-headline-medium">Form-related components</h2>
+<h2 class="m3-font-headline-medium">Form-related components</h2>
 <div class="container">
   <div>
     <p>Progress</p>
@@ -219,7 +219,7 @@
     />
   </div>
 </div>
-<h2 class="md-headline-medium">Containers</h2>
+<h2 class="m3-font-headline-medium">Containers</h2>
 <div class="container parent">
   <div class="container">
     <p>Card</p>
@@ -336,6 +336,6 @@
   }
   td {
     padding: 1rem;
-    border: solid 1px rgb(var(--md-sys-color-on-surface) / 0.12);
+    border: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
   }
 </style>

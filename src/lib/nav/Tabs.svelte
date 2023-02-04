@@ -23,7 +23,7 @@
       {#if item.primaryIcon}
         <Icon icon={item.primaryIcon} />
       {/if}
-      <span class="md-title-small">{item.name}</span>
+      <span class="m3-font-title-small">{item.name}</span>
     </label>
   {/each}
   <div
@@ -37,7 +37,7 @@
 <style>
   .m3-container {
     position: relative;
-    border-bottom: 1px solid rgb(var(--md-sys-color-surface-variant));
+    border-bottom: 1px solid rgb(var(--m3-scheme-surface-variant));
   }
   input {
     position: absolute;
@@ -54,8 +54,8 @@
     align-items: center;
     justify-content: center;
     white-space: nowrap;
-    background-color: rgb(var(--md-sys-color-surface));
-    --text: var(--md-sys-color-on-surface-variant);
+    background-color: rgb(var(--m3-scheme-surface));
+    --text: var(--m3-scheme-on-surface-variant);
     color: rgb(var(--text));
     border: none;
     padding: 0 1rem;
@@ -80,7 +80,7 @@
 
   .item:hover,
   input:focus-visible + .item {
-    --text: var(--md-sys-color-on-surface);
+    --text: var(--m3-scheme-on-surface);
   }
   .item:hover > .layer {
     background-color: rgb(var(--text) / 0.08);
@@ -90,11 +90,11 @@
     background-color: rgb(var(--text) / 0.12);
   }
   input:checked + .item {
-    --text: var(--md-sys-color-primary);
+    --text: var(--m3-scheme-primary);
   }
   .secondary > .item {
-    --text: var(--md-sys-color-on-surface);
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    --text: var(--m3-scheme-on-surface);
+    color: rgb(var(--m3-scheme-on-surface-variant));
   }
   .secondary > input:checked + .item {
     color: rgb(var(--text));
@@ -110,11 +110,11 @@
     width: 3rem;
     height: 3px;
     border-radius: 3px 3px 0 0;
-    background-color: rgb(var(--md-sys-color-primary));
+    background-color: rgb(var(--m3-scheme-primary));
   }
   .secondary .indicator {
     width: 100%;
     height: 2px;
-    background-color: rgb(var(--md-sys-color-primary));
+    background-color: rgb(var(--m3-scheme-primary));
   }
 </style>

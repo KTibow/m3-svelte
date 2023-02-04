@@ -17,7 +17,7 @@
 
 <button
   on:click
-  class="m3-container md-label-large color-{color} size-{size} elevation-{elevation}"
+  class="m3-container m3-font-label-large color-{color} size-{size} elevation-{elevation}"
   style="display: {display};"
   {...extraOptions}
 >
@@ -57,16 +57,16 @@
     opacity: 0.12;
   }
   .elevation-normal {
-    box-shadow: var(--md-sys-elevation-3);
+    box-shadow: var(--m3-util-elevation-3);
   }
   .elevation-normal:hover {
-    box-shadow: var(--md-sys-elevation-4);
+    box-shadow: var(--m3-util-elevation-4);
   }
   .elevation-lowered {
-    box-shadow: var(--md-sys-elevation-1);
+    box-shadow: var(--m3-util-elevation-1);
   }
   .elevation-lowered:hover {
-    box-shadow: var(--md-sys-elevation-2);
+    box-shadow: var(--m3-util-elevation-2);
   }
   .size-small {
     height: 2.5rem;
@@ -96,31 +96,31 @@
     height: 2.25rem;
   }
   .color-primary {
-    background-color: rgb(var(--md-sys-color-primary-container));
-    color: rgb(var(--md-sys-color-on-primary-container));
+    background-color: rgb(var(--m3-scheme-primary-container));
+    color: rgb(var(--m3-scheme-on-primary-container));
   }
   .color-primary .layer {
-    background-color: rgb(var(--md-sys-color-on-primary-container));
+    background-color: rgb(var(--m3-scheme-on-primary-container));
   }
   .color-surface {
-    background-color: rgb(var(--md-sys-color-surface));
-    color: rgb(var(--md-sys-color-primary));
+    background-color: rgb(var(--m3-scheme-surface));
+    color: rgb(var(--m3-scheme-primary));
   }
   .color-surface .layer {
-    background-color: rgb(var(--md-sys-color-primary));
+    background-color: rgb(var(--m3-scheme-primary));
   }
   .color-secondary {
-    background-color: rgb(var(--md-sys-color-secondary-container));
-    color: rgb(var(--md-sys-color-on-secondary-container));
+    background-color: rgb(var(--m3-scheme-secondary-container));
+    color: rgb(var(--m3-scheme-on-secondary-container));
   }
   .color-secondary .layer {
-    background-color: rgb(var(--md-sys-color-on-secondary-container));
+    background-color: rgb(var(--m3-scheme-on-secondary-container));
   }
   .color-tertiary {
-    background-color: rgb(var(--md-sys-color-tertiary-container));
-    color: rgb(var(--md-sys-color-on-tertiary-container));
+    background-color: rgb(var(--m3-scheme-tertiary-container));
+    color: rgb(var(--m3-scheme-on-tertiary-container));
   }
   .color-tertiary .layer {
-    background-color: rgb(var(--md-sys-color-on-tertiary-container));
+    background-color: rgb(var(--m3-scheme-on-tertiary-container));
   }
 </style>

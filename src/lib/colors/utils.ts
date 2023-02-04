@@ -39,7 +39,7 @@ export const genCSS = (light: SerializedScheme, dark: SerializedScheme) => {
     const red = (argb >> 16) & 255;
     const green = (argb >> 8) & 255;
     const blue = argb & 255;
-    return `--md-sys-color-${kebabCase}: ${red} ${green} ${blue};`;
+    return `--m3-scheme-${kebabCase}: ${red} ${green} ${blue};`;
   };
   const lightColors = light
     .map((colorInfo) => {

@@ -15,7 +15,7 @@
 
 <style>
   .m3-container {
-    background-color: rgb(var(--md-sys-color-primary) / 0.05);
+    background-color: rgb(var(--m3-scheme-primary) / 0.05);
     min-height: 100%;
     padding: 0 1rem;
   }

@@ -92,8 +92,8 @@
     width: 100%;
     max-width: 40rem;
 
-    background-color: rgb(var(--md-sys-color-surface));
-    color: rgb(var(--md-sys-color-on-surface));
+    background-color: rgb(var(--m3-scheme-surface));
+    color: rgb(var(--m3-scheme-on-surface));
     overflow: hidden;
     border-radius: 1.75rem 1.75rem 0 0;
     z-index: 1;
@@ -108,7 +108,7 @@
   }
 
   dialog::backdrop {
-    background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+    background-color: rgb(var(--m3-scheme-scrim) / 0.5);
     animation: backdropIn 400ms;
   }
   :global(.leaving)::backdrop {
@@ -116,18 +116,18 @@
   }
   @keyframes backdropIn {
     0% {
-      background-color: rgb(var(--md-sys-color-scrim) / 0);
+      background-color: rgb(var(--m3-scheme-scrim) / 0);
     }
     100% {
-      background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
     }
   }
   @keyframes backdropOut {
     0% {
-      background-color: rgb(var(--md-sys-color-scrim) / 0.5);
+      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
     }
     100% {
-      background-color: rgb(var(--md-sys-color-scrim) / 0);
+      background-color: rgb(var(--m3-scheme-scrim) / 0);
     }
   }
   .no-drag {
@@ -145,7 +145,7 @@
     height: 3rem;
   }
   .handleContainer > button {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.4);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.4);
     width: 2rem;
     height: 0.25rem;
     padding: 0;
@@ -154,9 +154,9 @@
     cursor: inherit;
   }
   .handleContainer > button:focus-visible {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.5);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.5);
   }
   .handleContainer > button:active {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.6);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.6);
   }
 </style>

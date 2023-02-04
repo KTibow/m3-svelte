@@ -71,13 +71,13 @@
         />
       {/if}
       <div class="body">
-        <p class="headline md-body-large">{item.headline}</p>
+        <p class="headline m3-font-body-large">{item.headline}</p>
         {#if item.desc}
-          <p class="desc md-body-medium">{item.desc}</p>
+          <p class="desc m3-font-body-medium">{item.desc}</p>
         {/if}
       </div>
       {#if item.trailing?.type == "text"}
-        <span class="trailing md-label-small">{item.trailing.content}</span>
+        <span class="trailing m3-font-label-small">{item.trailing.content}</span>
       {:else if item.trailing?.type == "icon"}
         <span class="trailing"><Icon icon={item.trailing.content} /></span>
       {:else if item.trailing?.type == "checkbox"}
@@ -96,7 +96,7 @@
 <style>
   .m3-container {
     flex-direction: column;
-    background-color: rgb(var(--md-sys-color-surface));
+    background-color: rgb(var(--m3-scheme-surface));
     padding: 0.5rem 0;
   }
   .item {
@@ -127,15 +127,15 @@
     cursor: pointer;
   }
   .item:is(button, label):hover {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
   .item:is(button, label):is(:focus-visible, :active) {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.12);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
 
   :is(.item, .trailing) > :global(svg) {
     align-self: center;
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    color: rgb(var(--m3-scheme-on-surface-variant));
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -173,10 +173,10 @@
     margin: 0;
   }
   .headline {
-    color: rgb(var(--md-sys-color-on-surface));
+    color: rgb(var(--m3-scheme-on-surface));
   }
   .desc {
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    color: rgb(var(--m3-scheme-on-surface-variant));
   }
   :is(.lines-1, .lines-2) :is(.headline, .desc) {
     white-space: nowrap;
@@ -186,7 +186,7 @@
 
   .trailing {
     display: inline-flex;
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    color: rgb(var(--m3-scheme-on-surface-variant));
     align-self: center;
   }
   .lines-3 .trailing {

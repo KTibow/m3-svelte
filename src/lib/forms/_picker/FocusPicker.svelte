@@ -13,7 +13,7 @@
 <div class="m3-container">
   {#each options as { id, name, selected }}
     <button
-      class="md-body-large"
+      class="m3-font-body-large"
       on:click={() => dispatch("chosen", id)}
       use:conditionalScroll={selected}
     >
@@ -41,7 +41,7 @@
     flex-shrink: 0;
 
     background-color: transparent;
-    color: rgb(var(--md-sys-color-on-surface));
+    color: rgb(var(--m3-scheme-on-surface));
     border: none;
     position: relative;
     cursor: pointer;
@@ -56,9 +56,9 @@
     transform: translateY(-50%);
   }
   button:hover {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.08);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
   }
   button:is(:focus-visible, :active) {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.12);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
 </style>

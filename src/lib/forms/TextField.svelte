@@ -32,7 +32,7 @@
       bind:value
       required
       {id}
-      class="md-body-large"
+      class="m3-font-body-large"
       class:value
       on:click|preventDefault
       {...isDate ? { type: "date" } : {}}
@@ -54,10 +54,10 @@
       </button>
     {/if}
     <div class="layer" />
-    <label class="md-body-large" for={id}>{name}</label>
+    <label class="m3-font-body-large" for={id}>{name}</label>
   </div>
   {#if supportingText}
-    <p class="supporting md-body-small" class:error>{supportingText}</p>
+    <p class="supporting m3-font-body-small" class:error>{supportingText}</p>
   {/if}
 </div>
 
@@ -66,7 +66,7 @@
     min-width: 15rem;
     height: 3.5rem;
     position: relative;
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    color: rgb(var(--m3-scheme-on-surface-variant));
   }
   .m3-container :global(svg) {
     width: 1.5rem;
@@ -81,7 +81,7 @@
     background-color: transparent;
     border: none;
     outline: none;
-    color: rgb(var(--md-sys-color-on-surface));
+    color: rgb(var(--m3-scheme-on-surface));
   }
   .layer {
     position: absolute;
@@ -99,30 +99,30 @@
     color: rgb(var(--error, currentColor));
   }
   .error {
-    --error: var(--md-sys-color-error);
+    --error: var(--m3-scheme-error);
   }
   .error:hover {
-    --error: var(--md-sys-color-on-error-container);
+    --error: var(--m3-scheme-on-error-container);
   }
   .supporting {
-    color: rgb(var(--md-sys-color-on-surface-variant));
+    color: rgb(var(--m3-scheme-on-surface-variant));
     margin: 0.25rem 0 0 0;
     padding: 0 1rem;
   }
   .supporting.error {
-    color: rgb(var(--md-sys-color-error));
+    color: rgb(var(--m3-scheme-error));
   }
 
   .style-filled {
-    background-color: rgb(var(--md-sys-color-surface-variant));
+    background-color: rgb(var(--m3-scheme-surface-variant));
     border-radius: 0.25rem 0.25rem 0 0;
   }
   .style-filled > .layer {
-    color: rgb(var(--error, var(--md-sys-color-on-surface-variant)));
+    color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
     border-bottom: solid 1px currentColor;
   }
   .style-filled:hover > .layer {
-    background-color: rgb(var(--md-sys-color-on-surface) / 0.08);
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
   .style-filled > input {
     padding-top: 1.25rem;
@@ -136,27 +136,27 @@
     border-radius: 0.25rem;
   }
   .style-outlined > .layer {
-    color: rgb(var(--error, var(--md-sys-color-outline)));
+    color: rgb(var(--error, var(--m3-scheme-outline)));
     border: solid 1px currentColor;
   }
   .style-outlined input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
     top: -0.5rem;
     left: 0.75rem;
     padding: 0 0.25rem;
-    background-color: rgb(var(--md-sys-color-surface));
+    background-color: rgb(var(--m3-scheme-surface));
   }
 
   .m3-container:hover > :is(label, .layer) {
-    color: rgb(var(--error, var(--md-sys-color-on-surface)));
+    color: rgb(var(--error, var(--m3-scheme-on-surface)));
   }
   .m3-container:focus-within > :is(label, .layer) {
     border-width: 2px;
-    color: rgb(var(--error, var(--md-sys-color-primary)));
+    color: rgb(var(--error, var(--m3-scheme-primary)));
   }
   input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
-    font-size: var(--md-sys-typescale-body-small-size, 12px);
-    line-height: var(--md-sys-typescale-body-small-height, 16px);
-    letter-spacing: var(--md-sys-typescale-body-small-tracking, 0.4);
+    font-size: var(--m3-font-body-small-size, 12px);
+    line-height: var(--m3-font-body-small-height, 16px);
+    letter-spacing: var(--m3-font-body-small-tracking, 0.4);
   }
 
   .leadingIcon,
@@ -183,16 +183,16 @@
     justify-content: center;
 
     background-color: transparent;
-    color: var(--md-sys-color-on-surface-variant);
+    color: var(--m3-scheme-on-surface-variant);
     transition: all 200ms;
     border: none;
     cursor: pointer;
   }
   .trailingButton:hover {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.08);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
   }
   .trailingButton:is(:focus-visible, :active) {
-    background-color: rgb(var(--md-sys-color-on-surface-variant) / 0.12);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
   .has-icon > input {
     padding-left: 3.25rem;
