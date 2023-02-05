@@ -73,7 +73,7 @@
 
 <style>
   .m3-container {
-    flex: 1;
+    flex: 1 1 auto;
     border-radius: 1rem;
     overflow: hidden;
     outline: solid 1px rgb(var(--m3-scheme-outline));

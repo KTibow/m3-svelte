@@ -141,6 +141,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    white-space: nowrap;
   }
   .colorDisc {
     width: 2.5rem;

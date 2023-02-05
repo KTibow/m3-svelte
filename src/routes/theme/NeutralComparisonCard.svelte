@@ -32,7 +32,7 @@
 
 <style>
   .m3-container {
-    flex: 1;
+    flex: 1 1 auto;
     display: flex;
     border-radius: 1rem;
     overflow: hidden;
