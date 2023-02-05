@@ -1,7 +1,5 @@
 <script lang="ts">
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
-  import Icon from "@iconify/svelte";
-  import iconCheck from "@iconify-icons/ic/outline-check";
 
   export let display = "inline-flex";
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
@@ -13,7 +11,14 @@
 
 <div class="m3-container" style="display: {display};" {...extraWrapperOptions}>
   <input type="checkbox" bind:checked {disabled} {...extraInputOptions} />
-  <Icon icon={iconCheck} />
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M 4.83 13.41 L 9 17.585 L 19.59 7"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.41"
+    />
+  </svg>
   <div class="layer" />
 </div>
 
@@ -28,14 +33,17 @@
     cursor: pointer;
     --color: var(--m3-scheme-on-surface-variant);
   }
-  .m3-container :global(svg) {
+  svg {
     width: 100%;
     height: 100%;
     color: rgb(var(--m3-scheme-on-primary));
+  }
+  path {
+    stroke-dasharray: 20.874 20.874;
     opacity: 0;
   }
   .layer,
-  .m3-container :global(svg) {
+  svg {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -74,22 +82,31 @@
     background-color: rgb(var(--color) / 0.12);
   }
   input:checked::before,
-  input:checked + .layer {
+  input:checked ~ .layer {
     --color: var(--m3-scheme-primary);
   }
   input:checked::before {
     background-color: rgb(var(--color));
   }
-  input:checked + :global(svg) {
+  input:checked + svg > path {
     opacity: 1;
+    animation: check 400ms;
   }
   input:disabled::before {
     --color: var(--m3-scheme-on-surface) / 0.38;
   }
-  input:disabled + :global(svg) {
+  input:disabled + svg {
     color: rgb(var(--m3-scheme-surface));
   }
   input:disabled ~ .layer {
     display: none;
+  }
+  @keyframes check {
+    0% {
+      stroke-dashoffset: 20.874;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
   }
 </style>
