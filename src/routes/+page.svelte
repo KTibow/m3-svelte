@@ -39,6 +39,7 @@
   let chosen6 = 60;
   let chosen7 = "";
   let chosen8 = "";
+  let chosen14 = "";
   let chosen12 = "";
 
   let chosen9 = false;
@@ -199,7 +200,7 @@
   </div>
   <div class="container col">
     <p>Text field</p>
-    <p>Chose {chosen7}, {chosen8}, {chosen12}</p>
+    <p>Chose {chosen7}, {chosen8}, {chosen14}, {chosen12}</p>
     <TextField style="filled" name="Option" icon={iconTriangle} bind:value={chosen7} />
     <TextField
       style="outlined"
@@ -207,6 +208,12 @@
       icon={iconTriangle}
       bind:value={chosen8}
       supportingText="sus"
+    />
+    <TextField
+      style="outlined"
+      name="wow its a <textfield>"
+      bind:value={chosen14}
+      isTextarea={true}
     />
     <DateFieldAndPicker
       fieldOptions={{ name: "Date" }}

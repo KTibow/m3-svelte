@@ -1,12 +1,16 @@
 <script lang="ts">
-  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
+  import type {
+    HTMLAttributes,
+    HTMLInputAttributes,
+    HTMLTextareaAttributes,
+  } from "svelte/elements";
   import Icon, { type IconifyIcon } from "@iconify/svelte";
   import iconError from "@iconify-icons/ic/error-outline";
   import { createEventDispatcher } from "svelte";
 
   export let display = "inline-flex";
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraInputOptions: HTMLInputAttributes = {};
+  export let extraInputOptions: HTMLInputAttributes & HTMLTextareaAttributes = {};
   export let style: "filled" | "outlined";
   export let error = false;
   export let icon: IconifyIcon | null = null;
@@ -15,8 +19,17 @@
   export let supportingText: null | string = null;
   export let value = "";
   export let isDate = false;
+  export let isTextarea = false;
   const dispatch = createEventDispatcher();
   let id = `input-${crypto.randomUUID()}`;
+  let wrapper: HTMLDivElement, textarea: HTMLTextAreaElement;
+  const resize = () => {
+    textarea.style.height = "unset";
+    wrapper.style.height = "unset";
+    const height = textarea.scrollHeight + "px";
+    textarea.style.height = height;
+    wrapper.style.height = height;
+  };
 </script>
 
 <div>
@@ -26,18 +39,33 @@
     class:has-trailing-icon={error || trailingIcon}
     class:error
     style="display: {display}"
+    bind:this={wrapper}
     {...extraWrapperOptions}
   >
-    <input
-      bind:value
-      required
-      {id}
-      class="m3-font-body-large"
-      class:value
-      on:click|preventDefault
-      {...isDate ? { type: "date" } : {}}
-      {...extraInputOptions}
-    />
+    {#if isTextarea}
+      <textarea
+        bind:value
+        bind:this={textarea}
+        required
+        {id}
+        class="m3-font-body-large input"
+        class:value
+        {...extraInputOptions}
+        rows="1"
+        on:input={resize}
+      />
+    {:else}
+      <input
+        bind:value
+        required
+        {id}
+        class="m3-font-body-large input"
+        class:value
+        on:click|preventDefault
+        {...isDate ? { type: "date" } : {}}
+        {...extraInputOptions}
+      />
+    {/if}
     {#if icon}
       <span class="leadingIcon">
         <Icon {icon} />
@@ -72,7 +100,7 @@
     width: 1.5rem;
     height: 1.5rem;
   }
-  input {
+  .input {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -82,6 +110,9 @@
     border: none;
     outline: none;
     color: rgb(var(--m3-scheme-on-surface));
+  }
+  textarea {
+    resize: none;
   }
   .layer {
     position: absolute;
@@ -124,11 +155,11 @@
   .style-filled:hover > .layer {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
-  .style-filled > input {
-    padding-top: 1.25rem;
+  .style-filled > .input {
+    padding-top: 1.5rem;
     padding-bottom: 0.5rem;
   }
-  .style-filled input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
+  .style-filled .input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
     top: 0.5rem;
   }
 
@@ -139,7 +170,11 @@
     color: rgb(var(--error, var(--m3-scheme-outline)));
     border: solid 1px currentColor;
   }
-  .style-outlined input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
+  .style-outlined > .input {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .style-outlined .input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
     top: -0.5rem;
     left: 0.75rem;
     padding: 0 0.25rem;
@@ -153,7 +188,7 @@
     border-width: 2px;
     color: rgb(var(--error, var(--m3-scheme-primary)));
   }
-  input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
+  .input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
     font-size: var(--m3-font-body-small-size, 12px);
     line-height: var(--m3-font-body-small-height, 16px);
     letter-spacing: var(--m3-font-body-small-tracking, 0.4);
@@ -194,13 +229,13 @@
   .trailingButton:is(:focus-visible, :active) {
     background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
-  .has-icon > input {
+  .has-icon > .input {
     padding-left: 3.25rem;
   }
   .has-icon > label {
     left: 3.25rem;
   }
-  .has-trailing-icon > input {
+  .has-trailing-icon > .input {
     padding-right: 3.25rem;
   }
 
