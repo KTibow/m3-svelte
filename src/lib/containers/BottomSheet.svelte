@@ -156,6 +156,15 @@
   .handleContainer > button:focus-visible {
     background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.5);
   }
+  .handleContainer > button:focus-visible::before {
+    content: "Press space to move bottom sheet";
+    color: rgb(var(--m3-scheme-on-surface));
+    display: inline-block;
+    position: relative;
+    width: 40rem;
+    left: -19rem;
+    top: 0.5rem;
+  }
   .handleContainer > button:active {
     background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.6);
   }
