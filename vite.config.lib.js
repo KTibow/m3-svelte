@@ -13,6 +13,7 @@ const entries = Object.fromEntries(
 
 export default defineConfig({
   build: {
+    outDir: "package-components",
     lib: {
       entry: entries,
       formats: ["es"],
