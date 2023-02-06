@@ -3,9 +3,9 @@
   "version": "0.3.0",
   "scripts": {
     "dev": "vite dev",
-    "build": "npm run build:svelte && npm run build:web",
-    "build:svelte": "svelte-kit sync && svelte-package",
-    "build:web": "vite build -c vite.config.lib.js && cp -r dist/* package/ && rm -r dist",
+    "build": "vite build",
+    "package": "svelte-kit sync && svelte-package",
+    "package-components": "vite build -c vite.config.lib.js && mv dist package-components",
     "prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",

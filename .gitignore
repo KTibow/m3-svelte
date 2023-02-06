@@ -4,6 +4,7 @@ node_modules
 /dist
 /.svelte-kit
 /package
+/package-components
 .env
 .env.*
 !.env.example
