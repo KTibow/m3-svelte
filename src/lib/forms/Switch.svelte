@@ -52,14 +52,16 @@
     height: 2rem;
     margin: 0;
     border-radius: 2rem;
-    border: solid 2px rgb(var(--m3-scheme-outline));
+    outline: solid 2px rgb(var(--m3-scheme-outline));
+    outline-offset: -2px;
     background-color: rgb(var(--m3-scheme-surface-variant));
     cursor: pointer;
     position: relative;
     transition: all 300ms;
   }
   input:checked {
-    border-width: 0;
+    outline-width: 0;
+    outline-offset: 0;
   }
   input:disabled:checked {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
@@ -69,7 +71,7 @@
   }
   input:disabled {
     background-color: rgb(var(--m3-scheme-surface-variant) / 0.12);
-    border-color: rgb(var(--m3-scheme-outline) / 0.12);
+    outline-color: rgb(var(--m3-scheme-outline) / 0.12);
     cursor: auto;
   }
   input::before {

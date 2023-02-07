@@ -41,6 +41,7 @@
   path {
     stroke-dasharray: 20.874 20.874;
     opacity: 0;
+    transition: all 200ms;
   }
   .layer,
   svg {
