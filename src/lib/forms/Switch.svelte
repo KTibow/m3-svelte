@@ -60,8 +60,7 @@
     transition: all 300ms;
   }
   input:checked {
-    outline-width: 0;
-    outline-offset: 0;
+    outline-color: transparent;
   }
   input:disabled:checked {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
