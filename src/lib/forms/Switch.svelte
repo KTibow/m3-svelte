@@ -60,7 +60,7 @@
     transition: all 300ms;
   }
   input:checked {
-    outline-color: transparent;
+    outline-color: transparent !important;
   }
   input:disabled:checked {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
@@ -166,5 +166,26 @@
 
   input:disabled + .layer {
     display: none;
+  }
+
+  @media print, (forced-colors: active) {
+    /* still looks bad in print but its fine */
+    input:checked {
+      outline-width: 0;
+      outline-offset: 0;
+    }
+    input:not(:checked)::before {
+      background-color: canvastext !important;
+    }
+    input:enabled:checked {
+      background-color: selecteditem;
+    }
+    input:disabled:checked {
+      background-color: graytext;
+    }
+    input:disabled,
+    input:checked:disabled ~ :global(svg) {
+      opacity: 0.38;
+    }
   }
 </style>

@@ -81,4 +81,16 @@
   input:disabled + .layer {
     display: none;
   }
+
+  @media print, (forced-colors: active) {
+    input::before {
+      background-color: selecteditem;
+    }
+    input:checked::before {
+      border-color: selecteditem;
+    }
+    input:disabled {
+      opacity: 0.38;
+    }
+  }
 </style>

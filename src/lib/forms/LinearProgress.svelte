@@ -36,4 +36,10 @@
       left: 125%;
     }
   }
+
+  @media (forced-colors: active) {
+    .percent {
+      background-color: selecteditem;
+    }
+  }
 </style>

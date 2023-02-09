@@ -110,4 +110,14 @@
       stroke-dashoffset: 0;
     }
   }
+
+  @media print, (forced-colors: active) {
+    input:checked::before {
+      background-color: selecteditem;
+      border-color: selecteditem;
+    }
+    input:disabled {
+      opacity: 0.38;
+    }
+  }
 </style>

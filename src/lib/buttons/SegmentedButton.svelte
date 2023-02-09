@@ -124,4 +124,23 @@
   .hidden {
     width: 0;
   }
+
+  @supports (-moz-appearance: none) {
+    @media (forced-colors: active) {
+      .m3-container > input:checked + label {
+        background-color: selecteditem;
+        color: selecteditemtext;
+      }
+    }
+  }
+  @media (forced-colors: active) {
+    .m3-container > input:disabled + label {
+      opacity: 0.38;
+    }
+  }
+  @media print {
+    .m3-container > input:checked + label {
+      print-color-adjust: exact;
+    }
+  }
 </style>

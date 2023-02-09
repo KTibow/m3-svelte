@@ -123,4 +123,10 @@
   .color-tertiary .layer {
     background-color: rgb(var(--m3-scheme-on-tertiary-container));
   }
+
+  @media (forced-colors: active) {
+    button {
+      outline: solid 0.25rem;
+    }
+  }
 </style>
