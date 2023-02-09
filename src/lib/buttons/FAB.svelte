@@ -124,6 +124,10 @@
     background-color: rgb(var(--m3-scheme-on-tertiary-container));
   }
 
+  .m3-container {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
   @media (forced-colors: active) {
     button {
       outline: solid 0.25rem;

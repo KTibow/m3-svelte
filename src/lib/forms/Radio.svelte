@@ -82,7 +82,11 @@
     display: none;
   }
 
-  @media print, (forced-colors: active) {
+  .m3-container {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media (forced-colors: active) {
     input::before {
       background-color: selecteditem;
     }

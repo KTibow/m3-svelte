@@ -168,8 +168,11 @@
     display: none;
   }
 
-  @media print, (forced-colors: active) {
-    /* still looks bad in print but its fine */
+  .m3-container {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media (forced-colors: active) {
     input:checked {
       outline-width: 0;
       outline-offset: 0;

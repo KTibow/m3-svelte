@@ -111,7 +111,11 @@
     }
   }
 
-  @media print, (forced-colors: active) {
+  .m3-container {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media (forced-colors: active) {
     input:checked::before {
       background-color: selecteditem;
       border-color: selecteditem;
