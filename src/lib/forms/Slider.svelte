@@ -9,7 +9,7 @@
   export let value: number;
   export let step: number = 1;
   export let accuracy: "none" | "value" | "ticks" = "value";
-  export let disabled = false;
+  export let disabled: false | true | "hide-value" = false;
 
   let rangeElem: HTMLInputElement, range: number, percent: number;
   $: {
@@ -32,6 +32,7 @@
 <div
   class="m3-container"
   class:show-value={accuracy != "none"}
+  class:hide-value={disabled == "hide-value"}
   style="display: {display}; --percent: {percent * 100}%;"
   {...extraWrapperOptions}
 >
@@ -40,7 +41,7 @@
     bind:this={rangeElem}
     value={$valueDisplayed}
     {step}
-    {disabled}
+    disabled={Boolean(disabled)}
     on:input={updateValue}
     {...extraInputOptions}
   />
@@ -80,14 +81,17 @@
     height: 0.25rem;
     width: 100%;
     border-radius: 0.25rem;
-    background-image: linear-gradient(
-      to right,
-      rgb(var(--m3-scheme-primary)) 0%,
-      rgb(var(--m3-scheme-primary)) var(--percent),
-      rgb(var(--m3-scheme-surface-variant)) var(--percent),
-      rgb(var(--m3-scheme-surface-variant)) 100%
-    );
+    background-color: rgb(var(--m3-scheme-surface-variant));
     pointer-events: none;
+  }
+  .track::before {
+    content: " ";
+    height: 0.25rem;
+    width: var(--percent);
+    border-radius: 0.25rem;
+    background-color: rgb(var(--m3-scheme-primary));
+    display: inline-block;
+    position: absolute;
   }
   .thumb {
     position: absolute;
@@ -158,13 +162,10 @@
     cursor: auto;
   }
   input:disabled + .track {
-    background-image: linear-gradient(
-      to right,
-      rgb(var(--m3-scheme-on-surface) / 0.38) 0%,
-      rgb(var(--m3-scheme-on-surface) / 0.38) var(--percent),
-      rgb(var(--m3-scheme-on-surface) / 0.12) var(--percent),
-      rgb(var(--m3-scheme-on-surface) / 0.12) 100%
-    );
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+  }
+  input:disabled + .track::before {
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
   input:disabled ~ .thumb {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
@@ -174,6 +175,53 @@
     display: none;
   }
   input:disabled ~ .value {
+    background-color: rgb(var(--m3-scheme-outline));
+    color: rgb(var(--m3-scheme-on-background));
+  }
+  .hide-value > input:disabled ~ .value {
     display: none;
+  }
+
+  .m3-container {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media print {
+    .show-value > .value {
+      opacity: 1;
+    }
+  }
+  @media screen and (forced-colors: active) {
+    .thumb {
+      background-color: selecteditem;
+    }
+    .track {
+      background-color: selecteditem;
+      width: var(--percent);
+    }
+    .track::before {
+      background-color: canvastext;
+      width: 100%;
+      opacity: 0.38;
+      z-index: -1;
+    }
+    .value {
+      border: 2px solid selecteditem;
+      overflow: hidden;
+    }
+    input:disabled + .track {
+      background-color: graytext;
+    }
+    input:disabled + .track::before {
+      background-color: graytext;
+      opacity: 0.38;
+    }
+    input:disabled ~ .thumb {
+      background-color: graytext;
+    }
+    input:disabled ~ .value {
+      border-color: graytext;
+      color: graytext;
+    }
   }
 </style>

@@ -128,7 +128,7 @@
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
-  @media (forced-colors: active) {
+  @media screen and (forced-colors: active) {
     button {
       outline: solid 0.25rem;
     }

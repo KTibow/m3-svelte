@@ -126,14 +126,14 @@
   }
 
   @supports (-moz-appearance: none) {
-    @media (forced-colors: active) {
+    @media screen and (forced-colors: active) {
       .m3-container > input:checked + label {
         background-color: selecteditem;
         color: selecteditemtext;
       }
     }
   }
-  @media (forced-colors: active) {
+  @media screen and (forced-colors: active) {
     .m3-container > input:disabled + label {
       opacity: 0.38;
     }

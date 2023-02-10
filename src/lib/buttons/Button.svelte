@@ -145,7 +145,7 @@
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
-  @media (forced-colors: active) {
+  @media screen and (forced-colors: active) {
     .m3-container:is(.elevated, .filled, .tonal) {
       background-color: transparent;
       border: 1px solid;

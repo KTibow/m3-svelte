@@ -86,7 +86,7 @@
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
-  @media (forced-colors: active) {
+  @media screen and (forced-colors: active) {
     input::before {
       background-color: selecteditem;
     }

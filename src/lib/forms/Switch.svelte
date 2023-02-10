@@ -172,10 +172,9 @@
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
-  @media (forced-colors: active) {
+  @media screen and (forced-colors: active) {
     input:checked {
-      outline-width: 0;
-      outline-offset: 0;
+      outline-style: none;
     }
     input:not(:checked)::before {
       background-color: canvastext !important;
