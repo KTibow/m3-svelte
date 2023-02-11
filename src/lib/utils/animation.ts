@@ -1,5 +1,6 @@
-import { cubicOut } from "svelte/easing";
+import type { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+import { easeEmphasized } from "./easing";
 // Heavily inspired by crossfade from svelte/transition
 interface transitionOptions {
   delay?: number;
@@ -36,7 +37,7 @@ export const containerTransform = (options: transitionOptions & containerOptions
     return {
       delay: params.delay || options.delay,
       duration: params.duration || options.duration || 500,
-      easing: params.easing || options.easing || cubicOut,
+      easing: params.easing || options.easing || easeEmphasized,
       css: (t, u) => {
         const currentWidth = to.width * (1 - u) + from.width * u;
         const currentHeight = to.height * (1 - u) + from.height * u;
@@ -112,7 +113,7 @@ export const enterExit = (
   return {
     delay: options.delay,
     duration: options.duration || 300,
-    easing: options.easing || cubicOut,
+    easing: options.easing || easeEmphasized,
     css: (t, u) => `clip-path: inset(${getClipPath(u * 100 + "%")} round ${radius}px);
 transform-origin: ${options.start};
 transform: scale${scaleDir}(${(t * 0.3 + 0.7) * 100}%) ${getTransform(u)};
@@ -127,8 +128,65 @@ export const heightTransition = (node: Element, options: transitionOptions & hei
   return {
     delay: options.delay,
     duration: options.duration || 400,
-    easing: options.easing || cubicOut,
+    easing: options.easing || easeEmphasized,
     css: (t: number) => `height: ${t * options.height}px`,
+  };
+};
+
+type sharedAxisOptions =
+  | {
+      direction: "X" | "Y";
+      /**
+       * true if this element is on the top/left of things
+       * if it's first, then use transition: and set it to true
+       * if it's last, then use transition: and set it to false
+       * if it's in between, use separate in: and out: statements:
+       * > set it to false when it's interacting with the left side, and true when interacting with its right
+       * > in order to implement this, try something like using a prevPage variable:
+       * > ```
+       * > {:else if page == 1}
+       * > <div
+       * >   in:sharedAxisTransition={{
+       * >     direction: "X",
+       * >     rightSeam: prevPage > 1, (if we're transitioning from a page on the right, rightseam is true)
+       * >   }}
+       * >   out:sharedAxisTransition={{
+       * >     direction: "X",
+       * >     rightSeam: page > 1, (if we're transitioning to a page on the right, rightseam is true)
+       * >   }}
+       * > >
+       * > ```
+       * i went insane over figuring this out :)
+       */
+      rightSeam: boolean;
+    }
+  | {
+      direction: "Z";
+      leaving: boolean /* set to true in out:, set to false in in: */;
+    };
+/* protip: set a background color on the items, and utilize position relative + absolute to let them overlap */
+export const sharedAxisTransition = (
+  node: Element,
+  options: transitionOptions & sharedAxisOptions
+) => {
+  return {
+    delay: options.delay,
+    duration: options.duration || 500,
+    easing: options.easing || easeEmphasized,
+    css: (t: number, u: number) => {
+      const opacity = (t - 0.35) * (1 / 0.35);
+      if (options.direction == "Z") {
+        const factor = options.leaving ? u * 0.1 + 1 : t * 0.2 + 0.8;
+        let css = `transform: scale(${factor.toFixed(3)});`;
+        if (!options.leaving) css += `opacity: ${opacity.toFixed(3)};`;
+        return css;
+      }
+      const factor = u * (options.rightSeam ? -30 : 30);
+      return (
+        `transform: translate${options.direction}(${factor.toFixed(3)}px);` +
+        `opacity: ${opacity.toFixed(3)}`
+      );
+    },
   };
 };
 
