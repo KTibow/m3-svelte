@@ -39,6 +39,7 @@
     align-items: center;
     justify-content: center;
     transition: all 200ms;
+    -webkit-tap-highlight-color: transparent;
   }
   .layer {
     position: absolute;
@@ -49,9 +50,6 @@
     transition: all 200ms;
     opacity: 0;
   }
-  button:hover .layer {
-    opacity: 0.08;
-  }
   button:focus-visible .layer,
   button:active .layer {
     opacity: 0.12;
@@ -59,14 +57,19 @@
   .elevation-normal {
     box-shadow: var(--m3-util-elevation-3);
   }
-  .elevation-normal:hover {
-    box-shadow: var(--m3-util-elevation-4);
-  }
   .elevation-lowered {
     box-shadow: var(--m3-util-elevation-1);
   }
-  .elevation-lowered:hover {
-    box-shadow: var(--m3-util-elevation-2);
+  @media (hover: hover) {
+    button:hover .layer {
+      opacity: 0.08;
+    }
+    .elevation-normal:hover {
+      box-shadow: var(--m3-util-elevation-4);
+    }
+    .elevation-lowered:hover {
+      box-shadow: var(--m3-util-elevation-2);
+    }
   }
   .size-small {
     height: 2.5rem;

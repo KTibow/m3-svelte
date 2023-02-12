@@ -88,6 +88,7 @@
     color: rgb(var(--text));
     cursor: pointer;
     transition: all 200ms;
+    -webkit-tap-highlight-color: transparent;
   }
   button:hover {
     background-color: rgb(var(--text) / 0.08);

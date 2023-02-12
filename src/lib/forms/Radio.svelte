@@ -34,6 +34,7 @@
     transition: all 200ms;
     cursor: pointer;
     --color: var(--m3-scheme-on-surface-variant);
+    -webkit-tap-highlight-color: transparent;
   }
   input {
     width: 1.25rem;
@@ -55,13 +56,17 @@
     background-color: rgb(var(--color));
     background-clip: content-box;
   }
-  input:hover,
   input:focus-visible {
     --color: var(--m3-scheme-on-surface);
   }
-  input:hover + .layer {
-    --color: var(--m3-scheme-on-surface);
-    background-color: rgb(var(--color) / 0.08);
+  @media (hover: hover) {
+    input:hover {
+      --color: var(--m3-scheme-on-surface);
+    }
+    input:hover + .layer {
+      --color: var(--m3-scheme-on-surface);
+      background-color: rgb(var(--color) / 0.08);
+    }
   }
   input:active + .layer,
   input:focus-visible + .layer {

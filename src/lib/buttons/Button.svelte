@@ -92,27 +92,15 @@
   .m3-container:not(:disabled).elevated > .layer.tonal {
     background-color: rgb(var(--text) / 0.05);
   }
-  .m3-container:not(:disabled).elevated:hover > .layer.tonal {
-    background-color: rgb(var(--text) / 0.08);
-  }
-  .m3-container:not(:disabled).elevated:hover {
-    box-shadow: var(--m3-util-elevation-2);
-  }
 
   .m3-container:not(:disabled).filled {
     background-color: rgb(var(--m3-scheme-primary));
     --text: var(--m3-scheme-on-primary);
   }
-  .m3-container:not(:disabled).filled:hover {
-    box-shadow: var(--m3-util-elevation-1);
-  }
 
   .m3-container:not(:disabled).tonal {
     background-color: rgb(var(--m3-scheme-secondary-container));
     --text: var(--m3-scheme-on-secondary-container);
-  }
-  .m3-container:not(:disabled).tonal:hover {
-    box-shadow: var(--m3-util-elevation-1);
   }
 
   .m3-container.outlined {
@@ -133,8 +121,22 @@
     padding-right: 1rem;
   }
 
-  .m3-container:not(:disabled):hover > .layer.state {
-    background-color: rgb(var(--text) / 0.08);
+  .m3-container {
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (hover: hover) {
+    .m3-container:not(:disabled):hover > .layer.state {
+      background-color: rgb(var(--text) / 0.08);
+    }
+    .m3-container:not(:disabled).elevated:hover {
+      box-shadow: var(--m3-util-elevation-2);
+    }
+    .m3-container:not(:disabled).filled:hover {
+      box-shadow: var(--m3-util-elevation-1);
+    }
+    .m3-container:not(:disabled).tonal:hover {
+      box-shadow: var(--m3-util-elevation-1);
+    }
   }
   .m3-container:not(:disabled):focus-visible > .layer.state,
   .m3-container:not(:disabled):active > .layer.state {

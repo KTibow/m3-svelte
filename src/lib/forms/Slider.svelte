@@ -76,6 +76,7 @@
     margin: 0;
     appearance: none;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   .track {
     height: 0.25rem;
@@ -145,8 +146,10 @@
   .tick.active {
     background-color: rgb(var(--m3-scheme-on-primary) / 0.38);
   }
-  input:hover ~ .layer {
-    background-color: rgb(var(--m3-scheme-primary) / 0.08);
+  @media (hover: hover) {
+    input:hover ~ .layer {
+      background-color: rgb(var(--m3-scheme-primary) / 0.08);
+    }
   }
   input:focus-visible ~ .layer,
   input:active ~ .layer {

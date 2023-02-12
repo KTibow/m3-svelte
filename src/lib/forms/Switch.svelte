@@ -59,6 +59,11 @@
     position: relative;
     transition: all 300ms;
   }
+  input:disabled {
+    background-color: rgb(var(--m3-scheme-surface-variant) / 0.12);
+    outline-color: rgb(var(--m3-scheme-outline) / 0.12);
+    cursor: auto;
+  }
   input:checked {
     outline-color: transparent !important;
   }
@@ -67,11 +72,6 @@
   }
   input:enabled:checked {
     background-color: rgb(var(--m3-scheme-primary));
-  }
-  input:disabled {
-    background-color: rgb(var(--m3-scheme-surface-variant) / 0.12);
-    outline-color: rgb(var(--m3-scheme-outline) / 0.12);
-    cursor: auto;
   }
   input::before {
     content: " ";
@@ -109,6 +109,7 @@
     transition: all 200ms;
     transform: translate(0, -50%);
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   input:checked + .layer {
     left: calc(100% - 1.5rem - 0.75rem - 0.25rem);
