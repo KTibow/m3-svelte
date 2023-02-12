@@ -62,11 +62,7 @@
         class="m3-font-body-large input"
         class:value
         on:click={(e) => {
-          if (
-            isDate &&
-            !window.matchMedia("(orientation: portrait) or (forced-colors: active)").matches
-          )
-            e.preventDefault();
+          if (isDate && window.innerWidth > window.innerHeight) e.preventDefault();
         }}
         {...isDate ? { type: "date" } : {}}
         {...extraInputOptions}
