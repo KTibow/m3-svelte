@@ -58,16 +58,19 @@
     --text: var(--m3-scheme-on-surface-variant);
     color: rgb(var(--text));
     cursor: pointer;
-  }
-  .destination:hover {
-    --text: var(--m3-scheme-on-surface);
+    -webkit-tap-highlight-color: transparent;
   }
   .destination.selected {
     background-color: rgb(var(--m3-scheme-secondary-container));
     --text: var(--m3-scheme-on-secondary-container);
   }
-  .destination:hover .layer {
-    background-color: rgb(var(--text) / 0.08);
+  @media (hover: hover) {
+    .destination:hover {
+      --text: var(--m3-scheme-on-surface);
+    }
+    .destination:hover .layer {
+      background-color: rgb(var(--text) / 0.08);
+    }
   }
   .destination:focus-visible .layer,
   .destination:active .layer {

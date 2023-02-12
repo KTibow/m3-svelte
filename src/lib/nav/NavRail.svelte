@@ -171,6 +171,7 @@
     padding: 0;
     margin: 0;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   .relative {
     position: relative;
@@ -228,8 +229,10 @@
     background-color: rgb(var(--m3-scheme-secondary-container));
     color: rgb(var(--m3-scheme-on-secondary-container));
   }
-  .hoverable:hover .layer {
-    background-color: rgb(var(--text) / 0.08);
+  @media (hover: hover) {
+    .hoverable:hover .layer {
+      background-color: rgb(var(--text) / 0.08);
+    }
   }
   .hoverable:focus-visible .layer,
   .hoverable:active .layer {

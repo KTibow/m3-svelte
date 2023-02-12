@@ -35,6 +35,7 @@
     text-align: inherit;
     font: inherit;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   .layer {
     position: absolute;
@@ -56,15 +57,19 @@
     background-color: rgb(var(--m3-scheme-surface-variant));
   }
 
-  .type-elevated,
-  button:hover {
+  .type-elevated {
     box-shadow: var(--m3-util-elevation-1);
   }
-  button.type-elevated:hover {
-    box-shadow: var(--m3-util-elevation-2);
-  }
-  button:hover > .layer.state {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
+  @media (hover: hover) {
+    button:not(.type-outlined):hover {
+      box-shadow: var(--m3-util-elevation-1);
+    }
+    button.type-elevated:hover {
+      box-shadow: var(--m3-util-elevation-2);
+    }
+    button:not(.type-outlined):hover > .layer.state {
+      background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
+    }
   }
   button:is(:focus-visible, :active) > .layer.state {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);

@@ -34,6 +34,7 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   button:enabled:hover {
     background-color: rgb(var(--text) / 0.08);

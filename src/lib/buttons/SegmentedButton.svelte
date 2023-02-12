@@ -79,6 +79,7 @@
     --text: var(--m3-scheme-on-surface);
     color: rgb(var(--text));
     transition: all 200ms;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .m3-container > label ~ label {
@@ -100,8 +101,10 @@
     bottom: 0;
     transition: all 200ms;
   }
-  input:enabled + label:hover > .layer {
-    background-color: rgb(var(--text) / 0.08);
+  @media (hover: hover) {
+    input:enabled + label:hover > .layer {
+      background-color: rgb(var(--text) / 0.08);
+    }
   }
   input:enabled:focus-visible + label > .layer,
   input:enabled + label:active > .layer {

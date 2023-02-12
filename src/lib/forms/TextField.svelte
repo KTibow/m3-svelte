@@ -61,7 +61,9 @@
         {id}
         class="m3-font-body-large input"
         class:value
-        on:click|preventDefault
+        on:click={(e) => {
+          if (isDate && window.innerWidth > window.innerHeight) e.preventDefault();
+        }}
         {...isDate ? { type: "date" } : {}}
         {...extraInputOptions}
       />
@@ -132,9 +134,6 @@
   .error {
     --error: var(--m3-scheme-error);
   }
-  .error:hover {
-    --error: var(--m3-scheme-on-error-container);
-  }
   .supporting {
     color: rgb(var(--m3-scheme-on-surface-variant));
     margin: 0.25rem 0 0 0;
@@ -151,9 +150,6 @@
   .style-filled > .layer {
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
     border-bottom: solid 1px currentColor;
-  }
-  .style-filled:hover > .layer {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
   .style-filled > .input {
     padding-top: 1.5rem;
@@ -181,9 +177,6 @@
     background-color: rgb(var(--m3-scheme-surface));
   }
 
-  .m3-container:hover > :is(label, .layer) {
-    color: rgb(var(--error, var(--m3-scheme-on-surface)));
-  }
   .m3-container:focus-within > :is(label, .layer) {
     border-width: 2px;
     color: rgb(var(--error, var(--m3-scheme-primary)));
@@ -223,9 +216,6 @@
     border: none;
     cursor: pointer;
   }
-  .trailingButton:hover {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
-  }
   .trailingButton:is(:focus-visible, :active) {
     background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
@@ -239,6 +229,20 @@
     padding-right: 3.25rem;
   }
 
+  @media (hover: hover) {
+    .error:hover {
+      --error: var(--m3-scheme-on-error-container);
+    }
+    .m3-container:hover > :is(label, .layer) {
+      color: rgb(var(--error, var(--m3-scheme-on-surface)));
+    }
+    .style-filled:hover > .layer {
+      background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
+    }
+    .trailingButton:hover {
+      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
+    }
+  }
   input[type="date"] {
     padding-left: 0.875rem;
   }

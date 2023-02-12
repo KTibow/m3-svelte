@@ -77,6 +77,7 @@
     color: inherit;
     border: none;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   .content {
     padding: 0 1rem;
@@ -126,13 +127,19 @@
     border-width: 0;
   }
 
-  .selected:hover:not(.disabled) {
-    box-shadow: var(--m3-util-elevation-1);
+  @media (hover: hover) {
+    .selected:hover:not(.disabled) {
+      box-shadow: var(--m3-util-elevation-1);
+    }
+    .elevated:hover:not(.disabled) {
+      box-shadow: var(--m3-util-elevation-2);
+    }
+    button:hover:enabled > .layer.state {
+      background-color: currentColor;
+      opacity: 0.08;
+    }
   }
-  .elevated:hover:not(.disabled) {
-    box-shadow: var(--m3-util-elevation-2);
-  }
-  button:is(:hover, :focus-visible):enabled > .layer.state {
+  button:focus-visible:enabled > .layer.state {
     background-color: currentColor;
     opacity: 0.08;
   }

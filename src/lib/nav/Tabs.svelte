@@ -61,6 +61,7 @@
     padding: 0 1rem;
     cursor: pointer;
     transition: all 200ms;
+    -webkit-tap-highlight-color: transparent;
   }
   .layer {
     position: absolute;
@@ -78,12 +79,16 @@
     height: 1.5rem;
   }
 
-  .item:hover,
   input:focus-visible + .item {
     --text: var(--m3-scheme-on-surface);
   }
-  .item:hover > .layer {
-    background-color: rgb(var(--text) / 0.08);
+  @media (hover: hover) {
+    .item:hover {
+      --text: var(--m3-scheme-on-surface);
+    }
+    .item:hover > .layer {
+      background-color: rgb(var(--text) / 0.08);
+    }
   }
   input:focus-visible + .item > .layer,
   .item:active > .layer {

@@ -32,6 +32,7 @@
     border-radius: 3rem;
     cursor: pointer;
     --color: var(--m3-scheme-on-surface-variant);
+    -webkit-tap-highlight-color: transparent;
   }
   svg {
     width: 100%;
@@ -70,17 +71,21 @@
     border: solid 0.125rem rgb(var(--color));
   }
 
-  input:hover,
   input:focus-visible {
     --color: var(--m3-scheme-on-surface);
-  }
-  input:hover ~ .layer {
-    --color: var(--m3-scheme-on-surface);
-    background-color: rgb(var(--color) / 0.08);
   }
   input:active ~ .layer,
   input:focus-visible ~ .layer {
     background-color: rgb(var(--color) / 0.12);
+  }
+  @media (hover: hover) {
+    input:hover {
+      --color: var(--m3-scheme-on-surface);
+    }
+    input:hover ~ .layer {
+      --color: var(--m3-scheme-on-surface);
+      background-color: rgb(var(--color) / 0.08);
+    }
   }
   input:checked::before,
   input:checked ~ .layer {

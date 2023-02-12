@@ -125,9 +125,12 @@
 
   .item:is(button, label) {
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
-  .item:is(button, label):hover {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
+  @media (hover: hover) {
+    .item:is(button, label):hover {
+      background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
+    }
   }
   .item:is(button, label):is(:focus-visible, :active) {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
