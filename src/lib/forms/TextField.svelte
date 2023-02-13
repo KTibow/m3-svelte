@@ -62,7 +62,11 @@
         class="m3-font-body-large input"
         class:value
         on:click={(e) => {
-          if (isDate && window.innerWidth > window.innerHeight) e.preventDefault();
+          if (
+            isDate &&
+            !window.matchMedia("(orientation: portrait) or (forced-colors: active)").matches
+          )
+            e.preventDefault();
         }}
         {...isDate ? { type: "date" } : {}}
         {...extraInputOptions}
@@ -257,7 +261,19 @@
       padding-left: 3rem;
     }
   }
-  @media (orientation: landscape) {
+  .has-trailing-icon input[type="date"] {
+    padding-right: 1rem;
+  }
+  input[type="date"] ~ .trailingButton {
+    display: none;
+  }
+  @media (orientation: landscape) and (forced-colors: none) {
+    input[type="date"] {
+      padding-right: 3.25rem;
+    }
+    input[type="date"] ~ .trailingButton {
+      display: inline-flex;
+    }
     input[type="date"]::-webkit-calendar-picker-indicator {
       display: none;
     }
@@ -268,14 +284,6 @@
       .has-trailing-icon input[type="date"] {
         padding-right: 0;
       }
-    }
-  }
-  @media (orientation: portrait) {
-    input[type="date"] {
-      padding-right: 1rem;
-    }
-    input[type="date"] ~ .trailingButton {
-      display: none;
     }
   }
 
