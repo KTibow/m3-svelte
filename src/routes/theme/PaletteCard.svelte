@@ -83,6 +83,7 @@
     min-width: 20rem;
     border-radius: 1rem;
     overflow: hidden;
+    color: white;
     cursor: pointer;
   }
   .color-regions > * {
