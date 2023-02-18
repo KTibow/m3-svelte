@@ -15,15 +15,16 @@
   import { schemesFromPalettes, type SerializedScheme } from "$lib/colors/utils";
   import Button from "$lib/buttons/Button.svelte";
   import PaletteCard from "./PaletteCard.svelte";
-  import NeutralComparisonCard from "./NeutralComparisonCard.svelte";
   import ColorCard from "./ColorCard.svelte";
   import StyleFromScheme from "$lib/colors/StyleFromScheme.svelte";
+  import Tabs from "$lib/nav/Tabs.svelte";
 
   let sourceColorInput: HTMLInputElement, sourceFileInput: HTMLInputElement;
   let sourceColor: number, sourcePalettes: CorePalette, schemeLight: Scheme, schemeDark: Scheme;
   $: if (sourceColor) sourcePalettes = CorePalette.of(sourceColor);
   $: if (sourcePalettes) [schemeLight, schemeDark] = schemesFromPalettes(sourcePalettes);
 
+  let activeTab = 0;
   const pairs = [
     ["primary", "onPrimary"],
     ["primaryContainer", "onPrimaryContainer"],
@@ -105,19 +106,9 @@
 </p>
 
 {#if sourcePalettes}
-  <h2 class="m3-font-headline-large">Palettes</h2>
-  <div class="pallette">
+  <div class="palettes">
     {#each Object.entries( { primary: sourcePalettes.a1, secondary: sourcePalettes.a2, tertiary: sourcePalettes.a3, neutral: sourcePalettes.n1, neutralVariant: sourcePalettes.n2, error: sourcePalettes.error } ) as [name, hct]}
       <PaletteCard {name} {hct} on:changeColor={(e) => changeColor(hct, e.detail)} />
-    {/each}
-  </div>
-  <div class="pallette">
-    {#each [10, 20, 50, 80, 90] as tone}
-      <NeutralComparisonCard
-        {tone}
-        neutralHCT={sourcePalettes.n1}
-        neutralVariantHCT={sourcePalettes.n2}
-      />
     {/each}
   </div>
 {/if}
@@ -126,14 +117,17 @@
     lightScheme={serializeScheme(schemeLight)}
     darkScheme={serializeScheme(schemeDark)}
   />
-  {#each Object.entries({ Light: schemeLight, Dark: schemeDark }) as [name, colors]}
-    <h2 class="m3-font-headline-large">{name}</h2>
-    <div class="container">
-      {#each pairs as [bgName, fgName]}
-        <ColorCard headline={bgName} sub="{fgName} text" {...getCardData(colors, bgName, fgName)} />
-      {/each}
-    </div>
-  {/each}
+  <Tabs style="primary" items={[{ name: "Light" }, { name: "Dark" }]} bind:activeItem={activeTab} />
+  <br />
+  <div class="container">
+    {#each pairs as [bgName, fgName]}
+      <ColorCard
+        headline={bgName}
+        sub="{fgName} text"
+        {...getCardData(activeTab == 0 ? schemeLight : schemeDark, bgName, fgName)}
+      />
+    {/each}
+  </div>
 {/if}
 
 <style>
@@ -154,17 +148,22 @@
     display: none;
   }
 
-  .pallette {
+  .palettes {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     gap: 1rem;
     margin-bottom: 1rem;
   }
   .container {
     display: grid;
-    gap: 1rem;
+    border-radius: 1rem;
+    overflow: hidden;
   }
   @media (orientation: landscape) {
+    .palettes {
+      flex-direction: row;
+    }
     .container {
       grid-template-columns: repeat(4, 1fr);
     }

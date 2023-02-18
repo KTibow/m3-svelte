@@ -3,19 +3,17 @@
   import { createEventDispatcher } from "svelte";
   import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/ic/outline-edit";
-  import Button from "$lib/buttons/Button.svelte";
   import Dialog from "$lib/containers/Dialog.svelte";
   import Switch from "$lib/forms/Switch.svelte";
 
-  export let name: string;
-  export let hct: TonalPalette;
   const hexCode = (argb: number) => "#" + ((argb & 0xffffff) + 0x1000000).toString(16).slice(1);
   const dispatch = createEventDispatcher();
+  export let name: string;
+  export let hct: TonalPalette;
   let chooserOpen = false,
-    newColor: string = hexCode(hct.tone(50)),
-    normalizedColor: TonalPalette,
-    colorChooser: HTMLInputElement;
-  let modifyChroma = false;
+    modifyChroma = false,
+    newColor: string = hexCode(hct.tone(30)),
+    normalizedColor: TonalPalette;
   $: {
     if (!newColor) break $;
     const newHct = Hct.fromInt(argbFromHex(newColor));
@@ -26,28 +24,11 @@
   }
 </script>
 
-<div
-  class="m3-container"
-  style="--tone-10: {hexCode(hct.tone(10))};
-  --tone-20: {hexCode(hct.tone(20))};
-  --tone-50: {hexCode(hct.tone(50))};
-  --tone-80: {hexCode(hct.tone(80))};
-  --tone-90: {hexCode(hct.tone(90))};"
->
-  <div class="top-color" />
-  <p class="m3-font-headline-small">
-    {name}
-    <Button type="text" iconType="full" on:click={() => (chooserOpen = true)}>
-      <Icon icon={iconEdit} width="24" height="24" />
-    </Button>
-  </p>
-  <div class="color-discs">
-    <div class="tone-10">10</div>
-    <div class="tone-20">20</div>
-    <div class="tone-50">50</div>
-    <div class="tone-80">80</div>
-    <div class="tone-90">90</div>
-  </div>
+<div class="m3-container" style="--color: {hexCode(hct.tone(30))}">
+  <p class="m3-font-headline-small">{name}</p>
+  <button class="swatch" on:click={() => (chooserOpen = true)}>
+    <Icon icon={iconEdit} />
+  </button>
 </div>
 <Dialog
   title="Change color"
@@ -59,12 +40,12 @@
   }}
 >
   <label class="color-regions">
-    <div style="background-color: {hexCode(hct.tone(50))};">Current</div>
+    <div style="background-color: {hexCode(hct.tone(30))};">Current</div>
     <div style="background-color: {newColor};">Raw</div>
     {#if normalizedColor}
-      <div style="background-color: {hexCode(normalizedColor.tone(50))};">Normalized</div>
+      <div style="background-color: {hexCode(normalizedColor.tone(30))};">Normalized</div>
     {/if}
-    <input type="color" bind:value={newColor} bind:this={colorChooser} />
+    <input type="color" bind:value={newColor} />
   </label>
   <label for={undefined} class="chroma-switch">
     <Switch bind:checked={modifyChroma} /> Modify chroma
@@ -73,60 +54,30 @@
 
 <style>
   .m3-container {
-    flex: 1 1 auto;
-    border-radius: 1rem;
-    overflow: hidden;
-    outline: solid 1px rgb(var(--m3-scheme-outline));
-    min-width: 6.625rem;
-  }
-  .top-color {
-    width: 100%;
-    height: 1.5rem;
-    background-color: var(--tone-50);
-  }
-  .m3-container p {
     display: flex;
     align-items: center;
-    padding: 0 1rem;
+    flex: 1;
   }
-  .m3-container p > :global(button) {
+  .swatch {
+    align-self: stretch;
+    aspect-ratio: 1 / 1;
+    margin: 0.5rem;
     margin-left: auto;
-  }
-  .color-discs {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0.5rem;
-    gap: 0.5rem;
-  }
-  .color-discs > div {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 1.5rem;
-  }
-  .tone-10 {
-    background-color: var(--tone-10);
+    border-radius: 1rem;
+    background-color: var(--color);
     color: white;
+    border: none;
+    cursor: pointer;
   }
-  .tone-20 {
-    background-color: var(--tone-20);
-    color: white;
+  .swatch > :global(svg) {
+    opacity: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: all 200ms;
   }
-  .tone-50 {
-    background-color: var(--tone-50);
-    color: white;
+  .swatch:is(:hover, :focus-visible, :active) > :global(svg) {
+    opacity: 1;
   }
-  .tone-80 {
-    background-color: var(--tone-80);
-    color: black;
-  }
-  .tone-90 {
-    background-color: var(--tone-90);
-    color: black;
-  }
-
   .color-regions {
     display: flex;
     min-width: 20rem;
@@ -148,5 +99,15 @@
     margin-top: 1rem;
     gap: 0.5rem;
     align-items: center;
+  }
+  @media (orientation: landscape) {
+    .m3-container {
+      flex-direction: column;
+    }
+    .swatch {
+      width: 6rem;
+      align-self: center;
+      margin-left: 0.5rem;
+    }
   }
 </style>
