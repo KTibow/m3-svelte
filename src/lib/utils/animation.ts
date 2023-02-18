@@ -10,71 +10,192 @@ interface transitionOptions {
 interface containerOptions {
   fallback?: (
     node: Element,
-    params: transitionOptions & containerOptions,
-    isLeaving: boolean
+    params: transitionOptions & containerOptions & containerParamOptions,
+    intro: boolean
   ) => TransitionConfig;
+  bgContainerZ?: number;
+  fgContainerZ?: number;
 }
 interface containerParamOptions {
   key: string;
 }
-export const containerTransform = (options: transitionOptions & containerOptions) => {
-  const haveStarted = new Map();
-  const haveDelivered = new Map();
-  const transform = (
+type ClientRectMap = Map<string, { rect: DOMRect; node: Element }>;
+const parseSize = (size: string) =>
+  (size.endsWith("px")
+    ? +size.slice(0, -2)
+    : size.endsWith("rem")
+    ? +size.slice(0, -3) * 16
+    : null) || 0;
+const getBackgroundColor = (node: Element, defaultColor?: string): string => {
+  if (!defaultColor) {
+    const tmp = document.createElement("div");
+    document.body.appendChild(tmp);
+    defaultColor = getComputedStyle(tmp).backgroundColor;
+    tmp.remove();
+  }
+  const color = getComputedStyle(node).backgroundColor;
+  if (color != defaultColor) return color;
+  if (node.parentElement) return getBackgroundColor(node.parentElement, defaultColor);
+  return defaultColor;
+};
+const parseColor = (color: string) => {
+  const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+  if (match) {
+    const [r, g, b, opacity = 1.0] = match.slice(1, 5).map((val) => val && parseFloat(val));
+    if (
+      typeof r != "number" ||
+      typeof g != "number" ||
+      typeof b != "number" ||
+      typeof opacity != "number"
+    ) {
+      console.log(color, match, r, g, b, opacity);
+      throw new Error("something went down in the color parser, see previous info");
+    }
+    return [r, g, b, opacity];
+  }
+  return [0, 0, 0, 0];
+};
+
+export const containerTransform = ({
+  fallback,
+  ...defaults
+}: transitionOptions & containerOptions) => {
+  /* This code is based on the crossfade function from Svelte. Svelte is under the MIT license.
+  https://github.com/sveltejs/svelte/blob/master/src/runtime/transition/index.ts
+  If you have an idea for cleaning up this mess of code, please make a PR. */
+  const to_receive: ClientRectMap = new Map();
+  const to_send: ClientRectMap = new Map();
+
+  function calcTransition(
     from: DOMRect,
+    fromNode: Element,
     node: Element,
-    params: transitionOptions & containerOptions & containerParamOptions,
-    isLeaving: boolean
-  ): TransitionConfig => {
+    params: transitionOptions & containerOptions
+  ): TransitionConfig {
     const to = node.getBoundingClientRect();
-    const toCenter = [to.left + to.width / 2, to.top + to.height / 2];
-    const fromCenter = [from.left + from.width / 2, from.top + from.height / 2];
-    const dx = fromCenter[0] - toCenter[0];
-    const dy = fromCenter[1] - toCenter[1];
+    const isEntering = from.width * from.height < to.width * to.height;
+    const dx = from.left + from.width / 2 - (to.left + to.width / 2);
+    const dy = from.top - to.top;
 
     const style = getComputedStyle(node);
-    const transform = style.transform === "none" ? "" : style.transform;
+    const transform = style.transform == "none" ? "" : style.transform;
+    const opacity = +style.opacity;
+    const bgContainerZ = params.bgContainerZ || defaults.bgContainerZ || 4;
+    const fgContainerZ = params.fgContainerZ || defaults.fgContainerZ || 5;
+    let container: {
+      backwards?: boolean;
+      e?: HTMLDivElement;
+      fromColor: ReturnType<typeof parseColor>;
+      fromRadius: number;
+      fromBorderWidth: number;
+      fromBorderColor: ReturnType<typeof parseColor>;
+      toColor: ReturnType<typeof parseColor>;
+      toRadius: number;
+      toBorderWidth: number;
+      toBorderColor: ReturnType<typeof parseColor>;
+    } | null = {
+      fromColor: parseColor(getBackgroundColor(node)),
+      fromRadius: parseSize(style.borderRadius),
+      fromBorderWidth: parseSize(style.borderLeftWidth),
+      fromBorderColor: parseColor(style.borderLeftColor),
+      toColor: parseColor(getBackgroundColor(fromNode)),
+      toRadius: parseSize(getComputedStyle(fromNode).borderRadius),
+      toBorderWidth: parseSize(getComputedStyle(fromNode).borderLeftWidth),
+      toBorderColor: parseColor(getComputedStyle(fromNode).borderLeftColor),
+    };
+
     return {
-      delay: params.delay || options.delay,
-      duration: params.duration || options.duration || 500,
-      easing: params.easing || options.easing || easeEmphasized,
+      delay: params.delay || defaults.delay || 0,
+      duration: params.duration || defaults.duration || 500,
+      easing: params.easing || defaults.easing || easeEmphasized,
       css: (t, u) => {
-        const currentWidth = to.width * (1 - u) + from.width * u;
-        const currentHeight = to.height * (1 - u) + from.height * u;
-        const widthOffset = (to.width - currentWidth) / 2;
-        const heightOffset = (to.height - currentHeight) / 2;
-        return `transform-origin: top-left;
-transform: ${transform} translate(${u * dx}px, ${u * dy}px);
-clip-path: inset(${heightOffset}px ${widthOffset}px ${heightOffset}px ${widthOffset}px);`;
+        const dw = t + u * (from.width / to.width);
+        const dh = t + u * (from.height / to.height);
+        const tOpacity = (isEntering ? (10 * t - 3) / 7 : (-10 / 3) * u + 1) * opacity;
+        const tScale = isEntering ? Math.max(dw, dh) : Math.min(dw, dh);
+        const horizontalTrim = ((tScale - dw) * to.width) / tScale / 2;
+        const verticalTrim = ((tScale - dh) * to.height) / tScale;
+        return `
+          opacity: ${tOpacity};
+          transform-origin: top center;
+          transform: ${transform} translate(${u * dx}px, ${u * dy}px) scale(${tScale});
+          clip-path: inset(0 ${horizontalTrim}px ${verticalTrim}px ${horizontalTrim}px);
+          z-index: ${fgContainerZ};
+          background-color: transparent;
+          border-color: transparent;
+          pointer-events: none;
+        `;
+      },
+      tick: (t, u) => {
+        if (!isEntering || !container) return;
+        if (container.backwards == null) container.backwards = Boolean(t);
+        if (!container.e) {
+          container.e = document.createElement("div");
+          container.e.style.position = "fixed";
+          container.e.style.zIndex = bgContainerZ.toString();
+          container.e.style.boxSizing = "border-box";
+          container.e.style.borderStyle = "solid";
+          document.body.appendChild(container.e);
+        } else if (t == (container.backwards ? 0 : 1)) {
+          document.body.removeChild(container.e);
+          return (container = null);
+        }
+        container.e.style.top = (u * from.top + t * to.top).toFixed(1) + "px";
+        container.e.style.left = (u * from.left + t * to.left).toFixed(1) + "px";
+        container.e.style.width = (u * from.width + t * to.width).toFixed(1) + "px";
+        container.e.style.height = (u * from.height + t * to.height).toFixed(1) + "px";
+
+        const {
+          fromColor,
+          fromRadius,
+          fromBorderWidth,
+          fromBorderColor,
+          toColor,
+          toRadius,
+          toBorderWidth,
+          toBorderColor,
+        } = container;
+
+        const interpColor = [0, 0, 0, 0].map((_, i) =>
+          Math.trunc(t * fromColor[i] + u * toColor[i])
+        );
+        container.e.style.backgroundColor = `rgba(${interpColor.join(",")})`;
+        container.e.style.borderRadius = (t * fromRadius + u * toRadius).toFixed(1) + "px";
+        container.e.style.borderWidth = (t * fromBorderWidth + u * toBorderWidth).toFixed(1) + "px";
+        const interpBorder = [0, 0, 0, 0].map((_, i) =>
+          Math.trunc(t * fromBorderColor[i] + u * toBorderColor[i])
+        );
+        container.e.style.borderColor = `rgba(${interpBorder.join(",")})`;
       },
     };
-  };
-  const _makeTransition = (
-    starting: typeof haveStarted,
-    ending: typeof haveDelivered,
-    isLeaving: boolean
-  ) => {
+  }
+
+  function makeTransition(items: ClientRectMap, counterparts: ClientRectMap, intro: boolean) {
     return (
       node: Element,
       params: transitionOptions & containerOptions & containerParamOptions
     ) => {
-      starting.set(params.key, { rect: node.getBoundingClientRect() });
+      items.set(params.key, {
+        rect: node.getBoundingClientRect(),
+        node,
+      });
       return () => {
-        if (ending.has(params.key)) {
-          const { rect } = ending.get(params.key);
-          ending.delete(params.key);
-          return transform(rect, node, params, isLeaving);
+        const counterpart = counterparts.get(params.key);
+        if (counterpart) {
+          counterparts.delete(params.key);
+          return calcTransition(counterpart.rect, counterpart.node, node, params);
         }
-        starting.delete(params.key);
-        const fallback = params.fallback || options.fallback;
-        return fallback?.(node, params, isLeaving) || {}; // TODO: satisfy ts
+
+        // if the node is disappearing altogether
+        // (i.e. wasn't claimed by the other list)
+        // then we need to supply an outro
+        items.delete(params.key);
+        return fallback ? fallback(node, params, intro) : {};
       };
     };
-  };
-  return [
-    _makeTransition(haveStarted, haveDelivered, true),
-    _makeTransition(haveDelivered, haveStarted, false),
-  ];
+  }
+
+  return [makeTransition(to_send, to_receive, false), makeTransition(to_receive, to_send, true)];
 };
 
 interface inOutOptions {
@@ -89,12 +210,7 @@ export const enterExit = (
   options.moveY ??= true;
   const scaleDir = ["top", "bottom"].includes(options.start) ? "Y" : "X";
   const { borderRadius, boxShadow } = getComputedStyle(node);
-  const radius =
-    (borderRadius.endsWith("px")
-      ? +borderRadius.slice(0, -2)
-      : borderRadius.endsWith("rem")
-      ? +borderRadius.slice(0, -3) * 16
-      : null) || 0;
+  const radius = parseSize(borderRadius);
   const getClipPath = (n: string) => {
     const out = boxShadow && boxShadow != "none" ? "-100%" : "0";
     /* the above allows box shadows to show, ideally i would use a wrapper for this instead */

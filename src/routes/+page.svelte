@@ -23,6 +23,7 @@
   import Switch from "$lib/forms/Switch.svelte";
   import TextField from "$lib/forms/TextField.svelte";
 
+  import { base } from "$app/paths";
   import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/ic/outline-edit";
   import iconTriangle from "@iconify-icons/ic/outline-change-history";
@@ -53,7 +54,11 @@
   <meta name="description" content="The home of M3 Svelte, with many components from Material 3." />
 </svelte:head>
 <h1 class="m3-font-display-large">M3 Svelte</h1>
-<p>A project by KTibow. See the GitHub for code examples.</p>
+<p>
+  A project by KTibow. See the GitHub for code examples. Also check out the <a
+    href="{base}/transitions">transitions.</a
+  >
+</p>
 <Divider />
 <h2 class="m3-font-headline-medium">Button-related components</h2>
 <div class="container">
@@ -317,6 +322,9 @@
 </div>
 
 <style>
+  a {
+    color: rgb(var(--m3-scheme-primary));
+  }
   .container {
     display: flex;
     gap: 1rem;

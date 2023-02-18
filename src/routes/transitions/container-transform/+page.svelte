@@ -6,15 +6,18 @@
   const [send, receive] = containerTransform({});
 </script>
 
-<p>This container transform isn't very good. I plan to replace it later. For comparison:</p>
+<p>Comparison:</p>
 <ul>
   <li>
     Svelte crossfade: Takes 2 elements, uses scaling and translate, and fades them through the
     animation (both of them are always the same size)
   </li>
   <li>
-    This container transform: Based on Svelte crossfade code, and uses clip-path and translate
-    (tries to center each one and tries to keep them the same size, but clip-path can't be negative)
+    Old m3-svelte container transform: Based on crossfade, but instead of scaling it uses clip-path
+  </li>
+  <li>
+    New m3-svelte container transform: Kinda based on crossfade, maintains a background element and
+    uses scaling, clip-path, and translate to transition the elements
   </li>
   <li>
     Actual container transform: Fades the content through. Content is anchored at top center. The
@@ -24,9 +27,10 @@
     FAB, it would scale to match widths and clip vertically.
   </li>
 </ul>
-<main>
+<main class="m3-container">
   {#if open}
     <div class="expanded" in:receive={{ key: "container" }} out:send={{ key: "container" }}>
+      <div class="bar" />
       <p>Cool you have more info now</p>
       <p><Button type="outlined" on:click={() => (open = false)}>Close</Button></p>
     </div>
@@ -64,5 +68,13 @@
     display: flex;
     flex-direction: column;
     background-color: rgb(var(--m3-scheme-surface));
+  }
+  .bar {
+    background-image: linear-gradient(
+      to right,
+      rgb(var(--m3-scheme-primary)),
+      rgb(var(--m3-scheme-tertiary))
+    );
+    height: 1rem;
   }
 </style>
