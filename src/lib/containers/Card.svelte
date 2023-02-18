@@ -74,4 +74,18 @@
   button:is(:focus-visible, :active) > .layer.state {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
+
+  @media print, (forced-colors: active) {
+    .layer {
+      display: none;
+    }
+    .type-filled {
+      outline: solid 2px;
+    }
+  }
+  @media (forced-colors: active) {
+    .type-elevated {
+      outline: solid 2px;
+    }
+  }
 </style>

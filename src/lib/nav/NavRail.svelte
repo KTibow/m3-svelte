@@ -238,4 +238,19 @@
   .hoverable:active .layer {
     background-color: rgb(var(--text) / 0.12);
   }
+
+  .menuItem.active {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media screen and (forced-colors: active) {
+    .menuItem,
+    .menuItem > .pill {
+      color: canvastext;
+    }
+    .menuItem.active > .pill {
+      background-color: selecteditem;
+      color: selecteditemtext;
+    }
+  }
 </style>

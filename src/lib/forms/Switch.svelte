@@ -65,7 +65,7 @@
     cursor: auto;
   }
   input:checked {
-    outline-color: transparent;
+    outline-color: transparent !important;
   }
   input:disabled:checked {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
@@ -167,5 +167,28 @@
 
   input:disabled + .layer {
     display: none;
+  }
+
+  .m3-container {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media screen and (forced-colors: active) {
+    input:checked {
+      outline-style: none;
+    }
+    input:not(:checked)::before {
+      background-color: canvastext !important;
+    }
+    input:enabled:checked {
+      background-color: selecteditem;
+    }
+    input:disabled:checked {
+      background-color: graytext;
+    }
+    input:disabled,
+    input:checked:disabled ~ :global(svg) {
+      opacity: 0.38;
+    }
   }
 </style>

@@ -115,4 +115,18 @@
       stroke-dashoffset: 0;
     }
   }
+
+  .m3-container {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media screen and (forced-colors: active) {
+    input:checked::before {
+      background-color: selecteditem;
+      border-color: selecteditem;
+    }
+    input:disabled {
+      opacity: 0.38;
+    }
+  }
 </style>

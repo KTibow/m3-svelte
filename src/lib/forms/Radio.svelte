@@ -86,4 +86,20 @@
   input:disabled + .layer {
     display: none;
   }
+
+  .m3-container {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media screen and (forced-colors: active) {
+    input::before {
+      background-color: selecteditem;
+    }
+    input:checked::before {
+      border-color: selecteditem;
+    }
+    input:disabled {
+      opacity: 0.38;
+    }
+  }
 </style>

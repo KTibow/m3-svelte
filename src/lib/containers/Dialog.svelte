@@ -138,4 +138,10 @@
     gap: 0.5rem;
     margin-top: 1.5rem;
   }
+
+  @media print, (forced-colors: active) {
+    dialog {
+      outline: solid 2px canvastext;
+    }
+  }
 </style>

@@ -142,4 +142,21 @@
   .m3-container:not(:disabled):active > .layer.state {
     background-color: rgb(var(--text) / 0.12);
   }
+
+  .m3-container {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media screen and (forced-colors: active) {
+    .m3-container:is(.elevated, .filled, .tonal) {
+      background-color: transparent;
+      border: 1px solid;
+    }
+    .m3-container:disabled {
+      opacity: 0.38;
+    }
+    a.m3-container {
+      color: buttontext;
+    }
+  }
 </style>

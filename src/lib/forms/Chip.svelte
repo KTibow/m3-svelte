@@ -172,4 +172,23 @@
   .trailing {
     padding: 0 0.5rem;
   }
+
+  .m3-container {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media screen and (forced-colors: active) {
+    .fully-remove-border:is(.elevated, .selected) {
+      border-width: 1px;
+    }
+    .selected {
+      background-color: selecteditem !important;
+    }
+    .m3-container.disabled {
+      opacity: 0.38;
+    }
+    .m3-container.disabled > button {
+      color: buttontext;
+    }
+  }
 </style>

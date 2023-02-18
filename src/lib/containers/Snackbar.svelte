@@ -112,4 +112,10 @@
     width: 1.5rem;
     height: 1.5rem;
   }
+
+  @media screen and (forced-colors: active) {
+    .m3-container {
+      outline: solid 2px;
+    }
+  }
 </style>

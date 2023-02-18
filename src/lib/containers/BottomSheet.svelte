@@ -168,4 +168,10 @@
   .handleContainer > button:active {
     background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.6);
   }
+
+  @media (forced-colors: active) {
+    .handleContainer > button {
+      background-color: canvastext;
+    }
+  }
 </style>
