@@ -62,7 +62,11 @@
         class="m3-font-body-large input"
         class:value
         on:click={(e) => {
-          if (isDate && window.innerWidth > window.innerHeight) e.preventDefault();
+          if (
+            isDate &&
+            !window.matchMedia("(orientation: portrait) or (forced-colors: active)").matches
+          )
+            e.preventDefault();
         }}
         {...isDate ? { type: "date" } : {}}
         {...extraInputOptions}
@@ -177,10 +181,6 @@
     background-color: rgb(var(--m3-scheme-surface));
   }
 
-  .m3-container:focus-within > :is(label, .layer) {
-    border-width: 2px;
-    color: rgb(var(--error, var(--m3-scheme-primary)));
-  }
   .input:is(:focus, .value, :required:valid, [type="date"]) ~ label {
     font-size: var(--m3-font-body-small-size, 12px);
     line-height: var(--m3-font-body-small-height, 16px);
@@ -242,6 +242,10 @@
     .trailingButton:hover {
       background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
     }
+  }
+  .m3-container:focus-within > :is(label, .layer) {
+    border-width: 2px;
+    color: rgb(var(--error, var(--m3-scheme-primary)));
   }
   input[type="date"] {
     padding-left: 0.875rem;

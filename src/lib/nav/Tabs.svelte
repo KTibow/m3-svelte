@@ -115,11 +115,23 @@
     width: 3rem;
     height: 3px;
     border-radius: 3px 3px 0 0;
-    background-color: rgb(var(--m3-scheme-primary));
   }
   .secondary .indicator {
     width: 100%;
     height: 2px;
+  }
+
+  .indicator {
     background-color: rgb(var(--m3-scheme-primary));
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media screen and (forced-colors: active) {
+    input:checked + .item {
+      color: selecteditem;
+    }
+    .indicator {
+      background-color: selecteditem;
+    }
   }
 </style>
