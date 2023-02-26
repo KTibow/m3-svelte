@@ -134,7 +134,7 @@
   }
   .buttons {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     gap: 0.5rem;
     margin-top: 1.5rem;
   }

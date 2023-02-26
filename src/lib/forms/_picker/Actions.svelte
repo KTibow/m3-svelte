@@ -23,7 +23,7 @@
     display: flex;
     padding: 0.5rem 0.75rem;
     gap: 0.5rem;
-    justify-content: end;
+    justify-content: flex-end;
   }
   .m3-container > .left {
     margin-right: auto;

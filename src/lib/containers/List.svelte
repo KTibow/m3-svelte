@@ -170,7 +170,7 @@
     overflow: hidden;
   }
   .lines-3 .body {
-    justify-content: start;
+    justify-content: flex-start;
   }
   .body > * {
     margin: 0;

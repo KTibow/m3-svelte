@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -13,29 +13,33 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "exports": {
-    "./**/*.js": "./**/*.js"
+    "./**/*.js": "./**/*.js",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
+    }
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^2.0.1",
-    "@sveltejs/kit": "^1.7.2",
-    "@sveltejs/package": "^1.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.51.0",
-    "@typescript-eslint/parser": "^5.52.0",
-    "eslint": "^8.34.0",
+    "@sveltejs/kit": "^1.8.5",
+    "@sveltejs/package": "^2.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "fast-glob": "^3.2.12",
     "prettier": "^2.8.4",
     "prettier-plugin-svelte": "^2.9.0",
-    "svelte-check": "^3.0.3",
+    "svelte-check": "^3.0.4",
     "tslib": "^2.5.0",
     "typescript": "^4.9.5",
-    "vite": "^4.1.1"
+    "vite": "^4.1.4"
   },
   "dependencies": {
     "@iconify-icons/ic": "^1.2.13",
     "@iconify/svelte": "^3.1.0",
-    "@importantimport/material-color-utilities": "^0.2.1-alpha.0",
+    "@importantimport/material-color-utilities": "^0.2.1",
     "svelte": "^3.55.1"
   },
   "type": "module",

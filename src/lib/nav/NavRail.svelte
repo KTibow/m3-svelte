@@ -110,7 +110,7 @@
   }
   .aligner.bottom {
     flex-grow: 1;
-    justify-content: end;
+    justify-content: flex-end;
   }
   @media (max-height: 30rem) {
     .aligner,
