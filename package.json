@@ -1,28 +1,30 @@
 {
   "name": "m3-svelte",
-  "version": "0.4.3",
+  "version": "1.0.0",
+  "repository": "KTibow/m3-svelte",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "package": "svelte-kit sync && svelte-package",
+    "package": "svelte-kit sync && svelte-package -o package",
     "package-components": "vite build -c vite.config.lib.js",
-    "prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "exports": {
+    "./package.json": "./package.json",
     "./**/*.js": "./**/*.js",
     ".": {
-      "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js"
+      "types": "./package/index.d.ts",
+      "svelte": "./package/index.js",
+      "default": "./package/index.js"
     }
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^2.0.1",
     "@sveltejs/kit": "^1.8.5",
-    "@sveltejs/package": "^2.0.2",
+    "@sveltejs/package": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
     "eslint": "^8.35.0",
@@ -59,5 +61,16 @@
     "design-system",
     "ui-library",
     "theming"
-  ]
+  ],
+  "files": [
+    "package"
+  ],
+  "svelte": "./package/index.js",
+  "typesVersions": {
+    ">4.0": {
+      "index": [
+        "./package/index.d.ts"
+      ]
+    }
+  }
 }
