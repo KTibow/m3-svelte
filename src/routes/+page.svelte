@@ -7,6 +7,7 @@
   import Card from "$lib/containers/Card.svelte";
   import Dialog from "$lib/containers/Dialog.svelte";
   import List from "$lib/containers/List.svelte";
+  import Menu from "$lib/containers/Menu.svelte";
   import Snackbar from "$lib/containers/Snackbar.svelte";
 
   import Tabs from "$lib/nav/Tabs.svelte";
@@ -306,6 +307,15 @@
     {/if}
 
     <Button type="outlined" on:click={() => (chosen13 = true)}>Show bottom sheet</Button>
+  </div>
+  <div>
+    <p>Menu</p>
+    <Menu
+      items={[
+        { label: "Procyon", icon: iconEdit },
+        { label: "FernFlower", icon: "space" },
+      ]}
+    />
   </div>
   <div>
     <p>Tabs (closest category)</p>

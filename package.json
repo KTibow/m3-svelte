@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "KTibow/m3-svelte",
   "scripts": {
     "dev": "vite dev",
@@ -23,10 +23,10 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^2.0.1",
-    "@sveltejs/kit": "^1.8.5",
-    "@sveltejs/package": "^2.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
+    "@sveltejs/kit": "^1.9.3",
+    "@sveltejs/package": "^2.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-svelte3": "^4.0.0",

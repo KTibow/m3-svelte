@@ -10,6 +10,7 @@ export { default as BottomSheet } from "./containers/BottomSheet.svelte";
 export { default as Card } from "./containers/Card.svelte";
 export { default as Dialog } from "./containers/Dialog.svelte";
 export { default as List } from "./containers/List.svelte";
+export { default as Menu } from "./containers/Menu.svelte";
 export { default as Snackbar } from "./containers/Snackbar.svelte";
 
 export { default as Checkbox } from "./forms/Checkbox.svelte";
