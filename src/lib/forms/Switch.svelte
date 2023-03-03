@@ -79,7 +79,7 @@
     height: 1rem;
     border-radius: 1rem;
     display: inline-block;
-    position: relative;
+    position: absolute;
     left: 0.5rem;
     top: 50%;
     transform: translate(0%, -50%);
