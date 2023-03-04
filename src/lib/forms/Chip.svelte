@@ -24,6 +24,7 @@
    * i *could* use a different method for the border or for the background to make it consistent but idk
    * as always, prs are welcome */
   export let inconsistentWidthOk = elevated;
+  const dispatch = createEventDispatcher();
 </script>
 
 <div
@@ -51,7 +52,7 @@
     <span class="m3-font-label-large"><slot /></span>
   </button>
   {#if trailingIcon}
-    <button class="trailing" {disabled}>
+    <button class="trailing" {disabled} on:click={() => dispatch("trailingClicked")}>
       <div class="layer state" />
       <Icon icon={trailingIcon} />
     </button>
