@@ -16,6 +16,7 @@
   export let type: "assist" | "filter" | "input" | "suggestion";
   export let icon: IconifyIcon | null = null;
   export let trailingIcon: IconifyIcon | null = null;
+  export let integrateIcon = false;
   export let elevated = false;
   export let disabled = false;
   export let selected = false;
@@ -42,6 +43,7 @@
     {disabled}
     class:icon
     class:trailing-pad={trailingIcon}
+    class:integrate-trailing={integrateIcon}
     on:click
     {...extraButtonOptions}
   >
@@ -50,8 +52,11 @@
       <Icon {icon} />
     {/if}
     <span class="m3-font-label-large"><slot /></span>
+    {#if trailingIcon && integrateIcon}
+      <Icon icon={trailingIcon} />
+    {/if}
   </button>
-  {#if trailingIcon}
+  {#if trailingIcon && !integrateIcon}
     <button class="trailing" {disabled} on:click={() => dispatch("trailingClicked")}>
       <div class="layer state" />
       <Icon icon={trailingIcon} />
@@ -169,6 +174,9 @@
   }
   .content.trailing-pad {
     padding-right: 0;
+  }
+  .content.integrate-trailing {
+    padding-right: 0.5rem;
   }
   .trailing {
     padding: 0 0.5rem;

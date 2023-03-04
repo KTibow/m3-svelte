@@ -49,7 +49,7 @@
         <Icon {icon} />
       {/if}
       <h2 class="m3-font-headline-small">{title}</h2>
-      <div class="desc body-medium"><slot /></div>
+      <div class="desc m3-font-body-medium"><slot /></div>
       <div class="buttons">
         {#if cancelLabel}
           <Button
