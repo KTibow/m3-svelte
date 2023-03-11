@@ -57,6 +57,7 @@
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
     transition: all 200ms;
+    white-space: nowrap;
     border: none;
     cursor: pointer;
   }
