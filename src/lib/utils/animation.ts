@@ -231,7 +231,7 @@ export const enterExit = (
     duration: options.duration || 300,
     easing: options.easing || easeEmphasized,
     css: (t, u) => `clip-path: inset(${getClipPath(
-      u * (boxShadow != "none" ? 110 : 100) + "%"
+      (boxShadow != "none" ? u * 120 - 10 : u * 100) + "%"
     )} round ${radius}px);
 transform-origin: ${options.start};
 transform: scale${scaleDir}(${(t * 0.3 + 0.7) * 100}%) ${getTransform(u)};
