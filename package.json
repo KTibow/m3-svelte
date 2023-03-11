@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "repository": "KTibow/m3-svelte",
   "scripts": {
     "dev": "vite dev",
@@ -25,15 +25,15 @@
     "@sveltejs/adapter-static": "^2.0.1",
     "@sveltejs/kit": "1.8.5",
     "@sveltejs/package": "^2.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.54.0",
-    "@typescript-eslint/parser": "^5.54.0",
-    "eslint": "^8.35.0",
-    "eslint-config-prettier": "^8.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "fast-glob": "^3.2.12",
     "prettier": "^2.8.4",
     "prettier-plugin-svelte": "^2.9.0",
-    "svelte-check": "^3.0.4",
+    "svelte-check": "^3.1.2",
     "tslib": "^2.5.0",
     "typescript": "^4.9.5",
     "vite": "^4.1.4"
@@ -42,7 +42,7 @@
     "@iconify-icons/ic": "^1.2.13",
     "@iconify/svelte": "^3.1.0",
     "@importantimport/material-color-utilities": "^0.2.1",
-    "svelte": "^3.55.1"
+    "svelte": "^3.56.0"
   },
   "type": "module",
   "author": {

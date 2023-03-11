@@ -212,7 +212,7 @@ export const enterExit = (
   const { borderRadius, boxShadow } = getComputedStyle(node);
   const radius = parseSize(borderRadius);
   const getClipPath = (n: string) => {
-    const out = boxShadow && boxShadow != "none" ? "-100%" : "0";
+    const out = boxShadow != "none" ? "-100%" : "0";
     /* the above allows box shadows to show, ideally i would use a wrapper for this instead */
     if (options.start == "top") return `-100% ${out} ${n} ${out}`;
     else if (options.start == "bottom") return `${n} ${out} -100% ${out}`;
@@ -230,7 +230,9 @@ export const enterExit = (
     delay: options.delay,
     duration: options.duration || 300,
     easing: options.easing || easeEmphasized,
-    css: (t, u) => `clip-path: inset(${getClipPath(u * 100 + "%")} round ${radius}px);
+    css: (t, u) => `clip-path: inset(${getClipPath(
+      u * (boxShadow != "none" ? 110 : 100) + "%"
+    )} round ${radius}px);
 transform-origin: ${options.start};
 transform: scale${scaleDir}(${(t * 0.3 + 0.7) * 100}%) ${getTransform(u)};
 opacity: ${Math.min(t * 3, 1)};`,
