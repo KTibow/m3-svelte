@@ -1,4 +1,4 @@
-import { CorePalette, Scheme } from "@importantimport/material-color-utilities";
+import { type CorePalette, Scheme } from "@importantimport/material-color-utilities";
 export type SerializedScheme = (
   | ["primary", number]
   | ["onPrimary", number]
