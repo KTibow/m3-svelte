@@ -59,7 +59,6 @@
     content="Generate a Material 3/You theme for use with the library M3 Svelte."
   />
 </svelte:head>
-<h1 class="m3-font-display-large">Theme</h1>
 <p class="source-chooser">
   <span
     style="background-color: {browser ? hexFromArgb(sourceColor) : '#000'};"
@@ -82,6 +81,7 @@
   <input
     type="file"
     class="hidden"
+    accept="image/*"
     bind:this={sourceFileInput}
     on:change={(e) => {
       if (!(e.target instanceof HTMLInputElement) || !e.target.files) return;

@@ -1,6 +1,8 @@
 <script>
   import iconMonitor from "@iconify-icons/ic/outline-monitor";
   import iconMonitorFull from "@iconify-icons/ic/round-monitor";
+  import iconAnimation from "@iconify-icons/ic/outline-animation";
+  import iconAnimationFull from "@iconify-icons/ic/round-animation";
   import iconTheme from "@iconify-icons/ic/outline-palette";
   import iconThemeFull from "@iconify-icons/ic/round-palette";
   import iconBook from "@iconify-icons/ic/outline-book";
@@ -12,7 +14,18 @@
   import ResponsiveLayout from "$lib/utils/ResponsiveLayout.svelte";
   $: hereNormalized = $page.url.pathname.replace(/\/\/$/, "/");
   const pages = [
-    { name: "Demo", href: base || "/", activeIcon: iconMonitorFull, inactiveIcon: iconMonitor },
+    {
+      name: "Components",
+      href: base || "/",
+      activeIcon: iconMonitorFull,
+      inactiveIcon: iconMonitor,
+    },
+    {
+      name: "Transitions",
+      href: base + "/transitions",
+      activeIcon: iconAnimationFull,
+      inactiveIcon: iconAnimation,
+    },
     { name: "Theme", href: base + "/theme", activeIcon: iconThemeFull, inactiveIcon: iconTheme },
     { name: "Docs", href: base + "/docs", activeIcon: iconBookFull, inactiveIcon: iconBook },
   ];

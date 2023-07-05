@@ -2,7 +2,6 @@
   import { base } from "$app/paths";
 </script>
 
-<h1 class="m3-font-display-large">Transitions</h1>
 <p>This won't cover all of the transitions.</p>
 <ul>
   <li><a href="{base}/transitions/shared-axis-x">Shared axis (x)</a></li>
