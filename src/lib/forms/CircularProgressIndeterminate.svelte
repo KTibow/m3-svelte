@@ -2,15 +2,13 @@
   import type { HTMLAttributes } from "svelte/elements";
   export let display = "inline-flex";
   export let extraOptions: HTMLAttributes<SVGElement> = {};
-  export let percent: number;
 </script>
 
 <svg
   viewBox="0 0 48 48"
   xmlns="http://www.w3.org/2000/svg"
   class="m3-container"
-  class:indeterminate={percent === null}
-  style="display: {display}; --percent: {percent}px;"
+  style="display: {display};"
   role="progressbar"
   {...extraOptions}
 >
@@ -29,10 +27,32 @@
   svg {
     width: 3rem;
     height: 3rem;
-    transform: rotate(-90deg);
+    animation: progressRotate 2.5s infinite linear;
   }
   circle {
-    stroke-dashoffset: calc((var(--percent) / -100 + 1px) * 125.66);
     transition: all 200ms;
+    animation: progressSize 2.5s infinite linear;
+  }
+  @keyframes progressRotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(1080deg);
+    }
+  }
+  @keyframes progressSize {
+    0% {
+      stroke-dashoffset: 125.66;
+    }
+    50% {
+      stroke-dashoffset: 62.83;
+    }
+    100% {
+      stroke-dashoffset: 125.66;
+    }
   }
 </style>

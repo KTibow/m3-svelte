@@ -53,8 +53,4 @@
     padding: 1rem;
     border: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
   }
-  .flex {
-    display: flex;
-    gap: 0.5rem;
-  }
 </style>

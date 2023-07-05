@@ -26,8 +26,8 @@
       activeIcon: iconAnimationFull,
       inactiveIcon: iconAnimation,
     },
+    { name: "Use", href: base + "/docs", activeIcon: iconBookFull, inactiveIcon: iconBook },
     { name: "Theme", href: base + "/theme", activeIcon: iconThemeFull, inactiveIcon: iconTheme },
-    { name: "Docs", href: base + "/docs", activeIcon: iconBookFull, inactiveIcon: iconBook },
   ];
 </script>
 

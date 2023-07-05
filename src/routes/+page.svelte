@@ -4,8 +4,12 @@
   import SegmentedButtonShowcase from "./SegmentedButtonShowcase.svelte";
   import FABShowcase from "./FABShowcase.svelte";
 
+  import CircularProgress from "$lib/forms/CircularProgress.svelte";
+  import CircularProgressIndeterminate from "$lib/forms/CircularProgressIndeterminate.svelte";
+  import LinearProgress from "$lib/forms/LinearProgress.svelte";
+  import LinearProgressIndeterminate from "$lib/forms/LinearProgressIndeterminate.svelte";
+
   import Button from "$lib/buttons/Button.svelte";
-  import FAB from "$lib/buttons/FAB.svelte";
 
   import BottomSheet from "$lib/containers/BottomSheet.svelte";
   import Card from "$lib/containers/Card.svelte";
@@ -15,14 +19,11 @@
   import Snackbar from "$lib/containers/Snackbar.svelte";
 
   import Tabs from "$lib/nav/Tabs.svelte";
-  import Divider from "$lib/misc/Divider.svelte";
   import DateFieldAndPicker from "$lib/utils/DateFieldAndPicker.svelte";
   import SnackbarPlacer from "$lib/utils/SnackbarPlacer.svelte";
 
   import Checkbox from "$lib/forms/Checkbox.svelte";
   import Chip from "$lib/forms/Chip.svelte";
-  import CircularProgress from "$lib/forms/CircularProgress.svelte";
-  import LinearProgress from "$lib/forms/LinearProgress.svelte";
   import Radio from "$lib/forms/Radio.svelte";
   import Slider from "$lib/forms/Slider.svelte";
   import Switch from "$lib/forms/Switch.svelte";
@@ -33,7 +34,6 @@
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
   import iconX from "@iconify-icons/ic/outline-close";
-  let showProgress = false;
   let chosen3 = "o1";
   let chosen4 = false;
   let chosen5 = false;
@@ -54,7 +54,7 @@
   <meta name="description" content="The home of M3 Svelte, with many components from Material 3." />
 </svelte:head>
 <Hero />
-<div class="showcase">
+<div class="showcase" style="overflow: auto">
   <p class="m3-font-title-large">Buttons</p>
   <ButtonShowcase />
 </div>
@@ -62,26 +62,20 @@
   <p class="m3-font-title-large">Segmented chooser</p>
   <SegmentedButtonShowcase />
 </div>
-<div class="showcase">
+<div class="showcase" style="overflow: auto">
   <p class="m3-font-title-large">FAB</p>
   <FABShowcase />
+</div>
+<div class="showcase">
+  <p class="m3-font-title-large">Progress</p>
+  <LinearProgress percent={60} />
+  <LinearProgressIndeterminate />
+  <CircularProgress percent={60} />
+  <CircularProgressIndeterminate />
 </div>
 
 <h2 class="m3-font-headline-medium">Form-related components</h2>
 <div class="container">
-  <div>
-    <p>Progress</p>
-    {#if showProgress}
-      <LinearProgress percent={60} />
-      <LinearProgress />
-      <CircularProgress percent={60} />
-      <CircularProgress />
-    {:else}
-      <Button type="outlined" on:click={() => (showProgress = true)}>
-        Show progress indicators
-      </Button>
-    {/if}
-  </div>
   <div>
     <p>Radio, checkbox, switch</p>
     <p>Chose {chosen3}</p>
@@ -265,7 +259,6 @@
     display: flex;
     gap: 2rem;
     align-items: flex-start;
-    overflow: auto;
     margin-bottom: 2rem;
   }
   .showcase > p {

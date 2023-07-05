@@ -17,4 +17,4 @@
     content={hexCode(getPrimary(darkScheme))}
   />
 </svelte:head>
-{@html `<sty${""}le>${styling}</sty${""}le>`}
+{@html `<${""}style>${styling}</${""}style>`}
