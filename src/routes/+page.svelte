@@ -1,7 +1,11 @@
 <script lang="ts">
+  import Hero from "./Hero.svelte";
+  import ButtonShowcase from "./ButtonShowcase.svelte";
+  import SegmentedButtonShowcase from "./SegmentedButtonShowcase.svelte";
+  import FABShowcase from "./FABShowcase.svelte";
+
   import Button from "$lib/buttons/Button.svelte";
   import FAB from "$lib/buttons/FAB.svelte";
-  import SegmentedButton from "$lib/buttons/SegmentedButton.svelte";
 
   import BottomSheet from "$lib/containers/BottomSheet.svelte";
   import Card from "$lib/containers/Card.svelte";
@@ -24,16 +28,11 @@
   import Switch from "$lib/forms/Switch.svelte";
   import TextField from "$lib/forms/TextField.svelte";
 
-  import { base } from "$app/paths";
-  import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/ic/outline-edit";
   import iconTriangle from "@iconify-icons/ic/outline-change-history";
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
   import iconX from "@iconify-icons/ic/outline-close";
-  let chosen1: number[] = [];
-  let chosen2: number[] = [];
-
   let showProgress = false;
   let chosen3 = "o1";
   let chosen4 = false;
@@ -54,88 +53,18 @@
   <title>M3 Svelte</title>
   <meta name="description" content="The home of M3 Svelte, with many components from Material 3." />
 </svelte:head>
-<h1 class="m3-font-display-large">M3 Svelte</h1>
-<p>
-  A project by KTibow. See the GitHub for code examples. Also check out the <a
-    href="{base}/transitions">transitions.</a
-  >
-</p>
-<Divider />
-<h2 class="m3-font-headline-medium">Button-related components</h2>
-<div class="container">
-  <div>
-    <p>Elevated</p>
-    <Button type="elevated" on:click={() => alert("Pressed")}>Enabled</Button>
-    <Button type="elevated" disabled>Disabled</Button>
-  </div>
-  <div>
-    <p>Filled</p>
-    <Button type="filled" on:click={() => alert("Pressed")}>Enabled</Button>
-    <Button type="filled" disabled>Disabled</Button>
-  </div>
-  <div>
-    <p>Tonal</p>
-    <Button type="tonal" on:click={() => alert("Pressed")}>Enabled</Button>
-    <Button type="tonal" disabled>Disabled</Button>
-  </div>
-  <div>
-    <p>Outlined</p>
-    <Button type="outlined" on:click={() => alert("Pressed")}>Enabled</Button>
-    <Button type="outlined" disabled>Disabled</Button>
-  </div>
-  <div>
-    <p>Text</p>
-    <Button type="text" on:click={() => alert("Pressed")}>Enabled</Button>
-    <Button type="text" disabled>Disabled</Button>
-  </div>
-  <div>
-    <p>Link</p>
-    <Button type="outlined" href="https://google.com" extraOptions={{ target: "_blank" }}>
-      Enabled
-    </Button>
-  </div>
-  <div>
-    <p>Icon</p>
-    <Button type="filled" on:click={() => alert("Pressed")} iconType="left">
-      <Icon icon={iconEdit} /> Filled
-    </Button>
-    <Button type="text" on:click={() => alert("Pressed")} iconType="full">
-      <Icon icon={iconEdit} />
-    </Button>
-  </div>
-  <div>
-    <p>Segmented Chooser</p>
-    <SegmentedButton
-      options={[
-        { label: "$" },
-        { label: "$$" },
-        { label: "$$$" },
-        { label: "$$$$", disabled: true },
-      ]}
-      bind:chosenOptions={chosen1}
-    />
-    <p>Chose {chosen1}</p>
-    <SegmentedButton
-      options={[
-        { label: "Tab A", icon: iconTriangle },
-        { label: "Tab B", icon: iconSquare },
-        { label: "Tab C", icon: iconCircle },
-      ]}
-      multiSelect={false}
-      bind:chosenOptions={chosen2}
-    />
-    <p>Chose {chosen2}</p>
-  </div>
-  <div>
-    <p>Floating</p>
-    <div class="container">
-      <FAB icon={iconEdit} on:click={() => alert("Pressed")} size="small" />
-      <FAB icon={iconEdit} on:click={() => alert("Pressed")} size="normal" color="surface" />
-      <FAB icon={iconEdit} on:click={() => alert("Pressed")} size="large" color="secondary" />
-      <FAB text="extended fab" on:click={() => alert("Pressed")} color="tertiary" />
-      <FAB icon={iconEdit} text="extended fab" on:click={() => alert("Pressed")} />
-    </div>
-  </div>
+<Hero />
+<div class="showcase">
+  <p class="m3-font-title-large">Buttons</p>
+  <ButtonShowcase />
+</div>
+<div class="showcase">
+  <p class="m3-font-title-large">Segmented chooser</p>
+  <SegmentedButtonShowcase />
+</div>
+<div class="showcase">
+  <p class="m3-font-title-large">FAB</p>
+  <FABShowcase />
 </div>
 
 <h2 class="m3-font-headline-medium">Form-related components</h2>
@@ -332,8 +261,15 @@
 </div>
 
 <style>
-  a {
-    color: rgb(var(--m3-scheme-primary));
+  .showcase {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    overflow: auto;
+    margin-bottom: 2rem;
+  }
+  .showcase > p {
+    margin: 0 auto 0 0;
   }
   .container {
     display: flex;

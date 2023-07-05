@@ -4,12 +4,12 @@
   export let extraOptions: HTMLAnchorAttributes & HTMLButtonAttributes = {};
   export let iconType: "none" | "left" | "full" = "none";
   export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
-  export let disabled = false;
+  export let href: string;
 </script>
 
-<button
+<a
   on:click|stopPropagation
-  {disabled}
+  {href}
   class="m3-container m3-font-label-large {type} icon-{iconType}"
   style="display: {display};"
   {...extraOptions}
@@ -17,7 +17,7 @@
   <div class="layer tonal" />
   <div class="layer state" />
   <slot />
-</button>
+</a>
 
 <style>
   .m3-container {

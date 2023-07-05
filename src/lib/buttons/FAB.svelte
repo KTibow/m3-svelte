@@ -7,8 +7,8 @@
   export let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
   export let size: "small" | "normal" | "large" = "normal";
   export let elevation: "normal" | "lowered" | "none" = "normal";
-  export let icon: IconifyIcon | null = null;
-  export let text: string | null = null;
+  export let icon: IconifyIcon | undefined = undefined;
+  export let text: string | undefined = undefined;
   $: {
     if (!icon && !text) console.warn("you need at least something in a FAB");
     if (size != "normal" && text) console.warn("extended fabs are supposed to use size normal");
@@ -33,13 +33,13 @@
 <style>
   button {
     border: none;
-    cursor: pointer;
     position: relative;
     overflow: hidden;
+
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     transition: all 200ms;
-    -webkit-tap-highlight-color: transparent;
   }
   .layer {
     position: absolute;
@@ -50,37 +50,19 @@
     transition: all 200ms;
     opacity: 0;
   }
-  button:focus-visible .layer,
-  button:active .layer {
-    opacity: 0.12;
-  }
+
   .elevation-normal {
     box-shadow: var(--m3-util-elevation-3);
   }
   .elevation-lowered {
     box-shadow: var(--m3-util-elevation-1);
   }
-  @media (hover: hover) {
-    button:hover .layer {
-      opacity: 0.08;
-    }
-    .elevation-normal:hover {
-      box-shadow: var(--m3-util-elevation-4);
-    }
-    .elevation-lowered:hover {
-      box-shadow: var(--m3-util-elevation-2);
-    }
-  }
+
   .size-small {
     height: 2.5rem;
     padding: 0.5rem;
     gap: 0.5rem;
     border-radius: 0.5rem;
-  }
-  .size-small > :global(svg),
-  .size-normal > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
   }
   .size-normal {
     height: 3.5rem;
@@ -94,10 +76,16 @@
     gap: 1.875rem;
     border-radius: 1.875rem;
   }
+  .size-small > :global(svg),
+  .size-normal > :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
   .size-large > :global(svg) {
     width: 2.25rem;
     height: 2.25rem;
   }
+
   .color-primary {
     background-color: rgb(var(--m3-scheme-primary-container));
     color: rgb(var(--m3-scheme-on-primary-container));
@@ -125,6 +113,25 @@
   }
   .color-tertiary .layer {
     background-color: rgb(var(--m3-scheme-on-tertiary-container));
+  }
+
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (hover: hover) {
+    button:hover .layer {
+      opacity: 0.08;
+    }
+    .elevation-normal:hover {
+      box-shadow: var(--m3-util-elevation-4);
+    }
+    .elevation-lowered:hover {
+      box-shadow: var(--m3-util-elevation-2);
+    }
+  }
+  button:focus-visible .layer,
+  button:active .layer {
+    opacity: 0.12;
   }
 
   .m3-container {

@@ -1,28 +1,31 @@
 <script lang="ts">
-  import { browser } from "$app/environment";
+  import {
+    CorePalette,
+    Scheme,
+    argbFromHex,
+    hexFromArgb,
+    sourceColorFromImage,
+  } from "@material/material-color-utilities";
   import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/ic/outline-edit";
   import iconImage from "@iconify-icons/ic/outline-wallpaper";
   import iconCopy from "@iconify-icons/ic/outline-content-copy";
-  import {
-    CorePalette,
-    argbFromHex,
-    hexFromArgb,
-    sourceColorFromImage,
-    Scheme,
-    TonalPalette,
-  } from "@importantimport/material-color-utilities";
-  import { schemesFromPalettes, type SerializedScheme } from "$lib/colors/utils";
-  import Button from "$lib/buttons/Button.svelte";
-  import PaletteCard from "./PaletteCard.svelte";
-  import ColorCard from "./ColorCard.svelte";
+
+  import { browser } from "$app/environment";
+  import type { SerializedScheme } from "$lib/colors/utils";
   import StyleFromScheme from "$lib/colors/StyleFromScheme.svelte";
+  import Button from "$lib/buttons/Button.svelte";
   import Tabs from "$lib/nav/Tabs.svelte";
+  import ColorCard from "./ColorCard.svelte";
 
   let sourceColorInput: HTMLInputElement, sourceFileInput: HTMLInputElement;
-  let sourceColor: number, sourcePalettes: CorePalette, schemeLight: Scheme, schemeDark: Scheme;
-  $: if (sourceColor) sourcePalettes = CorePalette.of(sourceColor);
-  $: if (sourcePalettes) [schemeLight, schemeDark] = schemesFromPalettes(sourcePalettes);
+  let sourceColor: number, sourcePalette: CorePalette;
+  $: if (sourceColor) sourcePalette = CorePalette.of(sourceColor);
+  let schemeLight: Scheme, schemeDark: Scheme;
+  $: if (sourcePalette) {
+    schemeLight = Scheme.lightFromCorePalette(sourcePalette);
+    schemeDark = Scheme.darkFromCorePalette(sourcePalette);
+  }
 
   let activeTab = 0;
   const pairs = [
@@ -39,10 +42,7 @@
     ["error", "onError"],
     ["errorContainer", "onErrorContainer"],
   ];
-  const getCardData = (colors: Scheme, bg: string, fg: string) => ({
-    bg: colors[bg as keyof Scheme] as number,
-    fg: colors[fg as keyof Scheme] as number,
-  });
+
   const serializeScheme = (scheme: Scheme) => Object.entries(scheme.toJSON()) as SerializedScheme;
   const copyUsage = () =>
     navigator.clipboard.writeText(
@@ -50,11 +50,6 @@
   lightScheme={${JSON.stringify(serializeScheme(schemeLight))}}
   darkScheme={${JSON.stringify(serializeScheme(schemeDark))}} />`
     );
-  const changeColor = (palette: TonalPalette, newPalette: TonalPalette) => {
-    const paletteName = Object.entries(sourcePalettes).find((item) => item[1] == palette)?.[0];
-    if (!paletteName || !(paletteName in sourcePalettes)) return;
-    sourcePalettes[paletteName as keyof CorePalette] = newPalette;
-  };
 </script>
 
 <svelte:head>
@@ -65,11 +60,13 @@
   />
 </svelte:head>
 <h1 class="m3-font-display-large">Theme</h1>
-<p class="sourceChooser">
-  Source color <span
-    style="background-color: {browser && hexFromArgb(sourceColor)};"
-    class="colorDisc"
-  />
+<p class="source-chooser">
+  <span
+    style="background-color: {browser ? hexFromArgb(sourceColor) : '#000'};"
+    class="color-disc m3-font-label-large"
+  >
+    Color
+  </span>
   <Button type="text" iconType="full" on:click={() => sourceColorInput.click()}>
     <Icon icon={iconEdit} width="24" height="24" />
   </Button>
@@ -104,7 +101,21 @@
     </Button>
   {/if}
 </p>
+{#if schemeLight}
+  <StyleFromScheme
+    lightScheme={serializeScheme(schemeLight)}
+    darkScheme={serializeScheme(schemeDark)}
+  />
+  <Tabs style="primary" items={[{ name: "Light" }, { name: "Dark" }]} bind:activeItem={activeTab} />
+  <br />
+  <div class="color-container">
+    {#each pairs as [bgName, fgName]}
+      <ColorCard scheme={activeTab == 0 ? schemeLight : schemeDark} fg={fgName} bg={bgName} />
+    {/each}
+  </div>
+{/if}
 
+<!-- 
 {#if sourcePalettes}
   <div class="palettes">
     {#each Object.entries( { primary: sourcePalettes.a1, secondary: sourcePalettes.a2, tertiary: sourcePalettes.a3, neutral: sourcePalettes.n1, neutralVariant: sourcePalettes.n2, error: sourcePalettes.error } ) as [name, hct]}
@@ -129,47 +140,39 @@
     {/each}
   </div>
 {/if}
+-->
 
 <style>
-  .sourceChooser {
+  .source-chooser {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     white-space: nowrap;
   }
-  .colorDisc {
-    width: 2.5rem;
+  .color-disc {
+    flex-grow: 1;
+    min-width: 2rem;
     height: 2.5rem;
-    padding: 0;
-    border-radius: 1.25rem;
-    border: none;
+    border-radius: 2.5rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
   }
   .hidden {
     display: none;
   }
-
-  .palettes {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  .container {
+  .color-container {
     display: grid;
     border-radius: 1rem;
     overflow: hidden;
   }
   @media (orientation: landscape) {
-    .palettes {
-      flex-direction: row;
-    }
-    .container {
+    .color-container {
       grid-template-columns: repeat(4, 1fr);
     }
   }
   @media (min-width: 1280px) {
-    .container {
+    .color-container {
       grid-template-columns: repeat(6, 1fr);
     }
   }

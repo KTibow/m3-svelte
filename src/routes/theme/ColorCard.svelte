@@ -1,14 +1,45 @@
 <script lang="ts">
-  import { hexFromArgb } from "@importantimport/material-color-utilities";
-  export let headline: string;
-  export let sub: string;
-  export let bg: number;
-  export let fg: number;
+  import { Scheme, hexFromArgb } from "@material/material-color-utilities";
+  export let fg: string;
+  export let bg: string;
+  export let scheme: Scheme;
+  type Color =
+    | "primary"
+    | "onPrimary"
+    | "primaryContainer"
+    | "onPrimaryContainer"
+    | "secondary"
+    | "onSecondary"
+    | "secondaryContainer"
+    | "onSecondaryContainer"
+    | "tertiary"
+    | "onTertiary"
+    | "tertiaryContainer"
+    | "onTertiaryContainer"
+    | "error"
+    | "onError"
+    | "errorContainer"
+    | "onErrorContainer"
+    | "background"
+    | "onBackground"
+    | "surface"
+    | "onSurface"
+    | "surfaceVariant"
+    | "onSurfaceVariant"
+    | "outline"
+    | "outlineVariant"
+    | "shadow"
+    | "scrim"
+    | "inverseSurface"
+    | "inverseOnSurface"
+    | "inversePrimary";
+  $: bgColor = hexFromArgb(scheme[bg as Color]);
+  $: fgColor = hexFromArgb(scheme[fg as Color]);
 </script>
 
-<div style="background-color: {hexFromArgb(bg)}; color: {hexFromArgb(fg)};">
-  <p class="m3-font-headline-small">{headline}</p>
-  <p class="m3-font-body-large">{sub}</p>
+<div style="background-color: {bgColor}; color: {fgColor};">
+  <p class="m3-font-headline-small">{bg}</p>
+  <p class="m3-font-body-large">{fg} text</p>
 </div>
 
 <style>

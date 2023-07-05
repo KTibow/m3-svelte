@@ -1,6 +1,7 @@
 export { default as Button } from "./buttons/Button.svelte";
+export { default as ButtonLink } from "./buttons/ButtonLink.svelte";
+export { default as SegmentedButtonItem } from "./buttons/SegmentedButtonItem.svelte";
 export { default as FAB } from "./buttons/FAB.svelte";
-export { default as SegmentedButton } from "./buttons/SegmentedButton.svelte";
 
 export * from "./colors/utils.js";
 export { default as BaseStyles } from "./colors/BaseStyles.svelte";

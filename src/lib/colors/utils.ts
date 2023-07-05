@@ -1,4 +1,3 @@
-import { type CorePalette, Scheme } from "@importantimport/material-color-utilities";
 export type SerializedScheme = (
   | ["primary", number]
   | ["onPrimary", number]
@@ -30,9 +29,6 @@ export type SerializedScheme = (
   | ["inverseOnSurface", number]
   | ["inversePrimary", number]
 )[];
-export const schemesFromPalettes = (corePalette: CorePalette) => {
-  return [Scheme.lightFromCorePalette(corePalette), Scheme.darkFromCorePalette(corePalette)];
-};
 export const genCSS = (light: SerializedScheme, dark: SerializedScheme) => {
   const genColorVariable = (name: string, argb: number) => {
     const kebabCase = name.replace(/[A-Z]/g, (letter: string) => `-${letter.toLowerCase()}`);
@@ -53,12 +49,22 @@ export const genCSS = (light: SerializedScheme, dark: SerializedScheme) => {
       return genColorVariable(...color);
     })
     .join("\n");
-  const colors = `@media (prefers-color-scheme: light) {
+  const colors = `
+:root {
+  accent-color: rgb(var(--m3-scheme-primary));
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+  }
   :root, ::backdrop {
 ${lightColors}
   }
 }
 @media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
   :root, ::backdrop {
 ${darkColors}
   }
