@@ -51,7 +51,10 @@
 
 <svelte:head>
   <title>M3 Svelte</title>
-  <meta name="description" content="The home of M3 Svelte, with many components from Material 3." />
+  <meta
+    name="description"
+    content="The home of Material 3 Svelte, a library for the M3 design system, with components, animations, and theming."
+  />
 </svelte:head>
 <Hero />
 <div class="showcase" style="overflow: auto">
