@@ -1,4 +1,6 @@
 <script lang="ts">
+  import iconTrash from "@iconify-icons/ic/outline-delete";
+
   import Hero from "./Hero.svelte";
   import ButtonShowcase from "./ButtonShowcase.svelte";
   import SegmentedButtonShowcase from "./SegmentedButtonShowcase.svelte";
@@ -9,44 +11,11 @@
   import LinearProgress from "$lib/forms/LinearProgress.svelte";
   import LinearProgressIndeterminate from "$lib/forms/LinearProgressIndeterminate.svelte";
 
+  import CardShowcase from "./CardShowcase.svelte";
+  import Dialog from "$lib/containers/Dialog.svelte";
   import Button from "$lib/buttons/Button.svelte";
 
-  import BottomSheet from "$lib/containers/BottomSheet.svelte";
-  import Card from "$lib/containers/Card.svelte";
-  import Dialog from "$lib/containers/Dialog.svelte";
-  import List from "$lib/containers/List.svelte";
-  import Menu from "$lib/containers/Menu.svelte";
-  import Snackbar from "$lib/containers/Snackbar.svelte";
-
-  import Tabs from "$lib/nav/Tabs.svelte";
-  import DateFieldAndPicker from "$lib/utils/DateFieldAndPicker.svelte";
-  import SnackbarPlacer from "$lib/utils/SnackbarPlacer.svelte";
-
-  import Checkbox from "$lib/forms/Checkbox.svelte";
-  import Chip from "$lib/forms/Chip.svelte";
-  import Radio from "$lib/forms/Radio.svelte";
-  import Slider from "$lib/forms/Slider.svelte";
-  import Switch from "$lib/forms/Switch.svelte";
-  import TextField from "$lib/forms/TextField.svelte";
-
-  import iconEdit from "@iconify-icons/ic/outline-edit";
-  import iconTriangle from "@iconify-icons/ic/outline-change-history";
-  import iconSquare from "@iconify-icons/ic/outline-square";
-  import iconCircle from "@iconify-icons/ic/outline-circle";
-  import iconX from "@iconify-icons/ic/outline-close";
-  let chosen3 = "o1";
-  let chosen4 = false;
-  let chosen5 = false;
-  let chosen6 = 60;
-  let chosen7 = "";
-  let chosen8 = "";
-  let chosen14 = "";
-  let chosen12 = "";
-
-  let chosen9 = false;
-  let chosen10 = false;
-  let chosen11 = 0;
-  let chosen13 = false;
+  let isDialogOpen = false;
 </script>
 
 <svelte:head>
@@ -57,11 +26,13 @@
   />
 </svelte:head>
 <Hero />
+
+<h2 class="m3-font-display-medium">Buttons</h2>
 <div class="showcase" style="overflow: auto">
   <p class="m3-font-title-large">Buttons</p>
   <ButtonShowcase />
 </div>
-<div class="showcase">
+<div class="showcase" style="overflow: auto">
   <p class="m3-font-title-large">Segmented chooser</p>
   <SegmentedButtonShowcase />
 </div>
@@ -69,7 +40,27 @@
   <p class="m3-font-title-large">FAB</p>
   <FABShowcase />
 </div>
+
+<h2 class="m3-font-display-medium">Containers</h2>
 <div class="showcase">
+  <p class="m3-font-title-large">Cards</p>
+  <CardShowcase />
+</div>
+<div class="showcase">
+  <p class="m3-font-title-large">Dialogs</p>
+  <input type="checkbox" bind:checked={isDialogOpen} />
+  <Dialog icon={iconTrash} headline="Permanently delete?" bind:open={isDialogOpen}>
+    Deleting the selected messages will also remove them from all synced devices.
+    <svelte:fragment slot="buttons">
+      <Button type="text" on:click={() => (isDialogOpen = false)}>Cancel</Button>
+      <Button type="tonal" on:click={() => (isDialogOpen = false)}>Delete</Button>
+    </svelte:fragment>
+  </Dialog>
+</div>
+
+<h2 class="m3-font-display-medium">Forms</h2>
+
+<div class="showcase" style="overflow: hidden">
   <p class="m3-font-title-large">Progress</p>
   <LinearProgress percent={60} />
   <LinearProgressIndeterminate />
@@ -77,7 +68,7 @@
   <CircularProgressIndeterminate />
 </div>
 
-<h2 class="m3-font-headline-medium">Form-related components</h2>
+<!-- <h2 class="m3-font-headline-medium">Form-related components</h2>
 <div class="container">
   <div>
     <p>Radio, checkbox, switch</p>
@@ -158,14 +149,7 @@
     />
   </div>
 </div>
-<h2 class="m3-font-headline-medium">Containers</h2>
 <div class="container parent">
-  <div class="container">
-    <p>Card</p>
-    <Card type="elevated" clickable>Text</Card>
-    <Card type="filled" clickable>Text</Card>
-    <Card type="outlined" clickable>Text</Card>
-  </div>
   <div>
     <p>Modals</p>
     <label for={undefined}>
@@ -177,6 +161,7 @@
       tempore recusandae eum assumenda. Nulla eveniet ab impedit delectus voluptatibus, error
       dolorem sint autem. Impedit debitis labore recusandae eius aspernatur reiciendis, saepe harum
       molestiae?
+      <svelte:fragment slot="buttons">hi lol</svelte:fragment>
     </Dialog>
     <SnackbarPlacer>
       <Snackbar bind:open={chosen10} action="Undo">Hi</Snackbar>
@@ -255,7 +240,7 @@
       activeItem={chosen11}
     />
   </div>
-</div>
+</div> -->
 
 <style>
   .showcase {
@@ -266,33 +251,5 @@
   }
   .showcase > p {
     margin: 0 auto 0 0;
-  }
-  .container {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    align-items: flex-start;
-  }
-  .parent > div {
-    overflow: hidden;
-  }
-  .col {
-    flex-direction: column;
-  }
-  label {
-    display: flex;
-    gap: 0.5rem;
-    margin: 0.5rem 0;
-    align-items: center;
-  }
-  .max-w-body {
-    max-width: 50ch;
-  }
-  table {
-    border-collapse: collapse;
-  }
-  td {
-    padding: 1rem;
-    border: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
   }
 </style>

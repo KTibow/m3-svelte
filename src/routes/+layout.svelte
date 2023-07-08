@@ -1,34 +1,34 @@
 <script>
-  import iconMonitor from "@iconify-icons/ic/outline-monitor";
-  import iconMonitorFull from "@iconify-icons/ic/round-monitor";
-  import iconAnimation from "@iconify-icons/ic/outline-animation";
-  import iconAnimationFull from "@iconify-icons/ic/round-animation";
-  import iconTheme from "@iconify-icons/ic/outline-palette";
-  import iconThemeFull from "@iconify-icons/ic/round-palette";
-  import iconBook from "@iconify-icons/ic/outline-book";
-  import iconBookFull from "@iconify-icons/ic/round-book";
-  import iconCode from "@iconify-icons/ic/outline-code";
-  import { page } from "$app/stores";
-  import { base } from "$app/paths";
-  import StyleFromScheme from "$lib/colors/StyleFromScheme.svelte";
-  import ResponsiveLayout from "$lib/utils/ResponsiveLayout.svelte";
-  $: hereNormalized = $page.url.pathname.replace(/\/\/$/, "/");
-  const pages = [
-    {
-      name: "Components",
-      href: base || "/",
-      activeIcon: iconMonitorFull,
-      inactiveIcon: iconMonitor,
-    },
-    {
-      name: "Transitions",
-      href: base + "/transitions",
-      activeIcon: iconAnimationFull,
-      inactiveIcon: iconAnimation,
-    },
-    { name: "Use", href: base + "/docs", activeIcon: iconBookFull, inactiveIcon: iconBook },
-    { name: "Theme", href: base + "/theme", activeIcon: iconThemeFull, inactiveIcon: iconTheme },
-  ];
+  import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
+  // import iconMonitor from "@iconify-icons/ic/outline-monitor";
+  // import iconMonitorFull from "@iconify-icons/ic/round-monitor";
+  // import iconAnimation from "@iconify-icons/ic/outline-animation";
+  // import iconAnimationFull from "@iconify-icons/ic/round-animation";
+  // import iconTheme from "@iconify-icons/ic/outline-palette";
+  // import iconThemeFull from "@iconify-icons/ic/round-palette";
+  // import iconBook from "@iconify-icons/ic/outline-book";
+  // import iconBookFull from "@iconify-icons/ic/round-book";
+  // import iconCode from "@iconify-icons/ic/outline-code";
+  // import { page } from "$app/stores";
+  // import { base } from "$app/paths";
+  // import ResponsiveLayout from "$lib/utils/ResponsiveLayout.svelte";
+  // $: hereNormalized = $page.url.pathname.replace(/\/\/$/, "/");
+  // const pages = [
+  //   {
+  //     name: "Components",
+  //     href: base || "/",
+  //     activeIcon: iconMonitorFull,
+  //     inactiveIcon: iconMonitor,
+  //   },
+  //   {
+  //     name: "Transitions",
+  //     href: base + "/transitions",
+  //     activeIcon: iconAnimationFull,
+  //     inactiveIcon: iconAnimation,
+  //   },
+  //   { name: "Use", href: base + "/docs", activeIcon: iconBookFull, inactiveIcon: iconBook },
+  //   { name: "Theme", href: base + "/theme", activeIcon: iconThemeFull, inactiveIcon: iconTheme },
+  // ];
 </script>
 
 <StyleFromScheme
@@ -95,7 +95,7 @@
     ["inversePrimary", 4284960932],
   ]}
 />
-<ResponsiveLayout
+<!-- <ResponsiveLayout
   fabOptions={{ icon: iconCode }}
   railOptions={{
     mainItems: pages.map((page) => ({
@@ -108,4 +108,5 @@
   }}
 >
   <slot />
-</ResponsiveLayout>
+</ResponsiveLayout> -->
+<slot />

@@ -33,6 +33,7 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    user-select: none;
   }
   .layer {
     position: absolute;

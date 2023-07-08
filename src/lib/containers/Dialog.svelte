@@ -1,142 +1,189 @@
 <script lang="ts">
-  import { tick, createEventDispatcher } from "svelte";
+  import Icon from "@iconify/svelte";
+  import type { IconifyIcon } from "@iconify/svelte";
+  import { createEventDispatcher } from "svelte";
   import type { HTMLDialogAttributes } from "svelte/elements";
-  import Icon, { type IconifyIcon } from "@iconify/svelte";
-  import Button from "$lib/buttons/Button.svelte";
-  import { enterExit, outroClass } from "$lib/utils/animation";
-  import { easeEmphasizedAccel, easeEmphasizedDecel } from "$lib/utils/easing";
 
   export let display = "flex";
-  export let extraDialogOptions: HTMLDialogAttributes = {};
-  export let icon: IconifyIcon | null = null;
-  export let title: string;
-  export let confirmLabel: string;
-  export let cancelLabel: string | null = null;
-  export let open = false;
-  export let preventDismiss = false;
+  export let extraOptions: HTMLDialogAttributes = {};
+  export let icon: IconifyIcon | undefined = undefined;
+  export let headline: string;
+  export let open: boolean;
+  export let closeOnEsc = true;
+  export let closeOnClick = true;
+
   const dispatch = createEventDispatcher();
   let dialog: HTMLDialogElement;
   $: {
     if (!dialog) break $;
-    tick().then(() => {
-      if (open) dialog.showModal();
-      else dialog.close();
-    });
+    if (open) dialog.showModal();
+    else dialog.close();
   }
 </script>
 
-{#key open}
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <dialog
-    bind:this={dialog}
-    on:cancel|preventDefault={() => {
-      if (preventDismiss) return;
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<dialog
+  on:cancel={(e) => {
+    if (closeOnEsc) {
+      dispatch("closedByEsc");
       open = false;
-      dispatch("closed", { method: "browser" });
-    }}
-    on:click={() => {
-      if (preventDismiss) return;
+    } else {
+      e.preventDefault();
+    }
+  }}
+  on:click|self={() => {
+    if (closeOnClick) {
+      dispatch("closedByClick");
       open = false;
-      dispatch("closed", { method: "clickedOutside" });
-    }}
-    in:enterExit={{ duration: 400, easing: easeEmphasizedDecel }}
-    out:enterExit={{ duration: 200, easing: easeEmphasizedAccel }}
-    use:outroClass
-    {...extraDialogOptions}
-  >
-    <div class="m3-container" on:click|stopPropagation style="display: {display};">
-      {#if icon}
+    }
+  }}
+  bind:this={dialog}
+  style="display: {display};"
+  {...extraOptions}
+>
+  <div class="m3-container">
+    {#if icon}
+      <div class="icon">
         <Icon {icon} />
-      {/if}
-      <h2 class="m3-font-headline-small">{title}</h2>
-      <div class="desc m3-font-body-medium"><slot /></div>
-      <div class="buttons">
-        {#if cancelLabel}
-          <Button
-            type="text"
-            on:click={() => {
-              open = false;
-              dispatch("closed", { method: "clickCancel" });
-            }}
-          >
-            {cancelLabel}
-          </Button>
-        {/if}
-        <Button
-          type="text"
-          on:click={() => {
-            open = false;
-            dispatch("closed", { method: "clickConfirm" });
-          }}
-        >
-          {confirmLabel}
-        </Button>
       </div>
+    {/if}
+    <p class="headline m3-font-headline-small" class:center={icon}>{headline}</p>
+    <div class="content m3-font-body-medium">
+      <slot />
     </div>
-  </dialog>
-{/key}
+    <div class="buttons">
+      <slot name="buttons" />
+    </div>
+  </div>
+</dialog>
 
 <style>
   dialog {
-    padding: 0;
-    border: none;
     background-color: rgb(var(--m3-scheme-surface));
+    border: none;
     border-radius: 1.75rem;
+    min-width: 17.5rem;
+    max-width: 35rem;
+    padding: 0;
     overflow: auto;
-  }
-  dialog::backdrop {
-    background-color: rgb(var(--m3-scheme-scrim) / 0.5);
-    animation: backdropIn 400ms;
-  }
-  :global(.leaving):is(dialog)::backdrop {
-    animation: backdropOut 400ms;
-  }
-  @keyframes backdropIn {
-    0% {
-      background-color: rgb(var(--m3-scheme-scrim) / 0);
-    }
-    100% {
-      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
-    }
-  }
-  @keyframes backdropOut {
-    0% {
-      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
-    }
-    100% {
-      background-color: rgb(var(--m3-scheme-scrim) / 0);
-    }
   }
   .m3-container {
     display: flex;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-primary) / 0.05);
+    background-color: rgb(var(--m3-scheme-primary) / 0.08);
     padding: 1.5rem;
-    min-width: 17.5rem;
-    max-width: 35rem;
+    width: 100%;
   }
-  .m3-container :global(svg) {
+
+  .icon {
+    display: contents;
+  }
+  .icon > :global(svg) {
     color: rgb(var(--m3-scheme-secondary));
     width: 1.5rem;
     height: 1.5rem;
-    align-self: center;
+    margin: 0 auto 1rem auto;
   }
-  h2 {
+  .headline {
     color: rgb(var(--m3-scheme-on-surface));
-    margin: 0 0 1rem 0;
+    margin-top: 0;
+    margin-bottom: 1rem;
   }
-  .m3-container :global(svg + h2) {
-    margin-top: 1rem;
+  .headline.center {
     text-align: center;
   }
-  .desc {
+  .content {
     color: rgb(var(--m3-scheme-on-surface-variant));
+    margin-bottom: 1.5rem;
   }
   .buttons {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
-    margin-top: 1.5rem;
+  }
+
+  dialog {
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms;
+  }
+  dialog[open] {
+    opacity: 1;
+    pointer-events: auto;
+    animation: dialogIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1),
+      opacity 100ms cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  dialog[open] .headline {
+    animation: opacity 150ms;
+  }
+  dialog[open] .content {
+    animation: opacity 200ms;
+  }
+  dialog[open] .buttons {
+    position: relative;
+    animation: buttonsIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1), opacity 200ms 100ms, hide 100ms;
+  }
+  dialog::backdrop {
+    background-color: rgb(var(--m3-scheme-scrim) / 0.3);
+    animation: opacity 400ms;
+  }
+  @keyframes dialogIn {
+    0% {
+      transform: translateY(-3rem) scaleY(90%);
+      clip-path: polygon(
+        0% -1.75rem,
+        100% -1.75rem,
+        100% -1.75rem,
+        calc(100% - 0.234rem) -0.875rem,
+        calc(100% - 0.875rem) -0.234rem,
+        calc(100% - 1.75rem) 0%,
+        1.75rem 0%,
+        0.875rem -0.234rem,
+        0.234rem -0.875rem,
+        0% -1.75rem
+      );
+    }
+    100% {
+      transform: translateY(0) scaleY(100%);
+      clip-path: polygon(
+        0% 0%,
+        100% 0%,
+        100% calc(100% - 1.75rem),
+        calc(100% - 0.234rem) calc(100% - 0.875rem),
+        calc(100% - 0.875rem) calc(100% - 0.234rem),
+        calc(100% - 1.75rem) 100%,
+        1.75rem 100%,
+        0.875rem calc(100% - 0.234rem),
+        0.234rem calc(100% - 0.875rem),
+        0 calc(100% - 1.75rem)
+      );
+    }
+    /* logic: https://www.desmos.com/calculator/n2zpzedvhg */
+  }
+  @keyframes buttonsIn {
+    0% {
+      bottom: 100%;
+    }
+    100% {
+      bottom: 0;
+    }
+  }
+  @keyframes hide {
+    0%,
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 
   @media print, (forced-colors: active) {

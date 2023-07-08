@@ -12,8 +12,8 @@
   import iconCopy from "@iconify-icons/ic/outline-content-copy";
 
   import { browser } from "$app/environment";
-  import type { SerializedScheme } from "$lib/colors/utils";
-  import StyleFromScheme from "$lib/colors/StyleFromScheme.svelte";
+  import type { SerializedScheme } from "$lib/misc/utils";
+  import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import Tabs from "$lib/nav/Tabs.svelte";
   import ColorCard from "./ColorCard.svelte";

@@ -45,6 +45,7 @@
 
     cursor: pointer;
     white-space: nowrap;
+    user-select: none;
     position: relative;
   }
   :global(label) ~ label {
