@@ -55,8 +55,12 @@
     position: absolute;
     inset: 0.6875rem;
     color: rgb(var(--m3-scheme-on-primary));
+  }
+  path {
+    stroke-dasharray: 20.874 20.874;
+    stroke-dashoffset: 20.874;
     opacity: 0;
-    transition: opacity 200ms;
+    transition: opacity 200ms, stroke-dashoffset 0ms 200ms;
   }
 
   @media (hover: hover) {
@@ -74,8 +78,10 @@
   :global(input:checked) + .layer::before {
     background-color: rgb(var(--color));
   }
-  :global(input:checked) + .layer svg {
+  :global(input:checked) + .layer path {
+    stroke-dashoffset: 0;
     opacity: 1;
+    transition: stroke-dashoffset 200ms;
   }
 
   :global(input:disabled) + .layer {

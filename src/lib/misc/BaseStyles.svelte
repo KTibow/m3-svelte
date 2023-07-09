@@ -24,18 +24,18 @@
   font-weight: var(--m3-font-display-weight, 400);
 }
 .m3-font-display-large {
-  font-size: var(--m3-font-display-large-size, 57px);
-  line-height: var(--m3-font-display-large-height, 64px);
+  font-size: var(--m3-font-display-large-size, 3.5625rem);
+  line-height: var(--m3-font-display-large-height, 4rem);
   letter-spacing: var(--m3-font-display-large-tracking, 0);
 }
 .m3-font-display-medium {
-  font-size: var(--m3-font-display-medium-size, 45px);
-  line-height: var(--m3-font-display-medium-height, 52px);
+  font-size: var(--m3-font-display-medium-size, 2.8125rem);
+  line-height: var(--m3-font-display-medium-height, 3.25rem);
   letter-spacing: var(--m3-font-display-medium-tracking, 0);
 }
 .m3-font-display-small {
-  font-size: var(--m3-font-display-small-size, 36px);
-  line-height: var(--m3-font-display-small-height, 44px);
+  font-size: var(--m3-font-display-small-size, 2.25rem);
+  line-height: var(--m3-font-display-small-height, 2.75rem);
   letter-spacing: var(--m3-font-display-small-tracking, 0);
 }
 /* Headlines are best-suited for short, high-emphasis text on smaller screens. */
@@ -44,18 +44,18 @@
   font-weight: var(--m3-font-headline-weight, 400);
 }
 .m3-font-headline-large {
-  font-size: var(--m3-font-headline-large-size, 32px);
-  line-height: var(--m3-font-headline-large-height, 40px);
+  font-size: var(--m3-font-headline-large-size, 2rem);
+  line-height: var(--m3-font-headline-large-height, 2.5rem);
   letter-spacing: var(--m3-font-headline-large-tracking, 0);
 }
 .m3-font-headline-medium {
-  font-size: var(--m3-font-headline-medium-size, 28px);
-  line-height: var(--m3-font-headline-medium-height, 36px);
+  font-size: var(--m3-font-headline-medium-size, 1.75rem);
+  line-height: var(--m3-font-headline-medium-height, 2.25rem);
   letter-spacing: var(--m3-font-headline-medium-tracking, 0);
 }
 .m3-font-headline-small {
-  font-size: var(--m3-font-headline-small-size, 24px);
-  line-height: var(--m3-font-headline-small-height, 32px);
+  font-size: var(--m3-font-headline-small-size, 1.5rem);
+  line-height: var(--m3-font-headline-small-height, 2rem);
   letter-spacing: var(--m3-font-headline-small-tracking, 0);
 }
 /* Titles are smaller than headline styles, and should be used for medium-emphasis text that remains relatively short. */
@@ -64,18 +64,18 @@
   font-weight: var(--m3-font-title-weight, 400);
 }
 .m3-font-title-large {
-  font-size: var(--m3-font-title-large-size, 22px);
-  line-height: var(--m3-font-title-large-height, 28px);
+  font-size: var(--m3-font-title-large-size, 1.375rem);
+  line-height: var(--m3-font-title-large-height, 1.75rem);
   letter-spacing: var(--m3-font-title-large-tracking, 0);
 }
 .m3-font-title-medium {
-  font-size: var(--m3-font-title-medium-size, 16px);
-  line-height: var(--m3-font-title-medium-height, 24px);
+  font-size: var(--m3-font-title-medium-size, 2rem);
+  line-height: var(--m3-font-title-medium-height, 3rem);
   letter-spacing: var(--m3-font-title-medium-tracking, 0);
 }
 .m3-font-title-small {
-  font-size: var(--m3-font-title-small-size, 14px);
-  line-height: var(--m3-font-title-small-height, 20px);
+  font-size: var(--m3-font-title-small-size, 0.875rem);
+  line-height: var(--m3-font-title-small-height, 1.25rem);
   letter-spacing: var(--m3-font-title-small-tracking, 0.1);
 }
 /* Label styles are smaller, utilitarian styles, used for things like the text inside components
@@ -85,18 +85,18 @@ or for very small text in the content body, such as captions. */
   font-weight: var(--m3-font-label-weight, 500);
 }
 .m3-font-label-large {
-  font-size: var(--m3-font-label-large-size, 14px);
-  line-height: var(--m3-font-label-large-height, 20px);
+  font-size: var(--m3-font-label-large-size, 0.875rem);
+  line-height: var(--m3-font-label-large-height, 1.25rem);
   letter-spacing: var(--m3-font-label-large-tracking, 0.1);
 }
 .m3-font-label-medium {
-  font-size: var(--m3-font-label-medium-size, 12px);
-  line-height: var(--m3-font-label-medium-height, 16px);
+  font-size: var(--m3-font-label-medium-size, 0.75rem);
+  line-height: var(--m3-font-label-medium-height, 1rem);
   letter-spacing: var(--m3-font-label-medium-tracking, 0.5);
 }
 .m3-font-label-small {
-  font-size: var(--m3-font-label-small-size, 11px);
-  line-height: var(--m3-font-label-small-height, 16px);
+  font-size: var(--m3-font-label-small-size, 0.6875rem);
+  line-height: var(--m3-font-label-small-height, 1rem);
   letter-spacing: var(--m3-font-label-small-tracking, 0.5);
 }
 /* Body styles are used for longer passages of text in your app. */
@@ -105,18 +105,18 @@ or for very small text in the content body, such as captions. */
   font-weight: var(--m3-font-body-weight, 400);
 }
 .m3-font-body-large {
-  font-size: var(--m3-font-body-large-size, 16px);
-  line-height: var(--m3-font-body-large-height, 24px);
+  font-size: var(--m3-font-body-large-size, 1rem);
+  line-height: var(--m3-font-body-large-height, 1.5rem);
   letter-spacing: var(--m3-font-body-large-tracking, 0.5);
 }
 .m3-font-body-medium {
-  font-size: var(--m3-font-body-medium-size, 14px);
-  line-height: var(--m3-font-body-medium-height, 20px);
+  font-size: var(--m3-font-body-medium-size, 0.875rem);
+  line-height: var(--m3-font-body-medium-height, 1.25rem);
   letter-spacing: var(--m3-font-body-medium-tracking, 0.25);
 }
 .m3-font-body-small {
-  font-size: var(--m3-font-body-small-size, 12px);
-  line-height: var(--m3-font-body-small-height, 16px);
+  font-size: var(--m3-font-body-small-size, 0.75rem);
+  line-height: var(--m3-font-body-small-height, 1rem);
   letter-spacing: var(--m3-font-body-small-tracking, 0.4);
 }
 /* Fix some browser stuff */

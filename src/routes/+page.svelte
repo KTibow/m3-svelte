@@ -1,21 +1,18 @@
 <script lang="ts">
-  import iconTrash from "@iconify-icons/ic/outline-delete";
-
   import Hero from "./Hero.svelte";
   import ButtonShowcase from "./ButtonShowcase.svelte";
   import SegmentedButtonShowcase from "./SegmentedButtonShowcase.svelte";
   import FABShowcase from "./FABShowcase.svelte";
 
+  import CardShowcase from "./CardShowcase.svelte";
+  import DialogShowcase from "./DialogShowcase.svelte";
+
   import CircularProgress from "$lib/forms/CircularProgress.svelte";
   import CircularProgressIndeterminate from "$lib/forms/CircularProgressIndeterminate.svelte";
   import LinearProgress from "$lib/forms/LinearProgress.svelte";
   import LinearProgressIndeterminate from "$lib/forms/LinearProgressIndeterminate.svelte";
-
-  import CardShowcase from "./CardShowcase.svelte";
-  import Dialog from "$lib/containers/Dialog.svelte";
-  import Button from "$lib/buttons/Button.svelte";
-
-  let isDialogOpen = false;
+  import RadioShowcase from "./RadioShowcase.svelte";
+  import CheckboxShowcase from "./CheckboxShowcase.svelte";
 </script>
 
 <svelte:head>
@@ -28,15 +25,15 @@
 <Hero />
 
 <h2 class="m3-font-display-medium">Buttons</h2>
-<div class="showcase" style="overflow: auto">
+<div class="showcase">
   <p class="m3-font-title-large">Buttons</p>
   <ButtonShowcase />
 </div>
-<div class="showcase" style="overflow: auto">
+<div class="showcase">
   <p class="m3-font-title-large">Segmented chooser</p>
   <SegmentedButtonShowcase />
 </div>
-<div class="showcase" style="overflow: auto">
+<div class="showcase">
   <p class="m3-font-title-large">FAB</p>
   <FABShowcase />
 </div>
@@ -48,14 +45,7 @@
 </div>
 <div class="showcase">
   <p class="m3-font-title-large">Dialogs</p>
-  <input type="checkbox" bind:checked={isDialogOpen} />
-  <Dialog icon={iconTrash} headline="Permanently delete?" bind:open={isDialogOpen}>
-    Deleting the selected messages will also remove them from all synced devices.
-    <svelte:fragment slot="buttons">
-      <Button type="text" on:click={() => (isDialogOpen = false)}>Cancel</Button>
-      <Button type="tonal" on:click={() => (isDialogOpen = false)}>Delete</Button>
-    </svelte:fragment>
-  </Dialog>
+  <DialogShowcase />
 </div>
 
 <h2 class="m3-font-display-medium">Forms</h2>
@@ -66,6 +56,14 @@
   <LinearProgressIndeterminate />
   <CircularProgress percent={60} />
   <CircularProgressIndeterminate />
+</div>
+<div class="showcase" style="overflow: hidden">
+  <p class="m3-font-title-large">Radio buttons</p>
+  <RadioShowcase />
+</div>
+<div class="showcase" style="overflow: hidden">
+  <p class="m3-font-title-large">Checkboxes</p>
+  <CheckboxShowcase />
 </div>
 
 <!-- <h2 class="m3-font-headline-medium">Form-related components</h2>
@@ -247,7 +245,13 @@
     display: flex;
     gap: 2rem;
     align-items: flex-start;
+    overflow: auto;
     margin-bottom: 2rem;
+  }
+  @media (max-width: 48rem) {
+    .showcase {
+      flex-direction: column;
+    }
   }
   .showcase > p {
     margin: 0 auto 0 0;

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/ic/outline-edit";
   import FAB from "$lib/buttons/FAB.svelte";
   const colors: ("primary" | "surface" | "secondary" | "tertiary")[] = [
