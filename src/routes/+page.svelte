@@ -2,6 +2,7 @@
   import ButtonCard from "./ButtonCard.svelte";
   import CardCard from "./CardCard.svelte";
   import CheckboxCard from "./CheckboxCard.svelte";
+  import ChipCard from "./ChipCard.svelte";
   import DialogCard from "./DialogCard.svelte";
   import FABCard from "./FABCard.svelte";
   import Hero from "./Hero.svelte";
@@ -30,6 +31,7 @@
   <RadioCard />
   <CheckboxCard />
   <SwitchCard />
+  <ChipCard />
 </div>
 
 <style>
