@@ -1,50 +1,59 @@
 <script lang="ts">
-  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
   import Icon from "@iconify/svelte";
   import iconCheck from "@iconify-icons/ic/outline-check";
+  import type { HTMLAttributes } from "svelte/elements";
 
   export let display = "inline-flex";
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraInputOptions: HTMLInputAttributes = {};
-  export let disabled = false;
+  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
   export let checked = false;
+  export let disabled = false;
+  // MUST BE WRAPPED IN A <label>
 
-  let startX: number | null;
+  let startX: number | undefined;
   const handleMouseUp = (e: MouseEvent) => {
     if (!startX) return;
     const distance = e.clientX - startX;
     if (distance > 16 && !checked) checked = true;
     if (distance < -16 && checked) checked = false;
-    startX = null;
+    startX = undefined;
   };
 </script>
 
 <svelte:window on:mouseup={handleMouseUp} />
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="m3-container"
   style="display: {display};"
-  on:mousedown={(e) => (startX = e.clientX)}
   {...extraWrapperOptions}
+  on:mousedown={(e) => {
+    if (!disabled) {
+      startX = e.clientX;
+    }
+  }}
 >
   <input
     type="checkbox"
-    bind:checked
+    role="switch"
     {disabled}
+    bind:checked
+    {...extraOptions}
     on:keydown={(e) => {
       if (e.code == "Enter") checked = !checked;
       if (e.code == "ArrowLeft") checked = false;
       if (e.code == "ArrowRight") checked = true;
     }}
-    {...extraInputOptions}
   />
-  <!-- svelte-ignore a11y-click-events-have-key-events (if you have a better idea lmk) -->
-  <div class="layer" on:mousedown={(e) => (startX = e.clientX)} />
-  <Icon icon={iconCheck} />
+  <div class="layer">
+    <Icon icon={iconCheck} />
+  </div>
 </div>
 
 <style>
   .m3-container {
     position: relative;
+    width: 3.25rem;
+    height: 2rem;
   }
   input {
     appearance: none;
@@ -52,120 +61,104 @@
     height: 2rem;
     margin: 0;
     border-radius: 2rem;
-    outline: solid 2px rgb(var(--m3-scheme-outline));
-    outline-offset: -2px;
+
     background-color: rgb(var(--m3-scheme-surface-variant));
+    border: solid 0.125rem rgb(var(--m3-scheme-outline));
     cursor: pointer;
-    position: relative;
     transition: all 300ms;
   }
-  input:disabled {
-    background-color: rgb(var(--m3-scheme-surface-variant) / 0.12);
-    outline-color: rgb(var(--m3-scheme-outline) / 0.12);
-    cursor: auto;
-  }
-  input:checked {
-    outline-color: transparent !important;
-  }
-  input:disabled:checked {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
-  input:enabled:checked {
-    background-color: rgb(var(--m3-scheme-primary));
-  }
-  input::before {
-    content: " ";
+  .layer {
+    position: absolute;
     width: 1rem;
     height: 1rem;
     border-radius: 1rem;
-    display: inline-block;
-    position: absolute;
+
+    background-color: rgb(var(--m3-scheme-outline));
+    cursor: pointer;
+    transition: all 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
+
     left: 0.5rem;
     top: 50%;
-    transform: translate(0%, -50%);
-    background-color: rgb(var(--m3-scheme-outline));
-    transition: all 300ms;
-  }
-  input:checked::before {
-    background-color: rgb(var(--m3-scheme-on-primary));
-    left: calc(100% - 1.5rem - 0.25rem);
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  input:disabled::before {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
-  }
-  input:disabled:checked:before {
-    background-color: rgb(var(--m3-scheme-surface));
-  }
-
-  .layer {
-    position: absolute;
-    left: -0.5rem;
-    top: 50%;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 3rem;
-    transition: all 200ms;
     transform: translate(0, -50%);
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  input:checked + .layer {
-    left: calc(100% - 1.5rem - 0.75rem - 0.25rem);
+  .layer > :global(svg) {
+    width: 1rem;
+    height: 1rem;
+    color: rgb(var(--m3-scheme-on-primary-container));
+    opacity: 0;
+    transition: opacity 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
+  }
+  .layer::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 2.5rem;
+    transition: all 200ms;
   }
 
-  input:hover + .layer {
+  .m3-container:hover > input + .layer::before {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
-  input:checked:hover + .layer {
+  .m3-container:hover > input:checked + .layer::before {
     background-color: rgb(var(--m3-scheme-primary) / 0.08);
   }
-  input:enabled:is(:hover, :focus-visible)::before {
-    background-color: rgb(var(--m3-scheme-on-surface-variant));
-  }
-  input:enabled:checked:is(:hover, :focus-visible)::before {
-    background-color: rgb(var(--m3-scheme-primary-container));
-  }
-  input:focus-visible + .layer,
-  .layer:active {
+  .m3-container > input:is(:active, :focus-visible) + .layer::before {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
-  input:focus-visible:checked + .layer,
-  input:checked + .layer:active {
+  .m3-container > input:checked:is(:active, :focus-visible) + .layer::before {
     background-color: rgb(var(--m3-scheme-primary) / 0.12);
   }
 
-  .m3-container:active input:enabled:before {
-    width: 1.75rem;
-    height: 1.75rem;
-    left: 0;
-    background-color: rgb(var(--m3-scheme-on-surface-variant));
+  input:checked {
+    background-color: rgb(var(--m3-scheme-primary));
+    border-color: rgb(var(--m3-scheme-primary));
   }
-  .m3-container:active input:enabled:checked::before {
-    left: calc(100% - 1.75rem - 0.125rem);
-    background-color: rgb(var(--m3-scheme-primary-container));
+  input:checked + .layer {
+    background-color: rgb(var(--m3-scheme-on-primary));
+    width: 1.5rem;
+    height: 1.5rem;
+    left: 1.5rem; /* 1.5 + 1.5 + 0.25 = 3.25 */
   }
-
-  .m3-container > :global(svg) {
-    position: absolute;
-    left: 0.625rem;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: 1rem;
-    height: 1rem;
-    opacity: 0;
-    pointer-events: none;
-    color: rgb(var(--m3-scheme-surface-variant));
-    transition: all 300ms;
-  }
-  .m3-container > :global(:checked ~ svg) {
-    left: calc(100% - 1rem - 0.5rem);
-    color: rgb(var(--m3-scheme-on-primary-container));
+  input:checked + .layer > :global(svg) {
     opacity: 1;
   }
+  .m3-container:active > input:enabled + .layer {
+    width: 1.75rem;
+    height: 1.75rem;
+    transform: translate(-0.375rem, -50%); /* 0.75 / 2 */
+  }
+  .m3-container:active > input:enabled:checked + .layer {
+    transform: translate(-0.125rem, -50%); /* 0.25 / 2 */
+  }
 
+  input:disabled {
+    background-color: rgb(var(--m3-scheme-surface-variant) / 0.12);
+    border-color: rgb(var(--m3-scheme-outline) / 0.12);
+    cursor: auto;
+  }
+  input:disabled:checked {
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+    border-color: transparent;
+  }
   input:disabled + .layer {
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    cursor: auto;
+  }
+  input:disabled:checked + .layer {
+    background-color: rgb(var(--m3-scheme-surface));
+  }
+  input:disabled:checked + .layer > :global(svg) {
+    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  }
+  input:disabled + .layer::before {
     display: none;
   }
 
@@ -175,19 +168,16 @@
   }
   @media screen and (forced-colors: active) {
     input:checked {
-      outline-style: none;
-    }
-    input:not(:checked)::before {
       background-color: canvastext !important;
     }
-    input:enabled:checked {
-      background-color: selecteditem;
+    .layer {
+      background-color: canvastext !important;
     }
-    input:disabled:checked {
-      background-color: graytext;
+    input:checked + .layer {
+      background-color: canvas !important;
     }
     input:disabled,
-    input:checked:disabled ~ :global(svg) {
+    input:disabled + .layer {
       opacity: 0.38;
     }
   }

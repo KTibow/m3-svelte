@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
+  import type { HTMLAttributes } from "svelte/elements";
 
   export let display = "inline-flex";
   export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
