@@ -7,8 +7,8 @@
   import Arrows from "./Arrows.svelte";
 
   let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
-  let enabled = true;
   let iconType: "none" | "left" | "full" = "none";
+  let enabled = true;
 </script>
 
 <Card type="elevated">
@@ -22,15 +22,15 @@
     </tr>
     <tr>
       <td>
-        <label for={undefined} style="display: flex"><Switch bind:checked={enabled} /></label>
-      </td>
-      <td>{enabled ? "Enabled" : "Disabled"}</td>
-    </tr>
-    <tr>
-      <td>
         <Arrows list={["none", "left", "full"]} bind:value={iconType} />
       </td>
       <td>{iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}</td>
+    </tr>
+    <tr>
+      <td>
+        <label for={undefined} style="display: flex"><Switch bind:checked={enabled} /></label>
+      </td>
+      <td>{enabled ? "Enabled" : "Disabled"}</td>
     </tr>
   </table>
   <div class="area">

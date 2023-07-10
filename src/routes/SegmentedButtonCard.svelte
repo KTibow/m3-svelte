@@ -55,9 +55,6 @@
   table {
     margin-bottom: 1rem;
   }
-  tr + tr {
-    border-top: solid 0.5rem transparent;
-  }
   td + td {
     border-left: solid 0.5rem transparent;
     width: 100%;

@@ -44,9 +44,7 @@
 >
   <div class="m3-container">
     {#if icon}
-      <div class="icon">
-        <Icon {icon} />
-      </div>
+      <Icon {icon} />
     {/if}
     <p class="headline m3-font-headline-small" class:center={icon}>{headline}</p>
     <div class="content m3-font-body-medium">
@@ -76,10 +74,7 @@
     width: 100%;
   }
 
-  .icon {
-    display: contents;
-  }
-  .icon > :global(svg) {
+  .m3-container > :global(svg) {
     color: rgb(var(--m3-scheme-secondary));
     width: 1.5rem;
     height: 1.5rem;

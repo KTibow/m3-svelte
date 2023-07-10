@@ -10,7 +10,7 @@
 
 <style>
   .m3-container {
-    border: 1px solid rgb(var(--m3-scheme-outline));
+    border: 0.0625rem solid rgb(var(--m3-scheme-outline));
     height: 2.5rem;
     border-radius: 2.5rem;
     overflow: hidden;

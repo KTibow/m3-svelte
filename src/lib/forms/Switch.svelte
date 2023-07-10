@@ -65,6 +65,7 @@
     background-color: rgb(var(--m3-scheme-surface-variant));
     border: solid 0.125rem rgb(var(--m3-scheme-outline));
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
     transition: all 300ms;
   }
   .layer {
@@ -75,6 +76,7 @@
 
     background-color: rgb(var(--m3-scheme-outline));
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
     transition: all 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
 
     left: 0.5rem;

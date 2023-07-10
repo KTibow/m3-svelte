@@ -26,9 +26,9 @@
   </table>
   <div class="area">
     {#if clickable}
-      <CardClickable {type}>Text</CardClickable>
+      <CardClickable {type}>Hello</CardClickable>
     {:else}
-      <Card {type}>Text</Card>
+      <Card {type}>Hello</Card>
     {/if}
   </div>
 </Card>
