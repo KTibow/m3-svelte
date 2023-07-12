@@ -7,7 +7,6 @@
   <li><a href="{base}/transitions/shared-axis-x">Shared axis (x)</a></li>
   <li><a href="{base}/transitions/shared-axis-y">Shared axis (y)</a></li>
   <li><a href="{base}/transitions/shared-axis-z">Shared axis (z)</a></li>
-  <li><a href="{base}/transitions/enter-exit">Enter and exit</a></li>
   <li><a href="{base}/transitions/container-transform">Container transform</a></li>
 </ul>
 

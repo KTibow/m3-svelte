@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "preview": "vite preview",
     "package": "svelte-kit sync && svelte-package -o package",
     "package-components": "vite build -c vite.config.lib.js",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",

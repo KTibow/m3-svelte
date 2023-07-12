@@ -84,14 +84,14 @@
     accept="image/*"
     bind:this={sourceFileInput}
     on:change={(e) => {
-      if (!(e.target instanceof HTMLInputElement) || !e.target.files) return;
+      if (!e.currentTarget.files) return;
       const reader = new FileReader();
       reader.onload = async () => {
         const image = new Image();
         image.src = String(reader.result);
         sourceColor = await sourceColorFromImage(image);
       };
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(e.currentTarget.files[0]);
     }}
   />
   {#if schemeLight}

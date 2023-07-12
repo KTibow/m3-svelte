@@ -1,25 +1,26 @@
-{@html `<style>
 /* Needed for elevation to work */
 :root {
   --m3-util-elevation-0: none;
   --m3-util-elevation-1: 0px 3px 1px -2px rgb(var(--m3-scheme-shadow) / 0.2),
-  0px 2px 2px 0px rgb(var(--m3-scheme-shadow) / 0.14),
-  0px 1px 5px 0px rgb(var(--m3-scheme-shadow) / 0.12);
+    0px 2px 2px 0px rgb(var(--m3-scheme-shadow) / 0.14),
+    0px 1px 5px 0px rgb(var(--m3-scheme-shadow) / 0.12);
   --m3-util-elevation-2: 0px 2px 4px -1px rgb(var(--m3-scheme-shadow) / 0.2),
-  0px 4px 5px 0px rgb(var(--m3-scheme-shadow) / 0.14),
-  0px 1px 10px 0px rgb(var(--m3-scheme-shadow) / 0.12);
+    0px 4px 5px 0px rgb(var(--m3-scheme-shadow) / 0.14),
+    0px 1px 10px 0px rgb(var(--m3-scheme-shadow) / 0.12);
   --m3-util-elevation-3: 0px 5px 5px -3px rgb(var(--m3-scheme-shadow) / 0.2),
-  0px 8px 10px 1px rgb(var(--m3-scheme-shadow) / 0.14),
-  0px 3px 14px 2px rgb(var(--m3-scheme-shadow) / 0.12);
+    0px 8px 10px 1px rgb(var(--m3-scheme-shadow) / 0.14),
+    0px 3px 14px 2px rgb(var(--m3-scheme-shadow) / 0.12);
   --m3-util-elevation-4: 0px 5px 5px -3px rgb(var(--m3-scheme-shadow) / 0.2),
-  0px 8px 10px 1px rgb(var(--m3-scheme-shadow) / 0.14),
-  0px 3px 14px 2px rgb(var(--m3-scheme-shadow) / 0.12);
+    0px 8px 10px 1px rgb(var(--m3-scheme-shadow) / 0.14),
+    0px 3px 14px 2px rgb(var(--m3-scheme-shadow) / 0.12);
   --m3-util-elevation-5: 0px 8px 10px -6px rgb(var(--m3-scheme-shadow) / 0.2),
-  0px 16px 24px 2px rgb(var(--m3-scheme-shadow) / 0.14),
-  0px 6px 30px 5px rgb(var(--m3-scheme-shadow) / 0.12);
+    0px 16px 24px 2px rgb(var(--m3-scheme-shadow) / 0.14),
+    0px 6px 30px 5px rgb(var(--m3-scheme-shadow) / 0.12);
 }
 /* As the largest text on the screen, display styles are reserved for short, important text or numerals. */
-.m3-font-display-large, .m3-font-display-medium, .m3-font-display-small {
+.m3-font-display-large,
+.m3-font-display-medium,
+.m3-font-display-small {
   font-family: var(--m3-font-display, Roboto, system-ui, sans-serif);
   font-weight: var(--m3-font-display-weight, 400);
 }
@@ -39,7 +40,9 @@
   letter-spacing: var(--m3-font-display-small-tracking, 0);
 }
 /* Headlines are best-suited for short, high-emphasis text on smaller screens. */
-.m3-font-headline-large, .m3-font-headline-medium, .m3-font-headline-small {
+.m3-font-headline-large,
+.m3-font-headline-medium,
+.m3-font-headline-small {
   font-family: var(--m3-font-headline, Roboto, system-ui, sans-serif);
   font-weight: var(--m3-font-headline-weight, 400);
 }
@@ -59,7 +62,9 @@
   letter-spacing: var(--m3-font-headline-small-tracking, 0);
 }
 /* Titles are smaller than headline styles, and should be used for medium-emphasis text that remains relatively short. */
-.m3-font-title-large, .m3-font-title-medium, .m3-font-title-small {
+.m3-font-title-large,
+.m3-font-title-medium,
+.m3-font-title-small {
   font-family: var(--m3-font-title, Roboto, system-ui, sans-serif);
   font-weight: var(--m3-font-title-weight, 400);
 }
@@ -80,7 +85,9 @@
 }
 /* Label styles are smaller, utilitarian styles, used for things like the text inside components
 or for very small text in the content body, such as captions. */
-.m3-font-label-large, .m3-font-label-medium, .m3-font-label-small {
+.m3-font-label-large,
+.m3-font-label-medium,
+.m3-font-label-small {
   font-family: var(--m3-font-label, Roboto, system-ui, sans-serif);
   font-weight: var(--m3-font-label-weight, 500);
 }
@@ -100,7 +107,9 @@ or for very small text in the content body, such as captions. */
   letter-spacing: var(--m3-font-label-small-tracking, 0.5);
 }
 /* Body styles are used for longer passages of text in your app. */
-.m3-font-body-large, .m3-font-body-medium, .m3-font-body-small {
+.m3-font-body-large,
+.m3-font-body-medium,
+.m3-font-body-small {
   font-family: var(--m3-font-body, Roboto, system-ui, sans-serif);
   font-weight: var(--m3-font-body-weight, 400);
 }
@@ -123,10 +132,12 @@ or for very small text in the content body, such as captions. */
 .m3-container {
   box-sizing: border-box;
 }
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
-.m3-container a, a.m3-container {
+.m3-container a,
+a.m3-container {
   text-decoration: none;
 }
-</style>`}

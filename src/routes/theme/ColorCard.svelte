@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Scheme, hexFromArgb } from "@material/material-color-utilities";
+  import { type Scheme, hexFromArgb } from "@material/material-color-utilities";
   export let fg: string;
   export let bg: string;
   export let scheme: Scheme;
