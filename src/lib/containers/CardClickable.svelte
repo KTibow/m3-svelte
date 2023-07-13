@@ -40,7 +40,7 @@
     background-color: rgb(var(--m3-scheme-primary) / 0.05);
   }
   .type-outlined {
-    border: solid 1px rgb(var(--m3-scheme-outline));
+    border: solid 0.0625rem rgb(var(--m3-scheme-outline));
   }
   .type-filled {
     background-color: rgb(var(--m3-scheme-surface-variant));

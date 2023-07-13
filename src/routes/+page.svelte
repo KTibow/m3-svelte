@@ -10,6 +10,7 @@
   import RadioCard from "./RadioCard.svelte";
   import SegmentedButtonCard from "./SegmentedButtonCard.svelte";
   import SwitchCard from "./SwitchCard.svelte";
+  import TabsCard from "./TabsCard.svelte";
 </script>
 
 <svelte:head>
@@ -32,6 +33,7 @@
   <CheckboxCard />
   <SwitchCard />
   <ChipCard />
+  <TabsCard />
 </div>
 
 <style>
