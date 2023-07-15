@@ -6,6 +6,7 @@
   import DialogCard from "./DialogCard.svelte";
   import FABCard from "./FABCard.svelte";
   import Hero from "./Hero.svelte";
+  import MenuCard from "./MenuCard.svelte";
   import ProgressCard from "./ProgressCard.svelte";
   import RadioCard from "./RadioCard.svelte";
   import SegmentedButtonCard from "./SegmentedButtonCard.svelte";
@@ -28,6 +29,7 @@
   <FABCard />
   <CardCard />
   <DialogCard />
+  <MenuCard />
   <ProgressCard />
   <RadioCard />
   <CheckboxCard />

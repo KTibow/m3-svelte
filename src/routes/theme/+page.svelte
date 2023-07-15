@@ -15,7 +15,7 @@
   import type { SerializedScheme } from "$lib/misc/utils";
   import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
   import Button from "$lib/buttons/Button.svelte";
-  import Tabs from "$lib/nav/Tabs.svelte";
+  import TabsPrimaryAnim from "$lib/nav/TabsPrimaryAnim.svelte";
   import ColorCard from "./ColorCard.svelte";
 
   let sourceColorInput: HTMLInputElement, sourceFileInput: HTMLInputElement;
@@ -27,7 +27,7 @@
     schemeDark = Scheme.darkFromCorePalette(sourcePalette);
   }
 
-  let activeTab = 0;
+  let tab = "light";
   const pairs = [
     ["primary", "onPrimary"],
     ["primaryContainer", "onPrimaryContainer"],
@@ -106,11 +106,17 @@
     lightScheme={serializeScheme(schemeLight)}
     darkScheme={serializeScheme(schemeDark)}
   />
-  <Tabs style="primary" items={[{ name: "Light" }, { name: "Dark" }]} bind:activeItem={activeTab} />
+  <TabsPrimaryAnim
+    bind:tab
+    items={[
+      { name: "Light", value: "light" },
+      { name: "Dark", value: "dark" },
+    ]}
+  />
   <br />
   <div class="color-container">
     {#each pairs as [bgName, fgName]}
-      <ColorCard scheme={activeTab == 0 ? schemeLight : schemeDark} fg={fgName} bg={bgName} />
+      <ColorCard scheme={tab == "light" ? schemeLight : schemeDark} fg={fgName} bg={bgName} />
     {/each}
   </div>
 {/if}

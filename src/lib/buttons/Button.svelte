@@ -66,21 +66,21 @@
     cursor: auto;
   }
 
-  .m3-container:not(:disabled).elevated {
+  .m3-container:enabled.elevated {
     background-color: rgb(var(--m3-scheme-surface));
     --text: var(--m3-scheme-primary);
     box-shadow: var(--m3-util-elevation-1);
   }
-  .m3-container:not(:disabled).elevated > .layer.tonal {
+  .m3-container:enabled.elevated > .layer.tonal {
     background-color: rgb(var(--text) / 0.05);
   }
 
-  .m3-container:not(:disabled).filled {
+  .m3-container:enabled.filled {
     background-color: rgb(var(--m3-scheme-primary));
     --text: var(--m3-scheme-on-primary);
   }
 
-  .m3-container:not(:disabled).tonal {
+  .m3-container:enabled.tonal {
     background-color: rgb(var(--m3-scheme-secondary-container));
     --text: var(--m3-scheme-on-secondary-container);
   }
@@ -89,7 +89,7 @@
     background-color: transparent;
     border: 0.0625rem solid rgb(var(--m3-scheme-on-surface) / 0.12);
   }
-  .m3-container:not(:disabled).outlined {
+  .m3-container:enabled.outlined {
     border: 0.0625rem solid rgb(var(--m3-scheme-outline));
     --text: var(--m3-scheme-primary);
   }
@@ -107,21 +107,21 @@
     -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
-    .m3-container:not(:disabled):hover > .layer.state {
+    .m3-container:enabled:hover > .layer.state {
       background-color: rgb(var(--text) / 0.08);
     }
-    .m3-container:not(:disabled).elevated:hover {
+    .m3-container:enabled.elevated:hover {
       box-shadow: var(--m3-util-elevation-2);
     }
-    .m3-container:not(:disabled).filled:hover {
+    .m3-container:enabled.filled:hover {
       box-shadow: var(--m3-util-elevation-1);
     }
-    .m3-container:not(:disabled).tonal:hover {
+    .m3-container:enabled.tonal:hover {
       box-shadow: var(--m3-util-elevation-1);
     }
   }
-  .m3-container:not(:disabled):focus-visible > .layer.state,
-  .m3-container:not(:disabled):active > .layer.state {
+  .m3-container:enabled:focus-visible > .layer.state,
+  .m3-container:enabled:active > .layer.state {
     background-color: rgb(var(--text) / 0.12);
   }
 

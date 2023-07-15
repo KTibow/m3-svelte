@@ -61,36 +61,27 @@
     height: 1.5rem;
   }
 
-  .m3-container:disabled {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
-    cursor: auto;
-  }
-
-  .m3-container:not(:disabled).elevated {
+  .m3-container.elevated {
     background-color: rgb(var(--m3-scheme-surface));
     --text: var(--m3-scheme-primary);
     box-shadow: var(--m3-util-elevation-1);
   }
-  .m3-container:not(:disabled).elevated > .layer.tonal {
+  .m3-container.elevated > .layer.tonal {
     background-color: rgb(var(--text) / 0.05);
   }
 
-  .m3-container:not(:disabled).filled {
+  .m3-container.filled {
     background-color: rgb(var(--m3-scheme-primary));
     --text: var(--m3-scheme-on-primary);
   }
 
-  .m3-container:not(:disabled).tonal {
+  .m3-container.tonal {
     background-color: rgb(var(--m3-scheme-secondary-container));
     --text: var(--m3-scheme-on-secondary-container);
   }
 
   .m3-container.outlined {
     background-color: transparent;
-    border: 0.0625rem solid rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
-  .m3-container:not(:disabled).outlined {
     border: 0.0625rem solid rgb(var(--m3-scheme-outline));
     --text: var(--m3-scheme-primary);
   }
@@ -108,21 +99,21 @@
     -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
-    .m3-container:not(:disabled):hover > .layer.state {
+    .m3-container:hover > .layer.state {
       background-color: rgb(var(--text) / 0.08);
     }
-    .m3-container:not(:disabled).elevated:hover {
+    .m3-container.elevated:hover {
       box-shadow: var(--m3-util-elevation-2);
     }
-    .m3-container:not(:disabled).filled:hover {
+    .m3-container.filled:hover {
       box-shadow: var(--m3-util-elevation-1);
     }
-    .m3-container:not(:disabled).tonal:hover {
+    .m3-container.tonal:hover {
       box-shadow: var(--m3-util-elevation-1);
     }
   }
-  .m3-container:not(:disabled):focus-visible > .layer.state,
-  .m3-container:not(:disabled):active > .layer.state {
+  .m3-container:focus-visible > .layer.state,
+  .m3-container:active > .layer.state {
     background-color: rgb(var(--text) / 0.12);
   }
 
@@ -134,9 +125,6 @@
     .m3-container:is(.elevated, .filled, .tonal) {
       background-color: transparent;
       border: 0.0625rem solid;
-    }
-    .m3-container:disabled {
-      opacity: 0.38;
     }
   }
 </style>

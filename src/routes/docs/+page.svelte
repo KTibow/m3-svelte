@@ -2,6 +2,9 @@
   import { base } from "$app/paths";
 </script>
 
+<svelte:head>
+  <title>M3 Svelte: Use</title>
+</svelte:head>
 <h2 class="m3-font-headline-large">Use M3 Svelte</h2>
 <div class="card-container">
   <div class="card">
