@@ -46,30 +46,32 @@
 
 {#if snackbar}
   <div class="holder" out:fade={{ duration: 200 }} {...extraWrapperOptions}>
-    <SnackbarItem {...extraOptions}>
-      <p class="m3-font-body-medium">{snackbar.message}</p>
-      {#each Object.entries(snackbar.actions) as [key, action]}
-        <button
-          class="action m3-font-label-large"
-          on:click={() => {
-            snackbar = undefined;
-            action();
-          }}
-        >
-          {key}
-        </button>
-      {/each}
-      {#if snackbar.closable}
-        <button
-          class="close"
-          on:click={() => {
-            snackbar = undefined;
-          }}
-        >
-          <Icon icon={iconX} />
-        </button>
-      {/if}
-    </SnackbarItem>
+    {#key snackbar}
+      <SnackbarItem {...extraOptions}>
+        <p class="m3-font-body-medium">{snackbar.message}</p>
+        {#each Object.entries(snackbar.actions) as [key, action]}
+          <button
+            class="action m3-font-label-large"
+            on:click={() => {
+              snackbar = undefined;
+              action();
+            }}
+          >
+            {key}
+          </button>
+        {/each}
+        {#if snackbar.closable}
+          <button
+            class="close"
+            on:click={() => {
+              snackbar = undefined;
+            }}
+          >
+            <Icon icon={iconX} />
+          </button>
+        {/if}
+      </SnackbarItem>
+    {/key}
   </div>
 {/if}
 

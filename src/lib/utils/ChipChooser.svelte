@@ -1,20 +1,20 @@
 <script lang="ts">
   import Chip from "$lib/forms/Chip.svelte";
   import type { IconifyIcon } from "@iconify/svelte";
-  export let options: { label: string; icon?: IconifyIcon; selected?: boolean }[];
-  export let chosenOptions: number[] = [];
+  export let options: { label: string; value: string; icon?: IconifyIcon }[];
+  export let chosenOptions: string[] = [];
 </script>
 
 <div class="m3-container">
-  {#each options as option, i}
+  {#each options as option}
     <Chip
       {...option}
       type="input"
-      selected={chosenOptions.includes(i)}
+      selected={chosenOptions.includes(option.value)}
       on:click={() =>
-        chosenOptions.includes(i)
-          ? (chosenOptions = chosenOptions.filter((option) => option != i))
-          : (chosenOptions = [...chosenOptions, i])}
+        chosenOptions.includes(option.value)
+          ? (chosenOptions = chosenOptions.filter((o) => o != option.value))
+          : (chosenOptions = [...chosenOptions, option.value])}
     >
       {option.label}
     </Chip>

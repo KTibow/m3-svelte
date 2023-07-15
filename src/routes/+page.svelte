@@ -1,16 +1,17 @@
 <script lang="ts">
-  import ButtonCard from "./ButtonCard.svelte";
-  import CardCard from "./CardCard.svelte";
-  import CheckboxCard from "./CheckboxCard.svelte";
-  import ChipCard from "./ChipCard.svelte";
-  import DialogCard from "./DialogCard.svelte";
-  import FABCard from "./FABCard.svelte";
   import Hero from "./Hero.svelte";
+  import ButtonCard from "./ButtonCard.svelte";
+  import SegmentedButtonCard from "./SegmentedButtonCard.svelte";
+  import FABCard from "./FABCard.svelte";
+  import DialogCard from "./DialogCard.svelte";
+  import SnackbarCard from "./SnackbarCard.svelte";
   import MenuCard from "./MenuCard.svelte";
   import ProgressCard from "./ProgressCard.svelte";
   import RadioCard from "./RadioCard.svelte";
-  import SegmentedButtonCard from "./SegmentedButtonCard.svelte";
+  import CheckboxCard from "./CheckboxCard.svelte";
   import SwitchCard from "./SwitchCard.svelte";
+  import ChipCard from "./ChipCard.svelte";
+  import CardCard from "./CardCard.svelte";
   import TabsCard from "./TabsCard.svelte";
 </script>
 
@@ -29,6 +30,7 @@
   <FABCard />
   <CardCard />
   <DialogCard />
+  <SnackbarCard />
   <MenuCard />
   <ProgressCard />
   <RadioCard />
