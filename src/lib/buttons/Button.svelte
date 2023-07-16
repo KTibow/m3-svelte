@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { HTMLAnchorAttributes, HTMLButtonAttributes } from "svelte/elements";
+  import type { HTMLButtonAttributes } from "svelte/elements";
   export let display = "inline-flex";
-  export let extraOptions: HTMLAnchorAttributes & HTMLButtonAttributes = {};
+  export let extraOptions: HTMLButtonAttributes = {};
   export let iconType: "none" | "left" | "full" = "none";
   export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
   export let disabled = false;

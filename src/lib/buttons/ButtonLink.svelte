@@ -1,14 +1,13 @@
 <script lang="ts">
-  import type { HTMLAnchorAttributes, HTMLButtonAttributes } from "svelte/elements";
+  import type { HTMLAnchorAttributes } from "svelte/elements";
   export let display = "inline-flex";
-  export let extraOptions: HTMLAnchorAttributes & HTMLButtonAttributes = {};
+  export let extraOptions: HTMLAnchorAttributes = {};
   export let iconType: "none" | "left" | "full" = "none";
   export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
   export let href: string;
 </script>
 
 <a
-  on:click|stopPropagation
   {href}
   class="m3-container m3-font-label-large {type} icon-{iconType}"
   style="display: {display};"
