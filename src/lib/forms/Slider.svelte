@@ -187,6 +187,10 @@
     .track::before {
       background-color: selecteditem;
     }
+    .value {
+      border: 2px solid selecteditem;
+      overflow: hidden;
+    }
     input:disabled + .track {
       background-color: graytext;
       opacity: 0.38;

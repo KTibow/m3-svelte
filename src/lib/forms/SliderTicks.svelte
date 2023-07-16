@@ -180,6 +180,9 @@
   input:disabled + .track::before {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
+  input:disabled ~ .tick {
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  }
   input:disabled ~ .thumb {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
     backdrop-filter: blur(1rem);
@@ -205,6 +208,10 @@
     }
     .track::before {
       background-color: selecteditem;
+    }
+    .value {
+      border: 2px solid selecteditem;
+      overflow: hidden;
     }
     input:disabled + .track {
       background-color: graytext;
