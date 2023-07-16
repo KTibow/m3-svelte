@@ -9,16 +9,10 @@
   export let value: number;
   export let min = 0;
   export let max = 100;
-  export let step: number | "any" = "any";
+  export let step: number;
   export let disabled = false;
   export let showValue = true;
-  export let format = (n: number, step: number | "any") => {
-    if (step == "any") {
-      const formatted = n.toFixed(1);
-      if (formatted.length <= 4) {
-        return formatted;
-      }
-    }
+  export let format = (n: number) => {
     return n.toFixed(0);
   };
 
@@ -30,10 +24,16 @@
     $valueDisplayed = newValue;
   };
 
-  let range: number, percent: number;
+  let range: number, percent: number, ticks: number[];
   $: {
     range = max - min;
     percent = ($valueDisplayed - min) / range;
+  }
+  $: {
+    ticks = [];
+    for (let i = 0; i <= range; i += step) {
+      ticks.push((i / range) * 100);
+    }
   }
 </script>
 
@@ -53,9 +53,16 @@
     {...extraOptions}
   />
   <div class="track" />
+  {#each ticks as tick}
+    <div
+      class="tick"
+      class:active={tick / 100 < $valueDisplayed / range}
+      style="left: calc({tick}% - {(tick / 100) * 4}px + 1px);"
+    />
+  {/each}
   <div class="thumb" />
   {#if showValue}
-    <div class="value m3-font-label-medium"><span>{format(value, step)}</span></div>
+    <div class="value m3-font-label-medium"><span>{format(value)}</span></div>
   {/if}
 </div>
 
@@ -96,6 +103,18 @@
     height: 0.25rem;
     border-radius: 0.25rem;
     background-color: rgb(var(--m3-scheme-primary));
+  }
+  .tick {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 2px;
+    top: 50%;
+    transform: translate(0, -50%);
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+  }
+  .tick.active {
+    background-color: rgb(var(--m3-scheme-on-primary) / 0.38);
   }
   .thumb {
     position: absolute;

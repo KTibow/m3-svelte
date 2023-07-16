@@ -10,6 +10,7 @@
   import RadioCard from "./RadioCard.svelte";
   import CheckboxCard from "./CheckboxCard.svelte";
   import SwitchCard from "./SwitchCard.svelte";
+  import SliderCard from "./SliderCard.svelte";
   import ChipCard from "./ChipCard.svelte";
   import CardCard from "./CardCard.svelte";
   import TabsCard from "./TabsCard.svelte";
@@ -36,6 +37,7 @@
   <RadioCard />
   <CheckboxCard />
   <SwitchCard />
+  <SliderCard />
   <ChipCard />
   <TabsCard />
 </div>
