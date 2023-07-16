@@ -22,7 +22,7 @@
     </tr>
     <tr>
       <td>
-        <label for={undefined} style="display: flex"><Switch bind:checked={indeterminate} /></label>
+        <label for={undefined}><Switch bind:checked={indeterminate} /></label>
       </td>
       <td>{indeterminate ? "Indeterminate" : "Fixed progress"}</td>
     </tr>
@@ -49,6 +49,9 @@
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
+  }
+  label {
+    display: flex;
   }
   table {
     margin-bottom: 1rem;

@@ -17,13 +17,13 @@
       <td>
         <Arrows list={["continuous", "discrete", "discrete-ticks"]} bind:value={precision} />
       </td>
-      <td
-        >{precision == "continuous"
+      <td>
+        {precision == "continuous"
           ? "Continuous"
           : precision == "discrete"
           ? "Discrete"
-          : "Discrete (ticks)"}</td
-      >
+          : "Discrete (ticks)"}
+      </td>
     </tr>
     <tr>
       <td>

@@ -22,8 +22,8 @@
           bind:value={style}
         />
       </td>
-      <td
-        >{style == "input"
+      <td>
+        {style == "input"
           ? "Input"
           : style == "assist"
           ? "Assist"
@@ -31,8 +31,8 @@
           ? "Assist elevated"
           : style == "general"
           ? "General"
-          : "General elevated"}</td
-      >
+          : "General elevated"}
+      </td>
     </tr>
     <tr>
       <td>
@@ -44,7 +44,7 @@
     </tr>
     <tr>
       <td>
-        <label for={undefined} style="display: flex"><Switch bind:checked={enabled} /></label>
+        <label for={undefined}><Switch bind:checked={enabled} /></label>
       </td>
       <td>{enabled ? "Enabled" : "Disabled"}</td>
     </tr>
@@ -73,6 +73,9 @@
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
+  }
+  label {
+    display: flex;
   }
   table {
     margin-bottom: 1rem;

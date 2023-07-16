@@ -15,7 +15,7 @@
   <table>
     <tr>
       <td>
-        <label for={undefined} style="display: flex"><Switch bind:checked={icons} /></label>
+        <label for={undefined}><Switch bind:checked={icons} /></label>
       </td>
       <td>{icons ? "Icons" : "No icons"}</td>
     </tr>
@@ -38,6 +38,9 @@
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
+  }
+  label {
+    display: flex;
   }
   table {
     margin-bottom: 1rem;

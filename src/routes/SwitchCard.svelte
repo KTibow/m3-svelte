@@ -10,7 +10,7 @@
   <table>
     <tr>
       <td>
-        <label for={undefined} style="display: flex"><Switch bind:checked={enabled} /></label>
+        <label for={undefined}><Switch bind:checked={enabled} /></label>
       </td>
       <td>{enabled ? "Enabled" : "Disabled"}</td>
     </tr>
@@ -30,12 +30,12 @@
     display: flex;
     gap: 0.5rem;
   }
-  label {
-    display: flex;
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
+  }
+  label {
+    display: flex;
   }
   table {
     margin-bottom: 1rem;

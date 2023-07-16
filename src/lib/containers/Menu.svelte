@@ -26,4 +26,9 @@
     background-color: rgb(var(--m3-scheme-primary) / 0.05);
     pointer-events: none;
   }
+  @media print, (forced-colors: active) {
+    .layer {
+      display: none;
+    }
+  }
 </style>

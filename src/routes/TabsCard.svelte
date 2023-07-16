@@ -45,7 +45,7 @@
     </tr>
     <tr>
       <td>
-        <label for={undefined} style="display: flex"><Switch bind:checked={icons} /></label>
+        <label for={undefined}><Switch bind:checked={icons} /></label>
       </td>
       <td>
         {icons ? "Icons" : "No icons"}
@@ -53,7 +53,7 @@
     </tr>
     <tr>
       <td>
-        <label for={undefined} style="display: flex"><Switch bind:checked={animation} /></label>
+        <label for={undefined}><Switch bind:checked={animation} /></label>
       </td>
       <td>
         {animation ? "Animated" : "Not animated"}
@@ -77,6 +77,9 @@
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
+  }
+  label {
+    display: flex;
   }
   table {
     margin-bottom: 1rem;
