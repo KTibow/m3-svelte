@@ -68,6 +68,7 @@
   }
   .items {
     display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
     margin-bottom: 4rem;
   }

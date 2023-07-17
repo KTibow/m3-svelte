@@ -2,6 +2,9 @@
   import { base } from "$app/paths";
 </script>
 
+<svelte:head>
+  <title>M3 Svelte: Transitions</title>
+</svelte:head>
 <p>This won't cover all of the transitions.</p>
 <ul>
   <li><a href="{base}/transitions/shared-axis-x">Shared axis (x)</a></li>

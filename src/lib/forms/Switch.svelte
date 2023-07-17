@@ -135,9 +135,11 @@
   .m3-container:active > input:enabled + .layer {
     width: 1.75rem;
     height: 1.75rem;
+    background-color: rgb(var(--m3-scheme-on-surface-variant));
     transform: translate(-0.375rem, -50%); /* 0.75 / 2 */
   }
   .m3-container:active > input:enabled:checked + .layer {
+    background-color: rgb(var(--m3-scheme-primary-container));
     transform: translate(-0.125rem, -50%); /* 0.25 / 2 */
   }
 

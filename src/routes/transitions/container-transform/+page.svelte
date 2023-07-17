@@ -57,8 +57,8 @@
   }
   .card {
     display: inline-flex;
-    background-color: rgb(var(--m3-scheme-surface-variant));
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    background-color: rgb(var(--m3-scheme-primary));
+    color: rgb(var(--m3-scheme-on-primary));
     border: none;
     padding: 1rem;
     border-radius: 0.75rem;
