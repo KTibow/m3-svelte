@@ -1,34 +1,40 @@
 <script>
+  import iconHome from "@iconify-icons/ic/outline-home";
+  import iconHomeS from "@iconify-icons/ic/twotone-home";
+  import iconAnimation from "@iconify-icons/ic/outline-animation";
+  import iconAnimationS from "@iconify-icons/ic/twotone-animation";
+  import iconBook from "@iconify-icons/ic/outline-book";
+  import iconBookS from "@iconify-icons/ic/twotone-book";
+  import iconColorLens from "@iconify-icons/ic/outline-color-lens";
+  import iconColorLensS from "@iconify-icons/ic/twotone-color-lens";
+  import iconCode from "@iconify-icons/ic/outline-code";
+  import { base } from "$app/paths";
+  import { page } from "$app/stores";
   import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
-  // import iconMonitor from "@iconify-icons/ic/outline-monitor";
-  // import iconMonitorFull from "@iconify-icons/ic/round-monitor";
-  // import iconAnimation from "@iconify-icons/ic/outline-animation";
-  // import iconAnimationFull from "@iconify-icons/ic/round-animation";
-  // import iconTheme from "@iconify-icons/ic/outline-palette";
-  // import iconThemeFull from "@iconify-icons/ic/round-palette";
-  // import iconBook from "@iconify-icons/ic/outline-book";
-  // import iconBookFull from "@iconify-icons/ic/round-book";
-  // import iconCode from "@iconify-icons/ic/outline-code";
-  // import { page } from "$app/stores";
-  // import { base } from "$app/paths";
-  // import ResponsiveLayout from "$lib/utils/ResponsiveLayout.svelte";
-  // $: hereNormalized = $page.url.pathname.replace(/\/\/$/, "/");
-  // const pages = [
-  //   {
-  //     name: "Components",
-  //     href: base || "/",
-  //     activeIcon: iconMonitorFull,
-  //     inactiveIcon: iconMonitor,
-  //   },
-  //   {
-  //     name: "Transitions",
-  //     href: base + "/transitions",
-  //     activeIcon: iconAnimationFull,
-  //     inactiveIcon: iconAnimation,
-  //   },
-  //   { name: "Use", href: base + "/docs", activeIcon: iconBookFull, inactiveIcon: iconBook },
-  //   { name: "Theme", href: base + "/theme", activeIcon: iconThemeFull, inactiveIcon: iconTheme },
-  // ];
+  import FAB from "$lib/buttons/FAB.svelte";
+  import NavList from "$lib/nav/NavList.svelte";
+  import NavListLink from "$lib/nav/NavListLink.svelte";
+
+  const paths = [
+    {
+      path: base || "/",
+      icon: iconHome,
+      iconS: iconHomeS,
+      label: "Home",
+    },
+    {
+      path: base + "/docs",
+      icon: iconBook,
+      iconS: iconBookS,
+      label: "Use",
+    },
+    {
+      path: base + "/theme",
+      icon: iconColorLens,
+      iconS: iconColorLensS,
+      label: "Theme",
+    },
+  ];
 </script>
 
 <StyleFromScheme
@@ -95,18 +101,105 @@
     ["inversePrimary", 4284960932],
   ]}
 />
-<!-- <ResponsiveLayout
-  fabOptions={{ icon: iconCode }}
-  railOptions={{
-    mainItems: pages.map((page) => ({
-      ...page,
-      active: hereNormalized == page.href,
-    })),
-  }}
-  on:chosen={(e) => {
-    if (e.detail.name == "fab") return window.open("https://github.com/KTibow/m3-svelte");
-  }}
->
-  <slot />
-</ResponsiveLayout> -->
-<slot />
+<div class="container">
+  <div class="sidebar">
+    <NavList type="auto">
+      <div class="fab">
+        <FAB on:click={() => window.open("https://github.com/KTibow/m3-svelte")} icon={iconCode} />
+      </div>
+      <div class="items">
+        {#each paths as { path, icon, iconS, label }}
+          {@const selected = $page.url.pathname == path}
+          <NavListLink type="auto" href={path} {selected} icon={selected ? iconS : icon} {label} />
+        {/each}
+        <NavListLink
+          type="auto"
+          href={base + "/transitions"}
+          selected={$page.url.pathname.startsWith(base + "/transitions")}
+          icon={$page.url.pathname.startsWith(base + "/transitions")
+            ? iconAnimationS
+            : iconAnimation}
+          label="Animations"
+        />
+      </div>
+    </NavList>
+  </div>
+  <div class="content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .container {
+    display: flex;
+    min-height: 100vh;
+  }
+  .sidebar {
+    position: sticky;
+    align-self: flex-start;
+    display: flex;
+    width: 5rem;
+    flex-shrink: 0;
+  }
+  .content {
+    padding: 1rem;
+  }
+  @media (max-width: 37.5rem) {
+    .container {
+      flex-direction: column-reverse;
+      --m3-util-bottom-offset: 5rem;
+    }
+    .sidebar {
+      bottom: 0;
+      width: 100%;
+      z-index: 3;
+    }
+    .fab {
+      position: fixed;
+      right: 1rem;
+      bottom: 6rem;
+    }
+    .items {
+      display: contents;
+    }
+  }
+  @media (min-width: 37.5rem) {
+    .content {
+      flex-grow: 1;
+      padding: 1.5rem;
+    }
+    .sidebar {
+      top: 0;
+      left: 0;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .fab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+      margin-bottom: 1.5rem;
+    }
+    .fab > :global(button) {
+      box-shadow: none !important;
+    }
+    .items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+    @media (min-height: 30rem) {
+      .items {
+        position: absolute;
+        inset: 0;
+      }
+      @media (max-height: 35rem) {
+        .items {
+          padding-top: 3.5rem;
+        }
+      }
+    }
+  }
+</style>

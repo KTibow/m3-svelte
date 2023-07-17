@@ -172,12 +172,17 @@
     border-radius: 1rem;
     overflow: hidden;
   }
-  @media (orientation: landscape) {
+  @media (min-width: 30rem) {
+    .color-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 60rem) {
     .color-container {
       grid-template-columns: repeat(4, 1fr);
     }
   }
-  @media (min-width: 1280px) {
+  @media (min-width: 80rem) {
     .color-container {
       grid-template-columns: repeat(6, 1fr);
     }

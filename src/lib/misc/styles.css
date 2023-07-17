@@ -16,7 +16,7 @@
   --m3-util-elevation-5: 0px 8px 10px -6px rgb(var(--m3-scheme-shadow) / 0.2),
     0px 16px 24px 2px rgb(var(--m3-scheme-shadow) / 0.14),
     0px 6px 30px 5px rgb(var(--m3-scheme-shadow) / 0.12);
-  --m3-util-snackbar-offset: 0;
+  --m3-util-bottom-offset: 0;
 }
 /* As the largest text on the screen, display styles are reserved for short, important text or numerals. */
 .m3-font-display-large,

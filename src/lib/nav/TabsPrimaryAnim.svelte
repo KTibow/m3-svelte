@@ -63,6 +63,7 @@
 
     color: rgb(var(--text));
     --text: var(--m3-scheme-on-surface-variant);
+    user-select: none;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     transition: all 200ms;

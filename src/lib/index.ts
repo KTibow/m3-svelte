@@ -32,6 +32,12 @@ export { default as Slider } from "./forms/Slider.svelte";
 export { default as SliderTicks } from "./forms/SliderTicks.svelte";
 export { default as Chip } from "./forms/Chip.svelte";
 
+export { default as NavDrawer } from "./nav/NavDrawer.svelte";
+export { default as NavDrawerButton } from "./nav/NavDrawerButton.svelte";
+export { default as NavDrawerLink } from "./nav/NavDrawerLink.svelte";
+export { default as NavList } from "./nav/NavList.svelte";
+export { default as NavListButton } from "./nav/NavListButton.svelte";
+export { default as NavListLink } from "./nav/NavListLink.svelte";
 export { default as TabsPrimary } from "./nav/TabsPrimary.svelte";
 export { default as TabsPrimaryAnim } from "./nav/TabsPrimaryAnim.svelte";
 export { default as TabsSecondary } from "./nav/TabsSecondary.svelte";
@@ -40,10 +46,6 @@ export { default as TabsSecondaryAnim } from "./nav/TabsSecondaryAnim.svelte";
 // export { default as DatePickerDocked } from "./forms/DatePickerDocked.svelte";
 // export { default as TextField } from "./forms/TextField.svelte";
 
-// export { default as NavDrawer } from "./nav/NavDrawer.svelte";
-// export { default as NavRail } from "./nav/NavRail.svelte";
-
 export { default as ChipChooser } from "./utils/ChipChooser.svelte";
 // export { default as DateFieldAndPicker } from "./utils/DateFieldAndPicker.svelte";
 // export { default as Divider } from "./utils/Divider.svelte";
-// export { default as ResponsiveLayout } from "./utils/ResponsiveLayout.svelte";

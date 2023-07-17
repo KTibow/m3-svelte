@@ -47,7 +47,7 @@
     display: grid;
     grid-gap: 1rem;
   }
-  @media (min-width: 30rem) {
+  @media (min-width: 37.5rem) {
     .cards {
       grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
     }

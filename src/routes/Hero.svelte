@@ -58,14 +58,15 @@
     padding: 8rem 0 6rem 0;
     margin-bottom: 2rem;
   }
-  h2 {
+  .container h2 {
     font-size: 6rem;
     margin: 0;
   }
-  p {
+  .container p {
     max-width: 50rem;
     margin: 0 auto;
   }
+
   .items {
     display: flex;
     flex-wrap: wrap;
@@ -101,6 +102,9 @@
   }
   h3 {
     line-height: 2rem;
+    margin: 0;
+  }
+  .item p {
     margin: 0;
   }
 </style>
