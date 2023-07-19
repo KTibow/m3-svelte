@@ -110,7 +110,9 @@
       <div class="items">
         {#each paths as { path, icon, iconS, label }}
           {@const selected = $page.url.pathname == path}
-          <NavListLink type="auto" href={path} {selected} icon={selected ? iconS : icon} {label} />
+          <NavListLink type="auto" href={path} {selected} icon={selected ? iconS : icon}>
+            {label}
+          </NavListLink>
         {/each}
         <NavListLink
           type="auto"
@@ -119,8 +121,9 @@
           icon={$page.url.pathname.startsWith(base + "/transitions")
             ? iconAnimationS
             : iconAnimation}
-          label="Animations"
-        />
+        >
+          Animations
+        </NavListLink>
       </div>
     </NavList>
   </div>

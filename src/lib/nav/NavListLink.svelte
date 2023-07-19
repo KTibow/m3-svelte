@@ -10,7 +10,6 @@
 
   export let selected: boolean;
   export let icon: IconifyIcon;
-  export let label: string;
 </script>
 
 <a
@@ -23,7 +22,7 @@
   <div class="icon-space">
     <Icon {icon} />
   </div>
-  <p class="m3-font-label-medium">{label}</p>
+  <p class="m3-font-label-medium"><slot /></p>
 </a>
 
 <style>

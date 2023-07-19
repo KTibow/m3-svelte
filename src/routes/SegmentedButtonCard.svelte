@@ -23,20 +23,20 @@
     {#if multiSelect}
       <SegmentedButtonContainer>
         <input type="checkbox" id="segmented-a-0" />
-        <SegmentedButtonItem input="segmented-a-0" label="$" />
+        <SegmentedButtonItem input="segmented-a-0">$</SegmentedButtonItem>
         <input type="checkbox" id="segmented-a-1" />
-        <SegmentedButtonItem input="segmented-a-1" label="$$" />
+        <SegmentedButtonItem input="segmented-a-1">$$</SegmentedButtonItem>
         <input type="checkbox" id="segmented-a-2" disabled />
-        <SegmentedButtonItem input="segmented-a-2" label="$$$" />
+        <SegmentedButtonItem input="segmented-a-2">$$$</SegmentedButtonItem>
       </SegmentedButtonContainer>
     {:else}
       <SegmentedButtonContainer>
         <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-        <SegmentedButtonItem input="segmented-b-0" icon={iconTriangle} label="Tab A" />
+        <SegmentedButtonItem input="segmented-b-0" icon={iconTriangle}>Tab A</SegmentedButtonItem>
         <input type="radio" name="segmented-b" id="segmented-b-1" />
-        <SegmentedButtonItem input="segmented-b-1" icon={iconSquare} label="Tab B" />
+        <SegmentedButtonItem input="segmented-b-1" icon={iconSquare}>Tab B</SegmentedButtonItem>
         <input type="radio" name="segmented-b" id="segmented-b-2" disabled />
-        <SegmentedButtonItem input="segmented-b-2" icon={iconCircle} label="Tab C" />
+        <SegmentedButtonItem input="segmented-b-2" icon={iconCircle}>Tab C</SegmentedButtonItem>
       </SegmentedButtonContainer>
     {/if}
   </div>

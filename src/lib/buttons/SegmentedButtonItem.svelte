@@ -7,7 +7,6 @@
   export let extraOptions: HTMLLabelAttributes = {};
   export let input: string;
   export let icon: IconifyIcon | undefined = undefined;
-  export let label = "";
 </script>
 
 <label
@@ -27,7 +26,7 @@
   <div class="check icon">
     <Icon icon={iconCheck} />
   </div>
-  {label}
+  <slot />
   <div class="pad" class:hidden={icon} />
 </label>
 
