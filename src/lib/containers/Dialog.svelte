@@ -104,13 +104,16 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 200ms, visibility 200ms;
+    transition:
+      opacity 200ms,
+      visibility 200ms;
   }
   dialog[open] {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    animation: dialogIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1),
+    animation:
+      dialogIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1),
       opacity 100ms cubic-bezier(0.05, 0.7, 0.1, 1);
   }
   dialog[open] .headline {
@@ -121,7 +124,9 @@
   }
   dialog[open] .buttons {
     position: relative;
-    animation: buttonsIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1), opacity 200ms 100ms backwards;
+    animation:
+      buttonsIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1),
+      opacity 200ms 100ms backwards;
   }
   dialog::backdrop {
     background-color: rgb(var(--m3-scheme-scrim) / 0.3);

@@ -22,7 +22,8 @@
     box-shadow: var(--m3-util-elevation-3);
     background-color: rgb(var(--m3-scheme-inverse-surface));
     color: rgb(var(--m3-scheme-inverse-on-surface));
-    animation: snackbarIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1),
+    animation:
+      snackbarIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1),
       opacity 100ms cubic-bezier(0.05, 0.7, 0.1, 1);
   }
   @keyframes snackbarIn {

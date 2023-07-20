@@ -8,7 +8,7 @@ const entries = Object.fromEntries(
     .sync("./src/lib/**/*.svelte", {
       ignore: ["./src/lib/**/_*.svelte", "./src/lib/**/_**/*.svelte"],
     })
-    .map((entry) => [entry.slice(10).slice(0, -7), entry])
+    .map((entry) => [entry.slice(10).slice(0, -7), entry]),
 );
 
 export default defineConfig({

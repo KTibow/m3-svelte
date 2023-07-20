@@ -11,7 +11,7 @@ interface containerOptions {
   fallback?: (
     node: Element,
     params: transitionOptions & containerOptions & containerParamOptions,
-    intro: boolean
+    intro: boolean,
   ) => TransitionConfig;
   bgContainerZ?: number;
   fgContainerZ?: number;
@@ -70,7 +70,7 @@ export const containerTransform = ({
     from: DOMRect,
     fromNode: Element,
     node: Element,
-    params: transitionOptions & containerOptions
+    params: transitionOptions & containerOptions,
   ): TransitionConfig {
     const to = node.getBoundingClientRect();
     const isEntering = from.width * from.height < to.width * to.height;
@@ -157,13 +157,13 @@ export const containerTransform = ({
         } = container;
 
         const interpColor = [0, 0, 0, 0].map((_, i) =>
-          Math.trunc(t * fromColor[i] + u * toColor[i])
+          Math.trunc(t * fromColor[i] + u * toColor[i]),
         );
         container.e.style.backgroundColor = `rgba(${interpColor.join(",")})`;
         container.e.style.borderRadius = (t * fromRadius + u * toRadius).toFixed(1) + "px";
         container.e.style.borderWidth = (t * fromBorderWidth + u * toBorderWidth).toFixed(1) + "px";
         const interpBorder = [0, 0, 0, 0].map((_, i) =>
-          Math.trunc(t * fromBorderColor[i] + u * toBorderColor[i])
+          Math.trunc(t * fromBorderColor[i] + u * toBorderColor[i]),
         );
         container.e.style.borderColor = `rgba(${interpBorder.join(",")})`;
       },
@@ -173,7 +173,7 @@ export const containerTransform = ({
   function makeTransition(items: ClientRectMap, counterparts: ClientRectMap, intro: boolean) {
     return (
       node: Element,
-      params: transitionOptions & containerOptions & containerParamOptions
+      params: transitionOptions & containerOptions & containerParamOptions,
     ) => {
       items.set(params.key, {
         rect: node.getBoundingClientRect(),
@@ -232,7 +232,7 @@ type sharedAxisOptions =
 /* protip: set a background color on the items, and utilize position relative + absolute to let them overlap */
 export const sharedAxisTransition = (
   node: Element,
-  options: transitionOptions & sharedAxisOptions
+  options: transitionOptions & sharedAxisOptions,
 ) => {
   return {
     delay: options.delay,

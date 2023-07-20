@@ -62,7 +62,10 @@
     inset: 0 50%;
     width: 0;
     border-radius: 2rem;
-    transition: opacity 200ms, inset 0ms 200ms, width 0ms 200ms;
+    transition:
+      opacity 200ms,
+      inset 0ms 200ms,
+      width 0ms 200ms;
   }
   .icon-space > :global(svg) {
     z-index: 1;
@@ -97,7 +100,8 @@
     opacity: 1;
     inset: 0 0;
     width: 100%;
-    transition: width 400ms cubic-bezier(0.356, 0.701, 0, 1.004),
+    transition:
+      width 400ms cubic-bezier(0.356, 0.701, 0, 1.004),
       inset 400ms cubic-bezier(0.356, 0.701, 0, 1.004);
   }
   .selected > .icon-space > :global(svg) {

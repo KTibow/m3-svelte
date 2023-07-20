@@ -60,7 +60,9 @@
     stroke-dasharray: 20.874 20.874;
     stroke-dashoffset: 20.874;
     opacity: 0;
-    transition: opacity 200ms, stroke-dashoffset 0ms 200ms;
+    transition:
+      opacity 200ms,
+      stroke-dashoffset 0ms 200ms;
   }
 
   @media (hover: hover) {

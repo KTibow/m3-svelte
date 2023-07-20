@@ -48,7 +48,7 @@
     navigator.clipboard.writeText(
       `<StyleFromScheme
   lightScheme={${JSON.stringify(serializeScheme(schemeLight))}}
-  darkScheme={${JSON.stringify(serializeScheme(schemeDark))}} />`
+  darkScheme={${JSON.stringify(serializeScheme(schemeDark))}} />`,
     );
 </script>
 

@@ -34,8 +34,8 @@
   <DialogCard />
   <SnackbarCard />
   <ListCard />
-  <MenuCard />
   <ProgressCard />
+  <MenuCard />
   <RadioCard />
   <CheckboxCard />
   <SwitchCard />
