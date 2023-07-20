@@ -38,9 +38,9 @@
     <pre>{`<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />`}</pre>
     <p>
       If you want to load another font, set up CSS variables. They will be used by <a
-        href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/colors/BaseStyles.svelte"
+        href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/misc/styles.css"
       >
-        BaseStyles.svelte
+        styles.css
       </a>
     </p>
   </div>

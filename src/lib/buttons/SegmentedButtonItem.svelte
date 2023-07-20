@@ -10,7 +10,7 @@
 </script>
 
 <label
-  class:customIcon={icon}
+  class:custom-icon={icon}
   for={input}
   class="m3-font-label-large"
   style="display: {display};"
@@ -72,11 +72,11 @@
     width: 0.8125rem; /* (1.125 + 0.5) / 2 */
   }
 
-  .customIcon .icon {
+  .custom-icon .icon {
     transition: none;
   }
   :global(input:checked) + label > .pad,
-  label.customIcon > .pad {
+  label.custom-icon > .pad {
     width: 0;
   }
   .icon {
