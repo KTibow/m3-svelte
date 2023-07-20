@@ -1,11 +1,10 @@
 <script lang="ts">
   import {
-    CorePalette,
-    Scheme,
     argbFromHex,
     hexFromArgb,
     sourceColorFromImage,
   } from "@material/material-color-utilities";
+  import { Scheme } from "mcu-extra";
   import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/ic/outline-edit";
   import iconImage from "@iconify-icons/ic/outline-wallpaper";
@@ -19,12 +18,10 @@
   import ColorCard from "./ColorCard.svelte";
 
   let sourceColorInput: HTMLInputElement, sourceFileInput: HTMLInputElement;
-  let sourceColor: number, sourcePalette: CorePalette;
-  $: if (sourceColor) sourcePalette = CorePalette.of(sourceColor);
-  let schemeLight: Scheme, schemeDark: Scheme;
-  $: if (sourcePalette) {
-    schemeLight = Scheme.lightFromCorePalette(sourcePalette);
-    schemeDark = Scheme.darkFromCorePalette(sourcePalette);
+  let sourceColor: number, schemeLight: Scheme, schemeDark: Scheme;
+  $: if (sourceColor) {
+    schemeLight = Scheme.lightContent(sourceColor);
+    schemeDark = Scheme.darkContent(sourceColor);
   }
 
   let tab = "light";

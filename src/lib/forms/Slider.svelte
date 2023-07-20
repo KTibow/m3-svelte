@@ -83,7 +83,7 @@
     width: 100%;
     height: 0.25rem;
     border-radius: 0.25rem;
-    background-color: rgb(var(--m3-scheme-surface-variant));
+    background-color: rgb(var(--m3-scheme-surface-container-highest));
     position: relative;
     overflow: hidden;
     pointer-events: none;

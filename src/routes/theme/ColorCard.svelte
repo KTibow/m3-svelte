@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { type Scheme, hexFromArgb } from "@material/material-color-utilities";
+  import { hexFromArgb } from "@material/material-color-utilities";
+  import type { Scheme } from "mcu-extra";
   export let fg: string;
   export let bg: string;
   export let scheme: Scheme;

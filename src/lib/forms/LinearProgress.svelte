@@ -11,7 +11,7 @@
 
 <style>
   .m3-container {
-    background-color: rgb(var(--m3-scheme-surface-variant));
+    background-color: rgb(var(--m3-scheme-surface-container-highest));
     height: 0.25rem;
     min-width: 8rem;
     position: relative;

@@ -58,7 +58,7 @@
 
 <style>
   dialog {
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: rgb(var(--m3-scheme-surface-container-high));
     border: none;
     border-radius: 1.75rem;
     min-width: 17.5rem;
@@ -69,7 +69,6 @@
   .m3-container {
     display: flex;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-primary) / 0.08);
     padding: 1.5rem;
     width: 100%;
   }

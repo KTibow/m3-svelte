@@ -7,7 +7,6 @@
 </script>
 
 <div class="m3-container type-{type}" style="display: {display};" {...extraOptions}>
-  <div class="layer tonal" />
   <slot />
 </div>
 
@@ -23,20 +22,15 @@
     color: rgb(var(--m3-scheme-on-surface));
     transition: all 200ms;
   }
-  .layer {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
 
-  .type-elevated > .layer.tonal {
-    background-color: rgb(var(--m3-scheme-primary) / 0.05);
+  .type-elevated {
+    background-color: rgb(var(--m3-scheme-surface-container-low));
+  }
+  .type-filled {
+    background-color: rgb(var(--m3-scheme-surface-container-highest));
   }
   .type-outlined {
     border: solid 0.0625rem rgb(var(--m3-scheme-outline));
-  }
-  .type-filled {
-    background-color: rgb(var(--m3-scheme-surface-variant));
   }
 
   .type-elevated {
@@ -44,9 +38,6 @@
   }
 
   @media print, (forced-colors: active) {
-    .layer {
-      display: none;
-    }
     .type-filled {
       outline: solid 0.125rem;
     }

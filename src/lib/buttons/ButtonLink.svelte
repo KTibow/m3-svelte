@@ -13,8 +13,7 @@
   style="display: {display};"
   {...extraOptions}
 >
-  <div class="layer tonal" />
-  <div class="layer state" />
+  <div class="layer" />
   <slot />
 </a>
 
@@ -61,12 +60,9 @@
   }
 
   .m3-container.elevated {
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: rgb(var(--m3-scheme-surface-container-low));
     --text: var(--m3-scheme-primary);
     box-shadow: var(--m3-util-elevation-1);
-  }
-  .m3-container.elevated > .layer.tonal {
-    background-color: rgb(var(--text) / 0.05);
   }
 
   .m3-container.filled {
@@ -98,7 +94,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
-    .m3-container:hover > .layer.state {
+    .m3-container:hover > .layer {
       background-color: rgb(var(--text) / 0.08);
     }
     .m3-container.elevated:hover {
@@ -111,8 +107,8 @@
       box-shadow: var(--m3-util-elevation-1);
     }
   }
-  .m3-container:focus-visible > .layer.state,
-  .m3-container:active > .layer.state {
+  .m3-container:focus-visible > .layer,
+  .m3-container:active > .layer {
     background-color: rgb(var(--text) / 0.12);
   }
 

@@ -12,8 +12,7 @@
   style="display: {display};"
   {...extraOptions}
 >
-  <div class="layer state" />
-  <div class="layer tonal" />
+  <div class="layer" />
   <slot />
 </button>
 
@@ -36,14 +35,14 @@
     pointer-events: none;
   }
 
-  .type-elevated > .layer.tonal {
-    background-color: rgb(var(--m3-scheme-primary) / 0.05);
+  .type-elevated {
+    background-color: rgb(var(--m3-scheme-surface-container-low));
+  }
+  .type-filled {
+    background-color: rgb(var(--m3-scheme-surface-container-highest));
   }
   .type-outlined {
     border: solid 0.0625rem rgb(var(--m3-scheme-outline));
-  }
-  .type-filled {
-    background-color: rgb(var(--m3-scheme-surface-variant));
   }
 
   .type-elevated {
@@ -63,11 +62,11 @@
     button.type-elevated:hover {
       box-shadow: var(--m3-util-elevation-2);
     }
-    button:hover > .layer.state {
+    button:hover > .layer {
       background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
     }
   }
-  button:is(:focus-visible, :active) > .layer.state {
+  button:is(:focus-visible, :active) > .layer {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
 

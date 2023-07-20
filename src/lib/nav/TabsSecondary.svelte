@@ -61,7 +61,7 @@
     position: absolute;
     inset: auto 0 0 0;
     height: 0.0625rem;
-    background-color: rgb(var(--m3-scheme-surface-variant));
+    background-color: rgb(var(--m3-scheme-surface-container-highest));
     transition: all 200ms;
   }
 

@@ -30,8 +30,7 @@
   on:click
   {...extraOptions}
 >
-  <div class="layer tonal" />
-  <div class="layer state" />
+  <div class="layer" />
   {#if icon}
     <Icon {icon} class="leading" />
   {/if}
@@ -92,10 +91,8 @@
   }
   .elevated {
     border-color: transparent;
+    background-color: rgb(var(--m3-scheme-surface-container-low));
     box-shadow: var(--m3-util-elevation-1);
-  }
-  .elevated > .layer.tonal {
-    background-color: rgb(var(--m3-scheme-primary) / 0.05);
   }
   .selected {
     border-color: transparent;
@@ -103,7 +100,7 @@
     color: rgb(var(--m3-scheme-on-secondary-container));
   }
 
-  .layer.state {
+  .layer {
     background-color: currentColor;
     opacity: 0;
   }
@@ -114,14 +111,14 @@
     .elevated:hover:enabled {
       box-shadow: var(--m3-util-elevation-2);
     }
-    .m3-container:hover:enabled > .layer.state {
+    .m3-container:hover:enabled > .layer {
       opacity: 0.08;
     }
   }
-  .m3-container:focus-visible:enabled > .layer.state {
+  .m3-container:focus-visible:enabled > .layer {
     opacity: 0.08;
   }
-  .m3-container:active:enabled > .layer.state {
+  .m3-container:active:enabled > .layer {
     opacity: 0.12;
   }
 
@@ -136,8 +133,8 @@
   .elevated:disabled {
     border-color: transparent;
   }
-  .selected:disabled > .layer.tonal,
-  .elevated:disabled > .layer.tonal {
+  .selected:disabled,
+  .elevated:disabled {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
 

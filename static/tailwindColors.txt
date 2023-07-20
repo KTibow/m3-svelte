@@ -28,4 +28,12 @@ colors: {
   "inverse-surface": "rgb(var(--m3-scheme-inverse-surface) / <alpha-value>)",
   "inverse-on-surface": "rgb(var(--m3-scheme-inverse-on-surface) / <alpha-value>)",
   "inverse-primary": "rgb(var(--m3-scheme-inverse-primary) / <alpha-value>)",
-},
+  "surface-bright": "rgb(var(--m3-scheme-surface-bright) / <alpha-value>)",
+  "surface-container": "rgb(var(--m3-scheme-surface-container) / <alpha-value>)",
+  "surface-container-high": "rgb(var(--m3-scheme-surface-container-high) / <alpha-value>)",
+  "surface-container-highest": "rgb(var(--m3-scheme-surface-container-highest) / <alpha-value>)",
+  "surface-container-low": "rgb(var(--m3-scheme-surface-container-low) / <alpha-value>)",
+  "surface-container-lowest": "rgb(var(--m3-scheme-surface-container-lowest) / <alpha-value>)",
+  "surface-dim": "rgb(var(--m3-scheme-surface-dim) / <alpha-value>)",
+  "surface-tint": "rgb(var(--m3-scheme-surface-tint) / <alpha-value>)"
+}

@@ -91,8 +91,11 @@
     background-color: rgb(var(--m3-scheme-on-primary-container));
   }
   .color-surface {
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: rgb(var(--m3-scheme-surface-container-low));
     color: rgb(var(--m3-scheme-primary));
+  }
+  .color-surface.elevation-normal {
+    background-color: rgb(var(--m3-scheme-surface-container-high));
   }
   .color-surface > .layer {
     background-color: rgb(var(--m3-scheme-primary));

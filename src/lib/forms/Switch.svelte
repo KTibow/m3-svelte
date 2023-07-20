@@ -62,7 +62,7 @@
     margin: 0;
     border-radius: 2rem;
 
-    background-color: rgb(var(--m3-scheme-surface-variant));
+    background-color: rgb(var(--m3-scheme-surface-container-highest));
     border: solid 0.125rem rgb(var(--m3-scheme-outline));
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -106,6 +106,14 @@
     transition: all 200ms;
   }
 
+  .m3-container:hover > input + .layer,
+  .m3-container > input:is(:active, :focus-visible) + .layer {
+    background-color: rgb(var(--m3-scheme-on-surface-variant));
+  }
+  .m3-container:hover > input:checked + .layer,
+  .m3-container > input:checked:is(:active, :focus-visible) + .layer {
+    background-color: rgb(var(--m3-scheme-primary-container));
+  }
   .m3-container:hover > input + .layer::before {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
@@ -135,16 +143,14 @@
   .m3-container:active > input:enabled + .layer {
     width: 1.75rem;
     height: 1.75rem;
-    background-color: rgb(var(--m3-scheme-on-surface-variant));
     transform: translate(-0.375rem, -50%); /* 0.75 / 2 */
   }
   .m3-container:active > input:enabled:checked + .layer {
-    background-color: rgb(var(--m3-scheme-primary-container));
     transform: translate(-0.125rem, -50%); /* 0.25 / 2 */
   }
 
   input:disabled {
-    background-color: rgb(var(--m3-scheme-surface-variant) / 0.12);
+    background-color: rgb(var(--m3-scheme-surface-container-highest) / 0.12);
     border-color: rgb(var(--m3-scheme-outline) / 0.12);
     cursor: auto;
   }

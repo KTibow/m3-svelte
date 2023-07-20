@@ -102,7 +102,7 @@
   .list {
     display: flex;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-surface-variant) / 0.2);
+    background-color: rgb(var(--m3-scheme-surface-container-high));
   }
   .box-wrapper {
     display: flex;

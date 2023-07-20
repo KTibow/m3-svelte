@@ -3,7 +3,6 @@
 </script>
 
 <div class="m3-container" style="display: {display};">
-  <div class="layer" />
   <slot />
 </div>
 
@@ -16,19 +15,8 @@
     border-radius: 0.25rem;
     min-width: 7rem;
     max-width: 17.5rem;
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: rgb(var(--m3-scheme-surface-container));
     z-index: 2;
     box-shadow: var(--m3-util-elevation-2);
-  }
-  .layer {
-    position: absolute;
-    inset: 0;
-    background-color: rgb(var(--m3-scheme-primary) / 0.05);
-    pointer-events: none;
-  }
-  @media print, (forced-colors: active) {
-    .layer {
-      display: none;
-    }
   }
 </style>
