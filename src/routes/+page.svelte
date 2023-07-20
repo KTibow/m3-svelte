@@ -14,6 +14,7 @@
   import ChipCard from "./ChipCard.svelte";
   import CardCard from "./CardCard.svelte";
   import TabsCard from "./TabsCard.svelte";
+  import ListCard from "./ListCard.svelte";
 </script>
 
 <svelte:head>
@@ -32,6 +33,7 @@
   <CardCard />
   <DialogCard />
   <SnackbarCard />
+  <ListCard />
   <MenuCard />
   <ProgressCard />
   <RadioCard />
