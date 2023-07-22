@@ -1,42 +1,43 @@
-export type SerializedScheme = (
-  | ["primary", number]
-  | ["onPrimary", number]
-  | ["primaryContainer", number]
-  | ["onPrimaryContainer", number]
-  | ["inversePrimary", number]
-  | ["secondary", number]
-  | ["onSecondary", number]
-  | ["secondaryContainer", number]
-  | ["onSecondaryContainer", number]
-  | ["tertiary", number]
-  | ["onTertiary", number]
-  | ["tertiaryContainer", number]
-  | ["onTertiaryContainer", number]
-  | ["error", number]
-  | ["onError", number]
-  | ["errorContainer", number]
-  | ["onErrorContainer", number]
-  | ["background", number]
-  | ["onBackground", number]
-  | ["surface", number]
-  | ["onSurface", number]
-  | ["surfaceVariant", number]
-  | ["onSurfaceVariant", number]
-  | ["inverseSurface", number]
-  | ["inverseOnSurface", number]
-  | ["outline", number]
-  | ["outlineVariant", number]
-  | ["shadow", number]
-  | ["scrim", number]
-  | ["surfaceDim", number]
-  | ["surfaceBright", number]
-  | ["surfaceContainerLowest", number]
-  | ["surfaceContainerLow", number]
-  | ["surfaceContainer", number]
-  | ["surfaceContainerHigh", number]
-  | ["surfaceContainerHighest", number]
-  | ["surfaceTint", number]
-)[];
+export type Color =
+  | "primary"
+  | "onPrimary"
+  | "primaryContainer"
+  | "onPrimaryContainer"
+  | "inversePrimary"
+  | "secondary"
+  | "onSecondary"
+  | "secondaryContainer"
+  | "onSecondaryContainer"
+  | "tertiary"
+  | "onTertiary"
+  | "tertiaryContainer"
+  | "onTertiaryContainer"
+  | "error"
+  | "onError"
+  | "errorContainer"
+  | "onErrorContainer"
+  | "background"
+  | "onBackground"
+  | "surface"
+  | "onSurface"
+  | "surfaceVariant"
+  | "onSurfaceVariant"
+  | "inverseSurface"
+  | "inverseOnSurface"
+  | "outline"
+  | "outlineVariant"
+  | "shadow"
+  | "scrim"
+  | "surfaceDim"
+  | "surfaceBright"
+  | "surfaceContainerLowest"
+  | "surfaceContainerLow"
+  | "surfaceContainer"
+  | "surfaceContainerHigh"
+  | "surfaceContainerHighest"
+  | "surfaceTint";
+export type SerializedScheme = Record<Color, number>;
+
 export const genCSS = (light: SerializedScheme, dark: SerializedScheme) => {
   const genColorVariable = (name: string, argb: number) => {
     const kebabCase = name.replace(/[A-Z]/g, (letter: string) => `-${letter.toLowerCase()}`);
@@ -45,17 +46,11 @@ export const genCSS = (light: SerializedScheme, dark: SerializedScheme) => {
     const blue = argb & 255;
     return `--m3-scheme-${kebabCase}: ${red} ${green} ${blue};`;
   };
-  const lightColors = light
-    .map((colorInfo) => {
-      const color: [string, number] = colorInfo;
-      return genColorVariable(...color);
-    })
+  const lightColors = Object.entries(light)
+    .map(([name, argb]) => genColorVariable(name, argb))
     .join("\n");
-  const darkColors = dark
-    .map((colorInfo) => {
-      const color: [string, number] = colorInfo;
-      return genColorVariable(...color);
-    })
+  const darkColors = Object.entries(dark)
+    .map(([name, argb]) => genColorVariable(name, argb))
     .join("\n");
   const colors = `
 :root {

@@ -1,14 +1,18 @@
 <script lang="ts">
-  import { hexFromArgb } from "@material/material-color-utilities";
-  import type { Scheme } from "mcu-extra";
+  import {
+    type DynamicScheme,
+    MaterialDynamicColors,
+    hexFromArgb,
+  } from "@material/material-color-utilities";
   export let fg: string;
   export let bg: string;
-  export let scheme: Scheme;
+  export let scheme: DynamicScheme;
   type Color =
     | "primary"
     | "onPrimary"
     | "primaryContainer"
     | "onPrimaryContainer"
+    | "inversePrimary"
     | "secondary"
     | "onSecondary"
     | "secondaryContainer"
@@ -27,15 +31,22 @@
     | "onSurface"
     | "surfaceVariant"
     | "onSurfaceVariant"
+    | "inverseSurface"
+    | "inverseOnSurface"
     | "outline"
     | "outlineVariant"
     | "shadow"
     | "scrim"
-    | "inverseSurface"
-    | "inverseOnSurface"
-    | "inversePrimary";
-  $: bgColor = hexFromArgb(scheme[bg as Color]);
-  $: fgColor = hexFromArgb(scheme[fg as Color]);
+    | "surfaceDim"
+    | "surfaceBright"
+    | "surfaceContainerLowest"
+    | "surfaceContainerLow"
+    | "surfaceContainer"
+    | "surfaceContainerHigh"
+    | "surfaceContainerHighest"
+    | "surfaceTint";
+  $: bgColor = hexFromArgb(MaterialDynamicColors[bg as Color].getArgb(scheme));
+  $: fgColor = hexFromArgb(MaterialDynamicColors[fg as Color].getArgb(scheme));
 </script>
 
 <div style="background-color: {bgColor}; color: {fgColor};">

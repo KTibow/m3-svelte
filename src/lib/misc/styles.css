@@ -75,9 +75,9 @@
   letter-spacing: var(--m3-font-title-large-tracking, 0);
 }
 .m3-font-title-medium {
-  font-size: var(--m3-font-title-medium-size, 2rem);
-  line-height: var(--m3-font-title-medium-height, 3rem);
-  letter-spacing: var(--m3-font-title-medium-tracking, 0);
+  font-size: var(--m3-font-title-medium-size, 1rem);
+  line-height: var(--m3-font-title-medium-height, 1.5rem);
+  letter-spacing: var(--m3-font-title-medium-tracking, 0.15);
 }
 .m3-font-title-small {
   font-size: var(--m3-font-title-small-size, 0.875rem);

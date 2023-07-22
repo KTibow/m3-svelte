@@ -13,7 +13,7 @@
   export let disabled = false;
   export let showValue = true;
   export let format = (n: number, step: number | "any") => {
-    if (step == "any") {
+    if (step == "any" || step < 1) {
       const formatted = n.toFixed(1);
       if (formatted.length <= 4) {
         return formatted;

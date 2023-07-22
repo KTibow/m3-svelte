@@ -221,6 +221,7 @@ type sharedAxisOptions =
        * >   }}
        * > >
        * > ```
+       *
        * i went insane over figuring this out :)
        */
       rightSeam: boolean;

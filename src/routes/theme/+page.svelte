@@ -1,52 +1,35 @@
 <script lang="ts">
-  import {
-    argbFromHex,
-    hexFromArgb,
-    sourceColorFromImage,
-  } from "@material/material-color-utilities";
-  import { Scheme } from "mcu-extra";
-  import Icon from "@iconify/svelte";
-  import iconEdit from "@iconify-icons/ic/outline-edit";
-  import iconImage from "@iconify-icons/ic/outline-wallpaper";
-  import iconCopy from "@iconify-icons/ic/outline-content-copy";
+  import { Hct, type DynamicScheme } from "@material/material-color-utilities";
 
-  import { browser } from "$app/environment";
-  import type { SerializedScheme } from "$lib/misc/utils";
-  import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
-  import Button from "$lib/buttons/Button.svelte";
-  import TabsPrimaryAnim from "$lib/nav/TabsPrimaryAnim.svelte";
-  import ColorCard from "./ColorCard.svelte";
+  import ColorChooser from "./ColorChooser.svelte";
+  import Arrow from "./Arrow.svelte";
+  import TransformChooser from "./TransformChooser.svelte";
+  import { schemes } from "./data";
+  import SchemeShowcase from "./SchemeShowcase.svelte";
 
-  let sourceColorInput: HTMLInputElement, sourceFileInput: HTMLInputElement;
-  let sourceColor: number, schemeLight: Scheme, schemeDark: Scheme;
+  let schemeLight: DynamicScheme, schemeDark: DynamicScheme;
+  let sourceColor: number;
+  let algorithm: keyof typeof schemes = "tonal_spot";
+  let contrast = 1;
   $: if (sourceColor) {
-    schemeLight = Scheme.lightContent(sourceColor);
-    schemeDark = Scheme.darkContent(sourceColor);
+    const scheme = schemes[algorithm];
+    const contrastFloat =
+      contrast == 0
+        ? -0.5
+        : contrast == 1
+        ? 0
+        : contrast == 2
+        ? 6 / 12
+        : contrast == 3
+        ? 8 / 12
+        : contrast == 4
+        ? 10 / 12
+        : contrast == 5
+        ? 11 / 12
+        : 1;
+    schemeLight = new scheme(Hct.fromInt(sourceColor), false, contrastFloat);
+    schemeDark = new scheme(Hct.fromInt(sourceColor), true, contrastFloat);
   }
-
-  let tab = "light";
-  const pairs = [
-    ["primary", "onPrimary"],
-    ["primaryContainer", "onPrimaryContainer"],
-    ["secondary", "onSecondary"],
-    ["secondaryContainer", "onSecondaryContainer"],
-    ["tertiary", "onTertiary"],
-    ["tertiaryContainer", "onTertiaryContainer"],
-    ["background", "onBackground"],
-    ["surface", "onSurface"],
-    ["inverseSurface", "inverseOnSurface"],
-    ["surfaceVariant", "onSurfaceVariant"],
-    ["error", "onError"],
-    ["errorContainer", "onErrorContainer"],
-  ];
-
-  const serializeScheme = (scheme: Scheme) => Object.entries(scheme.toJSON()) as SerializedScheme;
-  const copyUsage = () =>
-    navigator.clipboard.writeText(
-      `<StyleFromScheme
-  lightScheme={${JSON.stringify(serializeScheme(schemeLight))}}
-  darkScheme={${JSON.stringify(serializeScheme(schemeDark))}} />`,
-    );
 </script>
 
 <svelte:head>
@@ -56,132 +39,10 @@
     content="Generate a Material 3/You theme for use with the library M3 Svelte."
   />
 </svelte:head>
-<p class="source-chooser">
-  <span
-    style="background-color: {browser ? hexFromArgb(sourceColor) : '#000'};"
-    class="color-disc m3-font-label-large"
-  >
-    Color
-  </span>
-  <Button type="text" iconType="full" on:click={() => sourceColorInput.click()}>
-    <Icon icon={iconEdit} width="24" height="24" />
-  </Button>
-  <Button type="text" iconType="full" on:click={() => sourceFileInput.click()}>
-    <Icon icon={iconImage} width="24" height="24" />
-  </Button>
-  <input
-    type="color"
-    class="hidden"
-    bind:this={sourceColorInput}
-    on:change={() => (sourceColor = argbFromHex(sourceColorInput.value))}
-  />
-  <input
-    type="file"
-    class="hidden"
-    accept="image/*"
-    bind:this={sourceFileInput}
-    on:change={(e) => {
-      if (!e.currentTarget.files) return;
-      const reader = new FileReader();
-      reader.onload = async () => {
-        const image = new Image();
-        image.src = String(reader.result);
-        sourceColor = await sourceColorFromImage(image);
-      };
-      reader.readAsDataURL(e.currentTarget.files[0]);
-    }}
-  />
-  {#if schemeLight}
-    <Button type="filled" iconType="left" on:click={copyUsage}>
-      <Icon icon={iconCopy} width="18" height="18" />
-      Copy usage
-    </Button>
-  {/if}
-</p>
+<ColorChooser bind:sourceColor />
+<Arrow />
+<TransformChooser bind:algorithm bind:contrast />
 {#if schemeLight}
-  <StyleFromScheme
-    lightScheme={serializeScheme(schemeLight)}
-    darkScheme={serializeScheme(schemeDark)}
-  />
-  <TabsPrimaryAnim
-    bind:tab
-    items={[
-      { name: "Light", value: "light" },
-      { name: "Dark", value: "dark" },
-    ]}
-  />
-  <br />
-  <div class="color-container">
-    {#each pairs as [bgName, fgName]}
-      <ColorCard scheme={tab == "light" ? schemeLight : schemeDark} fg={fgName} bg={bgName} />
-    {/each}
-  </div>
+  <Arrow />
+  <SchemeShowcase {schemeLight} {schemeDark} />
 {/if}
-
-<!-- 
-{#if sourcePalettes}
-  <div class="palettes">
-    {#each Object.entries( { primary: sourcePalettes.a1, secondary: sourcePalettes.a2, tertiary: sourcePalettes.a3, neutral: sourcePalettes.n1, neutralVariant: sourcePalettes.n2, error: sourcePalettes.error } ) as [name, hct]}
-      <PaletteCard {name} {hct} on:changeColor={(e) => changeColor(hct, e.detail)} />
-    {/each}
-  </div>
-{/if}
-{#if schemeLight}
-  <StyleFromScheme
-    lightScheme={serializeScheme(schemeLight)}
-    darkScheme={serializeScheme(schemeDark)}
-  />
-  <Tabs style="primary" items={[{ name: "Light" }, { name: "Dark" }]} bind:activeItem={activeTab} />
-  <br />
-  <div class="container">
-    {#each pairs as [bgName, fgName]}
-      <ColorCard
-        headline={bgName}
-        sub="{fgName} text"
-        {...getCardData(activeTab == 0 ? schemeLight : schemeDark, bgName, fgName)}
-      />
-    {/each}
-  </div>
-{/if}
--->
-
-<style>
-  .source-chooser {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    white-space: nowrap;
-  }
-  .color-disc {
-    flex-grow: 1;
-    min-width: 2rem;
-    height: 2.5rem;
-    border-radius: 2.5rem;
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-  }
-  .hidden {
-    display: none;
-  }
-  .color-container {
-    display: grid;
-    border-radius: 1rem;
-    overflow: hidden;
-  }
-  @media (min-width: 30rem) {
-    .color-container {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (min-width: 60rem) {
-    .color-container {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-  @media (min-width: 80rem) {
-    .color-container {
-      grid-template-columns: repeat(6, 1fr);
-    }
-  }
-</style>
