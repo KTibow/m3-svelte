@@ -6,6 +6,7 @@
 
   export let currentView: "calendar" | "year" | "month", focusedMonth: number, focusedYear: number;
   export let startYear: number, endYear: number;
+
   const yearClick = () => (currentView = currentView == "calendar" ? "year" : "calendar");
   const monthClick = () => (currentView = currentView == "calendar" ? "month" : "calendar");
   const getShortMonth = (month: number) =>
@@ -14,7 +15,7 @@
 
 <div class="m3-container" class:choosing={currentView != "calendar"}>
   <div>
-    <button class="mover" on:click={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}>
+    <button class="arrow" on:click={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}>
       <Icon icon={iconLeft} />
     </button>
     <button
@@ -25,12 +26,12 @@
       {getShortMonth(focusedMonth)}
       <Icon icon={iconDown} />
     </button>
-    <button class="mover" on:click={() => (focusedMonth = (focusedMonth + 1) % 12)}>
+    <button class="arrow" on:click={() => (focusedMonth = (focusedMonth + 1) % 12)}>
       <Icon icon={iconRight} />
     </button>
   </div>
   <div>
-    <button class="mover" disabled={focusedYear <= startYear} on:click={() => focusedYear--}>
+    <button class="arrow" disabled={focusedYear <= startYear} on:click={() => focusedYear--}>
       <Icon icon={iconLeft} />
     </button>
     <button
@@ -41,7 +42,7 @@
       {focusedYear}
       <Icon icon={iconDown} />
     </button>
-    <button class="mover" disabled={focusedYear >= endYear} on:click={() => focusedYear++}>
+    <button class="arrow" disabled={focusedYear >= endYear} on:click={() => focusedYear++}>
       <Icon icon={iconRight} />
     </button>
   </div>
@@ -52,15 +53,12 @@
     display: flex;
     height: 4rem;
     transition: all 200ms;
-    border-bottom: solid 1px transparent;
+    border-bottom: solid 0.0625rem transparent;
     flex-shrink: 0;
   }
   .m3-container > div {
     display: flex;
     flex: 1;
-  }
-  .choosing {
-    border-color: rgb(var(--m3-scheme-outline-variant));
   }
 
   button {
@@ -73,12 +71,16 @@
     border: none;
     padding: 0;
     transition: all 200ms;
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
   }
-  button:enabled:hover {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
+  @media (hover: hover) {
+    button:enabled:hover {
+      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
+    }
   }
-  button:enabled:is(:focus-visible, :active) {
+  button:enabled:focus-visible,
+  button:enabled:active {
     background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
   button:disabled {
@@ -90,19 +92,23 @@
     flex-grow: 1;
   }
   .chooser :global(svg) {
-    width: 18px;
-    height: 18px;
+    width: 1.125rem;
+    height: 1.125rem;
     margin-right: -0.25rem;
     margin-left: 0.5rem;
   }
-  .mover {
+  .arrow {
     width: 3rem;
   }
-  .mover :global(svg) {
+  .arrow :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
   }
-  .choosing .mover {
+
+  .choosing {
+    border-color: rgb(var(--m3-scheme-outline-variant));
+  }
+  .choosing .arrow {
     opacity: 0;
     width: 0;
   }

@@ -32,6 +32,11 @@ export { default as CheckboxAnim } from "./forms/CheckboxAnim.svelte";
 export { default as Switch } from "./forms/Switch.svelte";
 export { default as Slider } from "./forms/Slider.svelte";
 export { default as SliderTicks } from "./forms/SliderTicks.svelte";
+export { default as TextField } from "./forms/TextField.svelte";
+export { default as TextFieldMultiline } from "./forms/TextFieldMultiline.svelte";
+export { default as TextFieldOutlined } from "./forms/TextFieldOutlined.svelte";
+export { default as TextFieldOutlinedMultiline } from "./forms/TextFieldOutlinedMultiline.svelte";
+export { default as DatePickerDocked } from "./forms/DatePickerDocked.svelte";
 export { default as Chip } from "./forms/Chip.svelte";
 
 export { default as NavDrawer } from "./nav/NavDrawer.svelte";
@@ -45,9 +50,6 @@ export { default as TabsPrimaryAnim } from "./nav/TabsPrimaryAnim.svelte";
 export { default as TabsSecondary } from "./nav/TabsSecondary.svelte";
 export { default as TabsSecondaryAnim } from "./nav/TabsSecondaryAnim.svelte";
 
-// export { default as DatePickerDocked } from "./forms/DatePickerDocked.svelte";
-// export { default as TextField } from "./forms/TextField.svelte";
-
 export { default as ChipChooser } from "./utils/ChipChooser.svelte";
 export { default as Divider } from "./utils/Divider.svelte";
-// export { default as DateFieldAndPicker } from "./utils/DateFieldAndPicker.svelte";
+export { default as DateField } from "./utils/DateField.svelte";

@@ -37,13 +37,14 @@
     display: inline-flex;
     align-items: center;
     height: 3rem;
-    padding: 0 0 0 3.5rem;
+    padding-left: 3.5rem;
     flex-shrink: 0;
 
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
     border: none;
     position: relative;
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     transition: all 200ms;
   }
@@ -55,10 +56,13 @@
     top: 50%;
     transform: translateY(-50%);
   }
-  button:hover {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
+  @media (hover: hover) {
+    button:hover {
+      background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
+    }
   }
-  button:is(:focus-visible, :active) {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
+  button:focus-visible,
+  button:active {
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
 </style>

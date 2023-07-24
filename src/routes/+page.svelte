@@ -3,18 +3,20 @@
   import ButtonCard from "./ButtonCard.svelte";
   import SegmentedButtonCard from "./SegmentedButtonCard.svelte";
   import FABCard from "./FABCard.svelte";
+  import CardCard from "./CardCard.svelte";
   import DialogCard from "./DialogCard.svelte";
   import SnackbarCard from "./SnackbarCard.svelte";
   import MenuCard from "./MenuCard.svelte";
+  import ListCard from "./ListCard.svelte";
   import ProgressCard from "./ProgressCard.svelte";
   import RadioCard from "./RadioCard.svelte";
   import CheckboxCard from "./CheckboxCard.svelte";
   import SwitchCard from "./SwitchCard.svelte";
   import SliderCard from "./SliderCard.svelte";
+  import TextFieldCard from "./TextFieldCard.svelte";
+  import DateFieldCard from "./DateFieldCard.svelte";
   import ChipCard from "./ChipCard.svelte";
-  import CardCard from "./CardCard.svelte";
   import TabsCard from "./TabsCard.svelte";
-  import ListCard from "./ListCard.svelte";
 </script>
 
 <svelte:head>
@@ -40,6 +42,8 @@
   <CheckboxCard />
   <SwitchCard />
   <SliderCard />
+  <TextFieldCard />
+  <DateFieldCard />
   <ChipCard />
   <TabsCard />
 </div>

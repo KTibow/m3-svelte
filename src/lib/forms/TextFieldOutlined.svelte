@@ -23,8 +23,8 @@
   {...extraWrapperOptions}
 >
   <input class="m3-font-body-large" placeholder=" " bind:value {id} {disabled} {...extraOptions} />
-  <label class="m3-font-body-large" for={id}>{name}</label>
   <div class="layer" />
+  <label class="m3-font-body-large" for={id}>{name}</label>
   {#if leadingIcon}
     <Icon icon={leadingIcon} />
   {/if}
@@ -44,16 +44,18 @@
     height: 100%;
     border: none;
     outline: none;
-    padding: 1.5rem 1rem 0.5rem 1rem;
-    border-radius: 0.25rem 0.25rem 0 0;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    padding: 1rem;
+    border-radius: 0.25rem;
+    background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
   }
   label {
     position: absolute;
-    left: 1rem;
+    left: 0.75rem;
     top: 1rem;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    background-color: rgb(var(--m3-util-background, var(--m3-scheme-surface)));
+    padding: 0 0.25rem;
     pointer-events: none;
     transition:
       all 200ms,
@@ -64,19 +66,9 @@
   .layer {
     position: absolute;
     inset: 0;
-    border-radius: 0.25rem 0.25rem 0 0;
+    border: 0.0625rem solid rgb(var(--error, var(--m3-scheme-outline)));
+    border-radius: 0.25rem;
     pointer-events: none;
-    transition: all 200ms;
-  }
-  .layer::after {
-    position: absolute;
-    content: " ";
-    display: block;
-    width: 100%;
-    bottom: 0;
-
-    height: 0.0625rem;
-    background-color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
     transition: all 200ms;
   }
   .m3-container > :global(svg) {
@@ -88,33 +80,34 @@
     pointer-events: none;
   }
 
-  input:enabled:hover ~ .layer {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
-  }
-  input:hover ~ label {
-    color: rgb(var(--error, var(--m3-scheme-on-surface)));
-  }
   input:focus ~ label,
   input:not(:placeholder-shown) ~ label {
-    top: 0.5rem;
+    top: calc(var(--m3-font-body-small-height, 1rem) * -0.5);
     font-size: var(--m3-font-body-small-size, 0.75rem);
     line-height: var(--m3-font-body-small-height, 1rem);
     letter-spacing: var(--m3-font-body-small-tracking, 0.4);
   }
+  input:hover ~ label {
+    color: rgb(var(--error, var(--m3-scheme-on-surface)));
+  }
+  input:hover ~ .layer {
+    border-color: rgb(var(--error, var(--m3-scheme-on-surface)));
+  }
   input:focus ~ label {
     color: rgb(var(--error, var(--m3-scheme-primary)));
   }
-  input:focus ~ .layer::after {
-    height: 0.125rem;
-    background-color: rgb(var(--error, var(--m3-scheme-primary)));
+  input:focus ~ .layer {
+    border-color: rgb(var(--error, var(--m3-scheme-primary)));
+    border-width: 0.125rem;
   }
 
   .leading-icon > input {
     padding-left: 3.25rem;
   }
-  .leading-icon > label {
-    left: 3.25rem;
+  .leading-icon > input:not(:focus):placeholder-shown ~ label {
+    left: 3rem;
   }
+
   .error {
     --error: var(--m3-scheme-error);
   }
@@ -122,15 +115,15 @@
   .error > input:hover ~ .layer {
     --error: var(--m3-scheme-on-error-container);
   }
+
   input:disabled {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.04);
     color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
   input:disabled ~ label {
     color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
-  input:disabled ~ .layer::after {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  input:disabled ~ .layer {
+    border-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
   input:disabled ~ :global(svg) {
     color: rgb(var(--m3-scheme-on-surface) / 0.38);
@@ -139,14 +132,5 @@
   .m3-container {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
-  }
-  @media screen and (forced-colors: active) {
-    input {
-      background-color: field;
-    }
-    .layer::after,
-    input:focus ~ .layer::after {
-      background-color: canvastext;
-    }
   }
 </style>

@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/svelte";
   import Icon from "@iconify/svelte";
-  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
+  import type { HTMLAttributes, HTMLTextareaAttributes } from "svelte/elements";
 
   export let display = "inline-flex";
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLInputAttributes = {};
+  export let extraOptions: HTMLTextareaAttributes = {};
   export let name: string;
   export let leadingIcon: IconifyIcon | undefined = undefined;
 
@@ -13,6 +13,20 @@
   export let error = false;
   export let value = "";
   const id = crypto.randomUUID();
+  const resize = (node: HTMLElement) => {
+    const update = () => {
+      const textarea = node.firstElementChild as HTMLTextAreaElement;
+      node.style.height = "unset";
+      node.style.height = textarea.scrollHeight + "px";
+    };
+    node.addEventListener("input", update);
+
+    return {
+      destroy() {
+        node.removeEventListener("keydown", update);
+      },
+    };
+  };
 </script>
 
 <div
@@ -20,9 +34,17 @@
   class:leading-icon={leadingIcon}
   class:error
   style="display: {display}"
+  use:resize
   {...extraWrapperOptions}
 >
-  <input class="m3-font-body-large" placeholder=" " bind:value {id} {disabled} {...extraOptions} />
+  <textarea
+    class="m3-font-body-large"
+    placeholder=" "
+    bind:value
+    {id}
+    {disabled}
+    {...extraOptions}
+  />
   <label class="m3-font-body-large" for={id}>{name}</label>
   <div class="layer" />
   {#if leadingIcon}
@@ -34,10 +56,10 @@
   .m3-container {
     position: relative;
     align-items: center;
-    height: 3.5rem;
+    min-height: 5rem;
     min-width: 15rem;
   }
-  input {
+  textarea {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -48,6 +70,7 @@
     border-radius: 0.25rem 0.25rem 0 0;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     color: rgb(var(--m3-scheme-on-surface));
+    resize: none;
   }
   label {
     position: absolute;
@@ -88,28 +111,28 @@
     pointer-events: none;
   }
 
-  input:enabled:hover ~ .layer {
+  textarea:enabled:hover ~ .layer {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
-  input:hover ~ label {
+  textarea:hover ~ label {
     color: rgb(var(--error, var(--m3-scheme-on-surface)));
   }
-  input:focus ~ label,
-  input:not(:placeholder-shown) ~ label {
+  textarea:focus ~ label,
+  textarea:not(:placeholder-shown) ~ label {
     top: 0.5rem;
     font-size: var(--m3-font-body-small-size, 0.75rem);
     line-height: var(--m3-font-body-small-height, 1rem);
     letter-spacing: var(--m3-font-body-small-tracking, 0.4);
   }
-  input:focus ~ label {
+  textarea:focus ~ label {
     color: rgb(var(--error, var(--m3-scheme-primary)));
   }
-  input:focus ~ .layer::after {
+  textarea:focus ~ .layer::after {
     height: 0.125rem;
     background-color: rgb(var(--error, var(--m3-scheme-primary)));
   }
 
-  .leading-icon > input {
+  .leading-icon > textarea {
     padding-left: 3.25rem;
   }
   .leading-icon > label {
@@ -118,21 +141,21 @@
   .error {
     --error: var(--m3-scheme-error);
   }
-  .error > input:hover ~ label,
-  .error > input:hover ~ .layer {
+  .error > textarea:hover ~ label,
+  .error > textarea:hover ~ .layer {
     --error: var(--m3-scheme-on-error-container);
   }
-  input:disabled {
+  textarea:disabled {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.04);
     color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
-  input:disabled ~ label {
+  textarea:disabled ~ label {
     color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
-  input:disabled ~ .layer::after {
+  textarea:disabled ~ .layer::after {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
-  input:disabled ~ :global(svg) {
+  textarea:disabled ~ :global(svg) {
     color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
 
@@ -141,11 +164,11 @@
     -webkit-print-color-adjust: exact;
   }
   @media screen and (forced-colors: active) {
-    input {
+    textarea {
       background-color: field;
     }
     .layer::after,
-    input:focus ~ .layer::after {
+    textarea:focus ~ .layer::after {
       background-color: canvastext;
     }
   }

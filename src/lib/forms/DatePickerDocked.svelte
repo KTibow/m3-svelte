@@ -5,25 +5,27 @@
   import FocusPicker from "./_picker/FocusPicker.svelte";
   import Header from "./_picker/Header.svelte";
 
-  let now = new Date();
+  const now = new Date();
+
   export let display = "flex";
-  export let date: string = "";
-  export let clearable = false;
-  export let dateValidator: (date: string) => boolean;
+  export let date = "";
+  export let clearable: boolean;
   export let focusedMonth = parseInt(date.slice(5, 7)) - 1 || now.getMonth(),
     focusedYear = parseInt(date.slice(0, 4)) || now.getFullYear(),
-    startYear = (Math.floor(now.getFullYear() / 100) - 1) * 100,
-    endYear = (Math.floor(now.getFullYear() / 100) + 1) * 100;
-  const getLongMonth = (month: number) =>
-    new Date(0, month).toLocaleDateString(undefined, { month: "short" });
-  const dispatch = createEventDispatcher();
+    startYear = now.getFullYear() - 50,
+    endYear = now.getFullYear() + 10;
+  export let dateValidator = (date: string) => true;
+
   let currentView: "calendar" | "year" | "month" = "calendar",
     chosenDate: string;
   $: chosenDate = date;
+
+  const getLongMonth = (month: number) =>
+    new Date(0, month).toLocaleDateString(undefined, { month: "long" });
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="m3-container" style="display: {display};">
-  <div class="layer" />
   <Header bind:currentView bind:focusedMonth bind:focusedYear {startYear} {endYear} />
   {#if currentView == "calendar"}
     <CalendarPicker {focusedMonth} {focusedYear} {dateValidator} bind:chosenDate />
@@ -32,10 +34,13 @@
       chosenDate={Boolean(chosenDate)}
       on:clear={() => (chosenDate = "")}
       on:cancel={() => {
-        chosenDate = date || "";
+        chosenDate = date;
         dispatch("close");
       }}
-      on:ok={() => dispatch("setDate", chosenDate)}
+      on:ok={() => {
+        dispatch("setDate", chosenDate);
+        dispatch("close");
+      }}
     />
   {:else}
     <FocusPicker
@@ -52,7 +57,7 @@
           }))}
       on:chosen={(e) => {
         if (currentView == "month") focusedMonth = e.detail;
-        else if (currentView == "year") focusedYear = e.detail;
+        else focusedYear = e.detail;
         currentView = "calendar";
       }}
     />
@@ -64,18 +69,9 @@
     position: relative;
     overflow: hidden;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: rgb(var(--m3-scheme-surface-container-high));
     width: 20.5rem;
     height: 26.75rem;
     border-radius: 1rem;
-  }
-  .layer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: rgb(var(--m3-scheme-primary) / 0.11);
-    pointer-events: none;
   }
 </style>

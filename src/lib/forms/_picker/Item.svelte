@@ -1,45 +1,38 @@
 <script lang="ts">
-  export let isButton = false;
   export let disabled = false;
   export let today = false;
   export let selected = false;
   export let label: string;
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<svelte:element
-  this={isButton ? "button" : "span"}
-  {disabled}
-  class="item m3-font-body-small"
-  class:today
-  class:selected
-  on:click
->
+<button {disabled} class="item m3-font-body-small" class:today class:selected on:click>
   {label}
-</svelte:element>
+</button>
 
 <style>
   .item {
     display: inline-flex;
-    --text: var(--m3-scheme-on-surface);
-    color: rgb(var(--text));
-    align-items: center;
-    justify-content: center;
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 2.5rem;
+    align-items: center;
+    justify-content: center;
+
+    --text: var(--m3-scheme-on-surface);
+    background-color: transparent;
+    color: rgb(var(--text));
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
     transition: all 200ms;
   }
-  button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+  @media (hover: hover) {
+    button:enabled:hover {
+      background-color: rgb(var(--text) / 0.08);
+    }
   }
-  button:enabled:hover {
-    background-color: rgb(var(--text) / 0.08);
-  }
-  button:enabled:is(:focus-visible, :active) {
+  button:enabled:focus-visible,
+  button:active {
     background-color: rgb(var(--text) / 0.12);
   }
   button:disabled {
@@ -47,7 +40,7 @@
     color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
   }
   .today {
-    border: solid 1px rgb(var(--text));
+    border: solid 0.0625rem rgb(var(--text));
     --text: var(--m3-scheme-primary);
   }
   .selected {
