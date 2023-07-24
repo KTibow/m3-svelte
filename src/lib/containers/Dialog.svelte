@@ -134,35 +134,12 @@
   @keyframes dialogIn {
     0% {
       transform: translateY(-3rem) scaleY(90%);
-      clip-path: polygon(
-        0% -1.75rem,
-        100% -1.75rem,
-        100% -1.75rem,
-        calc(100% - 0.234rem) -0.875rem,
-        calc(100% - 0.875rem) -0.234rem,
-        calc(100% - 1.75rem) 0%,
-        1.75rem 0%,
-        0.875rem -0.234rem,
-        0.234rem -0.875rem,
-        0% -1.75rem
-      );
+      clip-path: inset(0 0 100% 0 round 1.75rem);
     }
     100% {
       transform: translateY(0) scaleY(100%);
-      clip-path: polygon(
-        0% 0%,
-        100% 0%,
-        100% calc(100% - 1.75rem),
-        calc(100% - 0.234rem) calc(100% - 0.875rem),
-        calc(100% - 0.875rem) calc(100% - 0.234rem),
-        calc(100% - 1.75rem) 100%,
-        1.75rem 100%,
-        0.875rem calc(100% - 0.234rem),
-        0.234rem calc(100% - 0.875rem),
-        0 calc(100% - 1.75rem)
-      );
+      clip-path: inset(0 0 0 0 round 1.75rem);
     }
-    /* logic: https://www.desmos.com/calculator/n2zpzedvhg */
   }
   @keyframes buttonsIn {
     0% {

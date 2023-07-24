@@ -20,7 +20,6 @@
   .m3-container {
     flex-direction: column;
     position: relative;
-    overflow: hidden;
     padding: 1rem; /* protip: use margin: -1rem (adjust as needed) to make images stretch to the end */
     border: none;
     border-radius: 0.75rem;
@@ -31,6 +30,7 @@
   .layer {
     position: absolute;
     inset: 0;
+    border-radius: inherit;
     transition: all 200ms;
     pointer-events: none;
   }

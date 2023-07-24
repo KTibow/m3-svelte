@@ -45,6 +45,7 @@
     margin: auto -1rem -1rem -1rem;
     padding: 1rem;
     border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
+    display: flex;
   }
   h2 {
     margin-top: 0;
