@@ -1,176 +1,141 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import { heightTransition, outroClass } from "$lib/utils/animation";
-  import { easeEmphasizedDecel, easeEmphasizedAccel } from "$lib/utils/easing";
-  import Sheet from "./_Sheet.svelte";
+  import type { TransitionConfig } from "svelte/transition";
+  import { easeEmphasizedAccel, easeEmphasizedDecel } from "$lib/misc/easing";
+  import { outroClass } from "$lib/misc/animation";
 
-  export let height = 160;
-  export let showHandle = true;
-  export let isDialog = true;
-  export let closeOnMinimize = true;
+  let height = 480;
+  let container: HTMLDivElement;
+  let isDragging = false,
+    startY = 0;
+  $: if (height < 48) dispatch("close", "low");
 
   const dispatch = createEventDispatcher();
-  let sheet: HTMLDivElement | null;
-  $: if (sheet) height = Math.min(height, sheet.offsetHeight);
-  $: if (height < 48) {
-    if (closeOnMinimize) dispatch("close", "minimized");
-    else height = 48;
-  }
-
-  let isDragging = false;
-  let startY: number;
-  const handleMouseMove = (e: { clientY: number }) => {
-    if (!isDragging) return;
-    const distance = e.clientY - startY;
-    height -= distance;
-    startY = e.clientY;
-  };
-  let goingUp = true;
-  const moveSheet = (e: MouseEvent) => {
-    if (!sheet) return;
-    if (e.detail) return;
-    if (height == sheet.offsetHeight) goingUp = false;
-    if (height == 48) goingUp = true;
-    if (goingUp) height = height + 160;
-    else height = Math.max(height - 160, 48);
-  };
   const open = (node: HTMLDialogElement) => node.showModal();
+  const heightAnim = (node: HTMLDialogElement, options: any = {}): TransitionConfig => {
+    if (node.clientHeight < height) height = node.clientHeight;
+    return {
+      duration: 400,
+      easing: easeEmphasizedDecel,
+      ...options,
+      css: (t) => `max-height: ${t * height}px`,
+    };
+  };
+
+  const moveWheel = (e: WheelEvent) => {
+    height += e.deltaY;
+    if (container && container.clientHeight < height) height = container.clientHeight;
+  };
+  const moveMouse = (e: { clientY: number }) => {
+    if (isDragging) {
+      const distance = e.clientY - startY;
+      height -= distance;
+      startY = e.clientY;
+    }
+  };
 </script>
 
 <svelte:window
-  on:mousemove={handleMouseMove}
-  on:touchmove={(e) => handleMouseMove(e.touches[0])}
+  on:mousemove={moveMouse}
   on:mouseup={() => (isDragging = false)}
+  on:touchmove={(e) => moveMouse(e.touches[0])}
   on:touchend={() => (isDragging = false)}
 />
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<svelte:element
-  this={isDialog ? "dialog" : "div"}
+
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<dialog
   class="m3-container"
-  class:no-drag={!isDragging}
-  style="max-height: {height}px;"
+  style="max-height: {height}px"
   use:open
   use:outroClass
-  in:heightTransition={{ height, duration: 400, easing: easeEmphasizedDecel }}
-  out:heightTransition={{ height, duration: 200, easing: easeEmphasizedAccel }}
   on:cancel|preventDefault={() => {
     dispatch("close", "browser");
   }}
-  on:mousedown={() => {
-    if (isDialog) dispatch("close", "click");
+  on:mousedown|self={() => {
+    dispatch("close", "click");
   }}
+  on:wheel|preventDefault={moveWheel}
+  in:heightAnim
+  out:heightAnim={{ easing: easeEmphasizedAccel, duration: 300 }}
 >
-  <Sheet
-    bind:container={sheet}
-    on:wheel={(e) => (height += e.deltaY)}
-    on:touchstart={(e) => {
+  <div
+    class="container"
+    bind:this={container}
+    on:touchstart|preventDefault={(e) => {
       isDragging = true;
       startY = e.touches[0].clientY;
     }}
   >
-    {#if showHandle}
-      <div
-        class="handleContainer"
-        on:mousedown|preventDefault={(e) => {
-          isDragging = true;
-          startY = e.clientY;
-        }}
-      >
-        <button on:click={moveSheet} />
-      </div>
-    {/if}
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div
+      class="handle-container"
+      on:mousedown|preventDefault={(e) => {
+        isDragging = true;
+        startY = e.clientY;
+      }}
+    >
+      <div class="handle" />
+    </div>
     <slot />
-  </Sheet>
-</svelte:element>
+  </div>
+</dialog>
 
 <style>
   .m3-container {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
+    margin-bottom: 0;
     width: 100%;
     max-width: 40rem;
-
-    background-color: rgb(var(--m3-scheme-surface));
-    color: rgb(var(--m3-scheme-on-surface));
     overflow: hidden;
-    border-radius: 1.75rem 1.75rem 0 0;
-    z-index: 1;
-  }
-  dialog.m3-container {
-    bottom: 0;
-    left: 0;
-    transform: none;
-    margin-bottom: 0;
-    padding: 0;
-    border: none;
-  }
 
+    background-color: rgb(var(--m3-scheme-surface-container-low));
+    color: rgb(var(--m3-scheme-on-surface));
+    border-radius: 1.75rem 1.75rem 0 0;
+    border: none;
+    padding: 0;
+  }
   dialog::backdrop {
     background-color: rgb(var(--m3-scheme-scrim) / 0.5);
-    animation: backdropIn 400ms;
+    animation: backdrop 400ms;
   }
-  :global(.leaving)::backdrop {
-    animation: backdropOut 400ms !important;
+  dialog:global(.leaving)::backdrop {
+    background-color: transparent;
+    animation: backdropReverse 400ms;
   }
-  @keyframes backdropIn {
-    0% {
-      background-color: rgb(var(--m3-scheme-scrim) / 0);
-    }
-    100% {
-      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
-    }
+  .container {
+    padding: 0 1rem;
   }
-  @keyframes backdropOut {
-    0% {
-      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
-    }
-    100% {
-      background-color: rgb(var(--m3-scheme-scrim) / 0);
-    }
-  }
-  .no-drag {
-    transition: all 200ms;
-  }
-  :global(.navBarOffset) .m3-container {
-    bottom: 5rem;
-  }
-  .handleContainer {
+  .handle-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: grab;
     width: 100%;
     height: 3rem;
+    cursor: grab;
   }
-  .handleContainer > button {
+  .handle {
     background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.4);
     width: 2rem;
     height: 0.25rem;
-    padding: 0;
-    border: none;
     border-radius: 0.25rem;
-    cursor: inherit;
   }
-  .handleContainer > button:focus-visible {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.5);
+  @keyframes backdrop {
+    0% {
+      background-color: transparent;
+    }
+    100% {
+      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
+    }
   }
-  .handleContainer > button:focus-visible::before {
-    content: "Press space to move bottom sheet";
-    color: rgb(var(--m3-scheme-on-surface));
-    display: inline-block;
-    position: relative;
-    width: 40rem;
-    left: -19rem;
-    top: 0.5rem;
+  @keyframes backdropReverse {
+    0% {
+      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
+    }
+    100% {
+      background-color: transparent;
+    }
   }
-  .handleContainer > button:active {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.6);
-  }
-
   @media (forced-colors: active) {
-    .handleContainer > button {
+    .handle {
       background-color: canvastext;
     }
   }
