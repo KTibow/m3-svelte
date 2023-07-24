@@ -14,8 +14,8 @@
   import CheckboxCard from "./CheckboxCard.svelte";
   import SwitchCard from "./SwitchCard.svelte";
   import SliderCard from "./SliderCard.svelte";
-  import TextFieldCard from "./TextFieldCard.svelte";
   import DateFieldCard from "./DateFieldCard.svelte";
+  import TextFieldCard from "./TextFieldCard.svelte";
   import ChipCard from "./ChipCard.svelte";
   import TabsCard from "./TabsCard.svelte";
 </script>
@@ -29,6 +29,10 @@
 </svelte:head>
 <Hero />
 
+<p>
+  ⚠️ This site is synchronized with GitHub, not the published library. There was recently a big
+  rewrite, but it hasn't been published to NPM yet.
+</p>
 <div class="cards">
   <ButtonCard />
   <SegmentedButtonCard />
@@ -44,8 +48,8 @@
   <CheckboxCard />
   <SwitchCard />
   <SliderCard />
-  <TextFieldCard />
   <DateFieldCard />
+  <TextFieldCard />
   <ChipCard />
   <TabsCard />
 </div>
