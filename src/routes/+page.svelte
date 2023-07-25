@@ -29,10 +29,6 @@
 </svelte:head>
 <Hero />
 
-<p>
-  ⚠️ This site is synchronized with GitHub, not the published library. There was recently a big
-  rewrite, but it hasn't been published to NPM yet.
-</p>
 <div class="cards">
   <ButtonCard />
   <SegmentedButtonCard />
