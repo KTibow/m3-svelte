@@ -32,15 +32,15 @@
           bind:value={type}
         />
       </td>
-      <td
-        >{type == "filled"
+      <td>
+        {type == "filled"
           ? "Filled"
           : type == "filled_multiline"
           ? "Filled multiline"
           : type == "outlined"
           ? "Outlined"
-          : "Outlined multiline"}</td
-      >
+          : "Outlined multiline"}
+      </td>
     </tr>
     <tr>
       <td>

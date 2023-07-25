@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/svelte";
   import Icon from "@iconify/svelte";
+  import { createEventDispatcher } from "svelte";
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
 
   export let display = "inline-flex";
@@ -8,16 +9,19 @@
   export let extraOptions: HTMLInputAttributes = {};
   export let name: string;
   export let leadingIcon: IconifyIcon | undefined = undefined;
+  export let trailingIcon: IconifyIcon | undefined = undefined;
 
   export let disabled = false;
   export let error = false;
   export let value = "";
+  const dispatch = createEventDispatcher();
   const id = crypto.randomUUID();
 </script>
 
 <div
   class="m3-container"
   class:leading-icon={leadingIcon}
+  class:trailing-icon={trailingIcon}
   class:error
   style="display: {display}"
   {...extraWrapperOptions}
@@ -26,7 +30,12 @@
   <div class="layer" />
   <label class="m3-font-body-large" for={id}>{name}</label>
   {#if leadingIcon}
-    <Icon icon={leadingIcon} />
+    <Icon icon={leadingIcon} class="leading" />
+  {/if}
+  {#if trailingIcon}
+    <button on:click={() => dispatch("trailingClick")} class="trailing">
+      <Icon icon={trailingIcon} />
+    </button>
   {/if}
 </div>
 
@@ -71,13 +80,34 @@
     pointer-events: none;
     transition: all 200ms;
   }
-  .m3-container > :global(svg) {
-    position: relative;
+  .m3-container :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
-    margin-left: 0.75rem;
     color: rgb(var(--m3-scheme-on-surface-variant));
     pointer-events: none;
+  }
+  .m3-container > :global(.leading) {
+    position: relative;
+    margin-left: 0.75rem;
+  }
+  .trailing {
+    position: absolute;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    height: 100%;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    transition: all 200ms;
   }
 
   input:focus ~ label,
@@ -100,12 +130,24 @@
     border-color: rgb(var(--error, var(--m3-scheme-primary)));
     border-width: 0.125rem;
   }
+  @media (hover: hover) {
+    button:hover {
+      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
+    }
+  }
+  button:focus-visible,
+  button:active {
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
+  }
 
   .leading-icon > input {
     padding-left: 3.25rem;
   }
   .leading-icon > input:not(:focus):placeholder-shown ~ label {
     left: 3rem;
+  }
+  .trailing-icon > input {
+    padding-right: 3.25rem;
   }
 
   .error {

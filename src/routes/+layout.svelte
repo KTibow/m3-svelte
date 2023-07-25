@@ -35,7 +35,7 @@
       label: "Theme",
     },
   ];
-  $: pathNormalized = $page.url.pathname.replace(/\/$/, "");
+  $: pathNormalized = $page.url.pathname.replace(/\/$/, "") || "/";
 </script>
 
 <StyleFromScheme
