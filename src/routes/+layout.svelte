@@ -35,6 +35,7 @@
       label: "Theme",
     },
   ];
+  $: pathNormalized = $page.url.pathname.replace(/\/$/, "");
 </script>
 
 <StyleFromScheme
@@ -125,7 +126,7 @@
       </div>
       <div class="items">
         {#each paths as { path, icon, iconS, label }}
-          {@const selected = $page.url.pathname == path}
+          {@const selected = pathNormalized == path}
           <NavListLink type="auto" href={path} {selected} icon={selected ? iconS : icon}>
             {label}
           </NavListLink>

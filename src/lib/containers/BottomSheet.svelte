@@ -61,7 +61,7 @@
   <div
     class="container"
     bind:this={container}
-    on:touchstart|preventDefault={(e) => {
+    on:touchstart={(e) => {
       isDragging = true;
       startY = e.touches[0].clientY;
     }}
@@ -86,6 +86,7 @@
     width: 100%;
     max-width: 40rem;
     overflow: hidden;
+    touch-action: none;
 
     background-color: rgb(var(--m3-scheme-surface-container-low));
     color: rgb(var(--m3-scheme-on-surface));

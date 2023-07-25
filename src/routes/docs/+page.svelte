@@ -78,6 +78,7 @@
   }
   pre {
     white-space: pre-wrap;
+    word-break: break-word;
   }
   a {
     color: rgb(var(--m3-scheme-primary));
