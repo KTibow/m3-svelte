@@ -1,7 +1,24 @@
 {
   "name": "m3-svelte",
-  "version": "2.0.0",
+  "version": "2.0.1",
+  "license": "GPL-3.0",
   "repository": "KTibow/m3-svelte",
+  "author": {
+    "name": "KTibow"
+  },
+  "homepage": "https://github.com/KTibow/m3-svelte",
+  "keywords": [
+    "svelte",
+    "material",
+    "material 3",
+    "material you",
+    "m3",
+    "ui",
+    "frontend",
+    "design-system",
+    "ui-library",
+    "theming"
+  ],
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -16,14 +33,13 @@
   "exports": {
     ".": {
       "types": "./package/index.d.ts",
-      "svelte": "./package/index.js",
-      "default": "./package/index.js"
+      "svelte": "./package/index.js"
     }
   },
   "devDependencies": {
     "@material/material-color-utilities": "^0.2.7",
     "@sveltejs/adapter-static": "^2.0.2",
-    "@sveltejs/kit": "1.22.3",
+    "@sveltejs/kit": "^1.22.3",
     "@sveltejs/package": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
@@ -43,33 +59,11 @@
     "@iconify/svelte": "^3.1.4",
     "svelte": "^4.1.1"
   },
-  "type": "module",
-  "author": {
-    "name": "KTibow"
-  },
-  "license": "GPL-3.0",
-  "homepage": "https://github.com/KTibow/m3-svelte",
-  "keywords": [
-    "svelte",
-    "material",
-    "material 3",
-    "material you",
-    "m3",
-    "ui",
-    "frontend",
-    "design-system",
-    "ui-library",
-    "theming"
-  ],
   "files": [
     "package"
   ],
   "svelte": "./package/index.js",
-  "typesVersions": {
-    ">4.0": {
-      "index": [
-        "./package/index.d.ts"
-      ]
-    }
-  }
+  "types": "./package/index.d.ts",
+  "type": "module",
+  "sideEffects": false
 }
