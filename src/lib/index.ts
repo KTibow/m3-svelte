@@ -9,18 +9,18 @@ export { default as SegmentedButtonContainer } from "./buttons/SegmentedButtonCo
 export { default as SegmentedButtonItem } from "./buttons/SegmentedButtonItem.svelte";
 export { default as FAB } from "./buttons/FAB.svelte";
 
+export { default as BottomSheet } from "./containers/BottomSheet.svelte";
 export { default as Card } from "./containers/Card.svelte";
 export { default as CardClickable } from "./containers/CardClickable.svelte";
 export { default as Dialog } from "./containers/Dialog.svelte";
-export { default as Snackbar } from "./containers/Snackbar.svelte";
-export { default as SnackbarAnim } from "./containers/SnackbarAnim.svelte";
-export { default as SnackbarItem } from "./containers/SnackbarItem.svelte";
 export { default as ListItem } from "./containers/ListItem.svelte";
 export { default as ListItemButton } from "./containers/ListItemButton.svelte";
 export { default as ListItemLabel } from "./containers/ListItemLabel.svelte";
 export { default as Menu } from "./containers/Menu.svelte";
 export { default as MenuItem } from "./containers/MenuItem.svelte";
-// export { default as BottomSheet } from "./containers/BottomSheet.svelte";
+export { default as Snackbar } from "./containers/Snackbar.svelte";
+export { default as SnackbarAnim } from "./containers/SnackbarAnim.svelte";
+export { default as SnackbarItem } from "./containers/SnackbarItem.svelte";
 
 export { default as LinearProgress } from "./forms/LinearProgress.svelte";
 export { default as CircularProgress } from "./forms/CircularProgress.svelte";
