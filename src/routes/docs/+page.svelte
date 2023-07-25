@@ -48,19 +48,23 @@
 
 <style>
   .card-container {
-    display: flex;
+    display: grid;
     gap: 1rem;
   }
-  @media (orientation: portrait) {
+  @media (min-width: 60rem) {
     .card-container {
-      flex-direction: column;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 80rem) {
+    .card-container {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
     }
   }
   .card {
     background-color: rgb(var(--m3-scheme-surface-container));
     padding: 1rem;
     border-radius: 0.75rem;
-    flex: 1;
     display: flex;
     flex-direction: column;
   }

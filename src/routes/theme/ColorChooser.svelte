@@ -28,14 +28,12 @@
 </div>
 <input
   type="color"
-  hidden
   value="#000"
   bind:this={sourceColorInput}
   on:change={() => (sourceColor = argbFromHex(sourceColorInput.value))}
 />
 <input
   type="file"
-  hidden
   accept="image/*"
   bind:this={sourceFileInput}
   on:change={(e) => {
@@ -51,6 +49,11 @@
 />
 
 <style>
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
   .color-disc {
     display: flex;
     align-items: center;
