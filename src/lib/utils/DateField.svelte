@@ -2,13 +2,16 @@
   import Icon from "@iconify/svelte";
   import iconCalendar from "@iconify-icons/ic/outline-calendar-today";
   import { onMount } from "svelte";
+  import type { HTMLInputAttributes } from "svelte/elements";
   import type { TransitionConfig } from "svelte/transition";
+
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import { easeEmphasized } from "$lib/misc/easing";
 
   export let name: string;
   export let date = "";
   export let required = false;
+  export let extraOptions: HTMLInputAttributes = {};
   const id = crypto.randomUUID();
   let hasJs = false;
   onMount(() => {
@@ -43,7 +46,14 @@ opacity: ${Math.min(t * 3, 1)};`,
 </script>
 
 <div class="m3-container" class:has-js={hasJs} bind:this={container}>
-  <input type="date" class="m3-font-body-large" {required} {id} bind:value={date} />
+  <input
+    type="date"
+    class="m3-font-body-large"
+    {required}
+    {id}
+    bind:value={date}
+    {...extraOptions}
+  />
   <label class="m3-font-body-small" for={id}>{name}</label>
   <button on:click={() => (picker = !picker)}><Icon icon={iconCalendar} /></button>
   {#if picker}
