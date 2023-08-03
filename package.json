@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "GPL-3.0",
   "repository": "KTibow/m3-svelte",
   "author": {
@@ -44,15 +44,15 @@
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
     "eslint": "^8.46.0",
-    "eslint-config-prettier": "^8.9.0",
+    "eslint-config-prettier": "^8.10.0",
     "eslint-plugin-svelte": "^2.32.4",
     "fast-glob": "^3.3.1",
-    "prettier": "^3.0.0",
+    "prettier": "^3.0.1",
     "prettier-plugin-svelte": "^3.0.3",
     "svelte-check": "^3.4.6",
     "tslib": "^2.6.1",
     "typescript": "^5.1.6",
-    "vite": "^4.4.7"
+    "vite": "^4.4.8"
   },
   "dependencies": {
     "@iconify-icons/ic": "^1.2.13",
