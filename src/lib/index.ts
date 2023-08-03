@@ -47,10 +47,8 @@ export { default as NavDrawerLink } from "./nav/NavDrawerLink.svelte";
 export { default as NavList } from "./nav/NavList.svelte";
 export { default as NavListButton } from "./nav/NavListButton.svelte";
 export { default as NavListLink } from "./nav/NavListLink.svelte";
-export { default as TabsPrimary } from "./nav/TabsPrimary.svelte";
-export { default as TabsPrimaryAnim } from "./nav/TabsPrimaryAnim.svelte";
-export { default as TabsSecondary } from "./nav/TabsSecondary.svelte";
-export { default as TabsSecondaryAnim } from "./nav/TabsSecondaryAnim.svelte";
+export { default as Tabs } from "./nav/Tabs.svelte";
+export { default as TabsLink } from "./nav/TabsLink.svelte";
 
 export { default as ChipChooser } from "./utils/ChipChooser.svelte";
 export { default as Divider } from "./utils/Divider.svelte";

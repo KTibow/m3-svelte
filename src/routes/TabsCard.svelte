@@ -2,16 +2,12 @@
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
   import Card from "$lib/containers/Card.svelte";
-  import TabsPrimary from "$lib/nav/TabsPrimary.svelte";
-  import TabsSecondary from "$lib/nav/TabsSecondary.svelte";
   import Arrows from "./Arrows.svelte";
   import Switch from "$lib/forms/Switch.svelte";
-  import TabsPrimaryAnim from "$lib/nav/TabsPrimaryAnim.svelte";
-  import TabsSecondaryAnim from "$lib/nav/TabsSecondaryAnim.svelte";
+  import Tabs from "$lib/nav/Tabs.svelte";
 
   let type = "primary";
   let icons = false;
-  let animation = false;
 
   $: items = icons
     ? [
@@ -22,13 +18,6 @@
         { name: "Hello", value: "hello" },
         { name: "World", value: "world" },
       ];
-  $: component = animation
-    ? type == "primary"
-      ? TabsPrimaryAnim
-      : TabsSecondaryAnim
-    : type == "primary"
-    ? TabsPrimary
-    : TabsSecondary;
   let tab = "hello";
 </script>
 
@@ -51,17 +40,9 @@
         {icons ? "Icons" : "No icons"}
       </td>
     </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={animation} /></label>
-      </td>
-      <td>
-        {animation ? "Animated" : "Not animated"}
-      </td>
-    </tr>
   </table>
   <div class="area">
-    <svelte:component this={component} bind:tab {items} />
+    <Tabs bind:tab secondary={type == "secondary"} {items} />
   </div>
 </Card>
 
