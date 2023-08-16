@@ -2,9 +2,23 @@
   import Icon from "@iconify/svelte";
   import iconRocket from "@iconify-icons/ic/outline-rocket";
   import iconChecks from "@iconify-icons/ic/outline-done-all";
+  let x = 0.5;
+  let y = 0.5;
 </script>
 
-<div class="container">
+<svelte:window
+  on:mousemove={(e) => {
+    x = e.clientX / window.innerWidth;
+    y = e.clientY / window.innerHeight;
+  }}
+/>
+<div
+  class="container"
+  style:border-top-left-radius="{1 + 3 * (+x + y)}rem"
+  style:border-top-right-radius="{4 + 3 * (-x + y)}rem"
+  style:border-bottom-left-radius="{4 + 3 * (+x - y)}rem"
+  style:border-bottom-right-radius="{7 + 3 * (-x - y)}rem"
+>
   <h2 class="m3-font-display-large">M3 Svelte</h2>
   <p class="m3-font-title-large">
     M3 Svelte implements the Material 3 design system in Svelte, from the components to the
@@ -49,7 +63,6 @@
   .container {
     background-color: rgb(var(--m3-scheme-primary-container));
     color: rgb(var(--m3-scheme-on-primary-container));
-    border-radius: 2rem;
 
     display: flex;
     flex-direction: column;
