@@ -19,7 +19,7 @@
   style:border-bottom-left-radius="{4 + 3 * (+x - y)}rem"
   style:border-bottom-right-radius="{7 + 3 * (-x - y)}rem"
 >
-  <h2 class="m3-font-display-large">M3 Svelte</h2>
+  <h1 class="m3-font-display-large">M3 Svelte</h1>
   <p class="m3-font-title-large">
     M3 Svelte implements the Material 3 design system in Svelte, from the components to the
     animations to the theming.
@@ -71,7 +71,7 @@
     padding: 8rem 0 6rem 0;
     margin-bottom: 2rem;
   }
-  .container h2 {
+  .container h1 {
     font-size: 6rem;
     margin: 0;
   }
