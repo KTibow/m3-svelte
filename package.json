@@ -1,7 +1,7 @@
 {
   "name": "m3-svelte",
-  "version": "2.0.3",
-  "license": "GPL-3.0",
+  "version": "2.0.4",
+  "license": "Apache-2.0 OR GPL-3.0-only",
   "repository": "KTibow/m3-svelte",
   "author": {
     "name": "KTibow"
@@ -39,17 +39,17 @@
   "devDependencies": {
     "@material/material-color-utilities": "^0.2.7",
     "@sveltejs/adapter-static": "^2.0.3",
-    "@sveltejs/kit": "^1.24.1",
+    "@sveltejs/kit": "^1.23.0",
     "@sveltejs/package": "^2.2.2",
-    "@typescript-eslint/eslint-plugin": "^6.6.0",
-    "@typescript-eslint/parser": "^6.6.0",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-svelte": "^2.33.0",
     "fast-glob": "^3.3.1",
-    "prettier": "^3.0.3",
+    "prettier": "^3.0.2",
     "prettier-plugin-svelte": "^3.0.3",
-    "svelte-check": "^3.5.1",
+    "svelte-check": "^3.5.0",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
     "vite": "^4.4.9"
