@@ -36,7 +36,7 @@
       <Icon icon={iconRocket} class="fg-icon" />
     </div>
     <div class="content">
-      <h3 class="m3-font-headline-medium">Fast</h3>
+      <h2 class="m3-font-headline-medium">Fast</h2>
       <p>M3 Svelte uses minimal CSS, JS, and elements to keep your sites running smooth.</p>
     </div>
   </div>
@@ -50,7 +50,7 @@
       <Icon icon={iconChecks} class="fg-icon" />
     </div>
     <div class="content">
-      <h3 class="m3-font-headline-medium">Robust</h3>
+      <h2 class="m3-font-headline-medium">Robust</h2>
       <p>
         Even in some edge cases like being printed, used in high contrast mode, or with JS off, most
         of M3 Svelte is still usable.
@@ -113,7 +113,7 @@
     height: 1rem;
     color: rgb(var(--m3-scheme-secondary-container));
   }
-  h3 {
+  h2 {
     line-height: 2rem;
     margin: 0;
   }
