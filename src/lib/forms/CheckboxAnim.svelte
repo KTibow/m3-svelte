@@ -39,7 +39,7 @@
 
     transition: all 200ms;
     cursor: pointer;
-    --color: var(--m3-scheme-on-surface);
+    --color: var(--m3-scheme-on-surface-variant);
     -webkit-tap-highlight-color: transparent;
   }
   .layer::before {
@@ -67,11 +67,13 @@
 
   @media (hover: hover) {
     .layer:hover {
+      --color: var(--m3-scheme-on-surface);
       background-color: rgb(var(--color) / 0.08);
     }
   }
   .layer:active,
   :global(input:focus-visible) + .layer {
+      --color: var(--m3-scheme-on-surface);
     background-color: rgb(var(--color) / 0.12);
   }
   :global(input:checked) + .layer {
