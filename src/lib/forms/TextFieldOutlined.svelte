@@ -12,6 +12,7 @@
   export let trailingIcon: IconifyIcon | undefined = undefined;
 
   export let disabled = false;
+  export let required = false;
   export let error = false;
   export let value = "";
   const dispatch = createEventDispatcher();
@@ -26,7 +27,15 @@
   style="display: {display}"
   {...extraWrapperOptions}
 >
-  <input class="m3-font-body-large" placeholder=" " bind:value {id} {disabled} {...extraOptions} />
+  <input
+    class="m3-font-body-large"
+    placeholder=" "
+    bind:value
+    {id}
+    {disabled}
+    {required}
+    {...extraOptions}
+  />
   <div class="layer" />
   <label class="m3-font-body-large" for={id}>{name}</label>
   {#if leadingIcon}

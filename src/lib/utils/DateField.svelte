@@ -55,7 +55,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     {...extraOptions}
   />
   <label class="m3-font-body-small" for={id}>{name}</label>
-  <button on:click={() => (picker = !picker)}><Icon icon={iconCalendar} /></button>
+  <button type="button" on:click={() => (picker = !picker)}><Icon icon={iconCalendar} /></button>
   {#if picker}
     <div class="picker" use:clickOutside transition:enterExit>
       <DatePickerDocked

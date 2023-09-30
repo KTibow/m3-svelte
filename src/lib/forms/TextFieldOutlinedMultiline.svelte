@@ -10,6 +10,7 @@
   export let leadingIcon: IconifyIcon | undefined = undefined;
 
   export let disabled = false;
+  export let required = false;
   export let error = false;
   export let value = "";
   const id = crypto.randomUUID();
@@ -43,6 +44,7 @@
     bind:value
     {id}
     {disabled}
+    {required}
     {...extraOptions}
   />
   <div class="layer" />
