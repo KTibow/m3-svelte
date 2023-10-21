@@ -1,5 +1,6 @@
 <script>
   import Icon from "@iconify/svelte";
+  import iconStar from "@iconify-icons/ic/outline-star";
   import iconRocket from "@iconify-icons/ic/outline-rocket";
   import iconChecks from "@iconify-icons/ic/outline-done-all";
   let x = 0.5;
@@ -24,6 +25,10 @@
     M3 Svelte implements the Material 3 design system in Svelte, from the components to the
     animations to the theming.
   </p>
+  <div class="pill m3-font-label-large">
+    <Icon icon={iconStar} />
+    Celebrating 30+ stars
+  </div>
 </div>
 <div class="items">
   <div class="item">
@@ -77,7 +82,18 @@
   }
   .container p {
     max-width: 50rem;
-    margin: 0 auto;
+    align-self: center;
+  }
+  .container .pill {
+    background-color: rgb(var(--m3-scheme-primary) / 0.1);
+    align-self: center;
+
+    height: 2rem;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
   }
 
   .items {

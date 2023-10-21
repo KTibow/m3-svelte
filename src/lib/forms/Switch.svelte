@@ -106,12 +106,12 @@
     transition: all 200ms;
   }
 
-  .m3-container:hover > input + .layer,
-  .m3-container > input:is(:active, :focus-visible) + .layer {
+  .m3-container:hover > input:enabled + .layer,
+  .m3-container > input:enabled:is(:active, :focus-visible) + .layer {
     background-color: rgb(var(--m3-scheme-on-surface-variant));
   }
-  .m3-container:hover > input:checked + .layer,
-  .m3-container > input:checked:is(:active, :focus-visible) + .layer {
+  .m3-container:hover > input:enabled:checked + .layer,
+  .m3-container > input:enabled:checked:is(:active, :focus-visible) + .layer {
     background-color: rgb(var(--m3-scheme-primary-container));
   }
   .m3-container:hover > input + .layer::before {
