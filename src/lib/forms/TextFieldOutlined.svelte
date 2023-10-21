@@ -17,6 +17,21 @@
   export let value = "";
   const dispatch = createEventDispatcher();
   const id = crypto.randomUUID();
+
+  // find the nearest ancestor which has background color
+  function findNearestBackgroundColor(node: HTMLElement | null): string {
+    if (!node) {
+      return "rgb(var(--m3-util-background, var(--m3-scheme-surface)))";
+    }
+    const backgroundColor = window.getComputedStyle(node).backgroundColor;
+    if (backgroundColor === "rgba(0, 0, 0, 0)" || backgroundColor === "transparent") {
+      return findNearestBackgroundColor(node.parentElement);
+    }
+    return backgroundColor;
+  }
+
+  let labelElement: HTMLLabelElement;
+  $: labelBackgroundColor = findNearestBackgroundColor(labelElement?.parentElement);
 </script>
 
 <div
@@ -37,7 +52,12 @@
     {...extraOptions}
   />
   <div class="layer" />
-  <label class="m3-font-body-large" for={id}>{name}</label>
+  <label
+    class="m3-font-body-large"
+    for={id}
+    bind:this={labelElement}
+    style={`background-color: ${labelBackgroundColor}`}>{name}</label
+  >
   {#if leadingIcon}
     <Icon icon={leadingIcon} class="leading" />
   {/if}
@@ -72,14 +92,9 @@
     left: 0.75rem;
     top: 1rem;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
-    background-color: rgb(var(--m3-util-background, var(--m3-scheme-surface)));
     padding: 0 0.25rem;
     pointer-events: none;
-    transition:
-      all 200ms,
-      font-size 300ms,
-      line-height 300ms,
-      letter-spacing 300ms;
+    transition: all 200ms, font-size 300ms, line-height 300ms, letter-spacing 300ms;
   }
   .layer {
     position: absolute;
