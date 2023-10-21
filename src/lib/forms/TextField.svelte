@@ -72,11 +72,7 @@
     top: 1rem;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
     pointer-events: none;
-    transition:
-      all 200ms,
-      font-size 300ms,
-      line-height 300ms,
-      letter-spacing 300ms;
+    transition: all 200ms, font-size 300ms, line-height 300ms, letter-spacing 300ms;
   }
   .layer {
     position: absolute;
@@ -91,10 +87,11 @@
     display: block;
     width: 100%;
     bottom: 0;
-
     height: 0.0625rem;
     background-color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
-    transition: all 200ms;
+    transition: all 250ms;
+    transform: scaleX(0);
+    transform-origin: center;
   }
   .m3-container :global(svg) {
     width: 1.5rem;
@@ -145,6 +142,7 @@
   input:focus ~ .layer::after {
     height: 0.125rem;
     background-color: rgb(var(--error, var(--m3-scheme-primary)));
+    transform: scaleX(1);
   }
   @media (hover: hover) {
     button:hover {
