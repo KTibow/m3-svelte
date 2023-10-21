@@ -27,17 +27,17 @@
   svg {
     width: 3rem;
     height: 3rem;
-    animation: progressRotate 2.5s infinite linear;
+    animation: progressRotate 2.2s infinite linear;
   }
   circle {
     transition: all 200ms;
-    animation: progressSize 2.5s infinite linear;
+    animation: progressSize 2.2s infinite linear;
   }
   @keyframes progressRotate {
     0% {
       transform: rotate(0deg);
     }
-    50% {
+    40% {
       transform: rotate(360deg);
     }
     100% {
@@ -48,7 +48,7 @@
     0% {
       stroke-dashoffset: 125.66;
     }
-    50% {
+    40% {
       stroke-dashoffset: 62.83;
     }
     100% {
