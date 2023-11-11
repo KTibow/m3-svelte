@@ -3,7 +3,7 @@
   import Button from "$lib/buttons/Button.svelte";
 
   let open = false;
-  const [send, receive] = containerTransform({});
+  const [send, receive] = containerTransform({ duration: 1000 });
 </script>
 
 <p>Comparison:</p>
@@ -57,17 +57,21 @@
   }
   .card {
     display: inline-flex;
+    align-items: center;
     background-color: rgb(var(--m3-scheme-primary));
     color: rgb(var(--m3-scheme-on-primary));
     border: none;
-    padding: 1rem;
-    border-radius: 0.75rem;
+    height: 3rem;
+    padding: 0 1.25rem;
+    border-radius: 1.5rem;
     cursor: pointer;
   }
   .expanded {
     display: flex;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-surface));
+    padding: 1rem;
+    background-color: rgb(var(--m3-scheme-primary-container));
+    color: rgb(var(--m3-scheme-on-primary-container));
   }
   .bar {
     background-image: linear-gradient(
@@ -76,5 +80,6 @@
       rgb(var(--m3-scheme-tertiary))
     );
     height: 1rem;
+    margin: -1rem -1rem 0 -1rem;
   }
 </style>

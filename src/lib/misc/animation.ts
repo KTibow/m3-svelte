@@ -121,7 +121,7 @@ export const containerTransform = ({
           transform: ${transform} translate(${u * dx}px, ${u * dy}px) scale(${tScale});
           clip-path: inset(0 ${horizontalTrim}px ${verticalTrim}px ${horizontalTrim}px);
           z-index: ${fgContainerZ};
-          background-color: transparent;
+          ${t < 0.98 ? "background-color: transparent;" : ""}
           border-color: transparent;
           pointer-events: none;
         `;
