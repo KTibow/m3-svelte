@@ -1,9 +1,13 @@
 import { writable } from "svelte/store";
 import type { SerializedScheme } from "$lib";
+import type { schemes } from "./theme/data";
 
 interface ThemeStore {
   darkTheme: SerializedScheme;
   lightTheme: SerializedScheme;
+  currentSourceColor?: number;
+  algorithm?: keyof typeof schemes;
+  contrast?: number;
 }
 
 const defaultLightScheme = {

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type DynamicScheme } from "@material/material-color-utilities";
+  import type { DynamicScheme } from "@material/material-color-utilities";
   import Icon from "@iconify/svelte";
   import iconCopy from "@iconify-icons/ic/outline-content-copy";
   import iconLight from "@iconify-icons/ic/outline-light-mode";
