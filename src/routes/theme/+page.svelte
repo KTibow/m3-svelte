@@ -6,6 +6,8 @@
   import TransformChooser from "./TransformChooser.svelte";
   import { schemes } from "./data";
   import SchemeShowcase from "./SchemeShowcase.svelte";
+  import { currentColorScheme } from "../SchemeStore";
+  import { serializeScheme } from "$lib";
 
   let schemeLight: DynamicScheme, schemeDark: DynamicScheme;
   let sourceColor: number;
@@ -29,6 +31,11 @@
         : 1;
     schemeLight = new scheme(Hct.fromInt(sourceColor), false, contrastFloat);
     schemeDark = new scheme(Hct.fromInt(sourceColor), true, contrastFloat);
+    console.log(schemeLight);
+    currentColorScheme.set({
+      darkTheme: serializeScheme(schemeDark),
+      lightTheme: serializeScheme(schemeLight),
+    });
   }
 </script>
 
