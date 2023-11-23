@@ -1,80 +1,20 @@
 <script lang="ts">
-  import { MaterialDynamicColors, type DynamicScheme } from "@material/material-color-utilities";
+  import type { DynamicScheme } from "@material/material-color-utilities";
   import Icon from "@iconify/svelte";
   import iconCopy from "@iconify-icons/ic/outline-content-copy";
   import iconLight from "@iconify-icons/ic/outline-light-mode";
   import iconDark from "@iconify-icons/ic/outline-dark-mode";
   import { onMount } from "svelte";
 
-  import type { Color, SerializedScheme } from "$lib/misc/utils";
   import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import ColorCard from "./ColorCard.svelte";
+  import { pairs, serializeScheme } from "$lib/misc/utils";
 
   export let schemeLight: DynamicScheme;
   export let schemeDark: DynamicScheme;
   let showDark = false;
 
-  const pairs = [
-    ["primary", "onPrimary"],
-    ["primaryContainer", "onPrimaryContainer"],
-    ["secondary", "onSecondary"],
-    ["secondaryContainer", "onSecondaryContainer"],
-    ["tertiary", "onTertiary"],
-    ["tertiaryContainer", "onTertiaryContainer"],
-    ["background", "onBackground"],
-    ["surface", "onSurface"],
-    ["inverseSurface", "inverseOnSurface"],
-    ["surfaceVariant", "onSurfaceVariant"],
-    ["error", "onError"],
-    ["errorContainer", "onErrorContainer"],
-  ];
-  const colors: Color[] = [
-    "primary",
-    "onPrimary",
-    "primaryContainer",
-    "onPrimaryContainer",
-    "inversePrimary",
-    "secondary",
-    "onSecondary",
-    "secondaryContainer",
-    "onSecondaryContainer",
-    "tertiary",
-    "onTertiary",
-    "tertiaryContainer",
-    "onTertiaryContainer",
-    "error",
-    "onError",
-    "errorContainer",
-    "onErrorContainer",
-    "background",
-    "onBackground",
-    "surface",
-    "onSurface",
-    "surfaceVariant",
-    "onSurfaceVariant",
-    "inverseSurface",
-    "inverseOnSurface",
-    "outline",
-    "outlineVariant",
-    "shadow",
-    "scrim",
-    "surfaceDim",
-    "surfaceBright",
-    "surfaceContainerLowest",
-    "surfaceContainerLow",
-    "surfaceContainer",
-    "surfaceContainerHigh",
-    "surfaceContainerHighest",
-    "surfaceTint",
-  ];
-  const serializeScheme = (scheme: DynamicScheme) => {
-    const out: Record<string, number> = {};
-    for (const color of colors) {
-      out[color] = MaterialDynamicColors[color as Color].getArgb(scheme);
-    }
-    return out as SerializedScheme;
-  };
   const copyUsage = () =>
     navigator.clipboard.writeText(
       `<StyleFromScheme
