@@ -50,6 +50,10 @@
 </div>
 
 <style>
+  :root {
+    --m3-switch-track-shape: var(--m3-util-rounding-full);
+    --m3-switch-handle-shape: var(--m3-util-rounding-full);
+  }
   .m3-container {
     position: relative;
     width: 3.25rem;
@@ -60,7 +64,7 @@
     width: 3.25rem;
     height: 2rem;
     margin: 0;
-    border-radius: 2rem;
+    border-radius: var(--m3-switch-track-shape);
 
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     border: solid 0.125rem rgb(var(--m3-scheme-outline));
@@ -72,7 +76,7 @@
     position: absolute;
     width: 1rem;
     height: 1rem;
-    border-radius: 1rem;
+    border-radius: var(--m3-switch-handle-shape);
 
     background-color: rgb(var(--m3-scheme-outline));
     cursor: pointer;
@@ -102,7 +106,7 @@
     transform: translate(-50%, -50%);
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 2.5rem;
+    border-radius: var(--m3-util-rounding-full);
     transition: all 200ms;
   }
 

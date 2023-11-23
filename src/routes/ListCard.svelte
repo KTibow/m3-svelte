@@ -15,8 +15,8 @@
     lines == "1"
       ? undefined
       : lines == "2"
-      ? "This is supporting text"
-      : "This is an example of supporting text for a list item component showcase.";
+        ? "This is supporting text"
+        : "This is an example of supporting text for a list item component showcase.";
 </script>
 
 <Card type="elevated">

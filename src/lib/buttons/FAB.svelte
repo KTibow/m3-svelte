@@ -31,6 +31,11 @@
 </button>
 
 <style>
+  :root {
+    --m3-fab-small-shape: var(--m3-util-rounding-small);
+    --m3-fab-normal-shape: var(--m3-util-rounding-large);
+    --m3-fab-large-shape: var(--m3-util-rounding-extra-large);
+  }
   button {
     border: none;
     position: relative;
@@ -59,19 +64,19 @@
     height: 2.5rem;
     padding: 0.5rem;
     gap: 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: var(--m3-fab-small-shape);
   }
   .size-normal {
     height: 3.5rem;
     padding: 1rem;
     gap: 0.75rem;
-    border-radius: 1rem;
+    border-radius: var(--m3-fab-normal-shape);
   }
   .size-large {
     height: 6rem;
     padding: 1.875rem;
     gap: 1.875rem;
-    border-radius: 1.875rem;
+    border-radius: var(--m3-fab-large-shape);
   }
   .size-small > :global(svg),
   .size-normal > :global(svg) {

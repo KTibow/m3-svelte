@@ -35,7 +35,7 @@
     inset: -0.6875rem;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 2.5rem;
+    border-radius: var(--m3-util-rounding-full);
 
     transition: all 200ms;
     cursor: pointer;
@@ -73,7 +73,7 @@
   }
   .layer:active,
   :global(input:focus-visible) + .layer {
-      --color: var(--m3-scheme-on-surface);
+    --color: var(--m3-scheme-on-surface);
     background-color: rgb(var(--color) / 0.12);
   }
   :global(input:checked) + .layer {

@@ -24,16 +24,16 @@
       contrast == 0
         ? -0.5
         : contrast == 1
-        ? 0
-        : contrast == 2
-        ? 6 / 12
-        : contrast == 3
-        ? 8 / 12
-        : contrast == 4
-        ? 10 / 12
-        : contrast == 5
-        ? 11 / 12
-        : 1;
+          ? 0
+          : contrast == 2
+            ? 6 / 12
+            : contrast == 3
+              ? 8 / 12
+              : contrast == 4
+                ? 10 / 12
+                : contrast == 5
+                  ? 11 / 12
+                  : 1;
 
     schemeLight = new scheme(Hct.fromInt(sourceColor), false, contrastFloat);
     schemeDark = new scheme(Hct.fromInt(sourceColor), true, contrastFloat);

@@ -57,10 +57,13 @@
 </dialog>
 
 <style>
+  :root {
+    --m3-dialog-shape: var(--m3-util-rounding-extra-large);
+  }
   dialog {
     background-color: rgb(var(--m3-scheme-surface-container-high));
     border: none;
-    border-radius: 1.75rem;
+    border-radius: var(--m3-dialog-shape);
     min-width: 17.5rem;
     max-width: 35rem;
     padding: 0;
@@ -134,11 +137,11 @@
   @keyframes dialogIn {
     0% {
       transform: translateY(-3rem) scaleY(90%);
-      clip-path: inset(0 0 100% 0 round 1.75rem);
+      clip-path: inset(0 0 100% 0 round var(--m3-dialog-shape));
     }
     100% {
       transform: translateY(0) scaleY(100%);
-      clip-path: inset(0 0 0 0 round 1.75rem);
+      clip-path: inset(0 0 0 0 round var(--m3-dialog-shape));
     }
   }
   @keyframes buttonsIn {
