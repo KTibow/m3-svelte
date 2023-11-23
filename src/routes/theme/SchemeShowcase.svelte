@@ -15,13 +15,6 @@
   export let schemeDark: DynamicScheme;
   let showDark = false;
 
-  // const serializeScheme = (scheme: DynamicScheme) => {
-  //   const out: Record<string, number> = {};
-  //   for (const color of colors) {
-  //     out[color] = MaterialDynamicColors[color as Color].getArgb(scheme);
-  //   }
-  //   return out as SerializedScheme;
-  // };
   const copyUsage = () =>
     navigator.clipboard.writeText(
       `<StyleFromScheme
