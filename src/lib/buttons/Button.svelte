@@ -3,9 +3,13 @@
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};
   export let iconType: "none" | "left" | "full" = "none";
-  export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
+  export let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "filled";
   export let disabled = false;
 </script>
+
+<!--
+
+-->
 
 <button
   on:click|stopPropagation
@@ -19,11 +23,15 @@
 </button>
 
 <style>
+  :global(:root) {
+    --m3-button-shape: var(--m3-util-rounding-full);
+  }
+
   .m3-container {
     border: none;
     height: 2.5rem;
     padding: 0 1.5rem;
-    border-radius: 2.5rem;
+    border-radius: var(--m3-button-shape);
     color: rgb(var(--text));
     transition: all 200ms;
 

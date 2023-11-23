@@ -41,9 +41,12 @@
 </button>
 
 <style>
+  :global(:root) {
+    --m3-chip-shape: var(--m3-util-rounding-full);
+  }
   .m3-container {
     height: 2rem;
-    border-radius: 0.5rem;
+    border-radius: var(--m3-chip-shape);
     padding: 0 1rem;
     gap: 0.5rem;
     align-items: center;
@@ -59,7 +62,7 @@
   .layer {
     position: absolute;
     inset: -0.0625rem;
-    border-radius: 0.5rem;
+    border-radius: var(--m3-chip-shape);
     transition: all 200ms;
   }
 

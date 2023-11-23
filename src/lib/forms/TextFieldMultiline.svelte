@@ -55,6 +55,9 @@
 </div>
 
 <style>
+  :global(:root) {
+    --m3-textfield-multiline-filled-shape: var(--m3-util-rounding-extra-small);
+  }
   .m3-container {
     position: relative;
     align-items: center;
@@ -69,7 +72,8 @@
     border: none;
     outline: none;
     padding: 1.5rem 1rem 0.5rem 1rem;
-    border-radius: 0.25rem 0.25rem 0 0;
+    border-radius: var(--m3-textfield-multiline-filled-shape)
+      var(--m3-textfield-multiline-filled-shape) 0 0;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     color: rgb(var(--m3-scheme-on-surface));
     resize: none;
@@ -89,7 +93,8 @@
   .layer {
     position: absolute;
     inset: 0;
-    border-radius: 0.25rem 0.25rem 0 0;
+    border-radius: var(--m3-textfield-multiline-filled-shape)
+      var(--m3-textfield-multiline-filled-shape) 0 0;
     pointer-events: none;
     transition: all 200ms;
   }

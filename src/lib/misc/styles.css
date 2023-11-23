@@ -17,6 +17,16 @@
     0px 16px 24px 2px rgb(var(--m3-scheme-shadow) / 0.14),
     0px 6px 30px 5px rgb(var(--m3-scheme-shadow) / 0.12);
   --m3-util-bottom-offset: 0;
+
+  /*Shape*/
+  --m3-util-rounding-none: 0;
+  --m3-util-rounding-extra-small: 0.25rem;
+  --m3-util-rounding-small: 0.5rem;
+  --m3-util-rounding-medium: 0.75rem;
+  --m3-util-rounding-large: 1rem;
+  --m3-util-rounding-extra-large: 1.75rem;
+  --m3-util-rounding-full: 100rem;
+
   --m3-font: Roboto, system-ui, sans-serif;
 }
 .m3-font-display-large,

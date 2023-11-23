@@ -81,6 +81,10 @@
 </dialog>
 
 <style>
+  :global(:root) {
+    --m3-bottom-sheet-shape: var(--m3-util-rounding-extra-large);
+  }
+
   .m3-container {
     margin-bottom: 0;
     width: 100%;
@@ -90,7 +94,7 @@
 
     background-color: rgb(var(--m3-scheme-surface-container-low));
     color: rgb(var(--m3-scheme-on-surface));
-    border-radius: 1.75rem 1.75rem 0 0;
+    border-radius: var(--m3-bottom-sheet-shape) var(--m3-bottom-sheet-shape) 0 0;
     border: none;
     padding: 0;
   }
