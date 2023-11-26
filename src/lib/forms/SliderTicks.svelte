@@ -67,6 +67,10 @@
 </div>
 
 <style>
+  :root {
+    --m3-slider-track-shape: var(--m3-util-rounding-extra-small);
+    --m3-slider-thumb-shape: var(--m3-util-rounding-full);
+  }
   .m3-container {
     position: relative;
     align-items: center;
@@ -88,7 +92,7 @@
   }
   .track {
     width: 100%;
-    height: 0.25rem;
+    height: var(--m3-slider-track-shape);
     border-radius: 0.25rem;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     position: relative;
@@ -100,7 +104,7 @@
     content: " ";
     position: absolute;
     width: var(--percent);
-    height: 0.25rem;
+    height: var(--m3-slider-track-shape);
     border-radius: 0.25rem;
     background-color: rgb(var(--m3-scheme-primary));
   }
@@ -121,7 +125,7 @@
     left: calc(var(--percent) - 0.625rem);
     width: 1.25rem;
     height: 1.25rem;
-    border-radius: 1.25rem;
+    border-radius: var(--m3-slider-thumb-shape);
     background-color: rgb(var(--m3-scheme-primary));
     box-shadow: var(--m3-util-elevation-1);
     pointer-events: none;
@@ -131,7 +135,7 @@
     content: " ";
     position: absolute;
     inset: -0.625rem;
-    border-radius: 1.25rem;
+    border-radius: var(--m3-util-rounding-full);
     transition: background-color 200ms;
   }
   .value {
@@ -143,7 +147,8 @@
     top: -1.75rem;
     width: 1.75rem;
     height: 1.75rem;
-    border-radius: 1.75rem 1.75rem 0 1.75rem;
+    border-radius: var(--m3-util-rounding-full) var(--m3-util-rounding-full) 0
+      var(--m3-util-rounding-full);
     transform: rotate(45deg);
 
     background-color: rgb(var(--m3-scheme-primary));
