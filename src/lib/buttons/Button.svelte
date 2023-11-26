@@ -7,10 +7,6 @@
   export let disabled = false;
 </script>
 
-<!--
-
--->
-
 <button
   on:click|stopPropagation
   {disabled}
