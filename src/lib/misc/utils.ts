@@ -115,8 +115,6 @@ export const genCSS = (light: SerializedScheme, dark: SerializedScheme) => {
   const colors = `
 :root {
   accent-color: rgb(var(--m3-scheme-primary));
-  
-  
 }
 @media (prefers-color-scheme: light) {
   :root {
