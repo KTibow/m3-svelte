@@ -49,7 +49,7 @@
 </div>
 
 <style>
-  :global(:root) {
+  :root {
     --m3-textfield-outlined-shape: var(--m3-util-rounding-extra-small);
   }
   .m3-container {

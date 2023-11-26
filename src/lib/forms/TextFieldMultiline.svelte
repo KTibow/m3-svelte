@@ -55,7 +55,7 @@
 </div>
 
 <style>
-  :global(:root) {
+  :root {
     --m3-textfield-multiline-filled-shape: var(--m3-util-rounding-extra-small);
   }
   .m3-container {

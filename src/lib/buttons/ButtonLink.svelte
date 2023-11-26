@@ -18,7 +18,7 @@
 </a>
 
 <style>
-  :global(:root) {
+  :root {
     --m3-button-shape: var(--m3-util-rounding-full);
   }
 

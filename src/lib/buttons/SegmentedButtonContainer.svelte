@@ -9,7 +9,7 @@
 </div>
 
 <style>
-  :global(:root) {
+  :root {
     --m3-segmented-button-shape: var(--m3-util-rounding-full);
   }
 

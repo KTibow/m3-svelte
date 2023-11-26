@@ -81,7 +81,7 @@
 </dialog>
 
 <style>
-  :global(:root) {
+  :root {
     --m3-bottom-sheet-shape: var(--m3-util-rounding-extra-large);
   }
 

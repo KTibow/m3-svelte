@@ -69,7 +69,7 @@ opacity: ${Math.min(t * 3, 1)};`,
 </div>
 
 <style>
-  :global(:root) {
+  :root {
     --m3-datefield-shape: var(--m3-util-rounding-extra-small);
   }
   .m3-container {

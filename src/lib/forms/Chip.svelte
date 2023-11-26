@@ -41,7 +41,7 @@
 </button>
 
 <style>
-  :global(:root) {
+  :root {
     --m3-chip-shape: var(--m3-util-rounding-full);
   }
   .m3-container {

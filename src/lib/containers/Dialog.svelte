@@ -57,7 +57,7 @@
 </dialog>
 
 <style>
-  :global(:root) {
+  :root {
     --m3-dialog-shape: var(--m3-util-rounding-extra-large);
   }
   dialog {

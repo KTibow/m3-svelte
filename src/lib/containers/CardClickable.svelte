@@ -17,7 +17,7 @@
 </button>
 
 <style>
-  :global(:root) {
+  :root {
     --m3-card-clickable-shape: var(--m3-util-rounding-medium);
   }
   .m3-container {

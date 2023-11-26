@@ -11,7 +11,7 @@
 </div>
 
 <style>
-  :global(:root) {
+  :root {
     --m3-card-shape: var(--m3-util-rounding-medium);
   }
 
