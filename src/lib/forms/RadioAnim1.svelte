@@ -26,8 +26,7 @@
     inset: -0.625rem;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 2.5rem;
-
+    border-radius: var(--m3-util-rounding-full);
     transition: all 200ms;
     cursor: pointer;
     --color: var(--m3-scheme-on-surface-variant);
@@ -40,7 +39,7 @@
     inset: 0.625rem;
     width: 1.25rem;
     height: 1.25rem;
-    border-radius: 1.25rem;
+    border-radius: var(--m3-util-rounding-full);
     border: solid 0.125rem rgb(var(--color));
     transition: all 0.3s;
   }
@@ -51,7 +50,7 @@
     inset: 1.25rem;
     width: 0rem;
     height: 0rem;
-    border-radius: 0.625rem;
+    border-radius: var(--m3-util-rounding-full);
     background-color: rgb(var(--color));
     transition: all 0.3s;
   }
