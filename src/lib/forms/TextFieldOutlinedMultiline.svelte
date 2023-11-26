@@ -56,7 +56,7 @@
 
 <style>
   :root {
-    --m3-textfield-multiline-outlined-shape: var(--m3-util-rounding-extra-small);
+    --m3-textfield-outlined-shape: var(--m3-util-rounding-extra-small);
   }
   .m3-container {
     position: relative;
@@ -72,7 +72,7 @@
     border: none;
     outline: none;
     padding: 1rem;
-    border-radius: var(--m3-textfield-multiline-outlined-shape);
+    border-radius: var(--m3-textfield-outlined-shape);
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
     resize: none;
@@ -95,8 +95,7 @@
     position: absolute;
     inset: 0;
     border: 0.0625rem solid rgb(var(--error, var(--m3-scheme-outline)));
-
-    border-radius: var(--m3-textfield-multiline-outlined-shape);
+    border-radius: var(--m3-textfield-outlined-shape);
     pointer-events: none;
     transition: all 200ms;
   }
