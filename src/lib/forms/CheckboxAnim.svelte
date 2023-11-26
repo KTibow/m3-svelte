@@ -35,7 +35,7 @@
     inset: -0.6875rem;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 2.5rem;
+    border-radius: var(--m3-util-rounding-full);
 
     transition: all 200ms;
     cursor: pointer;
