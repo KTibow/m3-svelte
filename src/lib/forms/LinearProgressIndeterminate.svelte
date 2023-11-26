@@ -9,16 +9,22 @@
 </div>
 
 <style>
+  :root {
+    --m3-linear-progress-track-shape: var(--m3-util-rounding-none);
+    --m3-linear-progress-indicator-shape: var(--m3-util-rounding-none);
+  }
   .m3-container {
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     height: 0.25rem;
     min-width: 8rem;
     position: relative;
     overflow: hidden;
+    border-radius: var(--m3-linear-progress-track-shape);
   }
   .percent {
     background-color: rgb(var(--m3-scheme-primary));
     animation: progress infinite 1.5s ease-out;
+    border-radius: var(--m3-linear-progress-indicator-shape);
     width: 50%;
     top: 0;
     bottom: 0;
