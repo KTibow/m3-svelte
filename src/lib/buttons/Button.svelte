@@ -3,7 +3,7 @@
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};
   export let iconType: "none" | "left" | "full" = "none";
-  export let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "filled";
+  export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
   export let disabled = false;
 </script>
 
