@@ -21,8 +21,8 @@
         {precision == "continuous"
           ? "Continuous"
           : precision == "discrete"
-          ? "Discrete"
-          : "Discrete (ticks)"}
+            ? "Discrete"
+            : "Discrete (ticks)"}
       </td>
     </tr>
     <tr>

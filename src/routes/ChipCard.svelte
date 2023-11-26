@@ -26,12 +26,12 @@
         {style == "input"
           ? "Input"
           : style == "assist"
-          ? "Assist"
-          : style == "assist-elevated"
-          ? "Assist elevated"
-          : style == "general"
-          ? "General"
-          : "General elevated"}
+            ? "Assist"
+            : style == "assist-elevated"
+              ? "Assist elevated"
+              : style == "general"
+                ? "General"
+                : "General elevated"}
       </td>
     </tr>
     <tr>

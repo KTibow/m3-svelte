@@ -73,7 +73,7 @@
   }
   .layer:active,
   :global(input:focus-visible) + .layer {
-      --color: var(--m3-scheme-on-surface);
+    --color: var(--m3-scheme-on-surface);
     background-color: rgb(var(--color) / 0.12);
   }
   :global(input:checked) + .layer {
