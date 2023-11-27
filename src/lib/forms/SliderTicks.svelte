@@ -68,7 +68,7 @@
 
 <style>
   :root {
-    --m3-slider-track-shape: var(--m3-util-rounding-extra-small);
+    --m3-slider-track-shape: var(--m3-util-rounding-full);
     --m3-slider-thumb-shape: var(--m3-util-rounding-full);
   }
   .m3-container {
@@ -92,8 +92,8 @@
   }
   .track {
     width: 100%;
-    height: var(--m3-slider-track-shape);
-    border-radius: 0.25rem;
+    border-radius: var(--m3-slider-track-shape);
+    height: 0.25rem;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     position: relative;
     overflow: hidden;
@@ -112,7 +112,7 @@
     position: absolute;
     width: 2px;
     height: 2px;
-    border-radius: 2px;
+    border-radius: var(--m3-util-rounding-full);
     top: 50%;
     transform: translate(0, -50%);
     background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
