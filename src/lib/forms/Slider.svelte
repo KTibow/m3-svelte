@@ -61,7 +61,7 @@
 
 <style>
   :root {
-    --m3-slider-track-shape: var(--m3-util-rounding-extra-small);
+    --m3-slider-track-shape: var(--m3-util-rounding-full);
     --m3-slider-thumb-shape: var(--m3-util-rounding-full);
   }
   .m3-container {
