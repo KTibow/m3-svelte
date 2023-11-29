@@ -9,10 +9,14 @@
 </div>
 
 <style>
+  :root {
+    --m3-segmented-button-shape: var(--m3-util-rounding-full);
+  }
+
   .m3-container {
     border: 0.0625rem solid rgb(var(--m3-scheme-outline));
     height: 2.5rem;
-    border-radius: 2.5rem;
+    border-radius: var(--m3-segmented-button-shape);
     overflow: hidden;
   }
   .m3-container > :global(input) {

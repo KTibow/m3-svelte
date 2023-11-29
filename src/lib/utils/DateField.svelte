@@ -69,12 +69,15 @@ opacity: ${Math.min(t * 3, 1)};`,
 </div>
 
 <style>
+  :root {
+    --m3-datefield-shape: var(--m3-util-rounding-extra-small);
+  }
   .m3-container {
     position: relative;
     height: 3.5rem;
     min-width: 15rem;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
-    border-radius: 0.25rem 0.25rem 0 0;
+    border-radius: var(--m3-datefield-shape) var(--m3-datefield-shape) 0 0;
     border-bottom: solid 0.0625rem rgb(var(--m3-scheme-on-surface-variant));
   }
   input {
@@ -117,7 +120,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     border: none;
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface-variant));
-    border-top-right-radius: 0.25rem;
+    border-top-right-radius: var(--m3-datefield-shape);
 
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;

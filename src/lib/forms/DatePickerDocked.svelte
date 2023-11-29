@@ -65,6 +65,10 @@
 </div>
 
 <style>
+  :root {
+    --m3-date-picker-shape: var(--m3-util-rounding-large);
+  }
+
   .m3-container {
     position: relative;
     overflow: hidden;
@@ -72,6 +76,6 @@
     background-color: rgb(var(--m3-scheme-surface-container-high));
     width: 20.5rem;
     height: 26.75rem;
-    border-radius: 1rem;
+    border-radius: var(--m3-date-picker-shape);
   }
 </style>

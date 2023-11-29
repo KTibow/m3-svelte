@@ -16,10 +16,10 @@
     type == "filled"
       ? TextField
       : type == "filled_multiline"
-      ? TextFieldMultiline
-      : type == "outlined"
-      ? TextFieldOutlined
-      : TextFieldOutlinedMultiline;
+        ? TextFieldMultiline
+        : type == "outlined"
+          ? TextFieldOutlined
+          : TextFieldOutlinedMultiline;
 </script>
 
 <Card type="elevated">
@@ -36,10 +36,10 @@
         {type == "filled"
           ? "Filled"
           : type == "filled_multiline"
-          ? "Filled multiline"
-          : type == "outlined"
-          ? "Outlined"
-          : "Outlined multiline"}
+            ? "Filled multiline"
+            : type == "outlined"
+              ? "Outlined"
+              : "Outlined multiline"}
       </td>
     </tr>
     <tr>
