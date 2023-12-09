@@ -19,7 +19,6 @@
     flex-direction: column;
     position: relative;
     padding: 1rem; /* protip: use margin: -1rem (adjust as needed) to make images stretch to the end */
-    border: none;
     border-radius: var(--m3-card-shape);
     background-color: rgb(var(--m3-scheme-surface));
     color: rgb(var(--m3-scheme-on-surface));
