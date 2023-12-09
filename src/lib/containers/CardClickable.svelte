@@ -55,6 +55,7 @@
   button {
     text-align: inherit;
     font: inherit;
+    letter-spacing: inherit;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
