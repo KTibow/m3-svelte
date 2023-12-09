@@ -52,7 +52,7 @@
     "svelte-check": "^3.6.2",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
-    "vite": "^4.5.1"
+    "vite": "^5.0.7"
   },
   "dependencies": {
     "@iconify-icons/ic": "^1.2.13",
