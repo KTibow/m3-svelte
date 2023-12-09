@@ -58,7 +58,7 @@
 .m3-font-display-large {
   font-size: var(--m3-font-display-large-size, 3.5625rem);
   line-height: var(--m3-font-display-large-height, 4rem);
-  letter-spacing: var(--m3-font-display-large-tracking, 0);
+  letter-spacing: var(--m3-font-display-large-tracking, -0.015625rem);
   font-weight: var(--m3-font-display-large-weight, 400);
 }
 .m3-font-display-medium {
@@ -102,13 +102,13 @@
 .m3-font-title-medium {
   font-size: var(--m3-font-title-medium-size, 1rem);
   line-height: var(--m3-font-title-medium-height, 1.5rem);
-  letter-spacing: var(--m3-font-title-medium-tracking, 0.15);
+  letter-spacing: var(--m3-font-title-medium-tracking, 0.009375rem);
   font-weight: var(--m3-font-title-medium-weight, 500);
 }
 .m3-font-title-small {
   font-size: var(--m3-font-title-small-size, 0.875rem);
   line-height: var(--m3-font-title-small-height, 1.25rem);
-  letter-spacing: var(--m3-font-title-small-tracking, 0.1);
+  letter-spacing: var(--m3-font-title-small-tracking, 0.00625rem);
   font-weight: var(--m3-font-title-small-weight, 500);
 }
 /* Label styles are smaller, utilitarian styles, used for things like the text inside components
@@ -116,38 +116,38 @@ or for very small text in the content body, such as captions. */
 .m3-font-label-large {
   font-size: var(--m3-font-label-large-size, 0.875rem);
   line-height: var(--m3-font-label-large-height, 1.25rem);
-  letter-spacing: var(--m3-font-label-large-tracking, 0.1);
+  letter-spacing: var(--m3-font-label-large-tracking, 0.00625rem);
   font-weight: var(--m3-font-label-large-weight, 500);
 }
 .m3-font-label-medium {
   font-size: var(--m3-font-label-medium-size, 0.75rem);
   line-height: var(--m3-font-label-medium-height, 1rem);
-  letter-spacing: var(--m3-font-label-medium-tracking, 0.5);
+  letter-spacing: var(--m3-font-label-medium-tracking, 0.03125rem);
   font-weight: var(--m3-font-label-medium-weight, 500);
 }
 .m3-font-label-small {
   font-size: var(--m3-font-label-small-size, 0.6875rem);
   line-height: var(--m3-font-label-small-height, 1rem);
-  letter-spacing: var(--m3-font-label-small-tracking, 0.5);
+  letter-spacing: var(--m3-font-label-small-tracking, 0.03125rem);
   font-weight: var(--m3-font-label-small-weight, 500);
 }
 /* Body styles are used for longer passages of text in your app. */
 .m3-font-body-large {
   font-size: var(--m3-font-body-large-size, 1rem);
   line-height: var(--m3-font-body-large-height, 1.5rem);
-  letter-spacing: var(--m3-font-body-large-tracking, 0.5);
+  letter-spacing: var(--m3-font-body-large-tracking, 0.03125rem);
   font-weight: var(--m3-font-body-large-weight, 400);
 }
 .m3-font-body-medium {
   font-size: var(--m3-font-body-medium-size, 0.875rem);
   line-height: var(--m3-font-body-medium-height, 1.25rem);
-  letter-spacing: var(--m3-font-body-medium-tracking, 0.25);
+  letter-spacing: var(--m3-font-body-medium-tracking, 0.015625rem);
   font-weight: var(--m3-font-body-medium-weight, 400);
 }
 .m3-font-body-small {
   font-size: var(--m3-font-body-small-size, 0.75rem);
   line-height: var(--m3-font-body-small-height, 1rem);
-  letter-spacing: var(--m3-font-body-small-tracking, 0.4);
+  letter-spacing: var(--m3-font-body-small-tracking, 0.025rem);
   font-weight: var(--m3-font-body-small-weight, 400);
 }
 /* Fix some browser stuff */
