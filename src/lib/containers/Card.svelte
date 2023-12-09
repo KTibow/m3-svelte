@@ -22,7 +22,6 @@
     border-radius: var(--m3-card-shape);
     background-color: rgb(var(--m3-scheme-surface));
     color: rgb(var(--m3-scheme-on-surface));
-    transition: all 200ms;
   }
 
   .type-elevated {
