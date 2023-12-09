@@ -1,6 +1,6 @@
 <script lang="ts">
   import iconEdit from "@iconify-icons/ic/outline-edit";
-  import Card from "$lib/containers/Card.svelte";
+  import Card from "./_card.svelte";
   import Switch from "$lib/forms/Switch.svelte";
   import TextField from "$lib/forms/TextField.svelte";
   import TextFieldMultiline from "$lib/forms/TextFieldMultiline.svelte";
@@ -22,7 +22,7 @@
           : TextFieldOutlinedMultiline;
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">Text field</h2>
   <table>
     <tr>
@@ -61,7 +61,7 @@
       <td>{enabled ? "Enabled" : "Disabled"}</td>
     </tr>
   </table>
-  <div class="area">
+  <div class="area" slot="demo">
     <svelte:component
       this={component}
       name="Field"
@@ -75,9 +75,6 @@
 
 <style>
   .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
     display: flex;
   }
   h2 {

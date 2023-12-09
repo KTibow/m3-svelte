@@ -1,15 +1,15 @@
 <script lang="ts">
-  import Card from "$lib/containers/Card.svelte";
   import Switch from "$lib/forms/Switch.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import Snackbar, { type SnackbarIn } from "$lib/containers/Snackbar.svelte";
   import SnackbarAnim from "$lib/containers/SnackbarAnim.svelte";
+  import Card from "./_card.svelte";
 
   let snackbar: (data: SnackbarIn) => void;
   let animation = false;
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">Snackbar</h2>
   <table>
     <tr>
@@ -21,7 +21,7 @@
       </td>
     </tr>
   </table>
-  <div class="area">
+  <div slot="demo">
     <Button
       type="tonal"
       on:click={() => snackbar({ message: "Hello", actions: { Undo: () => {} }, closable: true })}
@@ -33,11 +33,6 @@
 </Card>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;

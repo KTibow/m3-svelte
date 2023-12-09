@@ -1,7 +1,7 @@
 <script lang="ts">
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
-  import Card from "$lib/containers/Card.svelte";
+  import Card from "./_card.svelte";
   import Arrows from "./Arrows.svelte";
   import Switch from "$lib/forms/Switch.svelte";
   import Tabs from "$lib/nav/Tabs.svelte";
@@ -21,7 +21,7 @@
   let tab = "hello";
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">Tabs</h2>
   <table>
     <tr>
@@ -41,20 +41,12 @@
       </td>
     </tr>
   </table>
-  <div class="area">
+  <div slot="demo">
     <Tabs bind:tab secondary={type == "secondary"} {items} />
   </div>
 </Card>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;

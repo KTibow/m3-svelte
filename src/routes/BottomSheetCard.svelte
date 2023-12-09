@@ -1,14 +1,14 @@
 <script lang="ts">
-  import Card from "$lib/containers/Card.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import BottomSheet from "$lib/containers/BottomSheet.svelte";
+  import Card from "./_card.svelte";
 
   let open = false;
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">Bottom sheet</h2>
-  <div class="area">
+  <div slot="demo">
     <Button type="tonal" on:click={() => (open = true)}>Open</Button>
     {#if open}
       <BottomSheet on:close={() => (open = false)}>
@@ -31,11 +31,6 @@
 </Card>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;

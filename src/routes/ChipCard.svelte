@@ -1,7 +1,7 @@
 <script lang="ts">
   import iconEdit from "@iconify-icons/ic/outline-edit";
   import iconDropdown from "@iconify-icons/ic/outline-expand-more";
-  import Card from "$lib/containers/Card.svelte";
+  import Card from "./_card.svelte";
   import Switch from "$lib/forms/Switch.svelte";
   import Arrows from "./Arrows.svelte";
   import Chip from "$lib/forms/Chip.svelte";
@@ -12,7 +12,7 @@
   let selected = false;
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">Chip</h2>
   <table>
     <tr>
@@ -49,7 +49,7 @@
       <td>{enabled ? "Enabled" : "Disabled"}</td>
     </tr>
   </table>
-  <div class="area">
+  <div slot="demo">
     <Chip
       type={style == "assist-elevated" ? "assist" : style == "general-elevated" ? "general" : style}
       elevated={style == "assist-elevated" || style == "general-elevated"}
@@ -65,11 +65,6 @@
 </Card>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;

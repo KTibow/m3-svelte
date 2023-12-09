@@ -2,13 +2,14 @@
   import Card from "$lib/containers/Card.svelte";
   import CardClickable from "$lib/containers/CardClickable.svelte";
   import Switch from "$lib/forms/Switch.svelte";
+  import CardCustom from "./_card.svelte";
   import Arrows from "./Arrows.svelte";
 
   let type: "elevated" | "filled" | "outlined" = "elevated";
   let clickable = false;
 </script>
 
-<Card type="elevated">
+<CardCustom>
   <h2 class="m3-font-headline-large">Card</h2>
   <table>
     <tr>
@@ -24,21 +25,16 @@
       <td>{clickable ? "Clickable" : "Not clickable"}</td>
     </tr>
   </table>
-  <div class="area">
+  <div slot="demo">
     {#if clickable}
       <CardClickable {type}>Hello</CardClickable>
     {:else}
       <Card {type}>Hello</Card>
     {/if}
   </div>
-</Card>
+</CardCustom>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;

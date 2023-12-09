@@ -2,14 +2,14 @@
   import iconTriangle from "@iconify-icons/ic/outline-change-history";
   import iconSquare from "@iconify-icons/ic/outline-square";
   import iconCircle from "@iconify-icons/ic/outline-circle";
-  import Card from "$lib/containers/Card.svelte";
   import Switch from "$lib/forms/Switch.svelte";
   import SegmentedButtonContainer from "$lib/buttons/SegmentedButtonContainer.svelte";
   import SegmentedButtonItem from "$lib/buttons/SegmentedButtonItem.svelte";
+  import Card from "./_card.svelte";
   let multiSelect = false;
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">Segmented button</h2>
   <table>
     <tr>
@@ -19,7 +19,7 @@
       <td>{multiSelect ? "Multi-select" : "Single-select"}</td>
     </tr>
   </table>
-  <div class="area">
+  <div slot="demo">
     {#if multiSelect}
       <SegmentedButtonContainer>
         <input type="checkbox" id="segmented-a-0" />
@@ -43,11 +43,6 @@
 </Card>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;

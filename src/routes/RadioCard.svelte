@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Card from "$lib/containers/Card.svelte";
+  import Card from "./_card.svelte";
   import RadioAnim1 from "$lib/forms/RadioAnim1.svelte";
   import RadioAnim2 from "$lib/forms/RadioAnim2.svelte";
   import RadioAnim3 from "$lib/forms/RadioAnim3.svelte";
@@ -11,7 +11,7 @@
   $: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3;
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">Radio</h2>
   <table>
     <tr>
@@ -27,7 +27,7 @@
       <td>{enabled ? "Enabled" : "Disabled"}</td>
     </tr>
   </table>
-  <div class="area">
+  <div class="area" slot="demo">
     <label>
       <svelte:component this={component}>
         <input type="radio" name="radio" checked disabled={!enabled} />
@@ -48,9 +48,6 @@
 
 <style>
   .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
     display: flex;
     gap: 0.5rem;
   }

@@ -1,21 +1,16 @@
 <script lang="ts">
-  import Card from "$lib/containers/Card.svelte";
+  import Card from "./_card.svelte";
   import DateField from "$lib/utils/DateField.svelte";
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">Date field</h2>
-  <div class="area">
+  <div slot="demo">
     <DateField name="Date" />
   </div>
 </Card>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;

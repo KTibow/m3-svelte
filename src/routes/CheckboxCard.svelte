@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Card from "$lib/containers/Card.svelte";
+  import Card from "./_card.svelte";
   import Checkbox from "$lib/forms/Checkbox.svelte";
   import CheckboxAnim from "$lib/forms/CheckboxAnim.svelte";
   import Switch from "$lib/forms/Switch.svelte";
@@ -9,7 +9,7 @@
   $: component = animation ? CheckboxAnim : Checkbox;
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">Checkbox</h2>
   <table>
     <tr>
@@ -25,7 +25,7 @@
       <td>{enabled ? "Enabled" : "Disabled"}</td>
     </tr>
   </table>
-  <div class="area">
+  <div slot="demo">
     <label>
       <svelte:component this={component}>
         <input type="checkbox" checked disabled={!enabled} />
@@ -35,11 +35,6 @@
 </Card>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;

@@ -1,14 +1,14 @@
 <script lang="ts">
   import iconEdit from "@iconify-icons/ic/outline-edit";
-  import Card from "$lib/containers/Card.svelte";
-  import Arrows from "./Arrows.svelte";
   import FAB from "$lib/buttons/FAB.svelte";
+  import Arrows from "./Arrows.svelte";
+  import Card from "./_card.svelte";
 
   let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
   let size: "small" | "normal" | "large" | "extended" = "normal";
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">FAB</h2>
   <table>
     <tr>
@@ -24,7 +24,7 @@
       <td>{size[0].toUpperCase() + size.slice(1)}</td>
     </tr>
   </table>
-  <div class="area">
+  <div slot="demo">
     <FAB
       {color}
       size={size == "extended" ? "normal" : size}
@@ -35,11 +35,6 @@
 </Card>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;

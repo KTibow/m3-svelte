@@ -1,12 +1,12 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import iconUser from "@iconify-icons/ic/outline-person";
-  import Card from "$lib/containers/Card.svelte";
   import Divider from "$lib/utils/Divider.svelte";
   import Checkbox from "$lib/forms/Checkbox.svelte";
   import ListItem from "$lib/containers/ListItem.svelte";
   import ListItemButton from "$lib/containers/ListItemButton.svelte";
   import ListItemLabel from "$lib/containers/ListItemLabel.svelte";
+  import Card from "./_card.svelte";
   import Arrows from "./Arrows.svelte";
 
   let lines: "1" | "2" | "3" = "1";
@@ -19,7 +19,7 @@
         : "This is an example of supporting text for a list item component showcase.";
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">List</h2>
   <table>
     <tr>
@@ -35,7 +35,7 @@
       <td>{"<" + type + ">"}</td>
     </tr>
   </table>
-  <div class="area">
+  <div slot="demo">
     <div class="list">
       {#if type == "div"}
         <ListItem headline="This is a headline" {supporting} lines={+lines}>
@@ -83,11 +83,6 @@
 </Card>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;

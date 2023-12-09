@@ -2,8 +2,8 @@
   import Icon from "@iconify/svelte";
   import iconEdit from "@iconify-icons/ic/outline-edit";
   import Button from "$lib/buttons/Button.svelte";
-  import Card from "$lib/containers/Card.svelte";
   import Switch from "$lib/forms/Switch.svelte";
+  import Card from "./_card.svelte";
   import Arrows from "./Arrows.svelte";
 
   let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
@@ -11,7 +11,7 @@
   let enabled = true;
 </script>
 
-<Card type="elevated">
+<Card>
   <h2 class="m3-font-headline-large">Button</h2>
   <table>
     <tr>
@@ -33,7 +33,7 @@
       <td>{enabled ? "Enabled" : "Disabled"}</td>
     </tr>
   </table>
-  <div class="area">
+  <div slot="demo">
     <Button {type} disabled={!enabled} {iconType}>
       {#if iconType == "none"}
         Hello
@@ -47,11 +47,6 @@
 </Card>
 
 <style>
-  .area {
-    margin: auto -1rem -1rem -1rem;
-    padding: 1rem;
-    border-top: solid 1px rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
