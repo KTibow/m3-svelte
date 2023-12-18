@@ -1,6 +1,6 @@
 <script lang="ts">
-  import iconEdit from "@iconify-icons/ic/outline-edit";
-  import iconDropdown from "@iconify-icons/ic/outline-expand-more";
+  import iconEdit from "@ktibow/iconset-ic/outline-edit";
+  import iconDropdown from "@ktibow/iconset-ic/outline-expand-more";
   import Card from "./_card.svelte";
   import Switch from "$lib/forms/Switch.svelte";
   import Arrows from "./Arrows.svelte";

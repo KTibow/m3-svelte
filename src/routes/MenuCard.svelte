@@ -1,7 +1,7 @@
 <script lang="ts">
-  import iconUndo from "@iconify-icons/ic/outline-undo";
-  import iconRedo from "@iconify-icons/ic/outline-redo";
-  import iconCut from "@iconify-icons/ic/outline-content-cut";
+  import iconUndo from "@ktibow/iconset-ic/outline-undo";
+  import iconRedo from "@ktibow/iconset-ic/outline-redo";
+  import iconCut from "@ktibow/iconset-ic/outline-content-cut";
   import Card from "./_card.svelte";
   import Menu from "$lib/containers/Menu.svelte";
   import MenuItem from "$lib/containers/MenuItem.svelte";

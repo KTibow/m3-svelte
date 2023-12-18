@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import Icon from "@iconify/svelte";
-  import iconCheck from "@iconify-icons/ic/outline-check";
+  import Icon from "$lib/misc/_icon.svelte";
+  import iconCheck from "@ktibow/iconset-ic/outline-check";
 
   const dispatch = createEventDispatcher();
   const conditionalScroll = (node: Element, shouldScroll: boolean) => {

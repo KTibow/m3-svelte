@@ -4,9 +4,9 @@
     hexFromArgb,
     sourceColorFromImage,
   } from "@material/material-color-utilities";
-  import Icon from "@iconify/svelte";
-  import iconColorLens from "@iconify-icons/ic/outline-color-lens";
-  import iconImage from "@iconify-icons/ic/outline-wallpaper";
+  import Icon from "$lib/misc/_icon.svelte";
+  import iconColorLens from "@ktibow/iconset-ic/outline-color-lens";
+  import iconImage from "@ktibow/iconset-ic/outline-wallpaper";
 
   import { browser } from "$app/environment";
   import Button from "$lib/buttons/Button.svelte";

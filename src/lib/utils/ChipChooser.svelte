@@ -1,6 +1,6 @@
 <script lang="ts">
   import Chip from "$lib/forms/Chip.svelte";
-  import type { IconifyIcon } from "@iconify/svelte";
+  import type { IconifyIcon } from "@iconify/types";
   export let options: { label: string; value: string; icon?: IconifyIcon }[];
   export let chosenOptions: string[] = [];
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Icon from "@iconify/svelte";
-  import iconCalendar from "@iconify-icons/ic/outline-calendar-today";
+  import Icon from "$lib/misc/_icon.svelte";
+  import iconCalendar from "@ktibow/iconset-ic/outline-calendar-today";
   import { onMount } from "svelte";
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { TransitionConfig } from "svelte/transition";

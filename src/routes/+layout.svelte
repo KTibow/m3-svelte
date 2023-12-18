@@ -1,13 +1,13 @@
 <script>
-  import iconHome from "@iconify-icons/ic/outline-home";
-  import iconHomeS from "@iconify-icons/ic/twotone-home";
-  import iconAnimation from "@iconify-icons/ic/outline-animation";
-  import iconAnimationS from "@iconify-icons/ic/twotone-animation";
-  import iconBook from "@iconify-icons/ic/outline-book";
-  import iconBookS from "@iconify-icons/ic/twotone-book";
-  import iconColorLens from "@iconify-icons/ic/outline-color-lens";
-  import iconColorLensS from "@iconify-icons/ic/twotone-color-lens";
-  import iconCode from "@iconify-icons/ic/outline-code";
+  import iconHome from "@ktibow/iconset-ic/outline-home";
+  import iconHomeS from "@ktibow/iconset-ic/twotone-home";
+  import iconAnimation from "@ktibow/iconset-ic/outline-animation";
+  import iconAnimationS from "@ktibow/iconset-ic/twotone-animation";
+  import iconBook from "@ktibow/iconset-ic/outline-book";
+  import iconBookS from "@ktibow/iconset-ic/twotone-book";
+  import iconColorLens from "@ktibow/iconset-ic/outline-color-lens";
+  import iconColorLensS from "@ktibow/iconset-ic/twotone-color-lens";
+  import iconCode from "@ktibow/iconset-ic/outline-code";
   import { base } from "$app/paths";
   import { page } from "$app/stores";
   import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";

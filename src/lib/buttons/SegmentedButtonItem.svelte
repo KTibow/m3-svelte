@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { HTMLLabelAttributes } from "svelte/elements";
-  import Icon, { type IconifyIcon } from "@iconify/svelte";
-  import iconCheck from "@iconify-icons/ic/outline-check";
+  import Icon from "$lib/misc/_icon.svelte";
+  import type { IconifyIcon } from "@iconify/types";
+  import iconCheck from "@ktibow/iconset-ic/outline-check";
 
   export let display = "flex";
   export let extraOptions: HTMLLabelAttributes = {};

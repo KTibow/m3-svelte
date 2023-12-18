@@ -1,8 +1,8 @@
 <script>
-  import Icon from "@iconify/svelte";
-  import iconStar from "@iconify-icons/ic/outline-star";
-  import iconRocket from "@iconify-icons/ic/outline-rocket";
-  import iconChecks from "@iconify-icons/ic/outline-done-all";
+  import Icon from "$lib/misc/_icon.svelte";
+  import iconStar from "@ktibow/iconset-ic/outline-star";
+  import iconRocket from "@ktibow/iconset-ic/outline-rocket";
+  import iconChecks from "@ktibow/iconset-ic/outline-done-all";
   let x = 0.5;
   let y = 0.5;
 </script>

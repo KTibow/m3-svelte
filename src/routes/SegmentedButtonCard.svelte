@@ -1,7 +1,7 @@
 <script>
-  import iconTriangle from "@iconify-icons/ic/outline-change-history";
-  import iconSquare from "@iconify-icons/ic/outline-square";
-  import iconCircle from "@iconify-icons/ic/outline-circle";
+  import iconTriangle from "@ktibow/iconset-ic/outline-change-history";
+  import iconSquare from "@ktibow/iconset-ic/outline-square";
+  import iconCircle from "@ktibow/iconset-ic/outline-circle";
   import Switch from "$lib/forms/Switch.svelte";
   import SegmentedButtonContainer from "$lib/buttons/SegmentedButtonContainer.svelte";
   import SegmentedButtonItem from "$lib/buttons/SegmentedButtonItem.svelte";

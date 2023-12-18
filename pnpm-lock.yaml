@@ -5,12 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@iconify-icons/ic':
-    specifier: ^1.2.13
-    version: 1.2.13
-  '@iconify/svelte':
-    specifier: ^3.1.6
-    version: 3.1.6(svelte@4.2.8)
+  '@iconify/types':
+    specifier: ^2.0.0
+    version: 2.0.0
+  '@ktibow/iconset-ic':
+    specifier: ^1.0.32
+    version: 1.0.32
   svelte:
     specifier: ^4.2.8
     version: 4.2.8
@@ -339,21 +339,6 @@ packages:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
     dev: true
 
-  /@iconify-icons/ic@1.2.13:
-    resolution: {integrity: sha512-9Y3DLark8PYGtsHuWqbYxo2xAquL9vFQBZKRkpHuntyQJxBDLsfm3OO8mRbj2EmaAQR65pecH77DqQaLnN7yJQ==}
-    dependencies:
-      '@iconify/types': 2.0.0
-    dev: false
-
-  /@iconify/svelte@3.1.6(svelte@4.2.8):
-    resolution: {integrity: sha512-yLSrlkOx5J6xXU5GDLPBV/MdVBVEZhd36onfqSbxQobp1XBoWQbMPLNZyCAmTKCPnmzXSowGy79agl8FQ3kj6A==}
-    peerDependencies:
-      svelte: '*'
-    dependencies:
-      '@iconify/types': 2.0.0
-      svelte: 4.2.8
-    dev: false
-
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
     dev: false
@@ -382,6 +367,12 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  /@ktibow/iconset-ic@1.0.32:
+    resolution: {integrity: sha512-BowCahg47VxEP9RpCR4cPyM+BoNaGjihlFtCalVq0Z1oJuzjCBTogCSeBrVamuWd/YdCLrkxFY/LZcAdPEkGqA==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
 
   /@material/material-color-utilities@0.2.7:
     resolution: {integrity: sha512-0FCeqG6WvK4/Cc06F/xXMd/pv4FeisI0c1tUpBbfhA2n9Y8eZEv4Karjbmf2ZqQCPUWMrGp8A571tCjizxoTiQ==}

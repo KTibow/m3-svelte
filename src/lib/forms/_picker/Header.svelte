@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Icon from "@iconify/svelte";
-  import iconLeft from "@iconify-icons/ic/outline-chevron-left";
-  import iconRight from "@iconify-icons/ic/outline-chevron-right";
-  import iconDown from "@iconify-icons/ic/outline-arrow-drop-down";
+  import Icon from "$lib/misc/_icon.svelte";
+  import iconLeft from "@ktibow/iconset-ic/outline-chevron-left";
+  import iconRight from "@ktibow/iconset-ic/outline-chevron-right";
+  import iconDown from "@ktibow/iconset-ic/outline-arrow-drop-down";
 
   export let currentView: "calendar" | "year" | "month", focusedMonth: number, focusedYear: number;
   export let startYear: number, endYear: number;

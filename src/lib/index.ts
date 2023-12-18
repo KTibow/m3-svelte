@@ -1,5 +1,6 @@
 export * from "./misc/utils.js";
 export { default as StyleFromScheme } from "./misc/StyleFromScheme.svelte";
+export { default as Icon } from "./misc/_icon.svelte";
 export * from "./misc/animation.js";
 export * from "./misc/easing.js";
 

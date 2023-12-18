@@ -16,8 +16,8 @@
   import { onDestroy, type ComponentProps } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
   import { fade } from "svelte/transition";
-  import Icon from "@iconify/svelte";
-  import iconX from "@iconify-icons/ic/outline-close";
+  import Icon from "$lib/misc/_icon.svelte";
+  import iconX from "@ktibow/iconset-ic/outline-close";
   import SnackbarItem from "./SnackbarItem.svelte";
   type SnackbarData = {
     message: string;

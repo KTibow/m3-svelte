@@ -1,6 +1,6 @@
 <script>
-  import Icon from "@iconify/svelte";
-  import iconArrow from "@iconify-icons/ic/outline-arrow-downward";
+  import Icon from "$lib/misc/_icon.svelte";
+  import iconArrow from "@ktibow/iconset-ic/outline-arrow-downward";
 </script>
 
 <div>

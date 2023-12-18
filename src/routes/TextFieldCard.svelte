@@ -1,5 +1,5 @@
 <script lang="ts">
-  import iconEdit from "@iconify-icons/ic/outline-edit";
+  import iconEdit from "@ktibow/iconset-ic/outline-edit";
   import Card from "./_card.svelte";
   import Switch from "$lib/forms/Switch.svelte";
   import TextField from "$lib/forms/TextField.svelte";
