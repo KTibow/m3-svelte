@@ -52,7 +52,7 @@
       </div>
       <div class="items">
         {#each paths as { path, icon, iconS, label }}
-          {@const selected = pathNormalized == path}
+          {@const selected = pathNormalized == path.replace(/^./, "/")}
           <NavListLink type="auto" href={path} {selected} icon={selected ? iconS : icon}>
             {label}
           </NavListLink>
