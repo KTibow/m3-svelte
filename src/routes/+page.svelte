@@ -7,9 +7,9 @@
   import DialogCard from "./DialogCard.svelte";
   import SnackbarCard from "./SnackbarCard.svelte";
   import BottomSheetCard from "./BottomSheetCard.svelte";
-  import MenuCard from "./MenuCard.svelte";
   import ListCard from "./ListCard.svelte";
   import ProgressCard from "./ProgressCard.svelte";
+  import MenuCard from "./MenuCard.svelte";
   import RadioCard from "./RadioCard.svelte";
   import CheckboxCard from "./CheckboxCard.svelte";
   import SwitchCard from "./SwitchCard.svelte";

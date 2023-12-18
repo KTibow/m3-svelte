@@ -1,7 +1,7 @@
 <script>
-  import iconTriangle from "@ktibow/iconset-ic/outline-change-history";
-  import iconSquare from "@ktibow/iconset-ic/outline-square";
-  import iconCircle from "@ktibow/iconset-ic/outline-circle";
+  import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
+  import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
+  import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
   import Switch from "$lib/forms/Switch.svelte";
   import SegmentedButtonContainer from "$lib/buttons/SegmentedButtonContainer.svelte";
   import SegmentedButtonItem from "$lib/buttons/SegmentedButtonItem.svelte";

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Icon from "$lib/misc/_icon.svelte";
-  import iconCalendar from "@ktibow/iconset-ic/outline-calendar-today";
   import { onMount } from "svelte";
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { TransitionConfig } from "svelte/transition";
+  import Icon from "$lib/misc/_icon.svelte";
+  import iconCalendar from "@ktibow/iconset-material-symbols/calendar-today-outline";
 
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import { easeEmphasized } from "$lib/misc/easing";

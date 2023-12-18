@@ -5,8 +5,8 @@
     sourceColorFromImage,
   } from "@material/material-color-utilities";
   import Icon from "$lib/misc/_icon.svelte";
-  import iconColorLens from "@ktibow/iconset-ic/outline-color-lens";
-  import iconImage from "@ktibow/iconset-ic/outline-wallpaper";
+  import iconColorLens from "@ktibow/iconset-material-symbols/palette-outline";
+  import iconImage from "@ktibow/iconset-material-symbols/wallpaper";
 
   import { browser } from "$app/environment";
   import Button from "$lib/buttons/Button.svelte";

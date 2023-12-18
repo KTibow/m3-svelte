@@ -8,9 +8,9 @@ dependencies:
   '@iconify/types':
     specifier: ^2.0.0
     version: 2.0.0
-  '@ktibow/iconset-ic':
-    specifier: ^1.0.32
-    version: 1.0.32
+  '@ktibow/iconset-material-symbols':
+    specifier: ^0.0.1702636265
+    version: 0.0.1702636265
   svelte:
     specifier: ^4.2.8
     version: 4.2.8
@@ -366,8 +366,8 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@ktibow/iconset-ic@1.0.32:
-    resolution: {integrity: sha512-BowCahg47VxEP9RpCR4cPyM+BoNaGjihlFtCalVq0Z1oJuzjCBTogCSeBrVamuWd/YdCLrkxFY/LZcAdPEkGqA==}
+  /@ktibow/iconset-material-symbols@0.0.1702636265:
+    resolution: {integrity: sha512-biP34ZbXXd/q9Nqj1bhlIX+BUhRxaGPZdMBlCP0STKpfK3sN5xCRKAsOACvduWHLuKdDkHMJCp0nEE/7XgnOtw==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: false

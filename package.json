@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@iconify/types": "^2.0.0",
-    "@ktibow/iconset-ic": "^1.0.32",
+    "@ktibow/iconset-material-symbols": "^0.0.1702636265",
     "svelte": "^4.2.8"
   },
   "files": [

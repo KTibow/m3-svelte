@@ -1,6 +1,6 @@
 <script lang="ts">
-  import iconSquare from "@ktibow/iconset-ic/outline-square";
-  import iconCircle from "@ktibow/iconset-ic/outline-circle";
+  import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
+  import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
   import Card from "./_card.svelte";
   import Arrows from "./Arrows.svelte";
   import Switch from "$lib/forms/Switch.svelte";

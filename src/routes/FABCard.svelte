@@ -1,5 +1,5 @@
 <script lang="ts">
-  import iconEdit from "@ktibow/iconset-ic/outline-edit";
+  import iconEdit from "@ktibow/iconset-material-symbols/edit-outline";
   import FAB from "$lib/buttons/FAB.svelte";
   import Arrows from "./Arrows.svelte";
   import Card from "./_card.svelte";

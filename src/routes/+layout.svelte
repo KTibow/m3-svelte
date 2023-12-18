@@ -1,13 +1,13 @@
 <script>
-  import iconHome from "@ktibow/iconset-ic/outline-home";
-  import iconHomeS from "@ktibow/iconset-ic/twotone-home";
-  import iconAnimation from "@ktibow/iconset-ic/outline-animation";
-  import iconAnimationS from "@ktibow/iconset-ic/twotone-animation";
-  import iconBook from "@ktibow/iconset-ic/outline-book";
-  import iconBookS from "@ktibow/iconset-ic/twotone-book";
-  import iconColorLens from "@ktibow/iconset-ic/outline-color-lens";
-  import iconColorLensS from "@ktibow/iconset-ic/twotone-color-lens";
-  import iconCode from "@ktibow/iconset-ic/outline-code";
+  import iconHome from "@ktibow/iconset-material-symbols/home-outline";
+  import iconHomeS from "@ktibow/iconset-material-symbols/home";
+  import iconAnimation from "@ktibow/iconset-material-symbols/animation";
+  import iconAnimationS from "@ktibow/iconset-material-symbols/animation";
+  import iconBook from "@ktibow/iconset-material-symbols/book-outline";
+  import iconBookS from "@ktibow/iconset-material-symbols/book";
+  import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
+  import iconPaletteS from "@ktibow/iconset-material-symbols/palette";
+  import iconCode from "@ktibow/iconset-material-symbols/code";
   import { base } from "$app/paths";
   import { page } from "$app/stores";
   import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
@@ -31,8 +31,8 @@
     },
     {
       path: base + "/theme",
-      icon: iconColorLens,
-      iconS: iconColorLensS,
+      icon: iconPalette,
+      iconS: iconPaletteS,
       label: "Theme",
     },
   ];

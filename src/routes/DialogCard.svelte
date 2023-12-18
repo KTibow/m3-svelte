@@ -1,5 +1,5 @@
 <script lang="ts">
-  import iconTrash from "@ktibow/iconset-ic/outline-delete";
+  import iconTrash from "@ktibow/iconset-material-symbols/delete-outline";
   import Dialog from "$lib/containers/Dialog.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import Card from "./_card.svelte";

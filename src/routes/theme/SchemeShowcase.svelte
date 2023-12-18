@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { DynamicScheme } from "@material/material-color-utilities";
   import Icon from "$lib/misc/_icon.svelte";
-  import iconCopy from "@ktibow/iconset-ic/outline-content-copy";
-  import iconLight from "@ktibow/iconset-ic/outline-light-mode";
-  import iconDark from "@ktibow/iconset-ic/outline-dark-mode";
+  import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
+  import iconLight from "@ktibow/iconset-material-symbols/light-mode-outline";
+  import iconDark from "@ktibow/iconset-material-symbols/dark-mode-outline";
   import { onMount } from "svelte";
 
   import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";

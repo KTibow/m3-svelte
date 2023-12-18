@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "$lib/misc/_icon.svelte";
-  import iconCheck from "@ktibow/iconset-ic/outline-check";
+  import iconCheck from "@ktibow/iconset-material-symbols/check";
   import type { HTMLAttributes } from "svelte/elements";
 
   export let display = "inline-flex";

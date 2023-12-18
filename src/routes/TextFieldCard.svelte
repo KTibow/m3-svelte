@@ -1,12 +1,12 @@
 <script lang="ts">
-  import iconEdit from "@ktibow/iconset-ic/outline-edit";
-  import Card from "./_card.svelte";
+  import iconEdit from "@ktibow/iconset-material-symbols/edit-outline";
   import Switch from "$lib/forms/Switch.svelte";
   import TextField from "$lib/forms/TextField.svelte";
   import TextFieldMultiline from "$lib/forms/TextFieldMultiline.svelte";
-  import Arrows from "./Arrows.svelte";
   import TextFieldOutlined from "$lib/forms/TextFieldOutlined.svelte";
   import TextFieldOutlinedMultiline from "$lib/forms/TextFieldOutlinedMultiline.svelte";
+  import Card from "./_card.svelte";
+  import Arrows from "./Arrows.svelte";
 
   let type = "filled";
   let leadingIcon = false;

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "$lib/misc/_icon.svelte";
-  import iconUser from "@ktibow/iconset-ic/outline-person";
+  import iconUser from "@ktibow/iconset-material-symbols/person-outline";
   import Divider from "$lib/utils/Divider.svelte";
   import Checkbox from "$lib/forms/Checkbox.svelte";
   import ListItem from "$lib/containers/ListItem.svelte";
