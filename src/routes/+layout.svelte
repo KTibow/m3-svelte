@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import iconHome from "@ktibow/iconset-material-symbols/home-outline";
   import iconHomeS from "@ktibow/iconset-material-symbols/home";
   import iconAnimation from "@ktibow/iconset-material-symbols/animation";
@@ -36,7 +36,11 @@
       label: "Theme",
     },
   ];
-  $: pathNormalized = $page.url.pathname.replace(/\/$/, "") || "/";
+  const normalizePath = (path: string) => {
+    if (path.startsWith(".")) path = path.slice(1);
+    if (path.endsWith("/")) path = path.slice(0, -1);
+    return path || "/";
+  };
 </script>
 
 <StyleFromScheme
@@ -52,7 +56,7 @@
       </div>
       <div class="items">
         {#each paths as { path, icon, iconS, label }}
-          {@const selected = pathNormalized == path.replace(/^./, "/")}
+          {@const selected = normalizePath(path) === normalizePath($page.url.pathname)}
           <NavListLink type="auto" href={path} {selected} icon={selected ? iconS : icon}>
             {label}
           </NavListLink>
