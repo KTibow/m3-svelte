@@ -37,7 +37,8 @@
     },
   ];
   const normalizePath = (path: string) => {
-    if (path.startsWith(".")) path = path.slice(1);
+    const u = new URL(path, $page.url.href);
+    path = u.pathname;
     if (path.endsWith("/")) path = path.slice(0, -1);
     return path || "/";
   };
