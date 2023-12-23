@@ -14,7 +14,7 @@
     focusedYear = parseInt(date.slice(0, 4)) || now.getFullYear(),
     startYear = now.getFullYear() - 50,
     endYear = now.getFullYear() + 10;
-  export let dateValidator = (date: string) => true;
+  export let dateValidator = (_date: string) => true;
 
   let currentView: "calendar" | "year" | "month" = "calendar",
     chosenDate: string;

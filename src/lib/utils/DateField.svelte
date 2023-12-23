@@ -20,7 +20,7 @@
 
   let picker = false;
   let container: HTMLDivElement;
-  const clickOutside = (_: Node) => {
+  const clickOutside = (_node: Node) => {
     const handleClick = (event: Event) => {
       if (!container.contains(event.target as Node)) {
         picker = false;
@@ -33,7 +33,7 @@
       },
     };
   };
-  const enterExit = (_: Node): TransitionConfig => {
+  const enterExit = (_node: Node): TransitionConfig => {
     return {
       duration: 400,
       easing: easeEmphasized,

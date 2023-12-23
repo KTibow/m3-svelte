@@ -12,7 +12,10 @@
 
   const dispatch = createEventDispatcher();
   const open = (node: HTMLDialogElement) => node.showModal();
-  const heightAnim = (node: HTMLDialogElement, options: any = {}): TransitionConfig => {
+  const heightAnim = (
+    node: HTMLDialogElement,
+    options: Record<string, unknown> = {},
+  ): TransitionConfig => {
     if (node.clientHeight < height) height = node.clientHeight;
     return {
       duration: 400,
