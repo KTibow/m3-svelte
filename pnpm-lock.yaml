@@ -11,14 +11,14 @@ dependencies:
   '@ktibow/iconset-material-symbols':
     specifier: ^0.0.1702636265
     version: 0.0.1702636265
+  '@material/material-color-utilities':
+    specifier: ^0.2.7
+    version: 0.2.7
   svelte:
     specifier: ^4.2.8
     version: 4.2.8
 
 devDependencies:
-  '@material/material-color-utilities':
-    specifier: ^0.2.7
-    version: 0.2.7
   '@sveltejs/adapter-static':
     specifier: ^3.0.0
     version: 3.0.0(@sveltejs/kit@2.0.2)
@@ -374,7 +374,7 @@ packages:
 
   /@material/material-color-utilities@0.2.7:
     resolution: {integrity: sha512-0FCeqG6WvK4/Cc06F/xXMd/pv4FeisI0c1tUpBbfhA2n9Y8eZEv4Karjbmf2ZqQCPUWMrGp8A571tCjizxoTiQ==}
-    dev: true
+    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
