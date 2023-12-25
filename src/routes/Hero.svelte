@@ -3,23 +3,15 @@
   import iconStar from "@ktibow/iconset-material-symbols/star-outline";
   import iconRocket from "@ktibow/iconset-material-symbols/rocket-outline";
   import iconChecks from "@ktibow/iconset-material-symbols/done-all";
-  let x = 0.5;
-  let y = 0.5;
+  let y = 0;
 </script>
 
 <svelte:window
   on:mousemove={(e) => {
-    x = e.clientX / window.innerWidth;
     y = e.clientY / window.innerHeight;
   }}
 />
-<div
-  class="container"
-  style:border-top-left-radius="{1 + 3 * (+x + y)}rem"
-  style:border-top-right-radius="{4 + 3 * (-x + y)}rem"
-  style:border-bottom-left-radius="{4 + 3 * (+x - y)}rem"
-  style:border-bottom-right-radius="{7 + 3 * (-x - y)}rem"
->
+<div class="container" style:background-position="0 {y * 100}%">
   <h1 class="m3-font-display-large">M3 Svelte</h1>
   <p class="m3-font-title-large">
     M3 Svelte implements the Material 3 design system in Svelte, from the components to the
@@ -66,14 +58,20 @@
 
 <style>
   .container {
-    background-color: rgb(var(--m3-scheme-primary-container));
+    background-image: linear-gradient(
+      to bottom,
+      rgb(var(--m3-scheme-primary-container)),
+      rgb(var(--m3-scheme-tertiary-container))
+    );
+    background-size: 100% 200%;
+    border-radius: 1rem;
     color: rgb(var(--m3-scheme-on-primary-container));
 
     display: flex;
     flex-direction: column;
     gap: 2rem;
     text-align: center;
-    padding: 8rem 0 6rem 0;
+    padding: 4rem 1rem 3rem 1rem;
     margin-bottom: 2rem;
   }
   .container h1 {
@@ -95,6 +93,11 @@
     gap: 0.5rem;
     padding: 0 1rem;
   }
+  @media (min-width: 37.5rem) {
+    .container {
+      padding: 8rem 1rem 6rem 1rem;
+    }
+  }
 
   .items {
     display: flex;
@@ -103,8 +106,8 @@
     margin-bottom: 4rem;
   }
   .item {
-    background-color: rgb(var(--m3-scheme-secondary-container));
-    color: rgb(var(--m3-scheme-on-secondary-container));
+    background-color: rgb(var(--m3-scheme-primary-container) / 0.5);
+    color: rgb(var(--m3-scheme-on-primary-container));
     border-radius: 2rem;
 
     flex: 1 1 20rem;

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import iconLightbulb from "@ktibow/iconset-material-symbols/lightbulb-outline";
+  import Icon from "$lib/misc/_icon.svelte";
   import Hero from "./Hero.svelte";
   import ButtonCard from "./ButtonCard.svelte";
   import SegmentedButtonCard from "./SegmentedButtonCard.svelte";
@@ -27,8 +29,8 @@
     content="The home of Material 3 Svelte, a library for the M3 design system, with components, animations, and theming."
   />
 </svelte:head>
-<Hero />
 
+<Hero />
 <div class="cards">
   <ButtonCard />
   <SegmentedButtonCard />
@@ -49,6 +51,10 @@
   <ChipCard />
   <TabsCard />
 </div>
+<div class="tip">
+  <Icon width="1.5rem" height="1.5rem" icon={iconLightbulb} />
+  If you use the theme page, your theme will show up here
+</div>
 
 <style>
   .cards {
@@ -59,5 +65,11 @@
     .cards {
       grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
     }
+  }
+  .tip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
   }
 </style>
