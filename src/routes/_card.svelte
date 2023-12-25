@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    overflow: hidden;
   }
   .content {
     display: flex;

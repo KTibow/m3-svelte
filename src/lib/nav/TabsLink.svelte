@@ -112,6 +112,7 @@
   }
   .primary > .bar {
     width: 3rem;
+    height: 0.1875rem;
     border-radius: 0.1875rem 0.1875rem 0 0;
     margin-left: calc(50% / var(--items));
     transform: translateX(-50%);

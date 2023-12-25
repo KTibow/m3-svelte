@@ -50,6 +50,7 @@ export { default as NavListButton } from "./nav/NavListButton.svelte";
 export { default as NavListLink } from "./nav/NavListLink.svelte";
 export { default as Tabs } from "./nav/Tabs.svelte";
 export { default as TabsLink } from "./nav/TabsLink.svelte";
+export { default as VariableTabs } from "./nav/VariableTabs.svelte";
 
 export { default as ChipChooser } from "./utils/ChipChooser.svelte";
 export { default as Divider } from "./utils/Divider.svelte";
