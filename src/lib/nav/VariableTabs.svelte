@@ -209,4 +209,14 @@
     border-radius: 0.1875rem 0.1875rem 0 0;
     justify-self: center;
   }
+
+  .bar {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media screen and (forced-colors: active) {
+    .bar {
+      background-color: selecteditem;
+    }
+  }
 </style>
