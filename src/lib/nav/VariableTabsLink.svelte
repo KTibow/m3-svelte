@@ -2,7 +2,7 @@
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
-  export let display = "flex";
+  export let display = "grid";
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
   export let extraOptions: HTMLAnchorAttributes = {};
   export let secondary = false;
@@ -13,32 +13,92 @@
     value: string;
     href: string;
   }[];
+
+  let prevTab = tab;
+  $: if (wrapper) {
+    const before = prevTab;
+    const after = tab;
+    const beforeI = items.findIndex((i) => i.value == before) + 1;
+    const afterI = items.findIndex((i) => i.value == after) + 1;
+    const beforeE = wrapper.querySelector(`a:nth-of-type(${beforeI})`) as HTMLInputElement;
+    const afterE = wrapper.querySelector(`a:nth-of-type(${afterI})`) as HTMLInputElement;
+
+    const bar = wrapper.querySelector(".bar") as HTMLDivElement;
+    const beforeX = beforeE.offsetLeft + 0.5 * beforeE.offsetWidth;
+    const afterX = afterE.offsetLeft + 0.5 * afterE.offsetWidth;
+    const deltaX = afterX - beforeX;
+
+    if (secondary) {
+      const factorX = afterE.offsetWidth / beforeE.offsetWidth;
+      bar.animate(
+        [
+          {
+            transform: `translateX(${-deltaX}px) scaleX(${1 / factorX})`,
+          },
+          {
+            transform: `translateX(0) scaleX(1)`,
+          },
+        ],
+        {
+          duration: 400,
+          easing: "ease",
+        },
+      );
+    } else {
+      bar.animate(
+        [
+          {
+            transform: `translateX(${-deltaX}px)`,
+          },
+          {
+            transform: `translateX(0)`,
+          },
+        ],
+        {
+          duration: 200,
+          easing: "ease",
+        },
+      );
+    }
+
+    prevTab = tab;
+  }
+  let wrapper: HTMLDivElement;
 </script>
 
 <div
   class="m3-container"
   class:primary={!secondary}
-  style="display: {display}; --items: {items.length}; --i: {items.findIndex(
-    (i) => i.value == tab,
-  )};"
+  style="display: {display}; --items: {items.length};"
+  bind:this={wrapper}
   {...extraWrapperOptions}
 >
   <div class="divider" />
-  {#each items as item}
-    <a href={item.href} class:tall={item.icon} class:selected={item.value == tab} {...extraOptions}>
+  {#each items as item, i}
+    <a
+      href={item.href}
+      class:tall={item.icon}
+      class:selected={item.value == tab}
+      style="grid-column: {i}"
+      {...extraOptions}
+    >
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
       <span class="m3-font-title-small">{item.name}</span>
     </a>
   {/each}
-  <div class="bar" />
+  <div class="bar" style="grid-column: {items.findIndex((i) => i.value == tab) + 1}" />
 </div>
 
 <style>
   .m3-container {
     position: relative;
     background-color: rgb(var(--m3-scheme-surface));
+    grid-template-columns: repeat(var(--items), auto);
+    padding-inline: 1rem;
+    justify-content: start;
+    overflow-x: auto;
   }
   .divider {
     position: absolute;
@@ -47,9 +107,7 @@
     background-color: rgb(var(--m3-scheme-surface-container-highest));
   }
   a {
-    flex: 1 0;
     height: 3rem;
-    min-width: 5rem;
     white-space: nowrap;
     padding: 0 1rem;
 
@@ -86,15 +144,16 @@
     --text: var(--m3-scheme-on-surface);
   }
 
+  a,
   .bar {
-    position: absolute;
+    grid-row: 1;
+  }
+  .bar {
     background-color: rgb(var(--m3-scheme-primary));
-    width: calc(100% / var(--items));
     height: 0.125rem;
-    left: calc(100% / var(--items) * var(--i));
-    bottom: 0;
+    z-index: 1;
+    align-self: end;
     pointer-events: none;
-    transition: all 200ms;
   }
 
   .primary > a {
@@ -115,8 +174,7 @@
     width: 3rem;
     height: 0.1875rem;
     border-radius: 0.1875rem 0.1875rem 0 0;
-    margin-left: calc(50% / var(--items));
-    transform: translateX(-50%);
+    justify-self: center;
   }
 
   .bar {
