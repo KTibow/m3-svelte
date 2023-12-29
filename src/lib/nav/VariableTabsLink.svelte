@@ -20,8 +20,8 @@
     const after = tab;
     const beforeI = items.findIndex((i) => i.value == before) + 1;
     const afterI = items.findIndex((i) => i.value == after) + 1;
-    const beforeE = wrapper.querySelector(`a:nth-of-type(${beforeI})`) as HTMLInputElement;
-    const afterE = wrapper.querySelector(`a:nth-of-type(${afterI})`) as HTMLInputElement;
+    const beforeE = wrapper.querySelector(`a:nth-of-type(${beforeI})`) as HTMLAnchorElement;
+    const afterE = wrapper.querySelector(`a:nth-of-type(${afterI})`) as HTMLAnchorElement;
 
     const bar = wrapper.querySelector(".bar") as HTMLDivElement;
     const beforeX = beforeE.offsetLeft + 0.5 * beforeE.offsetWidth;
