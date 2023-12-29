@@ -11,7 +11,9 @@
   export let name: string;
   export let date = "";
   export let required = false;
+  export let disabled = false;
   export let extraOptions: HTMLInputAttributes = {};
+
   const id = crypto.randomUUID();
   let hasJs = false;
   onMount(() => {
@@ -45,17 +47,20 @@ opacity: ${Math.min(t * 3, 1)};`,
   };
 </script>
 
-<div class="m3-container" class:has-js={hasJs} bind:this={container}>
+<div class="m3-container" class:has-js={hasJs} class:disabled bind:this={container}>
   <input
     type="date"
     class="m3-font-body-large"
+    {disabled}
     {required}
     {id}
     bind:value={date}
     {...extraOptions}
   />
   <label class="m3-font-body-small" for={id}>{name}</label>
-  <button type="button" on:click={() => (picker = !picker)}><Icon icon={iconCalendar} /></button>
+  <button type="button" {disabled} on:click={() => (picker = !picker)}>
+    <Icon icon={iconCalendar} />
+  </button>
   {#if picker}
     <div class="picker" use:clickOutside transition:enterExit>
       <DatePickerDocked
@@ -88,8 +93,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     border: none;
     outline: none;
     padding: 1.5rem 1rem 0.5rem 1rem;
-    background-color: inherit;
-    border-radius: inherit;
+    background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
   }
   label {
@@ -126,6 +130,20 @@ opacity: ${Math.min(t * 3, 1)};`,
     cursor: pointer;
     transition: all 200ms;
   }
+
+  .m3-container.disabled {
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.04);
+    border-bottom-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  }
+  input:disabled,
+  input:disabled + label {
+    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  }
+  button:disabled {
+    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    cursor: auto;
+  }
+
   button > :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
@@ -138,12 +156,12 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
 
   @media (hover: hover) {
-    button:hover {
+    button:enabled:hover {
       background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
     }
   }
-  button:focus-visible,
-  button:active {
+  button:enabled:focus-visible,
+  button:enabled:active {
     background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
   @media (min-width: 37.5rem) {

@@ -26,6 +26,7 @@
   let tab = "hello";
 </script>
 
+<span class="anchor" />
 <Card>
   <h2 class="m3-font-headline-large">Tabs</h2>
   <table>
@@ -64,6 +65,12 @@
 </Card>
 
 <style>
+  .anchor {
+    display: none;
+  }
+  .anchor + :global(div) {
+    overflow: hidden;
+  }
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
