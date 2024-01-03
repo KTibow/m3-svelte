@@ -96,7 +96,8 @@
   border-radius: var(--m3-util-rounding-full);
 &rbrace;</pre>
 <p style="margin-top: 1rem; margin-bottom: 0.5rem">Using Tailwind?</p>
-<ButtonLink type="filled" href="/tailwindColors.txt">View color config to paste in</ButtonLink>
+<ButtonLink type="filled" href="{base}/tailwindColors.txt">View color config to paste in</ButtonLink
+>
 
 <style>
   ol {
