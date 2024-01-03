@@ -1,86 +1,155 @@
 <script>
+  import iconDownload from "@ktibow/iconset-material-symbols/download";
+  import iconAdd from "@ktibow/iconset-material-symbols/add";
+  import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
+  import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
   import { base } from "$app/paths";
+  import Icon from "$lib/misc/_icon.svelte";
+  import ButtonLink from "$lib/buttons/ButtonLink.svelte";
 </script>
 
 <svelte:head>
   <title>M3 Svelte: Use</title>
 </svelte:head>
-<h2 class="m3-font-headline-large">Use M3 Svelte</h2>
-<div class="card-container">
-  <div class="card">
-    <span class="number m3-font-display-medium">1</span>
-    <p>Install m3-svelte into your SvelteKit project with <code>npm i m3-svelte</code></p>
-  </div>
-  <div class="card">
-    <span class="number m3-font-display-medium">2</span>
-    <p>
-      To set up your theme, get a theme snippet from <a href="{base}/theme">the theme page</a>. In
-      <code>+layout.svelte</code>, import StyleFromScheme and add the snippet
-    </p>
-  </div>
-  <div class="card">
-    <span class="number m3-font-display-medium">3</span>
-    <p>
-      To style the body, add a <code>style</code> tag to the <code>head</code> of
-      <code>app.html</code> like this
-    </p>
-    <pre>{`<${""}style>
-  body {
-    margin: 0;
-    background-color: rgb(var(--m3-scheme-background));
-    color: rgb(var(--m3-scheme-on-background));
-  }
-</${""}style>`}</pre>
-  </div>
-  <div class="card">
-    <span class="number m3-font-display-medium">4</span>
-    <p>If you want to use Roboto, add this to the <code>head</code> of <code>app.html</code></p>
-    <pre>{`<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />`}</pre>
-    <p>
-      If you want to load another font, set up CSS variables. They will be used by <a
-        href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/misc/styles.css"
-      >
-        styles.css
-      </a>
-    </p>
-  </div>
-</div>
+<h1 class="m3-font-headline-large">Use M3 Svelte</h1>
+<h2 class="m3-font-title-large">Getting started</h2>
+<ol>
+  <li>
+    <div class="number">
+      1
+      <Icon icon={iconDownload} />
+    </div>
+    <div class="text">
+      <p><strong>Add M3 Svelte</strong></p>
+      <p>Install M3 Svelte with <code>npm i m3-svelte</code> (or your package manager)</p>
+    </div>
+  </li>
+  <li>
+    <div class="number">
+      2
+      <Icon icon={iconAdd} />
+    </div>
+    <div class="text">
+      <p><strong>Set up base styling</strong></p>
+      <p>
+        Find a <code>.svelte</code> that applies to all pages (eg <code>+layout.svelte</code>).
+      </p>
+      <p>
+        Then, add <code>import &lbrace; StyleFromScheme &rbrace; from "m3-svelte"</code> to a script
+        tag, and paste in your theme snippet.
+      </p>
+      <ButtonLink type="filled" href="{base}/theme">Get theme snippet</ButtonLink>
+    </div>
+  </li>
+  <li>
+    <div class="number">
+      3
+      <Icon icon={iconPalette} />
+    </div>
+    <div class="text">
+      <p><strong>Use the same colors as M3 Svelte</strong></p>
+      <p>
+        Find a <code>.css</code> that applies to all pages. (Recommended: make a CSS file and import
+        it from <code>+layout.svelte</code> or wherever your app is mounted)
+      </p>
+      <p>Then, add something like this:</p>
+      <pre>body &lbrace;
+  background-color: rgb(var(--m3-scheme-background));
+  color: rgb(var(--m3-scheme-on-background));
+&rbrace;</pre>
+    </div>
+  </li>
+  <li>
+    <div class="number">
+      4
+      <Icon icon={iconType} />
+    </div>
+    <div class="text">
+      <p><strong>Use the same font as M3 Svelte</strong></p>
+      <p>Add <code>class="m3-font-body-large"</code> to your <code>&lt;body&gt;</code>.</p>
+      <p><strong>Make sure M3 Svelte can use your font</strong></p>
+      <p>Using Roboto? Add this to your <code>app.html</code>:</p>
+      <pre
+        style="margin-top: -0.5rem">&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" /&gt;</pre>
+      <p>Not? Set your font like this:</p>
+      <pre style="margin-top: -0.5rem">body &lbrace;
+  --m3-font: [your font], system-ui, sans-serif;
+&rbrace;</pre>
+    </div>
+  </li>
+</ol>
+
+<h2 class="m3-font-title-large">Use a component</h2>
+<p>Just import a component to start using it. For example:</p>
+<pre style="margin-top: 0.5rem">&lt;script&gt;
+  import &lbrace; Button &rbrace; from "m3-svelte";
+&lt;/script&gt;
+
+&lt;Button type="filled" on:click=&lbrace;() => alert("Hello world!")&rbrace;&gt;Hello world!&lt;/Button&gt;</pre>
+
+<h2 class="m3-font-title-large">Write custom styling</h2>
+<p>Using plain CSS? You can use the styles as CSS variables. Here's an example:</p>
+<pre style="margin-top: 0.5rem">button &lbrace;
+  background-color: rgb(var(--m3-scheme-surface-container-low));
+  color: rgb(var(--m3-scheme-primary));
+  box-shadow: var(--m3-util-elevation-1);
+  border-radius: var(--m3-util-rounding-full);
+&rbrace;</pre>
+<p style="margin-top: 1rem; margin-bottom: 0.5rem">Using Tailwind?</p>
+<ButtonLink type="filled" href="/tailwindColors.txt">View color config to paste in</ButtonLink>
 
 <style>
-  .card-container {
-    display: grid;
-    gap: 1rem;
-  }
-  @media (min-width: 60rem) {
-    .card-container {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  @media (min-width: 80rem) {
-    .card-container {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-  }
-  .card {
-    background-color: rgb(var(--m3-scheme-surface-container));
-    padding: 1rem;
-    border-radius: 0.75rem;
+  ol {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+  ol > li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
   .number {
-    color: rgb(var(--m3-scheme-primary));
-    margin: -0.5rem 0 -1.5rem -0.5rem;
-    opacity: 0.38;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    height: 2.5rem;
+    border-radius: 2.5rem;
+    padding: 0 1rem;
+    font-size: 1.2rem;
+    background-color: rgb(var(--m3-scheme-primary-container));
   }
+  .number > :global(svg) {
+    color: rgb(var(--m3-scheme-on-primary-container));
+  }
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-grow: 1;
+    gap: 0.75rem;
+
+    padding: 1rem;
+    border-radius: 1.5rem;
+
+    min-height: 3rem;
+    background-color: rgb(var(--m3-scheme-surface-container-low));
+  }
+
   p {
     margin: 0;
   }
+  code {
+    font-size: 0.9rem;
+  }
   pre {
+    font-size: 0.9rem;
+    margin: 0;
     white-space: pre-wrap;
     word-break: break-word;
-  }
-  a {
-    color: rgb(var(--m3-scheme-primary));
   }
 </style>

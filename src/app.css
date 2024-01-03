@@ -1,0 +1,5 @@
+body {
+  margin: 0;
+  background-color: rgb(var(--m3-scheme-background));
+  color: rgb(var(--m3-scheme-on-background));
+}

@@ -15,6 +15,7 @@
   import NavList from "$lib/nav/NavList.svelte";
   import NavListLink from "$lib/nav/NavListLink.svelte";
   import { currentColorScheme } from "./SchemeStore";
+  import "../app.css";
 
   const paths = [
     {
