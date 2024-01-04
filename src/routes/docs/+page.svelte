@@ -3,9 +3,10 @@
   import iconAdd from "@ktibow/iconset-material-symbols/add";
   import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
-  import { base } from "$app/paths";
   import Icon from "$lib/misc/_icon.svelte";
   import ButtonLink from "$lib/buttons/ButtonLink.svelte";
+  import Snippet from "./Snippet.svelte";
+  import { base } from "$app/paths";
 </script>
 
 <svelte:head>
@@ -53,10 +54,12 @@
         it from <code>+layout.svelte</code> or wherever your app is mounted)
       </p>
       <p>Then, add something like this:</p>
-      <pre>body &lbrace;
+      <Snippet
+        code={`body {
   background-color: rgb(var(--m3-scheme-background));
   color: rgb(var(--m3-scheme-on-background));
-&rbrace;</pre>
+}`}
+      />
     </div>
   </li>
   <li>
@@ -69,32 +72,41 @@
       <p>Add <code>class="m3-font-body-large"</code> to your <code>&lt;body&gt;</code>.</p>
       <p><strong>Make sure M3 Svelte can use your font</strong></p>
       <p>Using Roboto? Add this to your <code>app.html</code>:</p>
-      <pre
-        style="margin-top: -0.5rem">&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" /&gt;</pre>
+      <Snippet
+        code={`<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />`}
+      />
       <p>Not? Set your font like this:</p>
-      <pre style="margin-top: -0.5rem">body &lbrace;
+      <Snippet
+        code={`body {
   --m3-font: [your font], system-ui, sans-serif;
-&rbrace;</pre>
+}`}
+      />
     </div>
   </li>
 </ol>
 
 <h2 class="m3-font-title-large">Use a component</h2>
-<p>Just import a component to start using it. For example:</p>
-<pre style="margin-top: 0.5rem">&lt;script&gt;
-  import &lbrace; Button &rbrace; from "m3-svelte";
-&lt;/script&gt;
+<p style="margin-bottom: 0.75rem">Just import a component to start using it. For example:</p>
+<Snippet
+  code={`<script>
+  import { Button } from "m3-svelte";
+<\/script>
 
-&lt;Button type="filled" on:click=&lbrace;() => alert("Hello world!")&rbrace;&gt;Hello world!&lt;/Button&gt;</pre>
+<Button type="filled" on:click={() => alert("Hello world!")}>Hello world!<\/Button>`}
+/>
 
 <h2 class="m3-font-title-large">Write custom styling</h2>
-<p>Using plain CSS? You can use the styles as CSS variables. Here's an example:</p>
-<pre style="margin-top: 0.5rem">button &lbrace;
+<p style="margin-bottom: 0.75rem">
+  Using plain CSS? You can use the styles as CSS variables. Here's an example:
+</p>
+<Snippet
+  code={`button {
   background-color: rgb(var(--m3-scheme-surface-container-low));
   color: rgb(var(--m3-scheme-primary));
   box-shadow: var(--m3-util-elevation-1);
   border-radius: var(--m3-util-rounding-full);
-&rbrace;</pre>
+}`}
+/>
 <p style="margin-top: 1rem; margin-bottom: 0.5rem">Using Tailwind?</p>
 <ButtonLink type="filled" href="{base}/tailwindColors.txt">View color config to paste in</ButtonLink
 >

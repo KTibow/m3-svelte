@@ -37,9 +37,10 @@
     width: 100%;
     padding-inline-start: 1rem;
     box-sizing: border-box;
-    padding-block: 0.5rem;
+    padding-block: 1rem;
     word-break: break-word;
     white-space: pre-wrap;
+    min-height: 3.5rem;
   }
 
   .button-container {
