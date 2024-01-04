@@ -158,6 +158,9 @@
   }
   code {
     font-size: 0.9rem;
+    background-color: rgb(var(--m3-scheme-surface-variant));
+    padding-inline: 2px;
+    border-radius: 0.3rem;
   }
   pre {
     font-size: 0.9rem;
