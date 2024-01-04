@@ -108,8 +108,9 @@
 }`}
 />
 <p style="margin-top: 1rem; margin-bottom: 0.5rem">Using Tailwind?</p>
-<ButtonLink type="filled" href="{base}/tailwindColors.txt">View color config to paste in</ButtonLink
->
+<ButtonLink type="filled" href="{base}/tailwindColors.txt">
+  View color config to paste in
+</ButtonLink>
 
 <style>
   ol {
@@ -161,11 +162,5 @@
     background-color: rgb(var(--m3-scheme-surface-variant));
     padding-inline: 2px;
     border-radius: 0.3rem;
-  }
-  pre {
-    font-size: 0.9rem;
-    margin: 0;
-    white-space: pre-wrap;
-    word-break: break-word;
   }
 </style>
