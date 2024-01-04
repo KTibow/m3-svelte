@@ -31,7 +31,7 @@
 
   pre {
     border-radius: var(--m3-util-rounding-large);
-    background-color: rgb(var(--m3-scheme-surface-container));
+    background-color: rgb(var(--m3-scheme-surface-container-high));
     margin: 0;
     height: fit-content;
     width: 100%;
