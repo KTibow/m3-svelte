@@ -136,9 +136,10 @@
     padding: 0 1rem;
     font-size: 1.2rem;
     background-color: rgb(var(--m3-scheme-primary-container));
+    color: rgb(var(--m3-scheme-on-primary-container));
   }
   .number > :global(svg) {
-    color: rgb(var(--m3-scheme-on-primary-container));
+    color: inherit;
   }
   .text {
     display: flex;
