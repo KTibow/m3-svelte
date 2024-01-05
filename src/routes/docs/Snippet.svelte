@@ -18,7 +18,7 @@
     <Button on:click={copyToClipboard} type="text" iconType="full">
       <Icon icon={iconCopy} />
     </Button>
-    <svelte:component this={Snackbar} bind:show={snackbar} />
+    <Snackbar bind:show={snackbar} />
   </div>
   <pre>{code}</pre>
 </div>
@@ -34,9 +34,8 @@
     background-color: rgb(var(--m3-scheme-surface-container-high));
     margin: 0;
     width: 100%;
-    padding-inline-start: 1rem;
+    padding: 1rem 0 1rem 1rem;
     box-sizing: border-box;
-    padding-block: 1rem;
     word-break: break-word;
     white-space: pre-wrap;
     min-height: 3.5rem;

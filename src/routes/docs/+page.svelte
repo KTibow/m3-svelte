@@ -5,8 +5,8 @@
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
   import Icon from "$lib/misc/_icon.svelte";
   import ButtonLink from "$lib/buttons/ButtonLink.svelte";
-  import Snippet from "./Snippet.svelte";
   import { base } from "$app/paths";
+  import Snippet from "./Snippet.svelte";
 </script>
 
 <svelte:head>
@@ -137,9 +137,6 @@
     font-size: 1.2rem;
     background-color: rgb(var(--m3-scheme-primary-container));
     color: rgb(var(--m3-scheme-on-primary-container));
-  }
-  .number > :global(svg) {
-    color: inherit;
   }
   .text {
     display: flex;
