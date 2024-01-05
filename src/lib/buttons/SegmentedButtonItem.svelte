@@ -34,7 +34,7 @@
 <style>
   label {
     padding: 0 1rem;
-    flex: 1;
+    /* flex: 1; */
     min-width: 3rem;
     align-items: center;
     justify-content: center;

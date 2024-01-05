@@ -4,6 +4,7 @@
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
 
   export let code: string;
+  export let name: string | undefined;
 
   let snackbar: (data: SnackbarIn) => void;
 
@@ -14,6 +15,9 @@
 </script>
 
 <div class="snippet">
+  {#if name}
+    <p>{name}</p>
+  {/if}
   <div class="button-container">
     <Button on:click={copyToClipboard} type="text" iconType="full">
       <Icon icon={iconCopy} />
@@ -25,25 +29,32 @@
 
 <style>
   .snippet {
+    background-color: rgb(var(--m3-scheme-surface-container-high));
+    border-radius: var(--m3-util-rounding-large);
+    padding: 1rem;
+
     width: 100%;
+    min-height: 3.5rem;
+    box-sizing: border-box;
     position: relative;
+    overflow: hidden;
   }
 
+  p {
+    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    margin: -1rem 0 1rem -1rem;
+    padding: 0.5rem 1rem;
+  }
   pre {
-    border-radius: var(--m3-util-rounding-large);
-    background-color: rgb(var(--m3-scheme-surface-container-high));
     margin: 0;
     width: 100%;
-    padding: 1rem 0 1rem 1rem;
-    box-sizing: border-box;
     word-break: break-word;
     white-space: pre-wrap;
-    min-height: 3.5rem;
   }
 
   .button-container {
     position: absolute;
-    right: 0.5rem;
-    top: 0.5rem;
+    top: 0;
+    right: 0.25rem;
   }
 </style>
