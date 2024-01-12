@@ -52,7 +52,7 @@
     <div class="text">
       {#if step2Page == "stylefromscheme"}
         <p>
-          <a href="{base}/theme">Get a theme snippet</a> and add it to your site.
+          <a href="{base}/theme">Copy a theme snippet</a> and paste it on your site.
         </p>
         <Snippet
           code={`<script>
