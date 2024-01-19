@@ -21,6 +21,7 @@
     stroke="rgb(var(--m3-scheme-primary))"
     stroke-width="4"
     stroke-dasharray="125.66 125.66"
+    stroke-linecap="round"
     fill="none"
   />
 </svg>
