@@ -3,7 +3,6 @@
   import { tweened } from "svelte/motion";
   import { easeEmphasized } from "$lib/misc/easing";
 
-  export let display = "inline-flex";
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
   export let extraOptions: HTMLInputAttributes = {};
   export let value: number;
@@ -12,13 +11,7 @@
   export let step: number | "any" = "any";
   export let disabled = false;
   export let showValue = true;
-  export let format = (n: number, step: number | "any") => {
-    if (step == "any" || step < 1) {
-      const formatted = n.toFixed(1);
-      if (formatted.length <= 4) {
-        return formatted;
-      }
-    }
+  export let format = (n: number) => {
     return n.toFixed(0);
   };
 
@@ -37,11 +30,7 @@
   }
 </script>
 
-<div
-  class="m3-container"
-  style="display: {display}; --percent: {percent * 100}%;"
-  {...extraWrapperOptions}
->
+<div class="m3-container" style="--percent: {percent * 100}%;" {...extraWrapperOptions}>
   <input
     type="range"
     on:input={updateValue}
@@ -55,19 +44,19 @@
   <div class="track" />
   <div class="thumb" />
   {#if showValue}
-    <div class="value m3-font-label-medium"><span>{format(value, step)}</span></div>
+    <div class="value m3-font-label-large"><span>{format(value)}</span></div>
   {/if}
 </div>
 
 <style>
   :root {
-    --m3-slider-track-shape: var(--m3-util-rounding-full);
+    --m3-slider-track-out-shape: 0.5rem;
+    --m3-slider-track-in-shape: 0.125rem;
     --m3-slider-thumb-shape: var(--m3-util-rounding-full);
   }
   .m3-container {
     position: relative;
-    align-items: center;
-    height: 2.5rem;
+    height: 2.75rem;
     min-width: 10rem;
   }
   input {
@@ -75,107 +64,107 @@
     left: -0.5rem;
     right: -0.5rem;
     width: calc(100% + 1rem);
-    margin: 0;
     height: 100%;
 
     opacity: 0;
     appearance: none;
+    margin: 0;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
   }
-  .track {
-    width: 100%;
-    height: 0.25rem;
-    border-radius: var(--m3-slider-track-shape);
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
-    position: relative;
-    overflow: hidden;
-    pointer-events: none;
-  }
+
   .track::before {
-    display: inline-block;
-    content: " ";
     position: absolute;
-    width: var(--percent);
-    height: 0.25rem;
-    border-radius: var(--m3-slider-track-shape);
+    content: " ";
+    left: 0;
+    top: 50%;
+    translate: 0 -50%;
+    width: calc(var(--percent) - 0.375rem);
+    height: 1rem;
+    pointer-events: none;
+
     background-color: rgb(var(--m3-scheme-primary));
+    border-start-start-radius: var(--m3-slider-track-out-shape);
+    border-end-start-radius: var(--m3-slider-track-out-shape);
+    border-start-end-radius: var(--m3-slider-track-in-shape);
+    border-end-end-radius: var(--m3-slider-track-in-shape);
   }
+  .track::after {
+    position: absolute;
+    content: " ";
+    right: 0;
+    top: 50%;
+    translate: 0 -50%;
+    width: calc(100% - var(--percent) - 0.375rem);
+    height: 1rem;
+    pointer-events: none;
+
+    background-color: rgb(var(--m3-scheme-primary-container));
+    border-start-start-radius: var(--m3-slider-track-in-shape);
+    border-end-start-radius: var(--m3-slider-track-in-shape);
+    border-start-end-radius: var(--m3-slider-track-out-shape);
+    border-end-end-radius: var(--m3-slider-track-out-shape);
+  }
+
   .thumb {
     position: absolute;
-    left: calc(var(--percent) - 0.625rem);
-    width: 1.25rem;
-    height: 1.25rem;
-    border-radius: var(--m3-slider-thumb-shape);
+    left: var(--percent);
+    translate: -50% 0;
+    width: 0.25rem;
+    height: 2.75rem;
+    border-radius: 1.25rem;
     background-color: rgb(var(--m3-scheme-primary));
-    box-shadow: var(--m3-util-elevation-1);
+
     pointer-events: none;
+    transition: width 200ms;
   }
-  .thumb::before {
-    display: inline-block;
-    content: " ";
-    position: absolute;
-    inset: -0.625rem;
-    border-radius: var(--m3-util-rounding-full);
-    transition: background-color 200ms;
-  }
+
   .value {
-    position: absolute;
-    display: inline-flex;
-    justify-content: center;
+    display: flex;
     align-items: center;
-    left: calc(var(--percent) - 0.875rem);
-    top: -1.75rem;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: var(--m3-util-rounding-full) var(--m3-util-rounding-full) 0
-      var(--m3-util-rounding-full);
-    transform: rotate(45deg);
+    justify-content: center;
+    position: absolute;
 
-    background-color: rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: rgb(var(--m3-scheme-inverse-surface));
+    color: rgb(var(--m3-scheme-inverse-on-surface));
+    width: 3rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--m3-slider-thumb-shape);
+
+    left: var(--percent);
+    top: -3rem;
+    translate: -50% 0;
+
     opacity: 0;
-    transition: opacity 200ms;
     pointer-events: none;
-  }
-  .value > span {
-    display: inline-block;
-    transform: rotate(-45deg);
+    transition: opacity 200ms;
   }
 
-  @media (hover: hover) {
-    input:hover ~ .thumb::before {
-      background-color: rgb(var(--m3-scheme-primary) / 0.08);
-    }
+  input:focus-visible ~ .thumb {
+    outline: auto;
+    outline-offset: 0.5rem;
   }
-  input:focus-visible ~ .thumb::before,
-  input:active ~ .thumb::before {
-    background-color: rgb(var(--m3-scheme-primary) / 0.12);
-  }
-  input:hover ~ .value,
   input:focus-visible ~ .value,
-  input:active ~ .value {
+  input:enabled:active ~ .thumb {
+    width: 0.125rem;
+  }
+  input:enabled:hover ~ .value,
+  input:enabled:focus-visible ~ .value,
+  input:enabled:active ~ .value {
     opacity: 1;
   }
+
   input:disabled {
     cursor: auto;
   }
-  input:disabled + .track {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
-  input:disabled + .track::before {
+  input:disabled ~ .track::before {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  }
+  input:disabled ~ .track::after {
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
   input:disabled ~ .thumb {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
-    backdrop-filter: blur(1rem);
-    box-shadow: none;
-  }
-  input:disabled ~ .thumb::before {
-    display: none;
-  }
-  input:disabled ~ .value {
-    display: none;
   }
 
   .m3-container {
@@ -183,25 +172,24 @@
     -webkit-print-color-adjust: exact;
   }
   @media screen and (forced-colors: active) {
-    .thumb {
+    .track::before {
       background-color: selecteditem;
     }
-    .track {
+    .track::after {
       background-color: canvastext;
     }
-    .track::before {
+    .thumb {
       background-color: selecteditem;
     }
     .value {
       border: 2px solid selecteditem;
       overflow: hidden;
     }
-    input:disabled + .track {
-      background-color: graytext;
-      opacity: 0.38;
-    }
     input:disabled + .track::before {
       background-color: canvastext;
+    }
+    input:disabled + .track::after {
+      background-color: graytext;
     }
     input:disabled ~ .thumb {
       background-color: graytext;
