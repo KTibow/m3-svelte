@@ -175,7 +175,7 @@
     outline: auto;
     outline-offset: 0.5rem;
   }
-  input:focus-visible ~ .value,
+  input:focus-visible ~ .thumb,
   input:enabled:active ~ .thumb {
     width: 0.125rem;
   }
