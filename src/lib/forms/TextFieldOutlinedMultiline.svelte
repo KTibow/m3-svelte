@@ -24,7 +24,7 @@
 
     return {
       destroy() {
-        node.removeEventListener("keydown", update);
+        node.removeEventListener("input", update);
       },
     };
   };
