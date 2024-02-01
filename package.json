@@ -38,11 +38,11 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.1",
-    "@sveltejs/kit": "^2.4.1",
+    "@sveltejs/kit": "^2.5.0",
     "@sveltejs/package": "^2.2.6",
-    "@sveltejs/vite-plugin-svelte": "^3.0.1",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.35.1",
@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@iconify/types": "^2.0.0",
-    "@ktibow/iconset-material-symbols": "^0.0.1702636265",
+    "@ktibow/iconset-material-symbols": "^0.0.1706079868",
     "@material/material-color-utilities": "^0.2.7",
     "svelte": "^4.2.9"
   },
