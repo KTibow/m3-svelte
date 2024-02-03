@@ -79,7 +79,7 @@
       href={item.href}
       class:tall={item.icon}
       class:selected={item.value == tab}
-      style="grid-column: {i}"
+      style="grid-column: {i + 1}"
       {...extraOptions}
     >
       {#if item.icon}
