@@ -5,7 +5,14 @@
   export let label: string;
 </script>
 
-<button {disabled} class="item m3-font-body-small" class:today class:selected on:click>
+<button
+  {disabled}
+  class="item m3-font-body-small"
+  type="button"
+  class:today
+  class:selected
+  on:click
+>
   {label}
 </button>
 

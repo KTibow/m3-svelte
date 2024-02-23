@@ -10,11 +10,20 @@
 <div class="m3-container">
   {#if clearable}
     <span class="left">
-      <Button type="text" on:click={() => dispatch("clear")}>Clear</Button>
+      <Button type="text" on:click={() => dispatch("clear")} extraOptions={{ type: "button" }}>
+        Clear
+      </Button>
     </span>
   {/if}
-  <Button type="text" on:click={() => dispatch("cancel")}>Cancel</Button>
-  <Button type="text" disabled={!clearable && !chosenDate} on:click={() => dispatch("ok")}>
+  <Button type="text" on:click={() => dispatch("cancel")} extraOptions={{ type: "button" }}>
+    Cancel
+  </Button>
+  <Button
+    type="text"
+    disabled={!clearable && !chosenDate}
+    on:click={() => dispatch("ok")}
+    extraOptions={{ type: "button" }}
+  >
     OK
   </Button>
 </div>
