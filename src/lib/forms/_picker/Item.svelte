@@ -39,7 +39,7 @@
     }
   }
   button:enabled:focus-visible,
-  button:active {
+  button:enabled:active {
     background-color: rgb(var(--text) / 0.12);
   }
   button:disabled {
