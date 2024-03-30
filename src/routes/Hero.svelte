@@ -19,7 +19,7 @@
   </p>
   <div class="pill m3-font-label-large">
     <Icon icon={iconStar} />
-    Celebrating 70+ stars
+    Celebrating 80+ stars
   </div>
 </div>
 <div class="items">
