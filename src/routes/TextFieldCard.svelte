@@ -7,19 +7,15 @@
   import TextFieldOutlinedMultiline from "$lib/forms/TextFieldOutlinedMultiline.svelte";
   import Card from "./_card.svelte";
   import Arrows from "./Arrows.svelte";
+  import type {HTMLInputAttributes, HTMLTextareaAttributes} from "svelte/elements";
 
+  let extraOptions: HTMLInputAttributes = {};
   let type = "filled";
   let leadingIcon = false;
   let errored = false;
   let enabled = true;
-  $: component =
-    type == "filled"
-      ? TextField
-      : type == "filled_multiline"
-        ? TextFieldMultiline
-        : type == "outlined"
-          ? TextFieldOutlined
-          : TextFieldOutlinedMultiline;
+  let option = "text";
+  $: extraOptions.type = option;
 </script>
 
 <Card>
@@ -44,6 +40,23 @@
     </tr>
     <tr>
       <td>
+        <Arrows
+          list={["text", "password", "number", "file"]}
+          bind:value={option}
+        />
+      </td>
+      <td>
+        {option == "text"
+          ? "Text"
+          : option == "password"
+            ? "Password"
+            : option == "number"
+              ? "Number"
+              : "File"}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <label for={undefined}><Switch bind:checked={leadingIcon} /></label>
       </td>
       <td>{leadingIcon ? "Leading icon" : "No leading icon"}</td>
@@ -62,14 +75,41 @@
     </tr>
   </table>
   <div class="area" slot="demo">
-    <svelte:component
-      this={component}
-      name="Field"
-      leadingIcon={leadingIcon ? iconEdit : undefined}
-      error={errored}
-      disabled={!enabled}
-      --m3-util-background="var(--m3-scheme-surface-container-low)"
-    />
+    {#if type === "filled"}
+      <TextField
+        name="Field"
+        leadingIcon={leadingIcon ? iconEdit : undefined}
+        error={errored}
+        disabled={!enabled}
+        extraOptions={extraOptions}
+        --m3-util-background="var(--m3-scheme-surface-container-low)"
+      />
+    {:else if type === "outlined"}
+      <TextFieldOutlined
+        name="Field"
+        leadingIcon={leadingIcon ? iconEdit : undefined}
+        error={errored}
+        disabled={!enabled}
+        extraOptions={extraOptions}
+        --m3-util-background="var(--m3-scheme-surface-container-low)"
+      />
+    {:else if type === "filled_multiline"}
+      <TextFieldMultiline
+        name="Field"
+        leadingIcon={leadingIcon ? iconEdit : undefined}
+        error={errored}
+        disabled={!enabled}
+        --m3-util-background="var(--m3-scheme-surface-container-low)"
+      />
+    {:else if type === "outlined_multiline"}
+      <TextFieldOutlinedMultiline
+        name="Field"
+        leadingIcon={leadingIcon ? iconEdit : undefined}
+        error={errored}
+        disabled={!enabled}
+        --m3-util-background="var(--m3-scheme-surface-container-low)"
+      />
+    {/if}
   </div>
 </Card>
 
