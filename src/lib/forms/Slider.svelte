@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
-  import { tweened } from "svelte/motion";
-  import { easeEmphasized } from "$lib/misc/easing";
+  import { spring } from "svelte/motion";
 
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
   export let extraOptions: HTMLInputAttributes = {};
@@ -15,7 +14,7 @@
     return n.toFixed(0);
   };
 
-  const valueDisplayed = tweened(value, { duration: 200, easing: easeEmphasized });
+  const valueDisplayed = spring(value, { stiffness: 0.3, damping: 1 });
   const updateValue = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
     const newValue = Number(e.currentTarget.value);
     e.preventDefault();
