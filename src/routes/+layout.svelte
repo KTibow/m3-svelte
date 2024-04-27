@@ -96,7 +96,7 @@
   .content {
     padding: 1rem;
   }
-  @media (max-width: 37.5rem) {
+  @media (width < 37.5rem) {
     .container {
       flex-direction: column-reverse;
       --m3-util-bottom-offset: 5rem;
