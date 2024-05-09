@@ -13,8 +13,6 @@
   export let icon: IconifyIcon | undefined = undefined;
   export let text: string | undefined = undefined;
 
-  let ripple: (e: MouseEvent) => Promise<void>;
-
   $: {
     if (!icon && !text) console.warn("you need at least something in a FAB");
     if (size != "normal" && text) console.warn("extended fabs are supposed to use size normal");
@@ -23,12 +21,11 @@
 
 <button
   on:click
-  on:mousedown={ripple}
   class="m3-container m3-font-label-large color-{color} size-{size} elevation-{elevation}"
   style="display: {display};"
   {...extraOptions}
 >
-  <Ripple bind:ripple color="secondary" />
+  <Ripple color="secondary" />
   <div class="layer" />
   {#if icon}
     <Icon {icon} />

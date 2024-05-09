@@ -21,8 +21,6 @@
   export let elevated = false;
   export let disabled = false;
   export let selected = false;
-
-  let ripple: (e: MouseEvent) => Promise<void>;
 </script>
 
 <button
@@ -33,9 +31,8 @@
   {disabled}
   on:click
   {...extraOptions}
-  on:mousedown={ripple}
 >
-  <Ripple bind:ripple color="secondary" />
+  <Ripple color="secondary" />
   <div class="layer" />
   {#if icon}
     <Icon {icon} class="leading" />

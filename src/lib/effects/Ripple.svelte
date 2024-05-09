@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+
   let rippleEl: HTMLDivElement;
   let rippleContainer: HTMLDivElement;
   export let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
 
-  export const ripple = async (e: MouseEvent) => {
+  const ripple = async (e: MouseEvent) => {
     const clone = rippleEl.cloneNode(true) as HTMLDivElement;
     rippleEl.parentElement!.appendChild(clone);
     const svg = clone.querySelector("svg")!;
@@ -32,12 +34,19 @@
         },
       ],
       {
-        duration: 650,
+        duration: 425,
         easing: "ease-out",
       },
     ).finished;
     clone.remove();
   };
+
+  onMount(() => {
+    rippleContainer.parentElement?.addEventListener("mousedown", ripple);
+    return () => {
+      rippleContainer.parentElement?.removeEventListener("mousedown", ripple);
+    };
+  });
 </script>
 
 <div class="rippleContainer" bind:this={rippleContainer}>
@@ -139,6 +148,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
   }
 
   .ripple {

@@ -5,7 +5,6 @@
   export let display = "flex";
   export let extraOptions: HTMLAttributes<HTMLDivElement> & HTMLButtonAttributes = {};
   export let type: "elevated" | "filled" | "outlined";
-  let ripple: (e: MouseEvent) => Promise<void>;
 </script>
 
 <button
@@ -13,9 +12,8 @@
   class="m3-container type-{type}"
   style="display: {display}; overflow: hidden;"
   {...extraOptions}
-  on:mousedown={ripple}
 >
-  <Ripple bind:ripple color="secondary" />
+  <Ripple color="secondary" />
   <div class="layer" />
   <slot />
 </button>

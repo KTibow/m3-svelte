@@ -7,6 +7,7 @@
 
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import { easeEmphasized } from "$lib/misc/easing";
+  import Ripple from "$lib/effects/Ripple.svelte";
 
   export let name: string;
   export let date = "";
@@ -59,6 +60,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   />
   <label class="m3-font-body-small" for={id}>{name}</label>
   <button type="button" {disabled} on:click={() => (picker = !picker)}>
+    <Ripple color="secondary" />
     <Icon icon={iconCalendar} />
   </button>
   {#if picker}

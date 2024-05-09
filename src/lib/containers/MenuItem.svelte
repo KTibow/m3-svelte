@@ -5,11 +5,10 @@
 
   export let icon: IconifyIcon | "space" | undefined = undefined;
   export let disabled = false;
-  let ripple: (e: MouseEvent) => Promise<void>;
 </script>
 
-<button on:mousedown={ripple} class="item m3-font-label-large" {disabled} on:click>
-  <Ripple color="secondary" bind:ripple />
+<button class="item m3-font-label-large" {disabled} on:click>
+  <Ripple color="secondary" />
   {#if icon == "space"}
     <span class="icon" />
   {:else if icon}
