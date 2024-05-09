@@ -5,7 +5,6 @@
   import iconCheck from "@ktibow/iconset-material-symbols/check";
   import Ripple from "$lib/effects/Ripple.svelte";
   import { onMount } from "svelte";
-  import { browser } from "$app/environment";
 
   export let display = "flex";
   export let extraOptions: HTMLLabelAttributes = {};
