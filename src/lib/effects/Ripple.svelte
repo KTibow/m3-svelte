@@ -34,8 +34,8 @@
         },
       ],
       {
-        duration: 425,
-        easing: "ease-out",
+        duration: 1250,
+        easing: "cubic-bezier(.05,.7,.1,1)",
       },
     ).finished;
     clone.remove();
@@ -51,7 +51,7 @@
 
 <div class="rippleContainer" bind:this={rippleContainer}>
   <div
-    style="background: radial-gradient(circle, rgb(var(--m3-scheme-on-{color}-container)) 20%, transparent);"
+    style="background: radial-gradient(circle, rgb(var(--m3-scheme-on-{color}-container)) 20%, transparent 80%);"
     bind:this={rippleEl}
     class="ripple color-{color}"
   >

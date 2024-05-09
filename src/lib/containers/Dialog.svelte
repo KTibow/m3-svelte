@@ -38,7 +38,7 @@
     }
   }}
   bind:this={dialog}
-  style="display: {display};"
+  style="display: {display}; z-index: 9999;"
   {...extraOptions}
 >
   <div class="m3-container">
