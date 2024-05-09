@@ -3,7 +3,6 @@
   export let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
 
   export const ripple = async (e: MouseEvent) => {
-    console.log(rippleEl.parentElement);
     const clone = rippleEl.cloneNode() as HTMLDivElement;
     rippleEl.parentElement!.appendChild(clone);
     const bounds = rippleEl.getBoundingClientRect();
