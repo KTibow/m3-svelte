@@ -50,6 +50,27 @@
 </div>
 
 <style>
+  @keyframes switch {
+    0% {
+      left: 0.5rem;
+      width: 1.5rem;
+    }
+    20% {
+      left: 0.75rem;
+      width: 2.5rem;
+      height: 1.25rem;
+    }
+    80% {
+      width: 1.5rem;
+      height: 1.52rem;
+      left: 1.5rem;
+    }
+    100% {
+      left: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+
   :root {
     --m3-switch-track-shape: var(--m3-util-rounding-full);
     --m3-switch-handle-shape: var(--m3-util-rounding-full);
@@ -81,14 +102,14 @@
     background-color: rgb(var(--m3-scheme-outline));
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: all 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
-
     left: 0.5rem;
     top: 50%;
     transform: translate(0, -50%);
     display: flex;
     align-items: center;
     justify-content: center;
+    transition-property: transform;
+    transition: 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
   }
   .layer > :global(svg) {
     width: 1rem;
@@ -108,6 +129,10 @@
     height: 2.5rem;
     border-radius: var(--m3-util-rounding-full);
     transition: all 200ms;
+  }
+
+  .m3-container > input:checked + .layer {
+    animation: switch 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
   }
 
   .m3-container:hover > input:enabled + .layer,
