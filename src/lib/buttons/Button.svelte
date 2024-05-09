@@ -1,19 +1,23 @@
 <script lang="ts">
+  import Ripple from "$lib/effects/Ripple.svelte";
   import type { HTMLButtonAttributes } from "svelte/elements";
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};
   export let iconType: "none" | "left" | "full" = "none";
   export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
   export let disabled = false;
+  let ripple: (e: MouseEvent) => Promise<void>;
 </script>
 
 <button
   on:click|stopPropagation
+  on:mousedown={ripple}
   {disabled}
   class="m3-container m3-font-label-large {type} icon-{iconType}"
   style="display: {display};"
   {...extraOptions}
 >
+  <Ripple bind:ripple color="secondary" />
   <div class="layer" />
   <slot />
 </button>

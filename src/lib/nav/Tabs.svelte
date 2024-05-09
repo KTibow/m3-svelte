@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Ripple from "$lib/effects/Ripple.svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
@@ -13,6 +14,10 @@
     value: string;
   }[];
   const name = crypto.randomUUID();
+
+  const ripplers: {
+    [key: string]: (e: MouseEvent) => Promise<void>;
+  } = {};
 </script>
 
 <div
@@ -25,7 +30,14 @@
   {#each items as item}
     {@const id = name + item.value}
     <input type="radio" {name} {id} value={item.value} bind:group={tab} {...extraOptions} />
-    <label for={id} class:tall={item.icon}>
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <label
+      for={id}
+      class:tall={item.icon}
+      style="overflow: hidden;"
+      on:mousedown={ripplers[item.value]}
+    >
+      <Ripple bind:ripple={ripplers[item.value]} color="secondary" />
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}

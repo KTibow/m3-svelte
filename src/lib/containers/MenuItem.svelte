@@ -1,12 +1,15 @@
 <script lang="ts">
+  import Ripple from "$lib/effects/Ripple.svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
 
   export let icon: IconifyIcon | "space" | undefined = undefined;
   export let disabled = false;
+  let ripple: (e: MouseEvent) => Promise<void>;
 </script>
 
-<button class="item m3-font-label-large" {disabled} on:click>
+<button on:mousedown={ripple} class="item m3-font-label-large" {disabled} on:click>
+  <Ripple color="secondary" bind:ripple />
   {#if icon == "space"}
     <span class="icon" />
   {:else if icon}
@@ -19,6 +22,8 @@
 
 <style>
   .item {
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: center;
     height: 3rem;

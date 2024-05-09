@@ -2,14 +2,19 @@
   import type { HTMLButtonAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
+  import { createEventDispatcher } from "svelte";
+  import Ripple from "$lib/effects/Ripple.svelte";
 
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};
-  export let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
+  const color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
   export let size: "small" | "normal" | "large" = "normal";
   export let elevation: "normal" | "lowered" | "none" = "normal";
   export let icon: IconifyIcon | undefined = undefined;
   export let text: string | undefined = undefined;
+
+  let ripple: (e: MouseEvent) => Promise<void>;
+
   $: {
     if (!icon && !text) console.warn("you need at least something in a FAB");
     if (size != "normal" && text) console.warn("extended fabs are supposed to use size normal");
@@ -18,10 +23,12 @@
 
 <button
   on:click
+  on:mousedown={ripple}
   class="m3-container m3-font-label-large color-{color} size-{size} elevation-{elevation}"
   style="display: {display};"
   {...extraOptions}
 >
+  <Ripple bind:ripple color="secondary" />
   <div class="layer" />
   {#if icon}
     <Icon {icon} />

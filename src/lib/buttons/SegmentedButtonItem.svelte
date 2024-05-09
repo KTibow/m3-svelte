@@ -3,20 +3,32 @@
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
+  import Ripple from "$lib/effects/Ripple.svelte";
 
   export let display = "flex";
   export let extraOptions: HTMLLabelAttributes = {};
   export let input: string;
   export let icon: IconifyIcon | undefined = undefined;
+
+  let ripple: (e: MouseEvent) => Promise<void>;
+
+  const tsRipple = (e: MouseEvent) => {
+    const el = document.getElementById(input) as HTMLInputElement;
+    if (el.disabled) return;
+    ripple(e);
+  };
 </script>
 
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <label
   class:custom-icon={icon}
   for={input}
   class="m3-font-label-large"
-  style="display: {display};"
+  style="display: {display}; overflow: hidden;"
   {...extraOptions}
+  on:mousedown={tsRipple}
 >
+  <Ripple color="secondary" bind:ripple />
   <div class="layer" />
   <div class="pad" />
   {#if icon}

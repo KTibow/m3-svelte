@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Ripple from "$lib/effects/Ripple.svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
@@ -58,6 +59,10 @@
     }
   };
   let wrapper: HTMLDivElement;
+  // there is 100% a better way to do this. sorry :3
+  const ripplers: {
+    [key: string]: (e: MouseEvent) => Promise<void>;
+  } = {};
 </script>
 
 <div
@@ -79,7 +84,14 @@
       on:input={handleInput}
       {...extraOptions}
     />
-    <label for={id} class:tall={item.icon}>
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <label
+      for={id}
+      class:tall={item.icon}
+      style="overflow: hidden;"
+      on:mousedown={ripplers[item.value]}
+    >
+      <Ripple bind:ripple={ripplers[item.value]} color="secondary" />
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
