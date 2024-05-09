@@ -1,10 +1,12 @@
 <script lang="ts">
   let rippleEl: HTMLDivElement;
+  let rippleContainer: HTMLDivElement;
   export let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
 
   export const ripple = async (e: MouseEvent) => {
-    const clone = rippleEl.cloneNode() as HTMLDivElement;
+    const clone = rippleEl.cloneNode(true) as HTMLDivElement;
     rippleEl.parentElement!.appendChild(clone);
+    const svg = clone.querySelector("svg")!;
     const bounds = rippleEl.getBoundingClientRect();
     if (bounds.width > bounds.height) {
       clone.style.height = "100%";
@@ -13,17 +15,19 @@
       clone.style.width = "100%";
       clone.style.height = clone.offsetWidth + "px";
     }
-    // center it at the mouse
-    clone.style.left = e.clientX - bounds.left - clone.offsetWidth / 2 + "px";
-    clone.style.top = e.clientY - bounds.top - clone.offsetHeight / 2 + "px";
+    svg.style.width = clone.offsetWidth * 2 + "px";
+    svg.style.height = clone.offsetHeight * 2 + "px";
+    clone.style.transform = `translate(${e.clientX - bounds.left}px, ${e.clientY - bounds.top}px)`;
     await clone.animate(
       [
         {
-          transform: "scale(0.25)",
-          opacity: 0.25,
+          width: 0,
+          height: 0,
+          opacity: 0.3,
         },
         {
-          transform: "scale(4)",
+          width: clone.offsetWidth * 2 + "px",
+          height: clone.offsetHeight * 2 + "px",
           opacity: 0,
         },
       ],
@@ -36,17 +40,128 @@
   };
 </script>
 
-<div
-  style="background-color: rgb(var(--m3-scheme-on-{color}-container))"
-  bind:this={rippleEl}
-  class="ripple color-{color}"
-/>
+<div class="rippleContainer" bind:this={rippleContainer}>
+  <div
+    style="background: radial-gradient(circle, rgb(var(--m3-scheme-on-{color}-container)) 20%, transparent);"
+    bind:this={rippleEl}
+    class="ripple color-{color}"
+  >
+    <div class="maskable-noise">
+      <svg
+        class="rippleSvg"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 700 700"
+        width="700"
+        height="700"
+        style="--col: rgb(var(--m3-scheme-{color}));width: 700px; height: 700px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+        ><defs
+          ><filter
+            id="noise"
+            x="0"
+            y="0"
+            width="700"
+            height="700"
+            filterUnits="objectBoundingBox"
+            primitiveUnits="userSpaceOnUse"
+            color-interpolation-filters="sRGB"
+          >
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="1.4"
+              numOctaves="2"
+              seed="2"
+              stitchTiles="stitch"
+              x="0"
+              y="0"
+              width="700"
+              height="700"
+              result="turbulence"
+            ></feTurbulence>
+            <feColorMatrix
+              type="saturate"
+              values="0"
+              x="0%"
+              y="0%"
+              width="100%"
+              height="100%"
+              in="turbulence"
+              result="colormatrix"
+            ></feColorMatrix>
+            <feComponentTransfer
+              x="0%"
+              y="0%"
+              width="100%"
+              height="100%"
+              in="colormatrix"
+              result="componentTransfer"
+            >
+              <feFuncR type="linear" slope="3"></feFuncR>
+              <feFuncG type="linear" slope="3"></feFuncG>
+              <feFuncB type="linear" slope="3"></feFuncB>
+            </feComponentTransfer>
+            <feColorMatrix
+              x="0%"
+              y="0%"
+              width="100%"
+              height="100%"
+              in="componentTransfer"
+              result="colormatrix2"
+              type="matrix"
+              values="1 0 0 0 0
+          0 1 0 0 0
+          0 0 1 0 0
+          0 0 0 18 -10"
+            ></feColorMatrix>
+          </filter></defs
+        ><g
+          ><rect width="700" height="700" fill="black"></rect><rect
+            width="700"
+            height="700"
+            fill="black"
+            filter="url(#noise)"
+            opacity="1"
+          ></rect></g
+        ></svg
+      >
+    </div>
+  </div>
+</div>
 
 <style>
-  .ripple {
+  .rippleContainer {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ripple {
     border-radius: 50%;
+    position: absolute;
+    pointer-events: none;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .maskable-noise {
+    mask-image: radial-gradient(circle, transparent 10%, black 100%);
+    mask-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  .rippleSvg {
+    fill: var(--col);
+    opacity: 0.75;
   }
 </style>
