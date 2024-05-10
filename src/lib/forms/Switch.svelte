@@ -53,17 +53,13 @@
   @keyframes switch {
     0% {
       left: 0.5rem;
-      width: 1.5rem;
+      width: 1.75rem;
+      height: 1.5rem;
+      animation-timing-function: ease-out;
     }
-    20% {
-      left: 0.75rem;
-      width: 2.5rem;
-      height: 1.25rem;
-    }
-    80% {
-      width: 1.5rem;
-      height: 1.52rem;
-      left: 1.5rem;
+    15% {
+      left: 0.65rem;
+      width: 2rem;
     }
     100% {
       left: 1.5rem;
@@ -108,7 +104,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition-property: transform;
     transition: 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
   }
   .layer > :global(svg) {
@@ -129,10 +124,6 @@
     height: 2.5rem;
     border-radius: var(--m3-util-rounding-full);
     transition: all 200ms;
-  }
-
-  .m3-container > input:checked + .layer {
-    animation: switch 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
   }
 
   .m3-container:hover > input:enabled + .layer,
@@ -165,6 +156,7 @@
     width: 1.5rem;
     height: 1.5rem;
     left: 1.5rem; /* 1.5 + 1.5 + 0.25 = 3.25 */
+    animation: switch 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
   }
   input:checked + .layer > :global(svg) {
     opacity: 1;
