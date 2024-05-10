@@ -34,8 +34,6 @@
 
 <Hero />
 <div class="cards">
-  <CardClickable type="elevated"></CardClickable>
-
   <ButtonCard />
   <SegmentedButtonCard />
   <FABCard />
