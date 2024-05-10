@@ -165,7 +165,9 @@
 
   .maskable-noise {
     mask-image: radial-gradient(circle, transparent 10%, black 100%);
+    -webkit-mask-image: radial-gradient(circle, transparent 10%, black 100%);
     mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
     width: 100%;
     height: 100%;
   }
