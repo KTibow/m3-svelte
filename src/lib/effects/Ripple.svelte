@@ -20,22 +20,54 @@
     svg.style.width = clone.offsetWidth * 2 + "px";
     svg.style.height = clone.offsetHeight * 2 + "px";
     clone.style.transform = `translate(${e.clientX - bounds.left}px, ${e.clientY - bounds.top}px)`;
+    clone.style.opacity = "0.1";
+    svg.animate(
+      [
+        {
+          opacity: 0.75,
+        },
+        {
+          opacity: 0,
+        },
+      ],
+      {
+        duration: 750,
+        delay: 250,
+        easing: "ease-out",
+        fill: "forwards",
+      },
+    );
+    clone.animate(
+      [
+        {
+          opacity: 0.1,
+        },
+        {
+          opacity: 0,
+        },
+      ],
+      {
+        duration: 750,
+        easing: "ease-in",
+        fill: "forwards",
+        delay: 250,
+      },
+    );
     await clone.animate(
       [
         {
           width: 0,
           height: 0,
-          opacity: 0.3,
         },
         {
           width: clone.offsetWidth * 2 + "px",
           height: clone.offsetHeight * 2 + "px",
-          opacity: 0,
         },
       ],
       {
         duration: 1250,
         easing: "cubic-bezier(.05,.7,.1,1)",
+        fill: "forwards",
       },
     ).finished;
     clone.remove();
