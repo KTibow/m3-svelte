@@ -13,7 +13,6 @@
     };
     const leave = () => {
       clone.style.display = "none";
-      console.log("!");
     };
     const svg = clone.querySelector("svg")!;
     const bounds = rippleEl.getBoundingClientRect();
