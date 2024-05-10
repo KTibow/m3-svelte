@@ -8,6 +8,13 @@
   const ripple = async (e: MouseEvent) => {
     const clone = rippleEl.cloneNode(true) as HTMLDivElement;
     rippleEl.parentElement!.appendChild(clone);
+    const hover = () => {
+      clone.style.display = "";
+    };
+    const leave = () => {
+      clone.style.display = "none";
+      console.log("!");
+    };
     const svg = clone.querySelector("svg")!;
     const bounds = rippleEl.getBoundingClientRect();
     if (bounds.width > bounds.height) {
@@ -53,6 +60,11 @@
         delay: 250,
       },
     );
+
+    clone.parentElement?.addEventListener("mouseenter", hover);
+    clone.parentElement?.addEventListener("mouseleave", leave);
+    clone.parentElement?.parentElement?.addEventListener("mouseenter", hover);
+    clone.parentElement?.parentElement?.addEventListener("mouseleave", leave);
     await clone.animate(
       [
         {
