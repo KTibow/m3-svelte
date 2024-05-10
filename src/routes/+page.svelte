@@ -20,6 +20,8 @@
   import TextFieldCard from "./TextFieldCard.svelte";
   import ChipCard from "./ChipCard.svelte";
   import TabsCard from "./TabsCard.svelte";
+  import { Button, Card } from "$lib";
+  import CardClickable from "$lib/containers/CardClickable.svelte";
 </script>
 
 <svelte:head>
@@ -32,6 +34,8 @@
 
 <Hero />
 <div class="cards">
+  <CardClickable type="elevated"></CardClickable>
+
   <ButtonCard />
   <SegmentedButtonCard />
   <FABCard />

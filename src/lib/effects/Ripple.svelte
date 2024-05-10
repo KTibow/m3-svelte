@@ -47,7 +47,7 @@
         },
       ],
       {
-        duration: 750,
+        duration: 500,
         easing: "ease-in",
         fill: "forwards",
         delay: 250,
