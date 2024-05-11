@@ -26,7 +26,26 @@
     svg.style.width = clone.offsetWidth * 2 + "px";
     svg.style.height = clone.offsetHeight * 2 + "px";
     clone.style.transform = `translate(${e.clientX - bounds.left}px, ${e.clientY - bounds.top}px)`;
-    clone.style.opacity = "0.1";
+    clone.style.opacity = "1";
+    const duration = 2000;
+    const apparentDuration = duration / 4;
+    clone.animate(
+      [
+        {
+          opacity: 1,
+        },
+        {
+          opacity: 0,
+        },
+      ],
+      {
+        duration: apparentDuration,
+        easing: "ease-out",
+        fill: "forwards",
+        delay: apparentDuration / 2,
+      },
+    );
+
     svg.animate(
       [
         {
@@ -37,26 +56,9 @@
         },
       ],
       {
-        duration: 750,
-        delay: 250,
+        duration: apparentDuration,
         easing: "ease-out",
         fill: "forwards",
-      },
-    );
-    clone.animate(
-      [
-        {
-          opacity: 0.1,
-        },
-        {
-          opacity: 0,
-        },
-      ],
-      {
-        duration: 500,
-        easing: "ease-in",
-        fill: "forwards",
-        delay: 250,
       },
     );
 
@@ -71,12 +73,12 @@
           height: 0,
         },
         {
-          width: clone.offsetWidth * 2 + "px",
-          height: clone.offsetHeight * 2 + "px",
+          width: clone.offsetWidth * 6 + "px",
+          height: clone.offsetHeight * 6 + "px",
         },
       ],
       {
-        duration: 1250,
+        duration: duration,
         easing: "cubic-bezier(.05,.7,.1,1)",
         fill: "forwards",
       },
@@ -94,7 +96,7 @@
 
 <div class="rippleContainer" bind:this={rippleContainer}>
   <div
-    style="background: radial-gradient(circle, rgb(var(--m3-scheme-on-{color}-container)) 20%, transparent 80%);"
+    style="--col: rgb(var(--m3-scheme-on-{color}-container))"
     bind:this={rippleEl}
     class="ripple color-{color}"
   >
@@ -195,6 +197,11 @@
   }
 
   .ripple {
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--col), transparent 90%) 20%,
+      transparent 40%
+    );
     border-radius: 50%;
     position: absolute;
     pointer-events: none;
@@ -204,6 +211,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    mask-image: radial-gradient(circle, black 0%, transparent 50%);
+    mask-size: 100% 100%;
   }
 
   .maskable-noise {
