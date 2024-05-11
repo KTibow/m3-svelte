@@ -59,10 +59,6 @@
     }
   };
   let wrapper: HTMLDivElement;
-  // there is 100% a better way to do this. sorry :3
-  const ripplers: {
-    [key: string]: (e: MouseEvent) => Promise<void>;
-  } = {};
 </script>
 
 <div
@@ -85,13 +81,8 @@
       {...extraOptions}
     />
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-    <label
-      for={id}
-      class:tall={item.icon}
-      style="overflow: hidden;"
-      on:mousedown={ripplers[item.value]}
-    >
-      <Ripple bind:ripple={ripplers[item.value]} color="secondary" />
+    <label for={id} class:tall={item.icon} style="overflow: hidden;">
+      <Ripple color="secondary" />
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
