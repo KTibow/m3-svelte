@@ -7,7 +7,7 @@
 
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};
-  const color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
+  export let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
   export let size: "small" | "normal" | "large" = "normal";
   export let elevation: "normal" | "lowered" | "none" = "normal";
   export let icon: IconifyIcon | undefined = undefined;
