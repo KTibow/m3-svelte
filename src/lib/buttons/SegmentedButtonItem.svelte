@@ -3,153 +3,33 @@
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
-  import { onMount } from "svelte";
 
   export let display = "flex";
   export let extraOptions: HTMLLabelAttributes = {};
   export let input: string;
-  export let icon: IconifyIcon | null = null;
-  let selected = false;
-  let customIcon: HTMLDivElement;
-  let checkIcon: HTMLDivElement;
-
-  const animateCheck = () => {
-    if (!customIcon || !checkIcon) return;
-    // cancel any existing animations
-    customIcon.getAnimations().forEach((a) => {
-      (a.onfinish as any)();
-      a.cancel();
-    });
-    if (selected) {
-      customIcon.style.width = "1.125rem";
-      customIcon.style.position = "absolute";
-      customIcon.style.left = "16px";
-      customIcon.animate(
-        [
-          {
-            transform: "rotate(0deg) scale(1)",
-            opacity: 1,
-          },
-          {
-            transform: "rotate(90deg) scale(0)",
-            opacity: 0,
-          },
-        ],
-        {
-          duration: 200,
-          easing: "ease",
-        },
-      ).onfinish = () => {
-        customIcon.style.position = "";
-        customIcon.style.width = "";
-      };
-      checkIcon.animate(
-        [
-          {
-            transform: "rotate(-90deg) scale(0)",
-            opacity: 0,
-          },
-          {
-            transform: "rotate(0deg) scale(1)",
-            opacity: 1,
-          },
-        ],
-        {
-          duration: 200,
-          easing: "ease",
-        },
-      );
-    } else {
-      checkIcon.style.width = "1.125rem";
-      checkIcon.style.position = "absolute";
-      checkIcon.style.left = "16px";
-      checkIcon.animate(
-        [
-          {
-            transform: "rotate(0deg)",
-            opacity: 1,
-          },
-          {
-            transform: "rotate(-45deg)",
-            opacity: 0,
-          },
-        ],
-        {
-          duration: 200,
-          easing: "ease",
-        },
-      ).onfinish = () => {
-        checkIcon.style.position = "";
-        checkIcon.style.width = "";
-      };
-
-      customIcon.animate(
-        [
-          {
-            transform: "rotate(45deg)",
-            opacity: 0,
-          },
-          {
-            transform: "rotate(0deg)",
-            opacity: 1,
-          },
-        ],
-        {
-          duration: 200,
-          easing: "ease",
-        },
-      );
-    }
-  };
-
-  onMount(() => {
-    const el = document.getElementById(input) as HTMLInputElement;
-    selected = el.checked;
-    const click = (e: MouseEvent) => {
-      const prev = selected;
-      if (e.target instanceof HTMLInputElement) {
-        // if this is us and its checked, set to true
-        // else, false
-        if (e.target.id === el.id) {
-          selected = e.target.checked;
-        } else {
-          selected = false;
-        }
-        if (selected !== prev) animateCheck();
-      }
-    };
-    const items = el.parentElement!.querySelectorAll("input");
-    items.forEach((item) => {
-      item.addEventListener("click", click);
-    });
-    return () => {
-      items.forEach((item) => {
-        item.removeEventListener("click", click);
-      });
-    };
-  });
+  export let icon: IconifyIcon | undefined = undefined;
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <label
-  class:custom-icon={icon}
   for={input}
   class="m3-font-label-large"
   style="display: {display}; overflow: hidden;"
   {...extraOptions}
 >
   <div class="layer" />
-  <div class="pad" />
   {#if icon}
-    <div class="custom icon" bind:this={customIcon}>
+    <div class="custom icon">
       <Icon {icon} />
     </div>
   {/if}
-  <div class="check icon" bind:this={checkIcon} style="z-index: 50;">
+  <div class="check icon">
     <Icon icon={iconCheck} />
   </div>
+  <div class="start-pad pad" />
   <slot />
-  <div class="pad" class:hidden={icon} />
+  {#if !icon}
+    <div class="end-pad pad" />
+  {/if}
 </label>
 
 <style>
@@ -181,39 +61,56 @@
     inset: 0;
     transition: all 200ms;
   }
-  .icon,
-  .pad {
+  .icon {
+    height: 1.125rem;
     transition: all 200ms;
     flex-shrink: 0;
+    transform-origin: 0.563rem 0.563rem;
   }
   .icon > :global(svg) {
     width: 1.125rem;
     height: 1.125rem;
   }
-  .pad {
-    width: 0.8125rem; /* (1.125 + 0.5) / 2 */
+
+  .check.icon {
+    width: 0;
+    opacity: 0;
+  }
+  :global(input:checked) + label > .check.icon {
+    opacity: 1;
+  }
+  .custom.icon + .check.icon {
+    rotate: -60deg;
+  }
+  :global(input:checked) + label > .custom.icon + .check.icon {
+    rotate: 0deg;
+  }
+  .custom.icon {
+    width: 0;
+    opacity: 0;
+    rotate: 60deg;
+  }
+  :global(input:not(:checked)) + label > .custom.icon {
+    opacity: 1;
+    rotate: 0deg;
   }
 
-  .custom-icon .icon {
-    transition: none;
+  .pad {
+    transition: all 200ms;
+    flex-shrink: 0;
   }
-  :global(input:checked) + label > .pad,
-  label.custom-icon > .pad {
-    width: 0;
+  .start-pad {
+    width: 0.8125rem;
   }
-  .icon {
-    width: 0;
-    height: 1.125rem;
-    overflow: hidden;
+  .end-pad {
+    width: 0.8125rem;
   }
-  :global(input:checked) + label > .check.icon,
-  .custom.icon {
-    width: 1.125rem;
-    margin-right: 0.5rem;
+  :global(input:checked) + label > .start-pad,
+  .custom.icon ~ .start-pad {
+    width: 1.625rem;
   }
-  :global(input:checked) + label > .custom.icon {
-    width: 0;
-    margin-right: 0;
+  :global(input:checked) + label > .end-pad {
+    width: 0rem;
   }
 
   label {
