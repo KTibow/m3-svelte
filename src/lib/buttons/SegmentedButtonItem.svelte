@@ -11,14 +11,12 @@
 </script>
 
 <label
-  class:custom-icon={icon}
   for={input}
   class="m3-font-label-large"
-  style="display: {display};"
+  style="display: {display}; overflow: hidden;"
   {...extraOptions}
 >
   <div class="layer" />
-  <div class="pad" />
   {#if icon}
     <div class="custom icon">
       <Icon {icon} />
@@ -27,8 +25,11 @@
   <div class="check icon">
     <Icon icon={iconCheck} />
   </div>
+  <div class="start-pad pad" />
   <slot />
-  <div class="pad" class:hidden={icon} />
+  {#if !icon}
+    <div class="end-pad pad" />
+  {/if}
 </label>
 
 <style>
@@ -60,39 +61,56 @@
     inset: 0;
     transition: all 200ms;
   }
-  .icon,
-  .pad {
+  .icon {
+    height: 1.125rem;
     transition: all 200ms;
     flex-shrink: 0;
+    transform-origin: 0.563rem 0.563rem;
   }
   .icon > :global(svg) {
     width: 1.125rem;
     height: 1.125rem;
   }
-  .pad {
-    width: 0.8125rem; /* (1.125 + 0.5) / 2 */
+
+  .check.icon {
+    width: 0;
+    opacity: 0;
+  }
+  :global(input:checked) + label > .check.icon {
+    opacity: 1;
+  }
+  .custom.icon + .check.icon {
+    rotate: -60deg;
+  }
+  :global(input:checked) + label > .custom.icon + .check.icon {
+    rotate: 0deg;
+  }
+  .custom.icon {
+    width: 0;
+    opacity: 0;
+    rotate: 60deg;
+  }
+  :global(input:not(:checked)) + label > .custom.icon {
+    opacity: 1;
+    rotate: 0deg;
   }
 
-  .custom-icon .icon {
-    transition: none;
+  .pad {
+    transition: all 200ms;
+    flex-shrink: 0;
   }
-  :global(input:checked) + label > .pad,
-  label.custom-icon > .pad {
-    width: 0;
+  .start-pad {
+    width: 0.8125rem;
   }
-  .icon {
-    width: 0;
-    height: 1.125rem;
-    overflow: hidden;
+  .end-pad {
+    width: 0.8125rem;
   }
-  :global(input:checked) + label > .check.icon,
-  .custom.icon {
-    width: 1.125rem;
-    margin-right: 0.5rem;
+  :global(input:checked) + label > .start-pad,
+  .custom.icon ~ .start-pad {
+    width: 1.625rem;
   }
-  :global(input:checked) + label > .custom.icon {
-    width: 0;
-    margin-right: 0;
+  :global(input:checked) + label > .end-pad {
+    width: 0rem;
   }
 
   label {
