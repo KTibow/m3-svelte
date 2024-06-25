@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="text">
-      <p>Install M3 Svelte with <code>npm i m3-svelte</code> (or your package manager)</p>
+      <p>Install M3 Svelte with <code>npm i m3-svelte</code> (or your package manager).</p>
     </div>
   </li>
   <li>
