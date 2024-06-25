@@ -1,5 +1,6 @@
 <script lang="ts">
   import iconLightbulb from "@ktibow/iconset-material-symbols/lightbulb-outline";
+  import iconHeart from "@ktibow/iconset-material-symbols/favorite-outline";
   import Icon from "$lib/misc/_icon.svelte";
   import Hero from "./Hero.svelte";
   import ButtonCard from "./ButtonCard.svelte";
@@ -55,6 +56,10 @@
   <Icon width="1.5rem" height="1.5rem" icon={iconLightbulb} />
   If you use the theme page, your theme will show up here
 </div>
+<a href="https://github.com/sponsors/KTibow" class="tip">
+  <Icon width="1.5rem" height="1.5rem" icon={iconHeart} />
+  If I've saved you $5 of time, consider a sponsor
+</a>
 
 <style>
   .cards {
@@ -71,5 +76,9 @@
     align-items: center;
     gap: 0.5rem;
     margin-top: 2rem;
+  }
+  a {
+    color: rgb(var(--m3-scheme-primary));
+    text-decoration: none;
   }
 </style>
