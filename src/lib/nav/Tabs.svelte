@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Ripple from "$lib/effects/Ripple.svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
@@ -25,7 +26,9 @@
   {#each items as item}
     {@const id = name + item.value}
     <input type="radio" {name} {id} value={item.value} bind:group={tab} {...extraOptions} />
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <label for={id} class:tall={item.icon}>
+      <Ripple color="secondary" />
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
