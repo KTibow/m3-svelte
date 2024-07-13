@@ -15,10 +15,15 @@
 
 <div class="m3-container" class:choosing={currentView != "calendar"}>
   <div>
-    <button class="arrow" on:click={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}>
+    <button
+      type="button"
+      class="arrow"
+      on:click={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}
+    >
       <Icon icon={iconLeft} />
     </button>
     <button
+      type="button"
       class="chooser m3-font-label-large"
       on:click={monthClick}
       disabled={currentView == "year"}
@@ -26,15 +31,21 @@
       {getShortMonth(focusedMonth)}
       <Icon icon={iconDown} />
     </button>
-    <button class="arrow" on:click={() => (focusedMonth = (focusedMonth + 1) % 12)}>
+    <button type="button" class="arrow" on:click={() => (focusedMonth = (focusedMonth + 1) % 12)}>
       <Icon icon={iconRight} />
     </button>
   </div>
   <div>
-    <button class="arrow" disabled={focusedYear <= startYear} on:click={() => focusedYear--}>
+    <button
+      type="button"
+      class="arrow"
+      disabled={focusedYear <= startYear}
+      on:click={() => focusedYear--}
+    >
       <Icon icon={iconLeft} />
     </button>
     <button
+      type="button"
       class="chooser m3-font-label-large"
       on:click={yearClick}
       disabled={currentView == "month"}
@@ -42,7 +53,12 @@
       {focusedYear}
       <Icon icon={iconDown} />
     </button>
-    <button class="arrow" disabled={focusedYear >= endYear} on:click={() => focusedYear++}>
+    <button
+      type="button"
+      class="arrow"
+      disabled={focusedYear >= endYear}
+      on:click={() => focusedYear++}
+    >
       <Icon icon={iconRight} />
     </button>
   </div>
