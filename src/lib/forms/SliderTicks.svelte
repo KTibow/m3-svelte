@@ -194,6 +194,12 @@
   input:disabled ~ .track::after {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
+  input:disabled ~ .tick {
+    background-color: rgb(var(--m3-scheme-inverse-on-surface) / 0.66);
+  }
+  input:disabled ~ .tick.inactive {
+    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  }
   input:disabled ~ .thumb {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
