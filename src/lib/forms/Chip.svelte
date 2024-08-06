@@ -2,6 +2,7 @@
   import type { HTMLButtonAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
+  import Ripple from "$lib/effects/Ripple.svelte";
 
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};
@@ -24,13 +25,14 @@
 
 <button
   class="m3-container type-{type}"
-  style="display: {display}"
+  style="display: {display}; overflow: hidden;"
   class:elevated
   class:selected
   {disabled}
   on:click
   {...extraOptions}
 >
+  <Ripple color="secondary" />
   <div class="layer" />
   {#if icon}
     <Icon {icon} class="leading" />

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Ripple from "$lib/effects/Ripple.svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
 
@@ -7,6 +8,7 @@
 </script>
 
 <button class="item m3-font-label-large" {disabled} on:click>
+  <Ripple color="secondary" />
   {#if icon == "space"}
     <span class="icon" />
   {:else if icon}
@@ -19,6 +21,8 @@
 
 <style>
   .item {
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: center;
     height: 3rem;

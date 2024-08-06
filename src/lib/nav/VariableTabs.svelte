@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Ripple from "$lib/effects/Ripple.svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
@@ -79,7 +80,9 @@
       on:input={handleInput}
       {...extraOptions}
     />
-    <label for={id} class:tall={item.icon}>
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <label for={id} class:tall={item.icon} style="overflow: hidden;">
+      <Ripple color="secondary" />
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
