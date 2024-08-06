@@ -13,7 +13,7 @@
         <Button type="outlined" on:click={() => ((prevPage = page), (page = 1))}>next</Button>
       </p>
       <img
-        src="https://source.unsplash.com/192x168/?red"
+        src="https://picsum.photos/id/12/192/168"
         alt="Red placeholder"
         width="192"
         height="168"
@@ -35,7 +35,7 @@
         <Button type="outlined" on:click={() => ((prevPage = page), (page = 2))}>next</Button>
       </p>
       <img
-        src="https://source.unsplash.com/192x168/?orange"
+        src="https://picsum.photos/id/20/192/168"
         alt="Orange placeholder"
         width="192"
         height="168"
@@ -57,7 +57,7 @@
         <Button type="outlined" on:click={() => ((prevPage = page), (page = 3))}>next</Button>
       </p>
       <img
-        src="https://source.unsplash.com/192x168/?yellow"
+        src="https://picsum.photos/id/19/192/168"
         alt="Yellow placeholder"
         width="192"
         height="168"
@@ -69,7 +69,7 @@
         <Button type="outlined" on:click={() => ((prevPage = page), (page = 2))}>back</Button>
       </p>
       <img
-        src="https://source.unsplash.com/192x168/?green"
+        src="https://picsum.photos/id/18/192/168"
         alt="Green placeholder"
         width="192"
         height="168"
