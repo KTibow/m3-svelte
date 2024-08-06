@@ -8,16 +8,15 @@
 
 <div class="m3-container" style="display: {display};" {...extraOptions}>
   <slot />
-  <div class="layer">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M 4.83 13.41 L 9 17.585 L 19.59 7"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.41"
-      />
-    </svg>
-  </div>
+  <div class="layer" />
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M 4.83 13.41 L 9 17.585 L 19.59 7"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.41"
+    />
+  </svg>
 </div>
 
 <style>
@@ -53,9 +52,10 @@
   }
   svg {
     position: absolute;
-    inset: 0.6875rem;
+    inset: 0;
     color: rgb(var(--m3-scheme-on-primary));
     opacity: 0;
+    pointer-events: none;
     transition: opacity 200ms;
   }
 
@@ -76,7 +76,7 @@
   :global(input:checked) + .layer::before {
     background-color: rgb(var(--color));
   }
-  :global(input:checked) + .layer svg {
+  :global(input:checked) ~ svg {
     opacity: 1;
   }
 
@@ -85,7 +85,7 @@
     --color: var(--m3-scheme-on-surface) / 0.38;
     pointer-events: none;
   }
-  :global(input:disabled) + .layer svg {
+  :global(input:disabled) ~ svg {
     color: rgb(var(--m3-scheme-surface));
   }
   :global(input:disabled:checked) + .layer::before {
