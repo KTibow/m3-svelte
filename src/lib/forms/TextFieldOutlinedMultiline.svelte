@@ -55,6 +55,10 @@
 </div>
 
 <style>
+  /*
+  want to customize the label's background?
+  do this: <TextFieldOutlinedMultiline --m3-util-background="var(--m3-scheme-surface-container)" />
+  */
   :root {
     --m3-textfield-outlined-shape: var(--m3-util-rounding-extra-small);
   }
