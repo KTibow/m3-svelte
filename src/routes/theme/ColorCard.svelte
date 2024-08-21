@@ -1,10 +1,14 @@
 <script lang="ts">
+  import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
+
   import {
     type DynamicScheme,
     MaterialDynamicColors,
     hexFromArgb,
   } from "@material/material-color-utilities";
   import { createEventDispatcher } from "svelte";
+  import Icon from "$lib/misc/_icon.svelte";
+
   export let fg: string;
   export let bg: string;
   export let scheme: DynamicScheme;
@@ -84,7 +88,13 @@
   <p class="m3-font-headline-small">{bg}</p>
   <p class="m3-font-body-large">{fg} text</p>
   {#if state}
-    <div class="overlay" style:background-color={state == 2 ? bgColor : fgColor} />
+    <div
+      class="overlay"
+      class:invert={state == 1}
+      style:background-color={state == 2 ? bgColor : fgColor}
+    >
+      <Icon width="1.5rem" height="1.5rem" icon={iconCopy} />
+    </div>
   {/if}
 </div>
 
@@ -98,9 +108,17 @@
     cursor: pointer;
   }
   .overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     position: absolute;
     inset: 0;
+
     pointer-events: none;
+  }
+  .overlay.invert :global(svg) {
+    mix-blend-mode: difference;
   }
   p {
     margin: 0;

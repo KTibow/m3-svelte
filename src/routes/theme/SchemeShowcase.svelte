@@ -4,6 +4,7 @@
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
   import iconLight from "@ktibow/iconset-material-symbols/light-mode-outline";
   import iconDark from "@ktibow/iconset-material-symbols/dark-mode-outline";
+  import iconX from "@ktibow/iconset-material-symbols/close";
   import iconGrab from "@ktibow/iconset-material-symbols/unarchive-outline";
   import { onMount } from "svelte";
 
@@ -57,7 +58,7 @@
     </Button>
     {#if grabbing}
       <Button type="tonal" iconType="left" on:click={() => (grabbing = false)}>
-        <Icon icon={iconGrab} />
+        <Icon icon={iconX} />
         Stop grab
       </Button>
     {:else}
