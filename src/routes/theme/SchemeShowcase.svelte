@@ -4,6 +4,7 @@
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
   import iconLight from "@ktibow/iconset-material-symbols/light-mode-outline";
   import iconDark from "@ktibow/iconset-material-symbols/dark-mode-outline";
+  import iconGrab from "@ktibow/iconset-material-symbols/unarchive-outline";
   import { onMount } from "svelte";
 
   import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
@@ -14,6 +15,7 @@
   export let schemeLight: DynamicScheme;
   export let schemeDark: DynamicScheme;
   let showDark = false;
+  let grabbing = false;
 
   const copyUsage = () =>
     navigator.clipboard.writeText(
@@ -35,7 +37,13 @@
   <h2 class="m3-font-title-large">Your scheme 🎉</h2>
   <div class="color-container">
     {#each pairs as [bgName, fgName]}
-      <ColorCard scheme={showDark ? schemeDark : schemeLight} fg={fgName} bg={bgName} />
+      <ColorCard
+        scheme={showDark ? schemeDark : schemeLight}
+        fg={fgName}
+        bg={bgName}
+        {grabbing}
+        on:grabbed={() => (grabbing = false)}
+      />
     {/each}
   </div>
   <div class="buttons">
@@ -47,6 +55,17 @@
       <Icon icon={showDark ? iconLight : iconDark} />
       {showDark ? "Light" : "Dark"}
     </Button>
+    {#if grabbing}
+      <Button type="tonal" iconType="left" on:click={() => (grabbing = false)}>
+        <Icon icon={iconGrab} />
+        Stop grab
+      </Button>
+    {:else}
+      <Button type="tonal" iconType="left" on:click={() => (grabbing = true)}>
+        <Icon icon={iconGrab} />
+        Grab
+      </Button>
+    {/if}
   </div>
 </div>
 
