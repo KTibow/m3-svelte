@@ -59,7 +59,7 @@
   </li>
   <li>Join the M3 Svelte community on <a href="https://discord.gg/gS8T5RnMmA">Discord</a>.</li>
   <li>Make a theme on the Theme page, and come back here to try it out.</li>
-  <li>Maybe even <a href="https://github.com/sponsors/KTibow">be my first public sponsor</a>.</li>
+  <li>Maybe even <a href="https://github.com/sponsors/KTibow">be my first recurring sponsor</a>.</li>
 </ul>
 
 <style>
