@@ -63,6 +63,9 @@ importers:
       svelte-check:
         specifier: ^3.8.6
         version: 3.8.6(postcss-load-config@3.1.4(postcss@8.4.40))(postcss@8.4.40)(svelte@4.2.19)
+      svelte-highlight:
+        specifier: ^7.7.0
+        version: 7.7.0
       tslib:
         specifier: ^2.7.0
         version: 2.7.0
@@ -768,6 +771,10 @@ packages:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
 
+  highlight.js@11.10.0:
+    resolution: {integrity: sha512-SYVnVFswQER+zu1laSya563s+F8VDGt7o35d4utbamowvUNLLMovFqwCLSocpZTz3MgaSRA1IbqRWZv97dtErQ==}
+    engines: {node: '>=12.0.0'}
+
   ignore@5.3.1:
     resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}
     engines: {node: '>= 4'}
@@ -1119,6 +1126,9 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  svelte-highlight@7.7.0:
+    resolution: {integrity: sha512-umBiTz3fLbbNCA+wGlRhJOb54iC6ap8S/dxjauQ+g6a8oFGTOGQeOP2rJVoh/K1ssF7IjP4P0T3Yuiu+vtaG5Q==}
 
   svelte-hmr@0.16.0:
     resolution: {integrity: sha512-Gyc7cOS3VJzLlfj7wKS0ZnzDVdv3Pn2IuVeJPk9m2skfhcu5bq3wtIZyQGggr7/Iim5rH5cncyQft/kRLupcnA==}
@@ -1951,6 +1961,8 @@ snapshots:
 
   has-flag@4.0.0: {}
 
+  highlight.js@11.10.0: {}
+
   ignore@5.3.1: {}
 
   ignore@5.3.2: {}
@@ -2286,6 +2298,10 @@ snapshots:
       postcss-scss: 4.0.9(postcss@8.4.40)
     optionalDependencies:
       svelte: 4.2.19
+
+  svelte-highlight@7.7.0:
+    dependencies:
+      highlight.js: 11.10.0
 
   svelte-hmr@0.16.0(svelte@4.2.19):
     dependencies:

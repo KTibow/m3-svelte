@@ -6,8 +6,24 @@
   let open = false;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Bottom sheet</h2>
+<Card
+  title="Bottom sheet"
+  code={`<BottomSheet on:close={() => (open = false)}>
+  <div>
+    <div>
+      <div>
+        <input type="date" id="d-start" />
+        <label for="d-start">Start</label>
+      </div>
+      <div>
+        <input type="date" id="d-end" />
+        <label for="d-end">End</label>
+      </div>
+    </div>
+    <Button type="filled">Add event</Button>
+  </div>
+</BottomSheet>`}
+>
   <div slot="demo">
     <Button type="tonal" on:click={() => (open = true)}>Open</Button>
     {#if open}
@@ -31,10 +47,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   .contents {
     display: flex;
     flex-direction: column;

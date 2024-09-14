@@ -1,18 +1,23 @@
 <script lang="ts">
-  import Card from "./_card.svelte";
-  import Arrows from "./Arrows.svelte";
-  import Switch from "$lib/forms/Switch.svelte";
-  import LinearProgress from "$lib/forms/LinearProgress.svelte";
-  import LinearProgressIndeterminate from "$lib/forms/LinearProgressIndeterminate.svelte";
   import CircularProgress from "$lib/forms/CircularProgress.svelte";
   import CircularProgressIndeterminate from "$lib/forms/CircularProgressIndeterminate.svelte";
+  import LinearProgress from "$lib/forms/LinearProgress.svelte";
+  import LinearProgressIndeterminate from "$lib/forms/LinearProgressIndeterminate.svelte";
+  import Switch from "$lib/forms/Switch.svelte";
+  import Card from "./_card.svelte";
+  import Arrows from "./Arrows.svelte";
 
   let type = "linear";
   let indeterminate = false;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Progress</h2>
+<Card
+  title="Progress"
+  code={`<LinearProgressIndeterminate />
+<LinearProgress percent={60} />
+<CircularProgressIndeterminate />
+<CircularProgress percent={60} />`}
+>
   <table>
     <tr>
       <td>

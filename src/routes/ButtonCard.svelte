@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Icon from "$lib/misc/_icon.svelte";
-  import iconEdit from "@ktibow/iconset-material-symbols/edit-outline";
   import Button from "$lib/buttons/Button.svelte";
   import Switch from "$lib/forms/Switch.svelte";
+  import Icon from "$lib/misc/_icon.svelte";
+  import iconEdit from "@ktibow/iconset-material-symbols/edit-outline";
   import Card from "./_card.svelte";
   import Arrows from "./Arrows.svelte";
 
@@ -11,8 +11,12 @@
   let enabled = true;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Button</h2>
+<Card
+  title="Button"
+  code={`<Button {type} disabled={!enabled} {iconType}>
+  Hello
+</Button>`}
+>
   <table>
     <tr>
       <td>
@@ -47,10 +51,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   label {
     display: flex;
   }

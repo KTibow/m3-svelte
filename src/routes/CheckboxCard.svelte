@@ -1,16 +1,23 @@
 <script lang="ts">
-  import Card from "./_card.svelte";
   import Checkbox from "$lib/forms/Checkbox.svelte";
   import CheckboxAnim from "$lib/forms/CheckboxAnim.svelte";
   import Switch from "$lib/forms/Switch.svelte";
+  import Card from "./_card.svelte";
 
   let animation = true;
   let enabled = true;
   $: component = animation ? CheckboxAnim : Checkbox;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Checkbox</h2>
+<Card
+  title="Checkbox"
+  code={`<CheckboxAnim>
+  <input type="checkbox" checked disabled={!enabled} />
+</CheckboxAnim>
+<Checkbox>
+  <input type="checkbox" checked disabled={!enabled} />
+</Checkbox>`}
+>
   <table>
     <tr>
       <td>
@@ -35,10 +42,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   label {
     display: flex;
   }

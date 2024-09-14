@@ -1,10 +1,10 @@
 <script lang="ts">
+  import Chip from "$lib/forms/Chip.svelte";
+  import Switch from "$lib/forms/Switch.svelte";
   import iconEdit from "@ktibow/iconset-material-symbols/edit-outline";
   import iconDropdown from "@ktibow/iconset-material-symbols/expand-more";
   import Card from "./_card.svelte";
-  import Switch from "$lib/forms/Switch.svelte";
   import Arrows from "./Arrows.svelte";
-  import Chip from "$lib/forms/Chip.svelte";
 
   let style: "input" | "assist" | "assist-elevated" | "general" | "general-elevated" = "input";
   let iconType: "none" | "left" | "right" = "none";
@@ -12,8 +12,20 @@
   let selected = false;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Chip</h2>
+<Card
+  title="Chip"
+  code={`<Chip
+  {type}
+  {elevated}
+  {selected}
+  disabled={!enabled}
+  {icon}
+  {trailingIcon}
+  on:click={() => (selected = !selected)}
+>
+  Hello
+</Chip>`}
+>
   <table>
     <tr>
       <td>
@@ -65,10 +77,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   label {
     display: flex;
   }

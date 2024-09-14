@@ -1,17 +1,20 @@
 <script lang="ts">
-  import Card from "./_card.svelte";
-  import Switch from "$lib/forms/Switch.svelte";
   import Slider from "$lib/forms/Slider.svelte";
-  import Arrows from "./Arrows.svelte";
   import SliderTicks from "$lib/forms/SliderTicks.svelte";
+  import Switch from "$lib/forms/Switch.svelte";
+  import Card from "./_card.svelte";
+  import Arrows from "./Arrows.svelte";
 
   let precision = "continuous";
   let enabled = true;
   let value = 0;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Slider</h2>
+<Card
+  title="Slider"
+  code={`<SliderTicks step={1} max={6} disabled={!enabled} bind:value />
+<Slider step={precision == "continuous" ? "any" : 10} disabled={!enabled} bind:value />`}
+>
   <table>
     <tr>
       <td>
@@ -42,10 +45,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   label {
     display: flex;
   }

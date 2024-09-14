@@ -1,17 +1,23 @@
 <script lang="ts">
-  import iconUndo from "@ktibow/iconset-material-symbols/undo";
-  import iconRedo from "@ktibow/iconset-material-symbols/redo";
-  import iconCut from "@ktibow/iconset-material-symbols/content-cut";
-  import Card from "./_card.svelte";
   import Menu from "$lib/containers/Menu.svelte";
   import MenuItem from "$lib/containers/MenuItem.svelte";
   import Switch from "$lib/forms/Switch.svelte";
+  import iconCut from "@ktibow/iconset-material-symbols/content-cut";
+  import iconRedo from "@ktibow/iconset-material-symbols/redo";
+  import iconUndo from "@ktibow/iconset-material-symbols/undo";
+  import Card from "./_card.svelte";
 
   let icons = false;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Menu</h2>
+<Card
+  title="Menu"
+  code={`<Menu>
+  <MenuItem icon={iconUndo}>Undo</MenuItem>
+  <MenuItem icon={iconRedo} disabled>Redo</MenuItem>
+  <MenuItem icon={iconCut} disabled>Cut</MenuItem>
+</Menu>`}
+>
   <table>
     <tr>
       <td>
@@ -30,10 +36,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   label {
     display: flex;
   }

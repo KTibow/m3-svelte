@@ -79,7 +79,10 @@
     color: rgb(var(--m3-scheme-secondary));
     width: 1.5rem;
     height: 1.5rem;
-    margin: 0 auto 1rem auto;
+
+    flex-shrink: 0;
+    align-self: center;
+    margin-bottom: 1rem;
   }
   .headline {
     color: rgb(var(--m3-scheme-on-surface));
