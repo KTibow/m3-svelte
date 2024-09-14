@@ -18,7 +18,7 @@
   <SegmentedButtonItem input="segmented-1">Tab B</SegmentedButtonItem>
 </SegmentedButtonContainer>
 <SegmentedButtonContainer>
-<input type="radio" id="segmented-0" />
+  <input type="radio" id="segmented-0" />
   <SegmentedButtonItem input="segmented-0">Tab A</SegmentedButtonItem>
   <input type="radio" id="segmented-1" />
   <SegmentedButtonItem input="segmented-1">Tab B</SegmentedButtonItem>

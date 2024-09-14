@@ -29,8 +29,8 @@
 <span class="anchor" />
 <Card
   title="Tabs"
-  code={`<VariableTabs bind:tab secondary={false} {items} />
-<Tabs bind:tab secondary {items} />`}
+  code={`<VariableTabs bind:tab {secondary} {items} />
+<Tabs bind:tab {secondary} {items} />`}
 >
   <table>
     <tr>

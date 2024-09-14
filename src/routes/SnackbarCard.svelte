@@ -13,7 +13,6 @@
   title="Snackbar"
   code={`<${""}script lang="ts">
   let snackbar: (data: SnackbarIn) => void;
-  let snackbarAnim: (data: SnackbarIn) => void;
 </${""}script>
 <Button
   type="tonal"
@@ -21,7 +20,6 @@
 >
   Show
 </Button>
-<SnackbarAnim bind:show={snackbarAnim} />
 <Snackbar bind:show={snackbar} />`}
 >
   <table>

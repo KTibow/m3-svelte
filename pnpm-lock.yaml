@@ -54,9 +54,6 @@ importers:
       globals:
         specifier: ^15.9.0
         version: 15.9.0
-      highlight.js:
-        specifier: ^11.10.0
-        version: 11.10.0
       prettier:
         specifier: ^3.3.2
         version: 3.3.3

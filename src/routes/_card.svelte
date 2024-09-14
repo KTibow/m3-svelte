@@ -1,63 +1,53 @@
 <script>
-  import { browser } from "$app/environment";
   import Button from "$lib/buttons/Button.svelte";
   import Dialog from "$lib/containers/Dialog.svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import iconCode from "@ktibow/iconset-material-symbols/code";
   import Highlight from "svelte-highlight";
   import xmlLanguage from "svelte-highlight/languages/xml";
-  import github from "svelte-highlight/styles/github";
-  import githubDark from "svelte-highlight/styles/github-dark";
 
   /** @type {string} */
   export let title = "";
   /** @type {string} */
   export let code = "";
   let showCode = false;
-
-  $: mediaPrefersDark = browser && window.matchMedia("(prefers-color-scheme: dark)");
 </script>
-
-<svelte:head>
-  {#if mediaPrefersDark}
-    {@html githubDark}
-  {:else}
-    {@html github}
-  {/if}
-</svelte:head>
 
 <div class="container">
   <div class="content">
-    <div>
+    <h2 class="m3-font-headline-large">
+      {title}
       <Button type="text" on:click={() => (showCode = true)}>
         <Icon icon={iconCode} width="1.5em" height="1.5em" />
       </Button>
-      <Dialog icon={iconCode} headline="Source Code" bind:open={showCode}>
-        <div class="highlight">
-          <Highlight language={xmlLanguage} {code} />
-        </div>
-        <svelte:fragment slot="buttons">
-          <Button type="tonal" on:click={() => (showCode = false)}>Close</Button>
-        </svelte:fragment>
-      </Dialog>
-    </div>
-    <h2 class="m3-font-headline-large">{title}</h2>
+    </h2>
     <slot />
   </div>
   <div class="content">
     <slot name="demo" />
   </div>
 </div>
+<Dialog icon={iconCode} headline="Source code" bind:open={showCode}>
+  <div class="highlight">
+    <Highlight language={xmlLanguage} {code} />
+  </div>
+  <svelte:fragment slot="buttons">
+    <Button type="tonal" on:click={() => (showCode = false)}>Close</Button>
+  </svelte:fragment>
+</Dialog>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   .container {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+  h2 {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 0;
+    margin-bottom: 1rem;
   }
   .content {
     display: flex;
