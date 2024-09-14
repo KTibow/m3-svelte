@@ -1,6 +1,6 @@
 <script lang="ts">
-  import iconEdit from "@ktibow/iconset-material-symbols/edit-outline";
   import FAB from "$lib/buttons/FAB.svelte";
+  import iconEdit from "@ktibow/iconset-material-symbols/edit-outline";
   import Arrows from "./Arrows.svelte";
   import Card from "./_card.svelte";
 
@@ -8,8 +8,15 @@
   let size: "small" | "normal" | "large" | "extended" = "normal";
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">FAB</h2>
+<Card
+  title="FAB"
+  code={`<FAB
+  {color}
+  {size}
+  {icon}
+  text="Hello"
+/>`}
+>
   <table>
     <tr>
       <td>
@@ -35,10 +42,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   table {
     margin-bottom: 1rem;
   }

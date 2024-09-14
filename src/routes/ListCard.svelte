@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Icon from "$lib/misc/_icon.svelte";
-  import iconUser from "@ktibow/iconset-material-symbols/person-outline";
-  import Divider from "$lib/utils/Divider.svelte";
-  import Checkbox from "$lib/forms/Checkbox.svelte";
   import ListItem from "$lib/containers/ListItem.svelte";
   import ListItemButton from "$lib/containers/ListItemButton.svelte";
   import ListItemLabel from "$lib/containers/ListItemLabel.svelte";
+  import Checkbox from "$lib/forms/Checkbox.svelte";
+  import Icon from "$lib/misc/_icon.svelte";
+  import Divider from "$lib/utils/Divider.svelte";
+  import iconUser from "@ktibow/iconset-material-symbols/person-outline";
   import Card from "./_card.svelte";
   import Arrows from "./Arrows.svelte";
 
@@ -19,8 +19,28 @@
         : "This is an example of supporting text for a list item component showcase.";
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">List</h2>
+<Card
+  title="List"
+  code={`<ListItem headline="This is a headline" supporting={supportingText} {lines}>
+  <svelte:fragment slot="leading">
+    <Icon {icon} />
+  </svelte:fragment>
+</ListItem>
+<Divider />
+<ListItemButton headline="This is a headline" supporting={supportingText} {lines}>
+  <svelte:fragment slot="leading">
+    <Icon {icon} />
+  </svelte:fragment>
+</ListItemButton>
+<Divider />
+<ListItemLabel headline="This is a headline" supporting={supportingText} {lines}>
+  <svelte:fragment slot="leading">
+    <div class="box-wrapper">
+      <Checkbox><input type="checkbox" /></Checkbox>
+    </div>
+  </svelte:fragment>
+</ListItemLabel>`}
+>
   <table>
     <tr>
       <td>
@@ -83,10 +103,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   table {
     margin-bottom: 1rem;
   }

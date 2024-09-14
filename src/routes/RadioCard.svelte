@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Card from "./_card.svelte";
   import RadioAnim1 from "$lib/forms/RadioAnim1.svelte";
   import RadioAnim2 from "$lib/forms/RadioAnim2.svelte";
   import RadioAnim3 from "$lib/forms/RadioAnim3.svelte";
   import Switch from "$lib/forms/Switch.svelte";
+  import Card from "./_card.svelte";
   import Arrows from "./Arrows.svelte";
 
   let animation = "1";
@@ -11,8 +11,12 @@
   $: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Radio</h2>
+<Card
+  title="Radio"
+  code={`<RadioAnim1><input type="radio" name="radio" disabled={!enabled} /></RadioAnim1>
+<RadioAnim2><input type="radio" name="radio" disabled={!enabled} /></RadioAnim2>
+<RadioAnim3><input type="radio" name="radio" disabled={!enabled} /></RadioAnim3>`}
+>
   <table>
     <tr>
       <td>
@@ -50,10 +54,6 @@
   .area {
     display: flex;
     gap: 0.5rem;
-  }
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
   }
   label {
     display: flex;

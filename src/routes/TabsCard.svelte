@@ -1,12 +1,12 @@
 <script lang="ts">
-  import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
-  import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
-  import iconBald from "@ktibow/iconset-material-symbols/face-5";
-  import Card from "./_card.svelte";
-  import Arrows from "./Arrows.svelte";
   import Switch from "$lib/forms/Switch.svelte";
   import Tabs from "$lib/nav/Tabs.svelte";
   import VariableTabs from "$lib/nav/VariableTabs.svelte";
+  import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
+  import iconBald from "@ktibow/iconset-material-symbols/face-5";
+  import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
+  import Card from "./_card.svelte";
+  import Arrows from "./Arrows.svelte";
 
   let type = "primary";
   let icons = false;
@@ -27,8 +27,11 @@
 </script>
 
 <span class="anchor" />
-<Card>
-  <h2 class="m3-font-headline-large">Tabs</h2>
+<Card
+  title="Tabs"
+  code={`<VariableTabs bind:tab secondary={false} {items} />
+<Tabs bind:tab secondary {items} />`}
+>
   <table>
     <tr>
       <td>
@@ -70,10 +73,6 @@
   }
   .anchor + :global(div) {
     overflow: hidden;
-  }
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
   }
   label {
     display: flex;

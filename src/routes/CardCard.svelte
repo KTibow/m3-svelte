@@ -9,8 +9,11 @@
   let clickable = false;
 </script>
 
-<CardCustom>
-  <h2 class="m3-font-headline-large">Card</h2>
+<CardCustom
+  title="Card"
+  code={`<CardClickable {type}>Hello</CardClickable>
+<Card {type}>Hello</Card>`}
+>
   <table>
     <tr>
       <td>
@@ -35,10 +38,6 @@
 </CardCustom>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   label {
     display: flex;
   }

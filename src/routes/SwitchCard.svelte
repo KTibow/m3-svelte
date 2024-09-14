@@ -1,12 +1,11 @@
 <script lang="ts">
-  import Card from "./_card.svelte";
   import Switch from "$lib/forms/Switch.svelte";
+  import Card from "./_card.svelte";
 
   let enabled = true;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Switch</h2>
+<Card title="Switch" code={`<Switch disabled={!enabled} />`}>
   <table>
     <tr>
       <td>

@@ -1,16 +1,29 @@
 <script lang="ts">
-  import Switch from "$lib/forms/Switch.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import Snackbar, { type SnackbarIn } from "$lib/containers/Snackbar.svelte";
   import SnackbarAnim from "$lib/containers/SnackbarAnim.svelte";
+  import Switch from "$lib/forms/Switch.svelte";
   import Card from "./_card.svelte";
 
   let snackbar: (data: SnackbarIn) => void;
   let animation = false;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Snackbar</h2>
+<Card
+  title="Snackbar"
+  code={`<${""}script lang="ts">
+  let snackbar: (data: SnackbarIn) => void;
+  let snackbarAnim: (data: SnackbarIn) => void;
+</${""}script>
+<Button
+  type="tonal"
+  on:click={() => snackbar({ message: "Hello", actions: { Undo: () => {} }, closable: true })}
+>
+  Show
+</Button>
+<SnackbarAnim bind:show={snackbarAnim} />
+<Snackbar bind:show={snackbar} />`}
+>
   <table>
     <tr>
       <td>
@@ -33,10 +46,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   label {
     display: flex;
   }

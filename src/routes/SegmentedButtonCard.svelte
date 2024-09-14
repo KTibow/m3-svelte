@@ -1,16 +1,29 @@
 <script>
-  import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
-  import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
-  import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
-  import Switch from "$lib/forms/Switch.svelte";
   import SegmentedButtonContainer from "$lib/buttons/SegmentedButtonContainer.svelte";
   import SegmentedButtonItem from "$lib/buttons/SegmentedButtonItem.svelte";
+  import Switch from "$lib/forms/Switch.svelte";
+  import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
+  import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
+  import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
   import Card from "./_card.svelte";
   let multiSelect = false;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Segmented button</h2>
+<Card
+  title="Segmented button"
+  code={`<SegmentedButtonContainer>
+  <input type="checkbox" id="segmented-0" />
+  <SegmentedButtonItem input="segmented-0">Tab A</SegmentedButtonItem>
+  <input type="checkbox" id="segmented-1" />
+  <SegmentedButtonItem input="segmented-1">Tab B</SegmentedButtonItem>
+</SegmentedButtonContainer>
+<SegmentedButtonContainer>
+<input type="radio" id="segmented-0" />
+  <SegmentedButtonItem input="segmented-0">Tab A</SegmentedButtonItem>
+  <input type="radio" id="segmented-1" />
+  <SegmentedButtonItem input="segmented-1">Tab B</SegmentedButtonItem>
+</SegmentedButtonContainer>`}
+>
   <table>
     <tr>
       <td>
@@ -23,11 +36,11 @@
     {#if multiSelect}
       <SegmentedButtonContainer>
         <input type="checkbox" id="segmented-a-0" />
-        <SegmentedButtonItem input="segmented-a-0">$</SegmentedButtonItem>
+        <SegmentedButtonItem input="segmented-a-0" icon={iconTriangle}>Tab A</SegmentedButtonItem>
         <input type="checkbox" id="segmented-a-1" />
-        <SegmentedButtonItem input="segmented-a-1">$$</SegmentedButtonItem>
+        <SegmentedButtonItem input="segmented-a-1" icon={iconSquare}>Tab B</SegmentedButtonItem>
         <input type="checkbox" id="segmented-a-2" disabled />
-        <SegmentedButtonItem input="segmented-a-2">$$$</SegmentedButtonItem>
+        <SegmentedButtonItem input="segmented-a-2" icon={iconCircle}>Tab C</SegmentedButtonItem>
       </SegmentedButtonContainer>
     {:else}
       <SegmentedButtonContainer>
@@ -43,10 +56,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   label {
     display: flex;
   }

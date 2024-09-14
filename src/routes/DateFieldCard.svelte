@@ -1,18 +1,10 @@
 <script lang="ts">
-  import Card from "./_card.svelte";
   import DateField from "$lib/utils/DateField.svelte";
+  import Card from "./_card.svelte";
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Date field</h2>
+<Card title="Date field" code={`<DateField bind:date />`}>
   <div slot="demo">
     <DateField name="Date" />
   </div>
 </Card>
-
-<style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-</style>

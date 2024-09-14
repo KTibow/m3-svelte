@@ -1,13 +1,13 @@
 <script lang="ts">
-  import iconEdit from "@ktibow/iconset-material-symbols/edit-outline";
   import Switch from "$lib/forms/Switch.svelte";
   import TextField from "$lib/forms/TextField.svelte";
   import TextFieldMultiline from "$lib/forms/TextFieldMultiline.svelte";
   import TextFieldOutlined from "$lib/forms/TextFieldOutlined.svelte";
   import TextFieldOutlinedMultiline from "$lib/forms/TextFieldOutlinedMultiline.svelte";
+  import iconEdit from "@ktibow/iconset-material-symbols/edit-outline";
+  import type { HTMLInputAttributes } from "svelte/elements";
   import Card from "./_card.svelte";
   import Arrows from "./Arrows.svelte";
-  import type {HTMLInputAttributes, HTMLTextareaAttributes} from "svelte/elements";
 
   let extraOptions: HTMLInputAttributes = {};
   let type = "filled";
@@ -18,8 +18,39 @@
   $: extraOptions.type = option;
 </script>
 
-<Card>
-  <h2 class="m3-font-headline-large">Text field</h2>
+<Card
+  title="Text field"
+  code={`<TextField
+  bind:value
+  name="Field"
+  leadingIcon={leadingIcon ? iconEdit : undefined}
+  error={{errored}
+  {disabled}
+  {extraOptions}
+/>
+<TextFieldOutlined
+  bind:value
+  name="Field"
+  leadingIcon={leadingIcon ? iconEdit : undefined}
+  error={{errored}
+  {disabled}
+  {extraOptions}
+/>
+<TextFieldMultiline
+  bind:value
+  name="Field"
+  {leadingIcon}
+  {error}
+  disabled={!enabled}
+/>
+<TextFieldOutlinedMultiline
+  bind:value
+  name="Field"
+  {leadingIcon}
+  {error}
+  disabled={!enabled}
+/>`}
+>
   <table>
     <tr>
       <td>
@@ -40,10 +71,7 @@
     </tr>
     <tr>
       <td>
-        <Arrows
-          list={["text", "password", "number", "file"]}
-          bind:value={option}
-        />
+        <Arrows list={["text", "password", "number", "file"]} bind:value={option} />
       </td>
       <td>
         {option == "text"
@@ -81,7 +109,7 @@
         leadingIcon={leadingIcon ? iconEdit : undefined}
         error={errored}
         disabled={!enabled}
-        extraOptions={extraOptions}
+        {extraOptions}
         --m3-util-background="var(--m3-scheme-surface-container-low)"
       />
     {:else if type === "outlined"}
@@ -90,7 +118,7 @@
         leadingIcon={leadingIcon ? iconEdit : undefined}
         error={errored}
         disabled={!enabled}
-        extraOptions={extraOptions}
+        {extraOptions}
         --m3-util-background="var(--m3-scheme-surface-container-low)"
       />
     {:else if type === "filled_multiline"}
@@ -116,10 +144,6 @@
 <style>
   .area {
     display: flex;
-  }
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
   }
   label {
     display: flex;
