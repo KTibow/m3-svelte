@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Ripple from "$lib/effects/Ripple.svelte";
   import type { HTMLAttributes, HTMLButtonAttributes } from "svelte/elements";
 
   export let display = "flex";
@@ -9,9 +10,10 @@
 <button
   on:click|stopPropagation
   class="m3-container type-{type}"
-  style="display: {display};"
+  style="display: {display}; overflow: hidden;"
   {...extraOptions}
 >
+  <Ripple color="secondary" />
   <div class="layer" />
   <slot />
 </button>
