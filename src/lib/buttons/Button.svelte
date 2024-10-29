@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Ripple from "$lib/effects/Ripple.svelte";
   import type { HTMLButtonAttributes } from "svelte/elements";
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};
@@ -14,6 +15,7 @@
   style="display: {display};"
   {...extraOptions}
 >
+  <Ripple color="secondary" />
   <div class="layer" />
   <slot />
 </button>

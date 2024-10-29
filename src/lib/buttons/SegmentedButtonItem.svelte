@@ -3,19 +3,45 @@
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
+  import Ripple from "$lib/effects/Ripple.svelte";
+  import { onMount } from "svelte";
 
   export let display = "flex";
   export let extraOptions: HTMLLabelAttributes = {};
   export let input: string;
   export let icon: IconifyIcon | undefined = undefined;
+  let disabled = false;
+
+  onMount(() => {
+    const inputEl = document.getElementById(input) as HTMLInputElement;
+    if (!inputEl) return;
+    disabled = inputEl.disabled;
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        // Check the modified attributeName is "disabled"
+        if (mutation.attributeName === "disabled") {
+          alert("disabled changed");
+        }
+      });
+    });
+    var config = { attributes: true };
+    observer.observe(inputEl, config);
+    return () => {
+      observer.disconnect();
+    };
+  });
 </script>
 
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <label
   for={input}
   class="m3-font-label-large"
   style="display: {display}; overflow: hidden;"
   {...extraOptions}
 >
+  {#if !disabled}
+    <Ripple color="secondary" />
+  {/if}
   <div class="layer" />
   {#if icon}
     <div class="custom icon">
