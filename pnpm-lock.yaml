@@ -12,8 +12,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       '@ktibow/iconset-material-symbols':
-        specifier: ^0.0.1727761867
-        version: 0.0.1727761867
+        specifier: ^0.0.1729441119
+        version: 0.0.1729441119
       '@material/material-color-utilities':
         specifier: ^0.3.0
         version: 0.3.0
@@ -272,8 +272,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@ktibow/iconset-material-symbols@0.0.1727761867':
-    resolution: {integrity: sha512-AGOlaCyzARHYPl4Da7TScbcQakaZgYFaXH1FV+G1kwKZmcI12qG1MrPPeyj3ZGvMXI0cqYzboCREpa29f1aL8Q==}
+  '@ktibow/iconset-material-symbols@0.0.1729441119':
+    resolution: {integrity: sha512-krpzmXiJLjzzFZC7hTxBKd+keqQOuDC8SL+WmKrAiXWgPlNdGLd9BhY5sznWZXEiaTja1wgHwGfR+8IbOeBKxg==}
 
   '@material/material-color-utilities@0.3.0':
     resolution: {integrity: sha512-ztmtTd6xwnuh2/xu+Vb01btgV8SQWYCaK56CkRK8gEkWe5TuDyBcYJ0wgkMRn+2VcE9KUmhvkz+N9GHrqw/C0g==}
@@ -1307,7 +1307,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@ktibow/iconset-material-symbols@0.0.1727761867':
+  '@ktibow/iconset-material-symbols@0.0.1729441119':
     dependencies:
       '@iconify/types': 2.0.0
 

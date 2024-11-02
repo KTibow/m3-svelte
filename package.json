@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "@iconify/types": "^2.0.0",
-    "@ktibow/iconset-material-symbols": "^0.0.1727761867",
+    "@ktibow/iconset-material-symbols": "^0.0.1729441119",
     "@material/material-color-utilities": "^0.3.0",
     "svelte": "^5.1.9"
   },
