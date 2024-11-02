@@ -5,7 +5,7 @@
 </script>
 
 <div class="m3-container" style="display: {display};" role="progressbar" {...extraOptions}>
-  <div class="percent" />
+  <div class="percent"></div>
 </div>
 
 <style>

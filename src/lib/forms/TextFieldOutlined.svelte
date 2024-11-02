@@ -36,7 +36,7 @@
     {required}
     {...extraOptions}
   />
-  <div class="layer" />
+  <div class="layer"></div>
   <label class="m3-font-body-large" for={id}>{name}</label>
   {#if leadingIcon}
     <Icon icon={leadingIcon} class="leading" />

@@ -30,7 +30,7 @@
 <main class="m3-container">
   {#if open}
     <div class="expanded" in:receive={{ key: "container" }} out:send={{ key: "container" }}>
-      <div class="bar" />
+      <div class="bar"></div>
       <p>Cool you have more info now</p>
       <p><Button type="outlined" on:click={() => (open = false)}>Close</Button></p>
     </div>

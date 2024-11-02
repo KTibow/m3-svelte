@@ -10,7 +10,7 @@
 </script>
 
 <a {href} class="destination" class:selected {...extraOptions}>
-  <div class="layer" />
+  <div class="layer"></div>
   <Icon {icon} />
   <span class="m3-font-label-large"><slot /></span>
 </a>

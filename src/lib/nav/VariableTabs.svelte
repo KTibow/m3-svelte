@@ -67,7 +67,7 @@
   bind:this={wrapper}
   {...extraWrapperOptions}
 >
-  <div class="divider" />
+  <div class="divider"></div>
   {#each items as item}
     {@const id = name + item.value}
     <input
@@ -86,7 +86,7 @@
       <span class="m3-font-title-small">{item.name}</span>
     </label>
   {/each}
-  <div class="bar" />
+  <div class="bar"></div>
 </div>
 
 <style>

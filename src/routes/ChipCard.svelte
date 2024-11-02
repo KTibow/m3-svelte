@@ -27,39 +27,41 @@
 </Chip>`}
 >
   <table>
-    <tr>
-      <td>
-        <Arrows
-          list={["input", "assist", "assist-elevated", "general", "general-elevated"]}
-          bind:value={style}
-        />
-      </td>
-      <td>
-        {style == "input"
-          ? "Input"
-          : style == "assist"
-            ? "Assist"
-            : style == "assist-elevated"
-              ? "Assist elevated"
-              : style == "general"
-                ? "General"
-                : "General elevated"}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <Arrows list={["none", "left", "right"]} bind:value={iconType} />
-      </td>
-      <td>
-        {iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Trailing icon"}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={enabled} /></label>
-      </td>
-      <td>{enabled ? "Enabled" : "Disabled"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <Arrows
+            list={["input", "assist", "assist-elevated", "general", "general-elevated"]}
+            bind:value={style}
+          />
+        </td>
+        <td>
+          {style == "input"
+            ? "Input"
+            : style == "assist"
+              ? "Assist"
+              : style == "assist-elevated"
+                ? "Assist elevated"
+                : style == "general"
+                  ? "General"
+                  : "General elevated"}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <Arrows list={["none", "left", "right"]} bind:value={iconType} />
+        </td>
+        <td>
+          {iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Trailing icon"}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={enabled} /></label>
+        </td>
+        <td>{enabled ? "Enabled" : "Disabled"}</td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     <Chip

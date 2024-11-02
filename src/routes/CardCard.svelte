@@ -15,18 +15,20 @@
 <Card {type}>Hello</Card>`}
 >
   <table>
-    <tr>
-      <td>
-        <Arrows list={["elevated", "filled", "outlined"]} bind:value={type} />
-      </td>
-      <td>{type[0].toUpperCase() + type.slice(1)}</td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={clickable} /></label>
-      </td>
-      <td>{clickable ? "Clickable" : "Not clickable"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <Arrows list={["elevated", "filled", "outlined"]} bind:value={type} />
+        </td>
+        <td>{type[0].toUpperCase() + type.slice(1)}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={clickable} /></label>
+        </td>
+        <td>{clickable ? "Clickable" : "Not clickable"}</td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     {#if clickable}

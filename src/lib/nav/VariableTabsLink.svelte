@@ -73,7 +73,7 @@
   bind:this={wrapper}
   {...extraWrapperOptions}
 >
-  <div class="divider" />
+  <div class="divider"></div>
   {#each items as item, i}
     <a
       href={item.href}
@@ -88,7 +88,7 @@
       <span class="m3-font-title-small">{item.name}</span>
     </a>
   {/each}
-  <div class="bar" style="grid-column: {items.findIndex((i) => i.value == tab) + 1}" />
+  <div class="bar" style="grid-column: {items.findIndex((i) => i.value == tab) + 1}"></div>
 </div>
 
 <style>

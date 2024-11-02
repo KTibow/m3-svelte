@@ -26,37 +26,39 @@
   let tab = "hello";
 </script>
 
-<span class="anchor" />
+<span class="anchor"></span>
 <Card
   title="Tabs"
   code={`<VariableTabs bind:tab {secondary} {items} />
 <Tabs bind:tab {secondary} {items} />`}
 >
   <table>
-    <tr>
-      <td>
-        <Arrows list={["primary", "secondary"]} bind:value={type} />
-      </td>
-      <td>
-        {type == "primary" ? "Primary" : "Secondary"}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={icons} /></label>
-      </td>
-      <td>
-        {icons ? "Icons" : "No icons"}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={variable} /></label>
-      </td>
-      <td>
-        {variable ? "Variable" : "Fixed"}
-      </td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <Arrows list={["primary", "secondary"]} bind:value={type} />
+        </td>
+        <td>
+          {type == "primary" ? "Primary" : "Secondary"}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={icons} /></label>
+        </td>
+        <td>
+          {icons ? "Icons" : "No icons"}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={variable} /></label>
+        </td>
+        <td>
+          {variable ? "Variable" : "Fixed"}
+        </td>
+      </tr>
+    </tbody>
   </table>
   <svelte:fragment slot="demo">
     {#if variable}

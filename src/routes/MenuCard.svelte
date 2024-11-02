@@ -19,12 +19,14 @@
 </Menu>`}
 >
   <table>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={icons} /></label>
-      </td>
-      <td>{icons ? "Icons" : "No icons"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={icons} /></label>
+        </td>
+        <td>{icons ? "Icons" : "No icons"}</td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     <Menu>

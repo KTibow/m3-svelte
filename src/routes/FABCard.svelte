@@ -18,18 +18,20 @@
 />`}
 >
   <table>
-    <tr>
-      <td>
-        <Arrows list={["primary", "surface", "secondary", "tertiary"]} bind:value={color} />
-      </td>
-      <td>{color[0].toUpperCase() + color.slice(1)}</td>
-    </tr>
-    <tr>
-      <td>
-        <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} index={1} />
-      </td>
-      <td>{size[0].toUpperCase() + size.slice(1)}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <Arrows list={["primary", "surface", "secondary", "tertiary"]} bind:value={color} />
+        </td>
+        <td>{color[0].toUpperCase() + color.slice(1)}</td>
+      </tr>
+      <tr>
+        <td>
+          <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} index={1} />
+        </td>
+        <td>{size[0].toUpperCase() + size.slice(1)}</td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     <FAB

@@ -19,18 +19,20 @@
 </Checkbox>`}
 >
   <table>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={animation} /></label>
-      </td>
-      <td>{animation ? "Animated" : "Not animated"}</td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={enabled} /></label>
-      </td>
-      <td>{enabled ? "Enabled" : "Disabled"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={animation} /></label>
+        </td>
+        <td>{animation ? "Animated" : "Not animated"}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={enabled} /></label>
+        </td>
+        <td>{enabled ? "Enabled" : "Disabled"}</td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     <label>

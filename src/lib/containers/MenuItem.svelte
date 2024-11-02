@@ -8,7 +8,7 @@
 
 <button class="item m3-font-label-large" {disabled} on:click>
   {#if icon == "space"}
-    <span class="icon" />
+    <span class="icon"></span>
   {:else if icon}
     <span class="icon">
       <Icon {icon} />

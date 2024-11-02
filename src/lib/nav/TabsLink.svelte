@@ -23,7 +23,7 @@
   )};"
   {...extraWrapperOptions}
 >
-  <div class="divider" />
+  <div class="divider"></div>
   {#each items as item}
     <a href={item.href} class:tall={item.icon} class:selected={item.value == tab} {...extraOptions}>
       {#if item.icon}
@@ -32,7 +32,7 @@
       <span class="m3-font-title-small">{item.name}</span>
     </a>
   {/each}
-  <div class="bar" />
+  <div class="bar"></div>
 </div>
 
 <style>

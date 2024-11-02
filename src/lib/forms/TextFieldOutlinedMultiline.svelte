@@ -46,8 +46,8 @@
     {disabled}
     {required}
     {...extraOptions}
-  />
-  <div class="layer" />
+  ></textarea>
+  <div class="layer"></div>
   <label class="m3-font-body-large" for={id}>{name}</label>
   {#if leadingIcon}
     <Icon icon={leadingIcon} />

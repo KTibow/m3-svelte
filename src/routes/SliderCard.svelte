@@ -16,24 +16,26 @@
 <Slider step={precision == "continuous" ? "any" : 10} disabled={!enabled} bind:value />`}
 >
   <table>
-    <tr>
-      <td>
-        <Arrows list={["continuous", "discrete", "discrete-ticks"]} bind:value={precision} />
-      </td>
-      <td>
-        {precision == "continuous"
-          ? "Continuous"
-          : precision == "discrete"
-            ? "Discrete"
-            : "Discrete (ticks)"}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={enabled} /></label>
-      </td>
-      <td>{enabled ? "Enabled" : "Disabled"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <Arrows list={["continuous", "discrete", "discrete-ticks"]} bind:value={precision} />
+        </td>
+        <td>
+          {precision == "continuous"
+            ? "Continuous"
+            : precision == "discrete"
+              ? "Discrete"
+              : "Discrete (ticks)"}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={enabled} /></label>
+        </td>
+        <td>{enabled ? "Enabled" : "Disabled"}</td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     {#if precision == "discrete-ticks"}

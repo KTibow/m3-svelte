@@ -18,18 +18,20 @@
 <RadioAnim3><input type="radio" name="radio" disabled={!enabled} /></RadioAnim3>`}
 >
   <table>
-    <tr>
-      <td>
-        <Arrows list={["1", "2", "3"]} bind:value={animation} />
-      </td>
-      <td>Animation {animation}</td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={enabled} /></label>
-      </td>
-      <td>{enabled ? "Enabled" : "Disabled"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <Arrows list={["1", "2", "3"]} bind:value={animation} />
+        </td>
+        <td>Animation {animation}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={enabled} /></label>
+        </td>
+        <td>{enabled ? "Enabled" : "Disabled"}</td>
+      </tr>
+    </tbody>
   </table>
   <div class="area" slot="demo">
     <label>

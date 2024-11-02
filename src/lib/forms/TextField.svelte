@@ -22,6 +22,7 @@
 <div
   class="m3-container"
   class:leading-icon={leadingIcon}
+  class:trailing-icon={trailingIcon}
   class:error
   style="display: {display}"
   {...extraWrapperOptions}
@@ -36,7 +37,7 @@
     {...extraOptions}
   />
   <label class="m3-font-body-large" for={id}>{name}</label>
-  <div class="layer" />
+  <div class="layer"></div>
   {#if leadingIcon}
     <Icon icon={leadingIcon} class="leading" />
   {/if}

@@ -77,7 +77,7 @@
         startY = e.clientY;
       }}
     >
-      <div class="handle" />
+      <div class="handle"></div>
     </div>
     <slot />
   </div>

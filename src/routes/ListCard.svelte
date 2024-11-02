@@ -42,18 +42,20 @@
 </ListItemLabel>`}
 >
   <table>
-    <tr>
-      <td>
-        <Arrows list={["1", "2", "3"]} bind:value={lines} />
-      </td>
-      <td>{lines} {lines == "1" ? "line" : "lines"}</td>
-    </tr>
-    <tr>
-      <td>
-        <Arrows list={["div", "button", "label"]} bind:value={type} />
-      </td>
-      <td>{"<" + type + ">"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <Arrows list={["1", "2", "3"]} bind:value={lines} />
+        </td>
+        <td>{lines} {lines == "1" ? "line" : "lines"}</td>
+      </tr>
+      <tr>
+        <td>
+          <Arrows list={["div", "button", "label"]} bind:value={type} />
+        </td>
+        <td>{"<" + type + ">"}</td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     <div class="list">

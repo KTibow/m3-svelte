@@ -25,12 +25,14 @@
 </SegmentedButtonContainer>`}
 >
   <table>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={multiSelect} /></label>
-      </td>
-      <td>{multiSelect ? "Multi-select" : "Single-select"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={multiSelect} /></label>
+        </td>
+        <td>{multiSelect ? "Multi-select" : "Single-select"}</td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     {#if multiSelect}

@@ -52,55 +52,57 @@
 />`}
 >
   <table>
-    <tr>
-      <td>
-        <Arrows
-          list={["filled", "filled_multiline", "outlined", "outlined_multiline"]}
-          bind:value={type}
-        />
-      </td>
-      <td>
-        {type == "filled"
-          ? "Filled"
-          : type == "filled_multiline"
-            ? "Filled multiline"
-            : type == "outlined"
-              ? "Outlined"
-              : "Outlined multiline"}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <Arrows list={["text", "password", "number", "file"]} bind:value={option} />
-      </td>
-      <td>
-        {option == "text"
-          ? "Text"
-          : option == "password"
-            ? "Password"
-            : option == "number"
-              ? "Number"
-              : "File"}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={leadingIcon} /></label>
-      </td>
-      <td>{leadingIcon ? "Leading icon" : "No leading icon"}</td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={errored} /></label>
-      </td>
-      <td>{errored ? "Errored" : "Not errored"}</td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={enabled} /></label>
-      </td>
-      <td>{enabled ? "Enabled" : "Disabled"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <Arrows
+            list={["filled", "filled_multiline", "outlined", "outlined_multiline"]}
+            bind:value={type}
+          />
+        </td>
+        <td>
+          {type == "filled"
+            ? "Filled"
+            : type == "filled_multiline"
+              ? "Filled multiline"
+              : type == "outlined"
+                ? "Outlined"
+                : "Outlined multiline"}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <Arrows list={["text", "password", "number", "file"]} bind:value={option} />
+        </td>
+        <td>
+          {option == "text"
+            ? "Text"
+            : option == "password"
+              ? "Password"
+              : option == "number"
+                ? "Number"
+                : "File"}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={leadingIcon} /></label>
+        </td>
+        <td>{leadingIcon ? "Leading icon" : "No leading icon"}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={errored} /></label>
+        </td>
+        <td>{errored ? "Errored" : "Not errored"}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={enabled} /></label>
+        </td>
+        <td>{enabled ? "Enabled" : "Disabled"}</td>
+      </tr>
+    </tbody>
   </table>
   <div class="area" slot="demo">
     {#if type === "filled"}

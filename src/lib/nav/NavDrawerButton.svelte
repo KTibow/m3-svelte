@@ -9,7 +9,7 @@
 </script>
 
 <button class="destination" class:selected on:click {...extraOptions}>
-  <div class="layer" />
+  <div class="layer"></div>
   <Icon {icon} />
   <span class="m3-font-label-large"><slot /></span>
 </button>

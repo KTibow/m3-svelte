@@ -31,7 +31,7 @@
   on:click
   {...extraOptions}
 >
-  <div class="layer" />
+  <div class="layer"></div>
   {#if icon}
     <Icon {icon} class="leading" />
   {/if}

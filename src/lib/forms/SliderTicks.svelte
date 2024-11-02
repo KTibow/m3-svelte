@@ -47,16 +47,16 @@
     {disabled}
     {...extraOptions}
   />
-  <div class="track" />
+  <div class="track"></div>
   {#each ticks as tick, i}
     <div
       class="tick"
       class:hidden={Math.abs(tick / 100 - $valueDisplayed / range) < 0.01}
       class:inactive={tick / 100 > $valueDisplayed / range}
       style="left: calc(4px + {tick}% - {i * 2}px);"
-    />
+    ></div>
   {/each}
-  <div class="thumb" />
+  <div class="thumb"></div>
   {#if showValue}
     <div class="value m3-font-label-large"><span>{format(value)}</span></div>
   {/if}

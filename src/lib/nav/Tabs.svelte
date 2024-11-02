@@ -21,7 +21,7 @@
   style="display: {display}; --items: {items.length};"
   {...extraWrapperOptions}
 >
-  <div class="divider" />
+  <div class="divider"></div>
   {#each items as item}
     {@const id = name + item.value}
     <input type="radio" {name} {id} value={item.value} bind:group={tab} {...extraOptions} />
@@ -32,7 +32,7 @@
       <span class="m3-font-title-small">{item.name}</span>
     </label>
   {/each}
-  <div class="bar" />
+  <div class="bar"></div>
 </div>
 
 <style>

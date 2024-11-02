@@ -19,18 +19,20 @@
 <CircularProgress percent={60} />`}
 >
   <table>
-    <tr>
-      <td>
-        <Arrows list={["linear", "circular"]} bind:value={type} />
-      </td>
-      <td>{type == "linear" ? "Linear" : "Circular"}</td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={indeterminate} /></label>
-      </td>
-      <td>{indeterminate ? "Indeterminate" : "Fixed progress"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <Arrows list={["linear", "circular"]} bind:value={type} />
+        </td>
+        <td>{type == "linear" ? "Linear" : "Circular"}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={indeterminate} /></label>
+        </td>
+        <td>{indeterminate ? "Indeterminate" : "Fixed progress"}</td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     {#if type == "linear" && indeterminate}
@@ -46,10 +48,6 @@
 </Card>
 
 <style>
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
   label {
     display: flex;
   }

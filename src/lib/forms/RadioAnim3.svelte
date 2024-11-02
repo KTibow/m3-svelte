@@ -8,7 +8,7 @@
 
 <div class="m3-container" style="display: {display};" {...extraOptions}>
   <slot />
-  <div class="layer" />
+  <div class="layer"></div>
 </div>
 
 <style>

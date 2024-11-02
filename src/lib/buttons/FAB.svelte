@@ -22,7 +22,7 @@
   style="display: {display};"
   {...extraOptions}
 >
-  <div class="layer" />
+  <div class="layer"></div>
   {#if icon}
     <Icon {icon} />
   {/if}

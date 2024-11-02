@@ -23,14 +23,16 @@
 <Snackbar bind:show={snackbar} />`}
 >
   <table>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={animation} /></label>
-      </td>
-      <td>
-        {animation ? "#key animated" : "#if animated"}
-      </td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={animation} /></label>
+        </td>
+        <td>
+          {animation ? "#key animated" : "#if animated"}
+        </td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     <Button

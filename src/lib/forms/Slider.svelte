@@ -40,8 +40,8 @@
     {disabled}
     {...extraOptions}
   />
-  <div class="track" />
-  <div class="thumb" />
+  <div class="track"></div>
+  <div class="thumb"></div>
   {#if showValue}
     <div class="value m3-font-label-large"><span>{format(value)}</span></div>
   {/if}

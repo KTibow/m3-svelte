@@ -8,7 +8,7 @@
 
 <div class="m3-container" style="display: {display};" {...extraOptions}>
   <slot />
-  <div class="layer" />
+  <div class="layer"></div>
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M 4.83 13.41 L 9 17.585 L 19.59 7"

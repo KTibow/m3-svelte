@@ -12,7 +12,7 @@
   style="display: {display};"
   {...extraOptions}
 >
-  <div class="layer" />
+  <div class="layer"></div>
   <slot />
 </button>
 

@@ -18,24 +18,26 @@
 </Button>`}
 >
   <table>
-    <tr>
-      <td>
-        <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={type} />
-      </td>
-      <td>{type[0].toUpperCase() + type.slice(1)}</td>
-    </tr>
-    <tr>
-      <td>
-        <Arrows list={["none", "left", "full"]} bind:value={iconType} />
-      </td>
-      <td>{iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}</td>
-    </tr>
-    <tr>
-      <td>
-        <label for={undefined}><Switch bind:checked={enabled} /></label>
-      </td>
-      <td>{enabled ? "Enabled" : "Disabled"}</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>
+          <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={type} />
+        </td>
+        <td>{type[0].toUpperCase() + type.slice(1)}</td>
+      </tr>
+      <tr>
+        <td>
+          <Arrows list={["none", "left", "full"]} bind:value={iconType} />
+        </td>
+        <td>{iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for={undefined}><Switch bind:checked={enabled} /></label>
+        </td>
+        <td>{enabled ? "Enabled" : "Disabled"}</td>
+      </tr>
+    </tbody>
   </table>
   <div slot="demo">
     <Button {type} disabled={!enabled} {iconType}>
