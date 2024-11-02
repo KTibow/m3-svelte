@@ -109,8 +109,8 @@
   </li>
 </ol>
 
+<h2 class="m3-font-headline-large">Match up with M3 Svelte</h2>
 <ul>
-  <li>Great. M3 Svelte components now function as expected, but you might want to do more.</li>
   <li>
     <p>Make your body match up with the rest of M3 Svelte</p>
     <Snippet code={`<body class="m3-font-body-large">`} name="app.html" />
@@ -211,7 +211,36 @@
   </li>
 </ul>
 
+<h2 class="m3-font-headline-large">Use customization</h2>
+<ul>
+  <li>There are a few variables you should know about.</li>
+  <li>
+    <p>
+      You might already know that you can change the default font stack with <code>--m3-font</code>,
+      but you can also customize the fonts of certain sizes (eg <code>--m3-font-label</code>) and
+      their configuration (eg <code>--m3-font-label-large-size</code>).
+    </p>
+  </li>
+  <li>
+    <p>
+      If you want to mess around with the shapes of things, you can configure rounding both at a
+      high level (eg <code>--m3-util-rounding-large</code>) and low level (eg
+      <code>--m3-button-shape</code>)
+    </p>
+  </li>
+  <li>
+    <p>
+      If you use outlined text fields, use <code>--m3-util-background</code> to make them match up with
+      your background.
+    </p>
+  </li>
+</ul>
+
 <style>
+  h2 {
+    margin: 10rem 0 1rem 0;
+  }
+
   ol {
     display: flex;
     flex-direction: column;
@@ -263,7 +292,7 @@
     gap: 1rem;
 
     padding: 0;
-    margin: 10rem 0 0 0;
+    margin: 0;
     list-style-type: none;
   }
   ul > li {
