@@ -20,16 +20,19 @@
   };
 </script>
 
-<svelte:window on:mouseup={handleMouseUp} />
+<svelte:window on:pointerup={handleMouseUp} />
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="m3-container"
   style="display: {display};"
   {...extraWrapperOptions}
-  on:mousedown={(e) => {
+  on:pointerdown={(e) => {
     if (!disabled) {
       startX = e.clientX;
     }
+  }}
+  on:dragstart={(e) => {
+    e.preventDefault();
   }}
 >
   <input
@@ -44,9 +47,10 @@
       if (e.code == "ArrowRight") checked = true;
     }}
   />
-  <div class="layer">
+  <div class="handle">
     <Icon icon={iconCheck} />
   </div>
+  <div class="hover"></div>
 </div>
 
 <style>
@@ -72,7 +76,7 @@
     -webkit-tap-highlight-color: transparent;
     transition: all 300ms;
   }
-  .layer {
+  .handle {
     position: absolute;
     width: 1rem;
     height: 1rem;
@@ -85,72 +89,74 @@
 
     left: 0.5rem;
     top: 50%;
-    transform: translate(0, -50%);
+    translate: 0 -50%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .layer > :global(svg) {
+  .handle > :global(svg) {
     width: 1rem;
     height: 1rem;
     color: rgb(var(--m3-scheme-on-primary-container));
     opacity: 0;
-    transition: opacity 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
+    transition:
+      opacity 300ms cubic-bezier(0.271, -0.011, 0, 1.449),
+      scale 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
   }
-  .layer::before {
-    content: " ";
-    display: block;
+  .hover {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: var(--m3-util-rounding-full);
-    transition: all 200ms;
+
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 300ms cubic-bezier(0.271, -0.011, 0, 1.449);
+
+    left: 1rem;
+    top: 50%;
+    translate: -50% -50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .m3-container:hover > input:enabled + .layer,
-  .m3-container > input:enabled:is(:active, :focus-visible) + .layer {
+  .m3-container:hover > input:enabled + .handle,
+  .m3-container > input:enabled:is(:active, :focus-visible) + .handle {
     background-color: rgb(var(--m3-scheme-on-surface-variant));
   }
-  .m3-container:hover > input:enabled:checked + .layer,
-  .m3-container > input:enabled:checked:is(:active, :focus-visible) + .layer {
+  .m3-container:hover > input:enabled:checked + .handle,
+  .m3-container > input:enabled:checked:is(:active, :focus-visible) + .handle {
     background-color: rgb(var(--m3-scheme-primary-container));
   }
-  .m3-container:hover > input + .layer::before {
+  .m3-container:hover > input ~ .hover {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
-  .m3-container:hover > input:checked + .layer::before {
+  .m3-container:hover > input:checked ~ .hover {
     background-color: rgb(var(--m3-scheme-primary) / 0.08);
-  }
-  .m3-container > input:is(:active, :focus-visible) + .layer::before {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
-  .m3-container > input:checked:is(:active, :focus-visible) + .layer::before {
-    background-color: rgb(var(--m3-scheme-primary) / 0.12);
   }
 
   input:checked {
     background-color: rgb(var(--m3-scheme-primary));
     border-color: rgb(var(--m3-scheme-primary));
   }
-  input:checked + .layer {
+  input:checked + .handle {
     background-color: rgb(var(--m3-scheme-on-primary));
-    width: 1.5rem;
-    height: 1.5rem;
-    left: 1.5rem; /* 1.5 + 1.5 + 0.25 = 3.25 */
+    scale: 1.5;
+    left: 1.75rem;
   }
-  input:checked + .layer > :global(svg) {
+  input:checked + .handle > :global(svg) {
+    scale: 0.667;
     opacity: 1;
   }
-  .m3-container:active > input:enabled + .layer {
-    width: 1.75rem;
-    height: 1.75rem;
-    transform: translate(-0.375rem, -50%); /* 0.75 / 2 */
+  input:checked ~ .hover {
+    left: 2.25rem;
   }
-  .m3-container:active > input:enabled:checked + .layer {
-    transform: translate(-0.125rem, -50%); /* 0.25 / 2 */
+  .m3-container:active > input:enabled + .handle {
+    scale: 1.75;
+  }
+  .m3-container:active > input:enabled + .handle > :global(svg) {
+    scale: 0.571;
   }
 
   input:disabled {
@@ -162,17 +168,17 @@
     background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
     border-color: transparent;
   }
-  input:disabled + .layer {
+  input:disabled + .handle {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
     cursor: auto;
   }
-  input:disabled:checked + .layer {
+  input:disabled:checked + .handle {
     background-color: rgb(var(--m3-scheme-surface));
   }
-  input:disabled:checked + .layer > :global(svg) {
+  input:disabled:checked + .handle > :global(svg) {
     color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
-  input:disabled + .layer::before {
+  input:disabled ~ .hover {
     display: none;
   }
 
@@ -184,14 +190,14 @@
     input:checked {
       background-color: canvastext !important;
     }
-    .layer {
+    .handle {
       background-color: canvastext !important;
     }
-    input:checked + .layer {
+    input:checked + .handle {
       background-color: canvas !important;
     }
     input:disabled,
-    input:disabled + .layer {
+    input:disabled + .handle {
       opacity: 0.38;
     }
   }
