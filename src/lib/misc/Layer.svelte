@@ -26,7 +26,7 @@
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       const size = Math.hypot(Math.max(x, rect.width - x), Math.max(y, rect.height - y)) * 2.5;
-      const speed = Math.max(Math.min(Math.log(size) * 100, 600), 200);
+      const speed = Math.max(Math.min(Math.log(size) * 50, 600), 200);
 
       const gradient = document.createElementNS("http://www.w3.org/2000/svg", "radialGradient");
       gradient.id = `ripple-${Date.now()}`;
