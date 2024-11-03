@@ -1,8 +1,9 @@
 <script>
   import Icon from "$lib/misc/_icon.svelte";
-  import iconStar from "@ktibow/iconset-material-symbols/star-outline";
+  import iconWater from "@ktibow/iconset-material-symbols/water-medium-rounded";
   import iconRocket from "@ktibow/iconset-material-symbols/rocket-outline";
   import iconChecks from "@ktibow/iconset-material-symbols/done-all";
+  import Layer from "$lib/misc/layer";
   let y = 0;
 </script>
 
@@ -12,14 +13,15 @@
   }}
 />
 <div class="container" style:background-position="0 {y * 100}%">
+  <Layer />
   <h1 class="m3-font-display-large">M3 Svelte</h1>
   <p class="m3-font-title-large">
     M3 Svelte implements the Material 3 design system in Svelte, from the components to the
     animations to the theming.
   </p>
   <div class="pill m3-font-label-large">
-    <Icon icon={iconStar} />
-    Celebrating 256 stars
+    <Icon icon={iconWater} />
+    Now with 256 stars and ripples
   </div>
 </div>
 <div class="items">
@@ -73,6 +75,7 @@
     text-align: center;
     padding: 4rem 1rem 3rem 1rem;
     margin-bottom: 2rem;
+    position: relative;
   }
   .container h1 {
     font-size: 6rem;

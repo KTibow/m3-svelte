@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { HTMLButtonAttributes } from "svelte/elements";
+  import Layer from "$lib/misc/layer";
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};
   export let iconType: "none" | "left" | "full" = "none";
@@ -14,7 +15,7 @@
   style="display: {display};"
   {...extraOptions}
 >
-  <div class="layer"></div>
+  <Layer />
   <slot />
 </button>
 
@@ -36,11 +37,6 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
-  }
-  .layer {
-    position: absolute;
-    inset: 0;
-    transition: all 200ms;
   }
 
   .m3-container > :global(*) {
@@ -107,9 +103,6 @@
     -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
-    .m3-container:enabled:hover > .layer {
-      background-color: rgb(var(--text) / 0.08);
-    }
     .m3-container:enabled.elevated:hover {
       box-shadow: var(--m3-util-elevation-2);
     }
@@ -119,10 +112,6 @@
     .m3-container:enabled.tonal:hover {
       box-shadow: var(--m3-util-elevation-1);
     }
-  }
-  .m3-container:enabled:focus-visible > .layer,
-  .m3-container:enabled:active > .layer {
-    background-color: rgb(var(--text) / 0.12);
   }
 
   .m3-container {

@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/layer";
   import type { IconifyIcon } from "@iconify/types";
 
   export let icon: IconifyIcon | "space" | undefined = undefined;
@@ -7,6 +8,7 @@
 </script>
 
 <button class="item m3-font-label-large" {disabled} on:click>
+  <Layer />
   {#if icon == "space"}
     <span class="icon"></span>
   {:else if icon}
@@ -26,8 +28,10 @@
     white-space: nowrap;
 
     border: none;
+    position: relative;
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
+
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     transition: all 200ms;
@@ -43,15 +47,6 @@
     color: rgb(var(--m3-scheme-on-surface-variant));
   }
 
-  @media (hover: hover) {
-    .item:enabled:hover {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
-    }
-  }
-  .item:enabled:active,
-  .item:enabled:focus-visible {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
   .item:disabled {
     color: rgb(var(--m3-scheme-on-surface) / 0.38);
     cursor: auto;

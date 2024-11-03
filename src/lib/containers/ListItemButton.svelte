@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { HTMLButtonAttributes } from "svelte/elements";
+  import Layer from "$lib/misc/layer";
 
   export let display = "flex";
   export let extraOptions: HTMLButtonAttributes = {};
@@ -11,6 +12,7 @@
 </script>
 
 <button on:click class="m3-container lines-{_lines}" style="display: {display}" {...extraOptions}>
+  <Layer />
   {#if $$slots.leading}
     <div class="leading">
       <slot name="leading" />
@@ -34,12 +36,15 @@
 
 <style>
   .m3-container {
-    padding: 0.5rem 1.5rem 0.5rem 1rem;
     align-items: center;
+    padding: 0.5rem 1.5rem 0.5rem 1rem;
     gap: 1rem;
     text-align: inherit;
+
     background-color: transparent;
     border: none;
+    position: relative;
+
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     transition: background-color 200ms;
@@ -77,15 +82,5 @@
   }
   .headline {
     color: rgb(var(--m3-scheme-on-surface));
-  }
-
-  @media (hover: hover) {
-    .m3-container:hover {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
-    }
-  }
-  .m3-container:focus-visible,
-  .m3-container:active {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
 </style>
