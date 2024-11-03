@@ -1,3 +1,4 @@
+import type { Component } from "svelte";
 import Layer from "./Layer.svelte";
 import SimpleLayer from "./SimpleLayer.svelte";
 
@@ -12,4 +13,4 @@ try {
   }
 } catch {}
 
-export default rippleDisabled ? SimpleLayer : Layer;
+export default (rippleDisabled ? SimpleLayer : Layer) as Component;
