@@ -102,7 +102,7 @@
       background-color: selecteditem;
       border-color: selecteditem !important;
     }
-    :global(input:disabled) {
+    :global(input:disabled) + .layer-container {
       opacity: 0.38;
     }
   }

@@ -1,7 +1,8 @@
 <script lang="ts">
-  import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
+  import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/layer";
   export let display = "flex";
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
   export let extraOptions: HTMLInputAttributes = {};
@@ -26,6 +27,7 @@
     {@const id = name + item.value}
     <input type="radio" {name} {id} value={item.value} bind:group={tab} {...extraOptions} />
     <label for={id} class:tall={item.icon}>
+      <Layer />
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
@@ -64,8 +66,7 @@
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--text));
-    --text: var(--m3-scheme-on-surface-variant);
+    color: rgb(var(--m3-scheme-on-surface-variant));
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
@@ -78,17 +79,13 @@
 
   @media (hover: hover) {
     label:hover {
-      --text: var(--m3-scheme-on-surface);
-      background-color: rgb(var(--text) / 0.08);
+      color: rgb(var(--m3-scheme-on-surface));
     }
   }
   input:focus-visible + label,
-  input:active + label {
-    --text: var(--m3-scheme-on-surface);
-    background-color: rgb(var(--text) / 0.12);
-  }
+  input:active + label,
   input:checked + label {
-    --text: var(--m3-scheme-on-surface);
+    color: rgb(var(--m3-scheme-on-surface));
   }
 
   .bar {
@@ -131,7 +128,7 @@
     height: 1.5rem;
   }
   .primary > input:checked + label {
-    --text: var(--m3-scheme-primary);
+    color: rgb(var(--m3-scheme-primary));
   }
   .primary > .bar {
     width: 3rem;

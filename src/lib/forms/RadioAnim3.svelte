@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
+  import Layer from "$lib/misc/layer";
 
   export let display = "inline-flex";
   export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
@@ -8,7 +9,11 @@
 
 <div class="m3-container" style="display: {display};" {...extraOptions}>
   <slot />
-  <div class="layer"></div>
+  <div class="layer-container">
+    <Layer />
+    <div class="radio-circle"></div>
+    <div class="radio-dot"></div>
+  </div>
 </div>
 
 <style>
@@ -17,84 +22,75 @@
     width: 1.25rem;
     height: 1.25rem;
   }
+
   .m3-container :global(input) {
     position: absolute;
     opacity: 0;
   }
-  .layer {
+
+  .layer-container {
     position: absolute;
     inset: -0.625rem;
     width: 2.5rem;
     height: 2.5rem;
     border-radius: var(--m3-util-rounding-full);
-    transition: all 200ms;
+    color: rgb(var(--m3-scheme-on-surface-variant));
     cursor: pointer;
-    --color: var(--m3-scheme-on-surface-variant);
-    -webkit-tap-highlight-color: transparent;
   }
-  .layer::before {
-    content: " ";
-    display: block;
+
+  .radio-circle {
     position: absolute;
     inset: 0.625rem;
     width: 1.25rem;
     height: 1.25rem;
     border-radius: var(--m3-util-rounding-full);
-    border: solid 0.125rem rgb(var(--color));
+    border: solid 0.125rem currentColor;
     transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
   }
-  .layer::after {
-    content: " ";
-    display: block;
+
+  .radio-dot {
     position: absolute;
     inset: 0.75rem;
     width: 1rem;
     height: 1rem;
     border-radius: var(--m3-util-rounding-full);
-    outline: solid 0 rgb(var(--color));
+    outline: solid 0 currentColor;
     transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  @media (hover: hover) {
-    .layer:hover {
-      --color: var(--m3-scheme-on-surface);
-      background-color: rgb(var(--color) / 0.08);
-    }
+  :global(input:focus-visible) + .layer-container {
+    color: rgb(var(--m3-scheme-on-surface));
   }
-  .layer:active,
-  :global(input:focus-visible) + .layer {
-    --color: var(--m3-scheme-on-surface);
-    background-color: rgb(var(--color) / 0.12);
+
+  :global(input:checked) + .layer-container {
+    color: rgb(var(--m3-scheme-primary));
   }
-  :global(input:enabled) + .layer:active::before {
-    transform: scale(0.9);
-  }
-  :global(input:checked) + .layer {
-    --color: var(--m3-scheme-primary);
-  }
-  :global(input:checked) + .layer::after {
+
+  :global(input:checked) + .layer-container .radio-dot {
     outline-width: 0.3125rem;
     outline-offset: -0.5rem;
   }
 
-  :global(input:disabled) + .layer {
-    background-color: transparent;
-    --color: var(--m3-scheme-on-surface) / 0.38;
-    pointer-events: none;
+  :global(input:disabled) + .layer-container {
+    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    cursor: not-allowed;
   }
 
   .m3-container {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
+
   @media screen and (forced-colors: active) {
-    :global(input:checked) + .layer::before {
+    :global(input:checked) + .layer-container .radio-circle {
       border-color: selecteditem;
     }
-    .layer::after {
-      outline-color: selecteditem;
+    .radio-dot {
+      background-color: selecteditem;
     }
-    :global(input:disabled) + .layer {
+    :global(input:disabled) + .layer-container {
       opacity: 0.38;
     }
   }
