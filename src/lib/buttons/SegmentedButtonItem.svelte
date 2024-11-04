@@ -3,7 +3,7 @@
   import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
   import Icon from "$lib/misc/_icon.svelte";
-  import Layer from "$lib/misc/layer";
+  import Layer from "$lib/misc/Layer.svelte";
 
   export let display = "flex";
   export let extraOptions: HTMLLabelAttributes = {};

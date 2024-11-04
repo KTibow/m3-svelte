@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { HTMLAttributes, HTMLButtonAttributes } from "svelte/elements";
-  import Layer from "$lib/misc/layer";
+  import Layer from "$lib/misc/Layer.svelte";
 
   export let display = "flex";
   export let extraOptions: HTMLAttributes<HTMLDivElement> & HTMLButtonAttributes = {};

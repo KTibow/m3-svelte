@@ -3,7 +3,7 @@
   import iconWater from "@ktibow/iconset-material-symbols/water-medium-rounded";
   import iconRocket from "@ktibow/iconset-material-symbols/rocket-outline";
   import iconChecks from "@ktibow/iconset-material-symbols/done-all";
-  import Layer from "$lib/misc/layer";
+  import Layer from "$lib/misc/Layer.svelte";
   let y = 0;
 </script>
 

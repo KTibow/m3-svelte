@@ -2,7 +2,7 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
-  import Layer from "$lib/misc/layer";
+  import Layer from "$lib/misc/Layer.svelte";
   export let display = "flex";
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
   export let extraOptions: HTMLAnchorAttributes = {};

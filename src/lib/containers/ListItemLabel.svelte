@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { HTMLLabelAttributes } from "svelte/elements";
-  import Layer from "$lib/misc/layer";
+  import Layer from "$lib/misc/Layer.svelte";
 
   export let display = "flex";
   export let extraOptions: HTMLLabelAttributes = {};

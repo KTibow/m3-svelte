@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "$lib/misc/_icon.svelte";
-  import Layer from "$lib/misc/layer";
+  import Layer from "$lib/misc/Layer.svelte";
   import type { IconifyIcon } from "@iconify/types";
 
   export let icon: IconifyIcon | "space" | undefined = undefined;

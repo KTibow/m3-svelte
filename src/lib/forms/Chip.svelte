@@ -2,7 +2,7 @@
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
-  import Layer from "$lib/misc/layer";
+  import Layer from "$lib/misc/Layer.svelte";
 
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};

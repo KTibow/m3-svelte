@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { HTMLAnchorAttributes } from "svelte/elements";
-  import Layer from "$lib/misc/layer";
+  import Layer from "$lib/misc/Layer.svelte";
   export let display = "inline-flex";
   export let extraOptions: HTMLAnchorAttributes = {};
   export let iconType: "none" | "left" | "full" = "none";
