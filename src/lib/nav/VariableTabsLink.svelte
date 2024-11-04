@@ -1,7 +1,8 @@
 <script lang="ts">
-  import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
+  import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/layer";
   export let display = "grid";
   export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
   export let extraOptions: HTMLAnchorAttributes = {};
@@ -82,6 +83,7 @@
       style="grid-column: {i + 1}"
       {...extraOptions}
     >
+      <Layer />
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
@@ -117,8 +119,7 @@
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--text));
-    --text: var(--m3-scheme-on-surface-variant);
+    color: rgb(var(--m3-scheme-on-surface-variant));
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
@@ -131,17 +132,13 @@
 
   @media (hover: hover) {
     a:hover {
-      --text: var(--m3-scheme-on-surface);
-      background-color: rgb(var(--text) / 0.08);
+      color: rgb(var(--m3-scheme-on-surface));
     }
   }
   a:focus-visible,
-  a:active {
-    --text: var(--m3-scheme-on-surface);
-    background-color: rgb(var(--text) / 0.12);
-  }
+  a:active,
   a.selected {
-    --text: var(--m3-scheme-on-surface);
+    color: rgb(var(--m3-scheme-on-surface));
   }
 
   a,
@@ -168,7 +165,7 @@
     height: 1.5rem;
   }
   .primary > a.selected {
-    --text: var(--m3-scheme-primary);
+    color: rgb(var(--m3-scheme-primary));
   }
   .primary > .bar {
     width: 3rem;

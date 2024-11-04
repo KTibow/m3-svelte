@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { HTMLLabelAttributes } from "svelte/elements";
-  import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
+  import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/layer";
 
   export let display = "flex";
   export let extraOptions: HTMLLabelAttributes = {};
@@ -16,7 +17,7 @@
   style="display: {display}; overflow: hidden;"
   {...extraOptions}
 >
-  <div class="layer"></div>
+  <Layer />
   {#if icon}
     <div class="custom icon">
       <Icon {icon} />
@@ -40,8 +41,7 @@
     align-items: center;
     justify-content: center;
 
-    --text: var(--m3-scheme-on-surface);
-    color: rgb(var(--text));
+    color: rgb(var(--m3-scheme-on-surface));
     transition: all 200ms;
 
     cursor: pointer;
@@ -55,11 +55,6 @@
   :global(input:disabled) + label {
     color: rgb(var(--m3-scheme-on-surface) / 0.38);
     cursor: auto;
-  }
-  .layer {
-    position: absolute;
-    inset: 0;
-    transition: all 200ms;
   }
   .icon {
     height: 1.125rem;
@@ -116,18 +111,9 @@
   label {
     -webkit-tap-highlight-color: transparent;
   }
-  @media (hover: hover) {
-    :global(input:not(:disabled)) + label:hover > .layer {
-      background-color: rgb(var(--text) / 0.08);
-    }
-  }
 
   :global(input:checked) + label {
     background-color: rgb(var(--m3-scheme-secondary-container));
-    --text: var(--m3-scheme-on-secondary-container);
-  }
-  :global(input:enabled:focus-visible) + label > .layer,
-  :global(input:enabled) + label:active > .layer {
-    background-color: rgb(var(--text) / 0.12);
+    color: rgb(var(--m3-scheme-on-secondary-container));
   }
 </style>

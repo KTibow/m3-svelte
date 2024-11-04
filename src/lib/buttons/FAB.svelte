@@ -2,6 +2,7 @@
   import type { HTMLButtonAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
+  import Layer from "$lib/misc/layer";
 
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};
@@ -22,7 +23,7 @@
   style="display: {display};"
   {...extraOptions}
 >
-  <div class="layer"></div>
+  <Layer />
   {#if icon}
     <Icon {icon} />
   {/if}
@@ -46,12 +47,6 @@
     justify-content: center;
     cursor: pointer;
     transition: all 200ms;
-  }
-  .layer {
-    position: absolute;
-    inset: 0;
-    transition: all 200ms;
-    opacity: 0;
   }
 
   .elevation-normal {
@@ -93,9 +88,6 @@
     background-color: rgb(var(--m3-scheme-primary-container));
     color: rgb(var(--m3-scheme-on-primary-container));
   }
-  .color-primary > .layer {
-    background-color: rgb(var(--m3-scheme-on-primary-container));
-  }
   .color-surface {
     background-color: rgb(var(--m3-scheme-surface-container-low));
     color: rgb(var(--m3-scheme-primary));
@@ -103,41 +95,25 @@
   .color-surface.elevation-normal {
     background-color: rgb(var(--m3-scheme-surface-container-high));
   }
-  .color-surface > .layer {
-    background-color: rgb(var(--m3-scheme-primary));
-  }
   .color-secondary {
     background-color: rgb(var(--m3-scheme-secondary-container));
     color: rgb(var(--m3-scheme-on-secondary-container));
   }
-  .color-secondary > .layer {
-    background-color: rgb(var(--m3-scheme-on-secondary-container));
-  }
   .color-tertiary {
     background-color: rgb(var(--m3-scheme-tertiary-container));
     color: rgb(var(--m3-scheme-on-tertiary-container));
-  }
-  .color-tertiary > .layer {
-    background-color: rgb(var(--m3-scheme-on-tertiary-container));
   }
 
   button {
     -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
-    button:hover > .layer {
-      opacity: 0.08;
-    }
     .elevation-normal:hover {
       box-shadow: var(--m3-util-elevation-4);
     }
     .elevation-lowered:hover {
       box-shadow: var(--m3-util-elevation-2);
     }
-  }
-  button:focus-visible > .layer,
-  button:active > .layer {
-    opacity: 0.12;
   }
 
   .m3-container {

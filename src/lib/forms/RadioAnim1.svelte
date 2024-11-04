@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
+  import Layer from "$lib/misc/layer";
 
   export let display = "inline-flex";
   export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
@@ -8,7 +9,11 @@
 
 <div class="m3-container" style="display: {display};" {...extraOptions}>
   <slot />
-  <div class="layer"></div>
+  <div class="layer-container">
+    <Layer />
+    <div class="radio-circle"></div>
+    <div class="radio-dot"></div>
+  </div>
 </div>
 
 <style>
@@ -17,85 +22,75 @@
     width: 1.25rem;
     height: 1.25rem;
   }
+
   .m3-container :global(input) {
     position: absolute;
     opacity: 0;
   }
-  .layer {
+
+  .layer-container {
     position: absolute;
     inset: -0.625rem;
     width: 2.5rem;
     height: 2.5rem;
     border-radius: var(--m3-util-rounding-full);
-    transition: all 200ms;
+    color: rgb(var(--m3-scheme-on-surface-variant));
     cursor: pointer;
-    --color: var(--m3-scheme-on-surface-variant);
-    -webkit-tap-highlight-color: transparent;
   }
-  .layer::before {
-    content: " ";
-    display: block;
+
+  .radio-circle {
     position: absolute;
     inset: 0.625rem;
     width: 1.25rem;
     height: 1.25rem;
     border-radius: var(--m3-util-rounding-full);
-    border: solid 0.125rem rgb(var(--color));
+    border: solid 0.125rem currentColor;
     transition: all 0.3s;
-  }
-  .layer::after {
-    content: " ";
-    display: block;
-    position: absolute;
-    inset: 1.25rem;
-    width: 0rem;
-    height: 0rem;
-    border-radius: var(--m3-util-rounding-full);
-    background-color: rgb(var(--color));
-    transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  @media (hover: hover) {
-    .layer:hover {
-      --color: var(--m3-scheme-on-surface);
-      background-color: rgb(var(--color) / 0.08);
-    }
-  }
-  .layer:active,
-  :global(input:focus-visible) + .layer {
-    --color: var(--m3-scheme-on-surface);
-    background-color: rgb(var(--color) / 0.12);
-  }
-  :global(input:enabled) + .layer:active::before {
-    transform: scale(0.9);
-  }
-  :global(input:checked) + .layer {
-    --color: var(--m3-scheme-primary);
-  }
-  :global(input:checked) + .layer::after {
+  .radio-dot {
+    position: absolute;
     inset: 0.9375rem;
     width: 0.625rem;
     height: 0.625rem;
+    scale: 0;
+    border-radius: var(--m3-util-rounding-full);
+    background-color: currentColor;
+    transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  :global(input:disabled) + .layer {
-    background-color: transparent;
-    --color: var(--m3-scheme-on-surface) / 0.38;
-    pointer-events: none;
+  :global(input:focus-visible) + .layer-container {
+    color: rgb(var(--m3-scheme-on-surface));
+  }
+
+  :global(input:checked) + .layer-container {
+    color: rgb(var(--m3-scheme-primary));
+  }
+
+  :global(input:checked) + .layer-container .radio-dot {
+    scale: 1;
+  }
+
+  :global(input:disabled) + .layer-container {
+    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    cursor: not-allowed;
   }
 
   .m3-container {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
+
   @media screen and (forced-colors: active) {
-    :global(input:checked) + .layer::before {
+    :global(input:checked) + .layer-container .radio-circle {
       border-color: selecteditem;
     }
-    .layer::after {
+    .radio-dot {
       background-color: selecteditem;
     }
-    :global(input:disabled) + .layer {
+    :global(input:disabled) + .layer-container {
       opacity: 0.38;
     }
   }

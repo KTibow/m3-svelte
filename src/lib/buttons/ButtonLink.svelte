@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { HTMLAnchorAttributes } from "svelte/elements";
+  import Layer from "$lib/misc/layer";
   export let display = "inline-flex";
   export let extraOptions: HTMLAnchorAttributes = {};
   export let iconType: "none" | "left" | "full" = "none";
@@ -13,7 +14,7 @@
   style="display: {display};"
   {...extraOptions}
 >
-  <div class="layer"></div>
+  <Layer />
   <slot />
 </a>
 
@@ -35,11 +36,6 @@
     position: relative;
     overflow: hidden;
     user-select: none;
-  }
-  .layer {
-    position: absolute;
-    inset: 0;
-    transition: all 200ms;
   }
 
   .m3-container > :global(*) {
@@ -97,9 +93,6 @@
     -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
-    .m3-container:hover > .layer {
-      background-color: rgb(var(--text) / 0.08);
-    }
     .m3-container.elevated:hover {
       box-shadow: var(--m3-util-elevation-2);
     }
@@ -109,10 +102,6 @@
     .m3-container.tonal:hover {
       box-shadow: var(--m3-util-elevation-1);
     }
-  }
-  .m3-container:focus-visible > .layer,
-  .m3-container:active > .layer {
-    background-color: rgb(var(--text) / 0.12);
   }
 
   .m3-container {

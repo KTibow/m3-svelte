@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { HTMLAttributes, HTMLButtonAttributes } from "svelte/elements";
+  import Layer from "$lib/misc/layer";
 
   export let display = "flex";
   export let extraOptions: HTMLAttributes<HTMLDivElement> & HTMLButtonAttributes = {};
@@ -12,7 +13,7 @@
   style="display: {display};"
   {...extraOptions}
 >
-  <div class="layer"></div>
+  <Layer />
   <slot />
 </button>
 
@@ -29,13 +30,6 @@
     background-color: rgb(var(--m3-scheme-surface));
     color: rgb(var(--m3-scheme-on-surface));
     transition: all 200ms;
-  }
-  .layer {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    transition: all 200ms;
-    pointer-events: none;
   }
 
   .type-elevated {
@@ -66,12 +60,6 @@
     button.type-elevated:hover {
       box-shadow: var(--m3-util-elevation-2);
     }
-    button:hover > .layer {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
-    }
-  }
-  button:is(:focus-visible, :active) > .layer {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
   }
 
   @media print, (forced-colors: active) {

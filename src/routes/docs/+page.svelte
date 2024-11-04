@@ -234,6 +234,13 @@
       your background.
     </p>
   </li>
+  <li>
+    <p>
+      If you want to decrease your bundle size by removing ripples, define
+      <code>M3_SVELTE_NO_RIPPLE</code>
+      to <code>true</code> using Vite's define functionality.
+    </p>
+  </li>
 </ul>
 
 <style>

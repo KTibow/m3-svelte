@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { HTMLButtonAttributes } from "svelte/elements";
-  import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
+  import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/layer";
 
   export let display = "inline-flex";
   export let extraOptions: HTMLButtonAttributes = {};
@@ -31,7 +32,7 @@
   on:click
   {...extraOptions}
 >
-  <div class="layer"></div>
+  <Layer />
   {#if icon}
     <Icon {icon} class="leading" />
   {/if}
@@ -60,13 +61,10 @@
     -webkit-tap-highlight-color: transparent;
     transition: all 200ms;
   }
-  .layer {
-    position: absolute;
-    inset: -0.0625rem;
-    border-radius: var(--m3-chip-shape);
-    transition: all 200ms;
-  }
 
+  .m3-container > :global(:is(.ripple-container, .tint)) {
+    inset: -0.0625rem;
+  }
   .m3-container > :global(svg) {
     width: 1.125rem;
     height: 1.125rem;
@@ -115,15 +113,6 @@
     .elevated:hover:enabled {
       box-shadow: var(--m3-util-elevation-2);
     }
-    .m3-container:hover:enabled > .layer {
-      opacity: 0.08;
-    }
-  }
-  .m3-container:focus-visible:enabled > .layer {
-    opacity: 0.08;
-  }
-  .m3-container:active:enabled > .layer {
-    opacity: 0.12;
   }
 
   .m3-container:disabled {
