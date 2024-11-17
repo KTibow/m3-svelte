@@ -1,0 +1,296 @@
+# M3 Svelte
+
+## Importing components
+
+```svelte
+import { ComponentName } from "m3-svelte";
+```
+
+## Available components
+
+**Misc**
+- StyleFromScheme
+- Icon
+- Layer
+
+**Buttons**
+- Button
+- ButtonLink 
+- SegmentedButtonContainer
+- SegmentedButtonItem
+- FAB
+
+**Containers**
+- BottomSheet
+- Card
+- CardClickable
+- Dialog
+- ListItem
+- ListItemButton
+- ListItemLabel
+- Menu
+- MenuItem
+- Snackbar
+- SnackbarAnim
+- SnackbarItem
+
+**Forms**
+- LinearProgress
+- LinearProgressIndeterminate
+- CircularProgress
+- CircularProgressIndeterminate
+- RadioAnim1
+- RadioAnim2
+- RadioAnim3
+- Checkbox
+- CheckboxAnim
+- Switch
+- Slider
+- SliderTicks
+- TextField
+- TextFieldMultiline
+- TextFieldOutlined
+- TextFieldOutlinedMultiline
+- DatePickerDocked
+- Chip
+
+**Navigation**
+- NavDrawer
+- NavDrawerButton
+- NavDrawerLink
+- NavList
+- NavListButton
+- NavListLink
+- Tabs
+- TabsLink
+- VariableTabs
+- VariableTabsLink
+
+**Utilities**
+- ChipChooser
+- Divider
+- DateField
+
+## Usage
+
+BUTTON
+- Types: elevated, filled, tonal, outlined, text
+- Optional icon: none, left icon, full icon
+- Props:
+  - type: "elevated" | "filled" | "tonal" | "outlined" | "text"
+  - iconType: "none" | "left" | "full"
+  - disabled: boolean
+Example:
+```svelte
+<Button type="filled" on:click={() => alert("Hello")}>
+  <Icon icon={iconEdit} /> Hello
+</Button>
+```
+
+CARD
+- Types: elevated, filled, outlined
+- Can be clickable or static
+- Props:
+  - type: "elevated" | "filled" | "outlined"
+  - clickable: boolean (use CardClickable component)
+Example:
+```svelte
+<Card type="elevated">Hello</Card>
+<CardClickable type="elevated">Click me</CardClickable>
+```
+
+DIALOG
+- Modal dialog with icon, headline, content and buttons
+- Props:
+  - icon: IconifyIcon
+  - headline: string
+  - open: boolean
+Example:
+```svelte
+<Dialog icon={iconTrash} headline="Delete?" bind:open>
+  Delete these items?
+  <svelte:fragment slot="buttons">
+    <Button type="text" on:click={() => (open = false)}>Cancel</Button>
+    <Button type="tonal" on:click={() => (open = false)}>Delete</Button>
+  </svelte:fragment>
+</Dialog>
+```
+
+SNACKBAR
+- Toast-style notifications
+- Optional actions and close button
+- Props:
+  - message: string
+  - actions?: Record<string, () => void>
+  - closable?: boolean
+Example:
+```svelte
+<script>
+let snackbar: (data: SnackbarIn) => void;
+</script>
+<Button on:click={() => snackbar({
+  message: "Hello",
+  actions: { Undo: () => {} },
+  closable: true
+})}>Show</Button>
+<Snackbar bind:show={snackbar} />
+```
+
+TEXTFIELD
+- Variants: filled, outlined, multiline
+- Props:
+  - name: string
+  - value: string
+  - leadingIcon?: IconifyIcon
+  - error?: boolean
+  - disabled?: boolean
+Example:
+```svelte
+<TextField
+  name="Field"
+  leadingIcon={iconEdit}
+  error={false}
+  disabled={false}
+/>
+```
+
+BOTTOMSHEET
+- Modal sheet that slides up from bottom
+- Props:
+  - on:close: () => void
+Example:
+```svelte
+<BottomSheet on:close={() => (open = false)}>
+  <div>Content here</div>
+  <Button type="filled">Action</Button>
+</BottomSheet>
+```
+
+CHECKBOX
+- Animated or static variants
+- Props:
+  - disabled: boolean
+Example:
+```svelte
+<CheckboxAnim>
+  <input type="checkbox" checked disabled={!enabled} />
+</CheckboxAnim>
+```
+
+CHIP
+- Types: input, assist, assist-elevated, general, general-elevated
+- Optional icons: left or right
+- Props:
+  - type: "input" | "assist" | "general"
+  - elevated: boolean
+  - selected: boolean
+  - icon?: IconifyIcon
+  - trailingIcon?: IconifyIcon
+Example:
+```svelte
+<Chip
+  type="assist"
+  elevated={false}
+  selected={false}
+  icon={iconEdit}
+  on:click={() => (selected = !selected)}
+>
+  Hello
+</Chip>
+```
+
+DATEFIELD
+- Date input with picker
+Example:
+```svelte
+<DateField name="Date" bind:date />
+```
+
+FAB (Floating Action Button)
+- Colors: primary, surface, secondary, tertiary
+- Sizes: small, normal, large, extended
+- Props:
+  - color: "primary" | "surface" | "secondary" | "tertiary"
+  - size: "small" | "normal" | "large" | "extended"
+  - icon: IconifyIcon
+  - text?: string
+Example:
+```svelte
+<FAB
+  color="primary"
+  size="normal"
+  icon={iconEdit}
+  text="Hello"
+/>
+```
+
+MENU
+- Dropdown menu with optional icons
+- Components:
+  - Menu: Container
+  - MenuItem: Individual items
+Example:
+```svelte
+<Menu>
+  <MenuItem icon={iconUndo}>Undo</MenuItem>
+  <MenuItem icon={iconRedo} disabled>Redo</MenuItem>
+</Menu>
+```
+
+RADIO
+- Three animation styles
+- Props:
+  - disabled: boolean
+Example:
+```svelte
+<RadioAnim1>
+  <input type="radio" name="radio" disabled={!enabled} />
+</RadioAnim1>
+```
+
+PROGRESS
+- Types: linear, circular
+- Modes: determinate, indeterminate
+Example:
+```svelte
+<LinearProgressIndeterminate />
+<LinearProgress percent={60} />
+<CircularProgressIndeterminate />
+<CircularProgress percent={60} />
+```
+
+SWITCH
+- Toggle switch component
+- Props:
+  - disabled: boolean
+Example:
+```svelte
+<Switch disabled={!enabled} />
+```
+
+SLIDER
+- Types: continuous, discrete, discrete with ticks
+- Props:
+  - step: number | "any"
+  - disabled: boolean
+  - value: number
+Example:
+```svelte
+<Slider step="any" disabled={false} bind:value />
+<SliderTicks step={1} max={6} bind:value />
+```
+
+TABS
+- Types: primary, secondary
+- Optional icons
+- Fixed or variable width
+- Props:
+  - secondary: boolean
+  - items: Array<{name: string, value: string, icon?: IconifyIcon}>
+Example:
+```svelte
+<Tabs bind:tab secondary={false} items={[
+  { name: "Tab 1", value: "tab1" },
+  { name: "Tab 2", value: "tab2" }
+]} />
+```
