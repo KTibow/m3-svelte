@@ -7,15 +7,20 @@
   import Snippet from "../Snippet.svelte";
 
   let styleType = "plain";
-  const componentCode = `<${""}button>Click me<${""}/button>
-<style>
+  const componentCode1 = `${"<"}button>Click me${"<"}/button>
+${"<"}style>
   button {
     background-color: rgb(var(--m3-scheme-surface-container-low));
     color: rgb(var(--m3-scheme-primary));
     box-shadow: var(--m3-util-elevation-1);
     border-radius: var(--m3-util-rounding-full);
   }
-<${""}/style>`;
+${"<"}/style>`;
+  const componentCode2 = `${"<"}script>
+  import { Button } from "m3-svelte";
+${"<"}/script>
+
+${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}/Button>`;
 </script>
 
 <Base>
@@ -106,7 +111,7 @@
       name="tailwind.config.js"
     />
   {:else}
-    <Snippet code={componentCode} name="Component.svelte" />
+    <Snippet code={componentCode1} name="Component.svelte" />
   {/if}
   <p>You might also want to make your app match your theme. Here's what that could look like:</p>
   {#if styleType == "tailwind"}
@@ -135,14 +140,7 @@
   <p>
     It's usually simple to use components. For example, this is what it looks like to use a Button:
   </p>
-  <Snippet
-    code={`<script>
-  import { Button } from "m3-svelte";
-<${""}/script>
-
-<Button type="filled" on:click={() => alert("Hello world!")}>Click me<${""}/Button>`}
-    name="+page.svelte"
-  />
+  <Snippet code={componentCode2} name="Component.svelte" />
   <p>There are a few ways to get more info on how to use a component.</p>
   <ul>
     <li>Click the code button on the component on the home page</li>
