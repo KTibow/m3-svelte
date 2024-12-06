@@ -51,16 +51,6 @@
   <ChipCard />
   <TabsCard />
 </div>
-<ul>
-  <li>Wow! You made it all the way down here!</li>
-  <li class="h-center">
-    <Icon icon={iconMore} />
-    Next steps:
-  </li>
-  <li>Join the M3 Svelte community on <a href="https://discord.gg/gS8T5RnMmA">Discord</a>.</li>
-  <li>Make a theme on the Theme page, and come back here to try it out.</li>
-  <li>Maybe even <a href="https://github.com/sponsors/KTibow">be one of my sponsors</a>.</li>
-</ul>
 
 <style>
   .cards {
@@ -71,33 +61,5 @@
     .cards {
       grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
     }
-  }
-
-  ul {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 1rem;
-
-    padding: 0;
-    margin-top: 2rem;
-    list-style-type: none;
-  }
-  ul > li {
-    background-color: rgb(var(--m3-scheme-primary-container) / 0.5);
-    color: rgb(var(--m3-scheme-on-primary-container));
-    padding: 0.75rem 1rem;
-    border-radius: 1rem 1rem 1rem 0;
-  }
-  .h-center {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  a {
-    color: rgb(var(--m3-scheme-primary));
-  }
-  a:not(:hover) {
-    text-decoration: none;
   }
 </style>

@@ -15,7 +15,7 @@ import { ComponentName } from "m3-svelte";
 
 **Buttons**
 - Button
-- ButtonLink 
+- ButtonLink
 - SegmentedButtonContainer
 - SegmentedButtonItem
 - FAB
@@ -34,11 +34,13 @@ import { ComponentName } from "m3-svelte";
 - SnackbarAnim
 - SnackbarItem
 
-**Forms**
+**Progress**
 - LinearProgress
 - LinearProgressIndeterminate
 - CircularProgress
 - CircularProgressIndeterminate
+
+**Inputs**
 - RadioAnim1
 - RadioAnim2
 - RadioAnim3
@@ -47,14 +49,20 @@ import { ComponentName } from "m3-svelte";
 - Switch
 - Slider
 - SliderTicks
+
+**Textfields**
 - TextField
 - TextFieldMultiline
 - TextFieldOutlined
 - TextFieldOutlinedMultiline
+
+**Pickers**
 - DatePickerDocked
+
+**Chips**
 - Chip
 
-**Navigation**
+**Nav**
 - NavDrawer
 - NavDrawerButton
 - NavDrawerLink
@@ -66,45 +74,236 @@ import { ComponentName } from "m3-svelte";
 - VariableTabs
 - VariableTabsLink
 
-**Utilities**
+**Utils**
 - ChipChooser
 - Divider
 - DateField
 
-## Usage
+## Components
 
-BUTTON
-- Types: elevated, filled, tonal, outlined, text
-- Optional icon: none, left icon, full icon
+### ChipChooser
 - Props:
-  - type: "elevated" | "filled" | "tonal" | "outlined" | "text"
-  - iconType: "none" | "left" | "full"
+  - options: { label
+  - chosenOptions: string[]
+
+### DateField
+- Props:
+  - name: string
+  - date: string
+  - required: boolean
   - disabled: boolean
+  - extraOptions: HTMLInputAttributes
 Example:
 ```svelte
-<Button type="filled" on:click={() => alert("Hello")}>
-  <Icon icon={iconEdit} /> Hello
+<DateField name="Date" bind:date />
+```
+Tip:
+This component is like DatePickerDocked but it has a field and it's easier to use
+
+### Divider
+- Props:
+  - inset: boolean
+
+### Button
+- Types: elevated, filled, tonal, outlined, text
+- Optional icon: none, left, full
+- Props:
+  - display: string
+  - extraOptions: HTMLButtonAttributes
+  - iconType: "none" | "left" | "full"
+  - type: "elevated" | "filled" | "tonal" | "outlined" | "text"
+  - disabled: boolean
+- Has a slot
+Example:
+```svelte
+<Button type="filled" on:click={() => alert("Hello world!")}>
+  Click me
 </Button>
 ```
 
-CARD
-- Types: elevated, filled, outlined
-- Can be clickable or static
+### ButtonLink
 - Props:
+  - display: string
+  - extraOptions: HTMLAnchorAttributes
+  - iconType: "none" | "left" | "full"
+  - type: "elevated" | "filled" | "tonal" | "outlined" | "text"
+  - href: string
+- Has a slot
+
+### FAB
+- Props:
+  - display: string
+  - extraOptions: HTMLButtonAttributes
+  - color: "primary" | "surface" | "secondary" | "tertiary"
+  - size: "small" | "normal" | "large"
+  - elevation: "normal" | "lowered" | "none"
+  - icon: IconifyIcon | undefined
+  - text: string | undefined
+Example:
+```svelte
+<FAB
+  color="primary"
+  size="normal"
+  icon={iconEdit}
+  text="Hello"
+/>
+```
+
+### SegmentedButtonContainer
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLDivElement>
+- Has a slot
+Example:
+```svelte
+<SegmentedButtonContainer>
+  <input type="radio" name="group" id="tab-a" checked />
+  <SegmentedButtonItem input="tab-a">Tab A</SegmentedButtonItem>
+  <input type="radio" name="group" id="tab-b" />
+  <SegmentedButtonItem input="tab-b">Tab B</SegmentedButtonItem>
+</SegmentedButtonContainer>
+```
+
+### SegmentedButtonItem
+- Props:
+  - display: string
+  - extraOptions: HTMLLabelAttributes
+  - input: string
+  - icon: IconifyIcon | undefined
+- Has a slot
+
+### NavDrawer
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLElement>
+- Has a slot
+
+### NavDrawerButton
+- Props:
+  - selected: boolean
+  - extraOptions: HTMLButtonAttributes
+  - icon: IconifyIcon
+- Has a slot
+
+### NavDrawerLink
+- Props:
+  - href: string
+  - selected: boolean
+  - extraOptions: HTMLAnchorAttributes
+  - icon: IconifyIcon
+- Has a slot
+
+### NavList
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLElement>
+  - type: "rail" | "bar" | "auto"
+- Has a slot
+
+### NavListButton
+- Props:
+  - display: string
+  - extraOptions: HTMLButtonAttributes
+  - type: "rail" | "bar" | "auto"
+  - selected: boolean
+  - icon: IconifyIcon
+- Has a slot
+
+### NavListLink
+- Props:
+  - display: string
+  - extraOptions: HTMLAnchorAttributes
+  - type: "rail" | "bar" | "auto"
+  - href: string
+  - selected: boolean
+  - icon: IconifyIcon
+- Has a slot
+
+### Tabs
+- Props:
+  - display: string
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLInputAttributes
+  - secondary: boolean
+  - tab: string
+  - items: {
+Example:
+```svelte
+<Tabs bind:tab secondary={false} items={[
+  { name: "Tab 1", value: "tab1" },
+  { name: "Tab 2", value: "tab2" }
+]} />
+```
+
+### TabsLink
+- Props:
+  - display: string
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLAnchorAttributes
+  - secondary: boolean
+  - tab: string
+  - items: {
+
+### VariableTabs
+- Props:
+  - display: string
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLInputAttributes
+  - secondary: boolean
+  - tab: string
+  - items: {
+
+### VariableTabsLink
+- Props:
+  - display: string
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLAnchorAttributes
+  - secondary: boolean
+  - tab: string
+  - items: {
+
+### Layer
+
+### StyleFromScheme
+- Props:
+  - lightScheme: SerializedScheme
+  - darkScheme: SerializedScheme
+
+### BottomSheet
+- Has a slot
+
+### Card
+- Types: elevated, filled, outlined
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLDivElement> & HTMLButtonAttributes
   - type: "elevated" | "filled" | "outlined"
-  - clickable: boolean (use CardClickable component)
+- Has a slot
 Example:
 ```svelte
 <Card type="elevated">Hello</Card>
 <CardClickable type="elevated">Click me</CardClickable>
 ```
 
-DIALOG
-- Modal dialog with icon, headline, content and buttons
+### CardClickable
 - Props:
-  - icon: IconifyIcon
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLDivElement> & HTMLButtonAttributes
+  - type: "elevated" | "filled" | "outlined"
+- Has a slot
+
+### Dialog
+- Props:
+  - display: string
+  - extraOptions: HTMLDialogAttributes
+  - icon: IconifyIcon | undefined
   - headline: string
   - open: boolean
+  - closeOnEsc: boolean
+  - closeOnClick: boolean
+- Slots:
+  - default
+  - buttons
 Example:
 ```svelte
 <Dialog icon={iconTrash} headline="Delete?" bind:open>
@@ -116,13 +315,64 @@ Example:
 </Dialog>
 ```
 
-SNACKBAR
-- Toast-style notifications
-- Optional actions and close button
+### ListItem
 - Props:
-  - message: string
-  - actions?: Record<string, () => void>
-  - closable?: boolean
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLDivElement>
+  - overline: string
+  - headline: string
+  - supporting: string
+  - lines: number | undefined
+- Slots:
+  - leading
+  - trailing
+
+### ListItemButton
+- Props:
+  - display: string
+  - extraOptions: HTMLButtonAttributes
+  - overline: string
+  - headline: string
+  - supporting: string
+  - lines: number | undefined
+- Slots:
+  - leading
+  - trailing
+
+### ListItemLabel
+- Props:
+  - display: string
+  - extraOptions: HTMLLabelAttributes
+  - overline: string
+  - headline: string
+  - supporting: string
+  - lines: number | undefined
+- Slots:
+  - leading
+  - trailing
+
+### Menu
+- Props:
+  - display: string
+- Has a slot
+Example:
+```svelte
+<Menu>
+  <MenuItem icon={iconUndo}>Undo</MenuItem>
+  <MenuItem icon={iconRedo} disabled>Redo</MenuItem>
+</Menu>
+```
+
+### MenuItem
+- Props:
+  - icon: IconifyIcon | "space" | undefined
+  - disabled: boolean
+- Has a slot
+
+### Snackbar
+- Props:
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: ComponentProps<SnackbarItem>
 Example:
 ```svelte
 <script>
@@ -135,15 +385,200 @@ let snackbar: (data: SnackbarIn) => void;
 })}>Show</Button>
 <Snackbar bind:show={snackbar} />
 ```
+Tip:
+Set the CSS variable `--m3-util-bottom-offset` to a size to move all snackbars upwards.
 
-TEXTFIELD
-- Variants: filled, outlined, multiline
+### SnackbarAnim
 - Props:
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: ComponentProps<SnackbarItem>
+
+### SnackbarItem
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLDivElement>
+- Has a slot
+
+### Checkbox
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLDivElement>
+- Has a slot
+
+### CheckboxAnim
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLDivElement>
+- Has a slot
+
+### Chip
+- Props:
+  - display: string
+  - extraOptions: HTMLButtonAttributes
+  - type: "input" | "assist" | "general"
+  - icon: IconifyIcon | null
+  - trailingIcon: IconifyIcon | null
+  - elevated: boolean
+  - disabled: boolean
+  - selected: boolean
+- Has a slot
+
+### CircularProgress
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<SVGElement>
+  - percent: number
+
+### CircularProgressIndeterminate
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<SVGElement>
+
+### DatePickerDocked
+- Props:
+  - display: string
+  - date: string
+  - clearable: boolean
+  - focusedMonth: number
+  - dateValidator: (date
+
+### LinearProgress
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLDivElement>
+  - percent: number
+
+### LinearProgressIndeterminate
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLDivElement>
+
+### RadioAnim
+- Variants: Style 1 (RadioAnim1), Style 2 (RadioAnim2), Style 3 (RadioAnim3)
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLDivElement>
+- Has a slot
+Example:
+```svelte
+<RadioAnim1>
+  <input type="radio" name="a-group" value="1" bind:group={value} />
+</RadioAnim1>
+```
+
+### Slider
+- Variants: Continuous (Slider), With Ticks (SliderTicks)
+- Variant-specific props:
+  Continuous:
+  - Props:
+    - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+    - extraOptions: HTMLInputAttributes
+    - value: number
+    - min: number
+    - max: number
+    - step: number | "any"
+    - disabled: boolean
+    - showValue: boolean
+    - format: (n
+  With Ticks:
+  - Props:
+    - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+    - extraOptions: HTMLInputAttributes
+    - value: number
+    - min: number
+    - max: number
+    - step: number
+    - disabled: boolean
+    - showValue: boolean
+    - format: (n
+- Props:
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLInputAttributes
+  - value: number
+  - min: number
+  - max: number
+  - step: number | "any"
+  - disabled: boolean
+  - showValue: boolean
+  - format: (n
+Example:
+```svelte
+<Slider step="any" bind:value />
+<SliderTicks step={1} max={6} bind:value />
+```
+
+### Switch
+- Props:
+  - display: string
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLAttributes<HTMLDivElement>
+  - checked: boolean
+  - disabled: boolean
+Example:
+```svelte
+<Switch bind:checked />
+```
+
+### TextField
+- Variants: TextField (TextField), Multiline (TextFieldMultiline), Outlined (TextFieldOutlined), Outlined Multiline (TextFieldOutlinedMultiline)
+- Variant-specific props:
+  TextField:
+  - Props:
+    - display: string
+    - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+    - extraOptions: HTMLInputAttributes
+    - name: string
+    - leadingIcon: IconifyIcon | undefined
+    - trailingIcon: IconifyIcon | undefined
+    - disabled: boolean
+    - required: boolean
+    - error: boolean
+    - value: string
+  Multiline:
+  - Props:
+    - display: string
+    - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+    - extraOptions: HTMLTextareaAttributes
+    - name: string
+    - leadingIcon: IconifyIcon | undefined
+    - disabled: boolean
+    - required: boolean
+    - error: boolean
+    - value: string
+  Outlined:
+  - Props:
+    - display: string
+    - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+    - extraOptions: HTMLInputAttributes
+    - name: string
+    - leadingIcon: IconifyIcon | undefined
+    - trailingIcon: IconifyIcon | undefined
+    - disabled: boolean
+    - required: boolean
+    - error: boolean
+    - value: string
+  Outlined Multiline:
+  - Props:
+    - display: string
+    - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+    - extraOptions: HTMLTextareaAttributes
+    - name: string
+    - leadingIcon: IconifyIcon | undefined
+    - disabled: boolean
+    - required: boolean
+    - error: boolean
+    - value: string
+- Props:
+  - display: string
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLInputAttributes
   - name: string
+  - leadingIcon: IconifyIcon | undefined
+  - trailingIcon: IconifyIcon | undefined
+  - disabled: boolean
+  - required: boolean
+  - error: boolean
   - value: string
-  - leadingIcon?: IconifyIcon
-  - error?: boolean
-  - disabled?: boolean
 Example:
 ```svelte
 <TextField
@@ -153,144 +588,6 @@ Example:
   disabled={false}
 />
 ```
+Tip:
+For outlined text fields on a surface that isn't the default background, set the CSS variable `--m3-util-background` to the current background make the text field fit in.
 
-BOTTOMSHEET
-- Modal sheet that slides up from bottom
-- Props:
-  - on:close: () => void
-Example:
-```svelte
-<BottomSheet on:close={() => (open = false)}>
-  <div>Content here</div>
-  <Button type="filled">Action</Button>
-</BottomSheet>
-```
-
-CHECKBOX
-- Animated or static variants
-- Props:
-  - disabled: boolean
-Example:
-```svelte
-<CheckboxAnim>
-  <input type="checkbox" checked disabled={!enabled} />
-</CheckboxAnim>
-```
-
-CHIP
-- Types: input, assist, assist-elevated, general, general-elevated
-- Optional icons: left or right
-- Props:
-  - type: "input" | "assist" | "general"
-  - elevated: boolean
-  - selected: boolean
-  - icon?: IconifyIcon
-  - trailingIcon?: IconifyIcon
-Example:
-```svelte
-<Chip
-  type="assist"
-  elevated={false}
-  selected={false}
-  icon={iconEdit}
-  on:click={() => (selected = !selected)}
->
-  Hello
-</Chip>
-```
-
-DATEFIELD
-- Date input with picker
-Example:
-```svelte
-<DateField name="Date" bind:date />
-```
-
-FAB (Floating Action Button)
-- Colors: primary, surface, secondary, tertiary
-- Sizes: small, normal, large, extended
-- Props:
-  - color: "primary" | "surface" | "secondary" | "tertiary"
-  - size: "small" | "normal" | "large" | "extended"
-  - icon: IconifyIcon
-  - text?: string
-Example:
-```svelte
-<FAB
-  color="primary"
-  size="normal"
-  icon={iconEdit}
-  text="Hello"
-/>
-```
-
-MENU
-- Dropdown menu with optional icons
-- Components:
-  - Menu: Container
-  - MenuItem: Individual items
-Example:
-```svelte
-<Menu>
-  <MenuItem icon={iconUndo}>Undo</MenuItem>
-  <MenuItem icon={iconRedo} disabled>Redo</MenuItem>
-</Menu>
-```
-
-RADIO
-- Three animation styles
-- Props:
-  - disabled: boolean
-Example:
-```svelte
-<RadioAnim1>
-  <input type="radio" name="radio" disabled={!enabled} />
-</RadioAnim1>
-```
-
-PROGRESS
-- Types: linear, circular
-- Modes: determinate, indeterminate
-Example:
-```svelte
-<LinearProgressIndeterminate />
-<LinearProgress percent={60} />
-<CircularProgressIndeterminate />
-<CircularProgress percent={60} />
-```
-
-SWITCH
-- Toggle switch component
-- Props:
-  - disabled: boolean
-Example:
-```svelte
-<Switch disabled={!enabled} />
-```
-
-SLIDER
-- Types: continuous, discrete, discrete with ticks
-- Props:
-  - step: number | "any"
-  - disabled: boolean
-  - value: number
-Example:
-```svelte
-<Slider step="any" disabled={false} bind:value />
-<SliderTicks step={1} max={6} bind:value />
-```
-
-TABS
-- Types: primary, secondary
-- Optional icons
-- Fixed or variable width
-- Props:
-  - secondary: boolean
-  - items: Array<{name: string, value: string, icon?: IconifyIcon}>
-Example:
-```svelte
-<Tabs bind:tab secondary={false} items={[
-  { name: "Tab 1", value: "tab1" },
-  { name: "Tab 2", value: "tab2" }
-]} />
-```

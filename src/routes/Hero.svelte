@@ -1,9 +1,8 @@
 <script>
   import Icon from "$lib/misc/_icon.svelte";
-  import iconWater from "@ktibow/iconset-material-symbols/water-medium-rounded";
+  import iconBook from "@ktibow/iconset-material-symbols/book-2-rounded";
   import iconRocket from "@ktibow/iconset-material-symbols/rocket-outline";
   import iconChecks from "@ktibow/iconset-material-symbols/done-all";
-  import Layer from "$lib/misc/Layer.svelte";
   let y = 0;
 </script>
 
@@ -12,16 +11,17 @@
     y = e.clientY / window.innerHeight;
   }}
 />
-<div class="container" style:background-position="0 {y * 100}%">
-  <Layer />
-  <h1 class="m3-font-display-large">M3 Svelte</h1>
-  <p class="m3-font-title-large">
+<div class="wrapper">
+  <div class="container" style:background-position="0 {y * 100}%">
+    <h1 class="m3-font-display-large">M3 Svelte</h1>
+  </div>
+  <p class="subtitle m3-font-title-large">
     M3 Svelte implements the Material 3 design system in Svelte, from the components to the
     animations to the theming.
   </p>
   <div class="pill m3-font-label-large">
-    <Icon icon={iconWater} />
-    Now with 256 stars and ripples
+    <Icon icon={iconBook} />
+    Updated docs, plus 269 stars
   </div>
 </div>
 <div class="items">
@@ -59,6 +59,12 @@
 </div>
 
 <style>
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4.5rem 0;
+  }
   .container {
     background-image: linear-gradient(
       to bottom,
@@ -66,28 +72,29 @@
       rgb(var(--m3-scheme-tertiary-container))
     );
     background-size: 100% 200%;
-    border-radius: 1rem;
     color: rgb(var(--m3-scheme-on-primary-container));
 
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    text-align: center;
-    padding: 4rem 1rem 3rem 1rem;
-    margin-bottom: 2rem;
+    align-items: center;
+    height: 10rem;
+
+    padding: 0 3rem;
+    border-radius: 5rem;
+    margin-bottom: 1.5rem;
     position: relative;
   }
   .container h1 {
     font-size: 6rem;
     margin: 0;
   }
-  .container p {
+  .subtitle {
     max-width: 50rem;
-    align-self: center;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
   }
-  .container .pill {
-    background-color: rgb(var(--m3-scheme-primary) / 0.1);
-    align-self: center;
+  .pill {
+    background-color: rgb(var(--m3-scheme-surface-container-low));
 
     height: 2rem;
     border-radius: 2rem;
@@ -95,11 +102,6 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0 1rem;
-  }
-  @media (min-width: 37.5rem) {
-    .container {
-      padding: 8rem 1rem 6rem 1rem;
-    }
   }
 
   .items {
