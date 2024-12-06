@@ -34,7 +34,7 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}
     to advanced usage.
   </p>
 
-  <h2 class="m3-font-headline-large">Configuring your app</h2>
+  <h2 class="m3-font-headline-large">Configure your app</h2>
   <p>
     The first thing to do is to set up your theme and font. If you haven't done that yet, the quick
     start page will help you.
