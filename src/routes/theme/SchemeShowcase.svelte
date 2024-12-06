@@ -52,10 +52,6 @@
       <Icon icon={iconCopy} />
       Copy
     </Button>
-    <Button type="tonal" iconType="left" on:click={() => (showDark = !showDark)}>
-      <Icon icon={showDark ? iconLight : iconDark} />
-      {showDark ? "Light" : "Dark"}
-    </Button>
     {#if grabbing}
       <Button type="tonal" iconType="left" on:click={() => (grabbing = false)}>
         <Icon icon={iconX} />
@@ -67,6 +63,10 @@
         Grab
       </Button>
     {/if}
+    <div class="spacer"></div>
+    <Button type="tonal" iconType="full" on:click={() => (showDark = !showDark)}>
+      <Icon icon={showDark ? iconLight : iconDark} />
+    </Button>
   </div>
 </div>
 
@@ -103,5 +103,8 @@
     display: flex;
     gap: 0.5rem;
     margin-top: 1rem;
+  }
+  .spacer {
+    flex-grow: 1;
   }
 </style>
