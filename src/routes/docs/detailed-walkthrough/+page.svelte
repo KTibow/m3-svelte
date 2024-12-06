@@ -7,6 +7,15 @@
   import Snippet from "../Snippet.svelte";
 
   let styleType = "plain";
+  const componentCode = `<${""}button>Click me<${""}/button>
+<style>
+  button {
+    background-color: rgb(var(--m3-scheme-surface-container-low));
+    color: rgb(var(--m3-scheme-primary));
+    box-shadow: var(--m3-util-elevation-1);
+    border-radius: var(--m3-util-rounding-full);
+  }
+<${""}/style>`;
 </script>
 
 <Base>
@@ -97,44 +106,35 @@
       name="tailwind.config.js"
     />
   {:else}
-  <Snippet
-    code={`<${""}button>Click me<${""}/button>
-<style>
-  button {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-primary));
-    box-shadow: var(--m3-util-elevation-1);
-    border-radius: var(--m3-util-rounding-full);
-  }
-<${""}/style>`}
-    name="Component.svelte"
-  />
+    <Snippet code={componentCode} name="Component.svelte" />
   {/if}
   <p>You might also want to make your app match your theme. Here's what that could look like:</p>
   {#if styleType == "tailwind"}
-  <Snippet
-    code={`<body class="m3-font-body-large bg-background text-on-background">`}
-    name="app.html" />
+    <Snippet
+      code={`<body class="m3-font-body-large bg-background text-on-background">`}
+      name="app.html"
+    />
   {:else}
-  <Snippet code={`<body class="m3-font-body-large">`} name="app.html" />
-  <Snippet
-    code={`body {
+    <Snippet code={`<body class="m3-font-body-large">`} name="app.html" />
+    <Snippet
+      code={`body {
   background-color: rgb(var(--m3-scheme-background));
   color: rgb(var(--m3-scheme-on-background));
 }`}
-    name="app.css"
-  />
+      name="app.css"
+    />
   {/if}
   <p>
     So what's going on here? We're using M3 Svelte globals. All of them can be used in components,
-    and all of them can be overridden (as outlined earlier). Some come from your custom theme, but most are defaults from
-    <a
-      href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/misc/styles.css">styles.css</a
-    >.
+    and all of them can be overridden (as outlined earlier). Some come from your custom theme, but
+    most are defaults from
+    <a href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/misc/styles.css">styles.css</a>.
   </p>
 
   <h2 class="m3-font-headline-large">Use M3 Svelte components</h2>
-  <p>It's usually simple to use components. For example, this is what it looks like to use a Button:</p>
+  <p>
+    It's usually simple to use components. For example, this is what it looks like to use a Button:
+  </p>
   <Snippet
     code={`<script>
   import { Button } from "m3-svelte";
