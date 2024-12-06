@@ -142,6 +142,7 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}
     gap: 4rem;
     padding: 0;
     margin: 0;
+    margin-bottom: 4rem;
     list-style-type: none;
   }
   ol > li {
