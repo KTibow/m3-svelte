@@ -10,7 +10,7 @@
   export let step: number | "any" = "any";
   export let disabled = false;
   export let showValue = true;
-  export let format = (n: number) => {
+  export let format: (n: number) => string = (n: number) => {
     return n.toFixed(0);
   };
 

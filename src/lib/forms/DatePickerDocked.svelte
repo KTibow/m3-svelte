@@ -10,11 +10,11 @@
   export let display = "flex";
   export let date = "";
   export let clearable: boolean;
-  export let focusedMonth = parseInt(date.slice(5, 7)) - 1 || now.getMonth(),
+  export let focusedMonth: number = parseInt(date.slice(5, 7)) - 1 || now.getMonth(),
     focusedYear = parseInt(date.slice(0, 4)) || now.getFullYear(),
     startYear = now.getFullYear() - 50,
     endYear = now.getFullYear() + 10;
-  export let dateValidator = (_date: string) => true;
+  export let dateValidator: (date: string) => boolean = (_date: string) => true;
 
   let currentView: "calendar" | "year" | "month" = "calendar",
     chosenDate: string;
