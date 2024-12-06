@@ -132,6 +132,10 @@
     cancelRipples.forEach((cancel) => cancel());
     cancelRipples = [];
   }}
+  on:dragend={() => {
+    cancelRipples.forEach((cancel) => cancel());
+    cancelRipples = [];
+  }}
 />
 
 <div class="ripple-container broken" use:createRipple></div>
