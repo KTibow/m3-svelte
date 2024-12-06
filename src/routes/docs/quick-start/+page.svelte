@@ -13,6 +13,11 @@
 
   let step2Page = "stylefromscheme";
   let step3Page = "roboto";
+  const componentCode = `${"<"}script>
+  import { Button } from "m3-svelte";
+${"<"}/script>
+
+${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}/Button>`;
 </script>
 
 <Base>
@@ -124,6 +129,10 @@
       </div>
     </li>
   </ol>
+  <p>
+    Now you can start using components like this. Check the rest of the docs to learn more.
+  </p>
+  <Snippet code={componentCode} name="Component.svelte" />
 </Base>
 
 <style>
