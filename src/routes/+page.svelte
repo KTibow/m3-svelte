@@ -1,6 +1,4 @@
 <script lang="ts">
-  import iconMore from "@ktibow/iconset-material-symbols/arrows-more-up-rounded";
-  import Icon from "$lib/misc/_icon.svelte";
   import Hero from "./Hero.svelte";
   import ButtonCard from "./ButtonCard.svelte";
   import SegmentedButtonCard from "./SegmentedButtonCard.svelte";
