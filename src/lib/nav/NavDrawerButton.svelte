@@ -30,7 +30,7 @@
 
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface-variant));
-    transition: background-color 300ms;
+    transition: all 300ms;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
   }
