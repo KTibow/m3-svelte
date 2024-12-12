@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/Layer.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLButtonAttributes } from "svelte/elements";
 
@@ -8,8 +9,8 @@
   export let icon: IconifyIcon;
 </script>
 
-<button class="destination" class:selected on:click {...extraOptions}>
-  <div class="layer"></div>
+<button class="destination" disabled={selected} on:click {...extraOptions}>
+  <Layer />
   <Icon {icon} />
   <span class="m3-font-label-large"><slot /></span>
 </button>
@@ -28,16 +29,10 @@
     overflow: hidden;
 
     background-color: transparent;
-    --text: var(--m3-scheme-on-surface-variant);
-    color: rgb(var(--text));
+    color: rgb(var(--m3-scheme-on-surface-variant));
     transition: background-color 300ms;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-  }
-  .layer {
-    position: absolute;
-    inset: 0;
-    transition: all 200ms;
   }
   .destination :global(svg) {
     width: 1.5rem;
@@ -46,20 +41,14 @@
 
   @media (hover: hover) {
     .destination:hover {
-      --text: var(--m3-scheme-on-surface);
+      color: rgb(var(--m3-scheme-on-surface));
     }
-    .destination:hover .layer {
-      background-color: rgb(var(--text) / 0.08);
-    }
-  }
-  .destination:focus-visible .layer,
-  .destination:active .layer {
-    background-color: rgb(var(--text) / 0.12);
   }
 
-  .destination.selected {
+  .destination:disabled {
     background-color: rgb(var(--m3-scheme-secondary-container));
-    --text: var(--m3-scheme-on-secondary-container);
+    color: rgb(var(--m3-scheme-on-secondary-container));
+    cursor: auto;
   }
 
   .destination {
