@@ -16,7 +16,7 @@ const ySpacing = height / (schemeColors.length + 1);
 let svg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&amp;display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&amp;display=swap");
     </style>
   </defs>
   <rect width="100%" height="100%" fill="#1c1b1f"/>
