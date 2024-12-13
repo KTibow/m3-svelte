@@ -72,6 +72,7 @@
     code {
       padding: 0;
       background: transparent;
+      white-space: pre-wrap;
     }
   }
 </style>

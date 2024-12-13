@@ -1,10 +1,8 @@
 <script lang="ts">
   import { base } from "$app/paths";
-  import Base from "../Base.svelte";
   import Snippet from "../Snippet.svelte";
 </script>
 
-<Base>
   <p class="m3-font-body-large">
     This is an overview of M3 Svelte. This page is also available <a href="{base}/llms.txt">raw</a>.
   </p>
@@ -703,7 +701,6 @@ ${"<"}SliderTicks step={1} max={6} bind:value />`} lang="xml" />
       <h3>Layer</h3>
     </div>
   </div>
-</Base>
 
 <style>
   .content {
