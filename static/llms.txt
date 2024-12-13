@@ -8,11 +8,6 @@ import { ComponentName } from "m3-svelte";
 
 ## Available components
 
-**Misc**
-- StyleFromScheme
-- Icon
-- Layer
-
 **Buttons**
 - Button
 - ButtonLink
@@ -21,18 +16,18 @@ import { ComponentName } from "m3-svelte";
 - FAB
 
 **Containers**
-- BottomSheet
 - Card
 - CardClickable
 - Dialog
+- Snackbar
+- SnackbarAnim
+- SnackbarItem
+- BottomSheet
 - ListItem
 - ListItemButton
 - ListItemLabel
 - Menu
 - MenuItem
-- Snackbar
-- SnackbarAnim
-- SnackbarItem
 
 **Progress**
 - LinearProgress
@@ -79,30 +74,12 @@ import { ComponentName } from "m3-svelte";
 - Divider
 - DateField
 
+**Misc**
+- StyleFromScheme
+- Icon
+- Layer
+
 ## Components
-
-### ChipChooser
-- Props:
-  - options: { label
-  - chosenOptions: string[]
-
-### DateField
-- Props:
-  - name: string
-  - date: string
-  - required: boolean
-  - disabled: boolean
-  - extraOptions: HTMLInputAttributes
-Example:
-```svelte
-<DateField name="Date" bind:date />
-```
-Tip:
-This component is like DatePickerDocked but it has a field and it's easier to use
-
-### Divider
-- Props:
-  - inset: boolean
 
 ### Button
 - Types: elevated, filled, tonal, outlined, text
@@ -171,103 +148,6 @@ Example:
   - input: string
   - icon: IconifyIcon | undefined
 - Has a slot
-
-### NavDrawer
-- Props:
-  - display: string
-  - extraOptions: HTMLAttributes<HTMLElement>
-- Has a slot
-
-### NavDrawerButton
-- Props:
-  - selected: boolean
-  - extraOptions: HTMLButtonAttributes
-  - icon: IconifyIcon
-- Has a slot
-
-### NavDrawerLink
-- Props:
-  - href: string
-  - selected: boolean
-  - extraOptions: HTMLAnchorAttributes
-  - icon: IconifyIcon
-- Has a slot
-
-### NavList
-- Props:
-  - display: string
-  - extraOptions: HTMLAttributes<HTMLElement>
-  - type: "rail" | "bar" | "auto"
-- Has a slot
-
-### NavListButton
-- Props:
-  - display: string
-  - extraOptions: HTMLButtonAttributes
-  - type: "rail" | "bar" | "auto"
-  - selected: boolean
-  - icon: IconifyIcon
-- Has a slot
-
-### NavListLink
-- Props:
-  - display: string
-  - extraOptions: HTMLAnchorAttributes
-  - type: "rail" | "bar" | "auto"
-  - href: string
-  - selected: boolean
-  - icon: IconifyIcon
-- Has a slot
-
-### Tabs
-- Props:
-  - display: string
-  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
-  - extraOptions: HTMLInputAttributes
-  - secondary: boolean
-  - tab: string
-  - items: {
-Example:
-```svelte
-<Tabs bind:tab secondary={false} items={[
-  { name: "Tab 1", value: "tab1" },
-  { name: "Tab 2", value: "tab2" }
-]} />
-```
-
-### TabsLink
-- Props:
-  - display: string
-  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
-  - extraOptions: HTMLAnchorAttributes
-  - secondary: boolean
-  - tab: string
-  - items: {
-
-### VariableTabs
-- Props:
-  - display: string
-  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
-  - extraOptions: HTMLInputAttributes
-  - secondary: boolean
-  - tab: string
-  - items: {
-
-### VariableTabsLink
-- Props:
-  - display: string
-  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
-  - extraOptions: HTMLAnchorAttributes
-  - secondary: boolean
-  - tab: string
-  - items: {
-
-### Layer
-
-### StyleFromScheme
-- Props:
-  - lightScheme: SerializedScheme
-  - darkScheme: SerializedScheme
 
 ### BottomSheet
 - Has a slot
@@ -590,4 +470,124 @@ Example:
 ```
 Tip:
 For outlined text fields on a surface that isn't the default background, set the CSS variable `--m3-util-background` to the current background make the text field fit in.
+
+### Layer
+
+### StyleFromScheme
+- Props:
+  - lightScheme: SerializedScheme
+  - darkScheme: SerializedScheme
+
+### NavDrawer
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLElement>
+- Has a slot
+
+### NavList
+- Props:
+  - display: string
+  - extraOptions: HTMLAttributes<HTMLElement>
+  - type: "rail" | "bar" | "auto"
+- Has a slot
+
+### NavListButton
+- Props:
+  - display: string
+  - extraOptions: HTMLButtonAttributes
+  - type: "rail" | "bar" | "auto"
+  - selected: boolean
+  - icon: IconifyIcon
+- Has a slot
+
+### NavListLink
+- Props:
+  - display: string
+  - extraOptions: HTMLAnchorAttributes
+  - type: "rail" | "bar" | "auto"
+  - href: string
+  - selected: boolean
+  - icon: IconifyIcon
+- Has a slot
+
+### Tabs
+- Props:
+  - display: string
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLInputAttributes
+  - secondary: boolean
+  - tab: string
+  - items: {
+Example:
+```svelte
+<Tabs bind:tab secondary={false} items={[
+  { name: "Tab 1", value: "tab1" },
+  { name: "Tab 2", value: "tab2" }
+]} />
+```
+
+### TabsLink
+- Props:
+  - display: string
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLAnchorAttributes
+  - secondary: boolean
+  - tab: string
+  - items: {
+
+### VariableTabs
+- Props:
+  - display: string
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLInputAttributes
+  - secondary: boolean
+  - tab: string
+  - items: {
+
+### VariableTabsLink
+- Props:
+  - display: string
+  - extraWrapperOptions: HTMLAttributes<HTMLDivElement>
+  - extraOptions: HTMLAnchorAttributes
+  - secondary: boolean
+  - tab: string
+  - items: {
+
+### NavDrawerButton
+- Props:
+  - selected: boolean
+  - extraOptions: HTMLButtonAttributes
+  - icon: IconifyIcon
+- Has a slot
+
+### NavDrawerLink
+- Props:
+  - href: string
+  - selected: boolean
+  - extraOptions: HTMLAnchorAttributes
+  - icon: IconifyIcon
+- Has a slot
+
+### ChipChooser
+- Props:
+  - options: { label
+  - chosenOptions: string[]
+
+### DateField
+- Props:
+  - name: string
+  - date: string
+  - required: boolean
+  - disabled: boolean
+  - extraOptions: HTMLInputAttributes
+Example:
+```svelte
+<DateField name="Date" bind:date />
+```
+Tip:
+This component is like DatePickerDocked but it has a field and it's easier to use
+
+### Divider
+- Props:
+  - inset: boolean
 

@@ -7,7 +7,8 @@
   import Snippet from "../Snippet.svelte";
 
   let styleType = "plain";
-  const componentCode1 = `${"<"}button>Click me${"<"}/button>
+  const componentCode1 = `${"<"}button class="bg-surface-container-low text-primary rounded-full">Click me${"<"}/button>`;
+  const componentCode2 = `${"<"}button>Click me${"<"}/button>
 ${"<"}style>
   button {
     background-color: rgb(var(--m3-scheme-surface-container-low));
@@ -16,7 +17,7 @@ ${"<"}style>
     border-radius: var(--m3-util-rounding-full);
   }
 ${"<"}/style>`;
-  const componentCode2 = `${"<"}script>
+  const componentCode3 = `${"<"}script>
   import { Button } from "m3-svelte";
 ${"<"}/script>
 
@@ -63,10 +64,7 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}
     while still using Material 3 elements. Here's an example.
   </p>
   {#if styleType == "tailwind"}
-    <Snippet
-      code={`<${""}button class="bg-surface-container-low text-primary rounded-full">Click me<${""}/button>`}
-      name="Component.svelte"
-    />
+    <Snippet code={componentCode1} name="Component.svelte" lang="xml" />
     <p>You'll need to update your Tailwind config too:</p>
     <Snippet
       code={`colors: {
@@ -109,24 +107,27 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}
   "surface-tint": "rgb(var(--m3-scheme-surface-tint) / <alpha-value>)"
 }`}
       name="tailwind.config.js"
+      lang="javascript"
     />
   {:else}
-    <Snippet code={componentCode1} name="Component.svelte" />
+    <Snippet code={componentCode2} name="Component.svelte" lang="xml" />
   {/if}
   <p>You might also want to make your app match your theme. Here's what that could look like:</p>
   {#if styleType == "tailwind"}
     <Snippet
       code={`<body class="m3-font-body-large bg-background text-on-background">`}
       name="app.html"
+      lang="xml"
     />
   {:else}
-    <Snippet code={`<body class="m3-font-body-large">`} name="app.html" />
+    <Snippet code={`<body class="m3-font-body-large">`} name="app.html" lang="xml" />
     <Snippet
       code={`body {
   background-color: rgb(var(--m3-scheme-background));
   color: rgb(var(--m3-scheme-on-background));
 }`}
       name="app.css"
+      lang="css"
     />
   {/if}
   <p>
@@ -140,7 +141,7 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}
   <p>
     It's usually simple to use components. For example, this is what it looks like to use a Button:
   </p>
-  <Snippet code={componentCode2} name="Component.svelte" />
+  <Snippet code={componentCode3} name="Component.svelte" lang="xml" />
   <p>There are a few ways to get more info on how to use a component.</p>
   <ul>
     <li>Click the code button on the component on the home page</li>

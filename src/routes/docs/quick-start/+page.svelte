@@ -70,6 +70,7 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}
 
 [your theme snippet]`}
             name="+layout.svelte or similar"
+            lang="xml"
           />
         {:else}
           <p>
@@ -117,6 +118,7 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}
           <Snippet
             code={`<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />`}
             name="app.html"
+            lang="xml"
           />
         {:else}
           <Snippet
@@ -124,15 +126,14 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}
   --m3-font: [your font], system-ui, sans-serif;
 }`}
             name="app.css"
+            lang="css"
           />
         {/if}
       </div>
     </li>
   </ol>
-  <p>
-    Now you can start using components like this. Check the rest of the docs to learn more.
-  </p>
-  <Snippet code={componentCode} name="Component.svelte" />
+  <p>Now you can start using components like this. Check the rest of the docs to learn more.</p>
+  <Snippet code={componentCode} name="Component.svelte" lang="xml" />
 </Base>
 
 <style>

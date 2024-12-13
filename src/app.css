@@ -4,17 +4,17 @@ body {
   color: rgb(var(--m3-scheme-on-background));
 }
 
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
 @media (prefers-color-scheme: light) {
-  pre code.hljs {
-    display: block;
-    overflow-x: auto;
-    padding: 1em;
-  }
-
-  code.hljs {
-    padding: 3px 5px;
-  }
-
   .hljs {
     color: #24292e;
     background: #ffffff;
@@ -108,16 +108,6 @@ body {
   }
 }
 @media (prefers-color-scheme: dark) {
-  pre code.hljs {
-    display: block;
-    overflow-x: auto;
-    padding: 1em;
-  }
-
-  code.hljs {
-    padding: 3px 5px;
-  }
-
   .hljs {
     color: #c9d1d9;
     background: #0d1117;

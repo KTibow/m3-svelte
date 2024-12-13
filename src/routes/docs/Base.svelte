@@ -20,6 +20,7 @@
   const pages = {
     "quick-start": "Quick start",
     "detailed-walkthrough": "Detailed walkthrough",
+    guide: "Component guide",
   };
   const normalizePath = (path: string) => {
     const u = new URL(path, $page.url.href);
@@ -40,10 +41,6 @@
           {label}
         </a>
       {/each}
-      <a href="{base}/llms.txt">
-        <Layer />
-        Component guide
-      </a>
       <div class="icons">
         <ButtonLink type="text" iconType="full" href="https://github.com/sponsors/KTibow">
           <Icon icon={iconHeart} />
