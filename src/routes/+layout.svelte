@@ -48,13 +48,18 @@
       <div class="items">
         {#each paths as { path, icon, iconS, label }}
           {@const selected = normalizePath(path) === normalizePath($page.url.pathname)}
-          <NavListLink type="auto" href={path} {selected} icon={selected ? iconS : icon}>
+          <NavListLink
+            type="auto"
+            href={normalizePath(path)}
+            {selected}
+            icon={selected ? iconS : icon}
+          >
             {label}
           </NavListLink>
         {/each}
         <NavListLink
           type="auto"
-          href={base + "/docs/quick-start"}
+          href={normalizePath(base + "/docs/quick-start")}
           selected={$page.url.pathname.startsWith(base + "/docs")}
           icon={$page.url.pathname.startsWith(base + "/docs") ? iconBookS : iconBook}
         >
@@ -62,7 +67,7 @@
         </NavListLink>
         <NavListLink
           type="auto"
-          href={base + "/transitions"}
+          href={normalizePath(base + "/transitions")}
           selected={$page.url.pathname.startsWith(base + "/transitions")}
           icon={$page.url.pathname.startsWith(base + "/transitions")
             ? iconAnimationS
