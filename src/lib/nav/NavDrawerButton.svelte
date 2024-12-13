@@ -56,7 +56,7 @@
     -webkit-print-color-adjust: exact;
   }
   @media screen and (forced-colors: active) {
-    .destination.selected {
+    .destination:disabled {
       background-color: selecteditem;
     }
   }

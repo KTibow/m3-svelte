@@ -214,6 +214,17 @@ const componentDocs = {
 };
 
 // Extracts all component data
+type Component = {
+  name: string;
+  displayName: string;
+  props: string[];
+  slots: string[];
+  specs: any;
+  variantProps: Record<string, string[]>;
+  example: string | undefined;
+  tip: string | undefined;
+};
+
 async function extractComponentData() {
   const componentFiles = await glob("src/lib/**/*.svelte", {
     ignore: ["**/+*.svelte", "**/forms/_picker/**"],
@@ -232,7 +243,7 @@ async function extractComponentData() {
     }
   }
 
-  const componentData = [];
+  const componentData: Component[] = [];
 
   for (const file of componentFiles) {
     const content = readFileSync(file, "utf-8");
@@ -452,7 +463,7 @@ for (const [category, items] of Object.entries(components)) {
 
     if (example) {
       sveltePage += `\n      <h4>Examples</h4>
-      <Snippet code={\`${example}\`} lang="xml" />`;
+      <Snippet code={\`${example.replaceAll("`", "\\`").replaceAll("<", `\${"<"}`)}\`} lang="xml" />`;
     }
 
     if (tip) {

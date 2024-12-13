@@ -3,13 +3,12 @@
   import Icon from "$lib/misc/_icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
   import Highlight from "svelte-highlight";
-  import type { LanguageType } from "svelte-highlight/languages";
   import javascript from "svelte-highlight/languages/javascript";
   import css from "svelte-highlight/languages/css";
   import xml from "svelte-highlight/languages/xml";
 
   export let code: string;
-  export let name: string | undefined;
+  export let name: string | undefined = undefined;
   export let lang: string;
 
   let snackbar: (data: SnackbarIn) => void;

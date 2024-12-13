@@ -37,9 +37,9 @@
         <li>default</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<Button type="filled" on:click={() => alert("Hello world!")}>
+      <Snippet code={`${"<"}Button type="filled" on:click={() => alert("Hello world!")}>
   Click me
-</Button>`} lang="xml" />
+${"<"}/Button>`} lang="xml" />
     </div>
     <div class="section">
       <h3>ButtonLink</h3>
@@ -68,12 +68,12 @@
         <li>default</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<SegmentedButtonContainer>
-  <input type="radio" name="group" id="tab-a" checked />
-  <SegmentedButtonItem input="tab-a">Tab A</SegmentedButtonItem>
-  <input type="radio" name="group" id="tab-b" />
-  <SegmentedButtonItem input="tab-b">Tab B</SegmentedButtonItem>
-</SegmentedButtonContainer>`} lang="xml" />
+      <Snippet code={`${"<"}SegmentedButtonContainer>
+  ${"<"}input type="radio" name="group" id="tab-a" checked />
+  ${"<"}SegmentedButtonItem input="tab-a">Tab A${"<"}/SegmentedButtonItem>
+  ${"<"}input type="radio" name="group" id="tab-b" />
+  ${"<"}SegmentedButtonItem input="tab-b">Tab B${"<"}/SegmentedButtonItem>
+${"<"}/SegmentedButtonContainer>`} lang="xml" />
     </div>
     <div class="section">
       <h3>SegmentedButtonItem</h3>
@@ -102,7 +102,7 @@
         <li>text: string | undefined</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<FAB
+      <Snippet code={`${"<"}FAB
   color="primary"
   size="normal"
   icon={iconEdit}
@@ -140,8 +140,8 @@
         <li>default</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<Card type="elevated">Hello</Card>
-<CardClickable type="elevated">Click me</CardClickable>`} lang="xml" />
+      <Snippet code={`${"<"}Card type="elevated">Hello${"<"}/Card>
+${"<"}CardClickable type="elevated">Click me${"<"}/CardClickable>`} lang="xml" />
     </div>
     <div class="section">
       <h3>CardClickable</h3>
@@ -174,13 +174,13 @@
         <li>buttons</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<Dialog icon={iconTrash} headline="Delete?" bind:open>
+      <Snippet code={`${"<"}Dialog icon={iconTrash} headline="Delete?" bind:open>
   Delete these items?
-  <svelte:fragment slot="buttons">
-    <Button type="text" on:click={() => (open = false)}>Cancel</Button>
-    <Button type="tonal" on:click={() => (open = false)}>Delete</Button>
-  </svelte:fragment>
-</Dialog>`} lang="xml" />
+  ${"<"}svelte:fragment slot="buttons">
+    ${"<"}Button type="text" on:click={() => (open = false)}>Cancel${"<"}/Button>
+    ${"<"}Button type="tonal" on:click={() => (open = false)}>Delete${"<"}/Button>
+  ${"<"}/svelte:fragment>
+${"<"}/Dialog>`} lang="xml" />
     </div>
     <div class="section">
       <h3>Snackbar</h3>
@@ -190,15 +190,15 @@
         <li>extraOptions: ComponentProps&lt;SnackbarItem&gt;</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<script>
+      <Snippet code={`${"<"}script>
 let snackbar: (data: SnackbarIn) => void;
-</script>
-<Button on:click={() => snackbar({
+${"<"}/script>
+${"<"}Button on:click={() => snackbar({
   message: "Hello",
   actions: { Undo: () => {} },
   closable: true
-})}>Show</Button>
-<Snackbar bind:show={snackbar} />`} lang="xml" />
+})}>Show${"<"}/Button>
+${"<"}Snackbar bind:show={snackbar} />`} lang="xml" />
       <h4>Tips</h4>
       <p>Set the CSS variable `--m3-util-bottom-offset` to a size to move all snackbars upwards.</p>
     </div>
@@ -291,10 +291,10 @@ let snackbar: (data: SnackbarIn) => void;
         <li>default</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<Menu>
-  <MenuItem icon={iconUndo}>Undo</MenuItem>
-  <MenuItem icon={iconRedo} disabled>Redo</MenuItem>
-</Menu>`} lang="xml" />
+      <Snippet code={`${"<"}Menu>
+  ${"<"}MenuItem icon={iconUndo}>Undo${"<"}/MenuItem>
+  ${"<"}MenuItem icon={iconRedo} disabled>Redo${"<"}/MenuItem>
+${"<"}/Menu>`} lang="xml" />
     </div>
     <div class="section">
       <h3>MenuItem</h3>
@@ -399,7 +399,7 @@ let snackbar: (data: SnackbarIn) => void;
         <li>disabled: boolean</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<Switch bind:checked />`} lang="xml" />
+      <Snippet code={`${"<"}Switch bind:checked />`} lang="xml" />
     </div>
     <div class="section">
       <h3>Slider</h3>
@@ -416,8 +416,8 @@ let snackbar: (data: SnackbarIn) => void;
         <li>format: (n: number)</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<Slider step="any" bind:value />
-<SliderTicks step={1} max={6} bind:value />`} lang="xml" />
+      <Snippet code={`${"<"}Slider step="any" bind:value />
+${"<"}SliderTicks step={1} max={6} bind:value />`} lang="xml" />
     </div>
     <div class="category">
       <h2 class="m3-font-headline-medium">Textfields</h2>
@@ -444,7 +444,7 @@ let snackbar: (data: SnackbarIn) => void;
         <li>value: string</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<TextField
+      <Snippet code={`${"<"}TextField
   name="Field"
   leadingIcon={iconEdit}
   error={false}
@@ -604,7 +604,7 @@ let snackbar: (data: SnackbarIn) => void;
         <li>items: &#123;</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<Tabs bind:tab secondary={false} items={[
+      <Snippet code={`${"<"}Tabs bind:tab secondary={false} items={[
   { name: "Tab 1", value: "tab1" },
   { name: "Tab 2", value: "tab2" }
 ]} />`} lang="xml" />
@@ -679,7 +679,7 @@ let snackbar: (data: SnackbarIn) => void;
         <li>extraOptions: HTMLInputAttributes</li>
       </ul>
       <h4>Examples</h4>
-      <Snippet code={`<DateField name="Date" bind:date />`} lang="xml" />
+      <Snippet code={`${"<"}DateField name="Date" bind:date />`} lang="xml" />
       <h4>Tips</h4>
       <p>This component is like DatePickerDocked but it has a field and it's easier to use</p>
     </div>
