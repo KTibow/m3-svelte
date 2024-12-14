@@ -37,6 +37,7 @@
     }
   },
   "devDependencies": {
+    "@material/material-color-utilities": "^0.3.0",
     "@sveltejs/adapter-static": "^3.0.6",
     "@sveltejs/kit": "^2.11.1",
     "@sveltejs/package": "^2.3.7",
