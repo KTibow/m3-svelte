@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "3.4.3",
+  "version": "3.4.4",
   "license": "Apache-2.0 OR GPL-3.0-only",
   "repository": "KTibow/m3-svelte",
   "author": {
@@ -59,7 +59,6 @@
   "dependencies": {
     "@iconify/types": "^2.0.0",
     "@ktibow/iconset-material-symbols": "^0.0.1732258297",
-    "@material/material-color-utilities": "^0.3.0",
     "svelte": "^5.3.0"
   },
   "files": [
