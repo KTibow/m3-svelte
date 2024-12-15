@@ -27,7 +27,6 @@
     height: 2.5rem;
     padding: 0 1.5rem;
     border-radius: var(--m3-button-shape);
-    color: rgb(var(--text));
     transition: all 200ms;
 
     align-items: center;
@@ -60,30 +59,30 @@
 
   .m3-container.elevated {
     background-color: rgb(var(--m3-scheme-surface-container-low));
-    --text: var(--m3-scheme-primary);
+    color: rgb(var(--m3-scheme-primary));
     box-shadow: var(--m3-util-elevation-1);
   }
 
   .m3-container.filled {
     background-color: rgb(var(--m3-scheme-primary));
-    --text: var(--m3-scheme-on-primary);
+    color: rgb(var(--m3-scheme-on-primary));
   }
 
   .m3-container.tonal {
     background-color: rgb(var(--m3-scheme-secondary-container));
-    --text: var(--m3-scheme-on-secondary-container);
+    color: rgb(var(--m3-scheme-on-secondary-container));
   }
 
   .m3-container.outlined {
     background-color: transparent;
     border: 0.0625rem solid rgb(var(--m3-scheme-outline));
-    --text: var(--m3-scheme-primary);
+    color: rgb(var(--m3-scheme-primary));
   }
 
   .m3-container.text {
     background-color: transparent;
     padding: 0 0.75rem;
-    --text: var(--m3-scheme-primary);
+    color: rgb(var(--m3-scheme-primary));
   }
   .m3-container.text.icon-left {
     padding-right: 1rem;
