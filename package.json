@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "3.4.4",
+  "version": "3.4.5",
   "license": "Apache-2.0 OR GPL-3.0-only",
   "repository": "KTibow/m3-svelte",
   "author": {
@@ -37,7 +37,6 @@
     }
   },
   "devDependencies": {
-    "@material/material-color-utilities": "^0.3.0",
     "@sveltejs/adapter-static": "^3.0.6",
     "@sveltejs/kit": "^2.11.1",
     "@sveltejs/package": "^2.3.7",
@@ -60,6 +59,7 @@
   "dependencies": {
     "@iconify/types": "^2.0.0",
     "@ktibow/iconset-material-symbols": "^0.0.1732258297",
+    "@material/material-color-utilities": "^0.3.0",
     "svelte": "^5.3.0"
   },
   "files": [

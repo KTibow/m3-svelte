@@ -11,7 +11,8 @@
   import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import ColorCard from "./ColorCard.svelte";
-  import { pairs, serializeScheme } from "$lib/misc/serializeScheme";
+  import { pairs } from "$lib/misc/utils";
+  import { serializeScheme } from "$lib/misc/serializeScheme";
 
   export let schemeLight: DynamicScheme;
   export let schemeDark: DynamicScheme;
