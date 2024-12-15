@@ -56,7 +56,7 @@
       />
       <label for="algorithms-{a.id}">
         <p>{a.name}</p>
-        <p class="m3-font-title-small">{a.desc}</p>
+        <p class="m3-font-body-medium">{a.desc}</p>
       </label>
     {/each}
   </div>
