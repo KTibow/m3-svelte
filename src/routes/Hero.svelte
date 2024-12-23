@@ -77,7 +77,7 @@
     display: flex;
     align-items: center;
     text-align: center;
-    height: 10rem;
+    min-height: 10rem;
 
     padding: 0 3rem;
     border-radius: 5rem;
