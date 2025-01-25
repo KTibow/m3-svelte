@@ -1,365 +1,24 @@
-# M3 Svelte
-
-This is M3 Svelte, a Svelte component library that implements the Material 3 design system by @KTibow.
-
-## Getting started
-
-The first step is installation:
-```bash
-npm i m3-svelte
-```
-
-M3 Svelte needs two things to work: a theme and a font. The simplest setup looks like this:
-```html (your template)
-<head>
-  [...]
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
-</head>
-<body class="m3-font-body-large">
-  [...]
-</body>
-```
-
-```css (somewhere always loaded)
-:root {
-  /* Any custom styles should go here */
-}
-```
-
-```svelte (somewhere always loaded)
-<script>
-  import { StyleFromScheme } from "m3-svelte";
-</script>
-
-[snippet that you've copied from https://ktibow.github.io/m3-svelte/theme]
-```
-
-Aim to keep configuration and boilerplate out of Svelte. The only configuration that should be in Svelte is the StyleFromScheme snippet.
-
-## Building blocks
-
-M3 Svelte is built on a few core concepts:
-
-### CSS Custom Properties: The foundation of theming
-```css
---m3-scheme-[color]: [R G B];            /* Color tokens */
---m3-util-elevation-[0-5]: [box shadow]; /* Elevation levels */
---m3-util-rounding-[size]: [size];       /* Border radius sizes */
-/*
-Colors:
-primary, on-primary, primary-container, on-primary-container, inverse-primary, secondary, on-secondary, secondary-container, on-secondary-container, tertiary, on-tertiary, tertiary-container, on-tertiary-container, error, on-error, error-container, on-error-container, background, on-background, surface, on-surface, surface-variant, on-surface-variant, inverse-surface, inverse-on-surface, outline, outline-variant, shadow, scrim, surface-dim, surface-bright, surface-container-lowest, surface-container-low, surface-container, surface-container-high, surface-container-highest, surface-tint
-Rounding sizes:
-none, extra-small, small, medium, large, extra-large, full
-/*
-```
-
-### Utility Classes: Common Material styles with the `m3-` prefix
-```svelte
-<h1 class="m3-font-display-large">Large Title</h1>
-<p class="m3-font-body-large">Regular text</p>
-<!--
-Scale: display, headline, title, body, label
-Sizes: large, medium, small
--->
-```
-
-### Components: Ready-to-use Material elements
-```svelte
-<script>
-  import { Button } from "m3-svelte";
-</script>
-<Button type="filled">Hello</Button>
-```
-
-## Tips
-
-M3 Svelte is more and less than the typical component framework.
-
-On one hand, Material 3 consists of guidelines across color, shadow, easing, animation, and spacing, and M3 Svelte is all of that. You don't have to make your own components or animations - you could use components like `Card` and animate them with the `sharedAxisTransition`, eased with `easeEmphasized`.
-
-On the other hand, M3 Svelte doesn't give you a template. There are many things you have to do yourself, like:
-- Generating and pasting your theme
-- Including your font
-- Resetting CSS
-- Setting up your own layout (ideally a responsive one)
-- Styling your components (if you need something M3 doesn't have)
-- Slotting in <input>s
-- Rendering icons
-
-If you're ever unsure about something, you might want to check the [m3-svelte repo](https://github.com/KTibow/m3-svelte). The M3 Svelte demo website is built with M3 Svelte and might have implemented what you're trying to do.
-
-## Troubleshooting
-
-You should avoid trying to restyle components. You can't set a `class` and due to Svelte scoped styles, even if you could, it wouldn't work. I repeat, you CANNOT set a `class` on M3 Svelte components. Always look for alternatives, like using `gap` instead of `margin`. If you *must* do this, you would have to do something like `.my-container > :global(.m3-container)`.
-
-M3 Svelte uses the Iconify ecosystem. M3 Svelte imports icons from NPM and renders them as SVG. Some components render icons for you:
-```svelte
-<script>
-  import { FAB } from "m3-svelte";
-  import iconPlus from "@ktibow/iconset-material-symbols/add";
-</script>
-
-<FAB icon={iconPlus} />
-```
-
-While in other cases, you render them yourselves:
-```svelte
-<script>
-  import { ListItem, Icon } from "m3-svelte";
-  import iconPlus from "@ktibow/iconset-material-symbols/add";
-</script>
-
-<ListItem headline="User">
-  <Icon icon={iconPlus} slot="leading" />
-</ListItem>
-```
-
-## Examples
-
-Here's an example todo list component:
-```svelte
-<script>
-  import { TextField, Button, ListItem, Icon, Checkbox } from "$lib";
-  import iconPlus from "@ktibow/iconset-material-symbols/add";
-  import iconDelete from "@ktibow/iconset-material-symbols/delete";
-
-  let tasks = [
-    { id: 1, text: "Learn M3 Svelte", completed: false },
-    { id: 2, text: "Build a prototype", completed: false },
-    { id: 3, text: "Test components", completed: true },
-  ];
-
-  let newTaskText = "";
-
-  function addTask() {
-    newTaskText = newTaskText.trim();
-    if (!newTaskText) return;
-
-    tasks = [
-      ...tasks,
-      {
-        id: Math.max(...tasks.map((t) => t.id)) + 1,
-        text: newTaskText,
-        completed: false,
-      },
-    ];
-    newTaskText = "";
-  }
-</script>
-
-<div class="tasks">
-  {#each tasks as task (task.id)}
-    <ListItem headline={task.text}>
-      <label class="box-wrapper" slot="leading">
-        <Checkbox>
-          <input type="checkbox" bind:checked={task.completed} />
-        </Checkbox>
-      </label>
-      <label slot="trailing">
-        <Button
-          type="text"
-          iconType="full"
-          on:click={() => (tasks = tasks.filter((t) => t.id != task.id))}
-        >
-          <Icon icon={iconDelete} />
-        </Button>
-      </label>
-    </ListItem>
-  {/each}
-</div>
-<TextField
-  name="Task name"
-  trailingIcon={iconPlus}
-  bind:value={newTaskText}
-  on:enter={addTask}
-  on:trailingClick={addTask}
-/>
-
-<style>
-  .tasks {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    flex-grow: 1;
-  }
-  .box-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 1.5rem;
-    align-self: stretch;
-  }
-</style>
-```
-
-Here's an example notes app:
-```svelte
-<script lang="ts">
-  import { FAB, Dialog, Button, ListItem, TextFieldMultiline, Snackbar, Card, Icon } from "$lib";
-  import iconAdd from "@ktibow/iconset-material-symbols/add";
-  import iconDelete from "@ktibow/iconset-material-symbols/delete";
-  import iconEdit from "@ktibow/iconset-material-symbols/edit";
-
-  type Note = {
-    id: number;
-    title: string;
-    content: string;
-    date: string;
-  };
-
-  let notes: Note[] = [];
-  let dialog: { open: boolean; editingId?: number; title: string; content: string } = {
-    open: false,
-    title: "",
-    content: "",
-  };
-  let snackbar: (data: { message: string; closable?: boolean }) => void;
-
-  function addNote() {
-    const newNote = {
-      id: Date.now(),
-      title: dialog.title.trim(),
-      content: dialog.content.trim(),
-      date: new Date().toLocaleDateString(),
-    };
-
-    notes = [newNote, ...notes];
-    closeDialog();
-  }
-
-  function updateNote() {
-    if (!dialog.editingId) return;
-
-    notes = notes.map((note) =>
-      note.id == dialog.editingId
-        ? { ...note, title: dialog.title.trim(), content: dialog.content.trim() }
-        : note,
-    );
-    closeDialog();
-  }
-
-  function deleteNote(id: number) {
-    notes = notes.filter((note) => note.id !== id);
-    snackbar({ message: "Note deleted", closable: true });
-  }
-
-  function openNewNoteDialog() {
-    dialog = { open: true, title: "", content: "" };
-  }
-
-  function closeDialog() {
-    dialog = { open: false, title: "", content: "" };
-  }
-</script>
-
-<div class="container">
-  {#if notes.length}
-    {#each notes as note (note.id)}
-      <ListItem headline={note.title} supporting={note.content} overline={note.date}>
-        <div slot="trailing" class="actions">
-          <Button
-            type="text"
-            iconType="full"
-            on:click={() =>
-              (dialog = {
-                open: true,
-                editingId: note.id,
-                title: note.title,
-                content: note.content,
-              })}
-          >
-            <Icon icon={iconEdit} />
-          </Button>
-          <Button type="text" iconType="full" on:click={() => deleteNote(note.id)}>
-            <Icon icon={iconDelete} />
-          </Button>
-        </div>
-      </ListItem>
-    {/each}
-  {:else}
-    <Card type="outlined">
-      <div class="empty-content">
-        <p class="m3-font-body-large">No notes yet</p>
-        <p class="m3-font-body-medium">Click the + button to create one</p>
-      </div>
-    </Card>
-  {/if}
-</div>
-
-<Dialog headline={dialog.editingId ? "New note" : "Edit note"} bind:open={dialog.open}>
-  <div class="dialog-content">
-    <TextFieldMultiline name="Title" bind:value={dialog.title} />
-    <TextFieldMultiline name="Content" bind:value={dialog.content} />
-  </div>
-  <svelte:fragment slot="buttons">
-    <Button type="text" on:click={closeDialog}>Cancel</Button>
-    {#if dialog.editingId}
-      <Button type="filled" disabled={!dialog.title || !dialog.content} on:click={updateNote}>
-        Update
-      </Button>
-    {:else}
-      <Button type="filled" disabled={!dialog.title || !dialog.content} on:click={addNote}>
-        Add
-      </Button>
-    {/if}
-  </svelte:fragment>
-</Dialog>
-
-<div class="fab">
-  <FAB color="primary" icon={iconAdd} on:click={openNewNoteDialog} />
-</div>
-
-<Snackbar bind:show={snackbar} />
-
-<style>
-  .container {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 100%;
-    padding: 1rem;
-    overflow-y: auto;
-    box-sizing: border-box;
-  }
-
-  .empty-content {
-    text-align: center;
-  }
-
-  .actions {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .dialog-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .fab {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-  }
-</style>
-```
-
-## Components
-
-Okay, now on to the components. Again, if you're unsure about how a component works, you can look at its source code in the [m3-svelte repo](https://github.com/KTibow/m3-svelte).
-
-### Button
+## Button
 
 Minimal demo:
+
 ```svelte
 <Button type="elevated" on:click={() => alert("!")}>Hello</Button>
 ```
 
-The M3 Svelte interactive demo for this component uses Button, ButtonLink with the TS `let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
+Full demo:
+
+```use
+Button
+ButtonLink
+```
+
+```ts
+let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
 let iconType: "none" | "left" | "full" = "none";
-let enabled = true;` to make this demo:
+let enabled = true;
+```
+
 ```svelte
 <label>
   <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={type} />
@@ -386,9 +45,10 @@ let enabled = true;` to make this demo:
 </div>
 ```
 
-### Segmented Button
+## Segmented Button
 
 Minimal demo:
+
 ```svelte
 <SegmentedButtonContainer>
   <input type="checkbox" id="segmented-0" bind:checked={itemA} />
@@ -398,7 +58,17 @@ Minimal demo:
 </SegmentedButtonContainer>
 ```
 
-The M3 Svelte interactive demo for this component uses SegmentedButtonContainer, SegmentedButtonItem with the TS `let multiselect = false;` to make this demo:
+Full demo:
+
+```use
+SegmentedButtonContainer
+SegmentedButtonItem
+```
+
+```ts
+let multiselect = false;
+```
+
 ```svelte
 <label>
   <Switch bind:checked={multiselect} />
@@ -427,15 +97,25 @@ The M3 Svelte interactive demo for this component uses SegmentedButtonContainer,
 </div>
 ```
 
-### FAB
+## FAB
 
 Minimal demo:
+
 ```svelte
 <FAB color="primary" icon={iconCircle} on:click={() => alert("!")} />
 ```
 
-The M3 Svelte interactive demo for this component uses FAB with the TS `let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
-let size: "small" | "normal" | "large" | "extended" = "normal";` to make this demo:
+Full demo:
+
+```use
+FAB
+```
+
+```ts
+let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
+let size: "small" | "normal" | "large" | "extended" = "normal";
+```
+
 ```svelte
 <label>
   <Arrows list={["primary", "surface", "secondary", "tertiary"]} bind:value={color} />
@@ -455,16 +135,27 @@ let size: "small" | "normal" | "large" | "extended" = "normal";` to make this de
 </div>
 ```
 
-### Bottom Sheet
+## Bottom Sheet
 
 Minimal demo:
+
 ```svelte
 {#if open}
   <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
 {/if}
 ```
 
-The M3 Svelte interactive demo for this component uses Button, BottomSheet with the TS `let open = false;` to make this demo:
+Full demo:
+
+```use
+Button
+BottomSheet
+```
+
+```ts
+let open = false;
+```
+
 ```svelte
 <div slot="demo">
   <Button type="tonal" on:click={() => (open = true)}>Open</Button>
@@ -474,16 +165,27 @@ The M3 Svelte interactive demo for this component uses Button, BottomSheet with 
 </div>
 ```
 
-### Card
+## Card
 
 Minimal demo:
+
 ```svelte
 <Card type="filled">Hello</Card>
 <CardClickable type="filled" on:click={() => alert("!")}>Hello</CardClickable>
 ```
 
-The M3 Svelte interactive demo for this component uses Card, CardClickable with the TS `let type: "elevated" | "filled" | "outlined" = "elevated";
-let clickable = false;` to make this demo:
+Full demo:
+
+```use
+Card
+CardClickable
+```
+
+```ts
+let type: "elevated" | "filled" | "outlined" = "elevated";
+let clickable = false;
+```
+
 ```svelte
 <label>
   <Arrows list={["elevated", "filled", "outlined"]} bind:value={type} />
@@ -502,9 +204,10 @@ let clickable = false;` to make this demo:
 </div>
 ```
 
-### Dialog
+## Dialog
 
 Minimal demo:
+
 ```svelte
 <Dialog headline="Hello" bind:open>
   I'm alive
@@ -514,7 +217,17 @@ Minimal demo:
 </Dialog>
 ```
 
-The M3 Svelte interactive demo for this component uses Button, Dialog with the TS `let open = false;` to make this demo:
+Full demo:
+
+```use
+Button
+Dialog
+```
+
+```ts
+let open = false;
+```
+
 ```svelte
 <div slot="demo">
   <Button type="tonal" on:click={() => (open = true)}>Open</Button>
@@ -528,9 +241,10 @@ The M3 Svelte interactive demo for this component uses Button, Dialog with the T
 </div>
 ```
 
-### List
+## List
 
 Minimal demo:
+
 ```svelte
 <div>
   <ListItem headline="Hello" />
@@ -546,7 +260,18 @@ Minimal demo:
 </style>
 ```
 
-The M3 Svelte interactive demo for this component uses ListItem, ListItemButton, ListItemLabel, Checkbox, Divider with the TS `let lines: "1" | "2" | "3" = "1";
+Full demo:
+
+```use
+ListItem
+ListItemButton
+ListItemLabel
+Checkbox
+Divider
+```
+
+```ts
+let lines: "1" | "2" | "3" = "1";
 let type: "div" | "button" | "label" = "div";
 const headline = "Hello";
 $: supporting =
@@ -554,7 +279,9 @@ $: supporting =
     ? undefined
     : lines == "2"
       ? "Welcome to ZomboCom!"
-      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!";` to make this demo:
+      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!";
+```
+
 ```svelte
 <label>
   <Arrows list={["1", "2", "3"]} bind:value={lines} />
@@ -610,9 +337,10 @@ $: supporting =
 </style>
 ```
 
-### Menu
+## Menu
 
 Minimal demo:
+
 ```svelte
 <Menu>
   <MenuItem icon={iconCircle}>Undo</MenuItem>
@@ -621,7 +349,17 @@ Minimal demo:
 </Menu>
 ```
 
-The M3 Svelte interactive demo for this component uses Menu, MenuItem with the TS `let icons = false;` to make this demo:
+Full demo:
+
+```use
+Menu
+MenuItem
+```
+
+```ts
+let icons = false;
+```
+
 ```svelte
 <label>
   <Switch bind:checked={icons} />
@@ -634,9 +372,10 @@ The M3 Svelte interactive demo for this component uses Menu, MenuItem with the T
 </Menu>
 ```
 
-### Snackbar
+## Snackbar
 
 Minimal demo:
+
 ```svelte
 <script lang="ts">
   let snackbar: (data: SnackbarIn) => void;
@@ -646,8 +385,19 @@ Minimal demo:
 <Snackbar bind:show={snackbar} />
 ```
 
-The M3 Svelte interactive demo for this component uses Button, Snackbar, SnackbarAnim with the TS `let animation = true;
-let snackbar: (data: SnackbarIn) => void;` to make this demo:
+Full demo:
+
+```use
+Button
+Snackbar
+SnackbarAnim
+```
+
+```ts
+let animation = true;
+let snackbar: (data: SnackbarIn) => void;
+```
+
 ```svelte
 <label>
   <Switch bind:checked={animation} />
@@ -659,9 +409,10 @@ let snackbar: (data: SnackbarIn) => void;` to make this demo:
 </div>
 ```
 
-### Checkbox
+## Checkbox
 
 Minimal demo:
+
 ```svelte
 <label>
   <Checkbox>
@@ -670,8 +421,18 @@ Minimal demo:
 </label>
 ```
 
-The M3 Svelte interactive demo for this component uses CheckboxAnim, Checkbox with the TS `let animated = true;
-let enabled = true;` to make this demo:
+Full demo:
+
+```use
+CheckboxAnim
+Checkbox
+```
+
+```ts
+let animated = true;
+let enabled = true;
+```
+
 ```svelte
 <label>
   <Switch bind:checked={animated} />
@@ -688,17 +449,27 @@ let enabled = true;` to make this demo:
 </label>
 ```
 
-### Chip
+## Chip
 
 Minimal demo:
+
 ```svelte
 <Chip type="general" icon={iconCircle} on:click={() => alert("!")}>Hello</Chip>
 ```
 
-The M3 Svelte interactive demo for this component uses Chip with the TS `let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = "input";
+Full demo:
+
+```use
+Chip
+```
+
+```ts
+let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = "input";
 let iconType: "none" | "left" | "right" = "none";
 let enabled = true;
-let selected = false;` to make this demo:
+let selected = false;
+```
+
 ```svelte
 <label>
   <Arrows
@@ -731,9 +502,10 @@ let selected = false;` to make this demo:
 </div>
 ```
 
-### Progress
+## Progress
 
 Minimal demo:
+
 ```svelte
 <LinearProgress percent={60} />
 <LinearProgressIndeterminate />
@@ -741,8 +513,20 @@ Minimal demo:
 <CircularProgressIndeterminate />
 ```
 
-The M3 Svelte interactive demo for this component uses LinearProgress, LinearProgressIndeterminate, CircularProgress, CircularProgressIndeterminate with the TS `let type: "linear" | "circular" = "linear";
-let indeterminate = false;` to make this demo:
+Full demo:
+
+```use
+LinearProgress
+LinearProgressIndeterminate
+CircularProgress
+CircularProgressIndeterminate
+```
+
+```ts
+let type: "linear" | "circular" = "linear";
+let indeterminate = false;
+```
+
 ```svelte
 <label>
   <Arrows list={["linear", "circular"]} bind:value={type} />
@@ -766,18 +550,30 @@ let indeterminate = false;` to make this demo:
 </div>
 ```
 
-### Radio
+## Radio
 
 Minimal demo:
+
 ```svelte
 <RadioAnim1><input type="radio" name="stuff" value="one" bind:group={stuff} /></RadioAnim1>
 <RadioAnim1><input type="radio" name="stuff" value="two" bind:group={stuff} /></RadioAnim1>
 <RadioAnim1><input type="radio" name="stuff" value="three" bind:group={stuff} /></RadioAnim1>
 ```
 
-The M3 Svelte interactive demo for this component uses RadioAnim1, RadioAnim2, RadioAnim3 with the TS `let animation: "1" | "2" | "3" = "1";
+Full demo:
+
+```use
+RadioAnim1
+RadioAnim2
+RadioAnim3
+```
+
+```ts
+let animation: "1" | "2" | "3" = "1";
 let enabled = true;
-$: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3;` to make this demo:
+$: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3;
+```
+
 ```svelte
 <label>
   <Arrows list={["1", "2", "3"]} bind:value={animation} />
@@ -807,16 +603,27 @@ $: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : R
 </div>
 ```
 
-### Slider
+## Slider
 
 Minimal demo:
+
 ```svelte
 <Slider bind:value={n} />
 ```
 
-The M3 Svelte interactive demo for this component uses Slider, SliderTicks with the TS `let precision: "continuous" | "discrete" | "discrete-ticks" = "continuous";
+Full demo:
+
+```use
+Slider
+SliderTicks
+```
+
+```ts
+let precision: "continuous" | "discrete" | "discrete-ticks" = "continuous";
 let enabled = true;
-let value = 0;` to make this demo:
+let value = 0;
+```
+
 ```svelte
 <label>
   <Arrows list={["continuous", "discrete", "discrete-ticks"]} bind:value={precision} />
@@ -840,16 +647,26 @@ let value = 0;` to make this demo:
 </div>
 ```
 
-### Switch
+## Switch
 
 Minimal demo:
+
 ```svelte
 <label>
   <Switch bind:checked={on} />
 </label>
 ```
 
-The M3 Svelte interactive demo for this component uses  with the TS `let enabled = true;` to make this demo:
+Full demo:
+
+```use
+
+```
+
+```ts
+let enabled = true;
+```
+
 ```svelte
 <label>
   <Switch bind:checked={enabled} />
@@ -861,20 +678,33 @@ The M3 Svelte interactive demo for this component uses  with the TS `let enabled
 </label>
 ```
 
-### Text field
+## Text field
 
 Minimal demo:
+
 ```svelte
 <TextField name="Field" bind:value={text} />
 ```
 
-The M3 Svelte interactive demo for this component uses TextField, TextFieldOutlined, TextFieldMultiline, TextFieldOutlinedMultiline with the TS `import type { HTMLInputAttributes } from "svelte/elements";
+Full demo:
+
+```use
+TextField
+TextFieldOutlined
+TextFieldMultiline
+TextFieldOutlinedMultiline
+```
+
+```ts
+import type { HTMLInputAttributes } from "svelte/elements";
 let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = "filled";
 let option: "text" | "password" | "number" | "file" = "text";
 let leadingIcon = false;
 let errored = false;
 let enabled = true;
-$: extraOptions = { type: option } as HTMLInputAttributes;` to make this demo:
+$: extraOptions = { type: option } as HTMLInputAttributes;
+```
+
 ```svelte
 <label>
   <Arrows
@@ -947,9 +777,10 @@ $: extraOptions = { type: option } as HTMLInputAttributes;` to make this demo:
 </div>
 ```
 
-### Tabs
+## Tabs
 
 Minimal demo:
+
 ```svelte
 <Tabs
   items={[
@@ -960,7 +791,15 @@ Minimal demo:
 />
 ```
 
-The M3 Svelte interactive demo for this component uses Tabs, VariableTabs with the TS `let type: "primary" | "secondary" = "primary";
+Full demo:
+
+```use
+Tabs
+VariableTabs
+```
+
+```ts
+let type: "primary" | "secondary" = "primary";
 let icons = false;
 let variable = false;
 let tab = "hello";
@@ -975,7 +814,9 @@ $: items = icons
       { name: "Hello", value: "hello" },
       { name: "World", value: "world" },
       { name: "The longest item", value: "long" },
-    ];` to make this demo:
+    ];
+```
+
 ```svelte
 <label>
   <Arrows list={["primary", "secondary"]} bind:value={type} />
@@ -999,14 +840,24 @@ $: items = icons
 </div>
 ```
 
-### Date field
+## Date field
 
 Minimal demo:
+
 ```svelte
 <DateField name="Date" bind:date />
 ```
 
-The M3 Svelte interactive demo for this component uses DateField with the TS `` to make this demo:
+Full demo:
+
+```use
+DateField
+```
+
+```ts
+
+```
+
 ```svelte
 <DateField name="Date" slot="demo" />
 ```

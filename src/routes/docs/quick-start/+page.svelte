@@ -16,7 +16,7 @@
   import { Button } from "m3-svelte";
 ${"<"}/script>
 
-${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}/Button>`;
+${"<"}Button type="filled" on:click={() => alert("Hello world")}>Click me${"<"}/Button>`;
 </script>
 
 <ol>

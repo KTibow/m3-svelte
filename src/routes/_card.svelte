@@ -1,74 +1,119 @@
 <script>
-  import Button from "$lib/buttons/Button.svelte";
-  import Dialog from "$lib/containers/Dialog.svelte";
-  import Icon from "$lib/misc/_icon.svelte";
   import iconCode from "@ktibow/iconset-material-symbols/code";
-  import Highlight from "svelte-highlight";
-  import xmlLanguage from "svelte-highlight/languages/xml";
+  import { createEventDispatcher } from "svelte";
+  import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/Layer.svelte";
 
-  /** @type {string} */
   export let title = "";
-  /** @type {string} */
-  export let code = "";
-  let showCode = false;
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="container">
-  <div class="content">
-    <h2 class="m3-font-headline-large">
+  {#if $$slots.default}
+    <h2 class="m3-font-headline-medium">
       {title}
-      <Button type="text" on:click={() => (showCode = true)}>
-        <Icon icon={iconCode} width="1.5em" height="1.5em" />
-      </Button>
     </h2>
-    <slot />
-  </div>
-  <div class="content">
-    <slot name="demo" />
-  </div>
+    <div class="controls">
+      <div>
+        <slot />
+      </div>
+      <button on:click={() => dispatch("showCode")}>
+        <Layer />
+        <Icon icon={iconCode} width="1.5rem" height="1.5rem" />
+      </button>
+    </div>
+  {:else}
+    <button class="name m3-font-headline-medium" on:click={() => dispatch("showCode")}>
+      <Layer />
+      {title}
+      <Icon icon={iconCode} width="1.5rem" height="1.5rem" />
+    </button>
+  {/if}
+  <slot name="demo" />
 </div>
-<Dialog icon={iconCode} headline="Source code" bind:open={showCode}>
-  <div class="highlight">
-    <Highlight language={xmlLanguage} {code} />
-  </div>
-  <svelte:fragment slot="buttons">
-    <Button type="tonal" on:click={() => (showCode = false)}>Close</Button>
-  </svelte:fragment>
-</Dialog>
 
 <style>
   .container {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
   }
+
   h2 {
     display: flex;
     justify-content: space-between;
 
-    margin-top: 0;
-    margin-bottom: 1rem;
+    background-color: rgb(var(--m3-scheme-surface-container-low));
+    border-radius: 1.5rem 1.5rem 0.5rem 0.5rem;
+
+    padding: 0.75rem;
+    line-height: 1.1;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    flex-grow: 1;
   }
-  .content {
+  .controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .controls > div {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem 0.5rem 0.5rem 1.5rem;
+    background-color: rgb(var(--m3-scheme-surface-container-low));
+    color: rgb(var(--m3-scheme-on-surface));
+    flex-grow: 1;
+    flex-wrap: wrap;
+
+    :global {
+      label {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        height: 2rem;
+      }
+    }
+  }
+  .controls > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem 0.5rem 1.5rem 1.5rem;
+    background-color: rgb(var(--m3-scheme-surface-container-low));
+    color: rgb(var(--m3-scheme-primary));
+
+    min-width: 3rem;
+    min-height: 3rem;
+    flex-grow: 1;
+    position: relative;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+  }
+  .controls > div + button {
+    flex-grow: 0;
+    border-radius: 0.5rem 0.5rem 1.5rem 0.5rem;
+  }
+
+  .name {
     display: flex;
     flex-direction: column;
-    position: relative;
-    padding: 1rem;
-    background-color: rgb(var(--m3-scheme-surface-container));
-    color: rgb(var(--m3-scheme-on-surface));
-  }
-  .content:first-child {
+    text-align: left;
+    border-radius: 1.5rem;
+    padding: 0.75rem;
+    background-color: rgb(var(--m3-scheme-surface-container-low));
+    color: rgb(var(--m3-scheme-primary));
+
     flex-grow: 1;
-    border-radius: 1.5rem 1.5rem 0.5rem 0.5rem;
+    margin-bottom: 1.5rem;
+
+    position: relative;
+    border: none;
+    cursor: pointer;
   }
-  .content:last-child {
-    border-radius: 0.5rem 0.5rem 1.5rem 1.5rem;
-  }
-  .highlight {
-    border-radius: var(--m3-card-shape);
-    overflow: hidden;
-  }
-  .highlight :global(pre) {
-    margin: 0;
+  .name > :global(svg) {
+    margin: auto 0 0 auto;
   }
 </style>

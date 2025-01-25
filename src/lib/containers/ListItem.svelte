@@ -50,6 +50,9 @@
     padding-bottom: 0.75rem;
     align-items: flex-start;
   }
+  .body {
+    flex-grow: 1;
+  }
   .leading,
   .trailing {
     display: contents;

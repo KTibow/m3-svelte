@@ -31,6 +31,7 @@
     class="m3-font-body-large"
     placeholder=" "
     bind:value
+    on:keydown={(e) => e.key == "Enter" && dispatch("enter")}
     {id}
     {disabled}
     {required}
