@@ -37,7 +37,7 @@ const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-s
 
 <div slot="demo">
   <Chip
-    type={style.split(" ")[0]}
+    type={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
     elevated={style.endsWith("elevated")}
     icon={iconType == "left" ? iconCircle : undefined}
     trailingIcon={iconType == "right" ? iconSquare : undefined}
