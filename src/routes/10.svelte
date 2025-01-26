@@ -15,9 +15,10 @@ let selected = false;
 
 const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}Chip type="general" icon={iconCircle} on:click={() => alert("!")}>Hello${"<"}/Chip>`;
+const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Chip.svelte"}];
 </script>
 
-<InternalCard title="Chip" on:showCode={() => dispatch("showCode", { name: "Chip" })}>
+<InternalCard title="Chip" on:showCode={() => dispatch("showCode", { name: "Chip", minimalDemo, relevantLinks })}>
 <label>
   <Arrows
     list={["input", "assist", "assist elevated", "general", "general elevated"]}

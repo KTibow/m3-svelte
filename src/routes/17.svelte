@@ -12,8 +12,9 @@ import DateField from "$lib/utils/DateField.svelte";
 
 const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}DateField name="Date" bind:date />`;
+const relevantLinks = [{"title":"DateField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/utils/DateField.svelte"}];
 </script>
 
-<InternalCard title="Date field" on:showCode={() => dispatch("showCode", { name: "Date field" })}>
+<InternalCard title="Date field" on:showCode={() => dispatch("showCode", { name: "Date field", minimalDemo, relevantLinks })}>
 <DateField name="Date" slot="demo" />
 </InternalCard>

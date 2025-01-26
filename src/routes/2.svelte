@@ -13,9 +13,10 @@ let size: "small" | "normal" | "large" | "extended" = "normal";
 
 const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}FAB color="primary" icon={iconCircle} on:click={() => alert("!")} />`;
+const relevantLinks = [{"title":"FAB.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/FAB.svelte"}];
 </script>
 
-<InternalCard title="FAB" on:showCode={() => dispatch("showCode", { name: "FAB" })}>
+<InternalCard title="FAB" on:showCode={() => dispatch("showCode", { name: "FAB", minimalDemo, relevantLinks })}>
 <label>
   <Arrows list={["primary", "surface", "secondary", "tertiary"]} bind:value={color} />
   {color[0].toUpperCase() + color.slice(1)}

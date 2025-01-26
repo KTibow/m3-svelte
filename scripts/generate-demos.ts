@@ -35,6 +35,7 @@ import InternalCard from "./_card.svelte";
 ${components
   .split("\n")
   .filter(Boolean)
+  .filter((c) => !["Switch"].includes(c))
   .map((c) =>
     c == "Snackbar"
       ? `import Snackbar, { type SnackbarIn } from "$lib/containers/Snackbar.svelte";`
@@ -45,9 +46,26 @@ ${fullDemoTs}
 
 const dispatch = createEventDispatcher();
 const minimalDemo = \`${minimalDemo.replaceAll("$", '${"$"}').replaceAll("<", '${"<"}')}\`;
+const relevantLinks = ${JSON.stringify(
+    components
+      .split("\n")
+      .filter(Boolean)
+      .filter((c) =>
+        c.toLowerCase() == friendlyName.toLowerCase()
+          ? true
+          : !["Checkbox", "Divider", "Button"].includes(c),
+      )
+      .map((c) => ({
+        title: `${c}.sv`,
+        link: getFile(c).replace(
+          "src/lib",
+          "https://github.com/KTibow/m3-svelte/blob/main/src/lib",
+        ),
+      })),
+  )};
 </script>
 
-<InternalCard title="${friendlyName}" on:showCode={() => dispatch("showCode", { name: ${JSON.stringify(friendlyName)} })}>
+<InternalCard title="${friendlyName}" on:showCode={() => dispatch("showCode", { name: ${JSON.stringify(friendlyName)}, minimalDemo, relevantLinks })}>
 ${fullDemoSvelte}
 </InternalCard>
 `;

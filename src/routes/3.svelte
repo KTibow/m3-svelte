@@ -7,21 +7,31 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
-import Button from "$lib/buttons/Button.svelte";
-import BottomSheet from "$lib/containers/BottomSheet.svelte";
-let open = false;
+import Card from "$lib/containers/Card.svelte";
+import CardClickable from "$lib/containers/CardClickable.svelte";
+let type: "elevated" | "filled" | "outlined" = "elevated";
+let clickable = false;
 
 const dispatch = createEventDispatcher();
-const minimalDemo = `{#if open}
-  ${"<"}BottomSheet on:close={() => (open = false)}>Hello${"<"}/BottomSheet>
-{/if}`;
+const minimalDemo = `${"<"}Card type="filled">Hello${"<"}/Card>
+${"<"}CardClickable type="filled" on:click={() => alert("!")}>Hello${"<"}/CardClickable>`;
+const relevantLinks = [{"title":"Card.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Card.svelte"},{"title":"CardClickable.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/CardClickable.svelte"}];
 </script>
 
-<InternalCard title="Bottom Sheet" on:showCode={() => dispatch("showCode", { name: "Bottom Sheet" })}>
+<InternalCard title="Card" on:showCode={() => dispatch("showCode", { name: "Card", minimalDemo, relevantLinks })}>
+<label>
+  <Arrows list={["elevated", "filled", "outlined"]} bind:value={type} />
+  {type[0].toUpperCase() + type.slice(1)}
+</label>
+<label>
+  <Switch bind:checked={clickable} />
+  {clickable ? "Clickable" : "Not clickable"}
+</label>
 <div slot="demo">
-  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
-  {#if open}
-    <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
+  {#if clickable}
+    <CardClickable {type}>Hello</CardClickable>
+  {:else}
+    <Card {type}>Hello</Card>
   {/if}
 </div>
 </InternalCard>

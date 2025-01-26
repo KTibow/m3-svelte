@@ -570,7 +570,8 @@ Minimal demo:
 
 The M3 Svelte interactive demo for this component uses Button, ButtonLink with the TS `let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
 let iconType: "none" | "left" | "full" = "none";
-let enabled = true;` to make this demo:
+let enabled = true;
+let link = false;` to make this demo:
 ```svelte
 <label>
   <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={type} />
@@ -584,8 +585,12 @@ let enabled = true;` to make this demo:
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
+<label>
+  <Switch bind:checked={link} />
+  {link ? "Link" : "Button"}
+</label>
 <div slot="demo">
-  <Button {type} disabled={!enabled} {iconType}>
+  <svelte:component this={link ? ButtonLink : Button} {type} disabled={!enabled} {iconType} href="https://example.com">
     {#if iconType == "none"}
       Hello
     {:else if iconType == "left"}
@@ -593,7 +598,7 @@ let enabled = true;` to make this demo:
     {:else}
       <Icon icon={iconCircle} />
     {/if}
-  </Button>
+  </svelte:component>
 </div>
 ```
 
@@ -666,25 +671,6 @@ let size: "small" | "normal" | "large" | "extended" = "normal";` to make this de
 </div>
 ```
 
-### Bottom Sheet
-
-Minimal demo:
-```svelte
-{#if open}
-  <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
-{/if}
-```
-
-The M3 Svelte interactive demo for this component uses Button, BottomSheet with the TS `let open = false;` to make this demo:
-```svelte
-<div slot="demo">
-  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
-  {#if open}
-    <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
-  {/if}
-</div>
-```
-
 ### Card
 
 Minimal demo:
@@ -713,32 +699,6 @@ let clickable = false;` to make this demo:
 </div>
 ```
 
-### Dialog
-
-Minimal demo:
-```svelte
-<Dialog headline="Hello" bind:open>
-  I'm alive
-  <svelte:fragment slot="buttons">
-    <Button type="tonal" on:click={() => (open = false)}>OK</Button>
-  </svelte:fragment>
-</Dialog>
-```
-
-The M3 Svelte interactive demo for this component uses Button, Dialog with the TS `let open = false;` to make this demo:
-```svelte
-<div slot="demo">
-  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
-  <Dialog icon={iconCircle} headline="Hello" bind:open>
-    Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
-    ZomboCom! The unattainable is unknown at ZomboCom!
-    <svelte:fragment slot="buttons">
-      <Button type="tonal" on:click={() => (open = false)}>OK</Button>
-    </svelte:fragment>
-  </Dialog>
-</div>
-```
-
 ### List
 
 Minimal demo:
@@ -747,14 +707,6 @@ Minimal demo:
   <ListItem headline="Hello" />
   <ListItem headline="Hello" />
 </div>
-
-<style>
-  .box-wrapper {
-    display: flex;
-    width: 1.5rem;
-    justify-content: center;
-  }
-</style>
 ```
 
 The M3 Svelte interactive demo for this component uses ListItem, ListItemButton, ListItemLabel, Checkbox, Divider with the TS `let lines: "1" | "2" | "3" = "1";
@@ -843,6 +795,51 @@ The M3 Svelte interactive demo for this component uses Menu, MenuItem with the T
   <MenuItem icon={icons ? iconSquare : undefined}>Undo</MenuItem>
   <MenuItem icon={icons ? iconTriangle : undefined} disabled>Redo</MenuItem>
 </Menu>
+```
+
+### Bottom Sheet
+
+Minimal demo:
+```svelte
+{#if open}
+  <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
+{/if}
+```
+
+The M3 Svelte interactive demo for this component uses Button, BottomSheet with the TS `let open = false;` to make this demo:
+```svelte
+<div slot="demo">
+  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
+  {#if open}
+    <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
+  {/if}
+</div>
+```
+
+### Dialog
+
+Minimal demo:
+```svelte
+<Dialog headline="Hello" bind:open>
+  I'm alive
+  <svelte:fragment slot="buttons">
+    <Button type="tonal" on:click={() => (open = false)}>OK</Button>
+  </svelte:fragment>
+</Dialog>
+```
+
+The M3 Svelte interactive demo for this component uses Button, Dialog with the TS `let open = false;` to make this demo:
+```svelte
+<div slot="demo">
+  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
+  <Dialog icon={iconCircle} headline="Hello" bind:open>
+    Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
+    ZomboCom! The unattainable is unknown at ZomboCom!
+    <svelte:fragment slot="buttons">
+      <Button type="tonal" on:click={() => (open = false)}>OK</Button>
+    </svelte:fragment>
+  </Dialog>
+</div>
 ```
 
 ### Snackbar
@@ -1060,7 +1057,7 @@ Minimal demo:
 </label>
 ```
 
-The M3 Svelte interactive demo for this component uses  with the TS `let enabled = true;` to make this demo:
+The M3 Svelte interactive demo for this component uses Switch with the TS `let enabled = true;` to make this demo:
 ```svelte
 <label>
   <Switch bind:checked={enabled} />

@@ -18,9 +18,10 @@ const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}RadioAnim1>${"<"}input type="radio" name="stuff" value="one" bind:group={stuff} />${"<"}/RadioAnim1>
 ${"<"}RadioAnim1>${"<"}input type="radio" name="stuff" value="two" bind:group={stuff} />${"<"}/RadioAnim1>
 ${"<"}RadioAnim1>${"<"}input type="radio" name="stuff" value="three" bind:group={stuff} />${"<"}/RadioAnim1>`;
+const relevantLinks = [{"title":"RadioAnim1.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/RadioAnim1.svelte"},{"title":"RadioAnim2.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/RadioAnim2.svelte"},{"title":"RadioAnim3.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/RadioAnim3.svelte"}];
 </script>
 
-<InternalCard title="Radio" on:showCode={() => dispatch("showCode", { name: "Radio" })}>
+<InternalCard title="Radio" on:showCode={() => dispatch("showCode", { name: "Radio", minimalDemo, relevantLinks })}>
 <label>
   <Arrows list={["1", "2", "3"]} bind:value={animation} />
   Animation {animation}

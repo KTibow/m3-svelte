@@ -18,9 +18,10 @@ const minimalDemo = `${"<"}label>
     ${"<"}input type="checkbox" bind:checked={on} />
   ${"<"}/Checkbox>
 ${"<"}/label>`;
+const relevantLinks = [{"title":"CheckboxAnim.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CheckboxAnim.svelte"},{"title":"Checkbox.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Checkbox.svelte"}];
 </script>
 
-<InternalCard title="Checkbox" on:showCode={() => dispatch("showCode", { name: "Checkbox" })}>
+<InternalCard title="Checkbox" on:showCode={() => dispatch("showCode", { name: "Checkbox", minimalDemo, relevantLinks })}>
 <label>
   <Switch bind:checked={animated} />
   {animated ? "Animated" : "Not animated"}

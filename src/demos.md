@@ -17,6 +17,7 @@ ButtonLink
 let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
 let iconType: "none" | "left" | "full" = "none";
 let enabled = true;
+let link = false;
 ```
 
 ```svelte
@@ -32,8 +33,12 @@ let enabled = true;
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
+<label>
+  <Switch bind:checked={link} />
+  {link ? "Link" : "Button"}
+</label>
 <div slot="demo">
-  <Button {type} disabled={!enabled} {iconType}>
+  <svelte:component this={link ? ButtonLink : Button} {type} disabled={!enabled} {iconType} href="https://example.com">
     {#if iconType == "none"}
       Hello
     {:else if iconType == "left"}
@@ -41,7 +46,7 @@ let enabled = true;
     {:else}
       <Icon icon={iconCircle} />
     {/if}
-  </Button>
+  </svelte:component>
 </div>
 ```
 
@@ -135,36 +140,6 @@ let size: "small" | "normal" | "large" | "extended" = "normal";
 </div>
 ```
 
-## Bottom Sheet
-
-Minimal demo:
-
-```svelte
-{#if open}
-  <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
-{/if}
-```
-
-Full demo:
-
-```use
-Button
-BottomSheet
-```
-
-```ts
-let open = false;
-```
-
-```svelte
-<div slot="demo">
-  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
-  {#if open}
-    <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
-  {/if}
-</div>
-```
-
 ## Card
 
 Minimal demo:
@@ -204,43 +179,6 @@ let clickable = false;
 </div>
 ```
 
-## Dialog
-
-Minimal demo:
-
-```svelte
-<Dialog headline="Hello" bind:open>
-  I'm alive
-  <svelte:fragment slot="buttons">
-    <Button type="tonal" on:click={() => (open = false)}>OK</Button>
-  </svelte:fragment>
-</Dialog>
-```
-
-Full demo:
-
-```use
-Button
-Dialog
-```
-
-```ts
-let open = false;
-```
-
-```svelte
-<div slot="demo">
-  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
-  <Dialog icon={iconCircle} headline="Hello" bind:open>
-    Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
-    ZomboCom! The unattainable is unknown at ZomboCom!
-    <svelte:fragment slot="buttons">
-      <Button type="tonal" on:click={() => (open = false)}>OK</Button>
-    </svelte:fragment>
-  </Dialog>
-</div>
-```
-
 ## List
 
 Minimal demo:
@@ -250,14 +188,6 @@ Minimal demo:
   <ListItem headline="Hello" />
   <ListItem headline="Hello" />
 </div>
-
-<style>
-  .box-wrapper {
-    display: flex;
-    width: 1.5rem;
-    justify-content: center;
-  }
-</style>
 ```
 
 Full demo:
@@ -370,6 +300,73 @@ let icons = false;
   <MenuItem icon={icons ? iconSquare : undefined}>Undo</MenuItem>
   <MenuItem icon={icons ? iconTriangle : undefined} disabled>Redo</MenuItem>
 </Menu>
+```
+
+## Bottom Sheet
+
+Minimal demo:
+
+```svelte
+{#if open}
+  <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
+{/if}
+```
+
+Full demo:
+
+```use
+Button
+BottomSheet
+```
+
+```ts
+let open = false;
+```
+
+```svelte
+<div slot="demo">
+  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
+  {#if open}
+    <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
+  {/if}
+</div>
+```
+
+## Dialog
+
+Minimal demo:
+
+```svelte
+<Dialog headline="Hello" bind:open>
+  I'm alive
+  <svelte:fragment slot="buttons">
+    <Button type="tonal" on:click={() => (open = false)}>OK</Button>
+  </svelte:fragment>
+</Dialog>
+```
+
+Full demo:
+
+```use
+Button
+Dialog
+```
+
+```ts
+let open = false;
+```
+
+```svelte
+<div slot="demo">
+  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
+  <Dialog icon={iconCircle} headline="Hello" bind:open>
+    Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
+    ZomboCom! The unattainable is unknown at ZomboCom!
+    <svelte:fragment slot="buttons">
+      <Button type="tonal" on:click={() => (open = false)}>OK</Button>
+    </svelte:fragment>
+  </Dialog>
+</div>
 ```
 
 ## Snackbar
@@ -660,7 +657,7 @@ Minimal demo:
 Full demo:
 
 ```use
-
+Switch
 ```
 
 ```ts

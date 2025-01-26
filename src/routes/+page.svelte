@@ -2,6 +2,9 @@
   import { slide } from "svelte/transition";
   import { easeEmphasized } from "$lib/misc/easing";
   import StandardSideSheet from "$lib/containers/StandardSideSheet.svelte";
+  import BottomSheet from "$lib/containers/BottomSheet.svelte";
+
+  import Doc from "./_doc.svelte";
   import Hero from "./Hero.svelte";
   import Demo0 from "./0.svelte";
   import Demo1 from "./1.svelte";
@@ -21,12 +24,16 @@
   import Demo15 from "./15.svelte";
   import Demo16 from "./16.svelte";
   import Demo17 from "./17.svelte";
-  import BottomSheet from "$lib/containers/BottomSheet.svelte";
 
   let innerWidth: number;
 
-  let doc: { name: string } | undefined;
-  const showCode = (e: { detail: { name: string } }) => {
+  type DocData = {
+    name: string;
+    minimalDemo: string;
+    relevantLinks: { title: string; link: string }[];
+  };
+  let doc: DocData | undefined;
+  const showCode = (e: { detail: DocData }) => {
     doc = e.detail;
   };
 </script>
@@ -41,22 +48,9 @@
 </svelte:head>
 
 {#snippet docs()}
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi culpa ipsum, possimus laudantium
-  dignissimos impedit at, unde officia doloribus asperiores quia aperiam et ducimus error ex magni
-  quam? Tempore, est. Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae placeat
-  fuga voluptas sit tempora soluta quia totam optio. Laudantium, in! Porro ut fuga ratione eius
-  cupiditate nihil perspiciatis quos sed! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-  Molestias illo, numquam mollitia deserunt et est dicta modi ratione fuga culpa dolor voluptatibus
-  veniam aspernatur quibusdam nostrum neque, fugiat consectetur sunt. Lorem, ipsum dolor sit amet
-  consectetur adipisicing elit. Quaerat rerum voluptas perferendis, officiis, eius, unde quia magni
-  laborum blanditiis vero id maiores cum vel natus. Nostrum voluptatibus magni magnam eligendi!
-  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias officiis at sint assumenda,
-  deserunt nihil eaque, cupiditate nisi beatae eum blanditiis soluta vel, sequi nulla porro dolorum
-  accusamus ad quas? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis natus
-  molestias, ratione, ducimus, optio facilis porro molestiae omnis obcaecati similique officia
-  cupiditate iste recusandae nesciunt quidem saepe alias laborum doloremque? Lorem ipsum dolor sit
-  amet consectetur adipisicing elit. Atque veniam repellendus sed magni a saepe numquam pariatur
-  inventore ea. Nobis aspernatur iste in tempora corporis porro cumque accusamus quod at.
+  {#if doc}
+    <Doc {...doc} />
+  {/if}
 {/snippet}
 <div class="side-wrapper">
   <Hero />

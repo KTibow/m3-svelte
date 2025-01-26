@@ -18,9 +18,10 @@ const minimalDemo = `${"<"}SegmentedButtonContainer>
   ${"<"}input type="checkbox" id="segmented-1" bind:checked={itemB} />
   ${"<"}SegmentedButtonItem input="segmented-1">B${"<"}/SegmentedButtonItem>
 ${"<"}/SegmentedButtonContainer>`;
+const relevantLinks = [{"title":"SegmentedButtonContainer.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/SegmentedButtonContainer.svelte"},{"title":"SegmentedButtonItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/SegmentedButtonItem.svelte"}];
 </script>
 
-<InternalCard title="Segmented Button" on:showCode={() => dispatch("showCode", { name: "Segmented Button" })}>
+<InternalCard title="Segmented Button" on:showCode={() => dispatch("showCode", { name: "Segmented Button", minimalDemo, relevantLinks })}>
 <label>
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}

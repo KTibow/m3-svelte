@@ -21,9 +21,10 @@ $: extraOptions = { type: option } as HTMLInputAttributes;
 
 const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}TextField name="Field" bind:value={text} />`;
+const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextField.svelte"},{"title":"TextFieldOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldOutlined.svelte"},{"title":"TextFieldMultiline.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldMultiline.svelte"},{"title":"TextFieldOutlinedMultiline.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldOutlinedMultiline.svelte"}];
 </script>
 
-<InternalCard title="Text field" on:showCode={() => dispatch("showCode", { name: "Text field" })}>
+<InternalCard title="Text field" on:showCode={() => dispatch("showCode", { name: "Text field", minimalDemo, relevantLinks })}>
 <label>
   <Arrows
     list={["filled", "filled_multiline", "outlined", "outlined_multiline"]}

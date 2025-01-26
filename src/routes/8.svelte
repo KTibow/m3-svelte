@@ -20,9 +20,10 @@ ${"<"}/script>
 
 ${"<"}Button type="tonal" on:click={() => snackbar({ message: "Hello", closable: true })}>Show${"<"}/Button>
 ${"<"}Snackbar bind:show={snackbar} />`;
+const relevantLinks = [{"title":"Snackbar.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Snackbar.svelte"},{"title":"SnackbarAnim.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/SnackbarAnim.svelte"}];
 </script>
 
-<InternalCard title="Snackbar" on:showCode={() => dispatch("showCode", { name: "Snackbar" })}>
+<InternalCard title="Snackbar" on:showCode={() => dispatch("showCode", { name: "Snackbar", minimalDemo, relevantLinks })}>
 <label>
   <Switch bind:checked={animation} />
   {animation ? "#key animated" : "#if animated"}

@@ -14,9 +14,10 @@ const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}label>
   ${"<"}Switch bind:checked={on} />
 ${"<"}/label>`;
+const relevantLinks = [{"title":"Switch.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Switch.svelte"}];
 </script>
 
-<InternalCard title="Switch" on:showCode={() => dispatch("showCode", { name: "Switch" })}>
+<InternalCard title="Switch" on:showCode={() => dispatch("showCode", { name: "Switch", minimalDemo, relevantLinks })}>
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}

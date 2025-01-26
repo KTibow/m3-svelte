@@ -34,9 +34,10 @@ const minimalDemo = `${"<"}Tabs
   ]}
   bind:tab
 />`;
+const relevantLinks = [{"title":"Tabs.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/Tabs.svelte"},{"title":"VariableTabs.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/VariableTabs.svelte"}];
 </script>
 
-<InternalCard title="Tabs" on:showCode={() => dispatch("showCode", { name: "Tabs" })}>
+<InternalCard title="Tabs" on:showCode={() => dispatch("showCode", { name: "Tabs", minimalDemo, relevantLinks })}>
 <label>
   <Arrows list={["primary", "secondary"]} bind:value={type} />
   {type == "primary" ? "Primary" : "Secondary"}

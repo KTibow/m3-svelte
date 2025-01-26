@@ -19,9 +19,10 @@ const minimalDemo = `${"<"}LinearProgress percent={60} />
 ${"<"}LinearProgressIndeterminate />
 ${"<"}CircularProgress percent={60} />
 ${"<"}CircularProgressIndeterminate />`;
+const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgress.svelte"},{"title":"LinearProgressIndeterminate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgressIndeterminate.svelte"},{"title":"CircularProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgress.svelte"},{"title":"CircularProgressIndeterminate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgressIndeterminate.svelte"}];
 </script>
 
-<InternalCard title="Progress" on:showCode={() => dispatch("showCode", { name: "Progress" })}>
+<InternalCard title="Progress" on:showCode={() => dispatch("showCode", { name: "Progress", minimalDemo, relevantLinks })}>
 <label>
   <Arrows list={["linear", "circular"]} bind:value={type} />
   {type[0].toUpperCase() + type.slice(1)}

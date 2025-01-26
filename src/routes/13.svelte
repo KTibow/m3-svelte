@@ -15,9 +15,10 @@ let value = 0;
 
 const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}Slider bind:value={n} />`;
+const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"},{"title":"SliderTicks.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/SliderTicks.svelte"}];
 </script>
 
-<InternalCard title="Slider" on:showCode={() => dispatch("showCode", { name: "Slider" })}>
+<InternalCard title="Slider" on:showCode={() => dispatch("showCode", { name: "Slider", minimalDemo, relevantLinks })}>
 <label>
   <Arrows list={["continuous", "discrete", "discrete-ticks"]} bind:value={precision} />
   {precision == "continuous"
