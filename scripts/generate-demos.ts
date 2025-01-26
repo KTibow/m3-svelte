@@ -150,6 +150,8 @@ If you're ever unsure about something, you might want to check the [m3-svelte re
 
 You should avoid trying to restyle components. You can't set a \`class\` and due to Svelte scoped styles, even if you could, it wouldn't work. I repeat, you CANNOT set a \`class\` on M3 Svelte components. Always look for alternatives, like using \`gap\` instead of \`margin\`. If you *must* do this, you would have to do something like \`.my-container > :global(.m3-container)\`.
 
+You must wrap Checkbox, Radio, and Switch in <label>s.
+
 M3 Svelte uses the Iconify ecosystem. M3 Svelte imports icons from NPM and renders them as SVG. Some components render icons for you:
 \`\`\`svelte
 <script>
@@ -404,6 +406,215 @@ Here's an example notes app:
 </style>
 \`\`\`
 
+Here's an even more complicated example - a partial clone of the M3 documentation website, using SvelteKit:
+\`\`\`css layout.css
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+body {
+	display: flex;
+	height: 100dvh;
+	margin: 0;
+	box-sizing: border-box;
+	background: rgb(var(--m3-scheme-background));
+	color: rgb(var(--m3-scheme-on-background));
+}
+@media (width < 37.5rem) {
+	body {
+		flex-direction: column-reverse;
+		--m3-util-bottom-offset: 5rem;
+	}
+}
+img {
+	max-width: 100%;
+}
+/* not implemented: a comprehensive css reset */
+\`\`\`
+
+\`\`\`svelte +layout.svelte
+<script lang="ts">
+	import { NavList, NavListButton, FAB, StyleFromScheme } from 'm3-svelte';
+	import iconSearch from '@ktibow/iconset-material-symbols/search';
+	import iconHome from '@ktibow/iconset-material-symbols/home';
+	import iconApps from '@ktibow/iconset-material-symbols/apps';
+	import iconCode from '@ktibow/iconset-material-symbols/code';
+	import iconBook from '@ktibow/iconset-material-symbols/book';
+	import iconPalette from '@ktibow/iconset-material-symbols/palette';
+	import iconExtension from '@ktibow/iconset-material-symbols/extension';
+	import iconPages from '@ktibow/iconset-material-symbols/pages';
+	import './layout.css';
+
+	// not implemented: using an outlined icon if not selected
+	const navItems = [
+		{ icon: iconHome, label: 'Home', id: 'home' },
+		{ icon: iconApps, label: 'Get started', id: 'get-started' },
+		{ icon: iconCode, label: 'Develop', id: 'develop' },
+		{ icon: iconBook, label: 'Foundations', id: 'foundations' },
+		{ icon: iconPalette, label: 'Styles', id: 'styles' },
+		{ icon: iconExtension, label: 'Components', id: 'components' },
+		{ icon: iconPages, label: 'Blog', id: 'blog' }
+	];
+</script>
+
+<!-- [theme snippet] -->
+<div class="nav">
+	<NavList type="auto">
+		<div class="search">
+			<FAB icon={iconSearch} />
+		</div>
+		{#each navItems as item}
+  		<!-- not implemented: the ability to click on a destination -->
+      <!-- (in that case NavListLink would be better) -->
+			<NavListButton type="auto" icon={item.icon} selected={item.id == 'components'}>
+				{item.label}
+			</NavListButton>
+		{/each}
+	</NavList>
+</div>
+<div class="main">
+	<slot />
+</div>
+
+<style>
+	.main {
+		padding: 0.5rem;
+		overflow-y: auto;
+		flex: 1;
+	}
+
+	@media (width < 37.5rem) {
+		.nav {
+			background: rgb(var(--m3-scheme-surface-container));
+		}
+		.search {
+			position: fixed;
+			right: 1.5rem;
+			bottom: calc(var(--m3-util-bottom-offset) + 1.5rem);
+		}
+	}
+
+	@media (width >= 37.5rem) {
+		.nav {
+			width: 5rem;
+			height: 100dvh;
+		}
+		.search {
+			align-self: center;
+		}
+	}
+</style>
+\`\`\`
+
+\`\`\`svelte +page.svelte
+<script lang="ts">
+	import { Button, Icon } from 'm3-svelte';
+	import iconInfo from '@ktibow/iconset-material-symbols/info';
+	import iconSpecs from '@ktibow/iconset-material-symbols/rule';
+	import iconGuidelines from '@ktibow/iconset-material-symbols/lightbulb';
+	import iconAccessibility from '@ktibow/iconset-material-symbols/accessibility';
+
+	let currentTab = 'overview';
+	const tabs = [
+		{ icon: iconInfo, label: 'Overview', id: 'overview' },
+		{ icon: iconSpecs, label: 'Specs', id: 'specs' },
+		{ icon: iconGuidelines, label: 'Guidelines', id: 'guidelines' },
+		{ icon: iconAccessibility, label: 'Accessibility', id: 'accessibility' }
+	];
+</script>
+
+<div class="header">
+	<div class="info">
+		<h1 class="m3-font-display-large">Lists</h1>
+		<p class="m3-font-title-large">Lists are continuous, vertical indexes of text and images</p>
+	</div>
+	<img
+		src="https://picsum.photos/id/12/1000/562"
+		alt="A list in a recipe app"
+		class="preview-image"
+	/>
+</div>
+
+<div class="tabs">
+	{#each tabs as tab}
+		<button
+			class="m3-font-title-medium"
+			disabled={currentTab == tab.id}
+			on:click={() => (currentTab = tab.id)}
+		>
+			<Icon icon={tab.icon} width="1.5rem" height="1.5rem" />
+			{tab.label}
+		</button>
+	{/each}
+</div>
+
+<article>
+	{Array.from({ length: 200 }, () => 'Lorem ipsum.').join(' ')}
+</article>
+
+<style>
+	.header {
+		display: flex;
+		gap: 0.5rem;
+
+		> * {
+			border-radius: var(--m3-util-rounding-large);
+			min-width: 0;
+			flex: 1;
+		}
+		> .info {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			background-color: rgb(var(--m3-scheme-surface-container));
+			padding: 2rem;
+
+			> * {
+				margin: 0;
+			}
+		}
+	}
+
+	.tabs {
+		display: flex;
+		flex-direction: column;
+		background-color: rgb(var(--m3-scheme-surface-container));
+		border-radius: 3rem;
+		margin-top: 0.5rem;
+		flex-shrink: 0;
+
+		@media (width >= 37.5rem) {
+			flex-direction: row;
+
+			> * {
+				flex: 1;
+			}
+		}
+
+		> * {
+			display: flex;
+			gap: 1rem;
+			align-items: center;
+			justify-content: center;
+
+			padding: 0;
+			border: none;
+			height: 6rem;
+			border-radius: inherit;
+			background-color: inherit;
+			color: inherit;
+			flex-shrink: 0;
+
+			transition: all 200ms;
+			cursor: pointer;
+
+			&:disabled {
+				background-color: rgb(var(--m3-scheme-secondary-container));
+				color: rgb(var(--m3-scheme-on-surface-container));
+			}
+		}
+	}
+</style>
+\`\`\`
+
 ## Components
 
 Okay, now on to the components. Again, if you're unsure about how a component works, you can look at its source code in the [m3-svelte repo](https://github.com/KTibow/m3-svelte).
@@ -424,6 +635,38 @@ ${fullDemoSvelte}
 \`\`\``,
   )
   .join("\n\n")}
+
+## Addendum: more components
+
+### Nav list
+
+This component is a navigation rail and bar at the same time.
+
+Minimal demo:
+\`\`\`svelte
+<NavList type="auto">
+  <NavListButton type="auto" icon={iconCircle} selected={item == "a"} on:click={() => item = "a"}>
+    A
+  </NavListButton>
+  <NavListButton type="auto" icon={iconSquare} selected={item == "b"} on:click={() => item = "b"}>
+    B
+  </NavListButton>
+</NavList>
+\`\`\`
+
+### Nav drawer
+
+Minimal demo:
+\`\`\`svelte
+<NavDrawer>
+  <NavDrawerButton icon={iconCircle} selected={item == "a"} on:click={() => item = "a"}>
+    A
+  </NavDrawerButton>
+  <NavDrawerButton icon={iconSquare} selected={item == "b"} on:click={() => item = "b"}>
+    B
+  </NavDrawerButton>
+</NavDrawer>
+\`\`\`
 `;
 
 await writeFile("static/llms.txt", llmsTxt);
