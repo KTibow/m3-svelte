@@ -20,7 +20,7 @@ ${"<"}/style>`;
   import { Button } from "m3-svelte";
 ${"<"}/script>
 
-${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}/Button>`;
+${"<"}Button type="filled" on:click={() => alert("Hello world")}>Click me${"<"}/Button>`;
 </script>
 
 <p>
@@ -141,12 +141,7 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world!")}>Click me${"<"}
   It's usually simple to use components. For example, this is what it looks like to use a Button:
 </p>
 <Snippet code={componentCode3} name="Component.svelte" lang="xml" />
-<p>There are a few ways to get more info on how to use a component.</p>
-<ul>
-  <li>Click the code button on the component on the home page</li>
-  <li>Read <a href="{base}/llms.txt">the component guide</a></li>
-  <li>Check the M3 Svelte source code</li>
-</ul>
+<p>For more, the home page has a lot of demos and code examples.</p>
 
 <style>
   p {

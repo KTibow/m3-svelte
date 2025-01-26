@@ -63,7 +63,7 @@
     "@iconify/types": "^2.0.0",
     "@ktibow/iconset-material-symbols": "^0.0.1733470085",
     "@material/material-color-utilities": "^0.3.0",
-    "svelte": "^5.16.0"
+    "svelte": "^5.19.0"
   },
   "files": [
     "package"
