@@ -31,6 +31,7 @@
     gap: 0.25rem;
     padding: 0;
     border: none;
+    align-items: stretch;
     text-align: center;
 
     background-color: transparent;
