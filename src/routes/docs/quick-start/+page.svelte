@@ -37,46 +37,19 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world")}>Click me${"<"}/
         2
         <Icon icon={iconPalette} />
       </div>
-      <SegmentedButtonContainer>
-        <input
-          type="radio"
-          id="step2-stylefromscheme"
-          value="stylefromscheme"
-          name="step2"
-          bind:group={step2Page}
-        />
-        <SegmentedButtonItem input="step2-stylefromscheme">StyleFromScheme</SegmentedButtonItem>
-        <input type="radio" id="step2-manual" value="manual" name="step2" bind:group={step2Page} />
-        <SegmentedButtonItem input="step2-manual">Manual</SegmentedButtonItem>
-      </SegmentedButtonContainer>
     </div>
     <div class="text">
-      {#if step2Page == "stylefromscheme"}
-        <p>
-          <a href="{base}/theme">Copy a theme snippet</a> and paste it on your site.
-        </p>
-        <Snippet
-          code={`<script>
-  import { StyleFromScheme } from "m3-svelte";
-<${""}/script>
-
-[your theme snippet]`}
-          name="+layout.svelte or similar"
-          lang="xml"
-        />
-      {:else}
-        <p>
-          If you want to lower your bundle size, manually adding the styles is an option. While this
-          means you only send the styles once, it isn't recommended.
-        </p>
-        <p>
-          You'll need to set all the colors on <code>:root</code>, add <code>theme-color</code>
-          meta tags, and add the
-          <a href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/misc/styles.css"
-            >base styles</a
-          >.
-        </p>
-      {/if}
+      <p>
+        <a href="{base}/theme">Copy a theme snippet</a> and paste it on your site.
+      </p>
+      <Snippet
+        code={`<${""}script>
+  import "../app.css"; // Change this if you're not in SvelteKit
+</${""}script>`}
+        name="+layout.svelte, App.svelte, or similar"
+        lang="xml"
+      />
+      <Snippet code={`/* Your theme snippet */`} name="app.css" lang="css" />
     </div>
   </li>
   <li>

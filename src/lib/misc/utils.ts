@@ -110,11 +110,7 @@ export const genCSS = (light: SerializedScheme, dark: SerializedScheme) => {
   const darkColors = Object.entries(dark)
     .map(([name, argb]) => genColorVariable(name, argb))
     .join("\n");
-  const colors = `
-:root {
-  accent-color: rgb(var(--m3-scheme-primary));
-}
-@media (prefers-color-scheme: light) {
+  const colors = `@media (prefers-color-scheme: light) {
   :root {
     color-scheme: light;
   }

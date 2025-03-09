@@ -21,20 +21,14 @@ M3 Svelte needs two things to work: a theme and a font. The simplest setup looks
 ```
 
 ```css (somewhere always loaded)
+/* The style snippet you copied from https://ktibow.github.io/m3-svelte/theme goes here */
+
 :root {
   /* Any custom styles should go here */
 }
 ```
 
-```svelte (somewhere always loaded)
-<script>
-  import { StyleFromScheme } from "m3-svelte";
-</script>
-
-[snippet that you've copied from https://ktibow.github.io/m3-svelte/theme]
-```
-
-Aim to keep configuration and boilerplate out of Svelte. The only configuration that should be in Svelte is the StyleFromScheme snippet.
+Aim to keep configuration and boilerplate out of Svelte.
 
 ## Building blocks
 
@@ -351,6 +345,9 @@ Here's an example notes app:
 Here's an even more complicated example - a partial clone of the M3 documentation website, using SvelteKit:
 ```css layout.css
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* snip: theme snippet */
+
 body {
 	display: flex;
 	height: 100dvh;
@@ -373,7 +370,7 @@ img {
 
 ```svelte +layout.svelte
 <script lang="ts">
-	import { NavList, NavListButton, FAB, StyleFromScheme } from 'm3-svelte';
+	import { NavList, NavListButton, FAB } from 'm3-svelte';
 	import iconSearch from '@ktibow/iconset-material-symbols/search';
 	import iconHome from '@ktibow/iconset-material-symbols/home';
 	import iconApps from '@ktibow/iconset-material-symbols/apps';
@@ -396,7 +393,6 @@ img {
 	];
 </script>
 
-<!-- [theme snippet] -->
 <div class="nav">
 	<NavList type="auto">
 		<div class="search">

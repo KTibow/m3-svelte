@@ -1,3 +1,7 @@
+<!--
+  @component
+  @deprecated Directly set styles instead
+-->
 <script lang="ts">
   import { genCSS, type SerializedScheme } from "./utils";
 

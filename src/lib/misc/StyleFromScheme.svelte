@@ -1,3 +1,7 @@
+<!--
+  @component
+  @deprecated Directly set styles instead
+-->
 <script lang="ts">
   import type { SerializedScheme } from "./utils";
   import Styling from "./_styling.svelte";

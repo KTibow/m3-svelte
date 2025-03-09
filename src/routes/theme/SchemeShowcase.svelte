@@ -8,10 +8,10 @@
   import iconGrab from "@ktibow/iconset-material-symbols/unarchive-outline";
   import { onMount } from "svelte";
 
-  import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import ColorCard from "./ColorCard.svelte";
-  import { pairs } from "$lib/misc/utils";
+  import { styling } from "../themeStore";
+  import { genCSS, pairs } from "$lib/misc/utils";
   import { serializeScheme } from "$lib/misc/serializeScheme";
 
   export let schemeLight: DynamicScheme;
@@ -19,22 +19,17 @@
   let showDark = false;
   let grabbing = false;
 
+  $: $styling = genCSS(serializeScheme(schemeLight), serializeScheme(schemeDark));
+
   const copyUsage = () =>
-    navigator.clipboard.writeText(
-      `<StyleFromScheme
-  lightScheme={${JSON.stringify(serializeScheme(schemeLight))}}
-  darkScheme={${JSON.stringify(serializeScheme(schemeDark))}} />`,
-    );
+    navigator.clipboard.writeText(`@import url("m3-svelte/misc/styles.css");
+${$styling}`);
 
   onMount(() => {
     showDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 </script>
 
-<StyleFromScheme
-  lightScheme={serializeScheme(schemeLight)}
-  darkScheme={serializeScheme(schemeDark)}
-/>
 <div class="content">
   <h2 class="m3-font-title-large">Your scheme 🎉</h2>
   <div class="color-container">

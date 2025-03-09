@@ -1,19 +1,24 @@
 /* Needed for elevation to work */
 :root {
   --m3-util-elevation-0: none;
-  --m3-util-elevation-1: 0px 3px 1px -2px rgb(var(--m3-scheme-shadow) / 0.2),
+  --m3-util-elevation-1:
+    0px 3px 1px -2px rgb(var(--m3-scheme-shadow) / 0.2),
     0px 2px 2px 0px rgb(var(--m3-scheme-shadow) / 0.14),
     0px 1px 5px 0px rgb(var(--m3-scheme-shadow) / 0.12);
-  --m3-util-elevation-2: 0px 2px 4px -1px rgb(var(--m3-scheme-shadow) / 0.2),
+  --m3-util-elevation-2:
+    0px 2px 4px -1px rgb(var(--m3-scheme-shadow) / 0.2),
     0px 4px 5px 0px rgb(var(--m3-scheme-shadow) / 0.14),
     0px 1px 10px 0px rgb(var(--m3-scheme-shadow) / 0.12);
-  --m3-util-elevation-3: 0px 5px 5px -3px rgb(var(--m3-scheme-shadow) / 0.2),
+  --m3-util-elevation-3:
+    0px 5px 5px -3px rgb(var(--m3-scheme-shadow) / 0.2),
     0px 8px 10px 1px rgb(var(--m3-scheme-shadow) / 0.14),
     0px 3px 14px 2px rgb(var(--m3-scheme-shadow) / 0.12);
-  --m3-util-elevation-4: 0px 5px 5px -3px rgb(var(--m3-scheme-shadow) / 0.2),
+  --m3-util-elevation-4:
+    0px 5px 5px -3px rgb(var(--m3-scheme-shadow) / 0.2),
     0px 8px 10px 1px rgb(var(--m3-scheme-shadow) / 0.14),
     0px 3px 14px 2px rgb(var(--m3-scheme-shadow) / 0.12);
-  --m3-util-elevation-5: 0px 8px 10px -6px rgb(var(--m3-scheme-shadow) / 0.2),
+  --m3-util-elevation-5:
+    0px 8px 10px -6px rgb(var(--m3-scheme-shadow) / 0.2),
     0px 16px 24px 2px rgb(var(--m3-scheme-shadow) / 0.14),
     0px 6px 30px 5px rgb(var(--m3-scheme-shadow) / 0.12);
   --m3-util-bottom-offset: 0;
@@ -28,6 +33,8 @@
   --m3-util-rounding-full: 100rem;
 
   --m3-font: Roboto, system-ui, sans-serif;
+
+  accent-color: rgb(var(--m3-scheme-primary));
 }
 .m3-font-display-large,
 .m3-font-display-medium,

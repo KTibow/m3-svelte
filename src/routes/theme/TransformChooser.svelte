@@ -62,10 +62,7 @@
   </div>
   <br />
   <h2 class="m3-font-title-large">Contrast</h2>
-  <label class="contrast" for={undefined}>
-    <Slider min={0} max={6} step={1} bind:value={contrast} />
-    {contrast == 0 ? "low" : contrast == 1 ? "normal" : contrast == 2 ? "weird" : "extra"}
-  </label>
+  <Slider min={-1} max={1} step={0.05} format={(n) => n.toString()} bind:value={contrast} />
 </div>
 
 <style>

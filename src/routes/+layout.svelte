@@ -9,10 +9,9 @@
   import iconAnimationS from "@ktibow/iconset-material-symbols/animation";
   import { base } from "$app/paths";
   import { page } from "$app/stores";
-  import StyleFromScheme from "$lib/misc/StyleFromScheme.svelte";
   import NavList from "$lib/nav/NavList.svelte";
   import NavListLink from "$lib/nav/NavListLink.svelte";
-  import { currentColorScheme } from "./SchemeStore";
+  import { styling } from "./themeStore";
   import "../app.css";
 
   const paths = [
@@ -37,11 +36,7 @@
   };
 </script>
 
-<StyleFromScheme
-  lightScheme={$currentColorScheme.lightTheme}
-  darkScheme={$currentColorScheme.darkTheme}
-/>
-
+{@html `<style>${$styling}</style>`}
 <div class="container">
   <div class="sidebar">
     <NavList type="auto">

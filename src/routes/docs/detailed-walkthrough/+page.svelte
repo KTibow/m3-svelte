@@ -66,46 +66,46 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world")}>Click me${"<"}/
   <Snippet code={componentCode1} name="Component.svelte" lang="xml" />
   <p>You'll need to update your Tailwind config too:</p>
   <Snippet
-    code={`colors: {
-  "primary": "rgb(var(--m3-scheme-primary) / <alpha-value>)",
-  "on-primary": "rgb(var(--m3-scheme-on-primary) / <alpha-value>)",
-  "primary-container": "rgb(var(--m3-scheme-primary-container) / <alpha-value>)",
-  "on-primary-container": "rgb(var(--m3-scheme-on-primary-container) / <alpha-value>)",
-  "secondary": "rgb(var(--m3-scheme-secondary) / <alpha-value>)",
-  "on-secondary": "rgb(var(--m3-scheme-on-secondary) / <alpha-value>)",
-  "secondary-container": "rgb(var(--m3-scheme-secondary-container) / <alpha-value>)",
-  "on-secondary-container": "rgb(var(--m3-scheme-on-secondary-container) / <alpha-value>)",
-  "tertiary": "rgb(var(--m3-scheme-tertiary) / <alpha-value>)",
-  "on-tertiary": "rgb(var(--m3-scheme-on-tertiary) / <alpha-value>)",
-  "tertiary-container": "rgb(var(--m3-scheme-tertiary-container) / <alpha-value>)",
-  "on-tertiary-container": "rgb(var(--m3-scheme-on-tertiary-container) / <alpha-value>)",
-  "error": "rgb(var(--m3-scheme-error) / <alpha-value>)",
-  "on-error": "rgb(var(--m3-scheme-on-error) / <alpha-value>)",
-  "error-container": "rgb(var(--m3-scheme-error-container) / <alpha-value>)",
-  "on-error-container": "rgb(var(--m3-scheme-on-error-container) / <alpha-value>)",
-  "background": "rgb(var(--m3-scheme-background) / <alpha-value>)",
-  "on-background": "rgb(var(--m3-scheme-on-background) / <alpha-value>)",
-  "surface": "rgb(var(--m3-scheme-surface) / <alpha-value>)",
-  "on-surface": "rgb(var(--m3-scheme-on-surface) / <alpha-value>)",
-  "surface-variant": "rgb(var(--m3-scheme-surface-variant) / <alpha-value>)",
-  "on-surface-variant": "rgb(var(--m3-scheme-on-surface-variant) / <alpha-value>)",
-  "outline": "rgb(var(--m3-scheme-outline) / <alpha-value>)",
-  "outline-variant": "rgb(var(--m3-scheme-outline-variant) / <alpha-value>)",
-  "shadow": "rgb(var(--m3-scheme-shadow) / <alpha-value>)",
-  "scrim": "rgb(var(--m3-scheme-scrim) / <alpha-value>)",
-  "inverse-surface": "rgb(var(--m3-scheme-inverse-surface) / <alpha-value>)",
-  "inverse-on-surface": "rgb(var(--m3-scheme-inverse-on-surface) / <alpha-value>)",
-  "inverse-primary": "rgb(var(--m3-scheme-inverse-primary) / <alpha-value>)",
-  "surface-bright": "rgb(var(--m3-scheme-surface-bright) / <alpha-value>)",
-  "surface-container": "rgb(var(--m3-scheme-surface-container) / <alpha-value>)",
-  "surface-container-high": "rgb(var(--m3-scheme-surface-container-high) / <alpha-value>)",
-  "surface-container-highest": "rgb(var(--m3-scheme-surface-container-highest) / <alpha-value>)",
-  "surface-container-low": "rgb(var(--m3-scheme-surface-container-low) / <alpha-value>)",
-  "surface-container-lowest": "rgb(var(--m3-scheme-surface-container-lowest) / <alpha-value>)",
-  "surface-dim": "rgb(var(--m3-scheme-surface-dim) / <alpha-value>)",
-  "surface-tint": "rgb(var(--m3-scheme-surface-tint) / <alpha-value>)"
+    code={`@theme {
+  --color-primary: rgb(var(--m3-scheme-primary));
+  --color-on-primary: rgb(var(--m3-scheme-on-primary));
+  --color-primary-container: rgb(var(--m3-scheme-primary-container));
+  --color-on-primary-container: rgb(var(--m3-scheme-on-primary-container));
+  --color-secondary: rgb(var(--m3-scheme-secondary));
+  --color-on-secondary: rgb(var(--m3-scheme-on-secondary));
+  --color-secondary-container: rgb(var(--m3-scheme-secondary-container));
+  --color-on-secondary-container: rgb(var(--m3-scheme-on-secondary-container));
+  --color-tertiary: rgb(var(--m3-scheme-tertiary));
+  --color-on-tertiary: rgb(var(--m3-scheme-on-tertiary));
+  --color-tertiary-container: rgb(var(--m3-scheme-tertiary-container));
+  --color-on-tertiary-container: rgb(var(--m3-scheme-on-tertiary-container));
+  --color-error: rgb(var(--m3-scheme-error));
+  --color-on-error: rgb(var(--m3-scheme-on-error));
+  --color-error-container: rgb(var(--m3-scheme-error-container));
+  --color-on-error-container: rgb(var(--m3-scheme-on-error-container));
+  --color-background: rgb(var(--m3-scheme-background));
+  --color-on-background: rgb(var(--m3-scheme-on-background));
+  --color-surface: rgb(var(--m3-scheme-surface));
+  --color-on-surface: rgb(var(--m3-scheme-on-surface));
+  --color-surface-variant: rgb(var(--m3-scheme-surface-variant));
+  --color-on-surface-variant: rgb(var(--m3-scheme-on-surface-variant));
+  --color-outline: rgb(var(--m3-scheme-outline));
+  --color-outline-variant: rgb(var(--m3-scheme-outline-variant));
+  --color-shadow: rgb(var(--m3-scheme-shadow));
+  --color-scrim: rgb(var(--m3-scheme-scrim));
+  --color-inverse-surface: rgb(var(--m3-scheme-inverse-surface));
+  --color-inverse-on-surface: rgb(var(--m3-scheme-inverse-on-surface));
+  --color-inverse-primary: rgb(var(--m3-scheme-inverse-primary));
+  --color-surface-bright: rgb(var(--m3-scheme-surface-bright));
+  --color-surface-container: rgb(var(--m3-scheme-surface-container));
+  --color-surface-container-high: rgb(var(--m3-scheme-surface-container-high));
+  --color-surface-container-highest: rgb(var(--m3-scheme-surface-container-highest));
+  --color-surface-container-low: rgb(var(--m3-scheme-surface-container-low));
+  --color-surface-container-lowest: rgb(var(--m3-scheme-surface-container-lowest));
+  --color-surface-dim: rgb(var(--m3-scheme-surface-dim));
+  --color-surface-tint: rgb(var(--m3-scheme-surface-tint));
 }`}
-    name="tailwind.config.js"
+    name="app.css"
     lang="javascript"
   />
 {:else}
