@@ -10,7 +10,6 @@
 
   import Snippet from "../Snippet.svelte";
 
-  let step2Page = "stylefromscheme";
   let step3Page = "roboto";
   const componentCode = `${"<"}script>
   import { Button } from "m3-svelte";
