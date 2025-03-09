@@ -1,5 +1,5 @@
-import { DynamicScheme, MaterialDynamicColors } from "@material/material-color-utilities";
-import { colors, type SerializedScheme } from "./utils";
+import { type DynamicScheme, MaterialDynamicColors } from "@material/material-color-utilities";
+import { type SerializedScheme, colors } from "./utils";
 
 /**
  * @description Serializes the {@link DynamicScheme} so that it can be used by {@link StyleFromScheme} and {@link genCSS}.
