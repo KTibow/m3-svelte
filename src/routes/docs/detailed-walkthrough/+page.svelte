@@ -106,7 +106,7 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world")}>Click me${"<"}/
   --color-surface-tint: rgb(var(--m3-scheme-surface-tint));
 }`}
     name="app.css"
-    lang="javascript"
+    lang="css"
   />
 {:else}
   <Snippet code={componentCode2} name="Component.svelte" lang="xml" />
