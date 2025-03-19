@@ -15,8 +15,8 @@
   export let sourceColor: number;
 </script>
 
-<div style="background-color: {browser ? hexFromArgb(sourceColor) : '#000'};" class="color-disc">
-  <div class="color-text">color</div>
+<div style:background-color={browser ? hexFromArgb(sourceColor) : "#000"} class="color-disc">
+  <div class="color-text">Color</div>
   <div>
     <Button type="text" iconType="full" on:click={() => sourceColorInput.click()}>
       <Icon icon={iconColorLens} />

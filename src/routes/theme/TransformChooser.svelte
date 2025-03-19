@@ -119,10 +119,4 @@
       flex-wrap: nowrap;
     }
   }
-
-  .contrast {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
 </style>
