@@ -31,7 +31,7 @@
     background-color: rgb(var(--m3-scheme-surface-container-highest));
   }
   .type-outlined {
-    border: solid 0.0625rem rgb(var(--m3-scheme-outline));
+    border: solid 0.0625rem rgb(var(--m3-scheme-outline-variant));
   }
 
   .type-elevated {
