@@ -52,7 +52,7 @@
       class="tick"
       class:hidden={Math.abs(tick / 100 - $valueDisplayed / range) < 0.01}
       class:inactive={tick / 100 > $valueDisplayed / range}
-      style="left: calc(4px + {tick}% - {i * 2}px);"
+      style:--x={tick / 100 - 0.5}
     ></div>
   {/each}
   <div class="thumb"></div>
@@ -125,7 +125,8 @@
     height: 4px;
     border-radius: var(--m3-util-rounding-full);
     top: 50%;
-    translate: 0 -50%;
+    left: calc(50% + (100% - 0.75rem) * var(--x));
+    translate: -50% -50%;
     background-color: rgb(var(--m3-scheme-primary-container));
     pointer-events: none;
   }
