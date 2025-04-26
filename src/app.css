@@ -1,204 +1,275 @@
 @import url("$lib/misc/styles.css");
 
+@import "tailwindcss";
+
+@theme {
+    /*─────────────────────────────────────────────────────────────*/
+    /* 1) COLORS (maps to bg-*, text-*, border-*, etc.)           */
+    /*─────────────────────────────────────────────────────────────*/
+    --color-primary: rgb(var(--m3-scheme-primary));
+    --color-on-primary: rgb(var(--m3-scheme-on-primary));
+    --color-primary-container: rgb(var(--m3-scheme-primary-container));
+    --color-on-primary-container: rgb(var(--m3-scheme-on-primary-container));
+    --color-inverse-primary: rgb(var(--m3-scheme-inverse-primary));
+    --color-secondary: rgb(var(--m3-scheme-secondary));
+    --color-on-secondary: rgb(var(--m3-scheme-on-secondary));
+    --color-secondary-container: rgb(var(--m3-scheme-secondary-container));
+    --color-on-secondary-container: rgb(var(--m3-scheme-on-secondary-container));
+    --color-tertiary: rgb(var(--m3-scheme-tertiary));
+    --color-on-tertiary: rgb(var(--m3-scheme-on-tertiary));
+    --color-tertiary-container: rgb(var(--m3-scheme-tertiary-container));
+    --color-on-tertiary-container: rgb(var(--m3-scheme-on-tertiary-container));
+    --color-error: rgb(var(--m3-scheme-error));
+    --color-on-error: rgb(var(--m3-scheme-on-error));
+    --color-error-container: rgb(var(--m3-scheme-error-container));
+    --color-on-error-container: rgb(var(--m3-scheme-on-error-container));
+    --color-background: rgb(var(--m3-scheme-background));
+    --color-on-background: rgb(var(--m3-scheme-on-background));
+    --color-surface: rgb(var(--m3-scheme-surface));
+    --color-on-surface: rgb(var(--m3-scheme-on-surface));
+    --color-surface-variant: rgb(var(--m3-scheme-surface-variant));
+    --color-on-surface-variant: rgb(var(--m3-scheme-on-surface-variant));
+    --color-inverse-surface: rgb(var(--m3-scheme-inverse-surface));
+    --color-inverse-on-surface: rgb(var(--m3-scheme-inverse-on-surface));
+    --color-outline: rgb(var(--m3-scheme-outline));
+    --color-outline-variant: rgb(var(--m3-scheme-outline-variant));
+    --color-shadow: rgb(var(--m3-scheme-shadow));
+    --color-scrim: rgb(var(--m3-scheme-scrim));
+    --color-surface-dim: rgb(var(--m3-scheme-surface-dim));
+    --color-surface-bright: rgb(var(--m3-scheme-surface-bright));
+    --color-surface-container-lowest: rgb(var(--m3-scheme-surface-container-lowest));
+    --color-surface-container-low: rgb(var(--m3-scheme-surface-container-low));
+    --color-surface-container: rgb(var(--m3-scheme-surface-container));
+    --color-surface-container-high: rgb(var(--m3-scheme-surface-container-high));
+    --color-surface-container-highest: rgb(var(--m3-scheme-surface-container-highest));
+    --color-surface-tint: rgb(var(--m3-scheme-surface-tint));
+
+    /*radius*/
+
+    /*  --m3-util-rounding-extra-small: 0.25rem;
+  --m3-util-rounding-small: 0.5rem;
+  --m3-util-rounding-medium: 0.75rem;
+  --m3-util-rounding-large: 1rem;
+  --m3-util-rounding-extra-large: 1.75rem;
+  --m3-util-rounding-full: 100rem;*/
+    --radius-xs: var(--m3-util-rounding-extra-small);
+    --radius-sm: var(--m3-util-rounding-small);
+    --radius-md: var(--m3-util-rounding-medium);
+    --radius-lg: var(--m3-util-rounding-large);
+    --radius-xl: var(--m3-util-rounding-extra-large);
+    /*--radius-full: var(--m3-util-rounding-full);*/
+
+    /*─────────────────────────────────────────────────────────────*/
+    /* 2) BREAKPOINTS (maps to sm:, md:, lg:, etc.)              */
+    /*─────────────────────────────────────────────────────────────*/
+    --breakpoint-sm: 600px;
+    --breakpoint-md: 840px;
+    --breakpoint-lg: 1200px;
+    --breakpoint-xl: 1600px;
+    --breakpoint-2xl: 1600px;
+}
+
+
 body {
-  margin: 0;
-  background-color: rgb(var(--m3-scheme-background));
-  color: rgb(var(--m3-scheme-on-background));
+    margin: 0;
+    background-color: rgb(var(--m3-scheme-background));
+    color: rgb(var(--m3-scheme-on-background));
 }
 
 pre code.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 1em;
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
 }
 
 code.hljs {
-  padding: 3px 5px;
+    padding: 3px 5px;
 }
 
 @media (prefers-color-scheme: light) {
-  .hljs {
-    color: #24292e;
-    background: #ffffff;
-  }
+    .hljs {
+        color: #24292e;
+        background: #ffffff;
+    }
 
-  .hljs-doctag,
-  .hljs-keyword,
-  .hljs-meta .hljs-keyword,
-  .hljs-template-tag,
-  .hljs-template-variable,
-  .hljs-type,
-  .hljs-variable.language_ {
-    color: #d73a49;
-  }
+    .hljs-doctag,
+    .hljs-keyword,
+    .hljs-meta .hljs-keyword,
+    .hljs-template-tag,
+    .hljs-template-variable,
+    .hljs-type,
+    .hljs-variable.language_ {
+        color: #d73a49;
+    }
 
-  .hljs-title,
-  .hljs-title.class_,
-  .hljs-title.class_.inherited__,
-  .hljs-title.function_ {
-    color: #6f42c1;
-  }
+    .hljs-title,
+    .hljs-title.class_,
+    .hljs-title.class_.inherited__,
+    .hljs-title.function_ {
+        color: #6f42c1;
+    }
 
-  .hljs-attr,
-  .hljs-attribute,
-  .hljs-literal,
-  .hljs-meta,
-  .hljs-number,
-  .hljs-operator,
-  .hljs-variable,
-  .hljs-selector-attr,
-  .hljs-selector-class,
-  .hljs-selector-id {
-    color: #005cc5;
-  }
+    .hljs-attr,
+    .hljs-attribute,
+    .hljs-literal,
+    .hljs-meta,
+    .hljs-number,
+    .hljs-operator,
+    .hljs-variable,
+    .hljs-selector-attr,
+    .hljs-selector-class,
+    .hljs-selector-id {
+        color: #005cc5;
+    }
 
-  .hljs-regexp,
-  .hljs-string,
-  .hljs-meta .hljs-string {
-    color: #032f62;
-  }
+    .hljs-regexp,
+    .hljs-string,
+    .hljs-meta .hljs-string {
+        color: #032f62;
+    }
 
-  .hljs-built_in,
-  .hljs-symbol {
-    color: #e36209;
-  }
+    .hljs-built_in,
+    .hljs-symbol {
+        color: #e36209;
+    }
 
-  .hljs-comment,
-  .hljs-code,
-  .hljs-formula {
-    color: #6a737d;
-  }
+    .hljs-comment,
+    .hljs-code,
+    .hljs-formula {
+        color: #6a737d;
+    }
 
-  .hljs-name,
-  .hljs-quote,
-  .hljs-selector-tag,
-  .hljs-selector-pseudo {
-    color: #22863a;
-  }
+    .hljs-name,
+    .hljs-quote,
+    .hljs-selector-tag,
+    .hljs-selector-pseudo {
+        color: #22863a;
+    }
 
-  .hljs-subst {
-    color: #24292e;
-  }
+    .hljs-subst {
+        color: #24292e;
+    }
 
-  .hljs-section {
-    color: #005cc5;
-    font-weight: bold;
-  }
+    .hljs-section {
+        color: #005cc5;
+        font-weight: bold;
+    }
 
-  .hljs-bullet {
-    color: #735c0f;
-  }
+    .hljs-bullet {
+        color: #735c0f;
+    }
 
-  .hljs-emphasis {
-    color: #24292e;
-    font-style: italic;
-  }
+    .hljs-emphasis {
+        color: #24292e;
+        font-style: italic;
+    }
 
-  .hljs-strong {
-    color: #24292e;
-    font-weight: bold;
-  }
+    .hljs-strong {
+        color: #24292e;
+        font-weight: bold;
+    }
 
-  .hljs-addition {
-    color: #22863a;
-    background-color: #f0fff4;
-  }
+    .hljs-addition {
+        color: #22863a;
+        background-color: #f0fff4;
+    }
 
-  .hljs-deletion {
-    color: #b31d28;
-    background-color: #ffeef0;
-  }
+    .hljs-deletion {
+        color: #b31d28;
+        background-color: #ffeef0;
+    }
 }
+
 @media (prefers-color-scheme: dark) {
-  .hljs {
-    color: #c9d1d9;
-    background: #0d1117;
-  }
+    .hljs {
+        color: #c9d1d9;
+        background: #0d1117;
+    }
 
-  .hljs-doctag,
-  .hljs-keyword,
-  .hljs-meta .hljs-keyword,
-  .hljs-template-tag,
-  .hljs-template-variable,
-  .hljs-type,
-  .hljs-variable.language_ {
-    color: #ff7b72;
-  }
+    .hljs-doctag,
+    .hljs-keyword,
+    .hljs-meta .hljs-keyword,
+    .hljs-template-tag,
+    .hljs-template-variable,
+    .hljs-type,
+    .hljs-variable.language_ {
+        color: #ff7b72;
+    }
 
-  .hljs-title,
-  .hljs-title.class_,
-  .hljs-title.class_.inherited__,
-  .hljs-title.function_ {
-    color: #d2a8ff;
-  }
+    .hljs-title,
+    .hljs-title.class_,
+    .hljs-title.class_.inherited__,
+    .hljs-title.function_ {
+        color: #d2a8ff;
+    }
 
-  .hljs-attr,
-  .hljs-attribute,
-  .hljs-literal,
-  .hljs-meta,
-  .hljs-number,
-  .hljs-operator,
-  .hljs-variable,
-  .hljs-selector-attr,
-  .hljs-selector-class,
-  .hljs-selector-id {
-    color: #79c0ff;
-  }
+    .hljs-attr,
+    .hljs-attribute,
+    .hljs-literal,
+    .hljs-meta,
+    .hljs-number,
+    .hljs-operator,
+    .hljs-variable,
+    .hljs-selector-attr,
+    .hljs-selector-class,
+    .hljs-selector-id {
+        color: #79c0ff;
+    }
 
-  .hljs-regexp,
-  .hljs-string,
-  .hljs-meta .hljs-string {
-    color: #a5d6ff;
-  }
+    .hljs-regexp,
+    .hljs-string,
+    .hljs-meta .hljs-string {
+        color: #a5d6ff;
+    }
 
-  .hljs-built_in,
-  .hljs-symbol {
-    color: #ffa657;
-  }
+    .hljs-built_in,
+    .hljs-symbol {
+        color: #ffa657;
+    }
 
-  .hljs-comment,
-  .hljs-code,
-  .hljs-formula {
-    color: #8b949e;
-  }
+    .hljs-comment,
+    .hljs-code,
+    .hljs-formula {
+        color: #8b949e;
+    }
 
-  .hljs-name,
-  .hljs-quote,
-  .hljs-selector-tag,
-  .hljs-selector-pseudo {
-    color: #7ee787;
-  }
+    .hljs-name,
+    .hljs-quote,
+    .hljs-selector-tag,
+    .hljs-selector-pseudo {
+        color: #7ee787;
+    }
 
-  .hljs-subst {
-    color: #c9d1d9;
-  }
+    .hljs-subst {
+        color: #c9d1d9;
+    }
 
-  .hljs-section {
-    color: #1f6feb;
-    font-weight: bold;
-  }
+    .hljs-section {
+        color: #1f6feb;
+        font-weight: bold;
+    }
 
-  .hljs-bullet {
-    color: #f2cc60;
-  }
+    .hljs-bullet {
+        color: #f2cc60;
+    }
 
-  .hljs-emphasis {
-    color: #c9d1d9;
-    font-style: italic;
-  }
+    .hljs-emphasis {
+        color: #c9d1d9;
+        font-style: italic;
+    }
 
-  .hljs-strong {
-    color: #c9d1d9;
-    font-weight: bold;
-  }
+    .hljs-strong {
+        color: #c9d1d9;
+        font-weight: bold;
+    }
 
-  .hljs-addition {
-    color: #aff5b4;
-    background-color: #033a16;
-  }
+    .hljs-addition {
+        color: #aff5b4;
+        background-color: #033a16;
+    }
 
-  .hljs-deletion {
-    color: #ffdcd7;
-    background-color: #67060c;
-  }
+    .hljs-deletion {
+        color: #ffdcd7;
+        background-color: #67060c;
+    }
 }

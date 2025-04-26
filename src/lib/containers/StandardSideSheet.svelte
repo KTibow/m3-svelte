@@ -1,37 +1,32 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { type Snippet } from "svelte";
   import iconX from "@ktibow/iconset-material-symbols/close";
   import Button from "$lib/buttons/Button.svelte";
   import Icon from "$lib/misc/_icon.svelte";
 
-  export let headline: string;
-  export let display = "flex";
-
-  const dispatch = createEventDispatcher();
+  let { headline, children, onclose }: { headline: string, children: Snippet, onclose: () => void } = $props();
 </script>
 
-<div class="m3-container" style="display: {display};">
+<div class="m3-container flex">
   <div class="header">
     <span class="m3-font-title-large">{headline}</span>
-    <Button type="text" iconType="full" on:click={() => dispatch("close")}>
+    <Button class="text-on-surface-variant" iconType="full" type="text" onclick={() => onclose()}>
       <Icon icon={iconX} />
     </Button>
   </div>
-  <slot />
+  {@render children()}
 </div>
 
 <style>
-  .m3-container {
-    flex-direction: column;
-  }
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    .m3-container {
+        flex-direction: column;
+    }
 
-    padding: 1.5rem;
-  }
-  .header > :global(button.m3-container) {
-    color: rgb(var(--m3-scheme-on-surface-variant));
-  }
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 1.5rem;
+    }
 </style>

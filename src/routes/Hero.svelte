@@ -12,7 +12,7 @@
   }}
 />
 <div class="wrapper">
-  <div class="container" style:background-position="0 {y * 100}%">
+  <div class="containerr" style:background-position="0 {y * 100}%">
     <h1 class="m3-font-display-large">M3 Svelte</h1>
   </div>
   <div class="pills">
@@ -39,7 +39,7 @@
     gap: 1.5rem;
     padding: 6rem 0;
   }
-  .container {
+  .containerr {
     background-image: linear-gradient(
       to bottom,
       rgb(var(--m3-scheme-primary-container)),
@@ -57,7 +57,7 @@
     border-radius: 5rem;
     position: relative;
   }
-  .container h1 {
+  .containerr h1 {
     font-size: 6rem;
     margin: 0;
   }

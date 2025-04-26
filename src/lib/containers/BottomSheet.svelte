@@ -47,7 +47,7 @@
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <dialog
-  class="m3-container"
+  class="m3-container m-auto"
   style="max-height: {height}px"
   use:open
   use:outroClass
@@ -62,7 +62,7 @@
   out:heightAnim={{ easing: easeEmphasizedAccel, duration: 300 }}
 >
   <div
-    class="container"
+    class="containerr"
     bind:this={container}
     on:touchstart={(e) => {
       isDragging = true;
@@ -109,7 +109,7 @@
     background-color: transparent;
     animation: backdropReverse 400ms;
   }
-  .container {
+  .containerr {
     padding: 0 1rem;
   }
   .handle-container {

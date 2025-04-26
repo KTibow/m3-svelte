@@ -8,11 +8,14 @@
   import iconAnimation from "@ktibow/iconset-material-symbols/animation";
   import iconAnimationS from "@ktibow/iconset-material-symbols/animation";
   import { base } from "$app/paths";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import NavList from "$lib/nav/NavList.svelte";
   import NavListLink from "$lib/nav/NavListLink.svelte";
   import { styling } from "./themeStore";
   import "../app.css";
+  import type { Snippet } from "svelte";
+
+  let { children }: { children: Snippet } = $props();
 
   const paths = [
     {
@@ -29,7 +32,7 @@
     },
   ];
   const normalizePath = (path: string) => {
-    const u = new URL(path, $page.url.href);
+    const u = new URL(path, page.url.href);
     path = u.pathname;
     if (path.endsWith("/")) path = path.slice(0, -1);
     return path || "/";
@@ -37,12 +40,13 @@
 </script>
 
 {@html `<style>${$styling}</style>`}
-<div class="container">
-  <div class="sidebar">
-    <NavList type="auto">
-      <div class="items">
+<div class="flex min-h-screen flex-col-reverse sm:flex-row">
+  <div
+    class="z-20 sidebar sticky flex self-start shrink-0 bottom-0 w-full sm:w-20 sm:top-0 sm:left-0 sm:flex-col sm:min-h-screen">
+    <NavList type="auto" className="sm:flex-col grow-1 sm:justify-center">
+      <div class="contents">
         {#each paths as { path, icon, iconS, label }}
-          {@const selected = normalizePath(path) === normalizePath($page.url.pathname)}
+          {@const selected = normalizePath(path) === normalizePath(page.url.pathname)}
           <NavListLink
             type="auto"
             href={normalizePath(path)}
@@ -55,16 +59,16 @@
         <NavListLink
           type="auto"
           href={normalizePath(base + "/docs/quick-start")}
-          selected={$page.url.pathname.startsWith(base + "/docs")}
-          icon={$page.url.pathname.startsWith(base + "/docs") ? iconBookS : iconBook}
+          selected={page.url.pathname.startsWith(base + "/docs")}
+          icon={page.url.pathname.startsWith(base + "/docs") ? iconBookS : iconBook}
         >
           Docs
         </NavListLink>
         <NavListLink
           type="auto"
           href={normalizePath(base + "/transitions")}
-          selected={$page.url.pathname.startsWith(base + "/transitions")}
-          icon={$page.url.pathname.startsWith(base + "/transitions")
+          selected={page.url.pathname.startsWith(base + "/transitions")}
+          icon={page.url.pathname.startsWith(base + "/transitions")
             ? iconAnimationS
             : iconAnimation}
         >
@@ -73,67 +77,7 @@
       </div>
     </NavList>
   </div>
-  <div class="content">
-    <slot />
+  <div class="flex-grow min-w-0 p-6">
+    {@render children()}
   </div>
 </div>
-
-<style>
-  .container {
-    display: flex;
-    min-height: 100vh;
-  }
-  .sidebar {
-    position: sticky;
-    align-self: flex-start;
-    display: flex;
-    width: 5rem;
-    flex-shrink: 0;
-  }
-  .content {
-    padding: 1rem;
-  }
-  @media (width < 37.5rem) {
-    .container {
-      flex-direction: column-reverse;
-      --m3-util-bottom-offset: 5rem;
-    }
-    .sidebar {
-      bottom: 0;
-      width: 100%;
-      z-index: 3;
-    }
-    .items {
-      display: contents;
-    }
-  }
-  @media (min-width: 37.5rem) {
-    .content {
-      flex-grow: 1;
-      padding: 1.5rem;
-    }
-    .sidebar {
-      top: 0;
-      left: 0;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    .items {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      justify-content: center;
-    }
-    @media (min-height: 30rem) {
-      .items {
-        position: absolute;
-        inset: 0;
-      }
-      @media (max-height: 35rem) {
-        .items {
-          padding-top: 3.5rem;
-        }
-      }
-    }
-  }
-</style>

@@ -11,13 +11,13 @@
   };
 </script>
 
-<div class="container">
+<div class="containerr">
   <button class="m3-font-label-large left" on:click={left}>&lt;</button>
   <button class="m3-font-label-large right" on:click={right}>&gt;</button>
 </div>
 
 <style>
-  .container {
+  .containerr {
     display: flex;
     gap: 0.25rem;
     print-color-adjust: exact;

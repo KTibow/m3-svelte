@@ -1,0 +1,16 @@
+{
+    "name": "Svelte Material M3",
+    // "dockerComposeFile": "./docker-compose.yaml",
+    // "service": "app",
+    "workspaceFolder": "/app",
+    // "remoteUser": "root",
+    "forwardPorts": [
+        5173
+    ],
+    "image": "mcr.microsoft.com/devcontainers/typescript-node",
+    "runArgs": [
+       "--userns=keep-id",
+       "--security-opt=label=disable"
+        // "--ports 5173:5173"
+    ]
+}
