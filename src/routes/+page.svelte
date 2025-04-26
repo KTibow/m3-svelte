@@ -7,7 +7,6 @@
   import Doc from "./_doc.svelte";
   import Hero from "./Hero.svelte";
   import Demo0 from "./0.svelte";
-  import Demo1 from "./1.svelte";
   import Demo2 from "./2.svelte";
 
   let innerWidth: number | undefined = $state();
@@ -47,7 +46,6 @@
   <div
     class="grid gap-y-12 gap-x-6 px-4 mb-4 col-start-1 sm:[grid-template-columns:repeat(auto-fit,minmax(20rem,1fr))] sm:px-6 sm:mb-6">
     <Demo0 {showCode} />
-    <Demo1 {showCode} />
     <Demo2 {showCode} />
   </div>
   {#if doc && innerWidth != null && innerWidth >= 600}
