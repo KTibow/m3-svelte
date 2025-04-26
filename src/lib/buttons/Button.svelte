@@ -15,7 +15,6 @@
     children?: Snippet,
     //TODO handle type any
     class?: HTMLAttributes<any>["class"],
-    [key: string]: any;
   }
 
   let { as = 'button', iconType = "none", type = "elevated", disabled = false, children, class: className, onclick, ...attrs }: ButtonProps = $props();

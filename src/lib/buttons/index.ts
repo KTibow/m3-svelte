@@ -35,8 +35,8 @@ export const buttonVariants = cva(
           "[@media(screen and (forced-colors:active))]:opacity-38",
           "enabled:bg-surface-container-low",
           "enabled:text-primary",
-          "enabled:shadow-(--m3-util-elevation-1)",
-          "enabled:hover:shadow-(--m3-util-elevation-2)",
+          "enabled:shadow-elevation-1",
+          "enabled:hover:shadow-elevation-2",
         ],
         filled: [
           "[@media(screen and (forced-colors:active))]:bg-transparent",
@@ -44,7 +44,7 @@ export const buttonVariants = cva(
           "[@media(screen and (forced-colors:active))]:opacity-38",
           "enabled:bg-primary",
           "enabled:text-on-primary",
-          "enabled:hover:shadow-(--m3-util-elevation-1)",
+          "enabled:hover:shadow-elevation-1",
         ],
         tonal: [
           "[@media(screen and (forced-colors:active))]:bg-transparent",
@@ -52,7 +52,7 @@ export const buttonVariants = cva(
           "[@media(screen and (forced-colors:active))]:opacity-38",
           "enabled:bg-secondary-container",
           "enabled:text-on-secondary-container",
-          "enabled:hover:shadow-(--m3-util-elevation-1)",
+          "enabled:hover:shadow-elevation-1",
         ],
         outlined: [
           "disabled:bg-transparent",

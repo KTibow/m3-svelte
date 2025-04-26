@@ -67,6 +67,12 @@
     --breakpoint-lg: 1200px;
     --breakpoint-xl: 1600px;
     --breakpoint-2xl: 1600px;
+
+    --shadow-elevation-1: var(--m3-util-elevation-1);
+    --shadow-elevation-2: var(--m3-util-elevation-2);
+    --shadow-elevation-3: var(--m3-util-elevation-3);
+    --shadow-elevation-4: var(--m3-util-elevation-4);
+    --shadow-elevation-5: var(--m3-util-elevation-5);
 }
 
 
