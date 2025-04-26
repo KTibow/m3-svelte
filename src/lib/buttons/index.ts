@@ -101,3 +101,66 @@ export const buttonVariants = cva(
 );
 
 export type ButtonVariantProps = VariantProps<typeof buttonVariants>;
+
+export const fabVariants = cva(
+  [
+    "box-border",
+    "inline-flex",
+    //"border-none",
+    "relative",
+    "overflow-hidden",
+    "items-center",
+    "justify-center",
+    "cursor-pointer",
+    "transition-all",
+    "duration-200",
+    "forced-colors:outline-[0.25rem_solid]",
+    // -webkit-tap-highlight-color.
+  ],
+  {
+    variants: {
+      size: {
+        small: ["h-10", "p-2", "gap-2", "rounded-sm", "[&>svg]:w-6", "[&>svg]:h-6"],
+        normal: ["h-14", "p-4", "gap-3", "rounded-lg", "[&>svg]:w-6", "[&>svg]:h-6"],
+        large: [
+          "h-24",
+          "p-[1.875rem]",
+          "gap-[1.875rem]",
+          "rounded-xl",
+          "[&>svg]:w-9",
+          "[&>svg]:h-9",
+        ],
+      },
+
+      elevation: {
+        normal: ["shadow-elevation-3", "hover:shadow-elevation-4"],
+        lowered: ["shadow-elevation-1", "hover:shadow-elevation-2"],
+        none: [],
+      },
+      // know this should be classes props
+      color: {
+        primary: ["bg-primary-container", "text-on-primary-container"],
+        surface: ["bg-surface-container-low", "text-primary"],
+        secondary: ["bg-secondary-container", "text-on-secondary-container"],
+        tertiary: ["bg-tertiary-container", "text-on-tertiary-container"],
+      },
+    },
+
+    compoundVariants: [
+      // Compound variant for surface color with normal elevation
+      {
+        color: "surface",
+        elevation: "normal",
+        class: "bg-surface-container-high", // Apply specific background for this combination
+      },
+    ],
+
+    defaultVariants: {
+      size: "normal",
+      elevation: "normal",
+      color: "surface", // Defaulting to surface based on common FAB usage and presence in CSS
+    },
+  },
+);
+
+export type FABVariantProps = VariantProps<typeof fabVariants>;
