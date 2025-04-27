@@ -25,8 +25,8 @@
     background-color: rgb(var(--m3-scheme-inverse-surface));
     color: rgb(var(--m3-scheme-inverse-on-surface));
     animation:
-      snackbarIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1),
-      opacity 100ms cubic-bezier(0.05, 0.7, 0.1, 1);
+      snackbarIn 500ms var(--m3-easing-decel),
+      opacity 100ms var(--m3-easing-decel);
   }
   /*@TODO: Fix animation with different shaping or something*/
   @keyframes snackbarIn {

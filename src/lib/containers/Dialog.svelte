@@ -117,8 +117,8 @@
     visibility: visible;
     pointer-events: auto;
     animation:
-      dialogIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1),
-      opacity 100ms cubic-bezier(0.05, 0.7, 0.1, 1);
+      dialogIn 500ms var(--m3-easing-decel),
+      opacity 100ms var(--m3-easing-decel);
   }
   dialog[open] .headline {
     animation: opacity 150ms;
@@ -129,7 +129,7 @@
   dialog[open] .buttons {
     position: relative;
     animation:
-      buttonsIn 0.5s cubic-bezier(0.05, 0.7, 0.1, 1),
+      buttonsIn 500ms var(--m3-easing-decel),
       opacity 200ms 100ms backwards;
   }
   dialog::backdrop {
