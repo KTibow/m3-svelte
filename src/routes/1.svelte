@@ -21,7 +21,7 @@ ${"<"}/SegmentedButtonContainer>`;
 const relevantLinks = [{"title":"SegmentedButtonContainer.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/SegmentedButtonContainer.svelte"},{"title":"SegmentedButtonItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/SegmentedButtonItem.svelte"}];
 </script>
 
-<InternalCard title="Segmented Button" on:showCode={() => dispatch("showCode", { name: "Segmented Button", minimalDemo, relevantLinks })}>
+<InternalCard title="Segmented button" on:showCode={() => dispatch("showCode", { name: "Segmented button", minimalDemo, relevantLinks })}>
 <label>
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}

@@ -50,7 +50,7 @@ let link = false;
 </div>
 ```
 
-## Segmented Button
+## Segmented button
 
 Minimal demo:
 
@@ -302,7 +302,7 @@ let icons = false;
 </Menu>
 ```
 
-## Bottom Sheet
+## Bottom sheet
 
 Minimal demo:
 

@@ -18,7 +18,7 @@ const minimalDemo = `{#if open}
 const relevantLinks = [{"title":"BottomSheet.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/BottomSheet.svelte"}];
 </script>
 
-<InternalCard title="Bottom Sheet" on:showCode={() => dispatch("showCode", { name: "Bottom Sheet", minimalDemo, relevantLinks })}>
+<InternalCard title="Bottom sheet" on:showCode={() => dispatch("showCode", { name: "Bottom sheet", minimalDemo, relevantLinks })}>
 <div slot="demo">
   <Button type="tonal" on:click={() => (open = true)}>Open</Button>
   {#if open}

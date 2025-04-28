@@ -598,7 +598,7 @@ let link = false;` to make this demo:
 </div>
 ```
 
-### Segmented Button
+### Segmented button
 
 Minimal demo:
 ```svelte
@@ -793,7 +793,7 @@ The M3 Svelte interactive demo for this component uses Menu, MenuItem with the T
 </Menu>
 ```
 
-### Bottom Sheet
+### Bottom sheet
 
 Minimal demo:
 ```svelte
