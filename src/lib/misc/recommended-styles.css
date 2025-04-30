@@ -34,6 +34,6 @@
   opacity: 1;
 }
 ::selection {
-  background-color: rgb(var(--m3-scheme-tertiary));
-  color: rgb(var(--m3-scheme-on-tertiary));
+  background-color: rgb(var(--m3-scheme-tertiary-container));
+  color: rgb(var(--m3-scheme-on-tertiary-container));
 }
