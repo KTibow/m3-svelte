@@ -1,0 +1,39 @@
+:root {
+  --m3-util-refocus: refocus-one 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
+}
+:focus-visible:not(.focus-inset, .focus-none) {
+  animation: var(--m3-util-refocus);
+  outline: none;
+}
+:focus-visible:is(.focus-inset):not(.focus-none) {
+  animation: refocus-simple 0.3s forwards cubic-bezier(0.05, 0.7, 0.1, 1);
+  outline: none;
+}
+:focus-visible.focus-none {
+  outline: none;
+}
+@keyframes refocus-one {
+  0% {
+    box-shadow: 0 0 0 0px rgb(var(--m3-scheme-primary));
+  }
+  100% {
+    box-shadow: 0 0 0 3px rgb(var(--m3-scheme-primary));
+  }
+}
+@keyframes refocus-simple {
+  0% {
+    box-shadow: inset 0 0 0 0px rgb(var(--m3-scheme-primary));
+  }
+  100% {
+    box-shadow: inset 0 0 0 3px rgb(var(--m3-scheme-primary));
+  }
+}
+
+::placeholder {
+  color: rgb(var(--m3-scheme-on-background) / 0.5);
+  opacity: 1;
+}
+::selection {
+  background-color: rgb(var(--m3-scheme-tertiary));
+  color: rgb(var(--m3-scheme-on-tertiary));
+}

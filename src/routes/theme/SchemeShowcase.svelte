@@ -23,6 +23,7 @@
 
   const copyUsage = () =>
     navigator.clipboard.writeText(`@import url("m3-svelte/misc/styles.css");
+@import url("m3-svelte/misc/recommended-styles.css");
 ${$styling}`);
 
   onMount(() => {

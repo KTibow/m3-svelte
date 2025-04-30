@@ -99,7 +99,7 @@
     transition: all 200ms;
   }
   input:focus-visible + label {
-    outline: 2px solid rgb(var(--m3-scheme-primary));
+    animation: var(--m3-util-refocus);
   }
   input:checked + label {
     border-radius: 1rem;

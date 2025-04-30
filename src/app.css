@@ -1,4 +1,5 @@
 @import url("$lib/misc/styles.css");
+@import url("$lib/misc/recommended-styles.css");
 
 body {
   margin: 0;

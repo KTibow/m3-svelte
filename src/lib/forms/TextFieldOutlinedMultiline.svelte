@@ -39,7 +39,7 @@
   {...extraWrapperOptions}
 >
   <textarea
-    class="m3-font-body-large"
+    class="focus-none m3-font-body-large"
     placeholder=" "
     bind:value
     {id}
