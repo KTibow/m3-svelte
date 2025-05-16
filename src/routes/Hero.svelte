@@ -1,32 +1,15 @@
 <script>
+  import iconSpeed from "@ktibow/iconset-material-symbols/blur-medium-rounded";
   import Icon from "$lib/misc/_icon.svelte";
-  import iconBook from "@ktibow/iconset-material-symbols/book-2-rounded";
-  import iconRocket from "@ktibow/iconset-material-symbols/rocket-outline";
-  import iconChecks from "@ktibow/iconset-material-symbols/done-all";
-  let y = 0;
+  import Branding from "./Branding.svelte";
 </script>
 
-<svelte:window
-  on:mousemove={(e) => {
-    y = e.clientY / window.innerHeight;
-  }}
-/>
 <div class="wrapper">
-  <div class="container" style:background-position="0 {y * 100}%">
-    <h1 class="m3-font-display-large">M3 Svelte</h1>
-  </div>
+  <Branding />
   <div class="pills">
     <div class="pill m3-font-label-large">
-      <Icon icon={iconBook} />
-      New component browsing experience
-    </div>
-    <div class="pill m3-font-label-large">
-      <Icon icon={iconRocket} />
-      Fast with minimal code
-    </div>
-    <div class="pill m3-font-label-large">
-      <Icon icon={iconChecks} />
-      Robust across environments
+      <Icon icon={iconSpeed} />
+      Material 3 Expressive coming soon
     </div>
   </div>
 </div>
@@ -38,28 +21,6 @@
     align-items: center;
     gap: 1.5rem;
     padding: 6rem 0;
-  }
-  .container {
-    background-image: linear-gradient(
-      to bottom,
-      rgb(var(--m3-scheme-primary-container)),
-      rgb(var(--m3-scheme-tertiary-container))
-    );
-    background-size: 100% 200%;
-    color: rgb(var(--m3-scheme-on-primary-container));
-
-    display: flex;
-    align-items: center;
-    text-align: center;
-    min-height: 10rem;
-
-    padding: 0 3rem;
-    border-radius: 5rem;
-    position: relative;
-  }
-  .container h1 {
-    font-size: 6rem;
-    margin: 0;
   }
   .pills {
     display: flex;
