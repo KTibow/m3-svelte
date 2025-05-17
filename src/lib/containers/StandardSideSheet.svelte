@@ -1,24 +1,24 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import type { Snippet } from "svelte";
   import iconX from "@ktibow/iconset-material-symbols/close";
   import Button from "$lib/buttons/Button.svelte";
   import Icon from "$lib/misc/_icon.svelte";
 
-  interface Props {
+  let {
+    headline,
+    children,
+    close,
+  }: {
     headline: string;
-    display?: string;
-    children?: import("svelte").Snippet;
-  }
-
-  let { headline, display = "flex", children }: Props = $props();
-
-  const dispatch = createEventDispatcher();
+    children: Snippet;
+    close: () => void;
+  } = $props();
 </script>
 
-<div class="m3-container" style="display: {display};">
+<div class="m3-container">
   <div class="header">
     <span class="m3-font-title-large">{headline}</span>
-    <Button type="text" iconType="full" on:click={() => dispatch("close")}>
+    <Button type="text" iconType="full" click={close}>
       <Icon icon={iconX} />
     </Button>
   </div>
@@ -27,6 +27,7 @@
 
 <style>
   .m3-container {
+    display: flex;
     flex-direction: column;
   }
   .header {

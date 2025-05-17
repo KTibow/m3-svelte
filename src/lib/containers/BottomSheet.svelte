@@ -1,22 +1,17 @@
 <script lang="ts">
-  import { run, preventDefault, self } from "svelte/legacy";
-
-  import { createEventDispatcher } from "svelte";
+  import type { Snippet } from "svelte";
   import type { TransitionConfig } from "svelte/transition";
   import { easeEmphasizedAccel, easeEmphasizedDecel } from "$lib/misc/easing";
   import { outroClass } from "$lib/misc/animation";
-  interface Props {
-    children?: import("svelte").Snippet;
-  }
 
-  let { children }: Props = $props();
+  let { children, close }: { children: Snippet; close: (reason: "esc" | "click" | "low") => void } =
+    $props();
 
   let height = $state(480);
-  let container: HTMLDivElement = $state();
+  let container: HTMLDivElement | undefined = $state();
   let isDragging = $state(false),
     startY = $state(0);
 
-  const dispatch = createEventDispatcher();
   const open = (node: HTMLDialogElement) => node.showModal();
   const heightAnim = (
     node: HTMLDialogElement,
@@ -32,6 +27,7 @@
   };
 
   const moveWheel = (e: WheelEvent) => {
+    e.preventDefault();
     height += e.deltaY;
     if (container && container.clientHeight < height) height = container.clientHeight;
   };
@@ -42,8 +38,8 @@
       startY = e.clientY;
     }
   };
-  run(() => {
-    if (height < 48) dispatch("close", "low");
+  $effect(() => {
+    if (height < 48) close("low");
   });
 </script>
 
@@ -60,13 +56,15 @@
   style="max-height: {height}px"
   use:open
   use:outroClass
-  oncancel={preventDefault(() => {
-    dispatch("close", "browser");
-  })}
-  onmousedown={self(() => {
-    dispatch("close", "click");
-  })}
-  onwheel={preventDefault(moveWheel)}
+  oncancel={(e) => {
+    e.preventDefault();
+    close("esc");
+  }}
+  onmousedown={(e) => {
+    if (e.target != e.currentTarget) return;
+    close("click");
+  }}
+  onwheel={moveWheel}
   in:heightAnim
   out:heightAnim={{ easing: easeEmphasizedAccel, duration: 300 }}
 >
@@ -81,10 +79,11 @@
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
       class="handle-container"
-      onmousedown={preventDefault((e) => {
+      onmousedown={(e) => {
+        e.preventDefault();
         isDragging = true;
         startY = e.clientY;
-      })}
+      }}
     >
       <div class="handle"></div>
     </div>

@@ -1,37 +1,33 @@
 <script lang="ts">
-  import { self } from "svelte/legacy";
-
-  import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
-  import { createEventDispatcher } from "svelte";
   import type { HTMLDialogAttributes } from "svelte/elements";
-
-  interface Props {
-    display?: string;
-    extraOptions?: HTMLDialogAttributes;
-    icon?: IconifyIcon | undefined;
-    headline: string;
-    open: boolean;
-    closeOnEsc?: boolean;
-    closeOnClick?: boolean;
-    children?: import("svelte").Snippet;
-    buttons?: import("svelte").Snippet;
-  }
+  import type { Snippet } from "svelte";
+  import Icon from "$lib/misc/_icon.svelte";
 
   let {
-    display = "flex",
-    extraOptions = {},
     icon = undefined,
     headline,
+    buttons,
+    children,
     open = $bindable(),
     closeOnEsc = true,
     closeOnClick = true,
-    children,
-    buttons,
-  }: Props = $props();
+    onEsc,
+    onClick,
+    ...extra
+  }: {
+    icon?: IconifyIcon | undefined;
+    headline: string;
+    buttons: Snippet;
+    children: Snippet;
+    open: boolean;
+    closeOnEsc?: boolean;
+    closeOnClick?: boolean;
+    onEsc?: () => void;
+    onClick?: () => void;
+  } & HTMLDialogAttributes = $props();
 
-  const dispatch = createEventDispatcher();
-  let dialog: HTMLDialogElement = $state();
+  let dialog: HTMLDialogElement | undefined = $state();
   $effect(() => {
     if (!dialog) return;
     if (open) dialog.showModal();
@@ -43,21 +39,21 @@
 <dialog
   oncancel={(e) => {
     if (closeOnEsc) {
-      dispatch("closedByEsc");
+      onEsc?.();
       open = false;
     } else {
       e.preventDefault();
     }
   }}
-  onclick={self(() => {
+  onclick={(e) => {
+    if (e.target != e.currentTarget) return;
     if (closeOnClick) {
-      dispatch("closedByClick");
+      onClick?.();
       open = false;
     }
-  })}
+  }}
   bind:this={dialog}
-  style="display: {display};"
-  {...extraOptions}
+  {...extra}
 >
   <div class="m3-container">
     {#if icon}
@@ -65,10 +61,10 @@
     {/if}
     <p class="headline m3-font-headline-small" class:center={icon}>{headline}</p>
     <div class="content m3-font-body-medium">
-      {@render children?.()}
+      {@render children()}
     </div>
     <div class="buttons">
-      {@render buttons?.()}
+      {@render buttons()}
     </div>
   </div>
 </dialog>
@@ -78,6 +74,7 @@
     --m3-dialog-shape: var(--m3-util-rounding-extra-large);
   }
   dialog {
+    display: flex;
     background-color: rgb(var(--m3-scheme-surface-container-high));
     border: none;
     border-radius: var(--m3-dialog-shape);

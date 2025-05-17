@@ -1,21 +1,23 @@
 <script lang="ts">
-  import { createBubbler } from "svelte/legacy";
-
-  const bubble = createBubbler();
+  import type { Snippet } from "svelte";
+  import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  import type { IconifyIcon } from "@iconify/types";
 
-  interface Props {
+  let {
+    icon = undefined,
+    disabled = false,
+    click,
+    children,
+  }: {
     icon?: IconifyIcon | "space" | undefined;
     disabled?: boolean;
-    children?: import("svelte").Snippet;
-  }
-
-  let { icon = undefined, disabled = false, children }: Props = $props();
+    click: () => void;
+    children: Snippet;
+  } = $props();
 </script>
 
-<button class="item m3-font-label-large" {disabled} onclick={bubble("click")}>
+<button class="item m3-font-label-large" {disabled} onclick={click}>
   <Layer />
   {#if icon == "space"}
     <span class="icon"></span>
@@ -24,7 +26,7 @@
       <Icon {icon} />
     </span>
   {/if}
-  {@render children?.()}
+  {@render children()}
 </button>
 
 <style>

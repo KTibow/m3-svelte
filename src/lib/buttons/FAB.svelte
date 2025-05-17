@@ -1,42 +1,41 @@
 <script lang="ts">
-  import { run, createBubbler } from "svelte/legacy";
-
-  const bubble = createBubbler();
   import type { HTMLButtonAttributes } from "svelte/elements";
-  import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
+  import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
-  interface Props {
-    display?: string;
-    extraOptions?: HTMLButtonAttributes;
-    color?: "primary" | "surface" | "secondary" | "tertiary";
-    size?: "small" | "normal" | "large";
-    elevation?: "normal" | "lowered" | "none";
-    icon?: IconifyIcon | undefined;
-    text?: string | undefined;
-  }
+  type ContentProps =
+    | {
+        size?: "normal";
+        icon?: IconifyIcon;
+        text: string;
+      }
+    | {
+        size?: "small" | "normal" | "large";
+        icon: IconifyIcon;
+        text?: undefined;
+      };
 
   let {
-    display = "inline-flex",
-    extraOptions = {},
     color = "primary",
-    size = "normal",
     elevation = "normal",
+    click,
+    size = "normal",
     icon = undefined,
     text = undefined,
-  }: Props = $props();
-  run(() => {
-    if (!icon && !text) console.warn("you need at least something in a FAB");
-    if (size != "normal" && text) console.warn("extended fabs are supposed to use size normal");
-  });
+    ...extra
+  }: {
+    color?: "primary" | "surface" | "secondary" | "tertiary";
+    elevation?: "normal" | "lowered" | "none";
+    click: () => void;
+  } & ContentProps &
+    HTMLButtonAttributes = $props();
 </script>
 
 <button
-  onclick={bubble("click")}
+  onclick={click}
   class="m3-container m3-font-label-large color-{color} size-{size} elevation-{elevation}"
-  style="display: {display};"
-  {...extraOptions}
+  {...extra}
 >
   <Layer />
   {#if icon}
@@ -54,6 +53,7 @@
     --m3-fab-large-shape: var(--m3-util-rounding-extra-large);
   }
   button {
+    display: inline-flex;
     border: none;
     position: relative;
     overflow: hidden;

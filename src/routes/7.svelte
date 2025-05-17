@@ -14,22 +14,22 @@ let open = false;
 const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}Dialog headline="Hello" bind:open>
   I'm alive
-  ${"<"}svelte:fragment slot="buttons">
-    ${"<"}Button type="tonal" on:click={() => (open = false)}>OK${"<"}/Button>
-  ${"<"}/svelte:fragment>
+  {#snippet buttons()}
+    ${"<"}Button type="tonal" click={() => (open = false)}>OK${"<"}/Button>
+  {/snippet}
 ${"<"}/Dialog>`;
 const relevantLinks = [{"title":"Dialog.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Dialog.svelte"}];
 </script>
 
 <InternalCard title="Dialog" on:showCode={() => dispatch("showCode", { name: "Dialog", minimalDemo, relevantLinks })}>
 <div slot="demo">
-  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
+  <Button type="tonal" click={() => (open = true)}>Open</Button>
   <Dialog icon={iconCircle} headline="Hello" bind:open>
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
     ZomboCom! The unattainable is unknown at ZomboCom!
-    <svelte:fragment slot="buttons">
-      <Button type="tonal" on:click={() => (open = false)}>OK</Button>
-    </svelte:fragment>
+    {#snippet buttons()}
+      <Button type="tonal" click={() => (open = false)}>OK</Button>
+    {/snippet}
   </Dialog>
 </div>
 </InternalCard>

@@ -1,27 +1,20 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import type { HTMLLabelAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
-  interface Props {
-    display?: string;
-    extraOptions?: HTMLLabelAttributes;
-    input: string;
-    icon?: IconifyIcon | undefined;
-    children?: import("svelte").Snippet;
-  }
-
-  let { display = "flex", extraOptions = {}, input, icon = undefined, children }: Props = $props();
+  let {
+    input,
+    icon = undefined,
+    children,
+    ...extra
+  }: { input: string; icon?: IconifyIcon; children: Snippet } & HTMLLabelAttributes = $props();
 </script>
 
-<label
-  for={input}
-  class="m3-font-label-large"
-  style="display: {display}; overflow: hidden;"
-  {...extraOptions}
->
+<label for={input} class="m3-font-label-large" {...extra}>
   <Layer />
   {#if icon}
     <div class="custom icon">
@@ -32,7 +25,7 @@
     <Icon icon={iconCheck} />
   </div>
   <div class="start-pad pad"></div>
-  {@render children?.()}
+  {@render children()}
   {#if !icon}
     <div class="end-pad pad"></div>
   {/if}
@@ -40,6 +33,7 @@
 
 <style>
   label {
+    display: flex;
     padding: 0 1rem;
     /* flex: 1; */
     min-width: 3rem;
@@ -53,6 +47,7 @@
     white-space: nowrap;
     user-select: none;
     position: relative;
+    overflow: hidden;
   }
   :global(label) ~ label {
     border-left: 0.0625rem solid rgb(var(--m3-scheme-outline));

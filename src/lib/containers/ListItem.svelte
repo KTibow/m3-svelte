@@ -1,34 +1,37 @@
 <script lang="ts">
-  import type { HTMLAttributes } from "svelte/elements";
+  import type { Snippet } from "svelte";
+  import type { HTMLAttributes, HTMLButtonAttributes, HTMLLabelAttributes } from "svelte/elements";
+  import Layer from "$lib/misc/Layer.svelte";
 
-  interface Props {
-    display?: string;
-    extraOptions?: HTMLAttributes<HTMLDivElement>;
+  type ActionProps =
+    | HTMLAttributes<HTMLDivElement>
+    | ({ click: () => void } & HTMLButtonAttributes)
+    | ({ label: true } & HTMLLabelAttributes);
+
+  let props: {
+    leading?: Snippet;
     overline?: string;
     headline?: string;
     supporting?: string;
-    lines?: number | undefined;
-    leading?: import("svelte").Snippet;
-    trailing?: import("svelte").Snippet;
-  }
-
-  let {
-    display = "flex",
-    extraOptions = {},
-    overline = "",
-    headline = "",
-    supporting = "",
-    lines = undefined,
-    leading,
-    trailing,
-  }: Props = $props();
-  let _lines = $derived(lines || (overline && supporting ? 3 : overline || supporting ? 2 : 1));
+    trailing?: Snippet;
+    lines?: number;
+  } & ActionProps = $props();
+  let _lines = $derived(
+    props.lines ||
+      (props.overline && props.supporting ? 3 : props.overline || props.supporting ? 2 : 1),
+  );
 </script>
 
-<div class="m3-container lines-{_lines}" style="display: {display}" {...extraOptions}>
+{#snippet content(
+  leading: Snippet | undefined,
+  overline: string,
+  headline: string,
+  supporting: string,
+  trailing: Snippet | undefined,
+)}
   {#if leading}
     <div class="leading">
-      {@render leading?.()}
+      {@render leading()}
     </div>
   {/if}
   <div class="body">
@@ -42,16 +45,59 @@
   </div>
   {#if trailing}
     <div class="trailing m3-font-label-small">
-      {@render trailing?.()}
+      {@render trailing()}
     </div>
   {/if}
-</div>
+{/snippet}
+
+{#if "label" in props}
+  {@const {
+    leading,
+    overline = "",
+    headline = "",
+    supporting = "",
+    trailing,
+    label,
+    ...extra
+  } = props}
+  <label class="m3-container lines-{_lines}" {...extra}>
+    <Layer />
+    {@render content(leading, overline, headline, supporting, trailing)}
+  </label>
+{:else if "click" in props}
+  {@const {
+    leading,
+    overline = "",
+    headline = "",
+    supporting = "",
+    trailing,
+    click,
+    ...extra
+  } = props}
+  <button class="m3-container lines-{_lines}" onclick={click} {...extra}>
+    <Layer />
+    {@render content(leading, overline, headline, supporting, trailing)}
+  </button>
+{:else}
+  {@const { leading, overline = "", headline = "", supporting = "", trailing, ...extra } = props}
+  <div class="m3-container lines-{_lines}" {...extra}>
+    {@render content(leading, overline, headline, supporting, trailing)}
+  </div>
+{/if}
 
 <style>
   .m3-container {
+    display: flex;
     padding: 0.5rem 1.5rem 0.5rem 1rem;
     align-items: center;
     gap: 1rem;
+
+    text-align: inherit;
+    border: none;
+    position: relative;
+    background: transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   .lines-1 {
     height: 3.5rem;

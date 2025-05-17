@@ -4,27 +4,18 @@
   import Layer from "$lib/misc/Layer.svelte";
 
   type ActionProps =
-    | ({ click: () => void; disabled?: boolean } & Omit<
-        HTMLButtonAttributes,
-        "type" | "disabled" | "children"
-      >)
-    | ({ href: string } & Omit<HTMLAnchorAttributes, "type" | "disabled" | "children">);
+    | ({ click: () => void; disabled?: boolean } & Omit<HTMLButtonAttributes, "type">)
+    | ({ href: string } & HTMLAnchorAttributes);
   type Props = {
     type: "elevated" | "filled" | "tonal" | "outlined" | "text";
     iconType?: "none" | "left" | "full";
-    children?: Snippet;
+    children: Snippet;
   } & ActionProps;
 
   let props: Props = $props();
 </script>
 
-{#if "href" in props}
-  {@const { type, href, iconType = "none", children, ...extra } = props}
-  <a {href} class="m3-container m3-font-label-large {type} icon-{iconType}" {...extra}>
-    <Layer />
-    {@render children?.()}
-  </a>
-{:else}
+{#if "click" in props}
   {@const { type, click, disabled, iconType = "none", children, ...extra } = props}
   <button
     onclick={click}
@@ -33,8 +24,14 @@
     {...extra}
   >
     <Layer />
-    {@render children?.()}
+    {@render children()}
   </button>
+{:else}
+  {@const { type, href, iconType = "none", children, ...extra } = props}
+  <a {href} class="m3-container m3-font-label-large {type} icon-{iconType}" {...extra}>
+    <Layer />
+    {@render children()}
+  </a>
 {/if}
 
 <style>

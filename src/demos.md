@@ -3,7 +3,7 @@
 Minimal demo:
 
 ```svelte
-<Button type="elevated" on:click={() => alert("!")}>Hello</Button>
+<Button type="elevated" click={() => alert("!")}>Hello</Button>
 ```
 
 Full demo:
@@ -39,7 +39,7 @@ let link = false;
 <div slot="demo">
   <Button
     {type}
-    {...(link ? { href: "https://example.com"} : { click: () => {}, disabled: !enabled })}
+    {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
     {iconType}
   >
     {#if iconType == "none"}
@@ -110,7 +110,7 @@ let multiselect = false;
 Minimal demo:
 
 ```svelte
-<FAB color="primary" icon={iconCircle} on:click={() => alert("!")} />
+<FAB color="primary" icon={iconCircle} click={() => alert("!")} />
 ```
 
 Full demo:
@@ -136,9 +136,9 @@ let size: "small" | "normal" | "large" | "extended" = "normal";
 <div slot="demo">
   <FAB
     {color}
-    size={size == "extended" ? "normal" : size}
+    click={() => {}}
+    {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
     icon={iconCircle}
-    text={size == "extended" ? "Hello" : undefined}
   />
 </div>
 ```
@@ -149,14 +149,13 @@ Minimal demo:
 
 ```svelte
 <Card type="filled">Hello</Card>
-<CardClickable type="filled" on:click={() => alert("!")}>Hello</CardClickable>
+<Card type="filled" click={() => alert("!")}>Hello</Card>
 ```
 
 Full demo:
 
 ```use
 Card
-CardClickable
 ```
 
 ```ts
@@ -174,11 +173,7 @@ let clickable = false;
   {clickable ? "Clickable" : "Not clickable"}
 </label>
 <div slot="demo">
-  {#if clickable}
-    <CardClickable {type}>Hello</CardClickable>
-  {:else}
-    <Card {type}>Hello</Card>
-  {/if}
+  <Card {...clickable ? { click: () => {} } : {}} {type}>Hello</Card>
 </div>
 ```
 
@@ -197,8 +192,6 @@ Full demo:
 
 ```use
 ListItem
-ListItemButton
-ListItemLabel
 Checkbox
 Divider
 ```
@@ -235,23 +228,21 @@ $: supporting =
       <Icon icon={iconCircle} />
     {/if}
   {/snippet}
-  <svelte:component
-    this={type == "div" ? ListItem : type == "button" ? ListItemButton : ListItemLabel}
+  <ListItem
+    {leading}
     {headline}
     {supporting}
     lines={+lines}
-  >
-    <svelte:fragment slot="leading">{@render leading()}</svelte:fragment>
-  </svelte:component>
+    {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+  />
   <Divider />
-  <svelte:component
-    this={type == "div" ? ListItem : type == "button" ? ListItemButton : ListItemLabel}
+  <ListItem
+    {leading}
     {headline}
     {supporting}
     lines={+lines}
-  >
-    <svelte:fragment slot="leading">{@render leading()}</svelte:fragment>
-  </svelte:component>
+    {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+  />
 </div>
 
 <style>
@@ -299,9 +290,9 @@ let icons = false;
   {icons ? "Icons" : "No icons"}
 </label>
 <Menu slot="demo">
-  <MenuItem icon={icons ? iconCircle : undefined}>Cut</MenuItem>
-  <MenuItem icon={icons ? iconSquare : undefined}>Undo</MenuItem>
-  <MenuItem icon={icons ? iconTriangle : undefined} disabled>Redo</MenuItem>
+  <MenuItem icon={icons ? iconCircle : undefined} click={() => {}}>Cut</MenuItem>
+  <MenuItem icon={icons ? iconSquare : undefined} click={() => {}}>Undo</MenuItem>
+  <MenuItem icon={icons ? iconTriangle : undefined} disabled click={() => {}}>Redo</MenuItem>
 </Menu>
 ```
 
@@ -311,7 +302,7 @@ Minimal demo:
 
 ```svelte
 {#if open}
-  <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
+  <BottomSheet close={() => (open = false)}>Hello</BottomSheet>
 {/if}
 ```
 
@@ -328,9 +319,11 @@ let open = false;
 
 ```svelte
 <div slot="demo">
-  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
+  <Button type="tonal" click={() => (open = true)}>Open</Button>
   {#if open}
-    <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
+    <BottomSheet close={() => (open = false)}>
+      {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(20)}
+    </BottomSheet>
   {/if}
 </div>
 ```
@@ -342,9 +335,9 @@ Minimal demo:
 ```svelte
 <Dialog headline="Hello" bind:open>
   I'm alive
-  <svelte:fragment slot="buttons">
-    <Button type="tonal" on:click={() => (open = false)}>OK</Button>
-  </svelte:fragment>
+  {#snippet buttons()}
+    <Button type="tonal" click={() => (open = false)}>OK</Button>
+  {/snippet}
 </Dialog>
 ```
 
@@ -361,13 +354,13 @@ let open = false;
 
 ```svelte
 <div slot="demo">
-  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
+  <Button type="tonal" click={() => (open = true)}>Open</Button>
   <Dialog icon={iconCircle} headline="Hello" bind:open>
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
     ZomboCom! The unattainable is unknown at ZomboCom!
-    <svelte:fragment slot="buttons">
-      <Button type="tonal" on:click={() => (open = false)}>OK</Button>
-    </svelte:fragment>
+    {#snippet buttons()}
+      <Button type="tonal" click={() => (open = false)}>OK</Button>
+    {/snippet}
   </Dialog>
 </div>
 ```
@@ -378,11 +371,11 @@ Minimal demo:
 
 ```svelte
 <script lang="ts">
-  let snackbar: (data: SnackbarIn) => void;
+  let snackbar: typeof Snackbar;
 </script>
 
-<Button type="tonal" on:click={() => snackbar({ message: "Hello", closable: true })}>Show</Button>
-<Snackbar bind:show={snackbar} />
+<Button type="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
+<Snackbar bind:this={snackbar} />
 ```
 
 Full demo:
@@ -390,22 +383,16 @@ Full demo:
 ```use
 Button
 Snackbar
-SnackbarAnim
 ```
 
 ```ts
-let animation = true;
-let snackbar: (data: SnackbarIn) => void;
+let snackbar: typeof Snackbar;
 ```
 
 ```svelte
-<label>
-  <Switch bind:checked={animation} />
-  {animation ? "#key animated" : "#if animated"}
-</label>
 <div slot="demo">
-  <Button type="tonal" on:click={() => snackbar({ message: "Hello", closable: true })}>Show</Button>
-  <svelte:component this={animation ? SnackbarAnim : Snackbar} bind:show={snackbar} />
+  <Button type="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
+  <Snackbar bind:this={snackbar} />
 </div>
 ```
 

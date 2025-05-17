@@ -26,8 +26,8 @@ const relevantLinks = [{"title":"Menu.sv","link":"https://github.com/KTibow/m3-s
   {icons ? "Icons" : "No icons"}
 </label>
 <Menu slot="demo">
-  <MenuItem icon={icons ? iconCircle : undefined}>Cut</MenuItem>
-  <MenuItem icon={icons ? iconSquare : undefined}>Undo</MenuItem>
-  <MenuItem icon={icons ? iconTriangle : undefined} disabled>Redo</MenuItem>
+  <MenuItem icon={icons ? iconCircle : undefined} click={() => {}}>Cut</MenuItem>
+  <MenuItem icon={icons ? iconSquare : undefined} click={() => {}}>Undo</MenuItem>
+  <MenuItem icon={icons ? iconTriangle : undefined} disabled click={() => {}}>Redo</MenuItem>
 </Menu>
 </InternalCard>

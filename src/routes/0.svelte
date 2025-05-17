@@ -14,7 +14,7 @@ let enabled = true;
 let link = false;
 
 const dispatch = createEventDispatcher();
-const minimalDemo = `${"<"}Button type="elevated" on:click={() => alert("!")}>Hello${"<"}/Button>`;
+const minimalDemo = `${"<"}Button type="elevated" click={() => alert("!")}>Hello${"<"}/Button>`;
 const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/Button.svelte"}];
 </script>
 
@@ -38,7 +38,7 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
 <div slot="demo">
   <Button
     {type}
-    {...(link ? { href: "https://example.com"} : { click: () => {}, disabled: !enabled })}
+    {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
     {iconType}
   >
     {#if iconType == "none"}

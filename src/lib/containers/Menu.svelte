@@ -1,14 +1,11 @@
 <script lang="ts">
-  interface Props {
-    display?: string;
-    children?: import("svelte").Snippet;
-  }
+  import type { Snippet } from "svelte";
 
-  let { display = "flex", children }: Props = $props();
+  let { children }: { children: Snippet } = $props();
 </script>
 
-<div class="m3-container" style="display: {display};">
-  {@render children?.()}
+<div class="m3-container">
+  {@render children()}
 </div>
 
 <style>
@@ -16,6 +13,7 @@
     --m3-menu-shape: var(--m3-util-rounding-extra-small);
   }
   .m3-container {
+    display: flex;
     position: relative;
     overflow: hidden;
     flex-direction: column;

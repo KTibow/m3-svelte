@@ -8,14 +8,13 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Card from "$lib/containers/Card.svelte";
-import CardClickable from "$lib/containers/CardClickable.svelte";
 let type: "elevated" | "filled" | "outlined" = "elevated";
 let clickable = false;
 
 const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}Card type="filled">Hello${"<"}/Card>
-${"<"}CardClickable type="filled" on:click={() => alert("!")}>Hello${"<"}/CardClickable>`;
-const relevantLinks = [{"title":"Card.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Card.svelte"},{"title":"CardClickable.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/CardClickable.svelte"}];
+${"<"}Card type="filled" click={() => alert("!")}>Hello${"<"}/Card>`;
+const relevantLinks = [{"title":"Card.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Card.svelte"}];
 </script>
 
 <InternalCard title="Card" on:showCode={() => dispatch("showCode", { name: "Card", minimalDemo, relevantLinks })}>
@@ -28,10 +27,6 @@ const relevantLinks = [{"title":"Card.sv","link":"https://github.com/KTibow/m3-s
   {clickable ? "Clickable" : "Not clickable"}
 </label>
 <div slot="demo">
-  {#if clickable}
-    <CardClickable {type}>Hello</CardClickable>
-  {:else}
-    <Card {type}>Hello</Card>
-  {/if}
+  <Card {...clickable ? { click: () => {} } : {}} {type}>Hello</Card>
 </div>
 </InternalCard>

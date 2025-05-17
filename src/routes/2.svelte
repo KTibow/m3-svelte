@@ -12,7 +12,7 @@ let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
 let size: "small" | "normal" | "large" | "extended" = "normal";
 
 const dispatch = createEventDispatcher();
-const minimalDemo = `${"<"}FAB color="primary" icon={iconCircle} on:click={() => alert("!")} />`;
+const minimalDemo = `${"<"}FAB color="primary" icon={iconCircle} click={() => alert("!")} />`;
 const relevantLinks = [{"title":"FAB.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/FAB.svelte"}];
 </script>
 
@@ -28,9 +28,9 @@ const relevantLinks = [{"title":"FAB.sv","link":"https://github.com/KTibow/m3-sv
 <div slot="demo">
   <FAB
     {color}
-    size={size == "extended" ? "normal" : size}
+    click={() => {}}
+    {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
     icon={iconCircle}
-    text={size == "extended" ? "Hello" : undefined}
   />
 </div>
 </InternalCard>
