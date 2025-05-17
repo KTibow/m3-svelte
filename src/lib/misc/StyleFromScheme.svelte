@@ -7,8 +7,12 @@
   import Styling from "./_styling.svelte";
   import "./styles.css";
 
-  export let lightScheme: SerializedScheme;
-  export let darkScheme: SerializedScheme;
+  interface Props {
+    lightScheme: SerializedScheme;
+    darkScheme: SerializedScheme;
+  }
+
+  let { lightScheme, darkScheme }: Props = $props();
 </script>
 
 <Styling {lightScheme} {darkScheme} />

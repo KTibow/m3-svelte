@@ -7,18 +7,33 @@
 
   const now = new Date();
 
-  export let display = "flex";
-  export let date = "";
-  export let clearable: boolean;
-  export let focusedMonth: number = parseInt(date.slice(5, 7)) - 1 || now.getMonth(),
-    focusedYear = parseInt(date.slice(0, 4)) || now.getFullYear(),
-    startYear = now.getFullYear() - 50,
-    endYear = now.getFullYear() + 10;
-  export let dateValidator: (date: string) => boolean = (_date: string) => true;
+  interface Props {
+    display?: string;
+    date?: string;
+    clearable: boolean;
+    focusedMonth?: number;
+    focusedYear?: any;
+    startYear?: any;
+    endYear?: any;
+    dateValidator?: (date: string) => boolean;
+  }
 
-  let currentView: "calendar" | "year" | "month" = "calendar",
-    chosenDate: string;
-  $: chosenDate = date;
+  let {
+    display = "flex",
+    date = "",
+    clearable,
+    focusedMonth = $bindable(parseInt(date.slice(5, 7)) - 1 || now.getMonth()),
+    focusedYear = $bindable(parseInt(date.slice(0, 4)) || now.getFullYear()),
+    startYear = now.getFullYear() - 50,
+    endYear = now.getFullYear() + 10,
+    dateValidator = (_date: string) => true,
+  }: Props = $props();
+
+  let currentView: "calendar" | "year" | "month" = $state("calendar");
+  let chosenDate: string = $state();
+  $effect(() => {
+    chosenDate = date;
+  });
 
   const getLongMonth = (month: number) =>
     new Date(0, month).toLocaleDateString(undefined, { month: "long" });

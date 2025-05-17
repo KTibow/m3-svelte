@@ -1,18 +1,26 @@
 <script lang="ts">
+  import { createBubbler } from "svelte/legacy";
+
+  const bubble = createBubbler();
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLButtonAttributes } from "svelte/elements";
 
-  export let selected: boolean;
-  export let extraOptions: HTMLButtonAttributes = {};
-  export let icon: IconifyIcon;
+  interface Props {
+    selected: boolean;
+    extraOptions?: HTMLButtonAttributes;
+    icon: IconifyIcon;
+    children?: import("svelte").Snippet;
+  }
+
+  let { selected, extraOptions = {}, icon, children }: Props = $props();
 </script>
 
-<button class="destination" disabled={selected} on:click {...extraOptions}>
+<button class="destination" disabled={selected} onclick={bubble("click")} {...extraOptions}>
   <Layer />
   <Icon {icon} />
-  <span class="m3-font-label-large"><slot /></span>
+  <span class="m3-font-label-large">{@render children?.()}</span>
 </button>
 
 <style>

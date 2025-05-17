@@ -3,16 +3,29 @@
   import Icon from "$lib/misc/_icon.svelte";
   import type { HTMLAttributes, HTMLTextareaAttributes } from "svelte/elements";
 
-  export let display = "inline-flex";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLTextareaAttributes = {};
-  export let name: string;
-  export let leadingIcon: IconifyIcon | undefined = undefined;
+  interface Props {
+    display?: string;
+    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
+    extraOptions?: HTMLTextareaAttributes;
+    name: string;
+    leadingIcon?: IconifyIcon | undefined;
+    disabled?: boolean;
+    required?: boolean;
+    error?: boolean;
+    value?: string;
+  }
 
-  export let disabled = false;
-  export let required = false;
-  export let error = false;
-  export let value = "";
+  let {
+    display = "inline-flex",
+    extraWrapperOptions = {},
+    extraOptions = {},
+    name,
+    leadingIcon = undefined,
+    disabled = false,
+    required = false,
+    error = false,
+    value = $bindable(""),
+  }: Props = $props();
   const id = crypto.randomUUID();
   const resize = (node: HTMLElement) => {
     const update = () => {

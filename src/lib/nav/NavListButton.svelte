@@ -1,18 +1,25 @@
 <script lang="ts">
+  import { createBubbler } from "svelte/legacy";
+
+  const bubble = createBubbler();
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLButtonAttributes } from "svelte/elements";
 
-  export let display = "flex";
-  export let extraOptions: HTMLButtonAttributes = {};
-  export let type: "rail" | "bar" | "auto";
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLButtonAttributes;
+    type: "rail" | "bar" | "auto";
+    selected: boolean;
+    icon: IconifyIcon;
+    children?: import("svelte").Snippet;
+  }
 
-  export let selected: boolean;
-  export let icon: IconifyIcon;
+  let { display = "flex", extraOptions = {}, type, selected, icon, children }: Props = $props();
 </script>
 
 <button
-  on:click
+  onclick={bubble("click")}
   class="m3-container type-{type}"
   style="display: {display};"
   class:selected
@@ -21,7 +28,7 @@
   <div class="icon-space">
     <Icon {icon} />
   </div>
-  <p class="m3-font-label-medium"><slot /></p>
+  <p class="m3-font-label-medium">{@render children?.()}</p>
 </button>
 
 <style>

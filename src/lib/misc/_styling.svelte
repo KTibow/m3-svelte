@@ -5,10 +5,14 @@
 <script lang="ts">
   import { genCSS, type SerializedScheme } from "./utils";
 
-  export let lightScheme: SerializedScheme;
-  export let darkScheme: SerializedScheme;
+  interface Props {
+    lightScheme: SerializedScheme;
+    darkScheme: SerializedScheme;
+  }
+
+  let { lightScheme, darkScheme }: Props = $props();
   const hexCode = (argb: number) => "#" + ((argb & 0xffffff) + 0x1000000).toString(16).slice(1);
-  $: styling = genCSS(lightScheme, darkScheme);
+  let styling = $derived(genCSS(lightScheme, darkScheme));
 </script>
 
 <svelte:head>

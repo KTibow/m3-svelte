@@ -7,14 +7,18 @@
   const conditionalScroll = (node: Element, shouldScroll: boolean) => {
     if (shouldScroll) node.scrollIntoView({ block: "nearest" });
   };
-  export let options: { id: number; name: string; selected: boolean }[];
+  interface Props {
+    options: { id: number; name: string; selected: boolean }[];
+  }
+
+  let { options }: Props = $props();
 </script>
 
 <div class="m3-container">
   {#each options as { id, name, selected }}
     <button
       class="m3-font-body-large"
-      on:click={() => dispatch("chosen", id)}
+      onclick={() => dispatch("chosen", id)}
       use:conditionalScroll={selected}
     >
       {#if selected}

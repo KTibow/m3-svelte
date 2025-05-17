@@ -4,8 +4,13 @@
   import Button from "$lib/buttons/Button.svelte";
   import Icon from "$lib/misc/_icon.svelte";
 
-  export let headline: string;
-  export let display = "flex";
+  interface Props {
+    headline: string;
+    display?: string;
+    children?: import("svelte").Snippet;
+  }
+
+  let { headline, display = "flex", children }: Props = $props();
 
   const dispatch = createEventDispatcher();
 </script>
@@ -17,7 +22,7 @@
       <Icon icon={iconX} />
     </Button>
   </div>
-  <slot />
+  {@render children?.()}
 </div>
 
 <style>

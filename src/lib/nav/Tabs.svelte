@@ -3,16 +3,27 @@
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  export let display = "flex";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLInputAttributes = {};
-  export let secondary = false;
-  export let tab: string;
-  export let items: {
-    icon?: IconifyIcon;
-    name: string;
-    value: string;
-  }[];
+  interface Props {
+    display?: string;
+    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
+    extraOptions?: HTMLInputAttributes;
+    secondary?: boolean;
+    tab: string;
+    items: {
+      icon?: IconifyIcon;
+      name: string;
+      value: string;
+    }[];
+  }
+
+  let {
+    display = "flex",
+    extraWrapperOptions = {},
+    extraOptions = {},
+    secondary = false,
+    tab = $bindable(),
+    items,
+  }: Props = $props();
   const name = crypto.randomUUID();
 </script>
 

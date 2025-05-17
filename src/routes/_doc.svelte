@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ButtonLink from "$lib/buttons/ButtonLink.svelte";
+  import Button from "$lib/buttons/Button.svelte";
   import Highlight from "svelte-highlight";
   import xml from "svelte-highlight/languages/xml";
 
@@ -11,7 +11,7 @@
   <Highlight language={xml} code={minimalDemo} />
 
   {#each relevantLinks as { title, link }, i}
-    <ButtonLink type={i == 0 ? "filled" : "tonal"} href={link}>{title}</ButtonLink>
+    <Button type={i == 0 ? "filled" : "tonal"} href={link}>{title}</Button>
   {/each}
 </div>
 

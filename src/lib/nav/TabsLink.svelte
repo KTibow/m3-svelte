@@ -3,17 +3,28 @@
   import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  export let display = "flex";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLAnchorAttributes = {};
-  export let secondary = false;
-  export let tab: string;
-  export let items: {
-    icon?: IconifyIcon;
-    name: string;
-    value: string;
-    href: string;
-  }[];
+  interface Props {
+    display?: string;
+    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
+    extraOptions?: HTMLAnchorAttributes;
+    secondary?: boolean;
+    tab: string;
+    items: {
+      icon?: IconifyIcon;
+      name: string;
+      value: string;
+      href: string;
+    }[];
+  }
+
+  let {
+    display = "flex",
+    extraWrapperOptions = {},
+    extraOptions = {},
+    secondary = false,
+    tab,
+    items,
+  }: Props = $props();
 </script>
 
 <div

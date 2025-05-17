@@ -4,16 +4,21 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAnchorAttributes } from "svelte/elements";
 
-  export let href: string;
-  export let selected: boolean;
-  export let extraOptions: HTMLAnchorAttributes = {};
-  export let icon: IconifyIcon;
+  interface Props {
+    href: string;
+    selected: boolean;
+    extraOptions?: HTMLAnchorAttributes;
+    icon: IconifyIcon;
+    children?: import("svelte").Snippet;
+  }
+
+  let { href, selected, extraOptions = {}, icon, children }: Props = $props();
 </script>
 
 <a {href} class="destination" class:selected {...extraOptions}>
   <Layer />
   <Icon {icon} />
-  <span class="m3-font-label-large"><slot /></span>
+  <span class="m3-font-label-large">{@render children?.()}</span>
 </a>
 
 <style>

@@ -8,7 +8,6 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Button from "$lib/buttons/Button.svelte";
-import ButtonLink from "$lib/buttons/ButtonLink.svelte";
 let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
 let iconType: "none" | "left" | "full" = "none";
 let enabled = true;
@@ -16,7 +15,7 @@ let link = false;
 
 const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}Button type="elevated" on:click={() => alert("!")}>Hello${"<"}/Button>`;
-const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/Button.svelte"},{"title":"ButtonLink.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/ButtonLink.svelte"}];
+const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/Button.svelte"}];
 </script>
 
 <InternalCard title="Button" on:showCode={() => dispatch("showCode", { name: "Button", minimalDemo, relevantLinks })}>
@@ -37,7 +36,11 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
   {link ? "Link" : "Button"}
 </label>
 <div slot="demo">
-  <svelte:component this={link ? ButtonLink : Button} {type} disabled={!enabled} {iconType} href="https://example.com">
+  <Button
+    {type}
+    {...(link ? { href: "https://example.com"} : { click: () => {}, disabled: !enabled })}
+    {iconType}
+  >
     {#if iconType == "none"}
       Hello
     {:else if iconType == "left"}
@@ -45,6 +48,6 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
     {:else}
       <Icon icon={iconCircle} />
     {/if}
-  </svelte:component>
+  </Button>
 </div>
 </InternalCard>

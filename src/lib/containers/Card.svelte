@@ -1,13 +1,18 @@
 <script lang="ts">
   import type { HTMLAttributes, HTMLButtonAttributes } from "svelte/elements";
 
-  export let display = "flex";
-  export let extraOptions: HTMLAttributes<HTMLDivElement> & HTMLButtonAttributes = {};
-  export let type: "elevated" | "filled" | "outlined";
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLAttributes<HTMLDivElement> & HTMLButtonAttributes;
+    type: "elevated" | "filled" | "outlined";
+    children?: import("svelte").Snippet;
+  }
+
+  let { display = "flex", extraOptions = {}, type, children }: Props = $props();
 </script>
 
 <div class="m3-container type-{type}" style="display: {display};" {...extraOptions}>
-  <slot />
+  {@render children?.()}
 </div>
 
 <style>

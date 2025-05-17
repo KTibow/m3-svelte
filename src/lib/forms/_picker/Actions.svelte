@@ -2,8 +2,12 @@
   import { createEventDispatcher } from "svelte";
   import Button from "$lib/buttons/Button.svelte";
 
-  export let clearable: boolean;
-  export let chosenDate: boolean;
+  interface Props {
+    clearable: boolean;
+    chosenDate: boolean;
+  }
+
+  let { clearable, chosenDate }: Props = $props();
   const dispatch = createEventDispatcher();
 </script>
 

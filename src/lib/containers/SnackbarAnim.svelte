@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   export type SnackbarIn = {
     message: string;
     actions?: Record<string, () => void>;
@@ -26,8 +26,12 @@
     timeout: number | null;
   };
 
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: ComponentProps<SnackbarItem> = {};
+  interface Props {
+    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
+    extraOptions?: ComponentProps<SnackbarItem>;
+  }
+
+  let { extraWrapperOptions = {}, extraOptions = {} }: Props = $props();
   export const show = ({ message, actions = {}, closable = false, timeout = 4000 }: SnackbarIn) => {
     snackbar = { message, actions, closable, timeout };
     clearTimeout(timeoutId);
@@ -37,7 +41,7 @@
       }, timeout);
   };
 
-  let snackbar: SnackbarData | undefined;
+  let snackbar: SnackbarData | undefined = $state();
   let timeoutId: number;
   onDestroy(() => {
     clearTimeout(timeoutId);
@@ -52,7 +56,7 @@
         {#each Object.entries(snackbar.actions) as [key, action]}
           <button
             class="action m3-font-label-large"
-            on:click={() => {
+            onclick={() => {
               snackbar = undefined;
               action();
             }}
@@ -63,7 +67,7 @@
         {#if snackbar.closable}
           <button
             class="close"
-            on:click={() => {
+            onclick={() => {
               snackbar = undefined;
             }}
           >

@@ -1,12 +1,17 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
 
-  export let display = "flex";
-  export let extraOptions: HTMLAttributes<HTMLElement> = {};
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLAttributes<HTMLElement>;
+    children?: import("svelte").Snippet;
+  }
+
+  let { display = "flex", extraOptions = {}, children }: Props = $props();
 </script>
 
 <nav class="m3-container" style="display: {display};" {...extraOptions}>
-  <slot />
+  {@render children?.()}
 </nav>
 
 <style>

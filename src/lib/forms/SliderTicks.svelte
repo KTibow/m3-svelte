@@ -1,18 +1,34 @@
 <script lang="ts">
+  import { run } from "svelte/legacy";
+
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
   import { spring } from "svelte/motion";
 
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLInputAttributes = {};
-  export let value: number;
-  export let min = 0;
-  export let max = 100;
-  export let step: number;
-  export let disabled = false;
-  export let showValue = true;
-  export let format: (n: number) => string = (n: number) => {
-    return n.toFixed(0);
-  };
+  interface Props {
+    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
+    extraOptions?: HTMLInputAttributes;
+    value: number;
+    min?: number;
+    max?: number;
+    step: number;
+    disabled?: boolean;
+    showValue?: boolean;
+    format?: (n: number) => string;
+  }
+
+  let {
+    extraWrapperOptions = {},
+    extraOptions = {},
+    value = $bindable(),
+    min = 0,
+    max = 100,
+    step,
+    disabled = false,
+    showValue = true,
+    format = (n: number) => {
+      return n.toFixed(0);
+    },
+  }: Props = $props();
 
   const valueDisplayed = spring(value, { stiffness: 0.3, damping: 1 });
   const updateValue = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
@@ -22,23 +38,25 @@
     $valueDisplayed = newValue;
   };
 
-  let range: number, percent: number, ticks: number[];
-  $: {
+  let range: number = $state(),
+    percent: number = $state(),
+    ticks: number[] = $state();
+  run(() => {
     range = max - min;
     percent = ($valueDisplayed - min) / range;
-  }
-  $: {
+  });
+  run(() => {
     ticks = [];
     for (let i = 0; i <= range; i += step) {
       ticks.push((i / range) * 100);
     }
-  }
+  });
 </script>
 
 <div class="m3-container" style="--percent: {percent * 100}%;" {...extraWrapperOptions}>
   <input
     type="range"
-    on:input={updateValue}
+    oninput={updateValue}
     value={$valueDisplayed}
     {min}
     {max}

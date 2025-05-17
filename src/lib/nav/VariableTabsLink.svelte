@@ -1,70 +1,85 @@
 <script lang="ts">
+  import { run } from "svelte/legacy";
+
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  export let display = "grid";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLAnchorAttributes = {};
-  export let secondary = false;
-  export let tab: string;
-  export let items: {
-    icon?: IconifyIcon;
-    name: string;
-    value: string;
-    href: string;
-  }[];
-
-  let prevTab = tab;
-  $: if (wrapper) {
-    const before = prevTab;
-    const after = tab;
-    const beforeI = items.findIndex((i) => i.value == before) + 1;
-    const afterI = items.findIndex((i) => i.value == after) + 1;
-    const beforeE = wrapper.querySelector(`a:nth-of-type(${beforeI})`) as HTMLAnchorElement;
-    const afterE = wrapper.querySelector(`a:nth-of-type(${afterI})`) as HTMLAnchorElement;
-
-    const bar = wrapper.querySelector(".bar") as HTMLDivElement;
-    const beforeX = beforeE.offsetLeft + 0.5 * beforeE.offsetWidth;
-    const afterX = afterE.offsetLeft + 0.5 * afterE.offsetWidth;
-    const deltaX = afterX - beforeX;
-
-    if (secondary) {
-      const factorX = afterE.offsetWidth / beforeE.offsetWidth;
-      bar.animate(
-        [
-          {
-            transform: `translateX(${-deltaX}px) scaleX(${1 / factorX})`,
-          },
-          {
-            transform: `translateX(0) scaleX(1)`,
-          },
-        ],
-        {
-          duration: 300,
-          easing: "ease",
-        },
-      );
-    } else {
-      bar.animate(
-        [
-          {
-            transform: `translateX(${-deltaX}px)`,
-          },
-          {
-            transform: `translateX(0)`,
-          },
-        ],
-        {
-          duration: 200,
-          easing: "ease",
-        },
-      );
-    }
-
-    prevTab = tab;
+  interface Props {
+    display?: string;
+    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
+    extraOptions?: HTMLAnchorAttributes;
+    secondary?: boolean;
+    tab: string;
+    items: {
+      icon?: IconifyIcon;
+      name: string;
+      value: string;
+      href: string;
+    }[];
   }
-  let wrapper: HTMLDivElement;
+
+  let {
+    display = "grid",
+    extraWrapperOptions = {},
+    extraOptions = {},
+    secondary = false,
+    tab,
+    items,
+  }: Props = $props();
+
+  let prevTab = $state(tab);
+  let wrapper: HTMLDivElement = $state();
+  run(() => {
+    if (wrapper) {
+      const before = prevTab;
+      const after = tab;
+      const beforeI = items.findIndex((i) => i.value == before) + 1;
+      const afterI = items.findIndex((i) => i.value == after) + 1;
+      const beforeE = wrapper.querySelector(`a:nth-of-type(${beforeI})`) as HTMLAnchorElement;
+      const afterE = wrapper.querySelector(`a:nth-of-type(${afterI})`) as HTMLAnchorElement;
+
+      const bar = wrapper.querySelector(".bar") as HTMLDivElement;
+      const beforeX = beforeE.offsetLeft + 0.5 * beforeE.offsetWidth;
+      const afterX = afterE.offsetLeft + 0.5 * afterE.offsetWidth;
+      const deltaX = afterX - beforeX;
+
+      if (secondary) {
+        const factorX = afterE.offsetWidth / beforeE.offsetWidth;
+        bar.animate(
+          [
+            {
+              transform: `translateX(${-deltaX}px) scaleX(${1 / factorX})`,
+            },
+            {
+              transform: `translateX(0) scaleX(1)`,
+            },
+          ],
+          {
+            duration: 300,
+            easing: "ease",
+          },
+        );
+      } else {
+        bar.animate(
+          [
+            {
+              transform: `translateX(${-deltaX}px)`,
+            },
+            {
+              transform: `translateX(0)`,
+            },
+          ],
+          {
+            duration: 200,
+            easing: "ease",
+          },
+        );
+      }
+
+      prevTab = tab;
+    }
+  });
 </script>
 
 <div

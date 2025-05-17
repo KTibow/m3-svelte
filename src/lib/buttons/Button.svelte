@@ -1,23 +1,41 @@
 <script lang="ts">
-  import type { HTMLButtonAttributes } from "svelte/elements";
+  import type { HTMLButtonAttributes, HTMLAnchorAttributes } from "svelte/elements";
+  import type { Snippet } from "svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  export let display = "inline-flex";
-  export let extraOptions: HTMLButtonAttributes = {};
-  export let iconType: "none" | "left" | "full" = "none";
-  export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
-  export let disabled = false;
+
+  type ActionProps =
+    | ({ click: () => void; disabled?: boolean } & Omit<
+        HTMLButtonAttributes,
+        "type" | "disabled" | "children"
+      >)
+    | ({ href: string } & Omit<HTMLAnchorAttributes, "type" | "disabled" | "children">);
+  type Props = {
+    type: "elevated" | "filled" | "tonal" | "outlined" | "text";
+    iconType?: "none" | "left" | "full";
+    children?: Snippet;
+  } & ActionProps;
+
+  let props: Props = $props();
 </script>
 
-<button
-  on:click|stopPropagation
-  {disabled}
-  class="m3-container m3-font-label-large {type} icon-{iconType}"
-  style="display: {display};"
-  {...extraOptions}
->
-  <Layer />
-  <slot />
-</button>
+{#if "href" in props}
+  {@const { type, href, iconType = "none", children, ...extra } = props}
+  <a {href} class="m3-container m3-font-label-large {type} icon-{iconType}" {...extra}>
+    <Layer />
+    {@render children?.()}
+  </a>
+{:else}
+  {@const { type, click, disabled, iconType = "none", children, ...extra } = props}
+  <button
+    onclick={click}
+    {disabled}
+    class="m3-container m3-font-label-large {type} icon-{iconType}"
+    {...extra}
+  >
+    <Layer />
+    {@render children?.()}
+  </button>
+{/if}
 
 <style>
   :root {
@@ -25,6 +43,7 @@
   }
 
   .m3-container {
+    display: inline-flex;
     border: none;
     height: 2.5rem;
     padding: 0 1.5rem;
@@ -34,6 +53,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    user-select: none;
     position: relative;
     overflow: hidden;
   }
@@ -64,18 +84,18 @@
     cursor: auto;
   }
 
-  .m3-container:enabled.elevated {
+  .m3-container:not(:disabled).elevated {
     background-color: rgb(var(--m3-scheme-surface-container-low));
     color: rgb(var(--m3-scheme-primary));
     box-shadow: var(--m3-util-elevation-1);
   }
 
-  .m3-container:enabled.filled {
+  .m3-container:not(:disabled).filled {
     background-color: rgb(var(--m3-scheme-primary));
     color: rgb(var(--m3-scheme-on-primary));
   }
 
-  .m3-container:enabled.tonal {
+  .m3-container:not(:disabled).tonal {
     background-color: rgb(var(--m3-scheme-secondary-container));
     color: rgb(var(--m3-scheme-on-secondary-container));
   }
@@ -84,7 +104,7 @@
     background-color: transparent;
     border: 0.0625rem solid rgb(var(--m3-scheme-on-surface) / 0.12);
   }
-  .m3-container:enabled.outlined {
+  .m3-container:not(:disabled).outlined {
     border: 0.0625rem solid rgb(var(--m3-scheme-outline));
     color: rgb(var(--m3-scheme-primary));
   }
@@ -102,13 +122,13 @@
     -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
-    .m3-container:enabled.elevated:hover {
+    .m3-container:not(:disabled).elevated:hover {
       box-shadow: var(--m3-util-elevation-2);
     }
-    .m3-container:enabled.filled:hover {
+    .m3-container:not(:disabled).filled:hover {
       box-shadow: var(--m3-util-elevation-1);
     }
-    .m3-container:enabled.tonal:hover {
+    .m3-container:not(:disabled).tonal:hover {
       box-shadow: var(--m3-util-elevation-1);
     }
   }

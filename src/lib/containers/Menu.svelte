@@ -1,9 +1,14 @@
 <script lang="ts">
-  export let display = "flex";
+  interface Props {
+    display?: string;
+    children?: import("svelte").Snippet;
+  }
+
+  let { display = "flex", children }: Props = $props();
 </script>
 
 <div class="m3-container" style="display: {display};">
-  <slot />
+  {@render children?.()}
 </div>
 
 <style>

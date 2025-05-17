@@ -3,14 +3,24 @@
   import iconCheck from "@ktibow/iconset-material-symbols/check";
   import type { HTMLAttributes } from "svelte/elements";
 
-  export let display = "inline-flex";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let checked = false;
-  export let disabled = false;
+  interface Props {
+    display?: string;
+    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
+    extraOptions?: HTMLAttributes<HTMLDivElement>;
+    checked?: boolean;
+    disabled?: boolean;
+  }
+
+  let {
+    display = "inline-flex",
+    extraWrapperOptions = {},
+    extraOptions = {},
+    checked = $bindable(false),
+    disabled = false,
+  }: Props = $props();
   // MUST BE WRAPPED IN A <label>
 
-  let startX: number | undefined;
+  let startX: number | undefined = $state();
   const handleMouseUp = (e: MouseEvent) => {
     if (!startX) return;
     const distance = e.clientX - startX;
@@ -20,18 +30,18 @@
   };
 </script>
 
-<svelte:window on:pointerup={handleMouseUp} />
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+<svelte:window onpointerup={handleMouseUp} />
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
   class="m3-container"
   style="display: {display};"
   {...extraWrapperOptions}
-  on:pointerdown={(e) => {
+  onpointerdown={(e) => {
     if (!disabled) {
       startX = e.clientX;
     }
   }}
-  on:dragstart={(e) => {
+  ondragstart={(e) => {
     e.preventDefault();
   }}
 >
@@ -41,7 +51,7 @@
     {disabled}
     bind:checked
     {...extraOptions}
-    on:keydown={(e) => {
+    onkeydown={(e) => {
       if (e.code == "Enter") checked = !checked;
       if (e.code == "ArrowLeft") checked = false;
       if (e.code == "ArrowRight") checked = true;
@@ -122,11 +132,11 @@
   }
 
   .m3-container:hover > input:enabled + .handle,
-  .m3-container > input:enabled:is(:active, :focus-visible) + .handle {
+  .m3-container > input:enabled:is(:global(:active, :focus-visible)) + .handle {
     background-color: rgb(var(--m3-scheme-on-surface-variant));
   }
   .m3-container:hover > input:enabled:checked + .handle,
-  .m3-container > input:enabled:checked:is(:active, :focus-visible) + .handle {
+  .m3-container > input:enabled:checked:is(:global(:active, :focus-visible)) + .handle {
     background-color: rgb(var(--m3-scheme-primary-container));
   }
   .m3-container:hover > input ~ .hover {

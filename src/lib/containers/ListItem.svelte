@@ -1,19 +1,34 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
 
-  export let display = "flex";
-  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let overline = "";
-  export let headline = "";
-  export let supporting = "";
-  export let lines: number | undefined = undefined;
-  $: _lines = lines || (overline && supporting ? 3 : overline || supporting ? 2 : 1);
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLAttributes<HTMLDivElement>;
+    overline?: string;
+    headline?: string;
+    supporting?: string;
+    lines?: number | undefined;
+    leading?: import("svelte").Snippet;
+    trailing?: import("svelte").Snippet;
+  }
+
+  let {
+    display = "flex",
+    extraOptions = {},
+    overline = "",
+    headline = "",
+    supporting = "",
+    lines = undefined,
+    leading,
+    trailing,
+  }: Props = $props();
+  let _lines = $derived(lines || (overline && supporting ? 3 : overline || supporting ? 2 : 1));
 </script>
 
 <div class="m3-container lines-{_lines}" style="display: {display}" {...extraOptions}>
-  {#if $$slots.leading}
+  {#if leading}
     <div class="leading">
-      <slot name="leading" />
+      {@render leading?.()}
     </div>
   {/if}
   <div class="body">
@@ -25,9 +40,9 @@
       <p class="supporting m3-font-body-medium">{supporting}</p>
     {/if}
   </div>
-  {#if $$slots.trailing}
+  {#if trailing}
     <div class="trailing m3-font-label-small">
-      <slot name="trailing" />
+      {@render trailing?.()}
     </div>
   {/if}
 </div>

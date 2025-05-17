@@ -5,10 +5,15 @@
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
-  export let display = "flex";
-  export let extraOptions: HTMLLabelAttributes = {};
-  export let input: string;
-  export let icon: IconifyIcon | undefined = undefined;
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLLabelAttributes;
+    input: string;
+    icon?: IconifyIcon | undefined;
+    children?: import("svelte").Snippet;
+  }
+
+  let { display = "flex", extraOptions = {}, input, icon = undefined, children }: Props = $props();
 </script>
 
 <label
@@ -27,7 +32,7 @@
     <Icon icon={iconCheck} />
   </div>
   <div class="start-pad pad"></div>
-  <slot />
+  {@render children?.()}
   {#if !icon}
     <div class="end-pad pad"></div>
   {/if}

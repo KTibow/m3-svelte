@@ -3,13 +3,25 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAnchorAttributes } from "svelte/elements";
 
-  export let display = "flex";
-  export let extraOptions: HTMLAnchorAttributes = {};
-  export let type: "rail" | "bar" | "auto";
-  export let href: string;
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLAnchorAttributes;
+    type: "rail" | "bar" | "auto";
+    href: string;
+    selected: boolean;
+    icon: IconifyIcon;
+    children?: import("svelte").Snippet;
+  }
 
-  export let selected: boolean;
-  export let icon: IconifyIcon;
+  let {
+    display = "flex",
+    extraOptions = {},
+    type,
+    href,
+    selected,
+    icon,
+    children,
+  }: Props = $props();
 </script>
 
 <a
@@ -22,7 +34,7 @@
   <div class="icon-space">
     <Icon {icon} />
   </div>
-  <p class="m3-font-label-medium"><slot /></p>
+  <p class="m3-font-label-medium">{@render children?.()}</p>
 </a>
 
 <style>

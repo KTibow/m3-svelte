@@ -1,7 +1,11 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
-  export let display = "inline-flex";
-  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLAttributes<HTMLDivElement>;
+  }
+
+  let { display = "inline-flex", extraOptions = {} }: Props = $props();
 </script>
 
 <div class="m3-container" style="display: {display};" role="progressbar" {...extraOptions}>

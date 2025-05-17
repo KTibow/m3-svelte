@@ -1,5 +1,5 @@
 <script lang="ts">
-  let cancelRipples: (() => void)[] = [];
+  let cancelRipples: (() => void)[] = $state([]);
 
   const createRipple = (node: HTMLDivElement) => {
     node.classList.remove("broken");
@@ -127,11 +127,11 @@
 </script>
 
 <svelte:window
-  on:pointerup={() => {
+  onpointerup={() => {
     cancelRipples.forEach((cancel) => cancel());
     cancelRipples = [];
   }}
-  on:dragend={() => {
+  ondragend={() => {
     cancelRipples.forEach((cancel) => cancel());
     cancelRipples = [];
   }}

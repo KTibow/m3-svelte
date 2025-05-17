@@ -2,7 +2,7 @@
   import Ripple from "./_ripple.svelte";
   import RippleSimple from "./_ripplesimple.svelte";
 
-  let ripple = RippleSimple;
+  let ripple = $state(RippleSimple);
   if (
     // @ts-ignore
     typeof M3_SVELTE_NO_RIPPLE == "undefined" &&
@@ -10,6 +10,8 @@
   ) {
     ripple = Ripple;
   }
+
+  const SvelteComponent = $derived(ripple);
 </script>
 
-<svelte:component this={ripple} />
+<SvelteComponent />

@@ -4,17 +4,31 @@
   import { createEventDispatcher } from "svelte";
   import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
 
-  export let display = "inline-flex";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLInputAttributes = {};
-  export let name: string;
-  export let leadingIcon: IconifyIcon | undefined = undefined;
-  export let trailingIcon: IconifyIcon | undefined = undefined;
+  interface Props {
+    display?: string;
+    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
+    extraOptions?: HTMLInputAttributes;
+    name: string;
+    leadingIcon?: IconifyIcon | undefined;
+    trailingIcon?: IconifyIcon | undefined;
+    disabled?: boolean;
+    required?: boolean;
+    error?: boolean;
+    value?: string;
+  }
 
-  export let disabled = false;
-  export let required = false;
-  export let error = false;
-  export let value = "";
+  let {
+    display = "inline-flex",
+    extraWrapperOptions = {},
+    extraOptions = {},
+    name,
+    leadingIcon = undefined,
+    trailingIcon = undefined,
+    disabled = false,
+    required = false,
+    error = false,
+    value = $bindable(""),
+  }: Props = $props();
   const dispatch = createEventDispatcher();
   const id = crypto.randomUUID();
 </script>
@@ -42,7 +56,7 @@
     <Icon icon={leadingIcon} class="leading" />
   {/if}
   {#if trailingIcon}
-    <button on:click={() => dispatch("trailingClick")} class="trailing">
+    <button onclick={() => dispatch("trailingClick")} class="trailing">
       <Icon icon={trailingIcon} />
     </button>
   {/if}

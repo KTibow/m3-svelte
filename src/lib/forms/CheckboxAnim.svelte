@@ -2,13 +2,17 @@
   import type { HTMLAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
 
-  export let display = "inline-flex";
-  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
-  // MUST BE WRAPPED IN A <label>
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLAttributes<HTMLDivElement>; // MUST BE WRAPPED IN A <label>
+    children?: import("svelte").Snippet;
+  }
+
+  let { display = "inline-flex", extraOptions = {}, children }: Props = $props();
 </script>
 
 <div class="m3-container" style="display: {display};" {...extraOptions}>
-  <slot />
+  {@render children?.()}
   <div class="layer-container">
     <Layer />
     <div class="checkbox-box"></div>

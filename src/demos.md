@@ -10,7 +10,6 @@ Full demo:
 
 ```use
 Button
-ButtonLink
 ```
 
 ```ts
@@ -38,7 +37,11 @@ let link = false;
   {link ? "Link" : "Button"}
 </label>
 <div slot="demo">
-  <svelte:component this={link ? ButtonLink : Button} {type} disabled={!enabled} {iconType} href="https://example.com">
+  <Button
+    {type}
+    {...(link ? { href: "https://example.com"} : { click: () => {}, disabled: !enabled })}
+    {iconType}
+  >
     {#if iconType == "none"}
       Hello
     {:else if iconType == "left"}
@@ -46,7 +49,7 @@ let link = false;
     {:else}
       <Icon icon={iconCircle} />
     {/if}
-  </svelte:component>
+  </Button>
 </div>
 ```
 

@@ -8,20 +8,30 @@
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import { easeEmphasized } from "$lib/misc/easing";
 
-  export let name: string;
-  export let date = "";
-  export let required = false;
-  export let disabled = false;
-  export let extraOptions: HTMLInputAttributes = {};
+  interface Props {
+    name: string;
+    date?: string;
+    required?: boolean;
+    disabled?: boolean;
+    extraOptions?: HTMLInputAttributes;
+  }
+
+  let {
+    name,
+    date = $bindable(""),
+    required = false,
+    disabled = false,
+    extraOptions = {},
+  }: Props = $props();
 
   const id = crypto.randomUUID();
-  let hasJs = false;
+  let hasJs = $state(false);
   onMount(() => {
     hasJs = true;
   });
 
-  let picker = false;
-  let container: HTMLDivElement;
+  let picker = $state(false);
+  let container: HTMLDivElement = $state();
   const clickOutside = (_node: Node) => {
     const handleClick = (event: Event) => {
       if (!container.contains(event.target as Node)) {
@@ -58,7 +68,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     {...extraOptions}
   />
   <label class="m3-font-body-small" for={id}>{name}</label>
-  <button type="button" {disabled} on:click={() => (picker = !picker)}>
+  <button type="button" {disabled} onclick={() => (picker = !picker)}>
     <Icon icon={iconCalendar} />
   </button>
   {#if picker}

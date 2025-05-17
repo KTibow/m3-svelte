@@ -1,14 +1,19 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
 
-  // Both a nav rail and a nav bar.
-  export let display = "flex";
-  export let extraOptions: HTMLAttributes<HTMLElement> = {};
-  export let type: "rail" | "bar" | "auto";
+  interface Props {
+    // Both a nav rail and a nav bar.
+    display?: string;
+    extraOptions?: HTMLAttributes<HTMLElement>;
+    type: "rail" | "bar" | "auto";
+    children?: import("svelte").Snippet;
+  }
+
+  let { display = "flex", extraOptions = {}, type, children }: Props = $props();
 </script>
 
 <nav class="m3-container type-{type}" style="display: {display};" {...extraOptions}>
-  <slot />
+  {@render children?.()}
 </nav>
 
 <style>

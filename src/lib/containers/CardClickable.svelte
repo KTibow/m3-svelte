@@ -1,20 +1,28 @@
 <script lang="ts">
+  import { createBubbler, stopPropagation } from "svelte/legacy";
+
+  const bubble = createBubbler();
   import type { HTMLAttributes, HTMLButtonAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
 
-  export let display = "flex";
-  export let extraOptions: HTMLAttributes<HTMLDivElement> & HTMLButtonAttributes = {};
-  export let type: "elevated" | "filled" | "outlined";
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLAttributes<HTMLDivElement> & HTMLButtonAttributes;
+    type: "elevated" | "filled" | "outlined";
+    children?: import("svelte").Snippet;
+  }
+
+  let { display = "flex", extraOptions = {}, type, children }: Props = $props();
 </script>
 
 <button
-  on:click|stopPropagation
+  onclick={stopPropagation(bubble("click"))}
   class="m3-container type-{type}"
   style="display: {display};"
   {...extraOptions}
 >
   <Layer />
-  <slot />
+  {@render children?.()}
 </button>
 
 <style>

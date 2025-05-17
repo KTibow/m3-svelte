@@ -1,8 +1,15 @@
 <script lang="ts">
-  export let disabled = false;
-  export let today = false;
-  export let selected = false;
-  export let label: string;
+  import { createBubbler } from "svelte/legacy";
+
+  const bubble = createBubbler();
+  interface Props {
+    disabled?: boolean;
+    today?: boolean;
+    selected?: boolean;
+    label: string;
+  }
+
+  let { disabled = false, today = false, selected = false, label }: Props = $props();
 </script>
 
 <button
@@ -11,7 +18,7 @@
   type="button"
   class:today
   class:selected
-  on:click
+  onclick={bubble("click")}
 >
   {label}
 </button>

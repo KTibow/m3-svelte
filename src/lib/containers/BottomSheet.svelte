@@ -1,14 +1,20 @@
 <script lang="ts">
+  import { run, preventDefault, self } from "svelte/legacy";
+
   import { createEventDispatcher } from "svelte";
   import type { TransitionConfig } from "svelte/transition";
   import { easeEmphasizedAccel, easeEmphasizedDecel } from "$lib/misc/easing";
   import { outroClass } from "$lib/misc/animation";
+  interface Props {
+    children?: import("svelte").Snippet;
+  }
 
-  let height = 480;
-  let container: HTMLDivElement;
-  let isDragging = false,
-    startY = 0;
-  $: if (height < 48) dispatch("close", "low");
+  let { children }: Props = $props();
+
+  let height = $state(480);
+  let container: HTMLDivElement = $state();
+  let isDragging = $state(false),
+    startY = $state(0);
 
   const dispatch = createEventDispatcher();
   const open = (node: HTMLDialogElement) => node.showModal();
@@ -36,50 +42,53 @@
       startY = e.clientY;
     }
   };
+  run(() => {
+    if (height < 48) dispatch("close", "low");
+  });
 </script>
 
 <svelte:window
-  on:mousemove={moveMouse}
-  on:mouseup={() => (isDragging = false)}
-  on:touchmove={(e) => moveMouse(e.touches[0])}
-  on:touchend={() => (isDragging = false)}
+  onmousemove={moveMouse}
+  onmouseup={() => (isDragging = false)}
+  ontouchmove={(e) => moveMouse(e.touches[0])}
+  ontouchend={() => (isDragging = false)}
 />
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
   class="m3-container"
   style="max-height: {height}px"
   use:open
   use:outroClass
-  on:cancel|preventDefault={() => {
+  oncancel={preventDefault(() => {
     dispatch("close", "browser");
-  }}
-  on:mousedown|self={() => {
+  })}
+  onmousedown={self(() => {
     dispatch("close", "click");
-  }}
-  on:wheel|preventDefault={moveWheel}
+  })}
+  onwheel={preventDefault(moveWheel)}
   in:heightAnim
   out:heightAnim={{ easing: easeEmphasizedAccel, duration: 300 }}
 >
   <div
     class="container"
     bind:this={container}
-    on:touchstart={(e) => {
+    ontouchstart={(e) => {
       isDragging = true;
       startY = e.touches[0].clientY;
     }}
   >
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
       class="handle-container"
-      on:mousedown|preventDefault={(e) => {
+      onmousedown={preventDefault((e) => {
         isDragging = true;
         startY = e.clientY;
-      }}
+      })}
     >
       <div class="handle"></div>
     </div>
-    <slot />
+    {@render children?.()}
   </div>
 </dialog>
 

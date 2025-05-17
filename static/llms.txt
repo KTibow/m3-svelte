@@ -564,7 +564,7 @@ Minimal demo:
 <Button type="elevated" on:click={() => alert("!")}>Hello</Button>
 ```
 
-The M3 Svelte interactive demo for this component uses Button, ButtonLink with the TS `let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
+The M3 Svelte interactive demo for this component uses Button with the TS `let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
 let iconType: "none" | "left" | "full" = "none";
 let enabled = true;
 let link = false;` to make this demo:
@@ -586,7 +586,11 @@ let link = false;` to make this demo:
   {link ? "Link" : "Button"}
 </label>
 <div slot="demo">
-  <svelte:component this={link ? ButtonLink : Button} {type} disabled={!enabled} {iconType} href="https://example.com">
+  <Button
+    {type}
+    {...(link ? { href: "https://example.com"} : { click: () => {}, disabled: !enabled })}
+    {iconType}
+  >
     {#if iconType == "none"}
       Hello
     {:else if iconType == "left"}
@@ -594,7 +598,7 @@ let link = false;` to make this demo:
     {:else}
       <Icon icon={iconCircle} />
     {/if}
-  </svelte:component>
+  </Button>
 </div>
 ```
 

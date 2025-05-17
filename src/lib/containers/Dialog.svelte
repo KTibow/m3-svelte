@@ -1,29 +1,47 @@
 <script lang="ts">
+  import { self } from "svelte/legacy";
+
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import { createEventDispatcher } from "svelte";
   import type { HTMLDialogAttributes } from "svelte/elements";
 
-  export let display = "flex";
-  export let extraOptions: HTMLDialogAttributes = {};
-  export let icon: IconifyIcon | undefined = undefined;
-  export let headline: string;
-  export let open: boolean;
-  export let closeOnEsc = true;
-  export let closeOnClick = true;
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLDialogAttributes;
+    icon?: IconifyIcon | undefined;
+    headline: string;
+    open: boolean;
+    closeOnEsc?: boolean;
+    closeOnClick?: boolean;
+    children?: import("svelte").Snippet;
+    buttons?: import("svelte").Snippet;
+  }
+
+  let {
+    display = "flex",
+    extraOptions = {},
+    icon = undefined,
+    headline,
+    open = $bindable(),
+    closeOnEsc = true,
+    closeOnClick = true,
+    children,
+    buttons,
+  }: Props = $props();
 
   const dispatch = createEventDispatcher();
-  let dialog: HTMLDialogElement;
-  $: {
-    if (!dialog) break $;
+  let dialog: HTMLDialogElement = $state();
+  $effect(() => {
+    if (!dialog) return;
     if (open) dialog.showModal();
     else dialog.close();
-  }
+  });
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
-  on:cancel={(e) => {
+  oncancel={(e) => {
     if (closeOnEsc) {
       dispatch("closedByEsc");
       open = false;
@@ -31,12 +49,12 @@
       e.preventDefault();
     }
   }}
-  on:click|self={() => {
+  onclick={self(() => {
     if (closeOnClick) {
       dispatch("closedByClick");
       open = false;
     }
-  }}
+  })}
   bind:this={dialog}
   style="display: {display};"
   {...extraOptions}
@@ -47,10 +65,10 @@
     {/if}
     <p class="headline m3-font-headline-small" class:center={icon}>{headline}</p>
     <div class="content m3-font-body-medium">
-      <slot />
+      {@render children?.()}
     </div>
     <div class="buttons">
-      <slot name="buttons" />
+      {@render buttons?.()}
     </div>
   </div>
 </dialog>

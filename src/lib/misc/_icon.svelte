@@ -1,10 +1,13 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  export let icon: IconifyIcon;
-  export let width: string = "1em";
-  export let height: string = "1em";
-  let clazz: string | undefined = undefined;
-  export { clazz as class };
+  interface Props {
+    icon: IconifyIcon;
+    width?: string;
+    height?: string;
+    class?: string | undefined;
+  }
+
+  let { icon, width = "1em", height = "1em", class: clazz = undefined }: Props = $props();
 </script>
 
 <svg {width} {height} class={clazz} viewBox="0 0 {icon.width} {icon.height}">

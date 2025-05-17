@@ -1,24 +1,39 @@
 <script lang="ts">
+  import { run, createBubbler } from "svelte/legacy";
+
+  const bubble = createBubbler();
   import type { HTMLButtonAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import Layer from "$lib/misc/Layer.svelte";
 
-  export let display = "inline-flex";
-  export let extraOptions: HTMLButtonAttributes = {};
-  export let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
-  export let size: "small" | "normal" | "large" = "normal";
-  export let elevation: "normal" | "lowered" | "none" = "normal";
-  export let icon: IconifyIcon | undefined = undefined;
-  export let text: string | undefined = undefined;
-  $: {
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLButtonAttributes;
+    color?: "primary" | "surface" | "secondary" | "tertiary";
+    size?: "small" | "normal" | "large";
+    elevation?: "normal" | "lowered" | "none";
+    icon?: IconifyIcon | undefined;
+    text?: string | undefined;
+  }
+
+  let {
+    display = "inline-flex",
+    extraOptions = {},
+    color = "primary",
+    size = "normal",
+    elevation = "normal",
+    icon = undefined,
+    text = undefined,
+  }: Props = $props();
+  run(() => {
     if (!icon && !text) console.warn("you need at least something in a FAB");
     if (size != "normal" && text) console.warn("extended fabs are supposed to use size normal");
-  }
+  });
 </script>
 
 <button
-  on:click
+  onclick={bubble("click")}
   class="m3-container m3-font-label-large color-{color} size-{size} elevation-{elevation}"
   style="display: {display};"
   {...extraOptions}

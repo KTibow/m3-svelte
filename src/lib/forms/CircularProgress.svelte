@@ -1,8 +1,12 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
-  export let display = "inline-flex";
-  export let extraOptions: HTMLAttributes<SVGElement> = {};
-  export let percent: number;
+  interface Props {
+    display?: string;
+    extraOptions?: HTMLAttributes<SVGElement>;
+    percent: number;
+  }
+
+  let { display = "inline-flex", extraOptions = {}, percent }: Props = $props();
 </script>
 
 <svg

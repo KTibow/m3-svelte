@@ -1,8 +1,14 @@
 <script lang="ts">
   import Item from "./Item.svelte";
 
-  export let focusedMonth: number, focusedYear: number, dateValidator: (date: string) => boolean;
-  export let chosenDate: string;
+  interface Props {
+    focusedMonth: number;
+    focusedYear: number;
+    dateValidator: (date: string) => boolean;
+    chosenDate: string;
+  }
+
+  let { focusedMonth, focusedYear, dateValidator, chosenDate = $bindable() }: Props = $props();
   const makeCalendar = (year: number, month: number) => {
     const firstDay = new Date(year, month, 1);
     return Array.from({ length: 42 }, (_, i: number) => {
@@ -18,7 +24,7 @@
     });
   };
 
-  let today = new Date();
+  let today = $state(new Date());
   setInterval(() => (today = new Date()), 1000 * 60);
 </script>
 

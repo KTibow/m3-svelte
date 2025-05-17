@@ -1,8 +1,12 @@
 <script lang="ts">
   import Chip from "$lib/forms/Chip.svelte";
   import type { IconifyIcon } from "@iconify/types";
-  export let options: { label: string; value: string; icon?: IconifyIcon }[];
-  export let chosenOptions: string[] = [];
+  interface Props {
+    options: { label: string; value: string; icon?: IconifyIcon }[];
+    chosenOptions?: string[];
+  }
+
+  let { options, chosenOptions = $bindable([]) }: Props = $props();
 </script>
 
 <div class="m3-container">
