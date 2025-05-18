@@ -15,13 +15,12 @@
   const open = (node: HTMLDialogElement) => node.showModal();
   const heightAnim = (
     node: HTMLDialogElement,
-    options: Record<string, unknown> = {},
+    options: { duration: number; easing: typeof easeEmphasizedDecel },
   ): TransitionConfig => {
     if (node.clientHeight < height) height = node.clientHeight;
     return {
-      duration: 400,
-      easing: easeEmphasizedDecel,
-      ...options,
+      duration: options.duration,
+      easing: options.easing,
       css: (t) => `max-height: ${t * height}px`,
     };
   };
@@ -64,7 +63,7 @@
     close("click");
   }}
   onwheel={moveWheel}
-  in:heightAnim
+  in:heightAnim={{ easing: easeEmphasizedDecel, duration: 400 }}
   out:heightAnim={{ easing: easeEmphasizedAccel, duration: 300 }}
 >
   <div
