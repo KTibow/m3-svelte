@@ -1,38 +1,35 @@
 <script lang="ts">
-  import { createBubbler } from "svelte/legacy";
-
-  const bubble = createBubbler();
-  import Icon from "$lib/misc/_icon.svelte";
-  import type { IconifyIcon } from "@iconify/types";
+  import type { Snippet } from "svelte";
   import type { HTMLButtonAttributes } from "svelte/elements";
+  import type { IconifyIcon } from "@iconify/types";
+  import Icon from "$lib/misc/_icon.svelte";
 
-  interface Props {
-    display?: string;
-    extraOptions?: HTMLButtonAttributes;
-    type: "rail" | "bar" | "auto";
+  let {
+    variant,
+    selected,
+    icon,
+    children,
+    click,
+    ...extra
+  }: {
+    variant: "rail" | "bar" | "auto";
     selected: boolean;
     icon: IconifyIcon;
-    children?: import("svelte").Snippet;
-  }
-
-  let { display = "flex", extraOptions = {}, type, selected, icon, children }: Props = $props();
+    children: Snippet;
+    click: () => void;
+  } & HTMLButtonAttributes = $props();
 </script>
 
-<button
-  onclick={bubble("click")}
-  class="m3-container type-{type}"
-  style="display: {display};"
-  class:selected
-  {...extraOptions}
->
+<button class="m3-container {variant}" class:selected onclick={click} {...extra}>
   <div class="icon-space">
     <Icon {icon} />
   </div>
-  <p class="m3-font-label-medium">{@render children?.()}</p>
+  <p class="m3-font-label-medium">{@render children()}</p>
 </button>
 
 <style>
   .m3-container {
+    display: flex;
     flex-direction: column;
     height: 3.25rem;
     gap: 0.25rem;
@@ -86,17 +83,17 @@
     transition: color 200ms;
   }
 
-  .type-rail {
+  .rail {
     height: 3.5rem;
   }
-  .type-rail > .icon-space {
+  .rail > .icon-space {
     width: 3.5rem;
   }
   @media (min-width: 37.5rem) {
-    .type-auto {
+    .auto {
       height: 3.5rem;
     }
-    .type-auto > .icon-space {
+    .auto > .icon-space {
       width: 3.5rem;
     }
   }

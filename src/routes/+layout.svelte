@@ -42,12 +42,12 @@
 {@html `<style>${$styling}</style>`}
 <div class="container">
   <div class="sidebar">
-    <NavList type="auto">
+    <NavList variant="auto">
       <div class="items">
         {#each paths as { path, icon, iconS, label }}
           {@const selected = normalizePath(path) === normalizePath(page.url.pathname)}
           <NavListLink
-            type="auto"
+            variant="auto"
             href={normalizePath(path)}
             {selected}
             icon={selected ? iconS : icon}
@@ -56,7 +56,7 @@
           </NavListLink>
         {/each}
         <NavListLink
-          type="auto"
+          variant="auto"
           href={normalizePath(base + "/docs/quick-start")}
           selected={page.url.pathname.startsWith(base + "/docs")}
           icon={page.url.pathname.startsWith(base + "/docs") ? iconBookS : iconBook}
@@ -64,7 +64,7 @@
           Docs
         </NavListLink>
         <NavListLink
-          type="auto"
+          variant="auto"
           href={normalizePath(base + "/transitions")}
           selected={page.url.pathname.startsWith(base + "/transitions")}
           icon={page.url.pathname.startsWith(base + "/transitions")

@@ -1,40 +1,42 @@
 <script lang="ts">
-  import { createBubbler } from "svelte/legacy";
-
-  const bubble = createBubbler();
+  import type { Snippet } from "svelte";
+  import type { HTMLButtonAttributes } from "svelte/elements";
+  import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  import type { IconifyIcon } from "@iconify/types";
-  import type { HTMLButtonAttributes } from "svelte/elements";
 
-  interface Props {
+  let {
+    selected,
+    icon,
+    children,
+    click,
+    ...extra
+  }: {
     selected: boolean;
-    extraOptions?: HTMLButtonAttributes;
     icon: IconifyIcon;
-    children?: import("svelte").Snippet;
-  }
-
-  let { selected, extraOptions = {}, icon, children }: Props = $props();
+    children: Snippet;
+    click: () => void;
+  } & HTMLButtonAttributes = $props();
 </script>
 
-<button class="destination" disabled={selected} onclick={bubble("click")} {...extraOptions}>
+<button class="destination" disabled={selected} onclick={click} {...extra}>
   <Layer />
   <Icon {icon} />
-  <span class="m3-font-label-large">{@render children?.()}</span>
+  <span class="m3-font-label-large">{@render children()}</span>
 </button>
 
 <style>
   .destination {
-    height: 3.5rem;
-    border: none;
-    border-radius: 1.75rem;
-    padding: 0 1.5rem 0 1rem;
-
     display: flex;
     align-items: center;
     gap: 0.75rem;
     position: relative;
     overflow: hidden;
+
+    height: 3.5rem;
+    border: none;
+    border-radius: 1.75rem;
+    padding: 0 1.5rem 0 1rem;
 
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface-variant));

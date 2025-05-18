@@ -1,44 +1,35 @@
 <script lang="ts">
-  import Icon from "$lib/misc/_icon.svelte";
-  import type { IconifyIcon } from "@iconify/types";
+  import type { Snippet } from "svelte";
   import type { HTMLAnchorAttributes } from "svelte/elements";
-
-  interface Props {
-    display?: string;
-    extraOptions?: HTMLAnchorAttributes;
-    type: "rail" | "bar" | "auto";
-    href: string;
-    selected: boolean;
-    icon: IconifyIcon;
-    children?: import("svelte").Snippet;
-  }
+  import type { IconifyIcon } from "@iconify/types";
+  import Icon from "$lib/misc/_icon.svelte";
 
   let {
-    display = "flex",
-    extraOptions = {},
-    type,
-    href,
+    variant,
     selected,
     icon,
     children,
-  }: Props = $props();
+    href,
+    ...extra
+  }: {
+    variant: "rail" | "bar" | "auto";
+    selected: boolean;
+    icon: IconifyIcon;
+    children: Snippet;
+    href: string;
+  } & HTMLAnchorAttributes = $props();
 </script>
 
-<a
-  class="m3-container type-{type}"
-  style="display: {display};"
-  class:selected
-  {href}
-  {...extraOptions}
->
+<a class="m3-container {variant}" class:selected {href} {...extra}>
   <div class="icon-space">
     <Icon {icon} />
   </div>
-  <p class="m3-font-label-medium">{@render children?.()}</p>
+  <p class="m3-font-label-medium">{@render children()}</p>
 </a>
 
 <style>
   .m3-container {
+    display: flex;
     flex-direction: column;
     height: 3.25rem;
     gap: 0.25rem;
@@ -90,17 +81,17 @@
     transition: color 200ms;
   }
 
-  .type-rail {
+  .rail {
     height: 3.5rem;
   }
-  .type-rail > .icon-space {
+  .rail > .icon-space {
     width: 3.5rem;
   }
   @media (min-width: 37.5rem) {
-    .type-auto {
+    .auto {
       height: 3.5rem;
     }
-    .type-auto > .icon-space {
+    .auto > .icon-space {
       width: 3.5rem;
     }
   }

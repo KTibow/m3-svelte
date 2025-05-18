@@ -1,23 +1,22 @@
 <script lang="ts">
-  import type { HTMLAttributes } from "svelte/elements";
+  import type { Snippet } from "svelte";
 
-  interface Props {
-    // Both a nav rail and a nav bar.
-    display?: string;
-    extraOptions?: HTMLAttributes<HTMLElement>;
-    type: "rail" | "bar" | "auto";
-    children?: import("svelte").Snippet;
-  }
-
-  let { display = "flex", extraOptions = {}, type, children }: Props = $props();
+  let {
+    variant,
+    children,
+  }: {
+    variant: "rail" | "bar" | "auto";
+    children: Snippet;
+  } = $props();
 </script>
 
-<nav class="m3-container type-{type}" style="display: {display};" {...extraOptions}>
-  {@render children?.()}
+<nav class="m3-container {variant}">
+  {@render children()}
 </nav>
 
 <style>
   .m3-container {
+    display: flex;
     position: relative;
     flex-grow: 1;
     background-color: rgb(var(--m3-scheme-surface-container));
@@ -26,7 +25,7 @@
     gap: 0.5rem;
   }
 
-  .type-rail {
+  .rail {
     background-color: rgb(var(--m3-scheme-surface));
     flex-direction: column;
     width: 5rem;
@@ -35,7 +34,7 @@
     gap: 0.75rem;
   }
   @media (min-width: 37.5rem) {
-    .type-auto {
+    .auto {
       background-color: rgb(var(--m3-scheme-surface));
       flex-direction: column;
       width: 5rem;

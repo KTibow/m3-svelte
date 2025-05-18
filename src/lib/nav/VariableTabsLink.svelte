@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { run } from "svelte/legacy";
-
   import type { IconifyIcon } from "@iconify/types";
-  import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
+  import type { HTMLAnchorAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  interface Props {
-    display?: string;
-    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
-    extraOptions?: HTMLAnchorAttributes;
+
+  let {
+    secondary = false,
+    tab,
+    items,
+    ...extra
+  }: {
     secondary?: boolean;
     tab: string;
     items: {
@@ -17,77 +18,67 @@
       value: string;
       href: string;
     }[];
-  }
-
-  let {
-    display = "grid",
-    extraWrapperOptions = {},
-    extraOptions = {},
-    secondary = false,
-    tab,
-    items,
-  }: Props = $props();
+  } & HTMLAnchorAttributes = $props();
 
   let prevTab = $state(tab);
-  let wrapper: HTMLDivElement = $state();
-  run(() => {
-    if (wrapper) {
-      const before = prevTab;
-      const after = tab;
-      const beforeI = items.findIndex((i) => i.value == before) + 1;
-      const afterI = items.findIndex((i) => i.value == after) + 1;
-      const beforeE = wrapper.querySelector(`a:nth-of-type(${beforeI})`) as HTMLAnchorElement;
-      const afterE = wrapper.querySelector(`a:nth-of-type(${afterI})`) as HTMLAnchorElement;
+  let wrapper: HTMLDivElement | undefined = $state();
+  $effect(() => {
+    if (!wrapper) return;
 
-      const bar = wrapper.querySelector(".bar") as HTMLDivElement;
-      const beforeX = beforeE.offsetLeft + 0.5 * beforeE.offsetWidth;
-      const afterX = afterE.offsetLeft + 0.5 * afterE.offsetWidth;
-      const deltaX = afterX - beforeX;
+    const before = prevTab;
+    const after = tab;
+    const beforeI = items.findIndex((i) => i.value == before) + 1;
+    const afterI = items.findIndex((i) => i.value == after) + 1;
+    const beforeE = wrapper.querySelector(`a:nth-of-type(${beforeI})`) as HTMLAnchorElement;
+    const afterE = wrapper.querySelector(`a:nth-of-type(${afterI})`) as HTMLAnchorElement;
 
-      if (secondary) {
-        const factorX = afterE.offsetWidth / beforeE.offsetWidth;
-        bar.animate(
-          [
-            {
-              transform: `translateX(${-deltaX}px) scaleX(${1 / factorX})`,
-            },
-            {
-              transform: `translateX(0) scaleX(1)`,
-            },
-          ],
+    const bar = wrapper.querySelector(".bar") as HTMLDivElement;
+    const beforeX = beforeE.offsetLeft + 0.5 * beforeE.offsetWidth;
+    const afterX = afterE.offsetLeft + 0.5 * afterE.offsetWidth;
+    const deltaX = afterX - beforeX;
+
+    if (secondary) {
+      const factorX = afterE.offsetWidth / beforeE.offsetWidth;
+      bar.animate(
+        [
           {
-            duration: 300,
-            easing: "ease",
+            transform: `translateX(${-deltaX}px) scaleX(${1 / factorX})`,
           },
-        );
-      } else {
-        bar.animate(
-          [
-            {
-              transform: `translateX(${-deltaX}px)`,
-            },
-            {
-              transform: `translateX(0)`,
-            },
-          ],
           {
-            duration: 200,
-            easing: "ease",
+            transform: `translateX(0) scaleX(1)`,
           },
-        );
-      }
-
-      prevTab = tab;
+        ],
+        {
+          duration: 300,
+          easing: "ease",
+        },
+      );
+    } else {
+      bar.animate(
+        [
+          {
+            transform: `translateX(${-deltaX}px)`,
+          },
+          {
+            transform: `translateX(0)`,
+          },
+        ],
+        {
+          duration: 200,
+          easing: "ease",
+        },
+      );
     }
+
+    prevTab = tab;
   });
 </script>
 
 <div
   class="m3-container"
   class:primary={!secondary}
-  style="display: {display}; --items: {items.length};"
+  style:--items={items.length}
   bind:this={wrapper}
-  {...extraWrapperOptions}
 >
   <div class="divider"></div>
   {#each items as item, i}
@@ -95,8 +86,8 @@
       href={item.href}
       class:tall={item.icon}
       class:selected={item.value == tab}
-      style="grid-column: {i + 1}"
-      {...extraOptions}
+      style:grid-column={i + 1}
+      {...extra}
     >
       <Layer />
       {#if item.icon}
@@ -110,9 +101,10 @@
 
 <style>
   .m3-container {
+    display: grid;
+    grid-template-columns: repeat(var(--items), auto);
     position: relative;
     background-color: rgb(var(--m3-scheme-surface));
-    grid-template-columns: repeat(var(--items), auto);
     padding-inline: 1rem;
     justify-content: start;
     overflow-x: auto;

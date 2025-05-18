@@ -1,12 +1,15 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
+  import type { HTMLAnchorAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  interface Props {
-    display?: string;
-    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
-    extraOptions?: HTMLAnchorAttributes;
+
+  let {
+    secondary = false,
+    tab,
+    items,
+    ...extra
+  }: {
     secondary?: boolean;
     tab: string;
     items: {
@@ -15,29 +18,18 @@
       value: string;
       href: string;
     }[];
-  }
-
-  let {
-    display = "flex",
-    extraWrapperOptions = {},
-    extraOptions = {},
-    secondary = false,
-    tab,
-    items,
-  }: Props = $props();
+  } & HTMLAnchorAttributes = $props();
 </script>
 
 <div
   class="m3-container"
   class:primary={!secondary}
-  style="display: {display}; --items: {items.length}; --i: {items.findIndex(
-    (i) => i.value == tab,
-  )};"
-  {...extraWrapperOptions}
+  style:--items={items.length}
+  style:--i={items.findIndex((i) => i.value == tab)}
 >
   <div class="divider"></div>
   {#each items as item}
-    <a href={item.href} class:tall={item.icon} class:selected={item.value == tab} {...extraOptions}>
+    <a href={item.href} class:tall={item.icon} class:selected={item.value == tab} {...extra}>
       <Layer />
       {#if item.icon}
         <Icon icon={item.icon} />
@@ -50,6 +42,7 @@
 
 <style>
   .m3-container {
+    display: flex;
     position: relative;
     background-color: rgb(var(--m3-scheme-surface));
   }
