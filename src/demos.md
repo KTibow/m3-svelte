@@ -78,12 +78,8 @@ Minimal demo:
 
 ```svelte
 <ConnectedButtons>
-  <TogglePrimitive bind:toggle={itemA}>
-    A
-  </TogglePrimitive>
-  <TogglePrimitive bind:toggle={itemB}>
-    B
-  </TogglePrimitive>
+  <TogglePrimitive bind:toggle={itemA}>A</TogglePrimitive>
+  <TogglePrimitive bind:toggle={itemB}>B</TogglePrimitive>
 </ConnectedButtons>
 ```
 
@@ -112,15 +108,9 @@ let multiselect = $state(true);
 {#snippet demo()}
   <ConnectedButtons>
     {#if multiselect}
-      <TogglePrimitive toggle={true}>
-        Alpha
-      </TogglePrimitive>
-      <TogglePrimitive toggle={false}>
-        Beta
-      </TogglePrimitive>
-      <TogglePrimitive toggle={false}>
-        Charlie
-      </TogglePrimitive>
+      <TogglePrimitive toggle={true}>Alpha</TogglePrimitive>
+      <TogglePrimitive toggle={false}>Beta</TogglePrimitive>
+      <TogglePrimitive toggle={false}>Charlie</TogglePrimitive>
     {:else}
       <input type="radio" name="segmented-b" id="segmented-b-0" checked />
       <Button for="segmented-b-0" {variant} square>Alpha</Button>
@@ -148,14 +138,30 @@ FAB
 ```
 
 ```ts
-let color: "primary" | "surface" | "secondary" | "tertiary" = $state("primary");
+let color:
+  | "primary-container"
+  | "secondary-container"
+  | "tertiary-container"
+  | "primary"
+  | "secondary"
+  | "tertiary" = $state("primary-container");
 let size: "small" | "normal" | "large" | "extended" = $state("normal");
 ```
 
 ```svelte
 <label>
-  <Arrows list={["primary", "surface", "secondary", "tertiary"]} bind:value={color} />
-  {color[0].toUpperCase() + color.slice(1)}
+  <Arrows
+    list={[
+      "primary-container",
+      "secondary-container",
+      "tertiary-container",
+      "primary",
+      "secondary",
+      "tertiary",
+    ]}
+    bind:value={color}
+  />
+  {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
 </label>
 <label>
   <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} initialIndex={1} />

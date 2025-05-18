@@ -25,7 +25,13 @@
     text,
     ...extra
   }: {
-    color?: "primary" | "surface" | "secondary" | "tertiary";
+    color?:
+      | "primary-container"
+      | "secondary-container"
+      | "tertiary-container"
+      | "primary"
+      | "secondary"
+      | "tertiary";
     elevation?: "normal" | "lowered" | "none";
     click: () => void;
   } & ContentProps &
@@ -100,21 +106,26 @@
   }
 
   .color-primary {
+    background-color: rgb(var(--m3-scheme-primary));
+    color: rgb(var(--m3-scheme-on-primary));
+  }
+  .color-secondary {
+    background-color: rgb(var(--m3-scheme-secondary));
+    color: rgb(var(--m3-scheme-on-secondary));
+  }
+  .color-tertiary {
+    background-color: rgb(var(--m3-scheme-tertiary));
+    color: rgb(var(--m3-scheme-on-tertiary));
+  }
+  .color-primary-container {
     background-color: rgb(var(--m3-scheme-primary-container));
     color: rgb(var(--m3-scheme-on-primary-container));
   }
-  .color-surface {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-primary));
-  }
-  .color-surface.elevation-normal {
-    background-color: rgb(var(--m3-scheme-surface-container-high));
-  }
-  .color-secondary {
+  .color-secondary-container {
     background-color: rgb(var(--m3-scheme-secondary-container));
     color: rgb(var(--m3-scheme-on-secondary-container));
   }
-  .color-tertiary {
+  .color-tertiary-container {
     background-color: rgb(var(--m3-scheme-tertiary-container));
     color: rgb(var(--m3-scheme-on-tertiary-container));
   }

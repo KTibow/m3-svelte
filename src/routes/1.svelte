@@ -19,12 +19,8 @@ let { showCode }: { showCode: (
 ) => void } = $props();
 
 const minimalDemo = `${"<"}ConnectedButtons>
-  ${"<"}TogglePrimitive bind:toggle={itemA}>
-    A
-  ${"<"}/TogglePrimitive>
-  ${"<"}TogglePrimitive bind:toggle={itemB}>
-    B
-  ${"<"}/TogglePrimitive>
+  ${"<"}TogglePrimitive bind:toggle={itemA}>A${"<"}/TogglePrimitive>
+  ${"<"}TogglePrimitive bind:toggle={itemB}>B${"<"}/TogglePrimitive>
 ${"<"}/ConnectedButtons>`;
 const relevantLinks = [{"title":"ConnectedButtons.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/ConnectedButtons.svelte"},{"title":"TogglePrimitive.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/TogglePrimitive.svelte"}];
 </script>
@@ -41,15 +37,9 @@ const relevantLinks = [{"title":"ConnectedButtons.sv","link":"https://github.com
 {#snippet demo()}
   <ConnectedButtons>
     {#if multiselect}
-      <TogglePrimitive toggle={true}>
-        Alpha
-      </TogglePrimitive>
-      <TogglePrimitive toggle={false}>
-        Beta
-      </TogglePrimitive>
-      <TogglePrimitive toggle={false}>
-        Charlie
-      </TogglePrimitive>
+      <TogglePrimitive toggle={true}>Alpha</TogglePrimitive>
+      <TogglePrimitive toggle={false}>Beta</TogglePrimitive>
+      <TogglePrimitive toggle={false}>Charlie</TogglePrimitive>
     {:else}
       <input type="radio" name="segmented-b" id="segmented-b-0" checked />
       <Button for="segmented-b-0" {variant} square>Alpha</Button>

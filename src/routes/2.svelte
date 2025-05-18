@@ -7,7 +7,13 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import FAB from "$lib/buttons/FAB.svelte";
-let color: "primary" | "surface" | "secondary" | "tertiary" = $state("primary");
+let color:
+  | "primary-container"
+  | "secondary-container"
+  | "tertiary-container"
+  | "primary"
+  | "secondary"
+  | "tertiary" = $state("primary-container");
 let size: "small" | "normal" | "large" | "extended" = $state("normal");
 
 let { showCode }: { showCode: (
@@ -22,8 +28,18 @@ const relevantLinks = [{"title":"FAB.sv","link":"https://github.com/KTibow/m3-sv
 
 <InternalCard title="FAB" showCode={() => showCode("FAB", minimalDemo, relevantLinks)}>
 <label>
-  <Arrows list={["primary", "surface", "secondary", "tertiary"]} bind:value={color} />
-  {color[0].toUpperCase() + color.slice(1)}
+  <Arrows
+    list={[
+      "primary-container",
+      "secondary-container",
+      "tertiary-container",
+      "primary",
+      "secondary",
+      "tertiary",
+    ]}
+    bind:value={color}
+  />
+  {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
 </label>
 <label>
   <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} initialIndex={1} />
