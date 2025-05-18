@@ -9,11 +9,11 @@ import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Button from "$lib/buttons/Button.svelte";
 import Snackbar, { type SnackbarIn } from "$lib/containers/Snackbar.svelte";
-let snackbar: typeof Snackbar;
+let snackbar: ReturnType<typeof Snackbar>;
 
 const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}script lang="ts">
-  let snackbar: typeof Snackbar;
+  let snackbar: ReturnType${"<"}typeof Snackbar>;
 ${"<"}/script>
 
 ${"<"}Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show${"<"}/Button>

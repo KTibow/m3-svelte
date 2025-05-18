@@ -371,7 +371,7 @@ Minimal demo:
 
 ```svelte
 <script lang="ts">
-  let snackbar: typeof Snackbar;
+  let snackbar: ReturnType<typeof Snackbar>;
 </script>
 
 <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
@@ -386,7 +386,7 @@ Snackbar
 ```
 
 ```ts
-let snackbar: typeof Snackbar;
+let snackbar: ReturnType<typeof Snackbar>;
 ```
 
 ```svelte

@@ -11,7 +11,7 @@
   export let name: string | undefined = undefined;
   export let lang: string;
 
-  let snackbar: (data: SnackbarIn) => void;
+  let snackbar: { show: (data: SnackbarIn) => void };
 
   const languageType = {
     javascript,
@@ -24,7 +24,7 @@
 
   function copyToClipboard() {
     navigator.clipboard.writeText(code);
-    snackbar({ closable: true, message: "Text copied to clipboard", timeout: 2000 });
+    snackbar.show({ closable: true, message: "Text copied to clipboard", timeout: 2000 });
   }
 </script>
 
@@ -33,10 +33,10 @@
     <p class="name">{name}</p>
   {/if}
   <div class="button-container">
-    <Button on:click={copyToClipboard} type="text" iconType="full">
+    <Button variant="text" click={copyToClipboard} iconType="full">
       <Icon icon={iconCopy} />
     </Button>
-    <Snackbar bind:show={snackbar} />
+    <Snackbar bind:this={snackbar} />
   </div>
   <Highlight language={languageType} {code} />
 </div>

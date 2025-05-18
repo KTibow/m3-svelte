@@ -1,3 +1,5 @@
+<svelte:options runes={true} />
+
 <div class="tint"></div>
 
 <style>

@@ -76,12 +76,12 @@
   </div>
   {#if doc && innerWidth >= 600}
     <div class="sheet" transition:slide={{ easing: easeEmphasized, duration: 500, axis: "x" }}>
-      <StandardSideSheet headline={doc.name} on:close={() => (doc = undefined)}>
+      <StandardSideSheet headline={doc.name} close={() => (doc = undefined)}>
         {@render docs()}
       </StandardSideSheet>
     </div>
   {:else if doc}
-    <BottomSheet on:close={() => (doc = undefined)}>
+    <BottomSheet close={() => (doc = undefined)}>
       {@render docs()}
     </BottomSheet>
   {/if}
