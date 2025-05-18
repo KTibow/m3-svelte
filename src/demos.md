@@ -148,8 +148,8 @@ let size: "small" | "normal" | "large" | "extended" = "normal";
 Minimal demo:
 
 ```svelte
-<Card type="filled">Hello</Card>
-<Card type="filled" click={() => alert("!")}>Hello</Card>
+<Card variant="filled">Hello</Card>
+<Card variant="filled" click={() => alert("!")}>Hello</Card>
 ```
 
 Full demo:
@@ -159,21 +159,21 @@ Card
 ```
 
 ```ts
-let type: "elevated" | "filled" | "outlined" = "elevated";
+let variant: "elevated" | "filled" | "outlined" = "elevated";
 let clickable = false;
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "outlined"]} bind:value={type} />
-  {type[0].toUpperCase() + type.slice(1)}
+  <Arrows list={["elevated", "filled", "outlined"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
   <Switch bind:checked={clickable} />
   {clickable ? "Clickable" : "Not clickable"}
 </label>
 <div slot="demo">
-  <Card {...clickable ? { click: () => {} } : {}} {type}>Hello</Card>
+  <Card {variant} {...clickable ? { click: () => {} } : {}}>Hello</Card>
 </div>
 ```
 
@@ -435,7 +435,7 @@ let enabled = true;
 Minimal demo:
 
 ```svelte
-<Chip type="general" icon={iconCircle} on:click={() => alert("!")}>Hello</Chip>
+<Chip variant="general" icon={iconCircle} on:click={() => alert("!")}>Hello</Chip>
 ```
 
 Full demo:
@@ -470,7 +470,7 @@ let selected = false;
 
 <div slot="demo">
   <Chip
-    type={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
+    variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
     elevated={style.endsWith("elevated")}
     icon={iconType == "left" ? iconCircle : undefined}
     trailingIcon={iconType == "right" ? iconSquare : undefined}

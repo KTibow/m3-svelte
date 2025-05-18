@@ -350,7 +350,7 @@ Here's an example notes app:
       </ListItem>
     {/each}
   {:else}
-    <Card type="outlined">
+    <Card variant="outlined">
       <div class="empty-content">
         <p class="m3-font-body-large">No notes yet</p>
         <p class="m3-font-body-medium">Click the + button to create one</p>

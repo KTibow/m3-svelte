@@ -274,7 +274,7 @@ Here's an example notes app:
       </ListItem>
     {/each}
   {:else}
-    <Card type="outlined">
+    <Card variant="outlined">
       <div class="empty-content">
         <p class="m3-font-body-large">No notes yet</p>
         <p class="m3-font-body-medium">Click the + button to create one</p>
@@ -675,23 +675,23 @@ let size: "small" | "normal" | "large" | "extended" = "normal";` to make this de
 
 Minimal demo:
 ```svelte
-<Card type="filled">Hello</Card>
-<Card type="filled" click={() => alert("!")}>Hello</Card>
+<Card variant="filled">Hello</Card>
+<Card variant="filled" click={() => alert("!")}>Hello</Card>
 ```
 
-The M3 Svelte interactive demo for this component uses Card with the TS `let type: "elevated" | "filled" | "outlined" = "elevated";
+The M3 Svelte interactive demo for this component uses Card with the TS `let variant: "elevated" | "filled" | "outlined" = "elevated";
 let clickable = false;` to make this demo:
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "outlined"]} bind:value={type} />
-  {type[0].toUpperCase() + type.slice(1)}
+  <Arrows list={["elevated", "filled", "outlined"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
   <Switch bind:checked={clickable} />
   {clickable ? "Clickable" : "Not clickable"}
 </label>
 <div slot="demo">
-  <Card {...clickable ? { click: () => {} } : {}} {type}>Hello</Card>
+  <Card {variant} {...clickable ? { click: () => {} } : {}}>Hello</Card>
 </div>
 ```
 
@@ -886,7 +886,7 @@ The M3 Svelte interactive demo for this component uses Checkbox with the TS `let
 
 Minimal demo:
 ```svelte
-<Chip type="general" icon={iconCircle} on:click={() => alert("!")}>Hello</Chip>
+<Chip variant="general" icon={iconCircle} on:click={() => alert("!")}>Hello</Chip>
 ```
 
 The M3 Svelte interactive demo for this component uses Chip with the TS `let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = "input";
@@ -912,7 +912,7 @@ let selected = false;` to make this demo:
 
 <div slot="demo">
   <Chip
-    type={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
+    variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
     elevated={style.endsWith("elevated")}
     icon={iconType == "left" ? iconCircle : undefined}
     trailingIcon={iconType == "right" ? iconSquare : undefined}

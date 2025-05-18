@@ -14,7 +14,7 @@ let enabled = true;
 let selected = false;
 
 const dispatch = createEventDispatcher();
-const minimalDemo = `${"<"}Chip type="general" icon={iconCircle} on:click={() => alert("!")}>Hello${"<"}/Chip>`;
+const minimalDemo = `${"<"}Chip variant="general" icon={iconCircle} on:click={() => alert("!")}>Hello${"<"}/Chip>`;
 const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Chip.svelte"}];
 </script>
 
@@ -37,7 +37,7 @@ const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-s
 
 <div slot="demo">
   <Chip
-    type={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
+    variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
     elevated={style.endsWith("elevated")}
     icon={iconType == "left" ? iconCircle : undefined}
     trailingIcon={iconType == "right" ? iconSquare : undefined}
