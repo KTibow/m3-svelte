@@ -1,11 +1,10 @@
 <script>
   import SegmentedButtonContainer from "$lib/buttons/SegmentedButtonContainer.svelte";
   import SegmentedButtonItem from "$lib/buttons/SegmentedButtonItem.svelte";
-  import { base } from "$app/paths";
 
   import Snippet from "../Snippet.svelte";
 
-  let styleType = "plain";
+  let styleType = $state("plain");
   const componentCode1 = `${"<"}button class="bg-surface-container-low text-primary rounded-full">Click me${"<"}/button>`;
   const componentCode2 = `${"<"}button>Click me${"<"}/button>
 ${"<"}style>

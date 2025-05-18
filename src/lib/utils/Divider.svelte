@@ -1,9 +1,9 @@
 <script lang="ts">
-  interface Props {
+  let {
+    inset = false,
+  }: {
     inset?: boolean;
-  }
-
-  let { inset = false }: Props = $props();
+  } = $props();
 </script>
 
 <hr class:inset />

@@ -5,7 +5,7 @@
   import Icon from "$lib/misc/_icon.svelte";
 
   let {
-    icon = undefined,
+    icon,
     headline,
     buttons,
     children,

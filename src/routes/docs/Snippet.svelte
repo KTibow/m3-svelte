@@ -7,9 +7,7 @@
   import css from "svelte-highlight/languages/css";
   import xml from "svelte-highlight/languages/xml";
 
-  export let code: string;
-  export let name: string | undefined = undefined;
-  export let lang: string;
+  let { name, code, lang }: { name?: string; code: string; lang: string } = $props();
 
   let snackbar: { show: (data: SnackbarIn) => void };
 

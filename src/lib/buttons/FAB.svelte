@@ -21,8 +21,8 @@
     elevation = "normal",
     click,
     size = "normal",
-    icon = undefined,
-    text = undefined,
+    icon,
+    text,
     ...extra
   }: {
     color?: "primary" | "surface" | "secondary" | "tertiary";

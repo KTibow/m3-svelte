@@ -1,35 +1,39 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
-  import { createEventDispatcher } from "svelte";
-  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
+  import type { HTMLInputAttributes } from "svelte/elements";
 
-  interface Props {
-    display?: string;
-    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
-    extraOptions?: HTMLInputAttributes;
-    name: string;
-    leadingIcon?: IconifyIcon | undefined;
-    trailingIcon?: IconifyIcon | undefined;
-    disabled?: boolean;
-    required?: boolean;
-    error?: boolean;
-    value?: string;
-  }
+  type TrailingProps =
+    | {
+        trailingIcon: IconifyIcon;
+        trailingClick: () => void;
+      }
+    | {
+        trailingIcon?: undefined;
+        trailingClick?: undefined;
+      };
 
   let {
-    display = "inline-flex",
-    extraWrapperOptions = {},
-    extraOptions = {},
     name,
-    leadingIcon = undefined,
-    trailingIcon = undefined,
+    leadingIcon,
+    trailingIcon,
+    trailingClick,
     disabled = false,
     required = false,
     error = false,
     value = $bindable(""),
-  }: Props = $props();
-  const dispatch = createEventDispatcher();
+    enter,
+    ...extra
+  }: {
+    name: string;
+    leadingIcon?: IconifyIcon;
+    disabled?: boolean;
+    required?: boolean;
+    error?: boolean;
+    value?: string;
+    enter?: () => void;
+  } & TrailingProps &
+    HTMLInputAttributes = $props();
   const id = crypto.randomUUID();
 </script>
 
@@ -38,18 +42,16 @@
   class:leading-icon={leadingIcon}
   class:trailing-icon={trailingIcon}
   class:error
-  style="display: {display}"
-  {...extraWrapperOptions}
 >
   <input
     class="focus-none m3-font-body-large"
     placeholder=" "
     bind:value
-    onkeydown={(e) => e.key == "Enter" && dispatch("enter")}
+    onkeydown={(e) => e.key == "Enter" && enter?.()}
     {id}
     {disabled}
     {required}
-    {...extraOptions}
+    {...extra}
   />
   <label class="m3-font-body-large" for={id}>{name}</label>
   <div class="layer"></div>
@@ -57,7 +59,7 @@
     <Icon icon={leadingIcon} class="leading" />
   {/if}
   {#if trailingIcon}
-    <button onclick={() => dispatch("trailingClick")} class="trailing">
+    <button onclick={trailingClick} class="trailing">
       <Icon icon={trailingIcon} />
     </button>
   {/if}
@@ -69,6 +71,7 @@
   }
 
   .m3-container {
+    display: inline-flex;
     position: relative;
     align-items: center;
     height: 3.5rem;

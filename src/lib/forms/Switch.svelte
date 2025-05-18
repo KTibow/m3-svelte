@@ -1,24 +1,17 @@
 <script lang="ts">
   import Icon from "$lib/misc/_icon.svelte";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
-  import type { HTMLAttributes } from "svelte/elements";
+  import type { HTMLInputAttributes } from "svelte/elements";
 
-  interface Props {
-    display?: string;
-    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
-    extraOptions?: HTMLAttributes<HTMLDivElement>;
-    checked?: boolean;
-    disabled?: boolean;
-  }
-
+  // MUST BE WRAPPED IN A <label>
   let {
-    display = "inline-flex",
-    extraWrapperOptions = {},
-    extraOptions = {},
     checked = $bindable(false),
     disabled = false,
-  }: Props = $props();
-  // MUST BE WRAPPED IN A <label>
+    ...extra
+  }: {
+    checked?: boolean;
+    disabled?: boolean;
+  } & HTMLInputAttributes = $props();
 
   let startX: number | undefined = $state();
   const handleMouseUp = (e: MouseEvent) => {
@@ -34,8 +27,6 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
   class="m3-container"
-  style="display: {display};"
-  {...extraWrapperOptions}
   onpointerdown={(e) => {
     if (!disabled) {
       startX = e.clientX;
@@ -50,7 +41,7 @@
     role="switch"
     {disabled}
     bind:checked
-    {...extraOptions}
+    {...extra}
     onkeydown={(e) => {
       if (e.code == "Enter") checked = !checked;
       if (e.code == "ArrowLeft") checked = false;
@@ -69,6 +60,7 @@
     --m3-switch-handle-shape: var(--m3-util-rounding-full);
   }
   .m3-container {
+    display: inline-flex;
     position: relative;
     width: 3.25rem;
     height: 2rem;

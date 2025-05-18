@@ -24,7 +24,6 @@ for (let i = 0; i < demosList.length; i++) {
   const [, friendlyName, minimalDemo, components, fullDemoTs, fullDemoSvelte] = demosList[i];
 
   const generatedCode = `<script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -44,7 +43,12 @@ ${components
   .join("\n")}
 ${fullDemoTs}
 
-const dispatch = createEventDispatcher();
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
 const minimalDemo = \`${minimalDemo.replaceAll("$", '${"$"}').replaceAll("<", '${"<"}')}\`;
 const relevantLinks = ${JSON.stringify(
     components
@@ -65,7 +69,7 @@ const relevantLinks = ${JSON.stringify(
   )};
 </script>
 
-<InternalCard title="${friendlyName}" on:showCode={() => dispatch("showCode", { name: ${JSON.stringify(friendlyName)}, minimalDemo, relevantLinks })}>
+<InternalCard title="${friendlyName}" showCode={() => showCode(${JSON.stringify(friendlyName)}, minimalDemo, relevantLinks)}>
 ${fullDemoSvelte}
 </InternalCard>
 `;

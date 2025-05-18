@@ -3,8 +3,13 @@
   import Highlight from "svelte-highlight";
   import xml from "svelte-highlight/languages/xml";
 
-  export let minimalDemo: string;
-  export let relevantLinks: { title: string; link: string }[];
+  let {
+    minimalDemo,
+    relevantLinks,
+  }: {
+    minimalDemo: string;
+    relevantLinks: { title: string; link: string }[];
+  } = $props();
 </script>
 
 <div class="anchor">

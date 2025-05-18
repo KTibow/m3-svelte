@@ -87,7 +87,7 @@
     >
       <div class="handle"></div>
     </div>
-    {@render children?.()}
+    {@render children()}
   </div>
 </dialog>
 

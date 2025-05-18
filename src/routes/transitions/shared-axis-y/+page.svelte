@@ -2,8 +2,8 @@
   import { sharedAxisTransition } from "$lib";
   import Button from "$lib/buttons/Button.svelte";
 
-  let page = 0;
-  let prevPage = 0;
+  let page = $state(0);
+  let prevPage = $state(0);
 </script>
 
 <main>

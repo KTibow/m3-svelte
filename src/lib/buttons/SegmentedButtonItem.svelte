@@ -8,7 +8,7 @@
 
   let {
     input,
-    icon = undefined,
+    icon,
     children,
     ...extra
   }: { input: string; icon?: IconifyIcon; children: Snippet } & HTMLLabelAttributes = $props();

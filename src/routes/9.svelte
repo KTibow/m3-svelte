@@ -1,5 +1,4 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -10,7 +9,12 @@ import InternalCard from "./_card.svelte";
 import Checkbox from "$lib/forms/Checkbox.svelte";
 let enabled = true;
 
-const dispatch = createEventDispatcher();
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
 const minimalDemo = `${"<"}label>
   ${"<"}Checkbox>
     ${"<"}input type="checkbox" bind:checked={on} />
@@ -19,14 +23,16 @@ ${"<"}/label>`;
 const relevantLinks = [{"title":"Checkbox.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Checkbox.svelte"}];
 </script>
 
-<InternalCard title="Checkbox" on:showCode={() => dispatch("showCode", { name: "Checkbox", minimalDemo, relevantLinks })}>
+<InternalCard title="Checkbox" showCode={() => showCode("Checkbox", minimalDemo, relevantLinks)}>
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
-<label slot="demo">
-  <Checkbox>
-    <input type="checkbox" checked disabled={!enabled} />
-  </Checkbox>
-</label>
+{#snippet demo()}
+  <label>
+    <Checkbox>
+      <input type="checkbox" checked disabled={!enabled} />
+    </Checkbox>
+  </label>
+{/snippet}
 </InternalCard>

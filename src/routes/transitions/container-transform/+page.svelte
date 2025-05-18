@@ -2,7 +2,7 @@
   import { containerTransform } from "$lib";
   import Button from "$lib/buttons/Button.svelte";
 
-  let open = false;
+  let open = $state(false);
   const [send, receive] = containerTransform({ duration: 1000 });
 </script>
 
@@ -37,7 +37,7 @@
   {:else}
     <button
       class="card m3-font-label-large"
-      on:click={() => (open = true)}
+      onclick={() => (open = true)}
       in:receive={{ key: "container" }}
       out:send={{ key: "container" }}
     >

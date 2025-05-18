@@ -8,11 +8,16 @@
   import iconAnimation from "@ktibow/iconset-material-symbols/animation";
   import iconAnimationS from "@ktibow/iconset-material-symbols/animation";
   import { base } from "$app/paths";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import NavList from "$lib/nav/NavList.svelte";
   import NavListLink from "$lib/nav/NavListLink.svelte";
   import { styling } from "./themeStore";
   import "../app.css";
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
 
   const paths = [
     {
@@ -29,7 +34,7 @@
     },
   ];
   const normalizePath = (path: string) => {
-    const u = new URL(path, $page.url.href);
+    const u = new URL(path, page.url.href);
     path = u.pathname;
     if (path.endsWith("/")) path = path.slice(0, -1);
     return path || "/";
@@ -42,7 +47,7 @@
     <NavList type="auto">
       <div class="items">
         {#each paths as { path, icon, iconS, label }}
-          {@const selected = normalizePath(path) === normalizePath($page.url.pathname)}
+          {@const selected = normalizePath(path) === normalizePath(page.url.pathname)}
           <NavListLink
             type="auto"
             href={normalizePath(path)}
@@ -55,16 +60,16 @@
         <NavListLink
           type="auto"
           href={normalizePath(base + "/docs/quick-start")}
-          selected={$page.url.pathname.startsWith(base + "/docs")}
-          icon={$page.url.pathname.startsWith(base + "/docs") ? iconBookS : iconBook}
+          selected={page.url.pathname.startsWith(base + "/docs")}
+          icon={page.url.pathname.startsWith(base + "/docs") ? iconBookS : iconBook}
         >
           Docs
         </NavListLink>
         <NavListLink
           type="auto"
           href={normalizePath(base + "/transitions")}
-          selected={$page.url.pathname.startsWith(base + "/transitions")}
-          icon={$page.url.pathname.startsWith(base + "/transitions")
+          selected={page.url.pathname.startsWith(base + "/transitions")}
+          icon={page.url.pathname.startsWith(base + "/transitions")
             ? iconAnimationS
             : iconAnimation}
         >
@@ -74,7 +79,7 @@
     </NavList>
   </div>
   <div class="content">
-    <slot />
+    {@render children?.()}
   </div>
 </div>
 

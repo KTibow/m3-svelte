@@ -36,7 +36,7 @@ let link = false;
   <Switch bind:checked={link} />
   {link ? "Link" : "Button"}
 </label>
-<div slot="demo">
+{#snippet demo()}
   <Button
     {variant}
     {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
@@ -50,7 +50,7 @@ let link = false;
       <Icon icon={iconCircle} />
     {/if}
   </Button>
-</div>
+{/snippet}
 ```
 
 ## Segmented button
@@ -82,7 +82,7 @@ let multiselect = false;
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
-<div slot="demo">
+{#snippet demo()}
   {#if multiselect}
     <SegmentedButtonContainer>
       <input type="checkbox" id="segmented-a-0" />
@@ -102,7 +102,7 @@ let multiselect = false;
       <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
     </SegmentedButtonContainer>
   {/if}
-</div>
+{/snippet}
 ```
 
 ## FAB
@@ -133,14 +133,14 @@ let size: "small" | "normal" | "large" | "extended" = "normal";
   <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} index={1} />
   {size[0].toUpperCase() + size.slice(1)}
 </label>
-<div slot="demo">
+{#snippet demo()}
   <FAB
     {color}
     click={() => {}}
     {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
     icon={iconCircle}
   />
-</div>
+{/snippet}
 ```
 
 ## Card
@@ -172,9 +172,9 @@ let clickable = false;
   <Switch bind:checked={clickable} />
   {clickable ? "Clickable" : "Not clickable"}
 </label>
-<div slot="demo">
+{#snippet demo()}
   <Card {variant} {...clickable ? { click: () => {} } : {}}>Hello</Card>
-</div>
+{/snippet}
 ```
 
 ## List
@@ -200,12 +200,13 @@ Divider
 let lines: "1" | "2" | "3" = "1";
 let type: "div" | "button" | "label" = "div";
 const headline = "Hello";
-$: supporting =
+
+let supporting = $derived(
   lines == "1"
     ? undefined
     : lines == "2"
       ? "Welcome to ZomboCom!"
-      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!";
+      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!");
 ```
 
 ```svelte
@@ -218,32 +219,34 @@ $: supporting =
   <Arrows list={["div", "button", "label"]} bind:value={type} />
   {"<" + type + ">"}
 </label>
-<div class="demo" slot="demo">
-  {#snippet leading()}
-    {#if type == "label"}
-      <div class="box-wrapper">
-        <Checkbox><input type="checkbox" /></Checkbox>
-      </div>
-    {:else}
-      <Icon icon={iconCircle} />
-    {/if}
-  {/snippet}
-  <ListItem
-    {leading}
-    {headline}
-    {supporting}
-    lines={+lines}
-    {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
-  />
-  <Divider />
-  <ListItem
-    {leading}
-    {headline}
-    {supporting}
-    lines={+lines}
-    {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
-  />
-</div>
+{#snippet demo()}
+  <div class="demo">
+    {#snippet leading()}
+      {#if type == "label"}
+        <div class="box-wrapper">
+          <Checkbox><input type="checkbox" /></Checkbox>
+        </div>
+      {:else}
+        <Icon icon={iconCircle} />
+      {/if}
+    {/snippet}
+    <ListItem
+      {leading}
+      {headline}
+      {supporting}
+      lines={+lines}
+      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+    />
+    <Divider />
+    <ListItem
+      {leading}
+      {headline}
+      {supporting}
+      lines={+lines}
+      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+    />
+  </div>
+{/snippet}
 
 <style>
   .demo {
@@ -289,11 +292,13 @@ let icons = false;
   <Switch bind:checked={icons} />
   {icons ? "Icons" : "No icons"}
 </label>
-<Menu slot="demo">
-  <MenuItem icon={icons ? iconCircle : undefined} click={() => {}}>Cut</MenuItem>
-  <MenuItem icon={icons ? iconSquare : undefined} click={() => {}}>Undo</MenuItem>
-  <MenuItem icon={icons ? iconTriangle : undefined} disabled click={() => {}}>Redo</MenuItem>
-</Menu>
+{#snippet demo()}
+  <Menu>
+    <MenuItem icon={icons ? iconCircle : undefined} click={() => {}}>Cut</MenuItem>
+    <MenuItem icon={icons ? iconSquare : undefined} click={() => {}}>Undo</MenuItem>
+    <MenuItem icon={icons ? iconTriangle : undefined} disabled click={() => {}}>Redo</MenuItem>
+  </Menu>
+{/snippet}
 ```
 
 ## Bottom sheet
@@ -314,18 +319,18 @@ BottomSheet
 ```
 
 ```ts
-let open = false;
+let open = $state(false);
 ```
 
 ```svelte
-<div slot="demo">
+{#snippet demo()}
   <Button variant="tonal" click={() => (open = true)}>Open</Button>
   {#if open}
     <BottomSheet close={() => (open = false)}>
       {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(20)}
     </BottomSheet>
   {/if}
-</div>
+{/snippet}
 ```
 
 ## Dialog
@@ -349,11 +354,11 @@ Dialog
 ```
 
 ```ts
-let open = false;
+let open = $state(false);
 ```
 
 ```svelte
-<div slot="demo">
+{#snippet demo()}
   <Button variant="tonal" click={() => (open = true)}>Open</Button>
   <Dialog icon={iconCircle} headline="Hello" bind:open>
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
@@ -362,7 +367,7 @@ let open = false;
       <Button variant="tonal" click={() => (open = false)}>OK</Button>
     {/snippet}
   </Dialog>
-</div>
+{/snippet}
 ```
 
 ## Snackbar
@@ -390,10 +395,10 @@ let snackbar: ReturnType<typeof Snackbar>;
 ```
 
 ```svelte
-<div slot="demo">
+{#snippet demo()}
   <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
   <Snackbar bind:this={snackbar} />
-</div>
+{/snippet}
 ```
 
 ## Checkbox
@@ -423,11 +428,13 @@ let enabled = true;
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
-<label slot="demo">
-  <Checkbox>
-    <input type="checkbox" checked disabled={!enabled} />
-  </Checkbox>
-</label>
+{#snippet demo()}
+  <label>
+    <Checkbox>
+      <input type="checkbox" checked disabled={!enabled} />
+    </Checkbox>
+  </label>
+{/snippet}
 ```
 
 ## Chip
@@ -468,7 +475,7 @@ let selected = false;
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   <Chip
     variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
     elevated={style.endsWith("elevated")}
@@ -480,7 +487,7 @@ let selected = false;
   >
     Hello
   </Chip>
-</div>
+{/snippet}
 ```
 
 ## Progress
@@ -518,7 +525,7 @@ let indeterminate = false;
   {indeterminate ? "Indeterminate" : "Fixed progress"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if type == "linear" && indeterminate}
     <LinearProgressIndeterminate />
   {:else if type == "linear"}
@@ -528,7 +535,7 @@ let indeterminate = false;
   {:else if type == "circular"}
     <CircularProgress percent={60} />
   {/if}
-</div>
+{/snippet}
 ```
 
 ## Radio
@@ -552,7 +559,8 @@ RadioAnim3
 ```ts
 let animation: "1" | "2" | "3" = "1";
 let enabled = true;
-$: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3;
+
+let component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3);
 ```
 
 ```svelte
@@ -565,7 +573,8 @@ $: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : R
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div style:display="flex" style:gap="0.5rem" slot="demo">
+{#snippet demo()}
+<div style:display="flex" style:gap="0.5rem">
   <label>
     <svelte:component this={component}>
       <input type="radio" name="radio" checked disabled={!enabled} />
@@ -582,6 +591,7 @@ $: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : R
     </svelte:component>
   </label>
 </div>
+{/snippet}
 ```
 
 ## Slider
@@ -619,13 +629,13 @@ let value = 0;
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if precision == "discrete-ticks"}
     <SliderTicks step={1} max={6} value={0} disabled={!enabled} />
   {:else}
     <Slider step={precision == "continuous" ? "any" : 10} value={0} disabled={!enabled} />
   {/if}
-</div>
+{/snippet}
 ```
 
 ## Switch
@@ -654,9 +664,11 @@ let enabled = true;
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<label slot="demo">
+{#snippet demo()}
+<label>
   <Switch disabled={!enabled} />
 </label>
+{/snippet}
 ```
 
 ## Text field
@@ -683,7 +695,6 @@ let option: "text" | "password" | "number" | "file" = "text";
 let leadingIcon = false;
 let errored = false;
 let enabled = true;
-$: extraOptions = { type: option } as HTMLInputAttributes;
 ```
 
 ```svelte
@@ -723,14 +734,14 @@ $: extraOptions = { type: option } as HTMLInputAttributes;
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if type === "filled"}
     <TextField
       name="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
-      {extraOptions}
+      type={option}
     />
   {:else if type === "outlined"}
     <TextFieldOutlined
@@ -738,7 +749,7 @@ $: extraOptions = { type: option } as HTMLInputAttributes;
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
-      {extraOptions}
+      type={option}
     />
   {:else if type === "filled_multiline"}
     <TextFieldMultiline
@@ -755,7 +766,7 @@ $: extraOptions = { type: option } as HTMLInputAttributes;
       disabled={!enabled}
     />
   {/if}
-</div>
+{/snippet}
 ```
 
 ## Tabs
@@ -785,7 +796,7 @@ let icons = false;
 let variable = false;
 let tab = "hello";
 
-$: items = icons
+let items = $derived(icons
   ? [
       { icon: iconCircle, name: "Hello", value: "hello" },
       { icon: iconSquare, name: "World", value: "world" },
@@ -795,7 +806,7 @@ $: items = icons
       { name: "Hello", value: "hello" },
       { name: "World", value: "world" },
       { name: "The longest item", value: "long" },
-    ];
+    ]);
 ```
 
 ```svelte
@@ -812,13 +823,13 @@ $: items = icons
   {variable ? "Variable" : "Fixed"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if variable}
     <VariableTabs bind:tab secondary={type == "secondary"} {items} />
   {:else}
     <Tabs bind:tab secondary={type == "secondary"} {items} />
   {/if}
-</div>
+{/snippet}
 ```
 
 ## Date field
@@ -840,5 +851,7 @@ DateField
 ```
 
 ```svelte
-<DateField name="Date" slot="demo" />
+{#snippet demo()}
+  <DateField name="Date" />
+{/snippet}
 ```

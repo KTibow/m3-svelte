@@ -1,14 +1,10 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
-  interface Props {
-    display?: string;
-    extraOptions?: HTMLAttributes<HTMLDivElement>;
-  }
 
-  let { display = "inline-flex", extraOptions = {} }: Props = $props();
+  let extra: HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
-<div class="m3-container" style="display: {display};" role="progressbar" {...extraOptions}>
+<div class="m3-container" role="progressbar" {...extra}>
   <div class="percent"></div>
 </div>
 
@@ -17,6 +13,7 @@
     --m3-linear-progress-shape: var(--m3-util-rounding-full);
   }
   .m3-container {
+    display: inline-flex;
     background-color: rgb(var(--m3-scheme-primary-container));
     height: 0.25rem;
     min-width: 8rem;

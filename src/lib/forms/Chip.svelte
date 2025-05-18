@@ -7,8 +7,8 @@
 
   let {
     variant,
-    icon = undefined,
-    trailingIcon = undefined,
+    icon,
+    trailingIcon,
     elevated = false,
     disabled = false,
     selected = false,

@@ -7,17 +7,19 @@
   import { schemes } from "./data";
   import SchemeShowcase from "./SchemeShowcase.svelte";
 
-  let schemeLight: DynamicScheme, schemeDark: DynamicScheme;
-  let sourceColor: number;
-  let algorithm: keyof typeof schemes = "tonal_spot";
-  let contrast = 0;
+  let sourceColor = $state(0);
+  let algorithm: keyof typeof schemes = $state("tonal_spot");
+  let contrast = $state(0);
 
-  $: if (sourceColor) {
+  let { schemeLight, schemeDark } = $derived.by(() => {
+    if (!sourceColor) return { schemeLight: undefined, schemeDark: undefined };
+
     const scheme = schemes[algorithm];
-
-    schemeLight = new scheme(Hct.fromInt(sourceColor), false, contrast);
-    schemeDark = new scheme(Hct.fromInt(sourceColor), true, contrast);
-  }
+    return {
+      schemeLight: new scheme(Hct.fromInt(sourceColor), false, contrast),
+      schemeDark: new scheme(Hct.fromInt(sourceColor), true, contrast),
+    };
+  });
 </script>
 
 <svelte:head>
@@ -30,7 +32,7 @@
 <ColorChooser bind:sourceColor />
 <Arrow />
 <TransformChooser bind:algorithm bind:contrast />
-{#if schemeLight}
+{#if schemeLight && schemeDark}
   <Arrow />
   <SchemeShowcase {schemeLight} {schemeDark} />
 {/if}

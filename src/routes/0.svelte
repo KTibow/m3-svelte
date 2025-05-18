@@ -1,5 +1,4 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -13,12 +12,17 @@ let iconType: "none" | "left" | "full" = "none";
 let enabled = true;
 let link = false;
 
-const dispatch = createEventDispatcher();
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
 const minimalDemo = `${"<"}Button variant="elevated" click={() => alert("!")}>Hello${"<"}/Button>`;
 const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/Button.svelte"}];
 </script>
 
-<InternalCard title="Button" on:showCode={() => dispatch("showCode", { name: "Button", minimalDemo, relevantLinks })}>
+<InternalCard title="Button" showCode={() => showCode("Button", minimalDemo, relevantLinks)}>
 <label>
   <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} />
   {variant[0].toUpperCase() + variant.slice(1)}
@@ -35,7 +39,7 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
   <Switch bind:checked={link} />
   {link ? "Link" : "Button"}
 </label>
-<div slot="demo">
+{#snippet demo()}
   <Button
     {variant}
     {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
@@ -49,5 +53,5 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
       <Icon icon={iconCircle} />
     {/if}
   </Button>
-</div>
+{/snippet}
 </InternalCard>

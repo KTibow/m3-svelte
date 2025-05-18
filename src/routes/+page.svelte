@@ -1,5 +1,6 @@
 <script lang="ts">
   import { slide } from "svelte/transition";
+  import { innerWidth } from "svelte/reactivity/window";
   import { easeEmphasized } from "$lib/misc/easing";
   import StandardSideSheet from "$lib/containers/StandardSideSheet.svelte";
   import BottomSheet from "$lib/containers/BottomSheet.svelte";
@@ -25,20 +26,17 @@
   import Demo16 from "./16.svelte";
   import Demo17 from "./17.svelte";
 
-  let innerWidth: number;
-
   type DocData = {
     name: string;
     minimalDemo: string;
     relevantLinks: { title: string; link: string }[];
   };
-  let doc: DocData | undefined;
+  let doc: DocData | undefined = $state();
   const showCode = (e: { detail: DocData }) => {
     doc = e.detail;
   };
 </script>
 
-<svelte:window bind:innerWidth />
 <svelte:head>
   <title>M3 Svelte</title>
   <meta
@@ -74,7 +72,7 @@
     <Demo16 on:showCode={showCode} />
     <Demo17 on:showCode={showCode} />
   </div>
-  {#if doc && innerWidth >= 600}
+  {#if doc && innerWidth.current && innerWidth.current >= 600}
     <div class="sheet" transition:slide={{ easing: easeEmphasized, duration: 500, axis: "x" }}>
       <StandardSideSheet headline={doc.name} close={() => (doc = undefined)}>
         {@render docs()}

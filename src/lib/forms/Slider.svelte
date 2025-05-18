@@ -1,24 +1,8 @@
 <script lang="ts">
-  import { run } from "svelte/legacy";
-
-  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
-  import { spring } from "svelte/motion";
-
-  interface Props {
-    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
-    extraOptions?: HTMLInputAttributes;
-    value: number;
-    min?: number;
-    max?: number;
-    step?: number | "any";
-    disabled?: boolean;
-    showValue?: boolean;
-    format?: (n: number) => string;
-  }
+  import type { HTMLInputAttributes } from "svelte/elements";
+  import { Spring } from "svelte/motion";
 
   let {
-    extraWrapperOptions = {},
-    extraOptions = {},
     value = $bindable(),
     min = 0,
     max = 100,
@@ -28,34 +12,39 @@
     format = (n: number) => {
       return n.toFixed(0);
     },
-  }: Props = $props();
+    ...extra
+  }: {
+    value: number;
+    min?: number;
+    max?: number;
+    step?: number | "any";
+    disabled?: boolean;
+    showValue?: boolean;
+    format?: (n: number) => string;
+  } & HTMLInputAttributes = $props();
 
-  const valueDisplayed = spring(value, { stiffness: 0.3, damping: 1 });
+  const valueDisplayed = new Spring(value, { stiffness: 0.3, damping: 1 });
   const updateValue = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
     const newValue = Number(e.currentTarget.value);
     e.preventDefault();
     value = newValue;
-    $valueDisplayed = newValue;
+    valueDisplayed.target = newValue;
   };
 
-  let range: number = $state(),
-    percent: number = $state();
-  run(() => {
-    range = max - min;
-    percent = ($valueDisplayed - min) / range;
-  });
+  let range = $derived(max - min);
+  let percent = $derived((valueDisplayed.current - min) / range);
 </script>
 
-<div class="m3-container" style="--percent: {percent * 100}%;" {...extraWrapperOptions}>
+<div class="m3-container" style:--percent="{percent * 100}%">
   <input
     type="range"
     oninput={updateValue}
-    value={$valueDisplayed}
+    value={valueDisplayed.current}
     {min}
     {max}
     {step}
     {disabled}
-    {...extraOptions}
+    {...extra}
   />
   <div class="track"></div>
   <div class="thumb"></div>

@@ -1,5 +1,4 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -13,12 +12,17 @@ let iconType: "none" | "left" | "right" = "none";
 let enabled = true;
 let selected = false;
 
-const dispatch = createEventDispatcher();
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
 const minimalDemo = `${"<"}Chip variant="general" icon={iconCircle} on:click={() => alert("!")}>Hello${"<"}/Chip>`;
 const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Chip.svelte"}];
 </script>
 
-<InternalCard title="Chip" on:showCode={() => dispatch("showCode", { name: "Chip", minimalDemo, relevantLinks })}>
+<InternalCard title="Chip" showCode={() => showCode("Chip", minimalDemo, relevantLinks)}>
 <label>
   <Arrows
     list={["input", "assist", "assist elevated", "general", "general elevated"]}
@@ -35,7 +39,7 @@ const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-s
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   <Chip
     variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
     elevated={style.endsWith("elevated")}
@@ -47,5 +51,5 @@ const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-s
   >
     Hello
   </Chip>
-</div>
+{/snippet}
 </InternalCard>

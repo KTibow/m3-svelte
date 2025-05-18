@@ -1,31 +1,24 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
-  import type { HTMLAttributes, HTMLTextareaAttributes } from "svelte/elements";
-
-  interface Props {
-    display?: string;
-    extraWrapperOptions?: HTMLAttributes<HTMLDivElement>;
-    extraOptions?: HTMLTextareaAttributes;
-    name: string;
-    leadingIcon?: IconifyIcon | undefined;
-    disabled?: boolean;
-    required?: boolean;
-    error?: boolean;
-    value?: string;
-  }
+  import type { HTMLTextareaAttributes } from "svelte/elements";
 
   let {
-    display = "inline-flex",
-    extraWrapperOptions = {},
-    extraOptions = {},
     name,
-    leadingIcon = undefined,
+    leadingIcon,
     disabled = false,
     required = false,
     error = false,
     value = $bindable(""),
-  }: Props = $props();
+    ...extra
+  }: {
+    name: string;
+    leadingIcon?: IconifyIcon;
+    disabled?: boolean;
+    required?: boolean;
+    error?: boolean;
+    value?: string;
+  } & HTMLTextareaAttributes = $props();
   const id = crypto.randomUUID();
   const resize = (node: HTMLElement) => {
     const update = () => {
@@ -43,14 +36,7 @@
   };
 </script>
 
-<div
-  class="m3-container"
-  class:leading-icon={leadingIcon}
-  class:error
-  style="display: {display}"
-  use:resize
-  {...extraWrapperOptions}
->
+<div class="m3-container" class:leading-icon={leadingIcon} class:error use:resize>
   <textarea
     class="focus-none m3-font-body-large"
     placeholder=" "
@@ -58,7 +44,7 @@
     {id}
     {disabled}
     {required}
-    {...extraOptions}
+    {...extra}
   ></textarea>
   <div class="layer"></div>
   <label class="m3-font-body-large" for={id}>{name}</label>
@@ -76,6 +62,7 @@
     --m3-textfield-outlined-shape: var(--m3-util-rounding-extra-small);
   }
   .m3-container {
+    display: inline-flex;
     position: relative;
     align-items: center;
     min-height: 5rem;

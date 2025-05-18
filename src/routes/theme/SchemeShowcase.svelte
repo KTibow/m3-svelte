@@ -14,12 +14,19 @@
   import { genCSS, pairs } from "$lib/misc/utils";
   import { serializeScheme } from "$lib/misc/serializeScheme";
 
-  export let schemeLight: DynamicScheme;
-  export let schemeDark: DynamicScheme;
-  let showDark = false;
-  let grabbing = false;
+  let {
+    schemeLight,
+    schemeDark,
+  }: {
+    schemeLight: DynamicScheme;
+    schemeDark: DynamicScheme;
+  } = $props();
+  let showDark = $state(false);
+  let grabbing = $state(false);
 
-  $: $styling = genCSS(serializeScheme(schemeLight), serializeScheme(schemeDark));
+  $effect(() => {
+    $styling = genCSS(serializeScheme(schemeLight), serializeScheme(schemeDark));
+  });
 
   const copyUsage = () =>
     navigator.clipboard.writeText(`@import url("m3-svelte/misc/styles.css");
@@ -40,7 +47,7 @@ ${$styling}`);
         fg={fgName}
         bg={bgName}
         {grabbing}
-        on:grabbed={() => (grabbing = false)}
+        grabbed={() => (grabbing = false)}
       />
     {/each}
   </div>

@@ -5,7 +5,7 @@
   import Layer from "$lib/misc/Layer.svelte";
 
   let {
-    icon = undefined,
+    icon,
     disabled = false,
     click,
     children,

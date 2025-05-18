@@ -1,5 +1,4 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -13,14 +12,20 @@ import Divider from "$lib/utils/Divider.svelte";
 let lines: "1" | "2" | "3" = "1";
 let type: "div" | "button" | "label" = "div";
 const headline = "Hello";
-$: supporting =
+
+let supporting = $derived(
   lines == "1"
     ? undefined
     : lines == "2"
       ? "Welcome to ZomboCom!"
-      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!";
+      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!");
 
-const dispatch = createEventDispatcher();
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
 const minimalDemo = `${"<"}div>
   ${"<"}ListItem headline="Hello" />
   ${"<"}ListItem headline="Hello" />
@@ -28,7 +33,7 @@ ${"<"}/div>`;
 const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/ListItem.svelte"}];
 </script>
 
-<InternalCard title="List" on:showCode={() => dispatch("showCode", { name: "List", minimalDemo, relevantLinks })}>
+<InternalCard title="List" showCode={() => showCode("List", minimalDemo, relevantLinks)}>
 <label>
   <Arrows list={["1", "2", "3"]} bind:value={lines} />
   {lines}
@@ -38,32 +43,34 @@ const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/
   <Arrows list={["div", "button", "label"]} bind:value={type} />
   {"<" + type + ">"}
 </label>
-<div class="demo" slot="demo">
-  {#snippet leading()}
-    {#if type == "label"}
-      <div class="box-wrapper">
-        <Checkbox><input type="checkbox" /></Checkbox>
-      </div>
-    {:else}
-      <Icon icon={iconCircle} />
-    {/if}
-  {/snippet}
-  <ListItem
-    {leading}
-    {headline}
-    {supporting}
-    lines={+lines}
-    {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
-  />
-  <Divider />
-  <ListItem
-    {leading}
-    {headline}
-    {supporting}
-    lines={+lines}
-    {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
-  />
-</div>
+{#snippet demo()}
+  <div class="demo">
+    {#snippet leading()}
+      {#if type == "label"}
+        <div class="box-wrapper">
+          <Checkbox><input type="checkbox" /></Checkbox>
+        </div>
+      {:else}
+        <Icon icon={iconCircle} />
+      {/if}
+    {/snippet}
+    <ListItem
+      {leading}
+      {headline}
+      {supporting}
+      lines={+lines}
+      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+    />
+    <Divider />
+    <ListItem
+      {leading}
+      {headline}
+      {supporting}
+      lines={+lines}
+      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+    />
+  </div>
+{/snippet}
 
 <style>
   .demo {

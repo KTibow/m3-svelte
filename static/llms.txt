@@ -585,7 +585,7 @@ let link = false;` to make this demo:
   <Switch bind:checked={link} />
   {link ? "Link" : "Button"}
 </label>
-<div slot="demo">
+{#snippet demo()}
   <Button
     {variant}
     {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
@@ -599,7 +599,7 @@ let link = false;` to make this demo:
       <Icon icon={iconCircle} />
     {/if}
   </Button>
-</div>
+{/snippet}
 ```
 
 ### Segmented button
@@ -620,7 +620,7 @@ The M3 Svelte interactive demo for this component uses SegmentedButtonContainer,
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
-<div slot="demo">
+{#snippet demo()}
   {#if multiselect}
     <SegmentedButtonContainer>
       <input type="checkbox" id="segmented-a-0" />
@@ -640,7 +640,7 @@ The M3 Svelte interactive demo for this component uses SegmentedButtonContainer,
       <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
     </SegmentedButtonContainer>
   {/if}
-</div>
+{/snippet}
 ```
 
 ### FAB
@@ -661,14 +661,14 @@ let size: "small" | "normal" | "large" | "extended" = "normal";` to make this de
   <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} index={1} />
   {size[0].toUpperCase() + size.slice(1)}
 </label>
-<div slot="demo">
+{#snippet demo()}
   <FAB
     {color}
     click={() => {}}
     {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
     icon={iconCircle}
   />
-</div>
+{/snippet}
 ```
 
 ### Card
@@ -690,9 +690,9 @@ let clickable = false;` to make this demo:
   <Switch bind:checked={clickable} />
   {clickable ? "Clickable" : "Not clickable"}
 </label>
-<div slot="demo">
+{#snippet demo()}
   <Card {variant} {...clickable ? { click: () => {} } : {}}>Hello</Card>
-</div>
+{/snippet}
 ```
 
 ### List
@@ -708,12 +708,13 @@ Minimal demo:
 The M3 Svelte interactive demo for this component uses ListItem, Checkbox, Divider with the TS `let lines: "1" | "2" | "3" = "1";
 let type: "div" | "button" | "label" = "div";
 const headline = "Hello";
-$: supporting =
+
+let supporting = $derived(
   lines == "1"
     ? undefined
     : lines == "2"
       ? "Welcome to ZomboCom!"
-      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!";` to make this demo:
+      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!");` to make this demo:
 ```svelte
 <label>
   <Arrows list={["1", "2", "3"]} bind:value={lines} />
@@ -724,32 +725,34 @@ $: supporting =
   <Arrows list={["div", "button", "label"]} bind:value={type} />
   {"<" + type + ">"}
 </label>
-<div class="demo" slot="demo">
-  {#snippet leading()}
-    {#if type == "label"}
-      <div class="box-wrapper">
-        <Checkbox><input type="checkbox" /></Checkbox>
-      </div>
-    {:else}
-      <Icon icon={iconCircle} />
-    {/if}
-  {/snippet}
-  <ListItem
-    {leading}
-    {headline}
-    {supporting}
-    lines={+lines}
-    {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
-  />
-  <Divider />
-  <ListItem
-    {leading}
-    {headline}
-    {supporting}
-    lines={+lines}
-    {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
-  />
-</div>
+{#snippet demo()}
+  <div class="demo">
+    {#snippet leading()}
+      {#if type == "label"}
+        <div class="box-wrapper">
+          <Checkbox><input type="checkbox" /></Checkbox>
+        </div>
+      {:else}
+        <Icon icon={iconCircle} />
+      {/if}
+    {/snippet}
+    <ListItem
+      {leading}
+      {headline}
+      {supporting}
+      lines={+lines}
+      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+    />
+    <Divider />
+    <ListItem
+      {leading}
+      {headline}
+      {supporting}
+      lines={+lines}
+      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+    />
+  </div>
+{/snippet}
 
 <style>
   .demo {
@@ -784,11 +787,13 @@ The M3 Svelte interactive demo for this component uses Menu, MenuItem with the T
   <Switch bind:checked={icons} />
   {icons ? "Icons" : "No icons"}
 </label>
-<Menu slot="demo">
-  <MenuItem icon={icons ? iconCircle : undefined} click={() => {}}>Cut</MenuItem>
-  <MenuItem icon={icons ? iconSquare : undefined} click={() => {}}>Undo</MenuItem>
-  <MenuItem icon={icons ? iconTriangle : undefined} disabled click={() => {}}>Redo</MenuItem>
-</Menu>
+{#snippet demo()}
+  <Menu>
+    <MenuItem icon={icons ? iconCircle : undefined} click={() => {}}>Cut</MenuItem>
+    <MenuItem icon={icons ? iconSquare : undefined} click={() => {}}>Undo</MenuItem>
+    <MenuItem icon={icons ? iconTriangle : undefined} disabled click={() => {}}>Redo</MenuItem>
+  </Menu>
+{/snippet}
 ```
 
 ### Bottom sheet
@@ -800,16 +805,16 @@ Minimal demo:
 {/if}
 ```
 
-The M3 Svelte interactive demo for this component uses Button, BottomSheet with the TS `let open = false;` to make this demo:
+The M3 Svelte interactive demo for this component uses Button, BottomSheet with the TS `let open = $state(false);` to make this demo:
 ```svelte
-<div slot="demo">
+{#snippet demo()}
   <Button variant="tonal" click={() => (open = true)}>Open</Button>
   {#if open}
     <BottomSheet close={() => (open = false)}>
       {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(20)}
     </BottomSheet>
   {/if}
-</div>
+{/snippet}
 ```
 
 ### Dialog
@@ -824,9 +829,9 @@ Minimal demo:
 </Dialog>
 ```
 
-The M3 Svelte interactive demo for this component uses Button, Dialog with the TS `let open = false;` to make this demo:
+The M3 Svelte interactive demo for this component uses Button, Dialog with the TS `let open = $state(false);` to make this demo:
 ```svelte
-<div slot="demo">
+{#snippet demo()}
   <Button variant="tonal" click={() => (open = true)}>Open</Button>
   <Dialog icon={iconCircle} headline="Hello" bind:open>
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
@@ -835,7 +840,7 @@ The M3 Svelte interactive demo for this component uses Button, Dialog with the T
       <Button variant="tonal" click={() => (open = false)}>OK</Button>
     {/snippet}
   </Dialog>
-</div>
+{/snippet}
 ```
 
 ### Snackbar
@@ -852,10 +857,10 @@ Minimal demo:
 
 The M3 Svelte interactive demo for this component uses Button, Snackbar with the TS `let snackbar: ReturnType<typeof Snackbar>;` to make this demo:
 ```svelte
-<div slot="demo">
+{#snippet demo()}
   <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
   <Snackbar bind:this={snackbar} />
-</div>
+{/snippet}
 ```
 
 ### Checkbox
@@ -875,11 +880,13 @@ The M3 Svelte interactive demo for this component uses Checkbox with the TS `let
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
-<label slot="demo">
-  <Checkbox>
-    <input type="checkbox" checked disabled={!enabled} />
-  </Checkbox>
-</label>
+{#snippet demo()}
+  <label>
+    <Checkbox>
+      <input type="checkbox" checked disabled={!enabled} />
+    </Checkbox>
+  </label>
+{/snippet}
 ```
 
 ### Chip
@@ -910,7 +917,7 @@ let selected = false;` to make this demo:
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   <Chip
     variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
     elevated={style.endsWith("elevated")}
@@ -922,7 +929,7 @@ let selected = false;` to make this demo:
   >
     Hello
   </Chip>
-</div>
+{/snippet}
 ```
 
 ### Progress
@@ -947,7 +954,7 @@ let indeterminate = false;` to make this demo:
   {indeterminate ? "Indeterminate" : "Fixed progress"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if type == "linear" && indeterminate}
     <LinearProgressIndeterminate />
   {:else if type == "linear"}
@@ -957,7 +964,7 @@ let indeterminate = false;` to make this demo:
   {:else if type == "circular"}
     <CircularProgress percent={60} />
   {/if}
-</div>
+{/snippet}
 ```
 
 ### Radio
@@ -971,7 +978,8 @@ Minimal demo:
 
 The M3 Svelte interactive demo for this component uses RadioAnim1, RadioAnim2, RadioAnim3 with the TS `let animation: "1" | "2" | "3" = "1";
 let enabled = true;
-$: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3;` to make this demo:
+
+let component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3);` to make this demo:
 ```svelte
 <label>
   <Arrows list={["1", "2", "3"]} bind:value={animation} />
@@ -982,7 +990,8 @@ $: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : R
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div style:display="flex" style:gap="0.5rem" slot="demo">
+{#snippet demo()}
+<div style:display="flex" style:gap="0.5rem">
   <label>
     <svelte:component this={component}>
       <input type="radio" name="radio" checked disabled={!enabled} />
@@ -999,6 +1008,7 @@ $: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : R
     </svelte:component>
   </label>
 </div>
+{/snippet}
 ```
 
 ### Slider
@@ -1025,13 +1035,13 @@ let value = 0;` to make this demo:
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if precision == "discrete-ticks"}
     <SliderTicks step={1} max={6} value={0} disabled={!enabled} />
   {:else}
     <Slider step={precision == "continuous" ? "any" : 10} value={0} disabled={!enabled} />
   {/if}
-</div>
+{/snippet}
 ```
 
 ### Switch
@@ -1050,9 +1060,11 @@ The M3 Svelte interactive demo for this component uses Switch with the TS `let e
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<label slot="demo">
+{#snippet demo()}
+<label>
   <Switch disabled={!enabled} />
 </label>
+{/snippet}
 ```
 
 ### Text field
@@ -1067,8 +1079,7 @@ let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = "f
 let option: "text" | "password" | "number" | "file" = "text";
 let leadingIcon = false;
 let errored = false;
-let enabled = true;
-$: extraOptions = { type: option } as HTMLInputAttributes;` to make this demo:
+let enabled = true;` to make this demo:
 ```svelte
 <label>
   <Arrows
@@ -1106,14 +1117,14 @@ $: extraOptions = { type: option } as HTMLInputAttributes;` to make this demo:
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if type === "filled"}
     <TextField
       name="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
-      {extraOptions}
+      type={option}
     />
   {:else if type === "outlined"}
     <TextFieldOutlined
@@ -1121,7 +1132,7 @@ $: extraOptions = { type: option } as HTMLInputAttributes;` to make this demo:
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
-      {extraOptions}
+      type={option}
     />
   {:else if type === "filled_multiline"}
     <TextFieldMultiline
@@ -1138,7 +1149,7 @@ $: extraOptions = { type: option } as HTMLInputAttributes;` to make this demo:
       disabled={!enabled}
     />
   {/if}
-</div>
+{/snippet}
 ```
 
 ### Tabs
@@ -1159,7 +1170,7 @@ let icons = false;
 let variable = false;
 let tab = "hello";
 
-$: items = icons
+let items = $derived(icons
   ? [
       { icon: iconCircle, name: "Hello", value: "hello" },
       { icon: iconSquare, name: "World", value: "world" },
@@ -1169,7 +1180,7 @@ $: items = icons
       { name: "Hello", value: "hello" },
       { name: "World", value: "world" },
       { name: "The longest item", value: "long" },
-    ];` to make this demo:
+    ]);` to make this demo:
 ```svelte
 <label>
   <Arrows list={["primary", "secondary"]} bind:value={type} />
@@ -1184,13 +1195,13 @@ $: items = icons
   {variable ? "Variable" : "Fixed"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if variable}
     <VariableTabs bind:tab secondary={type == "secondary"} {items} />
   {:else}
     <Tabs bind:tab secondary={type == "secondary"} {items} />
   {/if}
-</div>
+{/snippet}
 ```
 
 ### Date field
@@ -1202,7 +1213,9 @@ Minimal demo:
 
 The M3 Svelte interactive demo for this component uses DateField with the TS `` to make this demo:
 ```svelte
-<DateField name="Date" slot="demo" />
+{#snippet demo()}
+  <DateField name="Date" />
+{/snippet}
 ```
 
 ## Addendum: more components
