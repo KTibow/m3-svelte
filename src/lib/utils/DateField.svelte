@@ -8,21 +8,18 @@
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import { easeEmphasized } from "$lib/misc/easing";
 
-  interface Props {
-    name: string;
-    date?: string;
-    required?: boolean;
-    disabled?: boolean;
-    extraOptions?: HTMLInputAttributes;
-  }
-
   let {
     name,
     date = $bindable(""),
     required = false,
     disabled = false,
-    extraOptions = {},
-  }: Props = $props();
+    ...extra
+  }: {
+    name: string;
+    date?: string;
+    required?: boolean;
+    disabled?: boolean;
+  } & HTMLInputAttributes = $props();
 
   const id = crypto.randomUUID();
   let hasJs = $state(false);
@@ -31,10 +28,10 @@
   });
 
   let picker = $state(false);
-  let container: HTMLDivElement = $state();
+  let container: HTMLDivElement | undefined = $state();
   const clickOutside = (_node: Node) => {
     const handleClick = (event: Event) => {
-      if (!container.contains(event.target as Node)) {
+      if (!container?.contains(event.target as Node)) {
         picker = false;
       }
     };
@@ -65,7 +62,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     {required}
     {id}
     bind:value={date}
-    {...extraOptions}
+    {...extra}
   />
   <label class="m3-font-body-small" for={id}>{name}</label>
   <button type="button" {disabled} onclick={() => (picker = !picker)}>
@@ -74,10 +71,10 @@ opacity: ${Math.min(t * 3, 1)};`,
   {#if picker}
     <div class="picker" use:clickOutside transition:enterExit>
       <DatePickerDocked
+        {date}
         clearable={!required}
-        bind:date
-        on:close={() => (picker = false)}
-        on:setDate={(e) => (date = e.detail)}
+        close={() => (picker = false)}
+        setDate={(d) => (date = d)}
       />
     </div>
   {/if}

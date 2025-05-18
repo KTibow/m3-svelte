@@ -11,7 +11,7 @@
   <Highlight language={xml} code={minimalDemo} />
 
   {#each relevantLinks as { title, link }, i}
-    <Button type={i == 0 ? "filled" : "tonal"} href={link}>{title}</Button>
+    <Button variant={i == 0 ? "filled" : "tonal"} href={link}>{title}</Button>
   {/each}
 </div>
 

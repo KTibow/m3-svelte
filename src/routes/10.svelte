@@ -43,7 +43,7 @@ const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-s
     trailingIcon={iconType == "right" ? iconSquare : undefined}
     disabled={!enabled}
     {selected}
-    on:click={() => (selected = !selected)}
+    click={() => (selected = !selected)}
   >
     Hello
   </Chip>

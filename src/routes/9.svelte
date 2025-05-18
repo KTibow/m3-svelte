@@ -7,9 +7,7 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
-import CheckboxAnim from "$lib/forms/CheckboxAnim.svelte";
 import Checkbox from "$lib/forms/Checkbox.svelte";
-let animated = true;
 let enabled = true;
 
 const dispatch = createEventDispatcher();
@@ -18,21 +16,17 @@ const minimalDemo = `${"<"}label>
     ${"<"}input type="checkbox" bind:checked={on} />
   ${"<"}/Checkbox>
 ${"<"}/label>`;
-const relevantLinks = [{"title":"CheckboxAnim.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CheckboxAnim.svelte"},{"title":"Checkbox.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Checkbox.svelte"}];
+const relevantLinks = [{"title":"Checkbox.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Checkbox.svelte"}];
 </script>
 
 <InternalCard title="Checkbox" on:showCode={() => dispatch("showCode", { name: "Checkbox", minimalDemo, relevantLinks })}>
-<label>
-  <Switch bind:checked={animated} />
-  {animated ? "Animated" : "Not animated"}
-</label>
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
 <label slot="demo">
-  <svelte:component this={animated ? CheckboxAnim : Checkbox}>
+  <Checkbox>
     <input type="checkbox" checked disabled={!enabled} />
-  </svelte:component>
+  </Checkbox>
 </label>
 </InternalCard>

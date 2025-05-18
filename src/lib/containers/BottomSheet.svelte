@@ -53,7 +53,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
   class="m3-container"
-  style="max-height: {height}px"
+  style:max-height="{height}px"
   use:open
   use:outroClass
   oncancel={(e) => {

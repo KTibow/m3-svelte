@@ -3,7 +3,7 @@
 Minimal demo:
 
 ```svelte
-<Button type="elevated" click={() => alert("!")}>Hello</Button>
+<Button variant="elevated" click={() => alert("!")}>Hello</Button>
 ```
 
 Full demo:
@@ -13,7 +13,7 @@ Button
 ```
 
 ```ts
-let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
+let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
 let iconType: "none" | "left" | "full" = "none";
 let enabled = true;
 let link = false;
@@ -21,8 +21,8 @@ let link = false;
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={type} />
-  {type[0].toUpperCase() + type.slice(1)}
+  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
   <Arrows list={["none", "left", "full"]} bind:value={iconType} />
@@ -38,7 +38,7 @@ let link = false;
 </label>
 <div slot="demo">
   <Button
-    {type}
+    {variant}
     {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
     {iconType}
   >
@@ -319,7 +319,7 @@ let open = false;
 
 ```svelte
 <div slot="demo">
-  <Button type="tonal" click={() => (open = true)}>Open</Button>
+  <Button variant="tonal" click={() => (open = true)}>Open</Button>
   {#if open}
     <BottomSheet close={() => (open = false)}>
       {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(20)}
@@ -336,7 +336,7 @@ Minimal demo:
 <Dialog headline="Hello" bind:open>
   I'm alive
   {#snippet buttons()}
-    <Button type="tonal" click={() => (open = false)}>OK</Button>
+    <Button variant="tonal" click={() => (open = false)}>OK</Button>
   {/snippet}
 </Dialog>
 ```
@@ -354,12 +354,12 @@ let open = false;
 
 ```svelte
 <div slot="demo">
-  <Button type="tonal" click={() => (open = true)}>Open</Button>
+  <Button variant="tonal" click={() => (open = true)}>Open</Button>
   <Dialog icon={iconCircle} headline="Hello" bind:open>
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
     ZomboCom! The unattainable is unknown at ZomboCom!
     {#snippet buttons()}
-      <Button type="tonal" click={() => (open = false)}>OK</Button>
+      <Button variant="tonal" click={() => (open = false)}>OK</Button>
     {/snippet}
   </Dialog>
 </div>
@@ -374,7 +374,7 @@ Minimal demo:
   let snackbar: typeof Snackbar;
 </script>
 
-<Button type="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
+<Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
 <Snackbar bind:this={snackbar} />
 ```
 
@@ -391,7 +391,7 @@ let snackbar: typeof Snackbar;
 
 ```svelte
 <div slot="demo">
-  <Button type="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
+  <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
   <Snackbar bind:this={snackbar} />
 </div>
 ```
@@ -411,28 +411,22 @@ Minimal demo:
 Full demo:
 
 ```use
-CheckboxAnim
 Checkbox
 ```
 
 ```ts
-let animated = true;
 let enabled = true;
 ```
 
 ```svelte
 <label>
-  <Switch bind:checked={animated} />
-  {animated ? "Animated" : "Not animated"}
-</label>
-<label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
 <label slot="demo">
-  <svelte:component this={animated ? CheckboxAnim : Checkbox}>
+  <Checkbox>
     <input type="checkbox" checked disabled={!enabled} />
-  </svelte:component>
+  </Checkbox>
 </label>
 ```
 
@@ -482,7 +476,7 @@ let selected = false;
     trailingIcon={iconType == "right" ? iconSquare : undefined}
     disabled={!enabled}
     {selected}
-    on:click={() => (selected = !selected)}
+    click={() => (selected = !selected)}
   >
     Hello
   </Chip>

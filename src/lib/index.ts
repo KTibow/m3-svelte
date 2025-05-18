@@ -29,7 +29,6 @@ export { default as RadioAnim1 } from "./forms/RadioAnim1.svelte";
 export { default as RadioAnim2 } from "./forms/RadioAnim2.svelte";
 export { default as RadioAnim3 } from "./forms/RadioAnim3.svelte";
 export { default as Checkbox } from "./forms/Checkbox.svelte";
-export { default as CheckboxAnim } from "./forms/CheckboxAnim.svelte";
 export { default as Switch } from "./forms/Switch.svelte";
 export { default as Slider } from "./forms/Slider.svelte";
 export { default as SliderTicks } from "./forms/SliderTicks.svelte";

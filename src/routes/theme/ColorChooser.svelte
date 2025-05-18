@@ -18,10 +18,10 @@
 <div style:background-color={browser ? hexFromArgb(sourceColor) : "#000"} class="color-disc">
   <div class="color-text">Color</div>
   <div>
-    <Button type="text" iconType="full" on:click={() => sourceColorInput.click()}>
+    <Button variant="text" iconType="full" click={() => sourceColorInput.click()}>
       <Icon icon={iconColorLens} />
     </Button>
-    <Button type="text" iconType="full" on:click={() => sourceFileInput.click()}>
+    <Button variant="text" iconType="full" click={() => sourceFileInput.click()}>
       <Icon icon={iconImage} />
     </Button>
   </div>

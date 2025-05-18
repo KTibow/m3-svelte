@@ -16,14 +16,14 @@ const minimalDemo = `${"<"}script lang="ts">
   let snackbar: typeof Snackbar;
 ${"<"}/script>
 
-${"<"}Button type="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show${"<"}/Button>
+${"<"}Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show${"<"}/Button>
 ${"<"}Snackbar bind:this={snackbar} />`;
 const relevantLinks = [{"title":"Snackbar.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Snackbar.svelte"}];
 </script>
 
 <InternalCard title="Snackbar" on:showCode={() => dispatch("showCode", { name: "Snackbar", minimalDemo, relevantLinks })}>
 <div slot="demo">
-  <Button type="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
+  <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
   <Snackbar bind:this={snackbar} />
 </div>
 </InternalCard>

@@ -18,7 +18,7 @@
 <div class="m3-container">
   <div class="header">
     <span class="m3-font-title-large">{headline}</span>
-    <Button type="text" iconType="full" click={close}>
+    <Button variant="text" iconType="full" click={close}>
       <Icon icon={iconX} />
     </Button>
   </div>

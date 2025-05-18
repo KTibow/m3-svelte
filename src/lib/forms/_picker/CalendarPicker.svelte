@@ -1,14 +1,18 @@
 <script lang="ts">
   import Item from "./Item.svelte";
 
-  interface Props {
+  let {
+    focusedMonth,
+    focusedYear,
+    dateValidator,
+    chosenDate = $bindable(),
+  }: {
     focusedMonth: number;
     focusedYear: number;
     dateValidator: (date: string) => boolean;
     chosenDate: string;
-  }
+  } = $props();
 
-  let { focusedMonth, focusedYear, dateValidator, chosenDate = $bindable() }: Props = $props();
   const makeCalendar = (year: number, month: number) => {
     const firstDay = new Date(year, month, 1);
     return Array.from({ length: 42 }, (_, i: number) => {
@@ -41,7 +45,7 @@
         day.day == today.getDate()}
       selected={!day.disabled && day.iso == chosenDate}
       label={day.day.toString()}
-      on:click={() => (chosenDate = day.iso)}
+      click={() => (chosenDate = day.iso)}
     />
   {/each}
 </div>

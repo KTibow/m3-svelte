@@ -1,6 +1,6 @@
 <script lang="ts">
   import iconHeart from "@ktibow/iconset-material-symbols/favorite-outline";
-  import ButtonLink from "$lib/buttons/ButtonLink.svelte";
+  import Button from "$lib/buttons/Button.svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
   import { base } from "$app/paths";
@@ -45,15 +45,15 @@
         llms.txt
       </a>
       <div class="icons">
-        <ButtonLink type="text" iconType="full" href="https://github.com/sponsors/KTibow">
+        <Button variant="text" iconType="full" href="https://github.com/sponsors/KTibow">
           <Icon icon={iconHeart} />
-        </ButtonLink>
-        <ButtonLink type="text" iconType="full" href="https://discord.gg/gS8T5RnMmA">
+        </Button>
+        <Button variant="text" iconType="full" href="https://discord.gg/gS8T5RnMmA">
           <Icon icon={iconDiscord} />
-        </ButtonLink>
-        <ButtonLink type="text" iconType="full" href="https://github.com/KTibow/m3-svelte">
+        </Button>
+        <Button variant="text" iconType="full" href="https://github.com/KTibow/m3-svelte">
           <Icon icon={iconGithub} />
-        </ButtonLink>
+        </Button>
       </div>
     </div>
   </div>

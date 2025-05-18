@@ -4,21 +4,19 @@
   import iconRight from "@ktibow/iconset-material-symbols/chevron-right";
   import iconDown from "@ktibow/iconset-material-symbols/arrow-drop-down";
 
-  interface Props {
-    currentView: "calendar" | "year" | "month";
-    focusedMonth: number;
-    focusedYear: number;
-    startYear: number;
-    endYear: number;
-  }
-
   let {
     currentView = $bindable(),
     focusedMonth = $bindable(),
     focusedYear = $bindable(),
     startYear,
     endYear,
-  }: Props = $props();
+  }: {
+    currentView: "calendar" | "year" | "month";
+    focusedMonth: number;
+    focusedYear: number;
+    startYear: number;
+    endYear: number;
+  } = $props();
 
   const yearClick = () => (currentView = currentView == "calendar" ? "year" : "calendar");
   const monthClick = () => (currentView = currentView == "calendar" ? "month" : "calendar");

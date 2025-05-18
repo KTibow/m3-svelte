@@ -3,12 +3,12 @@
     message: string;
     actions?: Record<string, () => void>;
     closable?: boolean;
-    timeout?: number | null;
     /*
     timeout: undefined/unset -> 4s timeout
     timeout: null -> no timeout
     timeout: 2000 -> 2s timeout
     */
+    timeout?: number | null;
   };
 </script>
 
@@ -20,17 +20,10 @@
   import Icon from "$lib/misc/_icon.svelte";
   import SnackbarItem from "./SnackbarItem.svelte";
 
-  type SnackbarData = {
-    message: string;
-    actions: Record<string, () => void>;
-    closable: boolean;
-    timeout: number | null;
-  };
+  type SnackbarConfig = Omit<ComponentProps<typeof SnackbarItem>, "children">;
 
-  let {
-    config = {},
-    ...extra
-  }: { config?: ComponentProps<typeof SnackbarItem> } & HTMLAttributes<HTMLDivElement> = $props();
+  let { config = {}, ...extra }: { config?: SnackbarConfig } & HTMLAttributes<HTMLDivElement> =
+    $props();
   export const show = ({ message, actions = {}, closable = false, timeout = 4000 }: SnackbarIn) => {
     snackbar = { message, actions, closable, timeout };
     clearTimeout(timeoutId);
@@ -40,7 +33,7 @@
       }, timeout);
   };
 
-  let snackbar: SnackbarData | undefined = $state();
+  let snackbar: Required<SnackbarIn> | undefined = $state();
   let timeoutId: number;
   onDestroy(() => {
     clearTimeout(timeoutId);

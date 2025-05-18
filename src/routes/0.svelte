@@ -8,20 +8,20 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Button from "$lib/buttons/Button.svelte";
-let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
+let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
 let iconType: "none" | "left" | "full" = "none";
 let enabled = true;
 let link = false;
 
 const dispatch = createEventDispatcher();
-const minimalDemo = `${"<"}Button type="elevated" click={() => alert("!")}>Hello${"<"}/Button>`;
+const minimalDemo = `${"<"}Button variant="elevated" click={() => alert("!")}>Hello${"<"}/Button>`;
 const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/Button.svelte"}];
 </script>
 
 <InternalCard title="Button" on:showCode={() => dispatch("showCode", { name: "Button", minimalDemo, relevantLinks })}>
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={type} />
-  {type[0].toUpperCase() + type.slice(1)}
+  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
   <Arrows list={["none", "left", "full"]} bind:value={iconType} />
@@ -37,7 +37,7 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
 </label>
 <div slot="demo">
   <Button
-    {type}
+    {variant}
     {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
     {iconType}
   >

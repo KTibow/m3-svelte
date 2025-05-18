@@ -20,7 +20,7 @@ const relevantLinks = [{"title":"BottomSheet.sv","link":"https://github.com/KTib
 
 <InternalCard title="Bottom sheet" on:showCode={() => dispatch("showCode", { name: "Bottom sheet", minimalDemo, relevantLinks })}>
 <div slot="demo">
-  <Button type="tonal" click={() => (open = true)}>Open</Button>
+  <Button variant="tonal" click={() => (open = true)}>Open</Button>
   {#if open}
     <BottomSheet close={() => (open = false)}>
       {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(20)}

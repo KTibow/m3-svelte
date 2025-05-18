@@ -4,24 +4,24 @@
   import Layer from "$lib/misc/Layer.svelte";
 
   type ActionProps =
-    | ({ click: () => void } & Omit<HTMLButtonAttributes, "type">)
+    | ({ click: () => void } & HTMLButtonAttributes)
     | HTMLAttributes<HTMLDivElement>;
 
   let props: {
-    type: "elevated" | "filled" | "outlined";
+    variant: "elevated" | "filled" | "outlined";
     children: Snippet;
   } & ActionProps = $props();
 </script>
 
 {#if "click" in props}
-  {@const { type, click, children, ...extra } = props}
-  <button class="m3-container type-{type}" {...extra}>
+  {@const { variant, click, children, ...extra } = props}
+  <button class="m3-container {variant}" {...extra}>
     <Layer />
     {@render children()}
   </button>
 {:else}
-  {@const { type, children, ...extra } = props}
-  <div class="m3-container type-{type}" {...extra}>
+  {@const { variant, children, ...extra } = props}
+  <div class="m3-container {variant}" {...extra}>
     {@render children()}
   </div>
 {/if}
@@ -58,18 +58,15 @@
     }
   }
 
-  .type-elevated {
+  .elevated {
     background-color: rgb(var(--m3-scheme-surface-container-low));
+    box-shadow: var(--m3-util-elevation-1);
   }
-  .type-filled {
+  .filled {
     background-color: rgb(var(--m3-scheme-surface-container-highest));
   }
-  .type-outlined {
+  .outlined {
     border: solid 0.0625rem rgb(var(--m3-scheme-outline-variant));
-  }
-
-  .type-elevated {
-    box-shadow: var(--m3-util-elevation-1);
   }
 
   @media print, (forced-colors: active) {

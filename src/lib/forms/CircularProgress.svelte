@@ -1,22 +1,16 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
-  interface Props {
-    display?: string;
-    extraOptions?: HTMLAttributes<SVGElement>;
-    percent: number;
-  }
 
-  let { display = "inline-flex", extraOptions = {}, percent }: Props = $props();
+  let { percent, ...extra }: { percent: number } & HTMLAttributes<SVGElement> = $props();
 </script>
 
 <svg
   viewBox="0 0 48 48"
   xmlns="http://www.w3.org/2000/svg"
   class="m3-container"
-  class:indeterminate={percent === null}
-  style="display: {display}; --percent: {percent}px;"
+  style:--percent="{percent}px;"
   role="progressbar"
-  {...extraOptions}
+  {...extra}
 >
   <circle
     cx="24"

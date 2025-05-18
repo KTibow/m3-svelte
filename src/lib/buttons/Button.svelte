@@ -4,10 +4,10 @@
   import Layer from "$lib/misc/Layer.svelte";
 
   type ActionProps =
-    | ({ click: () => void; disabled?: boolean } & Omit<HTMLButtonAttributes, "type">)
+    | ({ click: () => void; disabled?: boolean } & HTMLButtonAttributes)
     | ({ href: string } & HTMLAnchorAttributes);
   type Props = {
-    type: "elevated" | "filled" | "tonal" | "outlined" | "text";
+    variant: "elevated" | "filled" | "tonal" | "outlined" | "text";
     iconType?: "none" | "left" | "full";
     children: Snippet;
   } & ActionProps;
@@ -16,19 +16,19 @@
 </script>
 
 {#if "click" in props}
-  {@const { type, click, disabled, iconType = "none", children, ...extra } = props}
+  {@const { variant, click, disabled, iconType = "none", children, ...extra } = props}
   <button
     onclick={click}
     {disabled}
-    class="m3-container m3-font-label-large {type} icon-{iconType}"
+    class="m3-container m3-font-label-large {variant} icon-{iconType}"
     {...extra}
   >
     <Layer />
     {@render children()}
   </button>
 {:else}
-  {@const { type, href, iconType = "none", children, ...extra } = props}
-  <a {href} class="m3-container m3-font-label-large {type} icon-{iconType}" {...extra}>
+  {@const { variant, href, iconType = "none", children, ...extra } = props}
+  <a {href} class="m3-container m3-font-label-large {variant} icon-{iconType}" {...extra}>
     <Layer />
     {@render children()}
   </a>

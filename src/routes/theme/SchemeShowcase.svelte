@@ -45,23 +45,23 @@ ${$styling}`);
     {/each}
   </div>
   <div class="buttons">
-    <Button type="filled" iconType="left" on:click={copyUsage}>
+    <Button variant="filled" iconType="left" click={copyUsage}>
       <Icon icon={iconCopy} />
       Copy
     </Button>
     {#if grabbing}
-      <Button type="tonal" iconType="left" on:click={() => (grabbing = false)}>
+      <Button variant="tonal" iconType="left" click={() => (grabbing = false)}>
         <Icon icon={iconX} />
         Stop grab
       </Button>
     {:else}
-      <Button type="tonal" iconType="left" on:click={() => (grabbing = true)}>
+      <Button variant="tonal" iconType="left" click={() => (grabbing = true)}>
         <Icon icon={iconGrab} />
         Grab
       </Button>
     {/if}
     <div class="spacer"></div>
-    <Button type="tonal" iconType="full" on:click={() => (showDark = !showDark)}>
+    <Button variant="tonal" iconType="full" click={() => (showDark = !showDark)}>
       <Icon icon={showDark ? iconLight : iconDark} />
     </Button>
   </div>

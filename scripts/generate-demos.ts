@@ -138,7 +138,7 @@ Sizes: large, medium, small
 <script>
   import { Button } from "m3-svelte";
 </script>
-<Button type="filled">Hello</Button>
+<Button variant="filled">Hello</Button>
 \`\`\`
 
 ## Tips
@@ -229,7 +229,7 @@ Here's an example todo list component:
       </label>
       <label slot="trailing">
         <Button
-          type="text"
+          variant="text"
           iconType="full"
           on:click={() => (tasks = tasks.filter((t) => t.id != task.id))}
         >
@@ -331,7 +331,7 @@ Here's an example notes app:
       <ListItem headline={note.title} supporting={note.content} overline={note.date}>
         <div slot="trailing" class="actions">
           <Button
-            type="text"
+            variant="text"
             iconType="full"
             on:click={() =>
               (dialog = {
@@ -343,7 +343,7 @@ Here's an example notes app:
           >
             <Icon icon={iconEdit} />
           </Button>
-          <Button type="text" iconType="full" on:click={() => deleteNote(note.id)}>
+          <Button variant="text" iconType="full" on:click={() => deleteNote(note.id)}>
             <Icon icon={iconDelete} />
           </Button>
         </div>
@@ -365,13 +365,13 @@ Here's an example notes app:
     <TextFieldMultiline name="Content" bind:value={dialog.content} />
   </div>
   <svelte:fragment slot="buttons">
-    <Button type="text" on:click={closeDialog}>Cancel</Button>
+    <Button variant="text" on:click={closeDialog}>Cancel</Button>
     {#if dialog.editingId}
-      <Button type="filled" disabled={!dialog.title || !dialog.content} on:click={updateNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} on:click={updateNote}>
         Update
       </Button>
     {:else}
-      <Button type="filled" disabled={!dialog.title || !dialog.content} on:click={addNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} on:click={addNote}>
         Add
       </Button>
     {/if}

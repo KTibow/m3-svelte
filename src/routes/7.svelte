@@ -15,7 +15,7 @@ const dispatch = createEventDispatcher();
 const minimalDemo = `${"<"}Dialog headline="Hello" bind:open>
   I'm alive
   {#snippet buttons()}
-    ${"<"}Button type="tonal" click={() => (open = false)}>OK${"<"}/Button>
+    ${"<"}Button variant="tonal" click={() => (open = false)}>OK${"<"}/Button>
   {/snippet}
 ${"<"}/Dialog>`;
 const relevantLinks = [{"title":"Dialog.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Dialog.svelte"}];
@@ -23,12 +23,12 @@ const relevantLinks = [{"title":"Dialog.sv","link":"https://github.com/KTibow/m3
 
 <InternalCard title="Dialog" on:showCode={() => dispatch("showCode", { name: "Dialog", minimalDemo, relevantLinks })}>
 <div slot="demo">
-  <Button type="tonal" click={() => (open = true)}>Open</Button>
+  <Button variant="tonal" click={() => (open = true)}>Open</Button>
   <Dialog icon={iconCircle} headline="Hello" bind:open>
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
     ZomboCom! The unattainable is unknown at ZomboCom!
     {#snippet buttons()}
-      <Button type="tonal" click={() => (open = false)}>OK</Button>
+      <Button variant="tonal" click={() => (open = false)}>OK</Button>
     {/snippet}
   </Dialog>
 </div>

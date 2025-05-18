@@ -1,15 +1,21 @@
 <script lang="ts">
-  import { createBubbler } from "svelte/legacy";
-
-  const bubble = createBubbler();
+  import type { Snippet } from "svelte";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
-  interface Props {
-    display?: string;
-    extraOptions?: HTMLButtonAttributes;
+  let {
+    variant,
+    icon = undefined,
+    trailingIcon = undefined,
+    elevated = false,
+    disabled = false,
+    selected = false,
+    children,
+    click,
+    ...extra
+  }: {
     /**
      * general is filter/suggestion since they're the same.
      * | name       | use              | example                       | phrasing           |
@@ -19,42 +25,30 @@
      * | filter     | selection        | like in a search page         | category           |
      * | suggestion | smart actions    | like a chat response          | query/message      |
      */
-    type: "input" | "assist" | "general";
-    icon?: IconifyIcon | null;
-    trailingIcon?: IconifyIcon | null;
+    variant: "input" | "assist" | "general";
+    icon?: IconifyIcon | undefined;
+    trailingIcon?: IconifyIcon | undefined;
     elevated?: boolean;
     disabled?: boolean;
     selected?: boolean;
-    children?: import("svelte").Snippet;
-  }
-
-  let {
-    display = "inline-flex",
-    extraOptions = {},
-    type,
-    icon = null,
-    trailingIcon = null,
-    elevated = false,
-    disabled = false,
-    selected = false,
-    children,
-  }: Props = $props();
+    children: Snippet;
+    click: () => void;
+  } & HTMLButtonAttributes = $props();
 </script>
 
 <button
-  class="m3-container type-{type}"
-  style="display: {display}"
+  class="m3-container {variant}"
   class:elevated
   class:selected
   {disabled}
-  onclick={bubble("click")}
-  {...extraOptions}
+  onclick={click}
+  {...extra}
 >
   <Layer />
   {#if icon}
     <Icon {icon} class="leading" />
   {/if}
-  <span class="m3-font-label-large">{@render children?.()}</span>
+  <span class="m3-font-label-large">{@render children()}</span>
   {#if trailingIcon}
     <Icon icon={trailingIcon} class="trailing" />
   {/if}
@@ -87,7 +81,7 @@
     width: 1.125rem;
     height: 1.125rem;
   }
-  .m3-container:enabled:not(.type-input):not(.selected) > :global(.leading) {
+  .m3-container:enabled:not(.input):not(.selected) > :global(.leading) {
     color: rgb(var(--m3-scheme-primary));
   }
   .m3-container > :global(.leading) {
@@ -96,17 +90,17 @@
   .m3-container > :global(.trailing) {
     margin-right: -0.5rem;
   }
-  .type-input > :global(.leading) {
+  .input > :global(.leading) {
     margin-left: -0.25rem;
   }
-  .type-input > :global(.trailing) {
+  .input > :global(.trailing) {
     margin-right: -0.25rem;
   }
 
-  .type-assist {
+  .assist {
     color: rgb(var(--m3-scheme-on-surface));
   }
-  .type-input {
+  .input {
     padding: 0 0.75rem;
   }
   .elevated {
