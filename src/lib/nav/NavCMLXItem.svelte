@@ -20,10 +20,10 @@
   <button
     onclick={click}
     class="m3-container m3-font-label-medium {variant}"
-    class:selected
+    disabled={selected}
     {...extra}
   >
-    <div class="content">
+    <div class="content" class:selected>
       <Layer />
       <div class="icon">
         <Icon {icon} width="1.5rem" height="1.5rem" />
