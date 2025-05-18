@@ -96,8 +96,11 @@
     border: none;
     position: relative;
     background: transparent;
-    cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+  }
+  button.m3-container,
+  label.m3-container {
+    cursor: pointer;
   }
   .lines-1 {
     height: 3.5rem;

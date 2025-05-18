@@ -8,9 +8,8 @@ import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Slider from "$lib/forms/Slider.svelte";
 import SliderTicks from "$lib/forms/SliderTicks.svelte";
-let precision: "continuous" | "discrete" | "discrete-ticks" = "continuous";
-let enabled = true;
-let value = 0;
+let precision: "continuous" | "discrete" | "discrete-ticks" = $state("continuous");
+let enabled = $state(true);
 
 let { showCode }: { showCode: (
   name: string,

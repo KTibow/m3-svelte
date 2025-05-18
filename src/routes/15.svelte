@@ -11,11 +11,11 @@ import TextFieldOutlined from "$lib/forms/TextFieldOutlined.svelte";
 import TextFieldMultiline from "$lib/forms/TextFieldMultiline.svelte";
 import TextFieldOutlinedMultiline from "$lib/forms/TextFieldOutlinedMultiline.svelte";
 import type { HTMLInputAttributes } from "svelte/elements";
-let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = "filled";
-let option: "text" | "password" | "number" | "file" = "text";
-let leadingIcon = false;
-let errored = false;
-let enabled = true;
+let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
+let option: "text" | "password" | "number" | "file" = $state("text");
+let leadingIcon = $state(false);
+let errored = $state(false);
+let enabled = $state(true);
 
 let { showCode }: { showCode: (
   name: string,

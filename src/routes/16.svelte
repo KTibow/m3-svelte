@@ -8,10 +8,10 @@ import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Tabs from "$lib/nav/Tabs.svelte";
 import VariableTabs from "$lib/nav/VariableTabs.svelte";
-let type: "primary" | "secondary" = "primary";
-let icons = false;
-let variable = false;
-let tab = "hello";
+let type: "primary" | "secondary" = $state("primary");
+let icons = $state(false);
+let variable = $state(false);
+let tab = $state("hello");
 
 let items = $derived(icons
   ? [

@@ -8,7 +8,7 @@ import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import SegmentedButtonContainer from "$lib/buttons/SegmentedButtonContainer.svelte";
 import SegmentedButtonItem from "$lib/buttons/SegmentedButtonItem.svelte";
-let multiselect = false;
+let multiselect = $state(false);
 
 let { showCode }: { showCode: (
   name: string,
@@ -31,6 +31,7 @@ const relevantLinks = [{"title":"SegmentedButtonContainer.sv","link":"https://gi
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
 {#snippet demo()}
+  <div>
   {#if multiselect}
     <SegmentedButtonContainer>
       <input type="checkbox" id="segmented-a-0" />
@@ -50,5 +51,6 @@ const relevantLinks = [{"title":"SegmentedButtonContainer.sv","link":"https://gi
       <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
     </SegmentedButtonContainer>
   {/if}
+  </div>
 {/snippet}
 </InternalCard>

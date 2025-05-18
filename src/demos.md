@@ -13,10 +13,10 @@ Button
 ```
 
 ```ts
-let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
-let iconType: "none" | "left" | "full" = "none";
-let enabled = true;
-let link = false;
+let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("elevated");
+let iconType: "none" | "left" | "full" = $state("none");
+let enabled = $state(true);
+let link = $state(false);
 ```
 
 ```svelte
@@ -37,6 +37,7 @@ let link = false;
   {link ? "Link" : "Button"}
 </label>
 {#snippet demo()}
+  <div>
   <Button
     {variant}
     {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
@@ -50,6 +51,7 @@ let link = false;
       <Icon icon={iconCircle} />
     {/if}
   </Button>
+  </div>
 {/snippet}
 ```
 
@@ -74,7 +76,7 @@ SegmentedButtonItem
 ```
 
 ```ts
-let multiselect = false;
+let multiselect = $state(false);
 ```
 
 ```svelte
@@ -83,6 +85,7 @@ let multiselect = false;
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
 {#snippet demo()}
+  <div>
   {#if multiselect}
     <SegmentedButtonContainer>
       <input type="checkbox" id="segmented-a-0" />
@@ -102,6 +105,7 @@ let multiselect = false;
       <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
     </SegmentedButtonContainer>
   {/if}
+  </div>
 {/snippet}
 ```
 
@@ -120,8 +124,8 @@ FAB
 ```
 
 ```ts
-let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
-let size: "small" | "normal" | "large" | "extended" = "normal";
+let color: "primary" | "surface" | "secondary" | "tertiary" = $state("primary");
+let size: "small" | "normal" | "large" | "extended" = $state("normal");
 ```
 
 ```svelte
@@ -130,16 +134,18 @@ let size: "small" | "normal" | "large" | "extended" = "normal";
   {color[0].toUpperCase() + color.slice(1)}
 </label>
 <label>
-  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} index={1} />
+  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} initialIndex={1} />
   {size[0].toUpperCase() + size.slice(1)}
 </label>
 {#snippet demo()}
+  <div>
   <FAB
     {color}
     click={() => {}}
     {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
     icon={iconCircle}
   />
+  </div>
 {/snippet}
 ```
 
@@ -159,8 +165,8 @@ Card
 ```
 
 ```ts
-let variant: "elevated" | "filled" | "outlined" = "elevated";
-let clickable = false;
+let variant: "elevated" | "filled" | "outlined" = $state("elevated");
+let clickable = $state(false);
 ```
 
 ```svelte
@@ -197,9 +203,10 @@ Divider
 ```
 
 ```ts
-let lines: "1" | "2" | "3" = "1";
-let type: "div" | "button" | "label" = "div";
 const headline = "Hello";
+
+let lines: "1" | "2" | "3" = $state("1");
+let type: "div" | "button" | "label" = $state("div");
 
 let supporting = $derived(
   lines == "1"
@@ -284,7 +291,7 @@ MenuItem
 ```
 
 ```ts
-let icons = false;
+let icons = $state(false);
 ```
 
 ```svelte
@@ -420,7 +427,7 @@ Checkbox
 ```
 
 ```ts
-let enabled = true;
+let enabled = $state(true);
 ```
 
 ```svelte
@@ -452,10 +459,10 @@ Chip
 ```
 
 ```ts
-let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = "input";
-let iconType: "none" | "left" | "right" = "none";
-let enabled = true;
-let selected = false;
+let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = $state("input");
+let iconType: "none" | "left" | "right" = $state("none");
+let enabled = $state(true);
+let selected = $state(false);
 ```
 
 ```svelte
@@ -476,6 +483,7 @@ let selected = false;
 </label>
 
 {#snippet demo()}
+  <div>
   <Chip
     variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
     elevated={style.endsWith("elevated")}
@@ -487,6 +495,7 @@ let selected = false;
   >
     Hello
   </Chip>
+  </div>
 {/snippet}
 ```
 
@@ -511,8 +520,8 @@ CircularProgressIndeterminate
 ```
 
 ```ts
-let type: "linear" | "circular" = "linear";
-let indeterminate = false;
+let type: "linear" | "circular" = $state("linear");
+let indeterminate = $state(false);
 ```
 
 ```svelte
@@ -557,10 +566,10 @@ RadioAnim3
 ```
 
 ```ts
-let animation: "1" | "2" | "3" = "1";
-let enabled = true;
+let animation: "1" | "2" | "3" = $state("1");
+let enabled = $state(true);
 
-let component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3);
+let Component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3);
 ```
 
 ```svelte
@@ -576,19 +585,19 @@ let component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? Radi
 {#snippet demo()}
 <div style:display="flex" style:gap="0.5rem">
   <label>
-    <svelte:component this={component}>
+    <Component>
       <input type="radio" name="radio" checked disabled={!enabled} />
-    </svelte:component>
+    </Component>
   </label>
   <label>
-    <svelte:component this={component}>
+    <Component>
       <input type="radio" name="radio" disabled={!enabled} />
-    </svelte:component>
+    </Component>
   </label>
   <label>
-    <svelte:component this={component}>
+    <Component>
       <input type="radio" name="radio" disabled={!enabled} />
-    </svelte:component>
+    </Component>
   </label>
 </div>
 {/snippet}
@@ -610,9 +619,8 @@ SliderTicks
 ```
 
 ```ts
-let precision: "continuous" | "discrete" | "discrete-ticks" = "continuous";
-let enabled = true;
-let value = 0;
+let precision: "continuous" | "discrete" | "discrete-ticks" = $state("continuous");
+let enabled = $state(true);
 ```
 
 ```svelte
@@ -655,7 +663,7 @@ Switch
 ```
 
 ```ts
-let enabled = true;
+let enabled = $state(true);
 ```
 
 ```svelte
@@ -690,11 +698,11 @@ TextFieldOutlinedMultiline
 
 ```ts
 import type { HTMLInputAttributes } from "svelte/elements";
-let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = "filled";
-let option: "text" | "password" | "number" | "file" = "text";
-let leadingIcon = false;
-let errored = false;
-let enabled = true;
+let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
+let option: "text" | "password" | "number" | "file" = $state("text");
+let leadingIcon = $state(false);
+let errored = $state(false);
+let enabled = $state(true);
 ```
 
 ```svelte
@@ -791,10 +799,10 @@ VariableTabs
 ```
 
 ```ts
-let type: "primary" | "secondary" = "primary";
-let icons = false;
-let variable = false;
-let tab = "hello";
+let type: "primary" | "secondary" = $state("primary");
+let icons = $state(false);
+let variable = $state(false);
+let tab = $state("hello");
 
 let items = $derived(icons
   ? [

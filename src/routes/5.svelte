@@ -8,7 +8,7 @@ import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Menu from "$lib/containers/Menu.svelte";
 import MenuItem from "$lib/containers/MenuItem.svelte";
-let icons = false;
+let icons = $state(false);
 
 let { showCode }: { showCode: (
   name: string,

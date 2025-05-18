@@ -9,9 +9,10 @@ import InternalCard from "./_card.svelte";
 import ListItem from "$lib/containers/ListItem.svelte";
 import Checkbox from "$lib/forms/Checkbox.svelte";
 import Divider from "$lib/utils/Divider.svelte";
-let lines: "1" | "2" | "3" = "1";
-let type: "div" | "button" | "label" = "div";
 const headline = "Hello";
+
+let lines: "1" | "2" | "3" = $state("1");
+let type: "div" | "button" | "label" = $state("div");
 
 let supporting = $derived(
   lines == "1"

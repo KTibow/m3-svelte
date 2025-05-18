@@ -9,10 +9,10 @@ import InternalCard from "./_card.svelte";
 import RadioAnim1 from "$lib/forms/RadioAnim1.svelte";
 import RadioAnim2 from "$lib/forms/RadioAnim2.svelte";
 import RadioAnim3 from "$lib/forms/RadioAnim3.svelte";
-let animation: "1" | "2" | "3" = "1";
-let enabled = true;
+let animation: "1" | "2" | "3" = $state("1");
+let enabled = $state(true);
 
-let component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3);
+let Component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3);
 
 let { showCode }: { showCode: (
   name: string,
@@ -39,19 +39,19 @@ const relevantLinks = [{"title":"RadioAnim1.sv","link":"https://github.com/KTibo
 {#snippet demo()}
 <div style:display="flex" style:gap="0.5rem">
   <label>
-    <svelte:component this={component}>
+    <Component>
       <input type="radio" name="radio" checked disabled={!enabled} />
-    </svelte:component>
+    </Component>
   </label>
   <label>
-    <svelte:component this={component}>
+    <Component>
       <input type="radio" name="radio" disabled={!enabled} />
-    </svelte:component>
+    </Component>
   </label>
   <label>
-    <svelte:component this={component}>
+    <Component>
       <input type="radio" name="radio" disabled={!enabled} />
-    </svelte:component>
+    </Component>
   </label>
 </div>
 {/snippet}

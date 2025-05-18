@@ -7,10 +7,10 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Button from "$lib/buttons/Button.svelte";
-let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
-let iconType: "none" | "left" | "full" = "none";
-let enabled = true;
-let link = false;
+let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("elevated");
+let iconType: "none" | "left" | "full" = $state("none");
+let enabled = $state(true);
+let link = $state(false);
 
 let { showCode }: { showCode: (
   name: string,
@@ -40,6 +40,7 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
   {link ? "Link" : "Button"}
 </label>
 {#snippet demo()}
+  <div>
   <Button
     {variant}
     {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
@@ -53,5 +54,6 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
       <Icon icon={iconCircle} />
     {/if}
   </Button>
+  </div>
 {/snippet}
 </InternalCard>

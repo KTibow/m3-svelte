@@ -10,8 +10,8 @@ import LinearProgress from "$lib/forms/LinearProgress.svelte";
 import LinearProgressIndeterminate from "$lib/forms/LinearProgressIndeterminate.svelte";
 import CircularProgress from "$lib/forms/CircularProgress.svelte";
 import CircularProgressIndeterminate from "$lib/forms/CircularProgressIndeterminate.svelte";
-let type: "linear" | "circular" = "linear";
-let indeterminate = false;
+let type: "linear" | "circular" = $state("linear");
+let indeterminate = $state(false);
 
 let { showCode }: { showCode: (
   name: string,

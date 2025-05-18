@@ -564,10 +564,10 @@ Minimal demo:
 <Button variant="elevated" click={() => alert("!")}>Hello</Button>
 ```
 
-The M3 Svelte interactive demo for this component uses Button with the TS `let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
-let iconType: "none" | "left" | "full" = "none";
-let enabled = true;
-let link = false;` to make this demo:
+The M3 Svelte interactive demo for this component uses Button with the TS `let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("elevated");
+let iconType: "none" | "left" | "full" = $state("none");
+let enabled = $state(true);
+let link = $state(false);` to make this demo:
 ```svelte
 <label>
   <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} />
@@ -586,6 +586,7 @@ let link = false;` to make this demo:
   {link ? "Link" : "Button"}
 </label>
 {#snippet demo()}
+  <div>
   <Button
     {variant}
     {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
@@ -599,6 +600,7 @@ let link = false;` to make this demo:
       <Icon icon={iconCircle} />
     {/if}
   </Button>
+  </div>
 {/snippet}
 ```
 
@@ -614,13 +616,14 @@ Minimal demo:
 </SegmentedButtonContainer>
 ```
 
-The M3 Svelte interactive demo for this component uses SegmentedButtonContainer, SegmentedButtonItem with the TS `let multiselect = false;` to make this demo:
+The M3 Svelte interactive demo for this component uses SegmentedButtonContainer, SegmentedButtonItem with the TS `let multiselect = $state(false);` to make this demo:
 ```svelte
 <label>
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
 {#snippet demo()}
+  <div>
   {#if multiselect}
     <SegmentedButtonContainer>
       <input type="checkbox" id="segmented-a-0" />
@@ -640,6 +643,7 @@ The M3 Svelte interactive demo for this component uses SegmentedButtonContainer,
       <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
     </SegmentedButtonContainer>
   {/if}
+  </div>
 {/snippet}
 ```
 
@@ -650,24 +654,26 @@ Minimal demo:
 <FAB color="primary" icon={iconCircle} click={() => alert("!")} />
 ```
 
-The M3 Svelte interactive demo for this component uses FAB with the TS `let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
-let size: "small" | "normal" | "large" | "extended" = "normal";` to make this demo:
+The M3 Svelte interactive demo for this component uses FAB with the TS `let color: "primary" | "surface" | "secondary" | "tertiary" = $state("primary");
+let size: "small" | "normal" | "large" | "extended" = $state("normal");` to make this demo:
 ```svelte
 <label>
   <Arrows list={["primary", "surface", "secondary", "tertiary"]} bind:value={color} />
   {color[0].toUpperCase() + color.slice(1)}
 </label>
 <label>
-  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} index={1} />
+  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} initialIndex={1} />
   {size[0].toUpperCase() + size.slice(1)}
 </label>
 {#snippet demo()}
+  <div>
   <FAB
     {color}
     click={() => {}}
     {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
     icon={iconCircle}
   />
+  </div>
 {/snippet}
 ```
 
@@ -679,8 +685,8 @@ Minimal demo:
 <Card variant="filled" click={() => alert("!")}>Hello</Card>
 ```
 
-The M3 Svelte interactive demo for this component uses Card with the TS `let variant: "elevated" | "filled" | "outlined" = "elevated";
-let clickable = false;` to make this demo:
+The M3 Svelte interactive demo for this component uses Card with the TS `let variant: "elevated" | "filled" | "outlined" = $state("elevated");
+let clickable = $state(false);` to make this demo:
 ```svelte
 <label>
   <Arrows list={["elevated", "filled", "outlined"]} bind:value={variant} />
@@ -705,9 +711,10 @@ Minimal demo:
 </div>
 ```
 
-The M3 Svelte interactive demo for this component uses ListItem, Checkbox, Divider with the TS `let lines: "1" | "2" | "3" = "1";
-let type: "div" | "button" | "label" = "div";
-const headline = "Hello";
+The M3 Svelte interactive demo for this component uses ListItem, Checkbox, Divider with the TS `const headline = "Hello";
+
+let lines: "1" | "2" | "3" = $state("1");
+let type: "div" | "button" | "label" = $state("div");
 
 let supporting = $derived(
   lines == "1"
@@ -781,7 +788,7 @@ Minimal demo:
 </Menu>
 ```
 
-The M3 Svelte interactive demo for this component uses Menu, MenuItem with the TS `let icons = false;` to make this demo:
+The M3 Svelte interactive demo for this component uses Menu, MenuItem with the TS `let icons = $state(false);` to make this demo:
 ```svelte
 <label>
   <Switch bind:checked={icons} />
@@ -874,7 +881,7 @@ Minimal demo:
 </label>
 ```
 
-The M3 Svelte interactive demo for this component uses Checkbox with the TS `let enabled = true;` to make this demo:
+The M3 Svelte interactive demo for this component uses Checkbox with the TS `let enabled = $state(true);` to make this demo:
 ```svelte
 <label>
   <Switch bind:checked={enabled} />
@@ -896,10 +903,10 @@ Minimal demo:
 <Chip variant="general" icon={iconCircle} on:click={() => alert("!")}>Hello</Chip>
 ```
 
-The M3 Svelte interactive demo for this component uses Chip with the TS `let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = "input";
-let iconType: "none" | "left" | "right" = "none";
-let enabled = true;
-let selected = false;` to make this demo:
+The M3 Svelte interactive demo for this component uses Chip with the TS `let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = $state("input");
+let iconType: "none" | "left" | "right" = $state("none");
+let enabled = $state(true);
+let selected = $state(false);` to make this demo:
 ```svelte
 <label>
   <Arrows
@@ -918,6 +925,7 @@ let selected = false;` to make this demo:
 </label>
 
 {#snippet demo()}
+  <div>
   <Chip
     variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
     elevated={style.endsWith("elevated")}
@@ -929,6 +937,7 @@ let selected = false;` to make this demo:
   >
     Hello
   </Chip>
+  </div>
 {/snippet}
 ```
 
@@ -942,8 +951,8 @@ Minimal demo:
 <CircularProgressIndeterminate />
 ```
 
-The M3 Svelte interactive demo for this component uses LinearProgress, LinearProgressIndeterminate, CircularProgress, CircularProgressIndeterminate with the TS `let type: "linear" | "circular" = "linear";
-let indeterminate = false;` to make this demo:
+The M3 Svelte interactive demo for this component uses LinearProgress, LinearProgressIndeterminate, CircularProgress, CircularProgressIndeterminate with the TS `let type: "linear" | "circular" = $state("linear");
+let indeterminate = $state(false);` to make this demo:
 ```svelte
 <label>
   <Arrows list={["linear", "circular"]} bind:value={type} />
@@ -976,10 +985,10 @@ Minimal demo:
 <RadioAnim1><input type="radio" name="stuff" value="three" bind:group={stuff} /></RadioAnim1>
 ```
 
-The M3 Svelte interactive demo for this component uses RadioAnim1, RadioAnim2, RadioAnim3 with the TS `let animation: "1" | "2" | "3" = "1";
-let enabled = true;
+The M3 Svelte interactive demo for this component uses RadioAnim1, RadioAnim2, RadioAnim3 with the TS `let animation: "1" | "2" | "3" = $state("1");
+let enabled = $state(true);
 
-let component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3);` to make this demo:
+let Component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3);` to make this demo:
 ```svelte
 <label>
   <Arrows list={["1", "2", "3"]} bind:value={animation} />
@@ -993,19 +1002,19 @@ let component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? Radi
 {#snippet demo()}
 <div style:display="flex" style:gap="0.5rem">
   <label>
-    <svelte:component this={component}>
+    <Component>
       <input type="radio" name="radio" checked disabled={!enabled} />
-    </svelte:component>
+    </Component>
   </label>
   <label>
-    <svelte:component this={component}>
+    <Component>
       <input type="radio" name="radio" disabled={!enabled} />
-    </svelte:component>
+    </Component>
   </label>
   <label>
-    <svelte:component this={component}>
+    <Component>
       <input type="radio" name="radio" disabled={!enabled} />
-    </svelte:component>
+    </Component>
   </label>
 </div>
 {/snippet}
@@ -1018,9 +1027,8 @@ Minimal demo:
 <Slider bind:value={n} />
 ```
 
-The M3 Svelte interactive demo for this component uses Slider, SliderTicks with the TS `let precision: "continuous" | "discrete" | "discrete-ticks" = "continuous";
-let enabled = true;
-let value = 0;` to make this demo:
+The M3 Svelte interactive demo for this component uses Slider, SliderTicks with the TS `let precision: "continuous" | "discrete" | "discrete-ticks" = $state("continuous");
+let enabled = $state(true);` to make this demo:
 ```svelte
 <label>
   <Arrows list={["continuous", "discrete", "discrete-ticks"]} bind:value={precision} />
@@ -1053,7 +1061,7 @@ Minimal demo:
 </label>
 ```
 
-The M3 Svelte interactive demo for this component uses Switch with the TS `let enabled = true;` to make this demo:
+The M3 Svelte interactive demo for this component uses Switch with the TS `let enabled = $state(true);` to make this demo:
 ```svelte
 <label>
   <Switch bind:checked={enabled} />
@@ -1075,11 +1083,11 @@ Minimal demo:
 ```
 
 The M3 Svelte interactive demo for this component uses TextField, TextFieldOutlined, TextFieldMultiline, TextFieldOutlinedMultiline with the TS `import type { HTMLInputAttributes } from "svelte/elements";
-let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = "filled";
-let option: "text" | "password" | "number" | "file" = "text";
-let leadingIcon = false;
-let errored = false;
-let enabled = true;` to make this demo:
+let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
+let option: "text" | "password" | "number" | "file" = $state("text");
+let leadingIcon = $state(false);
+let errored = $state(false);
+let enabled = $state(true);` to make this demo:
 ```svelte
 <label>
   <Arrows
@@ -1165,10 +1173,10 @@ Minimal demo:
 />
 ```
 
-The M3 Svelte interactive demo for this component uses Tabs, VariableTabs with the TS `let type: "primary" | "secondary" = "primary";
-let icons = false;
-let variable = false;
-let tab = "hello";
+The M3 Svelte interactive demo for this component uses Tabs, VariableTabs with the TS `let type: "primary" | "secondary" = $state("primary");
+let icons = $state(false);
+let variable = $state(false);
+let tab = $state("hello");
 
 let items = $derived(icons
   ? [

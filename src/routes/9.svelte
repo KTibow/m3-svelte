@@ -7,7 +7,7 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Checkbox from "$lib/forms/Checkbox.svelte";
-let enabled = true;
+let enabled = $state(true);
 
 let { showCode }: { showCode: (
   name: string,

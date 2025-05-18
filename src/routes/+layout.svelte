@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import iconHome from "@ktibow/iconset-material-symbols/home-outline";
   import iconHomeS from "@ktibow/iconset-material-symbols/home";
   import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
@@ -13,11 +14,8 @@
   import NavListLink from "$lib/nav/NavListLink.svelte";
   import { styling } from "./themeStore";
   import "../app.css";
-  interface Props {
-    children?: import('svelte').Snippet;
-  }
 
-  let { children }: Props = $props();
+  let { children }: { children: Snippet } = $props();
 
   const paths = [
     {
@@ -79,7 +77,7 @@
     </NavList>
   </div>
   <div class="content">
-    {@render children?.()}
+    {@render children()}
   </div>
 </div>
 

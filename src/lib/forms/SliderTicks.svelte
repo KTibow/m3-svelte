@@ -54,7 +54,7 @@
     {...extra}
   />
   <div class="track"></div>
-  {#each ticks as tick, i}
+  {#each ticks as tick}
     <div
       class="tick"
       class:hidden={Math.abs(tick / 100 - valueDisplayed.current / range) < 0.01}

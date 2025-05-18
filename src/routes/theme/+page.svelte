@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Hct, type DynamicScheme } from "@material/material-color-utilities";
+  import { Hct } from "@material/material-color-utilities";
 
   import ColorChooser from "./ColorChooser.svelte";
   import Arrow from "./Arrow.svelte";

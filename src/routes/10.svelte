@@ -7,10 +7,10 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Chip from "$lib/forms/Chip.svelte";
-let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = "input";
-let iconType: "none" | "left" | "right" = "none";
-let enabled = true;
-let selected = false;
+let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = $state("input");
+let iconType: "none" | "left" | "right" = $state("none");
+let enabled = $state(true);
+let selected = $state(false);
 
 let { showCode }: { showCode: (
   name: string,
@@ -40,6 +40,7 @@ const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-s
 </label>
 
 {#snippet demo()}
+  <div>
   <Chip
     variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
     elevated={style.endsWith("elevated")}
@@ -51,5 +52,6 @@ const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-s
   >
     Hello
   </Chip>
+  </div>
 {/snippet}
 </InternalCard>

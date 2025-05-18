@@ -32,8 +32,12 @@
     relevantLinks: { title: string; link: string }[];
   };
   let doc: DocData | undefined = $state();
-  const showCode = (e: { detail: DocData }) => {
-    doc = e.detail;
+  const showCode = (
+    name: string,
+    minimalDemo: string,
+    relevantLinks: { title: string; link: string }[],
+  ) => {
+    doc = { name, minimalDemo, relevantLinks };
   };
 </script>
 
@@ -53,24 +57,24 @@
 <div class="side-wrapper">
   <Hero />
   <div class="cards">
-    <Demo0 on:showCode={showCode} />
-    <Demo1 on:showCode={showCode} />
-    <Demo2 on:showCode={showCode} />
-    <Demo3 on:showCode={showCode} />
-    <Demo4 on:showCode={showCode} />
-    <Demo5 on:showCode={showCode} />
-    <Demo6 on:showCode={showCode} />
-    <Demo7 on:showCode={showCode} />
-    <Demo8 on:showCode={showCode} />
-    <Demo9 on:showCode={showCode} />
-    <Demo10 on:showCode={showCode} />
-    <Demo11 on:showCode={showCode} />
-    <Demo12 on:showCode={showCode} />
-    <Demo13 on:showCode={showCode} />
-    <Demo14 on:showCode={showCode} />
-    <Demo15 on:showCode={showCode} />
-    <Demo16 on:showCode={showCode} />
-    <Demo17 on:showCode={showCode} />
+    <Demo0 {showCode} />
+    <Demo1 {showCode} />
+    <Demo2 {showCode} />
+    <Demo3 {showCode} />
+    <Demo4 {showCode} />
+    <Demo5 {showCode} />
+    <Demo6 {showCode} />
+    <Demo7 {showCode} />
+    <Demo8 {showCode} />
+    <Demo9 {showCode} />
+    <Demo10 {showCode} />
+    <Demo11 {showCode} />
+    <Demo12 {showCode} />
+    <Demo13 {showCode} />
+    <Demo14 {showCode} />
+    <Demo15 {showCode} />
+    <Demo16 {showCode} />
+    <Demo17 {showCode} />
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
     <div class="sheet" transition:slide={{ easing: easeEmphasized, duration: 500, axis: "x" }}>

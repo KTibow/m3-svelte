@@ -7,8 +7,8 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Card from "$lib/containers/Card.svelte";
-let variant: "elevated" | "filled" | "outlined" = "elevated";
-let clickable = false;
+let variant: "elevated" | "filled" | "outlined" = $state("elevated");
+let clickable = $state(false);
 
 let { showCode }: { showCode: (
   name: string,

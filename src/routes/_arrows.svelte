@@ -2,15 +2,18 @@
   let {
     list,
     value = $bindable(),
-    index = $bindable(0),
+    initialIndex = 0,
   }: {
     list: string[];
-    value: string;
-    index: number;
+    value?: string;
+    initialIndex?: number;
   } = $props();
+
+  let index = $state(initialIndex);
   $effect(() => {
     value = list[index];
   });
+
   const left = () => {
     index = (index == 0 ? list.length : index) - 1;
   };
