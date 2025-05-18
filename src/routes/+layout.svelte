@@ -10,8 +10,8 @@
   import iconAnimationS from "@ktibow/iconset-material-symbols/animation";
   import { base } from "$app/paths";
   import { page } from "$app/state";
-  import NavList from "$lib/nav/NavList.svelte";
-  import NavListLink from "$lib/nav/NavListLink.svelte";
+  import NavCMLX from "$lib/nav/NavCMLX.svelte";
+  import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
   import { styling } from "./themeStore";
   import "../app.css";
 
@@ -42,39 +42,44 @@
 {@html `<style>${$styling}</style>`}
 <div class="container">
   <div class="sidebar">
-    <NavList variant="auto">
-      <div class="items">
-        {#each paths as { path, icon, iconS, label }}
-          {@const selected = normalizePath(path) === normalizePath(page.url.pathname)}
-          <NavListLink
+    <NavCMLX variant="auto">
+      {#each paths as { path, icon, iconS, label }}
+        {@const selected = normalizePath(path) === normalizePath(page.url.pathname)}
+        <NavCMLXItem
+          variant="auto"
+          href={normalizePath(path)}
+          {selected}
+          icon={selected ? iconS : icon}
+          text={label}
+        />
+      {/each}
+      {#if page.url.pathname.startsWith(base + "/docs")}
+        {#each [["Quick start", `${base}/docs/quick-start`], ["Walkthrough", `${base}/docs/detailed-walkthrough`], ["llms.txt", `${base}/llms.txt`]] as [text, href]}
+          <NavCMLXItem
             variant="auto"
-            href={normalizePath(path)}
-            {selected}
-            icon={selected ? iconS : icon}
-          >
-            {label}
-          </NavListLink>
+            {href}
+            selected={page.url.pathname == href}
+            icon={page.url.pathname == href ? iconBookS : iconBook}
+            {text}
+          />
         {/each}
-        <NavListLink
+      {:else}
+        <NavCMLXItem
           variant="auto"
           href={normalizePath(base + "/docs/quick-start")}
           selected={page.url.pathname.startsWith(base + "/docs")}
           icon={page.url.pathname.startsWith(base + "/docs") ? iconBookS : iconBook}
-        >
-          Docs
-        </NavListLink>
-        <NavListLink
-          variant="auto"
-          href={normalizePath(base + "/transitions")}
-          selected={page.url.pathname.startsWith(base + "/transitions")}
-          icon={page.url.pathname.startsWith(base + "/transitions")
-            ? iconAnimationS
-            : iconAnimation}
-        >
-          Animations
-        </NavListLink>
-      </div>
-    </NavList>
+          text="Docs"
+        />
+      {/if}
+      <NavCMLXItem
+        variant="auto"
+        href={normalizePath(base + "/transitions")}
+        selected={page.url.pathname.startsWith(base + "/transitions")}
+        icon={page.url.pathname.startsWith(base + "/transitions") ? iconAnimationS : iconAnimation}
+        text="Animations"
+      />
+    </NavCMLX>
   </div>
   <div class="content">
     {@render children()}
@@ -83,60 +88,53 @@
 
 <style>
   .container {
-    display: flex;
-    min-height: 100vh;
+    display: grid;
+    min-height: 100dvh;
   }
   .sidebar {
-    position: sticky;
-    align-self: flex-start;
     display: flex;
-    width: 5rem;
-    flex-shrink: 0;
+    position: sticky;
   }
   .content {
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
   }
-  @media (width < 37.5rem) {
+  @media (width < 52.5rem) {
     .container {
-      flex-direction: column-reverse;
+      grid-template-rows: 1fr auto;
       --m3-util-bottom-offset: 5rem;
     }
     .sidebar {
+      flex-direction: column;
       bottom: 0;
       width: 100%;
       z-index: 3;
-    }
-    .items {
-      display: contents;
+      grid-row: 2;
     }
   }
-  @media (min-width: 37.5rem) {
-    .content {
-      flex-grow: 1;
-      padding: 1.5rem;
+  @media (width >= 52.5rem) {
+    .container {
+      grid-template-columns: auto 1fr;
     }
     .sidebar {
+      grid-column: 1;
       top: 0;
       left: 0;
       flex-direction: column;
-      min-height: 100vh;
-    }
-    .items {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      justify-content: center;
-    }
-    @media (min-height: 30rem) {
-      .items {
-        position: absolute;
-        inset: 0;
-      }
-      @media (max-height: 35rem) {
-        .items {
-          padding-top: 3.5rem;
+      height: 100dvh;
+      @media (width < 100rem) {
+        width: 6rem;
+        > :global(nav) {
+          position: absolute;
+          top: 50%;
+          translate: 0 -50%;
         }
       }
+    }
+    .content {
+      padding: 1.5rem;
+      grid-column: 2;
     }
   }
 </style>

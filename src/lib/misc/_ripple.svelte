@@ -1,8 +1,4 @@
 <script lang="ts">
-  import { parseSize } from "./utils";
-
-  let { morph }: { morph: boolean } = $props();
-
   let cancelRipples: (() => void)[] = $state([]);
 
   const createRipple = (node: HTMLDivElement) => {

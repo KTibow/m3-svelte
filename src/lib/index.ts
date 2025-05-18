@@ -39,12 +39,8 @@ export { default as TextFieldOutlinedMultiline } from "./forms/TextFieldOutlined
 export { default as DatePickerDocked } from "./forms/DatePickerDocked.svelte";
 export { default as Chip } from "./forms/Chip.svelte";
 
-export { default as NavDrawer } from "./nav/NavDrawer.svelte";
-export { default as NavDrawerButton } from "./nav/NavDrawerButton.svelte";
-export { default as NavDrawerLink } from "./nav/NavDrawerLink.svelte";
-export { default as NavList } from "./nav/NavList.svelte";
-export { default as NavListButton } from "./nav/NavListButton.svelte";
-export { default as NavListLink } from "./nav/NavListLink.svelte";
+export { default as NavCMLX } from "./nav/NavCMLX.svelte";
+export { default as NavCMLXItem } from "./nav/NavCMLXItem.svelte";
 export { default as Tabs } from "./nav/Tabs.svelte";
 export { default as TabsLink } from "./nav/TabsLink.svelte";
 export { default as VariableTabs } from "./nav/VariableTabs.svelte";

@@ -1,6 +1,4 @@
-<script lang="ts">
-  let _: { morph: boolean } = $props();
-</script>
+<svelte:options runes />
 
 <div class="tint"></div>
 

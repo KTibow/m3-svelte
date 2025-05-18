@@ -39,7 +39,7 @@
     class:square
     {...extra}
   >
-    <Layer morph />
+    <Layer />
     {@render children()}
   </button>
 {:else if "href" in props}
@@ -57,7 +57,7 @@
     class:square
     {...extra}
   >
-    <Layer morph />
+    <Layer />
     {@render children()}
   </a>
 {:else}
@@ -75,7 +75,7 @@
     class:square
     {...extra}
   >
-    <Layer morph />
+    <Layer />
     {@render children()}
   </label>
 {/if}
@@ -96,6 +96,7 @@
 
     align-items: center;
     justify-content: center;
+    background-color: transparent;
     cursor: pointer;
     user-select: none;
     position: relative;
@@ -157,7 +158,6 @@
       background-color: transparent;
     }
     &.text:not(:disabled, :global(input:disabled) + label) {
-      background-color: transparent;
       color: rgb(var(--m3-scheme-primary));
     }
     @media (hover: hover) {

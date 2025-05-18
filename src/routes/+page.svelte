@@ -121,7 +121,7 @@
     grid-column: 2;
   }
 
-  @media (width >= 37.5rem) {
+  @media (width >= 52.5rem) {
     .side-wrapper {
       margin: -1.5rem;
     }
