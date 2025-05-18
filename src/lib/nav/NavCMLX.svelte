@@ -36,7 +36,7 @@
       gap: 0.25rem;
     }
     &.expanded {
-      padding-top: 1.25rem;
+      padding-block: 1.25rem;
       min-width: 13.75rem;
       max-width: 22.5rem;
     }
@@ -61,7 +61,7 @@
     @media (100rem <= width) {
       /* Expanded */
       flex-direction: column;
-      padding-top: 1.25rem;
+      padding-block: 1.25rem;
       min-width: 13.75rem;
       max-width: 22.5rem;
     }
