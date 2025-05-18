@@ -110,18 +110,18 @@ let multiselect = $state(false);
   <ConnectedButtons>
     {#if multiselect}
       <input type="checkbox" id="segmented-a-0" />
-      <Button for="segmented-a-0" {variant} square icon={iconCircle}>Alpha</Button>
+      <Button for="segmented-a-0" {variant} square>Alpha</Button>
       <input type="checkbox" id="segmented-a-1" />
-      <Button for="segmented-a-1" {variant} square icon={iconSquare}>Beta</Button>
+      <Button for="segmented-a-1" {variant} square>Beta</Button>
       <input type="checkbox" id="segmented-a-2" />
-      <Button for="segmented-a-2" {variant} square icon={iconTriangle}>Charlie</Button>
+      <Button for="segmented-a-2" {variant} square>Charlie</Button>
     {:else}
       <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-      <Button for="segmented-b-0" {variant} square icon={iconCircle}>Alpha</Button>
+      <Button for="segmented-b-0" {variant} square>Alpha</Button>
       <input type="radio" name="segmented-b" id="segmented-b-1" />
-      <Button for="segmented-b-1" {variant} square icon={iconSquare}>Beta</Button>
+      <Button for="segmented-b-1" {variant} square>Beta</Button>
       <input type="radio" name="segmented-b" id="segmented-b-2" />
-      <Button for="segmented-b-2" {variant} square icon={iconTriangle}>Charlie</Button>
+      <Button for="segmented-b-2" {variant} square>Charlie</Button>
     {/if}
   </ConnectedButtons>
 {/snippet}
