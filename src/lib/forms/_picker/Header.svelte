@@ -80,7 +80,7 @@
     display: flex;
     height: 4rem;
     transition: all 200ms;
-    border-bottom: solid 0.0625rem transparent;
+    border-bottom: solid 1px transparent;
     flex-shrink: 0;
   }
   .m3-container > div {

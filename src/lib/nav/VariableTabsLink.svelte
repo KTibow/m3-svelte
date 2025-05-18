@@ -112,7 +112,7 @@
   .divider {
     position: absolute;
     inset: auto 0 0 0;
-    height: 0.0625rem;
+    height: 1px;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
   }
   a {

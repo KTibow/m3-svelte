@@ -98,7 +98,7 @@
   .layer {
     position: absolute;
     inset: 0;
-    border: 0.0625rem solid rgb(var(--error, var(--m3-scheme-outline)));
+    border: 1px solid rgb(var(--error, var(--m3-scheme-outline)));
     border-radius: var(--m3-textfield-outlined-shape);
     pointer-events: none;
     transition: all 200ms;

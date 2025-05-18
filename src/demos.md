@@ -14,15 +14,24 @@ Button
 
 ```ts
 let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("elevated");
+let action: "click" | "link" | "toggle" = $state("click");
+let square = $state(false);
 let iconType: "none" | "left" | "full" = $state("none");
 let enabled = $state(true);
-let link = $state(false);
 ```
 
 ```svelte
 <label>
   <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} />
   {variant[0].toUpperCase() + variant.slice(1)}
+</label>
+<label>
+  <Arrows list={["click", "link", "toggle"]} bind:value={action} />
+  {action[0].toUpperCase() + action.slice(1)}
+</label>
+<label>
+  <Switch bind:checked={square} />
+  {square ? "Square" : "Round"}
 </label>
 <label>
   <Arrows list={["none", "left", "full"]} bind:value={iconType} />
@@ -32,15 +41,17 @@ let link = $state(false);
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
-<label>
-  <Switch bind:checked={link} />
-  {link ? "Link" : "Button"}
-</label>
 {#snippet demo()}
   <div>
+    <input type="checkbox" id="random-input" disabled={!enabled} />
     <Button
       {variant}
-      {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
+      {square}
+      {...{
+        click: { click: () => {}, disabled: !enabled },
+        link: { href: "https://example.com" },
+        toggle: { for: "random-input" },
+      }[action]}
       {iconType}
     >
       {#if iconType == "none"}
@@ -53,59 +64,66 @@ let link = $state(false);
     </Button>
   </div>
 {/snippet}
+
+<style>
+  #random-input {
+    display: none;
+  }
+</style>
 ```
 
-## Segmented button
+## Connected buttons
 
 Minimal demo:
 
 ```svelte
-<SegmentedButtonContainer>
+<ConnectedButtons>
   <input type="checkbox" id="segmented-0" bind:checked={itemA} />
-  <SegmentedButtonItem input="segmented-0">A</SegmentedButtonItem>
+  <Button for="segmented-0" variant="filled" square>A</Button>
   <input type="checkbox" id="segmented-1" bind:checked={itemB} />
-  <SegmentedButtonItem input="segmented-1">B</SegmentedButtonItem>
-</SegmentedButtonContainer>
+  <Button for="segmented-1" variant="filled" square>B</Button>
+</ConnectedButtons>
 ```
 
 Full demo:
 
 ```use
-SegmentedButtonContainer
-SegmentedButtonItem
+ConnectedButtons
+Button
 ```
 
 ```ts
+let variant: "filled" | "tonal" = $state("filled");
 let multiselect = $state(false);
 ```
 
 ```svelte
 <label>
+  <Arrows list={["filled", "tonal"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
+</label>
+<label>
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
 {#snippet demo()}
-  <div>
+  <ConnectedButtons>
     {#if multiselect}
-      <SegmentedButtonContainer>
-        <input type="checkbox" id="segmented-a-0" />
-        <SegmentedButtonItem input="segmented-a-0" icon={iconCircle}>A</SegmentedButtonItem>
-        <input type="checkbox" id="segmented-a-1" />
-        <SegmentedButtonItem input="segmented-a-1" icon={iconSquare}>B</SegmentedButtonItem>
-        <input type="checkbox" id="segmented-a-2" disabled />
-        <SegmentedButtonItem input="segmented-a-2" icon={iconTriangle}>C</SegmentedButtonItem>
-      </SegmentedButtonContainer>
+      <input type="checkbox" id="segmented-a-0" />
+      <Button for="segmented-a-0" {variant} square icon={iconCircle}>Alpha</Button>
+      <input type="checkbox" id="segmented-a-1" />
+      <Button for="segmented-a-1" {variant} square icon={iconSquare}>Beta</Button>
+      <input type="checkbox" id="segmented-a-2" />
+      <Button for="segmented-a-2" {variant} square icon={iconTriangle}>Charlie</Button>
     {:else}
-      <SegmentedButtonContainer>
-        <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-        <SegmentedButtonItem input="segmented-b-0" icon={iconCircle}>A</SegmentedButtonItem>
-        <input type="radio" name="segmented-b" id="segmented-b-1" />
-        <SegmentedButtonItem input="segmented-b-1" icon={iconSquare}>B</SegmentedButtonItem>
-        <input type="radio" name="segmented-b" id="segmented-b-2" disabled />
-        <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
-      </SegmentedButtonContainer>
+      <input type="radio" name="segmented-b" id="segmented-b-0" checked />
+      <Button for="segmented-b-0" {variant} square icon={iconCircle}>Alpha</Button>
+      <input type="radio" name="segmented-b" id="segmented-b-1" />
+      <Button for="segmented-b-1" {variant} square icon={iconSquare}>Beta</Button>
+      <input type="radio" name="segmented-b" id="segmented-b-2" />
+      <Button for="segmented-b-2" {variant} square icon={iconTriangle}>Charlie</Button>
     {/if}
-  </div>
+  </ConnectedButtons>
 {/snippet}
 ```
 

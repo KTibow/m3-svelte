@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { parseSize } from "./utils";
+
+  let { morph }: { morph: boolean } = $props();
+
   let cancelRipples: (() => void)[] = $state([]);
 
   const createRipple = (node: HTMLDivElement) => {
@@ -101,6 +105,8 @@
 
       node.appendChild(svg);
 
+      parent.classList.toggle("activated", true);
+
       cancelRipples.push(() => {
         const fade = document.createElementNS("http://www.w3.org/2000/svg", "animate");
         fade.setAttribute("attributeName", "opacity");
@@ -113,6 +119,8 @@
         circle.appendChild(fade);
         fade.beginElement();
         setTimeout(() => svg.remove(), 800);
+
+        parent.classList.toggle("activated", false);
       });
     };
 

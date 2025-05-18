@@ -56,7 +56,7 @@
     color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
   }
   .today {
-    border: solid 0.0625rem rgb(var(--text));
+    border: solid 1px rgb(var(--text));
     --text: var(--m3-scheme-primary);
   }
   .selected {

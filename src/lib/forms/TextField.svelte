@@ -115,7 +115,7 @@
     width: 100%;
     bottom: 0;
 
-    height: 0.0625rem;
+    height: 1px;
     background-color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
     transition: all 200ms;
   }

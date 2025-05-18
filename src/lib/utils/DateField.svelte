@@ -89,7 +89,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     min-width: 15rem;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     border-radius: var(--m3-datefield-shape) var(--m3-datefield-shape) 0 0;
-    border-bottom: solid 0.0625rem rgb(var(--m3-scheme-on-surface-variant));
+    border-bottom: solid 1px rgb(var(--m3-scheme-on-surface-variant));
   }
   input {
     position: absolute;

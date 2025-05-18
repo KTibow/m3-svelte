@@ -128,3 +128,10 @@ ${darkColors}
 }`;
   return colors;
 };
+
+export const parseSize = (size: string) =>
+  (size.endsWith("px")
+    ? +size.slice(0, -2)
+    : size.endsWith("rem")
+      ? +size.slice(0, -3) * 16
+      : null) || 0;

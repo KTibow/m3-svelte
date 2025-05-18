@@ -67,7 +67,7 @@
 
     background-color: rgb(var(--m3-scheme-surface));
     color: rgb(var(--m3-scheme-on-surface-variant));
-    border: solid 0.0625rem rgb(var(--m3-scheme-outline));
+    border: solid 1px rgb(var(--m3-scheme-outline));
     position: relative;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -75,7 +75,7 @@
   }
 
   .m3-container > :global(:is(.ripple-container, .tint)) {
-    inset: -0.0625rem;
+    inset: -1px;
   }
   .m3-container > :global(svg) {
     width: 1.125rem;

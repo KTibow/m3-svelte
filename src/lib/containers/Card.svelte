@@ -66,7 +66,7 @@
     background-color: rgb(var(--m3-scheme-surface-container-highest));
   }
   .outlined {
-    border: solid 0.0625rem rgb(var(--m3-scheme-outline-variant));
+    border: solid 1px rgb(var(--m3-scheme-outline-variant));
   }
 
   @media print, (forced-colors: active) {

@@ -2,6 +2,8 @@
   import Ripple from "./_ripple.svelte";
   import RippleSimple from "./_ripplesimple.svelte";
 
+  let { morph = false }: { morph?: boolean } = $props();
+
   let ripple = $state(RippleSimple);
   if (
     // @ts-expect-error about M3_SVELTE_NO_RIPPLE
@@ -11,7 +13,7 @@
     ripple = Ripple;
   }
 
-  const SvelteComponent = $derived(ripple);
+  const Component = $derived(ripple);
 </script>
 
-<SvelteComponent />
+<Component {morph} />
