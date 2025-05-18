@@ -57,7 +57,7 @@
     headline = "",
     supporting = "",
     trailing,
-    label,
+    label: _,
     ...extra
   } = props}
   <label class="m3-container lines-{_lines}" {...extra}>

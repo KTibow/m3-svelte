@@ -38,19 +38,19 @@ let link = $state(false);
 </label>
 {#snippet demo()}
   <div>
-  <Button
-    {variant}
-    {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
-    {iconType}
-  >
-    {#if iconType == "none"}
-      Hello
-    {:else if iconType == "left"}
-      <Icon icon={iconCircle} /> Hello
-    {:else}
-      <Icon icon={iconCircle} />
-    {/if}
-  </Button>
+    <Button
+      {variant}
+      {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
+      {iconType}
+    >
+      {#if iconType == "none"}
+        Hello
+      {:else if iconType == "left"}
+        <Icon icon={iconCircle} /> Hello
+      {:else}
+        <Icon icon={iconCircle} />
+      {/if}
+    </Button>
   </div>
 {/snippet}
 ```
@@ -86,25 +86,25 @@ let multiselect = $state(false);
 </label>
 {#snippet demo()}
   <div>
-  {#if multiselect}
-    <SegmentedButtonContainer>
-      <input type="checkbox" id="segmented-a-0" />
-      <SegmentedButtonItem input="segmented-a-0" icon={iconCircle}>A</SegmentedButtonItem>
-      <input type="checkbox" id="segmented-a-1" />
-      <SegmentedButtonItem input="segmented-a-1" icon={iconSquare}>B</SegmentedButtonItem>
-      <input type="checkbox" id="segmented-a-2" disabled />
-      <SegmentedButtonItem input="segmented-a-2" icon={iconTriangle}>C</SegmentedButtonItem>
-    </SegmentedButtonContainer>
-  {:else}
-    <SegmentedButtonContainer>
-      <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-      <SegmentedButtonItem input="segmented-b-0" icon={iconCircle}>A</SegmentedButtonItem>
-      <input type="radio" name="segmented-b" id="segmented-b-1" />
-      <SegmentedButtonItem input="segmented-b-1" icon={iconSquare}>B</SegmentedButtonItem>
-      <input type="radio" name="segmented-b" id="segmented-b-2" disabled />
-      <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
-    </SegmentedButtonContainer>
-  {/if}
+    {#if multiselect}
+      <SegmentedButtonContainer>
+        <input type="checkbox" id="segmented-a-0" />
+        <SegmentedButtonItem input="segmented-a-0" icon={iconCircle}>A</SegmentedButtonItem>
+        <input type="checkbox" id="segmented-a-1" />
+        <SegmentedButtonItem input="segmented-a-1" icon={iconSquare}>B</SegmentedButtonItem>
+        <input type="checkbox" id="segmented-a-2" disabled />
+        <SegmentedButtonItem input="segmented-a-2" icon={iconTriangle}>C</SegmentedButtonItem>
+      </SegmentedButtonContainer>
+    {:else}
+      <SegmentedButtonContainer>
+        <input type="radio" name="segmented-b" id="segmented-b-0" checked />
+        <SegmentedButtonItem input="segmented-b-0" icon={iconCircle}>A</SegmentedButtonItem>
+        <input type="radio" name="segmented-b" id="segmented-b-1" />
+        <SegmentedButtonItem input="segmented-b-1" icon={iconSquare}>B</SegmentedButtonItem>
+        <input type="radio" name="segmented-b" id="segmented-b-2" disabled />
+        <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
+      </SegmentedButtonContainer>
+    {/if}
   </div>
 {/snippet}
 ```
@@ -139,12 +139,12 @@ let size: "small" | "normal" | "large" | "extended" = $state("normal");
 </label>
 {#snippet demo()}
   <div>
-  <FAB
-    {color}
-    click={() => {}}
-    {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
-    icon={iconCircle}
-  />
+    <FAB
+      {color}
+      click={() => {}}
+      {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
+      icon={iconCircle}
+    />
   </div>
 {/snippet}
 ```
@@ -213,7 +213,8 @@ let supporting = $derived(
     ? undefined
     : lines == "2"
       ? "Welcome to ZomboCom!"
-      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!");
+      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!",
+);
 ```
 
 ```svelte
@@ -334,7 +335,9 @@ let open = $state(false);
   <Button variant="tonal" click={() => (open = true)}>Open</Button>
   {#if open}
     <BottomSheet close={() => (open = false)}>
-      {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(20)}
+      {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(
+        20,
+      )}
     </BottomSheet>
   {/if}
 {/snippet}
@@ -386,7 +389,9 @@ Minimal demo:
   let snackbar: ReturnType<typeof Snackbar>;
 </script>
 
-<Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
+<Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
+  >Show</Button
+>
 <Snackbar bind:this={snackbar} />
 ```
 
@@ -403,7 +408,9 @@ let snackbar: ReturnType<typeof Snackbar>;
 
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}>Show</Button>
+  <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
+    >Show</Button
+  >
   <Snackbar bind:this={snackbar} />
 {/snippet}
 ```
@@ -459,7 +466,8 @@ Chip
 ```
 
 ```ts
-let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = $state("input");
+let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" =
+  $state("input");
 let iconType: "none" | "left" | "right" = $state("none");
 let enabled = $state(true);
 let selected = $state(false);
@@ -484,17 +492,21 @@ let selected = $state(false);
 
 {#snippet demo()}
   <div>
-  <Chip
-    variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
-    elevated={style.endsWith("elevated")}
-    icon={iconType == "left" ? iconCircle : undefined}
-    trailingIcon={iconType == "right" ? iconSquare : undefined}
-    disabled={!enabled}
-    {selected}
-    click={() => (selected = !selected)}
-  >
-    Hello
-  </Chip>
+    <Chip
+      variant={style.startsWith("assist")
+        ? "assist"
+        : style.startsWith("general")
+          ? "general"
+          : "input"}
+      elevated={style.endsWith("elevated")}
+      icon={iconType == "left" ? iconCircle : undefined}
+      trailingIcon={iconType == "right" ? iconSquare : undefined}
+      disabled={!enabled}
+      {selected}
+      click={() => (selected = !selected)}
+    >
+      Hello
+    </Chip>
   </div>
 {/snippet}
 ```
@@ -569,7 +581,9 @@ RadioAnim3
 let animation: "1" | "2" | "3" = $state("1");
 let enabled = $state(true);
 
-let Component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3);
+let Component = $derived(
+  animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3,
+);
 ```
 
 ```svelte
@@ -583,23 +597,23 @@ let Component = $derived(animation == "1" ? RadioAnim1 : animation == "2" ? Radi
 </label>
 
 {#snippet demo()}
-<div style:display="flex" style:gap="0.5rem">
-  <label>
-    <Component>
-      <input type="radio" name="radio" checked disabled={!enabled} />
-    </Component>
-  </label>
-  <label>
-    <Component>
-      <input type="radio" name="radio" disabled={!enabled} />
-    </Component>
-  </label>
-  <label>
-    <Component>
-      <input type="radio" name="radio" disabled={!enabled} />
-    </Component>
-  </label>
-</div>
+  <div style:display="flex" style:gap="0.5rem">
+    <label>
+      <Component>
+        <input type="radio" name="radio" checked disabled={!enabled} />
+      </Component>
+    </label>
+    <label>
+      <Component>
+        <input type="radio" name="radio" disabled={!enabled} />
+      </Component>
+    </label>
+    <label>
+      <Component>
+        <input type="radio" name="radio" disabled={!enabled} />
+      </Component>
+    </label>
+  </div>
 {/snippet}
 ```
 
@@ -673,9 +687,9 @@ let enabled = $state(true);
 </label>
 
 {#snippet demo()}
-<label>
-  <Switch disabled={!enabled} />
-</label>
+  <label>
+    <Switch disabled={!enabled} />
+  </label>
 {/snippet}
 ```
 
@@ -804,17 +818,19 @@ let icons = $state(false);
 let variable = $state(false);
 let tab = $state("hello");
 
-let items = $derived(icons
-  ? [
-      { icon: iconCircle, name: "Hello", value: "hello" },
-      { icon: iconSquare, name: "World", value: "world" },
-      { icon: iconTriangle, name: "The longest item", value: "long" },
-    ]
-  : [
-      { name: "Hello", value: "hello" },
-      { name: "World", value: "world" },
-      { name: "The longest item", value: "long" },
-    ]);
+let items = $derived(
+  icons
+    ? [
+        { icon: iconCircle, name: "Hello", value: "hello" },
+        { icon: iconSquare, name: "World", value: "world" },
+        { icon: iconTriangle, name: "The longest item", value: "long" },
+      ]
+    : [
+        { name: "Hello", value: "hello" },
+        { name: "World", value: "world" },
+        { name: "The longest item", value: "long" },
+      ],
+);
 ```
 
 ```svelte

@@ -1,7 +1,6 @@
-.DS_Store
-node_modules
+# Package Managers
+package-lock.json
 pnpm-lock.yaml
-/build
-/.svelte-kit
-/package
-/src/routes/docs/guide
+yarn.lock
+bun.lock
+bun.lockb

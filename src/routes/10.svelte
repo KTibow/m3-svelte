@@ -7,7 +7,8 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Chip from "$lib/forms/Chip.svelte";
-let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = $state("input");
+let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" =
+  $state("input");
 let iconType: "none" | "left" | "right" = $state("none");
 let enabled = $state(true);
 let selected = $state(false);
@@ -41,17 +42,21 @@ const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-s
 
 {#snippet demo()}
   <div>
-  <Chip
-    variant={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
-    elevated={style.endsWith("elevated")}
-    icon={iconType == "left" ? iconCircle : undefined}
-    trailingIcon={iconType == "right" ? iconSquare : undefined}
-    disabled={!enabled}
-    {selected}
-    click={() => (selected = !selected)}
-  >
-    Hello
-  </Chip>
+    <Chip
+      variant={style.startsWith("assist")
+        ? "assist"
+        : style.startsWith("general")
+          ? "general"
+          : "input"}
+      elevated={style.endsWith("elevated")}
+      icon={iconType == "left" ? iconCircle : undefined}
+      trailingIcon={iconType == "right" ? iconSquare : undefined}
+      disabled={!enabled}
+      {selected}
+      click={() => (selected = !selected)}
+    >
+      Hello
+    </Chip>
   </div>
 {/snippet}
 </InternalCard>

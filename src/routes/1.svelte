@@ -32,25 +32,25 @@ const relevantLinks = [{"title":"SegmentedButtonContainer.sv","link":"https://gi
 </label>
 {#snippet demo()}
   <div>
-  {#if multiselect}
-    <SegmentedButtonContainer>
-      <input type="checkbox" id="segmented-a-0" />
-      <SegmentedButtonItem input="segmented-a-0" icon={iconCircle}>A</SegmentedButtonItem>
-      <input type="checkbox" id="segmented-a-1" />
-      <SegmentedButtonItem input="segmented-a-1" icon={iconSquare}>B</SegmentedButtonItem>
-      <input type="checkbox" id="segmented-a-2" disabled />
-      <SegmentedButtonItem input="segmented-a-2" icon={iconTriangle}>C</SegmentedButtonItem>
-    </SegmentedButtonContainer>
-  {:else}
-    <SegmentedButtonContainer>
-      <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-      <SegmentedButtonItem input="segmented-b-0" icon={iconCircle}>A</SegmentedButtonItem>
-      <input type="radio" name="segmented-b" id="segmented-b-1" />
-      <SegmentedButtonItem input="segmented-b-1" icon={iconSquare}>B</SegmentedButtonItem>
-      <input type="radio" name="segmented-b" id="segmented-b-2" disabled />
-      <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
-    </SegmentedButtonContainer>
-  {/if}
+    {#if multiselect}
+      <SegmentedButtonContainer>
+        <input type="checkbox" id="segmented-a-0" />
+        <SegmentedButtonItem input="segmented-a-0" icon={iconCircle}>A</SegmentedButtonItem>
+        <input type="checkbox" id="segmented-a-1" />
+        <SegmentedButtonItem input="segmented-a-1" icon={iconSquare}>B</SegmentedButtonItem>
+        <input type="checkbox" id="segmented-a-2" disabled />
+        <SegmentedButtonItem input="segmented-a-2" icon={iconTriangle}>C</SegmentedButtonItem>
+      </SegmentedButtonContainer>
+    {:else}
+      <SegmentedButtonContainer>
+        <input type="radio" name="segmented-b" id="segmented-b-0" checked />
+        <SegmentedButtonItem input="segmented-b-0" icon={iconCircle}>A</SegmentedButtonItem>
+        <input type="radio" name="segmented-b" id="segmented-b-1" />
+        <SegmentedButtonItem input="segmented-b-1" icon={iconSquare}>B</SegmentedButtonItem>
+        <input type="radio" name="segmented-b" id="segmented-b-2" disabled />
+        <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
+      </SegmentedButtonContainer>
+    {/if}
   </div>
 {/snippet}
 </InternalCard>

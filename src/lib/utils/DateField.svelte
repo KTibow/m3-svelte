@@ -28,10 +28,9 @@
   });
 
   let picker = $state(false);
-  let container: HTMLDivElement | undefined = $state();
-  const clickOutside = (_node: Node) => {
+  const clickOutside = (container: Node) => {
     const handleClick = (event: Event) => {
-      if (!container?.contains(event.target as Node)) {
+      if (!container.contains(event.target as Node)) {
         picker = false;
       }
     };
@@ -42,7 +41,7 @@
       },
     };
   };
-  const enterExit = (_node: Node): TransitionConfig => {
+  const enterExit = (_: Node): TransitionConfig => {
     return {
       duration: 400,
       easing: easeEmphasized,
@@ -54,7 +53,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   };
 </script>
 
-<div class="m3-container" class:has-js={hasJs} class:disabled bind:this={container}>
+<div class="m3-container" class:has-js={hasJs} class:disabled use:clickOutside>
   <input
     type="date"
     class="m3-font-body-large"
@@ -69,7 +68,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     <Icon icon={iconCalendar} />
   </button>
   {#if picker}
-    <div class="picker" use:clickOutside transition:enterExit>
+    <div class="picker" transition:enterExit>
       <DatePickerDocked
         {date}
         clearable={!required}

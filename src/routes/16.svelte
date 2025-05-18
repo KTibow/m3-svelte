@@ -13,17 +13,19 @@ let icons = $state(false);
 let variable = $state(false);
 let tab = $state("hello");
 
-let items = $derived(icons
-  ? [
-      { icon: iconCircle, name: "Hello", value: "hello" },
-      { icon: iconSquare, name: "World", value: "world" },
-      { icon: iconTriangle, name: "The longest item", value: "long" },
-    ]
-  : [
-      { name: "Hello", value: "hello" },
-      { name: "World", value: "world" },
-      { name: "The longest item", value: "long" },
-    ]);
+let items = $derived(
+  icons
+    ? [
+        { icon: iconCircle, name: "Hello", value: "hello" },
+        { icon: iconSquare, name: "World", value: "world" },
+        { icon: iconTriangle, name: "The longest item", value: "long" },
+      ]
+    : [
+        { name: "Hello", value: "hello" },
+        { name: "World", value: "world" },
+        { name: "The longest item", value: "long" },
+      ],
+);
 
 let { showCode }: { showCode: (
   name: string,

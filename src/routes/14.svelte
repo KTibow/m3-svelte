@@ -28,8 +28,8 @@ const relevantLinks = [{"title":"Switch.sv","link":"https://github.com/KTibow/m3
 </label>
 
 {#snippet demo()}
-<label>
-  <Switch disabled={!enabled} />
-</label>
+  <label>
+    <Switch disabled={!enabled} />
+  </label>
 {/snippet}
 </InternalCard>

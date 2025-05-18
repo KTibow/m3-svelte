@@ -41,19 +41,19 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
 </label>
 {#snippet demo()}
   <div>
-  <Button
-    {variant}
-    {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
-    {iconType}
-  >
-    {#if iconType == "none"}
-      Hello
-    {:else if iconType == "left"}
-      <Icon icon={iconCircle} /> Hello
-    {:else}
-      <Icon icon={iconCircle} />
-    {/if}
-  </Button>
+    <Button
+      {variant}
+      {...link ? { href: "https://example.com" } : { click: () => {}, disabled: !enabled }}
+      {iconType}
+    >
+      {#if iconType == "none"}
+        Hello
+      {:else if iconType == "left"}
+        <Icon icon={iconCircle} /> Hello
+      {:else}
+        <Icon icon={iconCircle} />
+      {/if}
+    </Button>
   </div>
 {/snippet}
 </InternalCard>

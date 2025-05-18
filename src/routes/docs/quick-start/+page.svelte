@@ -48,7 +48,7 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world")}>Click me${"<"}/
         name="+layout.svelte, App.svelte, or similar"
         lang="xml"
       />
-      <Snippet code={`/* Your theme snippet */`} name="app.css" lang="css" />
+      <Snippet code="/* Your theme snippet */" name="app.css" lang="css" />
     </div>
   </li>
   <li>

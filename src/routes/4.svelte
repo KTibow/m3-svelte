@@ -19,7 +19,8 @@ let supporting = $derived(
     ? undefined
     : lines == "2"
       ? "Welcome to ZomboCom!"
-      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!");
+      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!",
+);
 
 let { showCode }: { showCode: (
   name: string,

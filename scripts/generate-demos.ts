@@ -9,7 +9,7 @@ const getFile = (component: string) => {
 const demos = await readFile("src/demos.md", "utf8");
 const demosList = [
   ...demos.matchAll(
-    /## (.+)\n\nMinimal demo:\n\n\`\`\`svelte\n([^]+?)\n\`\`\`\n\nFull demo:\n\n\`\`\`use\n([^]*?)\n\`\`\`\n\n\`\`\`ts\n([^]*?)\n\`\`\`\n\n\`\`\`svelte\n([^]+?)\n\`\`\`/g,
+    /## (.+)\n\nMinimal demo:\n\n```svelte\n([^]+?)\n```\n\nFull demo:\n\n```use\n([^]*?)\n```\n\n```ts\n([^]*?)\n```\n\n```svelte\n([^]+?)\n```/g,
   ),
 ];
 

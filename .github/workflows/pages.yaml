@@ -29,9 +29,9 @@ jobs:
         with:
           static_site_generator: sveltekit
       - name: Run install
-        run: npm install
+        run: pnpm install
       - name: Run build
-        run: npm run build
+        run: pnpm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

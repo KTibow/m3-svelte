@@ -31,12 +31,12 @@ const relevantLinks = [{"title":"FAB.sv","link":"https://github.com/KTibow/m3-sv
 </label>
 {#snippet demo()}
   <div>
-  <FAB
-    {color}
-    click={() => {}}
-    {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
-    icon={iconCircle}
-  />
+    <FAB
+      {color}
+      click={() => {}}
+      {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
+      icon={iconCircle}
+    />
   </div>
 {/snippet}
 </InternalCard>

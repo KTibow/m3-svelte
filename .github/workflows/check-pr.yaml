@@ -13,8 +13,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Run install
-        run: npm install
+        run: pnpm install
       - name: Build site
-        run: npm run build
+        run: pnpm run build
       - name: Build library
-        run: npm run package
+        run: pnpm run prepack

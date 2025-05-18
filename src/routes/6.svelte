@@ -27,7 +27,9 @@ const relevantLinks = [{"title":"BottomSheet.sv","link":"https://github.com/KTib
   <Button variant="tonal" click={() => (open = true)}>Open</Button>
   {#if open}
     <BottomSheet close={() => (open = false)}>
-      {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(20)}
+      {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(
+        20,
+      )}
     </BottomSheet>
   {/if}
 {/snippet}

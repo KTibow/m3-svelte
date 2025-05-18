@@ -16,6 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Run install
-        run: npm install
+        run: pnpm install
       - name: Run check
-        run: npm run check
+        run: pnpm run check

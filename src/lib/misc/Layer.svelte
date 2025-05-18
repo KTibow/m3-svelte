@@ -4,7 +4,7 @@
 
   let ripple = $state(RippleSimple);
   if (
-    // @ts-ignore
+    // @ts-expect-error about M3_SVELTE_NO_RIPPLE
     typeof M3_SVELTE_NO_RIPPLE == "undefined" &&
     (typeof window == "undefined" || !window.matchMedia("(prefers-reduced-motion: reduce)").matches)
   ) {

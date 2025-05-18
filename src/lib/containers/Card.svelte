@@ -15,7 +15,7 @@
 
 {#if "click" in props}
   {@const { variant, click, children, ...extra } = props}
-  <button class="m3-container {variant}" {...extra}>
+  <button class="m3-container {variant}" onclick={click} {...extra}>
     <Layer />
     {@render children()}
   </button>
