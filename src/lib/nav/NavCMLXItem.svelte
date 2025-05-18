@@ -140,7 +140,7 @@
     }
     &.large {
       flex-direction: column;
-      height: 4rem;
+      min-height: 4rem;
       padding-block: 0.375rem;
     }
     &.expanded {
@@ -221,7 +221,7 @@
       /* Large */
       flex-direction: column;
       text-align: center;
-      height: 4rem;
+      min-height: 4rem;
       padding-block: 0.375rem;
 
       .content {
