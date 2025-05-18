@@ -57,6 +57,7 @@
       transition: all var(--m3-util-easing);
       &:is(.compact .content, .large .content) {
         flex-direction: column;
+        text-align: center;
         &.selected {
           color: rgb(var(--m3-scheme-secondary));
           > .icon {
@@ -161,6 +162,7 @@
 
       .content {
         flex-direction: column;
+        text-align: center;
 
         &.selected {
           color: rgb(var(--m3-scheme-secondary));
@@ -218,6 +220,7 @@
     @media (52.5rem <= width < 100rem) {
       /* Large */
       flex-direction: column;
+      text-align: center;
       height: 4rem;
       padding-block: 0.375rem;
 
