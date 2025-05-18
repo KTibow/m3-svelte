@@ -87,7 +87,7 @@
     background-color: rgb(var(--m3-scheme-outline));
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: all 300ms var(--m3-easing);
+    transition: all var(--m3-util-easing-fast-spatial);
 
     left: 0.5rem;
     top: 50%;
@@ -102,8 +102,8 @@
     color: rgb(var(--m3-scheme-on-primary-container));
     opacity: 0;
     transition:
-      opacity 300ms var(--m3-easing),
-      scale 300ms var(--m3-easing);
+      opacity var(--m3-util-easing-fast-spatial),
+      scale var(--m3-util-easing-fast-spatial);
   }
   .hover {
     position: absolute;
@@ -113,7 +113,7 @@
 
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: all 300ms var(--m3-easing);
+    transition: all var(--m3-util-easing-fast);
 
     left: 1rem;
     top: 50%;

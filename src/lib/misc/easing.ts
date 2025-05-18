@@ -1,3 +1,4 @@
+// TODO: update for Expressive
 const createBezierLUT = (points: [number, number][], pointCount = 100) => {
   const lut = [];
   for (let t = 0; t < 1; t += 1 / pointCount) {
@@ -34,34 +35,6 @@ export const easeEmphasized = createEase([
     [1, 1],
   ],
 ]);
-/*
-=== NEW CSS VERSION ===
-is in var(--m3-easing), generated with
-const createCSSEase = (lutOptions: [number, number][][]) => {
-  const lut = lutOptions.map((args) => createBezierLUT(args)).flat();
-  let stops: number[] = [];
-  for (let t = 0; t <= 1; t += 0.01) {
-    const closestPoint = lut.find((p) => p[0] >= t);
-    const closestY = closestPoint ? closestPoint[1] : 1;
-    stops.push(closestY);
-  }
-
-  return `linear(${stops.map((s) => +s.toFixed(3)).join(", ")})`;
-};
-
-=== OLD CSS VERSION: LIMITED OVERSHOOT ===
-https://cdn.discordapp.com/attachments/1058124584286683237/1064238491904524308/w9blD3eMKQBwAAAABJRU5ErkJggg.png
-cubic-bezier(0.254, 0.029, 0, 1.2) is preferred, it is the most accurate to the acceleration
-cubic-bezier(0.356, 0.701, 0, 1.004) is the most accurate to the deceleration
-cubic-bezier(0.291, 0.281, 0, 1.2) has no weighting
-
-=== OLD CSS VERSION: UNLIMITED OVERSHOOT ===
-https://cdn.discordapp.com/attachments/1058124584286683237/1064238129306927124/H47ZvYKwT8COjeuQXsI8AE4554luCbtMqAAqAJubZ9I2452QBcREREJgab5REREREKgZEpEREQkBEqmREREREKgZEpEREQkBEqmREREREKgZEpEREQkBEqmREREREKgZEpEREQkBP8PcBLo5kfHxSYAAAAASUVORK5CYII.png
-cubic-bezier(0.271, -0.011, 0, 1.449) is the most accurate to the acceleration (but has a large overshoot)
-the deceleration is the same as before
-cubic-bezier(0.278, 0.195, 0, 1.251) has no weighting
-the m3 docs randomly mention 0.2, 0, 0, 1 but that seems off
-*/
 export const easeEmphasizedDecel = createEase([
   [
     [0, 0],

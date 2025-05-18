@@ -123,32 +123,32 @@
     visibility: hidden;
     pointer-events: none;
     transition:
-      opacity 200ms,
-      visibility 200ms;
+      opacity var(--m3-util-easing-fast),
+      visibility var(--m3-util-easing-fast);
   }
   dialog[open] {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
     animation:
-      dialogIn 500ms var(--m3-easing-decel),
-      opacity 100ms var(--m3-easing-decel);
+      dialogIn var(--m3-util-curve-decel) 500ms,
+      opacity var(--m3-util-curve-decel) 100ms both;
   }
   dialog[open] .headline {
-    animation: opacity 150ms;
+    animation: opacity var(--m3-util-easing-fast);
   }
   dialog[open] .content {
-    animation: opacity 200ms;
+    animation: opacity var(--m3-util-easing-fast) 50ms both;
   }
   dialog[open] .buttons {
     position: relative;
     animation:
-      buttonsIn 500ms var(--m3-easing-decel),
-      opacity 200ms 100ms backwards;
+      buttonsIn var(--m3-util-curve-decel) 500ms,
+      opacity var(--m3-util-easing-fast) 100ms both;
   }
   dialog::backdrop {
     background-color: rgb(var(--m3-scheme-scrim) / 0.3);
-    animation: opacity 400ms;
+    animation: opacity var(--m3-util-curve-decel) 500ms;
   }
   @keyframes dialogIn {
     0% {

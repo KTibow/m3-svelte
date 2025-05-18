@@ -104,8 +104,8 @@
     inset: 0 0;
     width: 100%;
     transition:
-      width 400ms var(--m3-easing),
-      inset 400ms var(--m3-easing);
+      width var(--m3-util-easing-fast-spatial),
+      inset var(--m3-util-easing-fast-spatial);
   }
   .selected > .icon-space > :global(svg) {
     color: rgb(var(--m3-scheme-on-secondary-container));
