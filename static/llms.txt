@@ -626,15 +626,17 @@ let enabled = $state(true);` to make this demo:
 Minimal demo:
 ```svelte
 <ConnectedButtons>
-  <input type="checkbox" id="segmented-0" bind:checked={itemA} />
-  <Button for="segmented-0" variant="filled" square>A</Button>
-  <input type="checkbox" id="segmented-1" bind:checked={itemB} />
-  <Button for="segmented-1" variant="filled" square>B</Button>
+  <TogglePrimitive bind:toggle={itemA}>
+    A
+  </TogglePrimitive>
+  <TogglePrimitive bind:toggle={itemB}>
+    B
+  </TogglePrimitive>
 </ConnectedButtons>
 ```
 
-The M3 Svelte interactive demo for this component uses ConnectedButtons, Button with the TS `let variant: "filled" | "tonal" = $state("filled");
-let multiselect = $state(false);` to make this demo:
+The M3 Svelte interactive demo for this component uses ConnectedButtons, Button, TogglePrimitive with the TS `let variant: "filled" | "tonal" = $state("filled");
+let multiselect = $state(true);` to make this demo:
 ```svelte
 <label>
   <Arrows list={["filled", "tonal"]} bind:value={variant} />
@@ -647,12 +649,15 @@ let multiselect = $state(false);` to make this demo:
 {#snippet demo()}
   <ConnectedButtons>
     {#if multiselect}
-      <input type="checkbox" id="segmented-a-0" />
-      <Button for="segmented-a-0" {variant} square>Alpha</Button>
-      <input type="checkbox" id="segmented-a-1" />
-      <Button for="segmented-a-1" {variant} square>Beta</Button>
-      <input type="checkbox" id="segmented-a-2" />
-      <Button for="segmented-a-2" {variant} square>Charlie</Button>
+      <TogglePrimitive toggle={true}>
+        Alpha
+      </TogglePrimitive>
+      <TogglePrimitive toggle={false}>
+        Beta
+      </TogglePrimitive>
+      <TogglePrimitive toggle={false}>
+        Charlie
+      </TogglePrimitive>
     {:else}
       <input type="radio" name="segmented-b" id="segmented-b-0" checked />
       <Button for="segmented-b-0" {variant} square>Alpha</Button>

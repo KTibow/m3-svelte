@@ -13,7 +13,7 @@
     | ({ href: string } & HTMLAnchorAttributes)
     | ({ for: string } & HTMLLabelAttributes);
   type Props = {
-    variant: "elevated" | "filled" | "tonal" | "outlined" | "text";
+    variant?: "elevated" | "filled" | "tonal" | "outlined" | "text";
     square?: boolean;
     iconType?: "none" | "left" | "full";
     children: Snippet;
@@ -24,7 +24,7 @@
 
 {#if "click" in props}
   {@const {
-    variant,
+    variant = "filled",
     click,
     disabled,
     square = false,
@@ -43,7 +43,14 @@
     {@render children()}
   </button>
 {:else if "href" in props}
-  {@const { variant, href, square = false, iconType = "none", children, ...extra } = props}
+  {@const {
+    variant = "filled",
+    href,
+    square = false,
+    iconType = "none",
+    children,
+    ...extra
+  } = props}
   <a
     {href}
     class="m3-container m3-font-label-large {variant} icon-{iconType}"
@@ -54,7 +61,14 @@
     {@render children()}
   </a>
 {:else}
-  {@const { variant, for: forItem, square = false, iconType = "none", children, ...extra } = props}
+  {@const {
+    variant = "filled",
+    for: forItem,
+    square = false,
+    iconType = "none",
+    children,
+    ...extra
+  } = props}
   <label
     for={forItem}
     class="m3-container m3-font-label-large {variant} icon-{iconType}"

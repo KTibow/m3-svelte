@@ -8,8 +8,9 @@ import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
 import Button from "$lib/buttons/Button.svelte";
+import TogglePrimitive from "$lib/buttons/TogglePrimitive.svelte";
 let variant: "filled" | "tonal" = $state("filled");
-let multiselect = $state(false);
+let multiselect = $state(true);
 
 let { showCode }: { showCode: (
   name: string,
@@ -18,12 +19,14 @@ let { showCode }: { showCode: (
 ) => void } = $props();
 
 const minimalDemo = `${"<"}ConnectedButtons>
-  ${"<"}input type="checkbox" id="segmented-0" bind:checked={itemA} />
-  ${"<"}Button for="segmented-0" variant="filled" square>A${"<"}/Button>
-  ${"<"}input type="checkbox" id="segmented-1" bind:checked={itemB} />
-  ${"<"}Button for="segmented-1" variant="filled" square>B${"<"}/Button>
+  ${"<"}TogglePrimitive bind:toggle={itemA}>
+    A
+  ${"<"}/TogglePrimitive>
+  ${"<"}TogglePrimitive bind:toggle={itemB}>
+    B
+  ${"<"}/TogglePrimitive>
 ${"<"}/ConnectedButtons>`;
-const relevantLinks = [{"title":"ConnectedButtons.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/ConnectedButtons.svelte"}];
+const relevantLinks = [{"title":"ConnectedButtons.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/ConnectedButtons.svelte"},{"title":"TogglePrimitive.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/TogglePrimitive.svelte"}];
 </script>
 
 <InternalCard title="Connected buttons" showCode={() => showCode("Connected buttons", minimalDemo, relevantLinks)}>
@@ -38,12 +41,15 @@ const relevantLinks = [{"title":"ConnectedButtons.sv","link":"https://github.com
 {#snippet demo()}
   <ConnectedButtons>
     {#if multiselect}
-      <input type="checkbox" id="segmented-a-0" />
-      <Button for="segmented-a-0" {variant} square>Alpha</Button>
-      <input type="checkbox" id="segmented-a-1" />
-      <Button for="segmented-a-1" {variant} square>Beta</Button>
-      <input type="checkbox" id="segmented-a-2" />
-      <Button for="segmented-a-2" {variant} square>Charlie</Button>
+      <TogglePrimitive toggle={true}>
+        Alpha
+      </TogglePrimitive>
+      <TogglePrimitive toggle={false}>
+        Beta
+      </TogglePrimitive>
+      <TogglePrimitive toggle={false}>
+        Charlie
+      </TogglePrimitive>
     {:else}
       <input type="radio" name="segmented-b" id="segmented-b-0" checked />
       <Button for="segmented-b-0" {variant} square>Alpha</Button>

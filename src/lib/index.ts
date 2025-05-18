@@ -9,6 +9,7 @@ export * from "./misc/serializeScheme.js";
 export { default as Button } from "./buttons/Button.svelte";
 export { default as ConnectedButtons } from "./buttons/ConnectedButtons.svelte";
 export { default as FAB } from "./buttons/FAB.svelte";
+export { default as TogglePrimitive } from "./buttons/TogglePrimitive.svelte";
 
 export { default as BottomSheet } from "./containers/BottomSheet.svelte";
 export { default as Card } from "./containers/Card.svelte";
