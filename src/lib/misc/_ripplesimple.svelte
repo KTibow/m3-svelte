@@ -21,10 +21,8 @@
       }
     }
 
-    &:focus-visible > .tint {
-      opacity: 0.12;
-    }
-
+    &:is(:global(input:focus-visible + label)) > .tint,
+    &:focus-visible > .tint,
     &:active > .tint {
       opacity: 0.12;
     }

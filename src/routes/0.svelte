@@ -70,7 +70,9 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
 
 <style>
   #random-input {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
 </style>
 </InternalCard>

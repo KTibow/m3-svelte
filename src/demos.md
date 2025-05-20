@@ -67,7 +67,9 @@ let enabled = $state(true);
 
 <style>
   #random-input {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
 </style>
 ```
