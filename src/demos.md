@@ -110,9 +110,9 @@ let multiselect = $state(true);
 {#snippet demo()}
   <ConnectedButtons>
     {#if multiselect}
-      <TogglePrimitive toggle={true}>Alpha</TogglePrimitive>
-      <TogglePrimitive toggle={false}>Beta</TogglePrimitive>
-      <TogglePrimitive toggle={false}>Charlie</TogglePrimitive>
+      <TogglePrimitive toggle={true} {variant}>Alpha</TogglePrimitive>
+      <TogglePrimitive toggle={false} {variant}>Beta</TogglePrimitive>
+      <TogglePrimitive toggle={false} {variant}>Charlie</TogglePrimitive>
     {:else}
       <input type="radio" name="segmented-b" id="segmented-b-0" checked />
       <Button for="segmented-b-0" {variant} square>Alpha</Button>
