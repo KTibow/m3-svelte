@@ -1,8 +1,17 @@
 <script lang="ts">
-  export let disabled = false;
-  export let today = false;
-  export let selected = false;
-  export let label: string;
+  let {
+    disabled,
+    today,
+    selected,
+    label,
+    click,
+  }: {
+    disabled: boolean;
+    today: boolean;
+    selected: boolean;
+    label: string;
+    click: () => void;
+  } = $props();
 </script>
 
 <button
@@ -11,7 +20,7 @@
   type="button"
   class:today
   class:selected
-  on:click
+  onclick={click}
 >
   {label}
 </button>
@@ -47,7 +56,7 @@
     color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
   }
   .today {
-    border: solid 0.0625rem rgb(var(--text));
+    border: solid 1px rgb(var(--text));
     --text: var(--m3-scheme-primary);
   }
   .selected {

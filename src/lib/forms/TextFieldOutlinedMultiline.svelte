@@ -1,18 +1,24 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
-  import type { HTMLAttributes, HTMLTextareaAttributes } from "svelte/elements";
+  import type { HTMLTextareaAttributes } from "svelte/elements";
 
-  export let display = "inline-flex";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLTextareaAttributes = {};
-  export let name: string;
-  export let leadingIcon: IconifyIcon | undefined = undefined;
-
-  export let disabled = false;
-  export let required = false;
-  export let error = false;
-  export let value = "";
+  let {
+    name,
+    leadingIcon,
+    disabled = false,
+    required = false,
+    error = false,
+    value = $bindable(""),
+    ...extra
+  }: {
+    name: string;
+    leadingIcon?: IconifyIcon;
+    disabled?: boolean;
+    required?: boolean;
+    error?: boolean;
+    value?: string;
+  } & HTMLTextareaAttributes = $props();
   const id = crypto.randomUUID();
   const resize = (node: HTMLElement) => {
     const update = () => {
@@ -30,14 +36,7 @@
   };
 </script>
 
-<div
-  class="m3-container"
-  class:leading-icon={leadingIcon}
-  class:error
-  style="display: {display}"
-  use:resize
-  {...extraWrapperOptions}
->
+<div class="m3-container" class:leading-icon={leadingIcon} class:error use:resize>
   <textarea
     class="focus-none m3-font-body-large"
     placeholder=" "
@@ -45,7 +44,7 @@
     {id}
     {disabled}
     {required}
-    {...extraOptions}
+    {...extra}
   ></textarea>
   <div class="layer"></div>
   <label class="m3-font-body-large" for={id}>{name}</label>
@@ -63,6 +62,7 @@
     --m3-textfield-outlined-shape: var(--m3-util-rounding-extra-small);
   }
   .m3-container {
+    display: inline-flex;
     position: relative;
     align-items: center;
     min-height: 5rem;
@@ -98,7 +98,7 @@
   .layer {
     position: absolute;
     inset: 0;
-    border: 0.0625rem solid rgb(var(--error, var(--m3-scheme-outline)));
+    border: 1px solid rgb(var(--error, var(--m3-scheme-outline)));
     border-radius: var(--m3-textfield-outlined-shape);
     pointer-events: none;
     transition: all 200ms;

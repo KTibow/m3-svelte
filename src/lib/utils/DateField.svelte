@@ -8,21 +8,27 @@
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import { easeEmphasized } from "$lib/misc/easing";
 
-  export let name: string;
-  export let date = "";
-  export let required = false;
-  export let disabled = false;
-  export let extraOptions: HTMLInputAttributes = {};
+  let {
+    name,
+    date = $bindable(""),
+    required = false,
+    disabled = false,
+    ...extra
+  }: {
+    name: string;
+    date?: string;
+    required?: boolean;
+    disabled?: boolean;
+  } & HTMLInputAttributes = $props();
 
   const id = crypto.randomUUID();
-  let hasJs = false;
+  let hasJs = $state(false);
   onMount(() => {
     hasJs = true;
   });
 
-  let picker = false;
-  let container: HTMLDivElement;
-  const clickOutside = (_node: Node) => {
+  let picker = $state(false);
+  const clickOutside = (container: Node) => {
     const handleClick = (event: Event) => {
       if (!container.contains(event.target as Node)) {
         picker = false;
@@ -35,7 +41,7 @@
       },
     };
   };
-  const enterExit = (_node: Node): TransitionConfig => {
+  const enterExit = (_: Node): TransitionConfig => {
     return {
       duration: 400,
       easing: easeEmphasized,
@@ -47,7 +53,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   };
 </script>
 
-<div class="m3-container" class:has-js={hasJs} class:disabled bind:this={container}>
+<div class="m3-container" class:has-js={hasJs} class:disabled use:clickOutside>
   <input
     type="date"
     class="m3-font-body-large"
@@ -55,19 +61,19 @@ opacity: ${Math.min(t * 3, 1)};`,
     {required}
     {id}
     bind:value={date}
-    {...extraOptions}
+    {...extra}
   />
   <label class="m3-font-body-small" for={id}>{name}</label>
-  <button type="button" {disabled} on:click={() => (picker = !picker)}>
+  <button type="button" {disabled} onclick={() => (picker = !picker)}>
     <Icon icon={iconCalendar} />
   </button>
   {#if picker}
-    <div class="picker" use:clickOutside transition:enterExit>
+    <div class="picker" transition:enterExit>
       <DatePickerDocked
+        {date}
         clearable={!required}
-        bind:date
-        on:close={() => (picker = false)}
-        on:setDate={(e) => (date = e.detail)}
+        close={() => (picker = false)}
+        setDate={(d) => (date = d)}
       />
     </div>
   {/if}
@@ -83,7 +89,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     min-width: 15rem;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     border-radius: var(--m3-datefield-shape) var(--m3-datefield-shape) 0 0;
-    border-bottom: solid 0.0625rem rgb(var(--m3-scheme-on-surface-variant));
+    border-bottom: solid 1px rgb(var(--m3-scheme-on-surface-variant));
   }
   input {
     position: absolute;

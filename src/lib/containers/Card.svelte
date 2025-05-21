@@ -1,14 +1,30 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import type { HTMLAttributes, HTMLButtonAttributes } from "svelte/elements";
+  import Layer from "$lib/misc/Layer.svelte";
 
-  export let display = "flex";
-  export let extraOptions: HTMLAttributes<HTMLDivElement> & HTMLButtonAttributes = {};
-  export let type: "elevated" | "filled" | "outlined";
+  type ActionProps =
+    | ({ click: () => void } & HTMLButtonAttributes)
+    | HTMLAttributes<HTMLDivElement>;
+
+  let props: {
+    variant: "elevated" | "filled" | "outlined";
+    children: Snippet;
+  } & ActionProps = $props();
 </script>
 
-<div class="m3-container type-{type}" style="display: {display};" {...extraOptions}>
-  <slot />
-</div>
+{#if "click" in props}
+  {@const { variant, click, children, ...extra } = props}
+  <button class="m3-container {variant}" onclick={click} {...extra}>
+    <Layer />
+    {@render children()}
+  </button>
+{:else}
+  {@const { variant, children, ...extra } = props}
+  <div class="m3-container {variant}" {...extra}>
+    {@render children()}
+  </div>
+{/if}
 
 <style>
   :root {
@@ -16,26 +32,41 @@
   }
 
   .m3-container {
+    display: flex;
     flex-direction: column;
     position: relative;
     padding: 1rem; /* protip: use margin: -1rem (adjust as needed) to make images stretch to the end */
+    border: none;
     border-radius: var(--m3-card-shape);
     background-color: rgb(var(--m3-scheme-surface));
     color: rgb(var(--m3-scheme-on-surface));
   }
 
-  .type-elevated {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+  button {
+    text-align: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
-  .type-filled {
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
-  }
-  .type-outlined {
-    border: solid 0.0625rem rgb(var(--m3-scheme-outline-variant));
+  @media (hover: hover) {
+    button:hover {
+      box-shadow: var(--m3-util-elevation-1);
+    }
+    button.type-elevated:hover {
+      box-shadow: var(--m3-util-elevation-2);
+    }
   }
 
-  .type-elevated {
+  .elevated {
+    background-color: rgb(var(--m3-scheme-surface-container-low));
     box-shadow: var(--m3-util-elevation-1);
+  }
+  .filled {
+    background-color: rgb(var(--m3-scheme-surface-container-highest));
+  }
+  .outlined {
+    border: solid 1px rgb(var(--m3-scheme-outline-variant));
   }
 
   @media print, (forced-colors: active) {

@@ -1,6 +1,7 @@
 import type { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
 import { easeEmphasized } from "./easing";
+import { parseSize } from "./utils";
 
 interface transitionOptions {
   delay?: number;
@@ -20,12 +21,6 @@ interface containerParamOptions {
   key: string;
 }
 type ClientRectMap = Map<string, { rect: DOMRect; node: Element }>;
-const parseSize = (size: string) =>
-  (size.endsWith("px")
-    ? +size.slice(0, -2)
-    : size.endsWith("rem")
-      ? +size.slice(0, -3) * 16
-      : null) || 0;
 const getBackgroundColor = (node: Element, defaultColor?: string): string => {
   if (!defaultColor) {
     const tmp = document.createElement("div");

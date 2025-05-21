@@ -1,13 +1,23 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+  import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  import type { IconifyIcon } from "@iconify/types";
 
-  export let icon: IconifyIcon | "space" | undefined = undefined;
-  export let disabled = false;
+  let {
+    icon,
+    disabled = false,
+    click,
+    children,
+  }: {
+    icon?: IconifyIcon | "space" | undefined;
+    disabled?: boolean;
+    click: () => void;
+    children: Snippet;
+  } = $props();
 </script>
 
-<button class="item m3-font-label-large" {disabled} on:click>
+<button class="item m3-font-label-large" {disabled} onclick={click}>
   <Layer />
   {#if icon == "space"}
     <span class="icon"></span>
@@ -16,7 +26,7 @@
       <Icon {icon} />
     </span>
   {/if}
-  <slot />
+  {@render children()}
 </button>
 
 <style>

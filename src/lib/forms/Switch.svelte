@@ -1,16 +1,19 @@
 <script lang="ts">
   import Icon from "$lib/misc/_icon.svelte";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
-  import type { HTMLAttributes } from "svelte/elements";
+  import type { HTMLInputAttributes } from "svelte/elements";
 
-  export let display = "inline-flex";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let checked = false;
-  export let disabled = false;
   // MUST BE WRAPPED IN A <label>
+  let {
+    checked = $bindable(false),
+    disabled = false,
+    ...extra
+  }: {
+    checked?: boolean;
+    disabled?: boolean;
+  } & HTMLInputAttributes = $props();
 
-  let startX: number | undefined;
+  let startX: number | undefined = $state();
   const handleMouseUp = (e: MouseEvent) => {
     if (!startX) return;
     const distance = e.clientX - startX;
@@ -20,18 +23,16 @@
   };
 </script>
 
-<svelte:window on:pointerup={handleMouseUp} />
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+<svelte:window onpointerup={handleMouseUp} />
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
   class="m3-container"
-  style="display: {display};"
-  {...extraWrapperOptions}
-  on:pointerdown={(e) => {
+  onpointerdown={(e) => {
     if (!disabled) {
       startX = e.clientX;
     }
   }}
-  on:dragstart={(e) => {
+  ondragstart={(e) => {
     e.preventDefault();
   }}
 >
@@ -40,8 +41,8 @@
     role="switch"
     {disabled}
     bind:checked
-    {...extraOptions}
-    on:keydown={(e) => {
+    {...extra}
+    onkeydown={(e) => {
       if (e.code == "Enter") checked = !checked;
       if (e.code == "ArrowLeft") checked = false;
       if (e.code == "ArrowRight") checked = true;
@@ -59,6 +60,7 @@
     --m3-switch-handle-shape: var(--m3-util-rounding-full);
   }
   .m3-container {
+    display: inline-flex;
     position: relative;
     width: 3.25rem;
     height: 2rem;
@@ -85,7 +87,7 @@
     background-color: rgb(var(--m3-scheme-outline));
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: all 300ms var(--m3-easing);
+    transition: all var(--m3-util-easing-fast-spatial);
 
     left: 0.5rem;
     top: 50%;
@@ -100,8 +102,8 @@
     color: rgb(var(--m3-scheme-on-primary-container));
     opacity: 0;
     transition:
-      opacity 300ms var(--m3-easing),
-      scale 300ms var(--m3-easing);
+      opacity var(--m3-util-easing-fast-spatial),
+      scale var(--m3-util-easing-fast-spatial);
   }
   .hover {
     position: absolute;
@@ -111,7 +113,7 @@
 
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: all 300ms var(--m3-easing);
+    transition: all var(--m3-util-easing-fast);
 
     left: 1rem;
     top: 50%;
@@ -122,11 +124,11 @@
   }
 
   .m3-container:hover > input:enabled + .handle,
-  .m3-container > input:enabled:is(:active, :focus-visible) + .handle {
+  .m3-container > input:enabled:is(:global(:active, :focus-visible)) + .handle {
     background-color: rgb(var(--m3-scheme-on-surface-variant));
   }
   .m3-container:hover > input:enabled:checked + .handle,
-  .m3-container > input:enabled:checked:is(:active, :focus-visible) + .handle {
+  .m3-container > input:enabled:checked:is(:global(:active, :focus-visible)) + .handle {
     background-color: rgb(var(--m3-scheme-primary-container));
   }
   .m3-container:hover > input ~ .hover {

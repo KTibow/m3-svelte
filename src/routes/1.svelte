@@ -1,5 +1,4 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -7,44 +6,48 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
-import SegmentedButtonContainer from "$lib/buttons/SegmentedButtonContainer.svelte";
-import SegmentedButtonItem from "$lib/buttons/SegmentedButtonItem.svelte";
-let multiselect = false;
+import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
+import Button from "$lib/buttons/Button.svelte";
+import TogglePrimitive from "$lib/buttons/TogglePrimitive.svelte";
+let variant: "filled" | "tonal" = $state("filled");
+let multiselect = $state(true);
 
-const dispatch = createEventDispatcher();
-const minimalDemo = `${"<"}SegmentedButtonContainer>
-  ${"<"}input type="checkbox" id="segmented-0" bind:checked={itemA} />
-  ${"<"}SegmentedButtonItem input="segmented-0">A${"<"}/SegmentedButtonItem>
-  ${"<"}input type="checkbox" id="segmented-1" bind:checked={itemB} />
-  ${"<"}SegmentedButtonItem input="segmented-1">B${"<"}/SegmentedButtonItem>
-${"<"}/SegmentedButtonContainer>`;
-const relevantLinks = [{"title":"SegmentedButtonContainer.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/SegmentedButtonContainer.svelte"},{"title":"SegmentedButtonItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/SegmentedButtonItem.svelte"}];
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
+const minimalDemo = `${"<"}ConnectedButtons>
+  ${"<"}TogglePrimitive bind:toggle={itemA}>A${"<"}/TogglePrimitive>
+  ${"<"}TogglePrimitive bind:toggle={itemB}>B${"<"}/TogglePrimitive>
+${"<"}/ConnectedButtons>`;
+const relevantLinks = [{"title":"ConnectedButtons.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/ConnectedButtons.svelte"},{"title":"TogglePrimitive.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/TogglePrimitive.svelte"}];
 </script>
 
-<InternalCard title="Segmented button" on:showCode={() => dispatch("showCode", { name: "Segmented button", minimalDemo, relevantLinks })}>
+<InternalCard title="Connected buttons" showCode={() => showCode("Connected buttons", minimalDemo, relevantLinks)}>
+<label>
+  <Arrows list={["filled", "tonal"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
+</label>
 <label>
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
-<div slot="demo">
-  {#if multiselect}
-    <SegmentedButtonContainer>
-      <input type="checkbox" id="segmented-a-0" />
-      <SegmentedButtonItem input="segmented-a-0" icon={iconCircle}>A</SegmentedButtonItem>
-      <input type="checkbox" id="segmented-a-1" />
-      <SegmentedButtonItem input="segmented-a-1" icon={iconSquare}>B</SegmentedButtonItem>
-      <input type="checkbox" id="segmented-a-2" disabled />
-      <SegmentedButtonItem input="segmented-a-2" icon={iconTriangle}>C</SegmentedButtonItem>
-    </SegmentedButtonContainer>
-  {:else}
-    <SegmentedButtonContainer>
+{#snippet demo()}
+  <ConnectedButtons>
+    {#if multiselect}
+      <TogglePrimitive toggle={true}>Alpha</TogglePrimitive>
+      <TogglePrimitive toggle={false}>Beta</TogglePrimitive>
+      <TogglePrimitive toggle={false}>Charlie</TogglePrimitive>
+    {:else}
       <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-      <SegmentedButtonItem input="segmented-b-0" icon={iconCircle}>A</SegmentedButtonItem>
+      <Button for="segmented-b-0" {variant} square>Alpha</Button>
       <input type="radio" name="segmented-b" id="segmented-b-1" />
-      <SegmentedButtonItem input="segmented-b-1" icon={iconSquare}>B</SegmentedButtonItem>
-      <input type="radio" name="segmented-b" id="segmented-b-2" disabled />
-      <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
-    </SegmentedButtonContainer>
-  {/if}
-</div>
+      <Button for="segmented-b-1" {variant} square>Beta</Button>
+      <input type="radio" name="segmented-b" id="segmented-b-2" />
+      <Button for="segmented-b-2" {variant} square>Charlie</Button>
+    {/if}
+  </ConnectedButtons>
+{/snippet}
 </InternalCard>

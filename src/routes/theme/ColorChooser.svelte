@@ -11,17 +11,23 @@
   import { browser } from "$app/environment";
   import Button from "$lib/buttons/Button.svelte";
 
-  let sourceColorInput: HTMLInputElement, sourceFileInput: HTMLInputElement;
-  export let sourceColor: number;
+  let sourceColorInput: HTMLInputElement | undefined = $state(),
+    sourceFileInput: HTMLInputElement | undefined = $state();
+
+  let {
+    sourceColor = $bindable(),
+  }: {
+    sourceColor: number;
+  } = $props();
 </script>
 
 <div style:background-color={browser ? hexFromArgb(sourceColor) : "#000"} class="color-disc">
   <div class="color-text">Color</div>
   <div>
-    <Button type="text" iconType="full" on:click={() => sourceColorInput.click()}>
+    <Button variant="text" iconType="full" click={() => sourceColorInput!.click()}>
       <Icon icon={iconColorLens} />
     </Button>
-    <Button type="text" iconType="full" on:click={() => sourceFileInput.click()}>
+    <Button variant="text" iconType="full" click={() => sourceFileInput!.click()}>
       <Icon icon={iconImage} />
     </Button>
   </div>
@@ -30,13 +36,13 @@
   type="color"
   value="#000"
   bind:this={sourceColorInput}
-  on:change={() => (sourceColor = argbFromHex(sourceColorInput.value))}
+  onchange={(e) => (sourceColor = argbFromHex(e.currentTarget.value))}
 />
 <input
   type="file"
   accept="image/*"
   bind:this={sourceFileInput}
-  on:change={(e) => {
+  onchange={(e) => {
     if (!e.currentTarget.files) return;
     const reader = new FileReader();
     reader.onload = async () => {

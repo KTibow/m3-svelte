@@ -1,35 +1,30 @@
 {
   "name": "m3-svelte",
-  "version": "3.6.1",
+  "version": "4.0.0",
   "license": "Apache-2.0 OR GPL-3.0-only",
   "repository": "KTibow/m3-svelte",
   "author": {
     "name": "KTibow"
   },
   "homepage": "https://github.com/KTibow/m3-svelte",
-  "keywords": [
-    "svelte",
-    "material",
-    "material 3",
-    "material you",
-    "m3",
-    "ui",
-    "frontend",
-    "design-system",
-    "ui-library",
-    "theming"
-  ],
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "package": "svelte-kit sync && svelte-package -o package",
-    "package-components": "vite build -c vite.config.lib.js",
-    "lint": "prettier --plugin-search-dir . --check . && eslint .",
-    "format": "prettier --plugin-search-dir . --write .",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "prepare": "svelte-kit sync || echo ''",
+    "prepack": "svelte-kit sync && svelte-package -o package && publint",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint",
+    "format": "prettier --write .",
+    "lint": "prettier --check . && eslint ."
   },
+  "files": [
+    "package",
+    "!package/**/*.test.*",
+    "!package/**/*.spec.*"
+  ],
+  "svelte": "./package/index.js",
+  "types": "./package/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./package/index.d.ts",
@@ -42,37 +37,50 @@
       "import": "./package/misc/recommended-styles.css"
     }
   },
-  "devDependencies": {
-    "@sveltejs/adapter-static": "^3.0.8",
-    "@sveltejs/kit": "^2.20.8",
-    "@sveltejs/package": "^2.3.11",
-    "@sveltejs/vite-plugin-svelte": "^5.0.3",
-    "@typescript-eslint/eslint-plugin": "^8.31.1",
-    "@typescript-eslint/parser": "^8.31.1",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-svelte": "^3.5.1",
-    "fast-glob": "^3.3.3",
-    "globals": "^16.0.0",
-    "prettier": "^3.5.3",
-    "prettier-plugin-svelte": "^3.3.3",
-    "svelte-check": "^4.1.6",
-    "svelte-highlight": "^7.8.3",
-    "tslib": "^2.8.1",
-    "typescript": "^5.8.3",
-    "vite": "^6.3.4"
-  },
   "dependencies": {
     "@iconify/types": "^2.0.0",
-    "@ktibow/iconset-material-symbols": "^0.0.1744904588",
+    "@ktibow/iconset-material-symbols": "^0.0.1747426012",
     "@material/material-color-utilities": "^0.3.0",
-    "svelte": "^5.28.2"
+    "svelte": "^5.0.0"
   },
-  "files": [
-    "package"
+  "devDependencies": {
+    "@eslint/compat": "^1.2.5",
+    "@eslint/js": "^9.18.0",
+    "@sveltejs/adapter-static": "^3.0.8",
+    "@sveltejs/kit": "^2.16.0",
+    "@sveltejs/package": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^5.0.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-svelte": "^3.0.0",
+    "fast-glob": "^3.3.3",
+    "globals": "^16.0.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-svelte": "^3.3.3",
+    "publint": "^0.3.2",
+    "svelte": "^5.0.0",
+    "svelte-check": "^4.0.0",
+    "svelte-highlight": "^7.8.3",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.20.0",
+    "vite": "^6.2.6"
+  },
+  "keywords": [
+    "svelte",
+    "material",
+    "material 3",
+    "material you",
+    "m3",
+    "ui",
+    "frontend",
+    "design-system",
+    "ui-library",
+    "theming"
   ],
-  "svelte": "./package/index.js",
-  "types": "./package/index.d.ts",
-  "type": "module",
-  "sideEffects": false
+  "sideEffects": false,
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
 }

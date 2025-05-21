@@ -1,42 +1,54 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
-  export let display = "inline-flex";
-  export let extraOptions: HTMLButtonAttributes = {};
-  /**
-   * general is filter/suggestion since they're the same.
-   * | name       | use              | example                       | phrasing           |
-   * |------------|------------------|-------------------------------|--------------------|
-   * | input      | information item | like a person in the to field | user-entered thing |
-   * | assist     | smart actions    | like add to calendar          | start with a verb  |
-   * | filter     | selection        | like in a search page         | category           |
-   * | suggestion | smart actions    | like a chat response          | query/message      |
-   */
-  export let type: "input" | "assist" | "general";
-  export let icon: IconifyIcon | null = null;
-  export let trailingIcon: IconifyIcon | null = null;
-  export let elevated = false;
-  export let disabled = false;
-  export let selected = false;
+  let {
+    variant,
+    icon,
+    trailingIcon,
+    elevated = false,
+    disabled = false,
+    selected = false,
+    children,
+    click,
+    ...extra
+  }: {
+    /**
+     * general is filter/suggestion since they're the same.
+     * | name       | use              | example                       | phrasing           |
+     * |------------|------------------|-------------------------------|--------------------|
+     * | input      | information item | like a person in the to field | user-entered thing |
+     * | assist     | smart actions    | like add to calendar          | start with a verb  |
+     * | filter     | selection        | like in a search page         | category           |
+     * | suggestion | smart actions    | like a chat response          | query/message      |
+     */
+    variant: "input" | "assist" | "general";
+    icon?: IconifyIcon | undefined;
+    trailingIcon?: IconifyIcon | undefined;
+    elevated?: boolean;
+    disabled?: boolean;
+    selected?: boolean;
+    children: Snippet;
+    click: () => void;
+  } & HTMLButtonAttributes = $props();
 </script>
 
 <button
-  class="m3-container type-{type}"
-  style="display: {display}"
+  class="m3-container {variant}"
   class:elevated
   class:selected
   {disabled}
-  on:click
-  {...extraOptions}
+  onclick={click}
+  {...extra}
 >
   <Layer />
   {#if icon}
     <Icon {icon} class="leading" />
   {/if}
-  <span class="m3-font-label-large"><slot /></span>
+  <span class="m3-font-label-large">{@render children()}</span>
   {#if trailingIcon}
     <Icon icon={trailingIcon} class="trailing" />
   {/if}
@@ -55,7 +67,7 @@
 
     background-color: rgb(var(--m3-scheme-surface));
     color: rgb(var(--m3-scheme-on-surface-variant));
-    border: solid 0.0625rem rgb(var(--m3-scheme-outline));
+    border: solid 1px rgb(var(--m3-scheme-outline));
     position: relative;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -63,13 +75,13 @@
   }
 
   .m3-container > :global(:is(.ripple-container, .tint)) {
-    inset: -0.0625rem;
+    inset: -1px;
   }
   .m3-container > :global(svg) {
     width: 1.125rem;
     height: 1.125rem;
   }
-  .m3-container:enabled:not(.type-input):not(.selected) > :global(.leading) {
+  .m3-container:enabled:not(.input):not(.selected) > :global(.leading) {
     color: rgb(var(--m3-scheme-primary));
   }
   .m3-container > :global(.leading) {
@@ -78,17 +90,17 @@
   .m3-container > :global(.trailing) {
     margin-right: -0.5rem;
   }
-  .type-input > :global(.leading) {
+  .input > :global(.leading) {
     margin-left: -0.25rem;
   }
-  .type-input > :global(.trailing) {
+  .input > :global(.trailing) {
     margin-right: -0.25rem;
   }
 
-  .type-assist {
+  .assist {
     color: rgb(var(--m3-scheme-on-surface));
   }
-  .type-input {
+  .input {
     padding: 0 0.75rem;
   }
   .elevated {

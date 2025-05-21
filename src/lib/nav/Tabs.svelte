@@ -1,31 +1,31 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
+  import type { HTMLInputAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  export let display = "flex";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLInputAttributes = {};
-  export let secondary = false;
-  export let tab: string;
-  export let items: {
-    icon?: IconifyIcon;
-    name: string;
-    value: string;
-  }[];
+
+  let {
+    secondary = false,
+    tab = $bindable(),
+    items,
+    ...extra
+  }: {
+    secondary?: boolean;
+    tab: string;
+    items: {
+      icon?: IconifyIcon;
+      name: string;
+      value: string;
+    }[];
+  } & HTMLInputAttributes = $props();
   const name = crypto.randomUUID();
 </script>
 
-<div
-  class="m3-container"
-  class:primary={!secondary}
-  style="display: {display}; --items: {items.length};"
-  {...extraWrapperOptions}
->
+<div class="m3-container" class:primary={!secondary} style:--items={items.length}>
   <div class="divider"></div>
   {#each items as item}
     {@const id = name + item.value}
-    <input type="radio" {name} {id} value={item.value} bind:group={tab} {...extraOptions} />
+    <input type="radio" {name} {id} value={item.value} bind:group={tab} {...extra} />
     <label for={id} class:tall={item.icon}>
       <Layer />
       {#if item.icon}
@@ -39,6 +39,7 @@
 
 <style>
   .m3-container {
+    display: flex;
     position: relative;
     background-color: rgb(var(--m3-scheme-surface));
   }
@@ -50,7 +51,7 @@
   .divider {
     position: absolute;
     inset: auto 0 0 0;
-    height: 0.0625rem;
+    height: 1px;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
   }
   label {

@@ -1,49 +1,182 @@
 <script lang="ts">
-  import type { HTMLButtonAttributes } from "svelte/elements";
+  import type {
+    HTMLButtonAttributes,
+    HTMLAnchorAttributes,
+    HTMLLabelAttributes,
+  } from "svelte/elements";
+  import type { Snippet } from "svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  export let display = "inline-flex";
-  export let extraOptions: HTMLButtonAttributes = {};
-  export let iconType: "none" | "left" | "full" = "none";
-  export let type: "elevated" | "filled" | "tonal" | "outlined" | "text";
-  export let disabled = false;
+
+  // If you want a toggle button, use `for` with an `<input>`.
+  type ActionProps =
+    | ({ click: () => void; disabled?: boolean } & HTMLButtonAttributes)
+    | ({ href: string } & HTMLAnchorAttributes)
+    | ({ for: string } & HTMLLabelAttributes);
+  type Props = {
+    variant?: "elevated" | "filled" | "tonal" | "outlined" | "text";
+    square?: boolean;
+    iconType?: "none" | "left" | "full";
+    children: Snippet;
+  } & ActionProps;
+
+  let props: Props = $props();
 </script>
 
-<button
-  on:click|stopPropagation
-  {disabled}
-  class="m3-container m3-font-label-large {type} icon-{iconType}"
-  style="display: {display};"
-  {...extraOptions}
->
-  <Layer />
-  <slot />
-</button>
+{#if "click" in props}
+  {@const {
+    variant = "filled",
+    click,
+    disabled,
+    square = false,
+    iconType = "none",
+    children,
+    ...extra
+  } = props}
+  <button
+    onclick={click}
+    {disabled}
+    class="m3-container m3-font-label-large {variant} icon-{iconType}"
+    class:square
+    {...extra}
+  >
+    <Layer />
+    {@render children()}
+  </button>
+{:else if "href" in props}
+  {@const {
+    variant = "filled",
+    href,
+    square = false,
+    iconType = "none",
+    children,
+    ...extra
+  } = props}
+  <a
+    {href}
+    class="m3-container m3-font-label-large {variant} icon-{iconType}"
+    class:square
+    {...extra}
+  >
+    <Layer />
+    {@render children()}
+  </a>
+{:else}
+  {@const {
+    variant = "filled",
+    for: forItem,
+    square = false,
+    iconType = "none",
+    children,
+    ...extra
+  } = props}
+  <label
+    for={forItem}
+    class="m3-container m3-font-label-large {variant} icon-{iconType}"
+    class:square
+    {...extra}
+  >
+    <Layer />
+    {@render children()}
+  </label>
+{/if}
 
 <style>
   :root {
-    --m3-button-shape: var(--m3-util-rounding-full);
+    --m3-button-shape: 1.25rem;
   }
 
   .m3-container {
+    display: inline-flex;
     border: none;
     height: 2.5rem;
-    padding: 0 1.5rem;
+    gap: 0.5rem;
+    padding: 0 1rem;
     border-radius: var(--m3-button-shape);
     transition: all 200ms;
 
     align-items: center;
     justify-content: center;
+    background-color: transparent;
     cursor: pointer;
+    user-select: none;
     position: relative;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+
+    &:disabled,
+    &:is(:global(input:disabled) + label) {
+      background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+      color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      cursor: auto;
+    }
+
+    &.elevated:not(:disabled, :global(input:disabled) + label) {
+      background-color: rgb(var(--m3-scheme-surface-container-low));
+      color: rgb(var(--m3-scheme-primary));
+      box-shadow: var(--m3-util-elevation-1);
+      &:is(:global(input:checked) + .m3-container) {
+        background-color: rgb(var(--m3-scheme-primary));
+        color: rgb(var(--m3-scheme-on-primary));
+      }
+      @media (hover: hover) {
+        &:hover {
+          box-shadow: var(--m3-util-elevation-2);
+        }
+      }
+    }
+    &.filled:not(:disabled, :global(input:disabled) + label) {
+      background-color: rgb(var(--m3-scheme-primary));
+      color: rgb(var(--m3-scheme-on-primary));
+      &:is(:global(input:not(:checked)) + label) {
+        background-color: rgb(var(--m3-scheme-surface-container));
+        color: rgb(var(--m3-scheme-on-surface-variant));
+      }
+    }
+    &.tonal:not(:disabled, :global(input:disabled) + label) {
+      background-color: rgb(var(--m3-scheme-secondary-container));
+      color: rgb(var(--m3-scheme-on-secondary-container));
+      &:is(:global(input:checked) + label) {
+        background-color: rgb(var(--m3-scheme-secondary));
+        color: rgb(var(--m3-scheme-on-secondary));
+      }
+    }
+    &.outlined {
+      outline: 1px solid rgb(var(--m3-scheme-outline));
+      outline-offset: -1px;
+    }
+    &.outlined:not(:disabled, :global(input:disabled) + label) {
+      outline-color: rgb(var(--m3-scheme-outline));
+      color: rgb(var(--m3-scheme-primary));
+      &:is(:global(input:checked) + label) {
+        outline-color: rgb(var(--m3-scheme-inverse-surface));
+        background-color: rgb(var(--m3-scheme-inverse-surface));
+        color: rgb(var(--m3-scheme-inverse-on-surface));
+      }
+    }
+    &.outlined:is(:disabled, :global(input:disabled) + label) {
+      outline-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+      background-color: transparent;
+    }
+    &.text:not(:disabled, :global(input:disabled) + label) {
+      color: rgb(var(--m3-scheme-primary));
+    }
+    @media (hover: hover) {
+      &:is(.filled, .tonal):not(:disabled, label):hover {
+        box-shadow: var(--m3-util-elevation-1);
+      }
+    }
+
+    &.square:not(:global(input:checked) + label),
+    &:is(:global(input:checked) + label):not(.square) {
+      border-radius: var(--m3-util-rounding-medium);
+    }
+    &:global(.activated) {
+      border-radius: var(--m3-util-rounding-small) !important;
+    }
   }
 
   .m3-container > :global(*) {
     flex-shrink: 0;
-  }
-  .icon-left {
-    padding-left: 1rem;
-    gap: 0.5rem;
   }
   .icon-left > :global(svg) {
     width: 1.125rem;
@@ -58,61 +191,6 @@
     height: 1.5rem;
   }
 
-  .m3-container:disabled {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
-    cursor: auto;
-  }
-
-  .m3-container:enabled.elevated {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-primary));
-    box-shadow: var(--m3-util-elevation-1);
-  }
-
-  .m3-container:enabled.filled {
-    background-color: rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-on-primary));
-  }
-
-  .m3-container:enabled.tonal {
-    background-color: rgb(var(--m3-scheme-secondary-container));
-    color: rgb(var(--m3-scheme-on-secondary-container));
-  }
-
-  .m3-container.outlined {
-    background-color: transparent;
-    border: 0.0625rem solid rgb(var(--m3-scheme-on-surface) / 0.12);
-  }
-  .m3-container:enabled.outlined {
-    border: 0.0625rem solid rgb(var(--m3-scheme-outline));
-    color: rgb(var(--m3-scheme-primary));
-  }
-
-  .m3-container.text {
-    background-color: transparent;
-    padding: 0 0.75rem;
-    color: rgb(var(--m3-scheme-primary));
-  }
-  .m3-container.text.icon-left {
-    padding-right: 1rem;
-  }
-
-  .m3-container {
-    -webkit-tap-highlight-color: transparent;
-  }
-  @media (hover: hover) {
-    .m3-container:enabled.elevated:hover {
-      box-shadow: var(--m3-util-elevation-2);
-    }
-    .m3-container:enabled.filled:hover {
-      box-shadow: var(--m3-util-elevation-1);
-    }
-    .m3-container:enabled.tonal:hover {
-      box-shadow: var(--m3-util-elevation-1);
-    }
-  }
-
   .m3-container {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
@@ -120,7 +198,7 @@
   @media screen and (forced-colors: active) {
     .m3-container:is(.elevated, .filled, .tonal) {
       background-color: transparent;
-      border: 0.0625rem solid;
+      border: 1px solid;
     }
     .m3-container:disabled {
       opacity: 0.38;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  let cancelRipples: (() => void)[] = [];
+  let cancelRipples: (() => void)[] = $state([]);
 
   const createRipple = (node: HTMLDivElement) => {
     node.classList.remove("broken");
@@ -101,6 +101,8 @@
 
       node.appendChild(svg);
 
+      parent.classList.toggle("activated", true);
+
       cancelRipples.push(() => {
         const fade = document.createElementNS("http://www.w3.org/2000/svg", "animate");
         fade.setAttribute("attributeName", "opacity");
@@ -113,6 +115,8 @@
         circle.appendChild(fade);
         fade.beginElement();
         setTimeout(() => svg.remove(), 800);
+
+        parent.classList.toggle("activated", false);
       });
     };
 
@@ -127,11 +131,11 @@
 </script>
 
 <svelte:window
-  on:pointerup={() => {
+  onpointerup={() => {
     cancelRipples.forEach((cancel) => cancel());
     cancelRipples = [];
   }}
-  on:dragend={() => {
+  ondragend={() => {
     cancelRipples.forEach((cancel) => cancel());
     cancelRipples = [];
   }}
@@ -167,11 +171,9 @@
       }
     }
 
-    &:focus-visible > .tint {
-      opacity: 0.12;
-    }
-
-    &:active > .ripple-container.broken + .tint {
+    &:is(:global(input:focus-visible + label)) > .tint,
+    &:focus-visible > .tint,
+    &:active > .tint {
       opacity: 0.12;
     }
   }

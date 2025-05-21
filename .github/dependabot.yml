@@ -1,14 +1,17 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "npm" # Use "npm" for pnpm as they are part of the same ecosystem
+    directory: "/" # Location of your package.json and lockfile
     schedule:
-      interval: "monthly"
+      interval: "weekly" # Check for updates weekly, adjust as needed
+    groups:
+      dependencies:
+        patterns: ["*"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/" # Check for updates in your .github/workflows directory
+    schedule:
+      interval: "weekly" # Check for updates weekly, adjust as needed
     groups:
       dependencies:
         patterns: ["*"]

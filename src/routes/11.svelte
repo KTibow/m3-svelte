@@ -1,5 +1,4 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -11,10 +10,15 @@ import LinearProgress from "$lib/forms/LinearProgress.svelte";
 import LinearProgressIndeterminate from "$lib/forms/LinearProgressIndeterminate.svelte";
 import CircularProgress from "$lib/forms/CircularProgress.svelte";
 import CircularProgressIndeterminate from "$lib/forms/CircularProgressIndeterminate.svelte";
-let type: "linear" | "circular" = "linear";
-let indeterminate = false;
+let type: "linear" | "circular" = $state("linear");
+let indeterminate = $state(false);
 
-const dispatch = createEventDispatcher();
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
 const minimalDemo = `${"<"}LinearProgress percent={60} />
 ${"<"}LinearProgressIndeterminate />
 ${"<"}CircularProgress percent={60} />
@@ -22,7 +26,7 @@ ${"<"}CircularProgressIndeterminate />`;
 const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgress.svelte"},{"title":"LinearProgressIndeterminate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgressIndeterminate.svelte"},{"title":"CircularProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgress.svelte"},{"title":"CircularProgressIndeterminate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgressIndeterminate.svelte"}];
 </script>
 
-<InternalCard title="Progress" on:showCode={() => dispatch("showCode", { name: "Progress", minimalDemo, relevantLinks })}>
+<InternalCard title="Progress" showCode={() => showCode("Progress", minimalDemo, relevantLinks)}>
 <label>
   <Arrows list={["linear", "circular"]} bind:value={type} />
   {type[0].toUpperCase() + type.slice(1)}
@@ -32,7 +36,7 @@ const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/K
   {indeterminate ? "Indeterminate" : "Fixed progress"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if type == "linear" && indeterminate}
     <LinearProgressIndeterminate />
   {:else if type == "linear"}
@@ -42,5 +46,5 @@ const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/K
   {:else if type == "circular"}
     <CircularProgress percent={60} />
   {/if}
-</div>
+{/snippet}
 </InternalCard>

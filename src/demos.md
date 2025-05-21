@@ -3,27 +3,35 @@
 Minimal demo:
 
 ```svelte
-<Button type="elevated" on:click={() => alert("!")}>Hello</Button>
+<Button variant="elevated" click={() => alert("!")}>Hello</Button>
 ```
 
 Full demo:
 
 ```use
 Button
-ButtonLink
 ```
 
 ```ts
-let type: "elevated" | "filled" | "tonal" | "outlined" | "text" = "elevated";
-let iconType: "none" | "left" | "full" = "none";
-let enabled = true;
-let link = false;
+let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("elevated");
+let action: "click" | "link" | "toggle" = $state("click");
+let square = $state(false);
+let iconType: "none" | "left" | "full" = $state("none");
+let enabled = $state(true);
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={type} />
-  {type[0].toUpperCase() + type.slice(1)}
+  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
+</label>
+<label>
+  <Arrows list={["click", "link", "toggle"]} bind:value={action} />
+  {action[0].toUpperCase() + action.slice(1)}
+</label>
+<label>
+  <Switch bind:checked={square} />
+  {square ? "Square" : "Round"}
 </label>
 <label>
   <Arrows list={["none", "left", "full"]} bind:value={iconType} />
@@ -33,73 +41,88 @@ let link = false;
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
-<label>
-  <Switch bind:checked={link} />
-  {link ? "Link" : "Button"}
-</label>
-<div slot="demo">
-  <svelte:component this={link ? ButtonLink : Button} {type} disabled={!enabled} {iconType} href="https://example.com">
-    {#if iconType == "none"}
-      Hello
-    {:else if iconType == "left"}
-      <Icon icon={iconCircle} /> Hello
-    {:else}
-      <Icon icon={iconCircle} />
-    {/if}
-  </svelte:component>
-</div>
+{#snippet demo()}
+  <div>
+    <input type="checkbox" id="random-input" disabled={!enabled} />
+    <Button
+      {variant}
+      {square}
+      {...{
+        click: { click: () => {}, disabled: !enabled },
+        link: { href: "https://example.com" },
+        toggle: { for: "random-input" },
+      }[action]}
+      {iconType}
+    >
+      {#if iconType == "none"}
+        Hello
+      {:else if iconType == "left"}
+        <Icon icon={iconCircle} /> Hello
+      {:else}
+        <Icon icon={iconCircle} />
+      {/if}
+    </Button>
+  </div>
+{/snippet}
+
+<style>
+  #random-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
 ```
 
-## Segmented button
+## Connected buttons
 
 Minimal demo:
 
 ```svelte
-<SegmentedButtonContainer>
-  <input type="checkbox" id="segmented-0" bind:checked={itemA} />
-  <SegmentedButtonItem input="segmented-0">A</SegmentedButtonItem>
-  <input type="checkbox" id="segmented-1" bind:checked={itemB} />
-  <SegmentedButtonItem input="segmented-1">B</SegmentedButtonItem>
-</SegmentedButtonContainer>
+<ConnectedButtons>
+  <TogglePrimitive bind:toggle={itemA}>A</TogglePrimitive>
+  <TogglePrimitive bind:toggle={itemB}>B</TogglePrimitive>
+</ConnectedButtons>
 ```
 
 Full demo:
 
 ```use
-SegmentedButtonContainer
-SegmentedButtonItem
+ConnectedButtons
+Button
+TogglePrimitive
 ```
 
 ```ts
-let multiselect = false;
+let variant: "filled" | "tonal" = $state("filled");
+let multiselect = $state(true);
 ```
 
 ```svelte
 <label>
+  <Arrows list={["filled", "tonal"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
+</label>
+<label>
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
-<div slot="demo">
-  {#if multiselect}
-    <SegmentedButtonContainer>
-      <input type="checkbox" id="segmented-a-0" />
-      <SegmentedButtonItem input="segmented-a-0" icon={iconCircle}>A</SegmentedButtonItem>
-      <input type="checkbox" id="segmented-a-1" />
-      <SegmentedButtonItem input="segmented-a-1" icon={iconSquare}>B</SegmentedButtonItem>
-      <input type="checkbox" id="segmented-a-2" disabled />
-      <SegmentedButtonItem input="segmented-a-2" icon={iconTriangle}>C</SegmentedButtonItem>
-    </SegmentedButtonContainer>
-  {:else}
-    <SegmentedButtonContainer>
+{#snippet demo()}
+  <ConnectedButtons>
+    {#if multiselect}
+      <TogglePrimitive toggle={true}>Alpha</TogglePrimitive>
+      <TogglePrimitive toggle={false}>Beta</TogglePrimitive>
+      <TogglePrimitive toggle={false}>Charlie</TogglePrimitive>
+    {:else}
       <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-      <SegmentedButtonItem input="segmented-b-0" icon={iconCircle}>A</SegmentedButtonItem>
+      <Button for="segmented-b-0" {variant} square>Alpha</Button>
       <input type="radio" name="segmented-b" id="segmented-b-1" />
-      <SegmentedButtonItem input="segmented-b-1" icon={iconSquare}>B</SegmentedButtonItem>
-      <input type="radio" name="segmented-b" id="segmented-b-2" disabled />
-      <SegmentedButtonItem input="segmented-b-2" icon={iconTriangle}>C</SegmentedButtonItem>
-    </SegmentedButtonContainer>
-  {/if}
-</div>
+      <Button for="segmented-b-1" {variant} square>Beta</Button>
+      <input type="radio" name="segmented-b" id="segmented-b-2" />
+      <Button for="segmented-b-2" {variant} square>Charlie</Button>
+    {/if}
+  </ConnectedButtons>
+{/snippet}
 ```
 
 ## FAB
@@ -107,7 +130,7 @@ let multiselect = false;
 Minimal demo:
 
 ```svelte
-<FAB color="primary" icon={iconCircle} on:click={() => alert("!")} />
+<FAB color="primary" icon={iconCircle} click={() => alert("!")} />
 ```
 
 Full demo:
@@ -117,27 +140,45 @@ FAB
 ```
 
 ```ts
-let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
-let size: "small" | "normal" | "large" | "extended" = "normal";
+let color:
+  | "primary-container"
+  | "secondary-container"
+  | "tertiary-container"
+  | "primary"
+  | "secondary"
+  | "tertiary" = $state("primary-container");
+let size: "small" | "normal" | "large" | "extended" = $state("normal");
 ```
 
 ```svelte
 <label>
-  <Arrows list={["primary", "surface", "secondary", "tertiary"]} bind:value={color} />
-  {color[0].toUpperCase() + color.slice(1)}
+  <Arrows
+    list={[
+      "primary-container",
+      "secondary-container",
+      "tertiary-container",
+      "primary",
+      "secondary",
+      "tertiary",
+    ]}
+    bind:value={color}
+  />
+  {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
 </label>
 <label>
-  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} index={1} />
+  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} initialIndex={1} />
   {size[0].toUpperCase() + size.slice(1)}
 </label>
-<div slot="demo">
-  <FAB
-    {color}
-    size={size == "extended" ? "normal" : size}
-    icon={iconCircle}
-    text={size == "extended" ? "Hello" : undefined}
-  />
-</div>
+{#snippet demo()}
+  <div>
+    <FAB
+      {color}
+      click={() => {}}
+      {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
+      icon={iconCircle}
+    />
+  </div>
+{/snippet}
 ```
 
 ## Card
@@ -145,38 +186,33 @@ let size: "small" | "normal" | "large" | "extended" = "normal";
 Minimal demo:
 
 ```svelte
-<Card type="filled">Hello</Card>
-<CardClickable type="filled" on:click={() => alert("!")}>Hello</CardClickable>
+<Card variant="filled">Hello</Card>
+<Card variant="filled" click={() => alert("!")}>Hello</Card>
 ```
 
 Full demo:
 
 ```use
 Card
-CardClickable
 ```
 
 ```ts
-let type: "elevated" | "filled" | "outlined" = "elevated";
-let clickable = false;
+let variant: "elevated" | "filled" | "outlined" = $state("elevated");
+let clickable = $state(false);
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "outlined"]} bind:value={type} />
-  {type[0].toUpperCase() + type.slice(1)}
+  <Arrows list={["elevated", "filled", "outlined"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
   <Switch bind:checked={clickable} />
   {clickable ? "Clickable" : "Not clickable"}
 </label>
-<div slot="demo">
-  {#if clickable}
-    <CardClickable {type}>Hello</CardClickable>
-  {:else}
-    <Card {type}>Hello</Card>
-  {/if}
-</div>
+{#snippet demo()}
+  <Card {variant} {...clickable ? { click: () => {} } : {}}>Hello</Card>
+{/snippet}
 ```
 
 ## List
@@ -194,22 +230,23 @@ Full demo:
 
 ```use
 ListItem
-ListItemButton
-ListItemLabel
 Checkbox
 Divider
 ```
 
 ```ts
-let lines: "1" | "2" | "3" = "1";
-let type: "div" | "button" | "label" = "div";
 const headline = "Hello";
-$: supporting =
+
+let lines: "1" | "2" | "3" = $state("1");
+let type: "div" | "button" | "label" = $state("div");
+
+let supporting = $derived(
   lines == "1"
     ? undefined
     : lines == "2"
       ? "Welcome to ZomboCom!"
-      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!";
+      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!",
+);
 ```
 
 ```svelte
@@ -222,34 +259,34 @@ $: supporting =
   <Arrows list={["div", "button", "label"]} bind:value={type} />
   {"<" + type + ">"}
 </label>
-<div class="demo" slot="demo">
-  {#snippet leading()}
-    {#if type == "label"}
-      <div class="box-wrapper">
-        <Checkbox><input type="checkbox" /></Checkbox>
-      </div>
-    {:else}
-      <Icon icon={iconCircle} />
-    {/if}
-  {/snippet}
-  <svelte:component
-    this={type == "div" ? ListItem : type == "button" ? ListItemButton : ListItemLabel}
-    {headline}
-    {supporting}
-    lines={+lines}
-  >
-    <svelte:fragment slot="leading">{@render leading()}</svelte:fragment>
-  </svelte:component>
-  <Divider />
-  <svelte:component
-    this={type == "div" ? ListItem : type == "button" ? ListItemButton : ListItemLabel}
-    {headline}
-    {supporting}
-    lines={+lines}
-  >
-    <svelte:fragment slot="leading">{@render leading()}</svelte:fragment>
-  </svelte:component>
-</div>
+{#snippet demo()}
+  <div class="demo">
+    {#snippet leading()}
+      {#if type == "label"}
+        <div class="box-wrapper">
+          <Checkbox><input type="checkbox" /></Checkbox>
+        </div>
+      {:else}
+        <Icon icon={iconCircle} />
+      {/if}
+    {/snippet}
+    <ListItem
+      {leading}
+      {headline}
+      {supporting}
+      lines={+lines}
+      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+    />
+    <Divider />
+    <ListItem
+      {leading}
+      {headline}
+      {supporting}
+      lines={+lines}
+      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+    />
+  </div>
+{/snippet}
 
 <style>
   .demo {
@@ -287,7 +324,7 @@ MenuItem
 ```
 
 ```ts
-let icons = false;
+let icons = $state(false);
 ```
 
 ```svelte
@@ -295,11 +332,13 @@ let icons = false;
   <Switch bind:checked={icons} />
   {icons ? "Icons" : "No icons"}
 </label>
-<Menu slot="demo">
-  <MenuItem icon={icons ? iconCircle : undefined}>Cut</MenuItem>
-  <MenuItem icon={icons ? iconSquare : undefined}>Undo</MenuItem>
-  <MenuItem icon={icons ? iconTriangle : undefined} disabled>Redo</MenuItem>
-</Menu>
+{#snippet demo()}
+  <Menu>
+    <MenuItem icon={icons ? iconCircle : undefined} click={() => {}}>Cut</MenuItem>
+    <MenuItem icon={icons ? iconSquare : undefined} click={() => {}}>Undo</MenuItem>
+    <MenuItem icon={icons ? iconTriangle : undefined} disabled click={() => {}}>Redo</MenuItem>
+  </Menu>
+{/snippet}
 ```
 
 ## Bottom sheet
@@ -308,7 +347,7 @@ Minimal demo:
 
 ```svelte
 {#if open}
-  <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
+  <BottomSheet close={() => (open = false)}>Hello</BottomSheet>
 {/if}
 ```
 
@@ -320,16 +359,20 @@ BottomSheet
 ```
 
 ```ts
-let open = false;
+let open = $state(false);
 ```
 
 ```svelte
-<div slot="demo">
-  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
+{#snippet demo()}
+  <Button variant="tonal" click={() => (open = true)}>Open</Button>
   {#if open}
-    <BottomSheet on:close={() => (open = false)}>Hello</BottomSheet>
+    <BottomSheet close={() => (open = false)}>
+      {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(
+        20,
+      )}
+    </BottomSheet>
   {/if}
-</div>
+{/snippet}
 ```
 
 ## Dialog
@@ -339,9 +382,9 @@ Minimal demo:
 ```svelte
 <Dialog headline="Hello" bind:open>
   I'm alive
-  <svelte:fragment slot="buttons">
-    <Button type="tonal" on:click={() => (open = false)}>OK</Button>
-  </svelte:fragment>
+  {#snippet buttons()}
+    <Button variant="tonal" click={() => (open = false)}>OK</Button>
+  {/snippet}
 </Dialog>
 ```
 
@@ -353,20 +396,20 @@ Dialog
 ```
 
 ```ts
-let open = false;
+let open = $state(false);
 ```
 
 ```svelte
-<div slot="demo">
-  <Button type="tonal" on:click={() => (open = true)}>Open</Button>
+{#snippet demo()}
+  <Button variant="tonal" click={() => (open = true)}>Open</Button>
   <Dialog icon={iconCircle} headline="Hello" bind:open>
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
     ZomboCom! The unattainable is unknown at ZomboCom!
-    <svelte:fragment slot="buttons">
-      <Button type="tonal" on:click={() => (open = false)}>OK</Button>
-    </svelte:fragment>
+    {#snippet buttons()}
+      <Button variant="tonal" click={() => (open = false)}>OK</Button>
+    {/snippet}
   </Dialog>
-</div>
+{/snippet}
 ```
 
 ## Snackbar
@@ -375,11 +418,13 @@ Minimal demo:
 
 ```svelte
 <script lang="ts">
-  let snackbar: (data: SnackbarIn) => void;
+  let snackbar: ReturnType<typeof Snackbar>;
 </script>
 
-<Button type="tonal" on:click={() => snackbar({ message: "Hello", closable: true })}>Show</Button>
-<Snackbar bind:show={snackbar} />
+<Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
+  >Show</Button
+>
+<Snackbar bind:this={snackbar} />
 ```
 
 Full demo:
@@ -387,23 +432,19 @@ Full demo:
 ```use
 Button
 Snackbar
-SnackbarAnim
 ```
 
 ```ts
-let animation = true;
-let snackbar: (data: SnackbarIn) => void;
+let snackbar: ReturnType<typeof Snackbar>;
 ```
 
 ```svelte
-<label>
-  <Switch bind:checked={animation} />
-  {animation ? "#key animated" : "#if animated"}
-</label>
-<div slot="demo">
-  <Button type="tonal" on:click={() => snackbar({ message: "Hello", closable: true })}>Show</Button>
-  <svelte:component this={animation ? SnackbarAnim : Snackbar} bind:show={snackbar} />
-</div>
+{#snippet demo()}
+  <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
+    >Show</Button
+  >
+  <Snackbar bind:this={snackbar} />
+{/snippet}
 ```
 
 ## Checkbox
@@ -421,29 +462,25 @@ Minimal demo:
 Full demo:
 
 ```use
-CheckboxAnim
 Checkbox
 ```
 
 ```ts
-let animated = true;
-let enabled = true;
+let enabled = $state(true);
 ```
 
 ```svelte
 <label>
-  <Switch bind:checked={animated} />
-  {animated ? "Animated" : "Not animated"}
-</label>
-<label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
-<label slot="demo">
-  <svelte:component this={animated ? CheckboxAnim : Checkbox}>
-    <input type="checkbox" checked disabled={!enabled} />
-  </svelte:component>
-</label>
+{#snippet demo()}
+  <label>
+    <Checkbox>
+      <input type="checkbox" checked disabled={!enabled} />
+    </Checkbox>
+  </label>
+{/snippet}
 ```
 
 ## Chip
@@ -451,7 +488,7 @@ let enabled = true;
 Minimal demo:
 
 ```svelte
-<Chip type="general" icon={iconCircle} on:click={() => alert("!")}>Hello</Chip>
+<Chip variant="general" icon={iconCircle} on:click={() => alert("!")}>Hello</Chip>
 ```
 
 Full demo:
@@ -461,10 +498,11 @@ Chip
 ```
 
 ```ts
-let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" = "input";
-let iconType: "none" | "left" | "right" = "none";
-let enabled = true;
-let selected = false;
+let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" =
+  $state("input");
+let iconType: "none" | "left" | "right" = $state("none");
+let enabled = $state(true);
+let selected = $state(false);
 ```
 
 ```svelte
@@ -484,19 +522,25 @@ let selected = false;
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
-  <Chip
-    type={style.startsWith("assist") ? "assist" : style.startsWith("general") ? "general" : "input"}
-    elevated={style.endsWith("elevated")}
-    icon={iconType == "left" ? iconCircle : undefined}
-    trailingIcon={iconType == "right" ? iconSquare : undefined}
-    disabled={!enabled}
-    {selected}
-    on:click={() => (selected = !selected)}
-  >
-    Hello
-  </Chip>
-</div>
+{#snippet demo()}
+  <div>
+    <Chip
+      variant={style.startsWith("assist")
+        ? "assist"
+        : style.startsWith("general")
+          ? "general"
+          : "input"}
+      elevated={style.endsWith("elevated")}
+      icon={iconType == "left" ? iconCircle : undefined}
+      trailingIcon={iconType == "right" ? iconSquare : undefined}
+      disabled={!enabled}
+      {selected}
+      click={() => (selected = !selected)}
+    >
+      Hello
+    </Chip>
+  </div>
+{/snippet}
 ```
 
 ## Progress
@@ -520,8 +564,8 @@ CircularProgressIndeterminate
 ```
 
 ```ts
-let type: "linear" | "circular" = "linear";
-let indeterminate = false;
+let type: "linear" | "circular" = $state("linear");
+let indeterminate = $state(false);
 ```
 
 ```svelte
@@ -534,7 +578,7 @@ let indeterminate = false;
   {indeterminate ? "Indeterminate" : "Fixed progress"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if type == "linear" && indeterminate}
     <LinearProgressIndeterminate />
   {:else if type == "linear"}
@@ -544,7 +588,7 @@ let indeterminate = false;
   {:else if type == "circular"}
     <CircularProgress percent={60} />
   {/if}
-</div>
+{/snippet}
 ```
 
 ## Radio
@@ -566,9 +610,12 @@ RadioAnim3
 ```
 
 ```ts
-let animation: "1" | "2" | "3" = "1";
-let enabled = true;
-$: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3;
+let animation: "1" | "2" | "3" = $state("1");
+let enabled = $state(true);
+
+let Component = $derived(
+  animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3,
+);
 ```
 
 ```svelte
@@ -581,23 +628,25 @@ $: component = animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : R
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div style:display="flex" style:gap="0.5rem" slot="demo">
-  <label>
-    <svelte:component this={component}>
-      <input type="radio" name="radio" checked disabled={!enabled} />
-    </svelte:component>
-  </label>
-  <label>
-    <svelte:component this={component}>
-      <input type="radio" name="radio" disabled={!enabled} />
-    </svelte:component>
-  </label>
-  <label>
-    <svelte:component this={component}>
-      <input type="radio" name="radio" disabled={!enabled} />
-    </svelte:component>
-  </label>
-</div>
+{#snippet demo()}
+  <div style:display="flex" style:gap="0.5rem">
+    <label>
+      <Component>
+        <input type="radio" name="radio" checked disabled={!enabled} />
+      </Component>
+    </label>
+    <label>
+      <Component>
+        <input type="radio" name="radio" disabled={!enabled} />
+      </Component>
+    </label>
+    <label>
+      <Component>
+        <input type="radio" name="radio" disabled={!enabled} />
+      </Component>
+    </label>
+  </div>
+{/snippet}
 ```
 
 ## Slider
@@ -616,9 +665,8 @@ SliderTicks
 ```
 
 ```ts
-let precision: "continuous" | "discrete" | "discrete-ticks" = "continuous";
-let enabled = true;
-let value = 0;
+let precision: "continuous" | "discrete" | "discrete-ticks" = $state("continuous");
+let enabled = $state(true);
 ```
 
 ```svelte
@@ -635,13 +683,13 @@ let value = 0;
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if precision == "discrete-ticks"}
     <SliderTicks step={1} max={6} value={0} disabled={!enabled} />
   {:else}
     <Slider step={precision == "continuous" ? "any" : 10} value={0} disabled={!enabled} />
   {/if}
-</div>
+{/snippet}
 ```
 
 ## Switch
@@ -661,7 +709,7 @@ Switch
 ```
 
 ```ts
-let enabled = true;
+let enabled = $state(true);
 ```
 
 ```svelte
@@ -670,9 +718,11 @@ let enabled = true;
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<label slot="demo">
-  <Switch disabled={!enabled} />
-</label>
+{#snippet demo()}
+  <label>
+    <Switch disabled={!enabled} />
+  </label>
+{/snippet}
 ```
 
 ## Text field
@@ -694,12 +744,11 @@ TextFieldOutlinedMultiline
 
 ```ts
 import type { HTMLInputAttributes } from "svelte/elements";
-let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = "filled";
-let option: "text" | "password" | "number" | "file" = "text";
-let leadingIcon = false;
-let errored = false;
-let enabled = true;
-$: extraOptions = { type: option } as HTMLInputAttributes;
+let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
+let option: "text" | "password" | "number" | "file" = $state("text");
+let leadingIcon = $state(false);
+let errored = $state(false);
+let enabled = $state(true);
 ```
 
 ```svelte
@@ -739,14 +788,14 @@ $: extraOptions = { type: option } as HTMLInputAttributes;
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if type === "filled"}
     <TextField
       name="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
-      {extraOptions}
+      type={option}
     />
   {:else if type === "outlined"}
     <TextFieldOutlined
@@ -754,7 +803,7 @@ $: extraOptions = { type: option } as HTMLInputAttributes;
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
-      {extraOptions}
+      type={option}
     />
   {:else if type === "filled_multiline"}
     <TextFieldMultiline
@@ -771,7 +820,7 @@ $: extraOptions = { type: option } as HTMLInputAttributes;
       disabled={!enabled}
     />
   {/if}
-</div>
+{/snippet}
 ```
 
 ## Tabs
@@ -796,22 +845,24 @@ VariableTabs
 ```
 
 ```ts
-let type: "primary" | "secondary" = "primary";
-let icons = false;
-let variable = false;
-let tab = "hello";
+let type: "primary" | "secondary" = $state("primary");
+let icons = $state(false);
+let variable = $state(false);
+let tab = $state("hello");
 
-$: items = icons
-  ? [
-      { icon: iconCircle, name: "Hello", value: "hello" },
-      { icon: iconSquare, name: "World", value: "world" },
-      { icon: iconTriangle, name: "The longest item", value: "long" },
-    ]
-  : [
-      { name: "Hello", value: "hello" },
-      { name: "World", value: "world" },
-      { name: "The longest item", value: "long" },
-    ];
+let items = $derived(
+  icons
+    ? [
+        { icon: iconCircle, name: "Hello", value: "hello" },
+        { icon: iconSquare, name: "World", value: "world" },
+        { icon: iconTriangle, name: "The longest item", value: "long" },
+      ]
+    : [
+        { name: "Hello", value: "hello" },
+        { name: "World", value: "world" },
+        { name: "The longest item", value: "long" },
+      ],
+);
 ```
 
 ```svelte
@@ -828,13 +879,13 @@ $: items = icons
   {variable ? "Variable" : "Fixed"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if variable}
     <VariableTabs bind:tab secondary={type == "secondary"} {items} />
   {:else}
     <Tabs bind:tab secondary={type == "secondary"} {items} />
   {/if}
-</div>
+{/snippet}
 ```
 
 ## Date field
@@ -856,5 +907,7 @@ DateField
 ```
 
 ```svelte
-<DateField name="Date" slot="demo" />
+{#snippet demo()}
+  <DateField name="Date" />
+{/snippet}
 ```

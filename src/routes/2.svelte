@@ -1,5 +1,4 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -8,29 +7,52 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import FAB from "$lib/buttons/FAB.svelte";
-let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
-let size: "small" | "normal" | "large" | "extended" = "normal";
+let color:
+  | "primary-container"
+  | "secondary-container"
+  | "tertiary-container"
+  | "primary"
+  | "secondary"
+  | "tertiary" = $state("primary-container");
+let size: "small" | "normal" | "large" | "extended" = $state("normal");
 
-const dispatch = createEventDispatcher();
-const minimalDemo = `${"<"}FAB color="primary" icon={iconCircle} on:click={() => alert("!")} />`;
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
+const minimalDemo = `${"<"}FAB color="primary" icon={iconCircle} click={() => alert("!")} />`;
 const relevantLinks = [{"title":"FAB.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/FAB.svelte"}];
 </script>
 
-<InternalCard title="FAB" on:showCode={() => dispatch("showCode", { name: "FAB", minimalDemo, relevantLinks })}>
+<InternalCard title="FAB" showCode={() => showCode("FAB", minimalDemo, relevantLinks)}>
 <label>
-  <Arrows list={["primary", "surface", "secondary", "tertiary"]} bind:value={color} />
-  {color[0].toUpperCase() + color.slice(1)}
+  <Arrows
+    list={[
+      "primary-container",
+      "secondary-container",
+      "tertiary-container",
+      "primary",
+      "secondary",
+      "tertiary",
+    ]}
+    bind:value={color}
+  />
+  {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
 </label>
 <label>
-  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} index={1} />
+  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} initialIndex={1} />
   {size[0].toUpperCase() + size.slice(1)}
 </label>
-<div slot="demo">
-  <FAB
-    {color}
-    size={size == "extended" ? "normal" : size}
-    icon={iconCircle}
-    text={size == "extended" ? "Hello" : undefined}
-  />
-</div>
+{#snippet demo()}
+  <div>
+    <FAB
+      {color}
+      click={() => {}}
+      {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
+      icon={iconCircle}
+    />
+  </div>
+{/snippet}
 </InternalCard>

@@ -1,17 +1,23 @@
 <script lang="ts">
   import Chip from "$lib/forms/Chip.svelte";
   import type { IconifyIcon } from "@iconify/types";
-  export let options: { label: string; value: string; icon?: IconifyIcon }[];
-  export let chosenOptions: string[] = [];
+
+  let {
+    options,
+    chosenOptions,
+  }: {
+    options: { label: string; value: string; icon?: IconifyIcon }[];
+    chosenOptions: string[];
+  } = $props();
 </script>
 
 <div class="m3-container">
   {#each options as option}
     <Chip
       {...option}
-      type="input"
+      variant="input"
       selected={chosenOptions.includes(option.value)}
-      on:click={() =>
+      click={() =>
         chosenOptions.includes(option.value)
           ? (chosenOptions = chosenOptions.filter((o) => o != option.value))
           : (chosenOptions = [...chosenOptions, option.value])}

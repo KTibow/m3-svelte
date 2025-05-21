@@ -1,5 +1,9 @@
 <script lang="ts">
-  export let inset = false;
+  let {
+    inset = false,
+  }: {
+    inset?: boolean;
+  } = $props();
 </script>
 
 <hr class:inset />

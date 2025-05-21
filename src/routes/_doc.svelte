@@ -1,17 +1,22 @@
 <script lang="ts">
-  import ButtonLink from "$lib/buttons/ButtonLink.svelte";
+  import Button from "$lib/buttons/Button.svelte";
   import Highlight from "svelte-highlight";
   import xml from "svelte-highlight/languages/xml";
 
-  export let minimalDemo: string;
-  export let relevantLinks: { title: string; link: string }[];
+  let {
+    minimalDemo,
+    relevantLinks,
+  }: {
+    minimalDemo: string;
+    relevantLinks: { title: string; link: string }[];
+  } = $props();
 </script>
 
 <div class="anchor">
   <Highlight language={xml} code={minimalDemo} />
 
   {#each relevantLinks as { title, link }, i}
-    <ButtonLink type={i == 0 ? "filled" : "tonal"} href={link}>{title}</ButtonLink>
+    <Button variant={i == 0 ? "filled" : "tonal"} href={link}>{title}</Button>
   {/each}
 </div>
 

@@ -1,14 +1,19 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
 
-  export let display = "inline-flex";
-  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
   // MUST BE WRAPPED IN A <label>
+  let {
+    children,
+    ...extra
+  }: {
+    children: Snippet;
+  } & HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
-<div class="m3-container" style="display: {display};" {...extraOptions}>
-  <slot />
+<div class="m3-container" {...extra}>
+  {@render children()}
   <div class="layer-container">
     <Layer />
     <div class="radio-circle"></div>
@@ -18,6 +23,7 @@
 
 <style>
   .m3-container {
+    display: inline-flex;
     position: relative;
     width: 1.25rem;
     height: 1.25rem;

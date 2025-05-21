@@ -1,22 +1,21 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
 
-  const dispatch = createEventDispatcher();
   const conditionalScroll = (node: Element, shouldScroll: boolean) => {
     if (shouldScroll) node.scrollIntoView({ block: "nearest" });
   };
-  export let options: { id: number; name: string; selected: boolean }[];
+
+  let {
+    options,
+  }: {
+    options: { name: string; selected: boolean; activate: () => void }[];
+  } = $props();
 </script>
 
 <div class="m3-container">
-  {#each options as { id, name, selected }}
-    <button
-      class="m3-font-body-large"
-      on:click={() => dispatch("chosen", id)}
-      use:conditionalScroll={selected}
-    >
+  {#each options as { name, selected, activate }}
+    <button class="m3-font-body-large" onclick={activate} use:conditionalScroll={selected}>
       {#if selected}
         <Icon icon={iconCheck} />
       {/if}

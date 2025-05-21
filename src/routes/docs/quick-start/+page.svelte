@@ -4,13 +4,13 @@
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
 
   import Icon from "$lib/misc/_icon.svelte";
-  import SegmentedButtonContainer from "$lib/buttons/SegmentedButtonContainer.svelte";
-  import SegmentedButtonItem from "$lib/buttons/SegmentedButtonItem.svelte";
+  import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
+  import Button from "$lib/buttons/Button.svelte";
   import { base } from "$app/paths";
 
   import Snippet from "../Snippet.svelte";
 
-  let step3Page = "roboto";
+  let step3Page = $state("roboto");
   const componentCode = `${"<"}script>
   import { Button } from "m3-svelte";
 ${"<"}/script>
@@ -48,7 +48,7 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world")}>Click me${"<"}/
         name="+layout.svelte, App.svelte, or similar"
         lang="xml"
       />
-      <Snippet code={`/* Your theme snippet */`} name="app.css" lang="css" />
+      <Snippet code="/* Your theme snippet */" name="app.css" lang="css" />
     </div>
   </li>
   <li>
@@ -57,12 +57,12 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world")}>Click me${"<"}/
         3
         <Icon icon={iconType} />
       </div>
-      <SegmentedButtonContainer>
+      <ConnectedButtons>
         <input type="radio" id="step3-roboto" value="roboto" name="step3" bind:group={step3Page} />
-        <SegmentedButtonItem input="step3-roboto">Roboto</SegmentedButtonItem>
+        <Button for="step3-roboto" variant="filled" square>Roboto</Button>
         <input type="radio" id="step3-manual" value="manual" name="step3" bind:group={step3Page} />
-        <SegmentedButtonItem input="step3-manual">Manual</SegmentedButtonItem>
-      </SegmentedButtonContainer>
+        <Button for="step3-manual" variant="filled" square>Manual</Button>
+      </ConnectedButtons>
     </div>
     <div class="text">
       <p>Get a font for M3 Svelte to use.</p>

@@ -1,11 +1,10 @@
 <script>
-  import SegmentedButtonContainer from "$lib/buttons/SegmentedButtonContainer.svelte";
-  import SegmentedButtonItem from "$lib/buttons/SegmentedButtonItem.svelte";
-  import { base } from "$app/paths";
+  import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
+  import Button from "$lib/buttons/Button.svelte";
 
   import Snippet from "../Snippet.svelte";
 
-  let styleType = "plain";
+  let styleType = $state("plain");
   const componentCode1 = `${"<"}button class="bg-surface-container-low text-primary rounded-full">Click me${"<"}/button>`;
   const componentCode2 = `${"<"}button>Click me${"<"}/button>
 ${"<"}style>
@@ -51,13 +50,15 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world")}>Click me${"<"}/
   <code>M3_SVELTE_NO_RIPPLE</code> to <code>true</code> in your Vite config.
 </p>
 
-<h2 class="m3-font-headline-large">Make your own components</h2>
-<SegmentedButtonContainer>
-  <input type="radio" id="styletype-plain" value="plain" bind:group={styleType} />
-  <SegmentedButtonItem input="styletype-plain">Plain</SegmentedButtonItem>
-  <input type="radio" id="styletype-tailwind" value="tailwind" bind:group={styleType} />
-  <SegmentedButtonItem input="styletype-tailwind">Tailwind</SegmentedButtonItem>
-</SegmentedButtonContainer>
+<h2 class="m3-font-headline-large">
+  Make your own components
+  <ConnectedButtons>
+    <input type="radio" id="styletype-plain" value="plain" bind:group={styleType} />
+    <Button for="styletype-plain" variant="filled" square>Plain</Button>
+    <input type="radio" id="styletype-tailwind" value="tailwind" bind:group={styleType} />
+    <Button for="styletype-tailwind" variant="filled" square>Tailwind</Button>
+  </ConnectedButtons>
+</h2>
 <p>
   Chances are M3 doesn't have everything you need. That's where you can make your own components
   while still using Material 3 elements. Here's an example.
@@ -152,6 +153,8 @@ ${"<"}Button type="filled" on:click={() => alert("Hello world")}>Click me${"<"}/
     margin-top: 1em;
   }
   h2 {
+    display: flex;
+    justify-content: space-between;
     margin: 0;
   }
   code {

@@ -1,16 +1,15 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
-  export let display = "inline-flex";
-  export let extraOptions: HTMLAttributes<SVGElement> = {};
+
+  let extra: HTMLAttributes<SVGElement> = $props();
 </script>
 
 <svg
   viewBox="0 0 48 48"
   xmlns="http://www.w3.org/2000/svg"
   class="m3-container"
-  style="display: {display};"
   role="progressbar"
-  {...extraOptions}
+  {...extra}
 >
   <circle
     cx="24"

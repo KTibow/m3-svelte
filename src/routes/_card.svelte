@@ -1,36 +1,44 @@
-<script>
+<script lang="ts">
+  import type { Snippet } from "svelte";
   import iconCode from "@ktibow/iconset-material-symbols/code";
-  import { createEventDispatcher } from "svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
-  export let title = "";
-
-  const dispatch = createEventDispatcher();
+  let {
+    title,
+    children,
+    demo,
+    showCode,
+  }: {
+    title: string;
+    children?: Snippet;
+    demo: Snippet;
+    showCode: () => void;
+  } = $props();
 </script>
 
 <div class="container">
-  {#if $$slots.default}
+  {#if children}
     <h2 class="m3-font-headline-medium">
       {title}
     </h2>
     <div class="controls">
       <div>
-        <slot />
+        {@render children()}
       </div>
-      <button on:click={() => dispatch("showCode")}>
+      <button onclick={showCode}>
         <Layer />
         <Icon icon={iconCode} width="1.5rem" height="1.5rem" />
       </button>
     </div>
   {:else}
-    <button class="name m3-font-headline-medium" on:click={() => dispatch("showCode")}>
+    <button class="name m3-font-headline-medium" onclick={showCode}>
       <Layer />
       {title}
       <Icon icon={iconCode} width="1.5rem" height="1.5rem" />
     </button>
   {/if}
-  <slot name="demo" />
+  {@render demo()}
 </div>
 
 <style>

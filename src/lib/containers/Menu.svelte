@@ -1,9 +1,11 @@
 <script lang="ts">
-  export let display = "flex";
+  import type { Snippet } from "svelte";
+
+  let { children }: { children: Snippet } = $props();
 </script>
 
-<div class="m3-container" style="display: {display};">
-  <slot />
+<div class="m3-container">
+  {@render children()}
 </div>
 
 <style>
@@ -11,6 +13,7 @@
     --m3-menu-shape: var(--m3-util-rounding-extra-small);
   }
   .m3-container {
+    display: flex;
     position: relative;
     overflow: hidden;
     flex-direction: column;

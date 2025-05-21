@@ -1,22 +1,30 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
+  import type { HTMLAnchorAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  export let display = "grid";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLAnchorAttributes = {};
-  export let secondary = false;
-  export let tab: string;
-  export let items: {
-    icon?: IconifyIcon;
-    name: string;
-    value: string;
-    href: string;
-  }[];
 
-  let prevTab = tab;
-  $: if (wrapper) {
+  let {
+    secondary = false,
+    tab,
+    items,
+    ...extra
+  }: {
+    secondary?: boolean;
+    tab: string;
+    items: {
+      icon?: IconifyIcon;
+      name: string;
+      value: string;
+      href: string;
+    }[];
+  } & HTMLAnchorAttributes = $props();
+
+  let prevTab = $state(tab);
+  let wrapper: HTMLDivElement | undefined = $state();
+  $effect(() => {
+    if (!wrapper) return;
+
     const before = prevTab;
     const after = tab;
     const beforeI = items.findIndex((i) => i.value == before) + 1;
@@ -63,16 +71,14 @@
     }
 
     prevTab = tab;
-  }
-  let wrapper: HTMLDivElement;
+  });
 </script>
 
 <div
   class="m3-container"
   class:primary={!secondary}
-  style="display: {display}; --items: {items.length};"
+  style:--items={items.length}
   bind:this={wrapper}
-  {...extraWrapperOptions}
 >
   <div class="divider"></div>
   {#each items as item, i}
@@ -80,8 +86,8 @@
       href={item.href}
       class:tall={item.icon}
       class:selected={item.value == tab}
-      style="grid-column: {i + 1}"
-      {...extraOptions}
+      style:grid-column={i + 1}
+      {...extra}
     >
       <Layer />
       {#if item.icon}
@@ -95,9 +101,10 @@
 
 <style>
   .m3-container {
+    display: grid;
+    grid-template-columns: repeat(var(--items), auto);
     position: relative;
     background-color: rgb(var(--m3-scheme-surface));
-    grid-template-columns: repeat(var(--items), auto);
     padding-inline: 1rem;
     justify-content: start;
     overflow-x: auto;
@@ -105,7 +112,7 @@
   .divider {
     position: absolute;
     inset: auto 0 0 0;
-    height: 0.0625rem;
+    height: 1px;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
   }
   a {

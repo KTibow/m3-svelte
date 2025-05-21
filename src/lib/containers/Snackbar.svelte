@@ -1,14 +1,14 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   export type SnackbarIn = {
     message: string;
     actions?: Record<string, () => void>;
     closable?: boolean;
-    timeout?: number | null;
     /*
     timeout: undefined/unset -> 4s timeout
     timeout: null -> no timeout
     timeout: 2000 -> 2s timeout
     */
+    timeout?: number | null;
   };
 </script>
 
@@ -16,18 +16,14 @@
   import { onDestroy, type ComponentProps } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
   import { fade } from "svelte/transition";
-  import Icon from "$lib/misc/_icon.svelte";
   import iconX from "@ktibow/iconset-material-symbols/close";
+  import Icon from "$lib/misc/_icon.svelte";
   import SnackbarItem from "./SnackbarItem.svelte";
-  type SnackbarData = {
-    message: string;
-    actions: Record<string, () => void>;
-    closable: boolean;
-    timeout: number | null;
-  };
 
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: ComponentProps<SnackbarItem> = {};
+  type SnackbarConfig = Omit<ComponentProps<typeof SnackbarItem>, "children">;
+
+  let { config = {}, ...extra }: { config?: SnackbarConfig } & HTMLAttributes<HTMLDivElement> =
+    $props();
   export const show = ({ message, actions = {}, closable = false, timeout = 4000 }: SnackbarIn) => {
     snackbar = { message, actions, closable, timeout };
     clearTimeout(timeoutId);
@@ -37,7 +33,7 @@
       }, timeout);
   };
 
-  let snackbar: SnackbarData | undefined;
+  let snackbar: Required<SnackbarIn> | undefined = $state();
   let timeoutId: number;
   onDestroy(() => {
     clearTimeout(timeoutId);
@@ -45,31 +41,33 @@
 </script>
 
 {#if snackbar}
-  <div class="holder" out:fade={{ duration: 200 }} {...extraWrapperOptions}>
-    <SnackbarItem {...extraOptions}>
-      <p class="m3-font-body-medium">{snackbar.message}</p>
-      {#each Object.entries(snackbar.actions) as [key, action]}
-        <button
-          class="action m3-font-label-large"
-          on:click={() => {
-            snackbar = undefined;
-            action();
-          }}
-        >
-          {key}
-        </button>
-      {/each}
-      {#if snackbar.closable}
-        <button
-          class="close"
-          on:click={() => {
-            snackbar = undefined;
-          }}
-        >
-          <Icon icon={iconX} />
-        </button>
-      {/if}
-    </SnackbarItem>
+  <div class="holder" out:fade={{ duration: 200 }} {...extra}>
+    {#key snackbar}
+      <SnackbarItem {...config}>
+        <p class="m3-font-body-medium">{snackbar.message}</p>
+        {#each Object.entries(snackbar.actions) as [key, action]}
+          <button
+            class="action m3-font-label-large"
+            onclick={() => {
+              snackbar = undefined;
+              action();
+            }}
+          >
+            {key}
+          </button>
+        {/each}
+        {#if snackbar.closable}
+          <button
+            class="close"
+            onclick={() => {
+              snackbar = undefined;
+            }}
+          >
+            <Icon icon={iconX} />
+          </button>
+        {/if}
+      </SnackbarItem>
+    {/key}
   </div>
 {/if}
 

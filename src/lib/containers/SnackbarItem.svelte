@@ -1,12 +1,12 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
 
-  export let display = "flex";
-  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
+  let { children, ...extra }: { children: Snippet } & HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
-<div class="m3-container" style="display: {display};" {...extraOptions}>
-  <slot />
+<div class="m3-container" {...extra}>
+  {@render children()}
 </div>
 
 <style>
@@ -25,8 +25,8 @@
     background-color: rgb(var(--m3-scheme-inverse-surface));
     color: rgb(var(--m3-scheme-inverse-on-surface));
     animation:
-      snackbarIn 500ms var(--m3-easing-decel),
-      opacity 100ms var(--m3-easing-decel);
+      snackbarIn var(--m3-util-curve-decel) 500ms,
+      opacity var(--m3-util-curve-decel) 100ms;
   }
   /*@TODO: Fix animation with different shaping or something*/
   @keyframes snackbarIn {

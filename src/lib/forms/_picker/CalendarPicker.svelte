@@ -1,8 +1,18 @@
 <script lang="ts">
   import Item from "./Item.svelte";
 
-  export let focusedMonth: number, focusedYear: number, dateValidator: (date: string) => boolean;
-  export let chosenDate: string;
+  let {
+    focusedMonth,
+    focusedYear,
+    dateValidator,
+    chosenDate = $bindable(),
+  }: {
+    focusedMonth: number;
+    focusedYear: number;
+    dateValidator: (date: string) => boolean;
+    chosenDate: string;
+  } = $props();
+
   const makeCalendar = (year: number, month: number) => {
     const firstDay = new Date(year, month, 1);
     return Array.from({ length: 42 }, (_, i: number) => {
@@ -18,7 +28,7 @@
     });
   };
 
-  let today = new Date();
+  let today = $state(new Date());
   setInterval(() => (today = new Date()), 1000 * 60);
 </script>
 
@@ -35,7 +45,7 @@
         day.day == today.getDate()}
       selected={!day.disabled && day.iso == chosenDate}
       label={day.day.toString()}
-      on:click={() => (chosenDate = day.iso)}
+      click={() => (chosenDate = day.iso)}
     />
   {/each}
 </div>

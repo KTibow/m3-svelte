@@ -1,57 +1,64 @@
 <script lang="ts">
-  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
-  import { spring } from "svelte/motion";
+  import type { HTMLInputAttributes } from "svelte/elements";
+  import { Spring } from "svelte/motion";
 
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLInputAttributes = {};
-  export let value: number;
-  export let min = 0;
-  export let max = 100;
-  export let step: number;
-  export let disabled = false;
-  export let showValue = true;
-  export let format: (n: number) => string = (n: number) => {
-    return n.toFixed(0);
-  };
+  let {
+    value = $bindable(),
+    min = 0,
+    max = 100,
+    step,
+    disabled = false,
+    showValue = true,
+    format = (n: number) => {
+      return n.toFixed(0);
+    },
+    ...extra
+  }: {
+    value: number;
+    min?: number;
+    max?: number;
+    step: number;
+    disabled?: boolean;
+    showValue?: boolean;
+    format?: (n: number) => string;
+  } & HTMLInputAttributes = $props();
 
-  const valueDisplayed = spring(value, { stiffness: 0.3, damping: 1 });
+  const valueDisplayed = new Spring(value, { stiffness: 0.3, damping: 1 });
   const updateValue = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
     const newValue = Number(e.currentTarget.value);
     e.preventDefault();
     value = newValue;
-    $valueDisplayed = newValue;
+    valueDisplayed.target = newValue;
   };
 
-  let range: number, percent: number, ticks: number[];
-  $: {
-    range = max - min;
-    percent = ($valueDisplayed - min) / range;
-  }
-  $: {
-    ticks = [];
+  const range = $derived(max - min);
+  const percent = $derived((valueDisplayed.current - min) / range);
+  const ticks = $derived.by(() => {
+    const ticksList = [];
     for (let i = 0; i <= range; i += step) {
-      ticks.push((i / range) * 100);
+      ticksList.push((i / range) * 100);
     }
-  }
+    return ticksList;
+  });
 </script>
 
-<div class="m3-container" style="--percent: {percent * 100}%;" {...extraWrapperOptions}>
+<div class="m3-container" style:--percent="{percent * 100}%">
   <input
     type="range"
-    on:input={updateValue}
-    value={$valueDisplayed}
+    oninput={updateValue}
+    value={valueDisplayed.current}
     {min}
     {max}
     {step}
     {disabled}
-    {...extraOptions}
+    {...extra}
   />
   <div class="track"></div>
-  {#each ticks as tick, i}
+  {#each ticks as tick}
     <div
       class="tick"
-      class:hidden={Math.abs(tick / 100 - $valueDisplayed / range) < 0.01}
-      class:inactive={tick / 100 > $valueDisplayed / range}
+      class:hidden={Math.abs(tick / 100 - valueDisplayed.current / range) < 0.01}
+      class:inactive={tick / 100 > valueDisplayed.current / range}
       style:--x={tick / 100 - 0.5}
     ></div>
   {/each}

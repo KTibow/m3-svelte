@@ -1,8 +1,19 @@
 <script lang="ts">
-  export let list: string[];
-  export let value: string;
-  export let index = 0;
-  $: value = list[index];
+  let {
+    list,
+    value = $bindable(),
+    initialIndex = 0,
+  }: {
+    list: string[];
+    value?: string;
+    initialIndex?: number;
+  } = $props();
+
+  let index = $state(initialIndex);
+  $effect(() => {
+    value = list[index];
+  });
+
   const left = () => {
     index = (index == 0 ? list.length : index) - 1;
   };
@@ -12,8 +23,8 @@
 </script>
 
 <div class="container">
-  <button class="m3-font-label-large left" on:click={left}>&lt;</button>
-  <button class="m3-font-label-large right" on:click={right}>&gt;</button>
+  <button class="m3-font-label-large left" onclick={left}>&lt;</button>
+  <button class="m3-font-label-large right" onclick={right}>&gt;</button>
 </div>
 
 <style>

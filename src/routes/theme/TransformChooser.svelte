@@ -39,8 +39,14 @@
       desc: "Grayscale",
     },
   ];
-  export let algorithm: keyof typeof schemes;
-  export let contrast: number;
+
+  let {
+    algorithm = $bindable(),
+    contrast = $bindable(),
+  }: {
+    algorithm: keyof typeof schemes;
+    contrast: number;
+  } = $props();
 </script>
 
 <div class="content">

@@ -18,7 +18,7 @@
 
 <style>
   .branding {
-    --transition: all 500ms var(--m3-easing);
+    --transition: all var(--m3-util-curve) 500ms;
     display: flex;
     flex-direction: column;
     justify-content: center;

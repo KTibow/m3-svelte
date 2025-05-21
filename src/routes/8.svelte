@@ -1,5 +1,4 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -9,27 +8,30 @@ import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Button from "$lib/buttons/Button.svelte";
 import Snackbar, { type SnackbarIn } from "$lib/containers/Snackbar.svelte";
-import SnackbarAnim from "$lib/containers/SnackbarAnim.svelte";
-let animation = true;
-let snackbar: (data: SnackbarIn) => void;
+let snackbar: ReturnType<typeof Snackbar>;
 
-const dispatch = createEventDispatcher();
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
 const minimalDemo = `${"<"}script lang="ts">
-  let snackbar: (data: SnackbarIn) => void;
+  let snackbar: ReturnType${"<"}typeof Snackbar>;
 ${"<"}/script>
 
-${"<"}Button type="tonal" on:click={() => snackbar({ message: "Hello", closable: true })}>Show${"<"}/Button>
-${"<"}Snackbar bind:show={snackbar} />`;
-const relevantLinks = [{"title":"Snackbar.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Snackbar.svelte"},{"title":"SnackbarAnim.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/SnackbarAnim.svelte"}];
+${"<"}Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
+  >Show${"<"}/Button
+>
+${"<"}Snackbar bind:this={snackbar} />`;
+const relevantLinks = [{"title":"Snackbar.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Snackbar.svelte"}];
 </script>
 
-<InternalCard title="Snackbar" on:showCode={() => dispatch("showCode", { name: "Snackbar", minimalDemo, relevantLinks })}>
-<label>
-  <Switch bind:checked={animation} />
-  {animation ? "#key animated" : "#if animated"}
-</label>
-<div slot="demo">
-  <Button type="tonal" on:click={() => snackbar({ message: "Hello", closable: true })}>Show</Button>
-  <svelte:component this={animation ? SnackbarAnim : Snackbar} bind:show={snackbar} />
-</div>
+<InternalCard title="Snackbar" showCode={() => showCode("Snackbar", minimalDemo, relevantLinks)}>
+{#snippet demo()}
+  <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
+    >Show</Button
+  >
+  <Snackbar bind:this={snackbar} />
+{/snippet}
 </InternalCard>

@@ -1,5 +1,4 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -12,19 +11,23 @@ import TextFieldOutlined from "$lib/forms/TextFieldOutlined.svelte";
 import TextFieldMultiline from "$lib/forms/TextFieldMultiline.svelte";
 import TextFieldOutlinedMultiline from "$lib/forms/TextFieldOutlinedMultiline.svelte";
 import type { HTMLInputAttributes } from "svelte/elements";
-let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = "filled";
-let option: "text" | "password" | "number" | "file" = "text";
-let leadingIcon = false;
-let errored = false;
-let enabled = true;
-$: extraOptions = { type: option } as HTMLInputAttributes;
+let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
+let option: "text" | "password" | "number" | "file" = $state("text");
+let leadingIcon = $state(false);
+let errored = $state(false);
+let enabled = $state(true);
 
-const dispatch = createEventDispatcher();
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
 const minimalDemo = `${"<"}TextField name="Field" bind:value={text} />`;
 const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextField.svelte"},{"title":"TextFieldOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldOutlined.svelte"},{"title":"TextFieldMultiline.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldMultiline.svelte"},{"title":"TextFieldOutlinedMultiline.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldOutlinedMultiline.svelte"}];
 </script>
 
-<InternalCard title="Text field" on:showCode={() => dispatch("showCode", { name: "Text field", minimalDemo, relevantLinks })}>
+<InternalCard title="Text field" showCode={() => showCode("Text field", minimalDemo, relevantLinks)}>
 <label>
   <Arrows
     list={["filled", "filled_multiline", "outlined", "outlined_multiline"]}
@@ -61,14 +64,14 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
-<div slot="demo">
+{#snippet demo()}
   {#if type === "filled"}
     <TextField
       name="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
-      {extraOptions}
+      type={option}
     />
   {:else if type === "outlined"}
     <TextFieldOutlined
@@ -76,7 +79,7 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
-      {extraOptions}
+      type={option}
     />
   {:else if type === "filled_multiline"}
     <TextFieldMultiline
@@ -93,5 +96,5 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
       disabled={!enabled}
     />
   {/if}
-</div>
+{/snippet}
 </InternalCard>

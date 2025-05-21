@@ -2,15 +2,15 @@
   import { sharedAxisTransition } from "$lib";
   import Button from "$lib/buttons/Button.svelte";
 
-  let page = 0;
-  let prevPage = 0;
+  let page = $state(0);
+  let prevPage = $state(0);
 </script>
 
 <main>
   {#if page == 0}
     <div transition:sharedAxisTransition={{ direction: "X", rightSeam: true }}>
       <p>
-        <Button type="outlined" on:click={() => ((prevPage = page), (page = 1))}>next</Button>
+        <Button variant="outlined" click={() => ((prevPage = page), (page = 1))}>next</Button>
       </p>
       <img
         src="https://picsum.photos/id/12/192/168"
@@ -31,8 +31,8 @@
       }}
     >
       <p>
-        <Button type="outlined" on:click={() => ((prevPage = page), (page = 0))}>back</Button>
-        <Button type="outlined" on:click={() => ((prevPage = page), (page = 2))}>next</Button>
+        <Button variant="outlined" click={() => ((prevPage = page), (page = 0))}>back</Button>
+        <Button variant="outlined" click={() => ((prevPage = page), (page = 2))}>next</Button>
       </p>
       <img
         src="https://picsum.photos/id/20/192/168"
@@ -53,8 +53,8 @@
       }}
     >
       <p>
-        <Button type="outlined" on:click={() => ((prevPage = page), (page = 1))}>back</Button>
-        <Button type="outlined" on:click={() => ((prevPage = page), (page = 3))}>next</Button>
+        <Button variant="outlined" click={() => ((prevPage = page), (page = 1))}>back</Button>
+        <Button variant="outlined" click={() => ((prevPage = page), (page = 3))}>next</Button>
       </p>
       <img
         src="https://picsum.photos/id/19/192/168"
@@ -66,7 +66,7 @@
   {:else}
     <div transition:sharedAxisTransition={{ direction: "X", rightSeam: false }}>
       <p>
-        <Button type="outlined" on:click={() => ((prevPage = page), (page = 2))}>back</Button>
+        <Button variant="outlined" click={() => ((prevPage = page), (page = 2))}>back</Button>
       </p>
       <img
         src="https://picsum.photos/id/18/192/168"

@@ -9,7 +9,7 @@ const getFile = (component: string) => {
 const demos = await readFile("src/demos.md", "utf8");
 const demosList = [
   ...demos.matchAll(
-    /## (.+)\n\nMinimal demo:\n\n\`\`\`svelte\n([^]+?)\n\`\`\`\n\nFull demo:\n\n\`\`\`use\n([^]*?)\n\`\`\`\n\n\`\`\`ts\n([^]*?)\n\`\`\`\n\n\`\`\`svelte\n([^]+?)\n\`\`\`/g,
+    /## (.+)\n\nMinimal demo:\n\n```svelte\n([^]+?)\n```\n\nFull demo:\n\n```use\n([^]*?)\n```\n\n```ts\n([^]*?)\n```\n\n```svelte\n([^]+?)\n```/g,
   ),
 ];
 
@@ -24,7 +24,6 @@ for (let i = 0; i < demosList.length; i++) {
   const [, friendlyName, minimalDemo, components, fullDemoTs, fullDemoSvelte] = demosList[i];
 
   const generatedCode = `<script lang="ts">
-import { createEventDispatcher } from "svelte";
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
@@ -44,7 +43,12 @@ ${components
   .join("\n")}
 ${fullDemoTs}
 
-const dispatch = createEventDispatcher();
+let { showCode }: { showCode: (
+  name: string,
+  minimalDemo: string,
+  relevantLinks: { title: string; link: string }[],
+) => void } = $props();
+
 const minimalDemo = \`${minimalDemo.replaceAll("$", '${"$"}').replaceAll("<", '${"<"}')}\`;
 const relevantLinks = ${JSON.stringify(
     components
@@ -65,7 +69,7 @@ const relevantLinks = ${JSON.stringify(
   )};
 </script>
 
-<InternalCard title="${friendlyName}" on:showCode={() => dispatch("showCode", { name: ${JSON.stringify(friendlyName)}, minimalDemo, relevantLinks })}>
+<InternalCard title="${friendlyName}" showCode={() => showCode(${JSON.stringify(friendlyName)}, minimalDemo, relevantLinks)}>
 ${fullDemoSvelte}
 </InternalCard>
 `;
@@ -138,7 +142,7 @@ Sizes: large, medium, small
 <script>
   import { Button } from "m3-svelte";
 </script>
-<Button type="filled">Hello</Button>
+<Button variant="filled">Hello</Button>
 \`\`\`
 
 ## Tips
@@ -229,7 +233,7 @@ Here's an example todo list component:
       </label>
       <label slot="trailing">
         <Button
-          type="text"
+          variant="text"
           iconType="full"
           on:click={() => (tasks = tasks.filter((t) => t.id != task.id))}
         >
@@ -331,7 +335,7 @@ Here's an example notes app:
       <ListItem headline={note.title} supporting={note.content} overline={note.date}>
         <div slot="trailing" class="actions">
           <Button
-            type="text"
+            variant="text"
             iconType="full"
             on:click={() =>
               (dialog = {
@@ -343,14 +347,14 @@ Here's an example notes app:
           >
             <Icon icon={iconEdit} />
           </Button>
-          <Button type="text" iconType="full" on:click={() => deleteNote(note.id)}>
+          <Button variant="text" iconType="full" on:click={() => deleteNote(note.id)}>
             <Icon icon={iconDelete} />
           </Button>
         </div>
       </ListItem>
     {/each}
   {:else}
-    <Card type="outlined">
+    <Card variant="outlined">
       <div class="empty-content">
         <p class="m3-font-body-large">No notes yet</p>
         <p class="m3-font-body-medium">Click the + button to create one</p>
@@ -365,13 +369,13 @@ Here's an example notes app:
     <TextFieldMultiline name="Content" bind:value={dialog.content} />
   </div>
   <svelte:fragment slot="buttons">
-    <Button type="text" on:click={closeDialog}>Cancel</Button>
+    <Button variant="text" on:click={closeDialog}>Cancel</Button>
     {#if dialog.editingId}
-      <Button type="filled" disabled={!dialog.title || !dialog.content} on:click={updateNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} on:click={updateNote}>
         Update
       </Button>
     {:else}
-      <Button type="filled" disabled={!dialog.title || !dialog.content} on:click={addNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} on:click={addNote}>
         Add
       </Button>
     {/if}

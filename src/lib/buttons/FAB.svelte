@@ -1,27 +1,47 @@
 <script lang="ts">
   import type { HTMLButtonAttributes } from "svelte/elements";
-  import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
+  import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
-  export let display = "inline-flex";
-  export let extraOptions: HTMLButtonAttributes = {};
-  export let color: "primary" | "surface" | "secondary" | "tertiary" = "primary";
-  export let size: "small" | "normal" | "large" = "normal";
-  export let elevation: "normal" | "lowered" | "none" = "normal";
-  export let icon: IconifyIcon | undefined = undefined;
-  export let text: string | undefined = undefined;
-  $: {
-    if (!icon && !text) console.warn("you need at least something in a FAB");
-    if (size != "normal" && text) console.warn("extended fabs are supposed to use size normal");
-  }
+  type ContentProps =
+    | {
+        size?: "normal";
+        icon?: IconifyIcon;
+        text: string;
+      }
+    | {
+        size?: "small" | "normal" | "large";
+        icon: IconifyIcon;
+        text?: undefined;
+      };
+
+  let {
+    color = "primary",
+    elevation = "normal",
+    click,
+    size = "normal",
+    icon,
+    text,
+    ...extra
+  }: {
+    color?:
+      | "primary-container"
+      | "secondary-container"
+      | "tertiary-container"
+      | "primary"
+      | "secondary"
+      | "tertiary";
+    elevation?: "normal" | "lowered" | "none";
+    click: () => void;
+  } & ContentProps &
+    HTMLButtonAttributes = $props();
 </script>
 
 <button
-  on:click
+  onclick={click}
   class="m3-container m3-font-label-large color-{color} size-{size} elevation-{elevation}"
-  style="display: {display};"
-  {...extraOptions}
+  {...extra}
 >
   <Layer />
   {#if icon}
@@ -39,6 +59,7 @@
     --m3-fab-large-shape: var(--m3-util-rounding-extra-large);
   }
   button {
+    display: inline-flex;
     border: none;
     position: relative;
     overflow: hidden;
@@ -85,21 +106,26 @@
   }
 
   .color-primary {
+    background-color: rgb(var(--m3-scheme-primary));
+    color: rgb(var(--m3-scheme-on-primary));
+  }
+  .color-secondary {
+    background-color: rgb(var(--m3-scheme-secondary));
+    color: rgb(var(--m3-scheme-on-secondary));
+  }
+  .color-tertiary {
+    background-color: rgb(var(--m3-scheme-tertiary));
+    color: rgb(var(--m3-scheme-on-tertiary));
+  }
+  .color-primary-container {
     background-color: rgb(var(--m3-scheme-primary-container));
     color: rgb(var(--m3-scheme-on-primary-container));
   }
-  .color-surface {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-primary));
-  }
-  .color-surface.elevation-normal {
-    background-color: rgb(var(--m3-scheme-surface-container-high));
-  }
-  .color-secondary {
+  .color-secondary-container {
     background-color: rgb(var(--m3-scheme-secondary-container));
     color: rgb(var(--m3-scheme-on-secondary-container));
   }
-  .color-tertiary {
+  .color-tertiary-container {
     background-color: rgb(var(--m3-scheme-tertiary-container));
     color: rgb(var(--m3-scheme-on-tertiary-container));
   }

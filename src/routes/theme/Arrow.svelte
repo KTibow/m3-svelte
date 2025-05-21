@@ -4,17 +4,13 @@
 </script>
 
 <div>
-  <Icon icon={iconArrow} />
+  <Icon width="3rem" height="3rem" icon={iconArrow} />
 </div>
 
 <style>
   div {
     display: flex;
     justify-content: center;
-    margin: 1rem 0;
-  }
-  div > :global(svg) {
-    width: 3rem;
-    height: 3rem;
+    margin-block: 1rem;
   }
 </style>

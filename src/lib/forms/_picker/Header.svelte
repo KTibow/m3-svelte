@@ -4,8 +4,19 @@
   import iconRight from "@ktibow/iconset-material-symbols/chevron-right";
   import iconDown from "@ktibow/iconset-material-symbols/arrow-drop-down";
 
-  export let currentView: "calendar" | "year" | "month", focusedMonth: number, focusedYear: number;
-  export let startYear: number, endYear: number;
+  let {
+    currentView = $bindable(),
+    focusedMonth = $bindable(),
+    focusedYear = $bindable(),
+    startYear,
+    endYear,
+  }: {
+    currentView: "calendar" | "year" | "month";
+    focusedMonth: number;
+    focusedYear: number;
+    startYear: number;
+    endYear: number;
+  } = $props();
 
   const yearClick = () => (currentView = currentView == "calendar" ? "year" : "calendar");
   const monthClick = () => (currentView = currentView == "calendar" ? "month" : "calendar");
@@ -18,20 +29,20 @@
     <button
       type="button"
       class="arrow"
-      on:click={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}
+      onclick={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}
     >
       <Icon icon={iconLeft} />
     </button>
     <button
       type="button"
       class="chooser m3-font-label-large"
-      on:click={monthClick}
+      onclick={monthClick}
       disabled={currentView == "year"}
     >
       {getShortMonth(focusedMonth)}
       <Icon icon={iconDown} />
     </button>
-    <button type="button" class="arrow" on:click={() => (focusedMonth = (focusedMonth + 1) % 12)}>
+    <button type="button" class="arrow" onclick={() => (focusedMonth = (focusedMonth + 1) % 12)}>
       <Icon icon={iconRight} />
     </button>
   </div>
@@ -40,14 +51,14 @@
       type="button"
       class="arrow"
       disabled={focusedYear <= startYear}
-      on:click={() => focusedYear--}
+      onclick={() => focusedYear--}
     >
       <Icon icon={iconLeft} />
     </button>
     <button
       type="button"
       class="chooser m3-font-label-large"
-      on:click={yearClick}
+      onclick={yearClick}
       disabled={currentView == "month"}
     >
       {focusedYear}
@@ -57,7 +68,7 @@
       type="button"
       class="arrow"
       disabled={focusedYear >= endYear}
-      on:click={() => focusedYear++}
+      onclick={() => focusedYear++}
     >
       <Icon icon={iconRight} />
     </button>
@@ -69,7 +80,7 @@
     display: flex;
     height: 4rem;
     transition: all 200ms;
-    border-bottom: solid 0.0625rem transparent;
+    border-bottom: solid 1px transparent;
     flex-shrink: 0;
   }
   .m3-container > div {

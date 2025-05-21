@@ -1,45 +1,58 @@
 <script lang="ts">
-  import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
-  import { createEventDispatcher } from "svelte";
   import type { HTMLDialogAttributes } from "svelte/elements";
+  import type { Snippet } from "svelte";
+  import Icon from "$lib/misc/_icon.svelte";
 
-  export let display = "flex";
-  export let extraOptions: HTMLDialogAttributes = {};
-  export let icon: IconifyIcon | undefined = undefined;
-  export let headline: string;
-  export let open: boolean;
-  export let closeOnEsc = true;
-  export let closeOnClick = true;
+  let {
+    icon,
+    headline,
+    buttons,
+    children,
+    open = $bindable(),
+    closeOnEsc = true,
+    closeOnClick = true,
+    onEsc,
+    onClick,
+    ...extra
+  }: {
+    icon?: IconifyIcon | undefined;
+    headline: string;
+    buttons: Snippet;
+    children: Snippet;
+    open: boolean;
+    closeOnEsc?: boolean;
+    closeOnClick?: boolean;
+    onEsc?: () => void;
+    onClick?: () => void;
+  } & HTMLDialogAttributes = $props();
 
-  const dispatch = createEventDispatcher();
-  let dialog: HTMLDialogElement;
-  $: {
-    if (!dialog) break $;
+  let dialog: HTMLDialogElement | undefined = $state();
+  $effect(() => {
+    if (!dialog) return;
     if (open) dialog.showModal();
     else dialog.close();
-  }
+  });
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <dialog
-  on:cancel={(e) => {
+  oncancel={(e) => {
     if (closeOnEsc) {
-      dispatch("closedByEsc");
+      onEsc?.();
       open = false;
     } else {
       e.preventDefault();
     }
   }}
-  on:click|self={() => {
+  onclick={(e) => {
+    if (e.target != e.currentTarget) return;
     if (closeOnClick) {
-      dispatch("closedByClick");
+      onClick?.();
       open = false;
     }
   }}
   bind:this={dialog}
-  style="display: {display};"
-  {...extraOptions}
+  {...extra}
 >
   <div class="m3-container">
     {#if icon}
@@ -47,10 +60,10 @@
     {/if}
     <p class="headline m3-font-headline-small" class:center={icon}>{headline}</p>
     <div class="content m3-font-body-medium">
-      <slot />
+      {@render children()}
     </div>
     <div class="buttons">
-      <slot name="buttons" />
+      {@render buttons()}
     </div>
   </div>
 </dialog>
@@ -60,6 +73,7 @@
     --m3-dialog-shape: var(--m3-util-rounding-extra-large);
   }
   dialog {
+    display: flex;
     background-color: rgb(var(--m3-scheme-surface-container-high));
     border: none;
     border-radius: var(--m3-dialog-shape);
@@ -109,32 +123,32 @@
     visibility: hidden;
     pointer-events: none;
     transition:
-      opacity 200ms,
-      visibility 200ms;
+      opacity var(--m3-util-easing-fast),
+      visibility var(--m3-util-easing-fast);
   }
   dialog[open] {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
     animation:
-      dialogIn 500ms var(--m3-easing-decel),
-      opacity 100ms var(--m3-easing-decel);
+      dialogIn var(--m3-util-curve-decel) 500ms,
+      opacity var(--m3-util-curve-decel) 100ms both;
   }
   dialog[open] .headline {
-    animation: opacity 150ms;
+    animation: opacity var(--m3-util-easing-fast);
   }
   dialog[open] .content {
-    animation: opacity 200ms;
+    animation: opacity var(--m3-util-easing-fast) 50ms both;
   }
   dialog[open] .buttons {
     position: relative;
     animation:
-      buttonsIn 500ms var(--m3-easing-decel),
-      opacity 200ms 100ms backwards;
+      buttonsIn var(--m3-util-curve-decel) 500ms,
+      opacity var(--m3-util-easing-fast) 100ms both;
   }
   dialog::backdrop {
     background-color: rgb(var(--m3-scheme-scrim) / 0.3);
-    animation: opacity 400ms;
+    animation: opacity var(--m3-util-curve-decel) 500ms;
   }
   @keyframes dialogIn {
     0% {

@@ -1,27 +1,33 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
+  import type { HTMLInputAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  export let display = "grid";
-  export let extraWrapperOptions: HTMLAttributes<HTMLDivElement> = {};
-  export let extraOptions: HTMLInputAttributes = {};
-  export let secondary = false;
-  export let tab: string;
-  export let items: {
-    icon?: IconifyIcon;
-    name: string;
-    value: string;
-  }[];
+
+  let {
+    secondary = false,
+    tab = $bindable(),
+    items,
+    ...extra
+  }: {
+    secondary?: boolean;
+    tab: string;
+    items: {
+      icon?: IconifyIcon;
+      name: string;
+      value: string;
+    }[];
+  } & HTMLInputAttributes = $props();
 
   const name = crypto.randomUUID();
+  let wrapper: HTMLDivElement | undefined = $state();
   const handleInput = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
     const before = tab;
     const after = e.currentTarget.value;
-    const beforeE = wrapper.querySelector(`input[value="${before}"] + label`) as HTMLInputElement;
-    const afterE = wrapper.querySelector(`input[value="${after}"] + label`) as HTMLInputElement;
+    const beforeE = wrapper!.querySelector(`input[value="${before}"] + label`) as HTMLInputElement;
+    const afterE = wrapper!.querySelector(`input[value="${after}"] + label`) as HTMLInputElement;
 
-    const bar = wrapper.querySelector(".bar") as HTMLDivElement;
+    const bar = wrapper!.querySelector(".bar") as HTMLDivElement;
     const beforeX = beforeE.offsetLeft + 0.5 * beforeE.offsetWidth;
     const afterX = afterE.offsetLeft + 0.5 * afterE.offsetWidth;
     const deltaX = afterX - beforeX;
@@ -59,15 +65,13 @@
       );
     }
   };
-  let wrapper: HTMLDivElement;
 </script>
 
 <div
   class="m3-container"
   class:primary={!secondary}
-  style="display: {display}; --items: {items.length};"
+  style:--items={items.length}
   bind:this={wrapper}
-  {...extraWrapperOptions}
 >
   <div class="divider"></div>
   {#each items as item}
@@ -78,8 +82,8 @@
       {id}
       value={item.value}
       bind:group={tab}
-      on:input={handleInput}
-      {...extraOptions}
+      oninput={handleInput}
+      {...extra}
     />
     <label for={id} class:tall={item.icon}>
       <Layer />
@@ -94,6 +98,7 @@
 
 <style>
   .m3-container {
+    display: grid;
     position: relative;
     background-color: rgb(var(--m3-scheme-surface));
     grid-template-columns: repeat(var(--items), auto);
@@ -109,7 +114,7 @@
   .divider {
     position: absolute;
     inset: auto 0 0 0;
-    height: 0.0625rem;
+    height: 1px;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
   }
   label {

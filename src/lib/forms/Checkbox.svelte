@@ -1,14 +1,19 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
 
-  export let display = "inline-flex";
-  export let extraOptions: HTMLAttributes<HTMLDivElement> = {};
   // MUST BE WRAPPED IN A <label>
+  let {
+    children,
+    ...extra
+  }: {
+    children: Snippet;
+  } & HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
-<div class="m3-container" style="display: {display};" {...extraOptions}>
-  <slot />
+<div class="m3-container" {...extra}>
+  {@render children()}
   <div class="layer-container">
     <Layer />
     <div class="checkbox-box"></div>
@@ -25,6 +30,7 @@
 
 <style>
   .m3-container {
+    display: inline-flex;
     position: relative;
     width: 1.125rem;
     height: 1.125rem;
@@ -60,6 +66,11 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 200ms;
+    path {
+      stroke-dasharray: 20.874 20.874;
+      stroke-dashoffset: 20.874;
+      transition: stroke-dashoffset 0ms 200ms;
+    }
   }
 
   :global(input:focus-visible) + .layer-container {
@@ -75,6 +86,10 @@
 
   :global(input:checked) ~ svg {
     opacity: 1;
+    path {
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 200ms;
+    }
   }
 
   :global(input:disabled) + .layer-container {
