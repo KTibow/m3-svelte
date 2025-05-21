@@ -436,7 +436,7 @@ body {
   background: rgb(var(--m3-scheme-background));
   color: rgb(var(--m3-scheme-on-background));
 }
-@media (width < 37.5rem) {
+@media (width < 52.5rem) {
   body {
     flex-direction: column-reverse;
     --m3-util-bottom-offset: 5rem;
@@ -450,7 +450,7 @@ img {
 
 \`\`\`svelte +layout.svelte
 <script lang="ts">
-  import { NavList, NavListButton, FAB } from 'm3-svelte';
+  import { NavCMLX, NavCMLXItem, FAB } from 'm3-svelte';
   import iconSearch from '@ktibow/iconset-material-symbols/search';
   import iconHome from '@ktibow/iconset-material-symbols/home';
   import iconApps from '@ktibow/iconset-material-symbols/apps';
@@ -474,18 +474,16 @@ img {
 </script>
 
 <div class="nav">
-  <NavList type="auto">
+  <NavCMLX variant="auto">
     <div class="search">
       <FAB icon={iconSearch} />
     </div>
     {#each navItems as item}
       <!-- not implemented: the ability to click on a destination -->
-      <!-- (in that case NavListLink would be better) -->
-      <NavListButton type="auto" icon={item.icon} selected={item.id == 'components'}>
-        {item.label}
-      </NavListButton>
+      <!-- (you would set an \`href\` and use better \`selected\` logic then) -->
+      <NavCMLXItem variant="auto" icon={item.icon} text={item.label} selected={item.id == 'components'} />
     {/each}
-  </NavList>
+  </NavCMLX>
 </div>
 <div class="main">
   <slot />
@@ -656,34 +654,16 @@ ${fullDemoSvelte}
 
 ## Addendum: more components
 
-### Nav list
+### Nav CMLX
 
-This component is a navigation rail and bar at the same time.
-
-Minimal demo:
-\`\`\`svelte
-<NavList type="auto">
-  <NavListButton type="auto" icon={iconCircle} selected={item == "a"} on:click={() => item = "a"}>
-    A
-  </NavListButton>
-  <NavListButton type="auto" icon={iconSquare} selected={item == "b"} on:click={() => item = "b"}>
-    B
-  </NavListButton>
-</NavList>
-\`\`\`
-
-### Nav drawer
+This component works across all 4 breakpoints: compact, small, large, and expanded. Compact is equivalent to the old navigation bar (items vertical but arranged horizontally), Small is new (items horizontal and arranged horizontally), Large is equivalent to the old navigation rail (items vertical and arranged vertically), and Expanded is equivalent to the old navigation drawer (items horizontal but arranged vertically). It can take a \`click\` if it's a button or an \`href\` if it's a link.
 
 Minimal demo:
 \`\`\`svelte
-<NavDrawer>
-  <NavDrawerButton icon={iconCircle} selected={item == "a"} on:click={() => item = "a"}>
-    A
-  </NavDrawerButton>
-  <NavDrawerButton icon={iconSquare} selected={item == "b"} on:click={() => item = "b"}>
-    B
-  </NavDrawerButton>
-</NavDrawer>
+<NavCMLX variant="auto">
+  <NavCMLXItem variant="auto" icon={iconCircle} text="A" selected={item == "a"} click={() => item = "a"} />
+  <NavCMLXItem variant="auto" icon={iconSquare} text="B" selected={item == "b"} click={() => item = "b"} />
+</NavCMLX>
 \`\`\`
 `;
 
