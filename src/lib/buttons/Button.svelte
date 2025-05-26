@@ -9,7 +9,7 @@
 
   // If you want a toggle button, use `for` with an `<input>`.
   type ActionProps =
-    | ({ click: () => void; disabled?: boolean } & HTMLButtonAttributes)
+    | ({ click?: () => void; disabled?: boolean } & HTMLButtonAttributes)
     | ({ href: string } & HTMLAnchorAttributes)
     | ({ for: string } & HTMLLabelAttributes);
   type Props = {
@@ -22,26 +22,24 @@
   let props: Props = $props();
 </script>
 
-{#if "click" in props}
+{#if "for" in props}
   {@const {
     variant = "filled",
-    click,
-    disabled,
+    for: forItem,
     square = false,
     iconType = "none",
     children,
     ...extra
   } = props}
-  <button
-    onclick={click}
-    {disabled}
+  <label
+    for={forItem}
     class="m3-container m3-font-label-large {variant} icon-{iconType}"
     class:square
     {...extra}
   >
     <Layer />
     {@render children()}
-  </button>
+  </label>
 {:else if "href" in props}
   {@const {
     variant = "filled",
@@ -63,21 +61,23 @@
 {:else}
   {@const {
     variant = "filled",
-    for: forItem,
+    click,
+    disabled,
     square = false,
     iconType = "none",
     children,
     ...extra
   } = props}
-  <label
-    for={forItem}
+  <button
+    onclick={click}
+    {disabled}
     class="m3-container m3-font-label-large {variant} icon-{iconType}"
     class:square
     {...extra}
   >
     <Layer />
     {@render children()}
-  </label>
+  </button>
 {/if}
 
 <style>
