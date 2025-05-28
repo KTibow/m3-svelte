@@ -170,7 +170,7 @@
     &:is(:global(input:checked) + label):not(.square) {
       border-radius: var(--m3-util-rounding-medium);
     }
-    &:global(.activated) {
+    &:active {
       border-radius: var(--m3-util-rounding-small) !important;
     }
   }
