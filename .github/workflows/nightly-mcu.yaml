@@ -28,13 +28,13 @@ jobs:
       - name: Fix TypeScript config for nightly
         working-directory: upstream/typescript
         run: |
-          # Modify tsconfig to allow unused imports
           node -p "
             const config = require('./tsconfig.json');
             config.compilerOptions.noUnusedLocals = false;
             config.compilerOptions.noUnusedParameters = false;
             JSON.stringify(config, null, 2);
-          " > tsconfig.json
+          " > tsconfig.tmp.json
+          mv tsconfig.tmp.json tsconfig.json
 
       - name: Build package
         working-directory: upstream/typescript
