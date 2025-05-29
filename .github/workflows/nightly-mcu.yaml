@@ -44,24 +44,21 @@ jobs:
       - name: Fix import extensions for Node.js compatibility
         working-directory: upstream/typescript
         run: |
-          echo "=== All JS files in directory ==="
-          find . -name "*.js" -type f | sort
+          echo "=== Before fix: actual problematic imports ==="
+          grep -r "from.*dynamic_scheme[^.]" . --include="*.js" || echo "None found"
 
-          echo "=== Looking for the specific problematic file ==="
-          find . -name "*scheme*.js" -o -name "*dynamic*.js" | sort
+          echo "=== Create a simple test file to verify regex works ==="
+          echo "import { DynamicScheme } from '../dynamiccolor/dynamic_scheme';" > test.js
+          sed -i "s|from '\(\.\.*/[^']*\)';|from '\1.js';|g" test.js
+          cat test.js
+          rm test.js
 
-          echo "=== All imports without .js extensions ==="
-          find . -name "*.js" -not -path "./node_modules/*" -exec grep -H "from '[^']*[^s]'" {} + | grep -v "\.js'" || echo "No extensionless imports found"
+          echo "=== Apply same fix to all files ==="
+          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s|from '\(\.\.*/[^']*\)';|from '\1.js';|g" {} +
+          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s|\.js\.js';|.js';|g" {} +
 
-          echo "=== Applying fix with verbose output ==="
-          find . -name "*.js" -not -path "./node_modules/*" -exec sh -c '
-            echo "Processing: $1"
-            sed -i -E \
-              -e "s|from '\''(\.\.?/[^'\'']*)'\''\s*;|from '\''\1.js'\'';|g" \
-              -e "s|\.js\.js'\'';|.js'\'';|g" \
-              "$1"
-            grep "from " "$1" | head -3 || true
-          ' _ {} \;
+          echo "=== After fix: check if problems remain ==="
+          grep -r "from.*dynamic_scheme[^.]" . --include="*.js" || echo "None found"
 
       - name: Update package.json for nightly
         working-directory: upstream/typescript
