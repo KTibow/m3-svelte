@@ -1,0 +1,54 @@
+name: Nightly MCU release
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  nightly-mcu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout upstream
+        uses: actions/checkout@v4
+        with:
+          repository: material-foundation/material-color-utilities
+          path: upstream
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        working-directory: upstream/typescript
+        run: npm install
+
+      - name: Build package
+        working-directory: upstream/typescript
+        run: npm run build
+
+      - name: Update package.json for nightly
+        working-directory: upstream/typescript
+        run: |
+          NIGHTLY_VERSION=$(node -p "
+            const pkg = require('./package.json');
+            const date = new Date().toISOString().slice(0,10).replace(/-/g, '');
+            \`\${pkg.version}-nightly.\${date}\`;
+          ")
+
+          node -p "
+            const pkg = require('./package.json');
+            pkg.name = '@ktibow/material-color-utilities-nightly';
+            pkg.version = process.env.NIGHTLY_VERSION;
+            JSON.stringify(pkg, null, 2);
+          " > package.json
+        env:
+          NIGHTLY_VERSION: ${{ env.NIGHTLY_VERSION }}
+
+      - name: Publish to npm
+        working-directory: upstream/typescript
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
