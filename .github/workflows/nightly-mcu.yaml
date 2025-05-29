@@ -50,7 +50,7 @@ jobs:
         run: |
           NIGHTLY_VERSION=$(node -p "
             const pkg = require('./package.json');
-            const date = new Date().toISOString().slice(0,10).replace(/-/g, '');
+            const date = Date.now();
             \`\${pkg.version}\${date}\`;
           ")
 
