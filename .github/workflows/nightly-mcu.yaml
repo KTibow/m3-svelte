@@ -40,6 +40,11 @@ jobs:
         working-directory: upstream/typescript
         run: npm run build
 
+      - name: Fix import extensions for Node.js compatibility
+        working-directory: upstream/typescript
+        run: |
+          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i -E "s|from '(\.\.?/[^']*[^.])'\s*;|from '\1.js';|g" {} +
+
       - name: Update package.json for nightly
         working-directory: upstream/typescript
         run: |
