@@ -37,28 +37,13 @@ jobs:
           " > tsconfig.tmp.json
           mv tsconfig.tmp.json tsconfig.json
 
-      - name: Build package
-        working-directory: upstream/typescript
-        run: npm run build
-
       - name: Fix import extensions for Node.js compatibility
         working-directory: upstream/typescript
         run: |
-          echo "=== Before fix: actual problematic imports ==="
-          grep -r "from.*dynamic_scheme[^.]" . --include="*.js" || echo "None found"
-
-          echo "=== Create a simple test file to verify regex works ==="
-          echo "import { DynamicScheme } from '../dynamiccolor/dynamic_scheme';" > test.js
-          sed -i "s|from '\(\.\.*/[^']*\)';|from '\1.js';|g" test.js
-          cat test.js
-          rm test.js
-
-          echo "=== Apply same fix to all files ==="
+          # Add .js extensions to relative imports that don't already have them
           find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s|from '\(\.\.*/[^']*\)';|from '\1.js';|g" {} +
+          # Clean up any double .js.js that resulted
           find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s|\.js\.js';|.js';|g" {} +
-
-          echo "=== After fix: check if problems remain ==="
-          grep -r "from.*dynamic_scheme[^.]" . --include="*.js" || echo "None found"
 
       - name: Update package.json for nightly
         working-directory: upstream/typescript
@@ -73,6 +58,7 @@ jobs:
             const pkg = require('./package.json');
             pkg.name = '@ktibow/material-color-utilities-nightly';
             pkg.version = process.env.NIGHTLY_VERSION;
+            delete pkg.scripts.prepublishOnly;
             JSON.stringify(pkg, null, 2);
           " > package.tmp.json
           mv package.tmp.json package.json
