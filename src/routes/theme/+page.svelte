@@ -1,24 +1,37 @@
 <script lang="ts">
-  import { Hct } from "@material/material-color-utilities";
+  import {
+    DynamicScheme,
+    MaterialDynamicColors,
+    Hct,
+    Variant,
+    hexFromArgb,
+  } from "@ktibow/material-color-utilities-nightly";
+  import type { Color } from "$lib/misc/utils";
 
   import ColorChooser from "./ColorChooser.svelte";
   import Arrow from "./Arrow.svelte";
   import TransformChooser from "./TransformChooser.svelte";
-  import { schemes } from "./data";
   import SchemeShowcase from "./SchemeShowcase.svelte";
 
-  let sourceColor = $state(0);
-  let algorithm: keyof typeof schemes = $state("tonal_spot");
+  let sourceColor = $state(13679871);
+  let variant: Variant = $state(Variant.TONAL_SPOT);
   let contrast = $state(0);
 
-  let { schemeLight, schemeDark } = $derived.by(() => {
-    if (!sourceColor) return { schemeLight: undefined, schemeDark: undefined };
-
-    const scheme = schemes[algorithm];
+  const getScheme = (sourceColor: number, variant: Variant) => {
+    const commonArgs = {
+      sourceColorHct: Hct.fromInt(sourceColor),
+      variant,
+      contrastLevel: contrast,
+      specVersion: "2025",
+    } as const;
     return {
-      schemeLight: new scheme(Hct.fromInt(sourceColor), false, contrast),
-      schemeDark: new scheme(Hct.fromInt(sourceColor), true, contrast),
+      schemeLight: new DynamicScheme({ ...commonArgs, isDark: false }),
+      schemeDark: new DynamicScheme({ ...commonArgs, isDark: true }),
     };
+  };
+
+  let { schemeLight, schemeDark } = $derived.by(() => {
+    return getScheme(sourceColor, variant);
   });
 </script>
 
@@ -31,7 +44,18 @@
 </svelte:head>
 <ColorChooser bind:sourceColor />
 <Arrow />
-<TransformChooser bind:algorithm bind:contrast />
+<TransformChooser
+  bind:variant
+  bind:contrast
+  variantColor={(variant: Variant, color: Color) => {
+    const { schemeLight, schemeDark } = getScheme(sourceColor, variant);
+
+    return {
+      light: hexFromArgb(MaterialDynamicColors[color].getArgb(schemeLight)),
+      dark: hexFromArgb(MaterialDynamicColors[color].getArgb(schemeDark)),
+    };
+  }}
+/>
 {#if schemeLight && schemeDark}
   <Arrow />
   <SchemeShowcase {schemeLight} {schemeDark} />

@@ -3,7 +3,7 @@
     argbFromHex,
     hexFromArgb,
     sourceColorFromImage,
-  } from "@material/material-color-utilities";
+  } from "@ktibow/material-color-utilities-nightly";
   import Icon from "$lib/misc/_icon.svelte";
   import iconColorLens from "@ktibow/iconset-material-symbols/palette-outline";
   import iconImage from "@ktibow/iconset-material-symbols/wallpaper";
@@ -21,7 +21,7 @@
   } = $props();
 </script>
 
-<div style:background-color={browser ? hexFromArgb(sourceColor) : "#000"} class="color-disc">
+<div style:background-color={hexFromArgb(sourceColor)} class="color-disc">
   <div class="color-text">Color</div>
   <div>
     <Button variant="text" iconType="full" click={() => sourceColorInput!.click()}>
@@ -36,7 +36,7 @@
   type="color"
   value="#000"
   bind:this={sourceColorInput}
-  onchange={(e) => (sourceColor = argbFromHex(e.currentTarget.value))}
+  oninput={(e) => (sourceColor = argbFromHex(e.currentTarget.value))}
 />
 <input
   type="file"

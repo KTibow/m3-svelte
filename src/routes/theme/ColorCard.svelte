@@ -5,7 +5,7 @@
     type DynamicScheme,
     MaterialDynamicColors,
     hexFromArgb,
-  } from "@material/material-color-utilities";
+  } from "@ktibow/material-color-utilities-nightly";
   import Icon from "$lib/misc/_icon.svelte";
 
   let {
@@ -109,6 +109,10 @@
 
 <style>
   .card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
     padding: 1rem;
     white-space: pre-wrap;
     position: relative;

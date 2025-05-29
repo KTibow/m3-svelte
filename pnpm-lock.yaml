@@ -14,9 +14,9 @@ importers:
       '@ktibow/iconset-material-symbols':
         specifier: ^0.0.1747426012
         version: 0.0.1747426012
-      '@material/material-color-utilities':
-        specifier: ^0.3.0
-        version: 0.3.0
+      '@ktibow/material-color-utilities-nightly':
+        specifier: ^0.3.11748493074137
+        version: 0.3.11748493074137
       svelte:
         specifier: ^5.33.2
         version: 5.33.2
@@ -326,8 +326,8 @@ packages:
   '@ktibow/iconset-material-symbols@0.0.1747426012':
     resolution: {integrity: sha512-lLiDCN8lSwzZvva+kF5J+q8MkVGpXfPlEc7IB/VSCTWv8rGt1XShE64gqwCgS4v0kk4tG7k6U90+EZwENZZ4vQ==}
 
-  '@material/material-color-utilities@0.3.0':
-    resolution: {integrity: sha512-ztmtTd6xwnuh2/xu+Vb01btgV8SQWYCaK56CkRK8gEkWe5TuDyBcYJ0wgkMRn+2VcE9KUmhvkz+N9GHrqw/C0g==}
+  '@ktibow/material-color-utilities-nightly@0.3.11748493074137':
+    resolution: {integrity: sha512-CvmrqD5HVAkwYQ3vbVxfRT+HpODPrBX2DAN6ZzJSbZf5gJjPLbLZtLGdSnz+wwgjZRdZbaqu6Es2KyZx5/x9gA==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1376,7 +1376,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@material/material-color-utilities@0.3.0': {}
+  '@ktibow/material-color-utilities-nightly@0.3.11748493074137': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:

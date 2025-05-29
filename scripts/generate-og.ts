@@ -1,4 +1,4 @@
-import { SchemeTonalSpot, Hct } from "@material/material-color-utilities";
+import { SchemeTonalSpot, Hct } from "@ktibow/material-color-utilities-nightly";
 
 const sourceColors: number[] = [];
 for (let h = 0; h < 360; h += 30) {
@@ -28,9 +28,9 @@ sourceColors.forEach((sourceColor, x) => {
   schemeColors.forEach((color, y) => {
     const colorValue = scheme[color];
     svg += `
-    <circle 
-      cx="${(x + 1) * xSpacing}" 
-      cy="${(y + 1) * ySpacing}" 
+    <circle
+      cx="${(x + 1) * xSpacing}"
+      cy="${(y + 1) * ySpacing}"
       r="${dotSize / 2}"
       fill="#${(colorValue >>> 0).toString(16).padStart(8, "0").slice(2)}"
     />`;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DynamicScheme } from "@material/material-color-utilities";
+  import type { DynamicScheme } from "@ktibow/material-color-utilities-nightly";
   import Icon from "$lib/misc/_icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
   import iconLight from "@ktibow/iconset-material-symbols/light-mode-outline";
@@ -12,7 +12,6 @@
   import ColorCard from "./ColorCard.svelte";
   import { styling } from "../themeStore";
   import { genCSS, pairs } from "$lib/misc/utils";
-  import { serializeScheme } from "$lib/misc/serializeScheme";
 
   let {
     schemeLight,
@@ -25,7 +24,7 @@
   let grabbing = $state(false);
 
   $effect(() => {
-    $styling = genCSS(serializeScheme(schemeLight), serializeScheme(schemeDark));
+    $styling = genCSS(schemeLight, schemeDark);
   });
 
   const copyUsage = () =>

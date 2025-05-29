@@ -1,68 +1,93 @@
 <script lang="ts">
+  import type { Color } from "$lib/misc/utils";
   import Slider from "$lib/forms/Slider.svelte";
-  import type { schemes } from "./data";
+  import { Variant } from "@ktibow/material-color-utilities-nightly";
 
   const algorithms = [
     {
-      id: "tonal_spot",
-      name: "Tonal Spot (default)",
-      desc: "Uses source hue",
+      id: Variant.TONAL_SPOT, // 2
+      name: "Tonal Spot",
+      desc: "Classic",
     },
     {
-      id: "content",
+      id: Variant.CONTENT, // 6
       name: "Content",
-      desc: "Uses source hue and chroma",
+      desc: "Exact source color",
     },
     {
-      id: "fidelity",
+      id: Variant.FIDELITY, // 5
       name: "Fidelity",
-      desc: "Uses source hue and chroma",
+      desc: "Exact source color",
     },
     {
-      id: "vibrant",
+      id: Variant.VIBRANT, // 3
       name: "Vibrant",
-      desc: "Uses source hue, high chroma",
+      desc: "Vivid colors all around",
     },
     {
-      id: "expressive",
+      id: Variant.EXPRESSIVE, // 4
       name: "Expressive",
-      desc: "Detached from the source",
+      desc: "Harmoniously rotated",
     },
     {
-      id: "neutral",
+      id: Variant.RAINBOW, // 7
+      name: "Rainbow",
+      desc: "Vivid primary, drab rest",
+    },
+    {
+      id: Variant.FRUIT_SALAD, // 8
+      name: "Fruit salad",
+      desc: "Spin the chroma around",
+    },
+    {
+      id: Variant.NEUTRAL, // 1
       name: "Neutral",
       desc: "Almost grayscale",
     },
     {
-      id: "monochrome",
+      id: Variant.MONOCHROME, // 0
       name: "Monochrome",
       desc: "Grayscale",
     },
   ];
 
   let {
-    algorithm = $bindable(),
+    variant = $bindable(),
     contrast = $bindable(),
+    variantColor,
   }: {
-    algorithm: keyof typeof schemes;
+    variant: Variant;
     contrast: number;
+    variantColor: (
+      variant: Variant,
+      color: Color,
+    ) => {
+      light: string;
+      dark: string;
+    };
   } = $props();
 </script>
 
 <div class="content">
   <h2 class="m3-font-title-large">Algorithm</h2>
   <div class="algorithms">
-    {#each algorithms as a}
-      <input
-        type="radio"
-        bind:group={algorithm}
-        name="algorithms"
-        value={a.id}
-        id="algorithms-{a.id}"
-      />
-      <label for="algorithms-{a.id}">
-        <p>{a.name}</p>
-        <p class="m3-font-body-medium">{a.desc}</p>
+    {#each algorithms as { id, name, desc }}
+      <input type="radio" bind:group={variant} name="algorithms" value={id} id="algorithms-{id}" />
+      <label for="algorithms-{id}">
+        <div
+          style:--light-background={variantColor(id, "primaryContainer").light}
+          style:--dark-background={variantColor(id, "primaryContainer").dark}
+          style:--light-foreground={variantColor(id, "onPrimaryContainer").light}
+          style:--dark-foreground={variantColor(id, "onPrimaryContainer").dark}
+        >
+          <p>{name}</p>
+        </div>
+        <div
+          style:--light-background={variantColor(id, "surfaceContainerLow").light}
+          style:--dark-background={variantColor(id, "surfaceContainerLow").dark}
+        >
+          <p class="m3-font-body-medium">{desc}</p>
+        </div>
       </label>
     {/each}
   </div>
@@ -92,35 +117,64 @@
     opacity: 0;
     pointer-events: none;
   }
-  .algorithms label {
+  label {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 0.25rem;
     flex-grow: 1;
 
-    padding: 1rem 1.25rem;
-    border-radius: 2rem;
-    background-color: rgb(var(--m3-scheme-surface-container-high));
     cursor: pointer;
-    transition: all 200ms;
   }
   input:focus-visible + label {
     animation: var(--m3-util-refocus);
   }
+  label > * {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    flex-grow: 1;
+    transition: all 200ms;
+    &:first-child {
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      padding-top: 0.75rem;
+    }
+    &:last-child {
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+      padding-bottom: 0.75rem;
+    }
+    @media (prefers-color-scheme: light) {
+      background-color: var(--light-background);
+      color: var(--light-foreground);
+    }
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--dark-background);
+      color: var(--dark-foreground);
+    }
+  }
   input:checked + label {
-    border-radius: 1rem;
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    > :first-child {
+      border-top-left-radius: 1.5rem;
+      border-top-right-radius: 1.5rem;
+    }
+    > :last-child {
+      border-bottom-left-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
+      background-color: rgb(var(--m3-scheme-primary));
+      color: rgb(var(--m3-scheme-on-primary));
+    }
   }
   p {
     margin: 0;
   }
-  @media (min-width: 37.5rem) {
+  @media (min-width: 52.5rem) {
     .algorithms {
       flex-direction: row;
     }
   }
-  @media (min-width: 75rem) {
+  @media (min-width: 100rem) {
     .algorithms {
       flex-wrap: nowrap;
     }

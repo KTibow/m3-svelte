@@ -1,3 +1,8 @@
+import {
+  type DynamicScheme,
+  MaterialDynamicColors,
+} from "@ktibow/material-color-utilities-nightly";
+
 export type Color =
   | "primary"
   | "onPrimary"
@@ -96,7 +101,7 @@ export const colors: Color[] = [
 /**
  * @returns A string of CSS code with custom properties representing the color scheme values.
  * */
-export const genCSS = (light: SerializedScheme, dark: SerializedScheme) => {
+export const genCSS = (light: DynamicScheme, dark: DynamicScheme) => {
   const genColorVariable = (name: string, argb: number) => {
     const kebabCase = name.replace(/[A-Z]/g, (letter: string) => `-${letter.toLowerCase()}`);
     const red = (argb >> 16) & 255;
@@ -104,13 +109,13 @@ export const genCSS = (light: SerializedScheme, dark: SerializedScheme) => {
     const blue = argb & 255;
     return `--m3-scheme-${kebabCase}: ${red} ${green} ${blue};`;
   };
-  const lightColors = Object.entries(light)
-    .map(([name, argb]) => genColorVariable(name, argb))
+  const lightColors = colors
+    .map((name) => genColorVariable(name, MaterialDynamicColors[name].getArgb(light)))
     .join("\n");
-  const darkColors = Object.entries(dark)
-    .map(([name, argb]) => genColorVariable(name, argb))
+  const darkColors = colors
+    .map((name) => genColorVariable(name, MaterialDynamicColors[name].getArgb(dark)))
     .join("\n");
-  const colors = `@media (prefers-color-scheme: light) {
+  return `@media (prefers-color-scheme: light) {
   :root {
     color-scheme: light;
   }
@@ -126,7 +131,6 @@ ${lightColors}
 ${darkColors}
   }
 }`;
-  return colors;
 };
 
 export const parseSize = (size: string) =>
