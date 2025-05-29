@@ -43,7 +43,26 @@ jobs:
       - name: Fix import extensions for Node.js compatibility
         working-directory: upstream/typescript
         run: |
-          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i -E "s|from '(\.\.?/[^']*[^.])'\s*;|from '\1.js';|g" {} +
+          echo "=== Files before fixing ==="
+          find . -name "*.js" -not -path "./node_modules/*" | head -10
+
+          echo "=== Sample imports before fixing ==="
+          find . -name "*.js" -not -path "./node_modules/*" -exec grep -l "from '\\.\\." {} + | head -3 | xargs grep "from '\\.\\."
+
+          echo "=== Applying fix ==="
+          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i -E \
+            -e "s|from '(\.\.?/[^']*)'|from '\1.js'|g" \
+            -e "s|\.js\.js'|.js'|g" \
+            {} +
+
+          echo "=== Sample imports after fixing ==="
+          find . -name "*.js" -not -path "./node_modules/*" -exec grep -l "from '\\.\\." {} + | head -3 | xargs grep "from '\\.\\."
+
+          echo "=== Files that will be published ==="
+          ls -la
+
+          echo "=== Contents of package.json (to verify what gets published) ==="
+          cat package.json | jq '.files // "no files field - publishes everything except node_modules"'
 
       - name: Update package.json for nightly
         working-directory: upstream/typescript
