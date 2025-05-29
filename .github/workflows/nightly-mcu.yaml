@@ -46,7 +46,7 @@ jobs:
           NIGHTLY_VERSION=$(node -p "
             const pkg = require('./package.json');
             const date = new Date().toISOString().slice(0,10).replace(/-/g, '');
-            \`\${pkg.version}.\${date}\`;
+            \`\${pkg.version}\${date}\`;
           ")
 
           node -p "
