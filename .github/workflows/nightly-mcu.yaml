@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
+  push:
 
 jobs:
   nightly-mcu:
@@ -43,26 +44,24 @@ jobs:
       - name: Fix import extensions for Node.js compatibility
         working-directory: upstream/typescript
         run: |
-          echo "=== Files before fixing ==="
-          find . -name "*.js" -not -path "./node_modules/*" | head -10
+          echo "=== All JS files in directory ==="
+          find . -name "*.js" -type f | sort
 
-          echo "=== Sample imports before fixing ==="
-          find . -name "*.js" -not -path "./node_modules/*" -exec grep -l "from '\\.\\." {} + | head -3 | xargs grep "from '\\.\\."
+          echo "=== Looking for the specific problematic file ==="
+          find . -name "*scheme*.js" -o -name "*dynamic*.js" | sort
 
-          echo "=== Applying fix ==="
-          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i -E \
-            -e "s|from '(\.\.?/[^']*)'|from '\1.js'|g" \
-            -e "s|\.js\.js'|.js'|g" \
-            {} +
+          echo "=== All imports without .js extensions ==="
+          find . -name "*.js" -not -path "./node_modules/*" -exec grep -H "from '[^']*[^s]'" {} + | grep -v "\.js'" || echo "No extensionless imports found"
 
-          echo "=== Sample imports after fixing ==="
-          find . -name "*.js" -not -path "./node_modules/*" -exec grep -l "from '\\.\\." {} + | head -3 | xargs grep "from '\\.\\."
-
-          echo "=== Files that will be published ==="
-          ls -la
-
-          echo "=== Contents of package.json (to verify what gets published) ==="
-          cat package.json | jq '.files // "no files field - publishes everything except node_modules"'
+          echo "=== Applying fix with verbose output ==="
+          find . -name "*.js" -not -path "./node_modules/*" -exec sh -c '
+            echo "Processing: $1"
+            sed -i -E \
+              -e "s|from '\''(\.\.?/[^'\'']*)'\''\s*;|from '\''\1.js'\'';|g" \
+              -e "s|\.js\.js'\'';|.js'\'';|g" \
+              "$1"
+            grep "from " "$1" | head -3 || true
+          ' _ {} \;
 
       - name: Update package.json for nightly
         working-directory: upstream/typescript
