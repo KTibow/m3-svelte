@@ -54,7 +54,8 @@ jobs:
             pkg.name = '@ktibow/material-color-utilities-nightly';
             pkg.version = process.env.NIGHTLY_VERSION;
             JSON.stringify(pkg, null, 2);
-          " > package.json
+          " > package.tmp.json
+          mv package.tmp.json package.json
         env:
           NIGHTLY_VERSION: ${{ env.NIGHTLY_VERSION }}
 
