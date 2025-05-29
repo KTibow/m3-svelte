@@ -4,7 +4,6 @@ on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
-  push:
 
 jobs:
   nightly-mcu:
@@ -36,6 +35,10 @@ jobs:
             JSON.stringify(config, null, 2);
           " > tsconfig.tmp.json
           mv tsconfig.tmp.json tsconfig.json
+
+      - name: Build package
+        working-directory: upstream/typescript
+        run: npm run build
 
       - name: Fix import extensions for Node.js compatibility
         working-directory: upstream/typescript
