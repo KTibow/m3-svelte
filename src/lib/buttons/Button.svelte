@@ -146,7 +146,7 @@
     }
     &.outlined:not(:disabled, :global(input:disabled) + label) {
       outline-color: rgb(var(--m3-scheme-outline));
-      color: rgb(var(--m3-scheme-primary));
+      color: rgb(var(--m3-scheme-on-surface-variant));
       &:is(:global(input:checked) + label) {
         outline-color: rgb(var(--m3-scheme-inverse-surface));
         background-color: rgb(var(--m3-scheme-inverse-surface));
