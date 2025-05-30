@@ -14,17 +14,17 @@
   import { genCSS, pairs } from "$lib/misc/utils";
 
   let {
-    schemeLight,
-    schemeDark,
+    light,
+    dark,
   }: {
-    schemeLight: DynamicScheme;
-    schemeDark: DynamicScheme;
+    light: DynamicScheme;
+    dark: DynamicScheme;
   } = $props();
   let showDark = $state(false);
   let grabbing = $state(false);
 
   $effect(() => {
-    $styling = genCSS(schemeLight, schemeDark);
+    $styling = genCSS(light, dark);
   });
 
   const copyUsage = () =>
@@ -42,7 +42,7 @@ ${$styling}`);
   <div class="color-container">
     {#each pairs as [bgName, fgName]}
       <ColorCard
-        scheme={showDark ? schemeDark : schemeLight}
+        scheme={showDark ? dark : light}
         fg={fgName}
         bg={bgName}
         {grabbing}

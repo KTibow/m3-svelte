@@ -1,90 +1,47 @@
 <script lang="ts">
   import type { Color } from "$lib/misc/utils";
   import Slider from "$lib/forms/Slider.svelte";
-  import { Variant } from "@ktibow/material-color-utilities-nightly";
-
-  const algorithms = [
-    {
-      id: Variant.TONAL_SPOT, // 2
-      name: "Tonal Spot",
-      desc: "Classic",
-    },
-    {
-      id: Variant.CONTENT, // 6
-      name: "Content",
-      desc: "Exact source color",
-    },
-    {
-      id: Variant.FIDELITY, // 5
-      name: "Fidelity",
-      desc: "Exact source color",
-    },
-    {
-      id: Variant.VIBRANT, // 3
-      name: "Vibrant",
-      desc: "Vivid colors all around",
-    },
-    {
-      id: Variant.EXPRESSIVE, // 4
-      name: "Expressive",
-      desc: "Harmoniously rotated",
-    },
-    {
-      id: Variant.RAINBOW, // 7
-      name: "Rainbow",
-      desc: "Vivid primary, drab rest",
-    },
-    {
-      id: Variant.FRUIT_SALAD, // 8
-      name: "Fruit salad",
-      desc: "Spin the chroma around",
-    },
-    {
-      id: Variant.NEUTRAL, // 1
-      name: "Neutral",
-      desc: "Almost grayscale",
-    },
-    {
-      id: Variant.MONOCHROME, // 0
-      name: "Monochrome",
-      desc: "Grayscale",
-    },
-  ];
+  import variants from "./variants";
+  import {
+    hexFromArgb,
+    MaterialDynamicColors,
+    type DynamicScheme,
+    type Variant,
+  } from "@ktibow/material-color-utilities-nightly";
 
   let {
+    schemes,
     variant = $bindable(),
     contrast = $bindable(),
-    variantColor,
   }: {
+    schemes: Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
     variant: Variant;
     contrast: number;
-    variantColor: (
-      variant: Variant,
-      color: Color,
-    ) => {
-      light: string;
-      dark: string;
-    };
   } = $props();
+
+  const variantColor = (scheme: DynamicScheme, color: Color) => {
+    return hexFromArgb(MaterialDynamicColors[color].getArgb(scheme));
+  };
 </script>
 
 <div class="content">
   <h2 class="m3-font-title-large">Algorithm</h2>
   <div class="algorithms">
-    {#each algorithms as { id, name, desc }}
+    {#each variants as { id, name, desc }}
+      {@const { light, dark } = schemes[id]}
       <input type="radio" bind:group={variant} name="algorithms" value={id} id="algorithms-{id}" />
       <label for="algorithms-{id}">
         <div
-          style:--light-background={variantColor(id, "primaryContainer").light}
-          style:--dark-background={variantColor(id, "primaryContainer").dark}
-          style:--light-foreground={variantColor(id, "onPrimaryContainer").light}
-          style:--dark-foreground={variantColor(id, "onPrimaryContainer").dark}
+          style:--light-background={variantColor(light, "primaryContainer")}
+          style:--dark-background={variantColor(dark, "primaryContainer")}
+          style:--light-foreground={variantColor(light, "onPrimaryContainer")}
+          style:--dark-foreground={variantColor(dark, "onPrimaryContainer")}
         >
           <p>{name}</p>
         </div>
         <div
-          style:--light-background={variantColor(id, "surfaceContainerLow").light}
-          style:--dark-background={variantColor(id, "surfaceContainerLow").dark}
+          style:--light-background={variantColor(light, "surfaceContainerLow")}
+          style:--dark-background={variantColor(dark, "surfaceContainerLow")}
         >
           <p class="m3-font-body-medium">{desc}</p>
         </div>

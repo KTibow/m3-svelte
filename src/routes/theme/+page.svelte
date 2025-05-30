@@ -1,38 +1,28 @@
 <script lang="ts">
-  import {
-    DynamicScheme,
-    MaterialDynamicColors,
-    Hct,
-    Variant,
-    hexFromArgb,
-  } from "@ktibow/material-color-utilities-nightly";
-  import type { Color } from "$lib/misc/utils";
+  import { DynamicScheme, Hct, Variant } from "@ktibow/material-color-utilities-nightly";
 
   import ColorChooser from "./ColorChooser.svelte";
   import Arrow from "./Arrow.svelte";
   import TransformChooser from "./TransformChooser.svelte";
   import SchemeShowcase from "./SchemeShowcase.svelte";
+  import variants from "./variants";
 
   let sourceColor = $state(13679871);
   let variant: Variant = $state(Variant.TONAL_SPOT);
   let contrast = $state(0);
 
-  const getScheme = (sourceColor: number, variant: Variant) => {
+  let schemes = $derived.by(() => {
     const commonArgs = {
       sourceColorHct: Hct.fromInt(sourceColor),
-      variant,
       contrastLevel: contrast,
       specVersion: "2025",
     } as const;
-    return {
-      schemeLight: new DynamicScheme({ ...commonArgs, isDark: false }),
-      schemeDark: new DynamicScheme({ ...commonArgs, isDark: true }),
-    };
-  };
-
-  let { schemeLight, schemeDark } = $derived.by(() => {
-    return getScheme(sourceColor, variant);
+    return variants.map(({ id }) => ({
+      light: new DynamicScheme({ ...commonArgs, variant: id, isDark: false }),
+      dark: new DynamicScheme({ ...commonArgs, variant: id, isDark: true }),
+    }));
   });
+  let { light, dark } = $derived(schemes[variant]);
 </script>
 
 <svelte:head>
@@ -44,19 +34,6 @@
 </svelte:head>
 <ColorChooser bind:sourceColor />
 <Arrow />
-<TransformChooser
-  bind:variant
-  bind:contrast
-  variantColor={(variant: Variant, color: Color) => {
-    const { schemeLight, schemeDark } = getScheme(sourceColor, variant);
-
-    return {
-      light: hexFromArgb(MaterialDynamicColors[color].getArgb(schemeLight)),
-      dark: hexFromArgb(MaterialDynamicColors[color].getArgb(schemeDark)),
-    };
-  }}
-/>
-{#if schemeLight && schemeDark}
-  <Arrow />
-  <SchemeShowcase {schemeLight} {schemeDark} />
-{/if}
+<TransformChooser {schemes} bind:variant bind:contrast />
+<Arrow />
+<SchemeShowcase {light} {dark} />
