@@ -17,10 +17,14 @@
       contrastLevel: contrast,
       specVersion: "2025",
     } as const;
-    return variants.map(({ id }) => ({
-      light: new DynamicScheme({ ...commonArgs, variant: id, isDark: false }),
-      dark: new DynamicScheme({ ...commonArgs, variant: id, isDark: true }),
-    }));
+    const result = {} as Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
+    for (const { id } of variants) {
+      result[id] = {
+        light: new DynamicScheme({ ...commonArgs, variant: id, isDark: false }),
+        dark: new DynamicScheme({ ...commonArgs, variant: id, isDark: true }),
+      };
+    }
+    return result;
   });
   let { light, dark } = $derived(schemes[variant]);
 </script>
