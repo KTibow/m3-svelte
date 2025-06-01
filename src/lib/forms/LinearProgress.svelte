@@ -1,43 +1,26 @@
 <script lang="ts">
-  import type { HTMLAttributes } from "svelte/elements";
-
-  let {
-    percent,
-    ...extra
-  }: {
-    percent: number;
-  } & HTMLAttributes<HTMLDivElement> = $props();
+  let { percent, height = 4 }: { percent: number; height?: number } = $props();
 </script>
 
-<div class="m3-container" role="progressbar" {...extra}>
+<div class="m3-container" role="progressbar" style:height="{height / 16}rem">
   <div class="percent" style:width="{percent}%"></div>
+  <div class="track"></div>
 </div>
 
 <style>
-  :root {
-    --m3-linear-progress-shape: var(--m3-util-rounding-full);
-  }
   .m3-container {
-    display: inline-flex;
-    background-color: rgb(var(--m3-scheme-primary-container));
-    height: 0.25rem;
-    min-width: 8rem;
-    overflow: hidden;
-    border-radius: var(--m3-linear-progress-shape);
+    display: flex;
+    gap: 0.25rem;
   }
   .percent {
     background-color: rgb(var(--m3-scheme-primary));
+    border-radius: var(--m3-util-rounding-full);
+    flex-shrink: 0;
     transition: var(--m3-util-easing-fast);
-    border-radius: var(--m3-linear-progress-shape);
   }
-
-  .m3-container {
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-  }
-  @media screen and (forced-colors: active) {
-    .percent {
-      background-color: selecteditem;
-    }
+  .track {
+    background-color: rgb(var(--m3-scheme-secondary-container));
+    border-radius: var(--m3-util-rounding-full);
+    flex-grow: 1;
   }
 </style>

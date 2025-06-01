@@ -6,8 +6,8 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
+import DateField from "$lib/utils/DateField.svelte";
 
-let enabled = $state(true);
 
 let { showCode }: { showCode: (
   name: string,
@@ -15,21 +15,12 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}label>
-  ${"<"}Switch bind:checked={on} />
-${"<"}/label>`;
-const relevantLinks = [{"title":"Switch.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Switch.svelte"}];
+const minimalDemo = `${"<"}DateField name="Date" bind:date />`;
+const relevantLinks = [{"title":"DateField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/utils/DateField.svelte"}];
 </script>
 
-<InternalCard title="Switch" showCode={() => showCode("Switch", minimalDemo, relevantLinks)}>
-<label>
-  <Switch bind:checked={enabled} />
-  {enabled ? "Enabled" : "Disabled"}
-</label>
-
+<InternalCard title="Date field" showCode={() => showCode("Date field", minimalDemo, relevantLinks)}>
 {#snippet demo()}
-  <label>
-    <Switch disabled={!enabled} />
-  </label>
+  <DateField name="Date" />
 {/snippet}
 </InternalCard>

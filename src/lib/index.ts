@@ -21,8 +21,12 @@ export type { SnackbarIn } from "./containers/Snackbar.svelte";
 export { default as SnackbarItem } from "./containers/SnackbarItem.svelte";
 
 export { default as LinearProgress } from "./forms/LinearProgress.svelte";
+export { default as LinearProgressEstimate } from "./forms/LinearProgressEstimate.svelte";
 export { default as LinearProgressIndeterminate } from "./forms/LinearProgressIndeterminate.svelte";
+export { default as WavyLinearProgress } from "./forms/WavyLinearProgress.svelte";
+export { default as WavyLinearProgressEstimate } from "./forms/WavyLinearProgressEstimate.svelte";
 export { default as CircularProgress } from "./forms/CircularProgress.svelte";
+export { default as CircularProgressEstimate } from "./forms/CircularProgressEstimate.svelte";
 export { default as CircularProgressIndeterminate } from "./forms/CircularProgressIndeterminate.svelte";
 export { default as RadioAnim1 } from "./forms/RadioAnim1.svelte";
 export { default as RadioAnim2 } from "./forms/RadioAnim2.svelte";

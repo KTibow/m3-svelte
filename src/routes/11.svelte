@@ -7,11 +7,17 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import LinearProgress from "$lib/forms/LinearProgress.svelte";
-import LinearProgressIndeterminate from "$lib/forms/LinearProgressIndeterminate.svelte";
+import LinearProgressEstimate from "$lib/forms/LinearProgressEstimate.svelte";
 import CircularProgress from "$lib/forms/CircularProgress.svelte";
-import CircularProgressIndeterminate from "$lib/forms/CircularProgressIndeterminate.svelte";
-let type: "linear" | "circular" = $state("linear");
-let indeterminate = $state(false);
+import CircularProgressEstimate from "$lib/forms/CircularProgressEstimate.svelte";
+import WavyLinearProgress from "$lib/forms/WavyLinearProgress.svelte";
+import WavyLinearProgressEstimate from "$lib/forms/WavyLinearProgressEstimate.svelte";
+import Button from "$lib/buttons/Button.svelte";
+import Slider from "$lib/forms/Slider.svelte";
+let type: "linear" | "linear-wavy" | "circular" = $state("linear");
+let estimate = $state(false);
+let thick = $state(false);
+let percent = $state(10);
 
 let { showCode }: { showCode: (
   name: string,
@@ -20,31 +26,41 @@ let { showCode }: { showCode: (
 ) => void } = $props();
 
 const minimalDemo = `${"<"}LinearProgress percent={60} />
-${"<"}LinearProgressIndeterminate />
+${"<"}LinearProgressEstimate sToHalfway={2} />
 ${"<"}CircularProgress percent={60} />
-${"<"}CircularProgressIndeterminate />`;
-const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgress.svelte"},{"title":"LinearProgressIndeterminate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgressIndeterminate.svelte"},{"title":"CircularProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgress.svelte"},{"title":"CircularProgressIndeterminate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgressIndeterminate.svelte"}];
+${"<"}CircularProgressEstimate sToHalfway={2} />`;
+const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgress.svelte"},{"title":"LinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgressEstimate.svelte"},{"title":"CircularProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgress.svelte"},{"title":"CircularProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgressEstimate.svelte"},{"title":"WavyLinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgress.svelte"},{"title":"WavyLinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgressEstimate.svelte"},{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"}];
 </script>
 
 <InternalCard title="Progress" showCode={() => showCode("Progress", minimalDemo, relevantLinks)}>
 <label>
-  <Arrows list={["linear", "circular"]} bind:value={type} />
-  {type[0].toUpperCase() + type.slice(1)}
+  <Arrows list={["linear", "linear-wavy", "circular"]} bind:value={type} />
+  {type[0].toUpperCase() + type.slice(1).replace("-", " ")}
 </label>
 <label>
-  <Switch bind:checked={indeterminate} />
-  {indeterminate ? "Indeterminate" : "Fixed progress"}
+  <Switch bind:checked={thick} />
+  {thick ? "Thicker" : "Default"}
 </label>
+{#if estimate}
+  <Button variant="tonal" click={() => (estimate = false)}>Estimated</Button>
+{:else}
+  <Slider bind:value={percent} />
+  <Button variant="tonal" click={() => (estimate = true)}>Estimate</Button>
+{/if}
 
 {#snippet demo()}
-  {#if type == "linear" && indeterminate}
-    <LinearProgressIndeterminate />
+  {#if estimate && type == "linear"}
+    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : 4} />
+  {:else if estimate && type == "linear-wavy"}
+    <WavyLinearProgressEstimate height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+  {:else if estimate && type == "circular"}
+    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : 4} />
   {:else if type == "linear"}
-    <LinearProgress percent={60} />
-  {:else if type == "circular" && indeterminate}
-    <CircularProgressIndeterminate />
+    <LinearProgress {percent} height={thick ? 8 : 4} />
+  {:else if type == "linear-wavy"}
+    <WavyLinearProgress {percent} height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
   {:else if type == "circular"}
-    <CircularProgress percent={60} />
+    <CircularProgress {percent} thickness={thick ? 8 : 4} />
   {/if}
 {/snippet}
 </InternalCard>

@@ -549,45 +549,92 @@ Minimal demo:
 
 ```svelte
 <LinearProgress percent={60} />
-<LinearProgressIndeterminate />
+<LinearProgressEstimate sToHalfway={2} />
+<WavyLinearProgress percent={60} />
+<WavyLinearProgressEstimate sToHalfway={2} />
 <CircularProgress percent={60} />
-<CircularProgressIndeterminate />
+<CircularProgressEstimate sToHalfway={2} />
 ```
 
 Full demo:
 
 ```use
 LinearProgress
-LinearProgressIndeterminate
+LinearProgressEstimate
+WavyLinearProgress
+WavyLinearProgressEstimate
 CircularProgress
-CircularProgressIndeterminate
+CircularProgressEstimate
+Button
+Slider
 ```
 
 ```ts
-let type: "linear" | "circular" = $state("linear");
-let indeterminate = $state(false);
+let type: "linear" | "linear-wavy" | "circular" = $state("linear");
+let estimate = $state(false);
+let thick = $state(false);
+let percent = $state(10);
 ```
 
 ```svelte
 <label>
-  <Arrows list={["linear", "circular"]} bind:value={type} />
-  {type[0].toUpperCase() + type.slice(1)}
+  <Arrows list={["linear", "linear-wavy", "circular"]} bind:value={type} />
+  {type[0].toUpperCase() + type.slice(1).replace("-", " ")}
 </label>
 <label>
-  <Switch bind:checked={indeterminate} />
-  {indeterminate ? "Indeterminate" : "Fixed progress"}
+  <Switch bind:checked={thick} />
+  {thick ? "Thicker" : "Default"}
+</label>
+{#if estimate}
+  <Button variant="tonal" click={() => (estimate = false)}>Estimated</Button>
+{:else}
+  <Slider bind:value={percent} />
+  <Button variant="tonal" click={() => (estimate = true)}>Estimate</Button>
+{/if}
+
+{#snippet demo()}
+  {#if estimate && type == "linear"}
+    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : 4} />
+  {:else if estimate && type == "linear-wavy"}
+    <WavyLinearProgressEstimate height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+  {:else if estimate && type == "circular"}
+    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : 4} />
+  {:else if type == "linear"}
+    <LinearProgress {percent} height={thick ? 8 : 4} />
+  {:else if type == "linear-wavy"}
+    <WavyLinearProgress {percent} height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+  {:else if type == "circular"}
+    <CircularProgress {percent} thickness={thick ? 8 : 4} />
+  {/if}
+{/snippet}
+```
+
+## Loading
+
+Minimal demo:
+
+```svelte
+<LoadingIndicator />
+```
+
+Full demo:
+
+```use
+LoadingIndicator
+```
+
+```ts
+let container = $state(false);
+```
+
+```svelte
+<label>
+  <Switch bind:checked={container} />
+  {container ? "Contained" : "Raw"}
 </label>
 
 {#snippet demo()}
-  {#if type == "linear" && indeterminate}
-    <LinearProgressIndeterminate />
-  {:else if type == "linear"}
-    <LinearProgress percent={60} />
-  {:else if type == "circular" && indeterminate}
-    <CircularProgressIndeterminate />
-  {:else if type == "circular"}
-    <CircularProgress percent={60} />
-  {/if}
+  <LoadingIndicator {container} />
 {/snippet}
 ```
 

@@ -1,3 +1,7 @@
+<!--
+@component
+@deprecated use LoadingIndicator or one of the Estimate components instead
+-->
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
 
