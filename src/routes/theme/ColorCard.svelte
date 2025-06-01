@@ -2,68 +2,29 @@
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
 
   import {
+    type DynamicColor,
     type DynamicScheme,
-    MaterialDynamicColors,
     hexFromArgb,
   } from "@ktibow/material-color-utilities-nightly";
   import Icon from "$lib/misc/_icon.svelte";
 
   let {
-    fg,
     bg,
+    fg,
     scheme,
     grabbing,
     grabbed,
   }: {
-    fg: string;
-    bg: string;
+    bg: DynamicColor;
+    fg: DynamicColor;
     scheme: DynamicScheme;
     grabbing: boolean;
     grabbed: () => void;
   } = $props();
 
-  type Color =
-    | "primary"
-    | "onPrimary"
-    | "primaryContainer"
-    | "onPrimaryContainer"
-    | "inversePrimary"
-    | "secondary"
-    | "onSecondary"
-    | "secondaryContainer"
-    | "onSecondaryContainer"
-    | "tertiary"
-    | "onTertiary"
-    | "tertiaryContainer"
-    | "onTertiaryContainer"
-    | "error"
-    | "onError"
-    | "errorContainer"
-    | "onErrorContainer"
-    | "background"
-    | "onBackground"
-    | "surface"
-    | "onSurface"
-    | "surfaceVariant"
-    | "onSurfaceVariant"
-    | "inverseSurface"
-    | "inverseOnSurface"
-    | "outline"
-    | "outlineVariant"
-    | "shadow"
-    | "scrim"
-    | "surfaceDim"
-    | "surfaceBright"
-    | "surfaceContainerLowest"
-    | "surfaceContainerLow"
-    | "surfaceContainer"
-    | "surfaceContainerHigh"
-    | "surfaceContainerHighest"
-    | "surfaceTint";
-
   let ui = $state(0);
-  let bgColor = $derived(hexFromArgb(MaterialDynamicColors[bg as Color].getArgb(scheme)));
-  let fgColor = $derived(hexFromArgb(MaterialDynamicColors[fg as Color].getArgb(scheme)));
+  let bgColor = $derived(hexFromArgb(bg.getArgb(scheme)));
+  let fgColor = $derived(hexFromArgb(fg.getArgb(scheme)));
   $effect(() => {
     if (!grabbing) ui = 0;
   });
@@ -94,8 +55,8 @@
     ui = 0;
   }}
 >
-  <p class="m3-font-headline-small">{bg}</p>
-  <p class="m3-font-body-large">{fg} text</p>
+  <p class="m3-font-headline-small">{bg.name.replaceAll("_", " ")}</p>
+  <p class="m3-font-body-large">{fg.name.replaceAll("_", " ")} text</p>
   {#if ui}
     <div
       class="overlay"

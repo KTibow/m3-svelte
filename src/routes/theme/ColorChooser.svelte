@@ -4,11 +4,9 @@
     hexFromArgb,
     sourceColorFromImage,
   } from "@ktibow/material-color-utilities-nightly";
-  import Icon from "$lib/misc/_icon.svelte";
   import iconColorLens from "@ktibow/iconset-material-symbols/palette-outline";
   import iconImage from "@ktibow/iconset-material-symbols/wallpaper";
-
-  import { browser } from "$app/environment";
+  import Icon from "$lib/misc/_icon.svelte";
   import Button from "$lib/buttons/Button.svelte";
 
   let sourceColorInput: HTMLInputElement | undefined = $state(),

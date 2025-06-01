@@ -40,7 +40,7 @@
   "dependencies": {
     "@iconify/types": "^2.0.0",
     "@ktibow/iconset-material-symbols": "^0.0.1747426012",
-    "@ktibow/material-color-utilities-nightly": "^0.3.11748493074137",
+    "@ktibow/material-color-utilities-nightly": "^0.3.11748742074820",
     "svelte": "^5.33.2"
   },
   "devDependencies": {

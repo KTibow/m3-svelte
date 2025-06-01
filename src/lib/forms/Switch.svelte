@@ -85,6 +85,8 @@
     border-radius: var(--m3-switch-handle-shape);
 
     background-color: rgb(var(--m3-scheme-outline));
+    /* Fallback for those without on on primary */
+    color: rgb(var(--m3-scheme-on-on-primary, var(--m3-scheme-on-primary-container)));
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition: var(--m3-util-easing-fast-spatial);
@@ -99,7 +101,6 @@
   .handle > :global(svg) {
     width: 1rem;
     height: 1rem;
-    color: rgb(var(--m3-scheme-on-primary-container));
     opacity: 0;
     transition:
       opacity var(--m3-util-easing-fast-spatial),
@@ -130,6 +131,7 @@
   .m3-container:hover > input:enabled:checked + .handle,
   .m3-container > input:enabled:checked:is(:global(:active, :focus-visible)) + .handle {
     background-color: rgb(var(--m3-scheme-primary-container));
+    color: rgb(var(--m3-scheme-on-primary-container));
   }
   .m3-container:hover > input ~ .hover {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.08);

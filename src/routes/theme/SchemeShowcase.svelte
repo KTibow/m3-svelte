@@ -11,7 +11,8 @@
   import Button from "$lib/buttons/Button.svelte";
   import ColorCard from "./ColorCard.svelte";
   import { styling } from "../themeStore";
-  import { genCSS, pairs } from "$lib/misc/utils";
+  import { pairs } from "$lib/misc/colors";
+  import { genCSS } from "$lib/misc/utils";
 
   let {
     light,
@@ -99,7 +100,7 @@ ${$styling}`);
   }
   @media (min-width: 80rem) {
     .color-container {
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(6, auto);
     }
   }
   .buttons {

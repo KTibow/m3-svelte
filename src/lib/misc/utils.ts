@@ -1,120 +1,24 @@
-import {
-  type DynamicScheme,
-  MaterialDynamicColors,
-} from "@ktibow/material-color-utilities-nightly";
-
-export type Color =
-  | "primary"
-  | "onPrimary"
-  | "primaryContainer"
-  | "onPrimaryContainer"
-  | "inversePrimary"
-  | "secondary"
-  | "onSecondary"
-  | "secondaryContainer"
-  | "onSecondaryContainer"
-  | "tertiary"
-  | "onTertiary"
-  | "tertiaryContainer"
-  | "onTertiaryContainer"
-  | "error"
-  | "onError"
-  | "errorContainer"
-  | "onErrorContainer"
-  | "background"
-  | "onBackground"
-  | "surface"
-  | "onSurface"
-  | "surfaceVariant"
-  | "onSurfaceVariant"
-  | "inverseSurface"
-  | "inverseOnSurface"
-  | "outline"
-  | "outlineVariant"
-  | "shadow"
-  | "scrim"
-  | "surfaceDim"
-  | "surfaceBright"
-  | "surfaceContainerLowest"
-  | "surfaceContainerLow"
-  | "surfaceContainer"
-  | "surfaceContainerHigh"
-  | "surfaceContainerHighest"
-  | "surfaceTint";
-export type SerializedScheme = Record<Color, number>;
-
-export const pairs = [
-  ["primary", "onPrimary"],
-  ["primaryContainer", "onPrimaryContainer"],
-  ["secondary", "onSecondary"],
-  ["secondaryContainer", "onSecondaryContainer"],
-  ["tertiary", "onTertiary"],
-  ["tertiaryContainer", "onTertiaryContainer"],
-  ["background", "onBackground"],
-  ["surface", "onSurface"],
-  ["inverseSurface", "inverseOnSurface"],
-  ["surfaceVariant", "onSurfaceVariant"],
-  ["error", "onError"],
-  ["errorContainer", "onErrorContainer"],
-];
-
-export const colors: Color[] = [
-  "primary",
-  "onPrimary",
-  "primaryContainer",
-  "onPrimaryContainer",
-  "inversePrimary",
-  "secondary",
-  "onSecondary",
-  "secondaryContainer",
-  "onSecondaryContainer",
-  "tertiary",
-  "onTertiary",
-  "tertiaryContainer",
-  "onTertiaryContainer",
-  "error",
-  "onError",
-  "errorContainer",
-  "onErrorContainer",
-  "background",
-  "onBackground",
-  "surface",
-  "onSurface",
-  "surfaceVariant",
-  "onSurfaceVariant",
-  "inverseSurface",
-  "inverseOnSurface",
-  "outline",
-  "outlineVariant",
-  "shadow",
-  "scrim",
-  "surfaceDim",
-  "surfaceBright",
-  "surfaceContainerLowest",
-  "surfaceContainerLow",
-  "surfaceContainer",
-  "surfaceContainerHigh",
-  "surfaceContainerHighest",
-  "surfaceTint",
-];
+import { type DynamicScheme } from "@ktibow/material-color-utilities-nightly";
+import { colors } from "./colors";
 
 /**
  * @returns A string of CSS code with custom properties representing the color scheme values.
  * */
 export const genCSS = (light: DynamicScheme, dark: DynamicScheme) => {
   const genColorVariable = (name: string, argb: number) => {
-    const kebabCase = name.replace(/[A-Z]/g, (letter: string) => `-${letter.toLowerCase()}`);
+    const kebabCase = name.replaceAll("_", "-");
     const red = (argb >> 16) & 255;
     const green = (argb >> 8) & 255;
     const blue = argb & 255;
     return `--m3-scheme-${kebabCase}: ${red} ${green} ${blue};`;
   };
   const lightColors = colors
-    .map((name) => genColorVariable(name, MaterialDynamicColors[name].getArgb(light)))
+    .map((color) => genColorVariable(color.name, color.getArgb(light)))
     .join("\n");
   const darkColors = colors
-    .map((name) => genColorVariable(name, MaterialDynamicColors[name].getArgb(dark)))
+    .map((color) => genColorVariable(color.name, color.getArgb(dark)))
     .join("\n");
+  console.log("calculating for dark", dark, colors);
   return `@media (prefers-color-scheme: light) {
   :root {
     color-scheme: light;
