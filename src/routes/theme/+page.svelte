@@ -15,7 +15,7 @@
     const commonArgs = {
       sourceColorHct: Hct.fromInt(sourceColor),
       contrastLevel: contrast,
-      specVersion: "2021",
+      specVersion: "2025",
     } as const;
     const result = {} as Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
     for (const { id } of variants) {
