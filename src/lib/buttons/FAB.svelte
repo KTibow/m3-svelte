@@ -67,7 +67,6 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 200ms;
   }
 
   .elevation-normal {

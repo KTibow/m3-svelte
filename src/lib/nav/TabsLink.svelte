@@ -69,7 +69,7 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-    transition: all 200ms;
+    transition: color var(--m3-util-easing-fast);
   }
   a > :global(svg) {
     width: 1.5rem;
@@ -95,7 +95,7 @@
     left: calc(100% / var(--items) * var(--i));
     bottom: 0;
     pointer-events: none;
-    transition: all 200ms;
+    transition: var(--m3-util-easing-fast-spatial);
   }
 
   .primary > a {

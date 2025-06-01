@@ -3,6 +3,7 @@
   import iconLeft from "@ktibow/iconset-material-symbols/chevron-left";
   import iconRight from "@ktibow/iconset-material-symbols/chevron-right";
   import iconDown from "@ktibow/iconset-material-symbols/arrow-drop-down";
+  import Layer from "$lib/misc/Layer.svelte";
 
   let {
     currentView = $bindable(),
@@ -31,6 +32,7 @@
       class="arrow"
       onclick={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}
     >
+      <Layer />
       <Icon icon={iconLeft} />
     </button>
     <button
@@ -39,10 +41,12 @@
       onclick={monthClick}
       disabled={currentView == "year"}
     >
+      <Layer />
       {getShortMonth(focusedMonth)}
       <Icon icon={iconDown} />
     </button>
     <button type="button" class="arrow" onclick={() => (focusedMonth = (focusedMonth + 1) % 12)}>
+      <Layer />
       <Icon icon={iconRight} />
     </button>
   </div>
@@ -53,6 +57,7 @@
       disabled={focusedYear <= startYear}
       onclick={() => focusedYear--}
     >
+      <Layer />
       <Icon icon={iconLeft} />
     </button>
     <button
@@ -61,6 +66,7 @@
       onclick={yearClick}
       disabled={currentView == "month"}
     >
+      <Layer />
       {focusedYear}
       <Icon icon={iconDown} />
     </button>
@@ -70,6 +76,7 @@
       disabled={focusedYear >= endYear}
       onclick={() => focusedYear++}
     >
+      <Layer />
       <Icon icon={iconRight} />
     </button>
   </div>
@@ -79,7 +86,6 @@
   .m3-container {
     display: flex;
     height: 4rem;
-    transition: all 200ms;
     border-bottom: solid 1px transparent;
     flex-shrink: 0;
   }
@@ -97,18 +103,9 @@
     color: rgb(var(--m3-scheme-on-surface-variant));
     border: none;
     padding: 0;
-    transition: all 200ms;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-  }
-  @media (hover: hover) {
-    button:enabled:hover {
-      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
-    }
-  }
-  button:enabled:focus-visible,
-  button:enabled:active {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
+    position: relative;
   }
   button:disabled {
     cursor: auto;

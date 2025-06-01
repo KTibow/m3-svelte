@@ -44,7 +44,6 @@
 
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-    transition: all 200ms;
   }
   .icon {
     width: 1.5rem;

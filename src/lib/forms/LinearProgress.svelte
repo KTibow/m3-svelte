@@ -27,7 +27,7 @@
   }
   .percent {
     background-color: rgb(var(--m3-scheme-primary));
-    transition: all 200ms;
+    transition: var(--m3-util-easing-fast);
     border-radius: var(--m3-linear-progress-shape);
   }
 

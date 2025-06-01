@@ -71,7 +71,7 @@
     position: relative;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: all 200ms;
+    transition: var(--m3-util-easing-fast);
   }
 
   .m3-container > :global(:is(.ripple-container, .tint)) {

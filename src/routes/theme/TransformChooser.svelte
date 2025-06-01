@@ -78,49 +78,45 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    flex-grow: 1;
-
-    cursor: pointer;
-  }
-  input:focus-visible + label {
-    animation: var(--m3-util-refocus);
-  }
-  label > * {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     flex-grow: 1;
-    transition: all 200ms;
-    &:first-child {
-      border-top-left-radius: 1rem;
-      border-top-right-radius: 1rem;
-      padding-top: 0.75rem;
+    cursor: pointer;
+    &:is(input:focus-visible + label) {
+      animation: var(--m3-util-refocus);
     }
-    &:last-child {
-      border-bottom-left-radius: 1rem;
-      border-bottom-right-radius: 1rem;
-      padding-bottom: 0.75rem;
+    > * {
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem 1rem;
+      flex-grow: 1;
+      transition: border-radius cubic-bezier(0.42, 5, 0.21, 0.9) 350ms;
+      &:first-child {
+        border-radius: 0.5rem 0.5rem 0.25rem 0.25rem;
+        padding-top: 0.75rem;
+      }
+      &:last-child {
+        border-radius: 0.25rem 0.25rem 0.5rem 0.5rem;
+        padding-bottom: 0.75rem;
+      }
+      @media (prefers-color-scheme: light) {
+        background-color: var(--light-background);
+        color: var(--light-foreground);
+      }
+      @media (prefers-color-scheme: dark) {
+        background-color: var(--dark-background);
+        color: var(--dark-foreground);
+      }
     }
-    @media (prefers-color-scheme: light) {
-      background-color: var(--light-background);
-      color: var(--light-foreground);
-    }
-    @media (prefers-color-scheme: dark) {
-      background-color: var(--dark-background);
-      color: var(--dark-foreground);
-    }
-  }
-  input:checked + label {
-    > :first-child {
-      border-top-left-radius: 1.5rem;
-      border-top-right-radius: 1.5rem;
-    }
-    > :last-child {
-      border-bottom-left-radius: 1.5rem;
-      border-bottom-right-radius: 1.5rem;
-      background-color: rgb(var(--m3-scheme-primary));
-      color: rgb(var(--m3-scheme-on-primary));
+    &:is(input:checked + label) {
+      border-radius: 1rem;
+      > :first-child {
+        border-radius: 1rem 1rem 0.25rem 0.25rem;
+      }
+      > :last-child {
+        border-radius: 0.25rem 0.25rem 1rem 1rem;
+        background-color: rgb(var(--m3-scheme-primary));
+        color: rgb(var(--m3-scheme-on-primary));
+      }
     }
   }
   p {

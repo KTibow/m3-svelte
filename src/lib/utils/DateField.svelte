@@ -2,8 +2,9 @@
   import { onMount } from "svelte";
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { TransitionConfig } from "svelte/transition";
-  import Icon from "$lib/misc/_icon.svelte";
   import iconCalendar from "@ktibow/iconset-material-symbols/calendar-today-outline";
+  import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/Layer.svelte";
 
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import { easeEmphasized } from "$lib/misc/easing";
@@ -65,6 +66,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   />
   <label class="m3-font-body-small" for={id}>{name}</label>
   <button type="button" {disabled} onclick={() => (picker = !picker)}>
+    <Layer />
     <Icon icon={iconCalendar} />
   </button>
   {#if picker}
@@ -134,7 +136,6 @@ opacity: ${Math.min(t * 3, 1)};`,
 
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-    transition: all 200ms;
   }
 
   .m3-container.disabled {
@@ -161,15 +162,6 @@ opacity: ${Math.min(t * 3, 1)};`,
     z-index: 1;
   }
 
-  @media (hover: hover) {
-    button:enabled:hover {
-      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
-    }
-  }
-  button:enabled:focus-visible,
-  button:enabled:active {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
-  }
   @media (min-width: 37.5rem) {
     .has-js button {
       display: flex;

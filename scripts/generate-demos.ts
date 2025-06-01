@@ -619,7 +619,7 @@ img {
       color: inherit;
       flex-shrink: 0;
 
-      transition: all 200ms;
+      transition: 200ms;
       cursor: pointer;
 
       &:disabled {

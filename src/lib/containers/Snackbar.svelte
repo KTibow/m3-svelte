@@ -19,6 +19,7 @@
   import iconX from "@ktibow/iconset-material-symbols/close";
   import Icon from "$lib/misc/_icon.svelte";
   import SnackbarItem from "./SnackbarItem.svelte";
+  import Layer from "$lib/misc/Layer.svelte";
 
   type SnackbarConfig = Omit<ComponentProps<typeof SnackbarItem>, "children">;
 
@@ -63,6 +64,7 @@
               snackbar = undefined;
             }}
           >
+            <Layer />
             <Icon icon={iconX} />
           </button>
         {/if}
@@ -92,10 +94,9 @@
     border: none;
 
     background-color: transparent;
-    color: rgb(var(--text));
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-    transition: all 200ms;
+    position: relative;
   }
   button :global(svg) {
     width: 1.5rem;
@@ -103,21 +104,12 @@
   }
 
   .action {
-    --text: var(--m3-scheme-inverse-primary);
+    color: var(--m3-scheme-inverse-primary);
     padding: 0 0.5rem;
   }
   .close {
-    --text: var(--m3-scheme-inverse-on-surface);
+    color: var(--m3-scheme-inverse-on-surface);
     padding: 0 0.75rem;
     margin-right: -1rem;
-  }
-  @media (hover: hover) {
-    button:hover {
-      background-color: rgb(var(--text) / 0.08);
-    }
-  }
-  button:focus-visible,
-  button:active {
-    background-color: rgb(var(--text) / 0.12);
   }
 </style>

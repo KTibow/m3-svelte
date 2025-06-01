@@ -51,7 +51,7 @@
     height: 1.25rem;
     border-radius: var(--m3-util-rounding-full);
     border: solid 0.125rem currentColor;
-    transition: all 0.3s;
+    transition: border var(--m3-util-easing-fast);
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -62,7 +62,7 @@
     height: 1rem;
     border-radius: var(--m3-util-rounding-full);
     outline: solid 0 currentColor;
-    transition: all 0.3s;
+    transition: var(--m3-util-easing);
     -webkit-tap-highlight-color: transparent;
   }
 

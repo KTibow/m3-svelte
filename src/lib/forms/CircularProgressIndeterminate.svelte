@@ -30,7 +30,7 @@
     animation: progressRotate 2.2s infinite linear;
   }
   circle {
-    transition: all 200ms;
+    transition: var(--m3-util-easing-fast);
     animation: progressSize 2.2s infinite linear;
   }
   @keyframes progressRotate {

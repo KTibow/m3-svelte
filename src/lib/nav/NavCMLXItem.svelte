@@ -54,7 +54,7 @@
       align-items: center;
       position: relative;
       color: rgb(var(--m3-scheme-on-surface-variant));
-      transition: all var(--m3-util-easing);
+      transition: var(--m3-util-easing);
       &:is(.compact .content, .large .content) {
         flex-direction: column;
         text-align: center;
@@ -109,7 +109,7 @@
       justify-content: center;
       border-radius: var(--m3-util-rounding-full);
       position: relative;
-      transition: all var(--m3-util-easing);
+      transition: var(--m3-util-easing);
     }
     .icon::before {
       position: absolute;

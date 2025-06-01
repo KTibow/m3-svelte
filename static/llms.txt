@@ -356,7 +356,7 @@ body {
   background: rgb(var(--m3-scheme-background));
   color: rgb(var(--m3-scheme-on-background));
 }
-@media (width < 37.5rem) {
+@media (width < 52.5rem) {
   body {
     flex-direction: column-reverse;
     --m3-util-bottom-offset: 5rem;
@@ -539,7 +539,7 @@ img {
       color: inherit;
       flex-shrink: 0;
 
-      transition: all 200ms;
+      transition: 200ms;
       cursor: pointer;
 
       &:disabled {
@@ -645,9 +645,9 @@ let multiselect = $state(true);` to make this demo:
 {#snippet demo()}
   <ConnectedButtons>
     {#if multiselect}
-      <TogglePrimitive toggle={true}>Alpha</TogglePrimitive>
-      <TogglePrimitive toggle={false}>Beta</TogglePrimitive>
-      <TogglePrimitive toggle={false}>Charlie</TogglePrimitive>
+      <TogglePrimitive toggle={true} {variant}>Alpha</TogglePrimitive>
+      <TogglePrimitive toggle={false} {variant}>Beta</TogglePrimitive>
+      <TogglePrimitive toggle={false} {variant}>Charlie</TogglePrimitive>
     {:else}
       <input type="radio" name="segmented-b" id="segmented-b-0" checked />
       <Button for="segmented-b-0" {variant} square>Alpha</Button>

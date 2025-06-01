@@ -130,7 +130,7 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-    transition: all 200ms;
+    transition: color var(--m3-util-easing-fast);
   }
   a > :global(svg) {
     width: 1.5rem;

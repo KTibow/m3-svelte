@@ -76,7 +76,7 @@
     border: solid 0.125rem rgb(var(--m3-scheme-outline));
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: all 300ms;
+    transition: var(--m3-util-easing);
   }
   .handle {
     position: absolute;
@@ -87,7 +87,7 @@
     background-color: rgb(var(--m3-scheme-outline));
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: all var(--m3-util-easing-fast-spatial);
+    transition: var(--m3-util-easing-fast-spatial);
 
     left: 0.5rem;
     top: 50%;
@@ -113,7 +113,7 @@
 
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: all var(--m3-util-easing-fast);
+    transition: var(--m3-util-easing-fast);
 
     left: 1rem;
     top: 50%;

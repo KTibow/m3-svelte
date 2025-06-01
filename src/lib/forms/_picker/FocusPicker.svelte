@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/Layer.svelte";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
 
   const conditionalScroll = (node: Element, shouldScroll: boolean) => {
@@ -16,6 +17,7 @@
 <div class="m3-container">
   {#each options as { name, selected, activate }}
     <button class="m3-font-body-large" onclick={activate} use:conditionalScroll={selected}>
+      <Layer />
       {#if selected}
         <Icon icon={iconCheck} />
       {/if}
@@ -42,26 +44,16 @@
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
     border: none;
-    position: relative;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-    transition: all 200ms;
+    position: relative;
   }
-  button :global(svg) {
+  button > :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
     position: absolute;
     left: 1rem;
     top: 50%;
-    transform: translateY(-50%);
-  }
-  @media (hover: hover) {
-    button:hover {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
-    }
-  }
-  button:focus-visible,
-  button:active {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+    translate: 0 -50%;
   }
 </style>

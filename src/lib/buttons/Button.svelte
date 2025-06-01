@@ -92,7 +92,10 @@
     gap: 0.5rem;
     padding: 0 1rem;
     border-radius: var(--m3-button-shape);
-    transition: all 200ms;
+    transition:
+      border-radius var(--m3-util-easing-fast-spatial),
+      background-color var(--m3-util-easing-fast),
+      color var(--m3-util-easing-fast);
 
     align-items: center;
     justify-content: center;

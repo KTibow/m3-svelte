@@ -71,7 +71,7 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-    transition: all 200ms;
+    transition: color var(--m3-util-easing-fast);
   }
   label > :global(svg) {
     width: 1.5rem;
@@ -96,7 +96,7 @@
     height: 0;
     bottom: 0;
     pointer-events: none;
-    transition: all 200ms;
+    transition: var(--m3-util-easing-fast-spatial);
   }
   input:checked:nth-of-type(1) ~ .bar {
     left: 0;

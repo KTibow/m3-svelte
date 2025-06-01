@@ -51,7 +51,7 @@
     height: 1.25rem;
     border-radius: var(--m3-util-rounding-full);
     border: solid 0.125rem currentColor;
-    transition: all 0.3s;
+    transition: border var(--m3-util-easing-fast);
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -76,7 +76,7 @@
 
   :global(input:checked) + .layer-container .radio-dot {
     scale: 1;
-    transition: all 0.3s;
+    transition: scale var(--m3-util-easing-fast-spatial);
   }
 
   :global(input:disabled) + .layer-container {

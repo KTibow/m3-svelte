@@ -154,7 +154,7 @@
     background-color: rgb(var(--m3-scheme-primary));
 
     pointer-events: none;
-    transition: width 200ms;
+    transition: var(--m3-util-easing);
   }
 
   .value {
@@ -175,7 +175,7 @@
 
     opacity: 0;
     pointer-events: none;
-    transition: opacity 200ms;
+    transition: var(--m3-util-easing);
   }
 
   input:focus-visible ~ .thumb {

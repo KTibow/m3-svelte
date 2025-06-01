@@ -55,7 +55,7 @@
     inset: 0.6875rem;
     border-radius: 0.125rem;
     border: solid 0.125rem currentColor;
-    transition: all 200ms;
+    transition: var(--m3-util-easing-fast);
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -65,11 +65,11 @@
     color: rgb(var(--m3-scheme-on-primary));
     opacity: 0;
     pointer-events: none;
-    transition: opacity 200ms;
+    transition: var(--m3-util-easing-fast);
     path {
       stroke-dasharray: 20.874 20.874;
       stroke-dashoffset: 20.874;
-      transition: stroke-dashoffset 0ms 200ms;
+      transition: stroke-dashoffset 0ms 300ms;
     }
   }
 
@@ -88,7 +88,7 @@
     opacity: 1;
     path {
       stroke-dashoffset: 0;
-      transition: stroke-dashoffset 200ms;
+      transition: stroke-dashoffset var(--m3-util-easing-slow);
     }
   }
 

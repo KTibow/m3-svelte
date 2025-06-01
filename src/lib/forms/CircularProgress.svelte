@@ -32,6 +32,6 @@
   }
   circle {
     stroke-dashoffset: calc((var(--percent) / -100 + 1px) * 125.66);
-    transition: all 200ms;
+    transition: var(--m3-util-easing-fast);
   }
 </style>

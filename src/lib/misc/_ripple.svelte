@@ -157,19 +157,20 @@
 
     background-color: currentColor;
     opacity: 0;
-    transition: opacity 200ms;
-  }
+    transition: opacity var(--m3-util-easing-fast);
 
-  :global(:not(input:disabled + label, input:disabled + .layer-container, :disabled)) {
     @media (hover: hover) {
-      &:hover > .tint {
+      &:is(:global(:hover) > .tint):not(
+          :global(input:disabled + label) > .tint,
+          :global(input:disabled + .layer-container) > .tint,
+          :global(:disabled) > .tint
+        ) {
         opacity: 0.08;
       }
     }
-
-    &:is(:global(input:focus-visible + label)) > .tint,
-    &:focus-visible > .tint,
-    &:active > .tint {
+    &:is(:global(input:focus-visible + label) > .tint),
+    &:is(:global(:focus-visible) > .tint),
+    &:is(.ripple-container.broken + .tint):is(:global(:active) > .tint) {
       opacity: 0.12;
     }
   }

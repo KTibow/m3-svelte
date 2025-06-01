@@ -44,8 +44,8 @@
           },
         ],
         {
-          duration: 300,
-          easing: "ease",
+          duration: 350,
+          easing: "cubic-bezier(0.42, 1.67, 0.21, 0.9)",
         },
       );
     } else {
@@ -59,8 +59,8 @@
           },
         ],
         {
-          duration: 200,
-          easing: "ease",
+          duration: 350,
+          easing: "cubic-bezier(0.42, 1.67, 0.21, 0.9)",
         },
       );
     }
@@ -132,7 +132,7 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-    transition: all 200ms;
+    transition: color var(--m3-util-easing-fast);
   }
   label > :global(svg) {
     width: 1.5rem;
