@@ -25,6 +25,12 @@ jobs:
         working-directory: upstream/typescript
         run: npm install
 
+      - name: Add missing export
+        working-directory: upstream/typescript
+        run: |
+          echo >> index.ts
+          echo "export * from './dynamiccolor/contrast_curve.js';" >> index.ts
+
       - name: Fix TypeScript config for nightly
         working-directory: upstream/typescript
         run: |
