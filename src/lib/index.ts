@@ -1,6 +1,7 @@
 export { default as Icon } from "./misc/_icon.svelte";
 export { default as Layer } from "./misc/Layer.svelte";
 export * from "./misc/animation.js";
+export * from "./misc/colors.js";
 export * from "./misc/utils.js";
 export * from "./misc/easing.js";
 

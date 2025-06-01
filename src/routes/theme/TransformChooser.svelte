@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Color } from "$lib/misc/utils";
+  import { materialColors } from "$lib";
   import Slider from "$lib/forms/Slider.svelte";
   import variants from "./variants";
   import {
     hexFromArgb,
-    MaterialDynamicColors,
+    type DynamicColor,
     type DynamicScheme,
     type Variant,
   } from "@ktibow/material-color-utilities-nightly";
@@ -19,8 +19,8 @@
     contrast: number;
   } = $props();
 
-  const variantColor = (scheme: DynamicScheme, color: Color) => {
-    return hexFromArgb(MaterialDynamicColors[color].getArgb(scheme));
+  const variantColor = (scheme: DynamicScheme, color: DynamicColor) => {
+    return hexFromArgb(color.getArgb(scheme));
   };
 </script>
 
@@ -32,16 +32,16 @@
       <input type="radio" bind:group={variant} name="algorithms" value={id} id="algorithms-{id}" />
       <label for="algorithms-{id}">
         <div
-          style:--light-background={variantColor(light, "primaryContainer")}
-          style:--dark-background={variantColor(dark, "primaryContainer")}
-          style:--light-foreground={variantColor(light, "onPrimaryContainer")}
-          style:--dark-foreground={variantColor(dark, "onPrimaryContainer")}
+          style:--light-background={variantColor(light, materialColors.primaryContainer())}
+          style:--dark-background={variantColor(dark, materialColors.primaryContainer())}
+          style:--light-foreground={variantColor(light, materialColors.onPrimaryContainer())}
+          style:--dark-foreground={variantColor(dark, materialColors.onPrimaryContainer())}
         >
           <p>{name}</p>
         </div>
         <div
-          style:--light-background={variantColor(light, "surfaceContainerLow")}
-          style:--dark-background={variantColor(dark, "surfaceContainerLow")}
+          style:--light-background={variantColor(light, materialColors.surfaceContainerLow())}
+          style:--dark-background={variantColor(dark, materialColors.surfaceContainerLow())}
         >
           <p class="m3-font-body-medium">{desc}</p>
         </div>

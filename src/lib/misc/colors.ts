@@ -4,7 +4,7 @@ import {
   ContrastCurve,
 } from "@ktibow/material-color-utilities-nightly";
 
-const materialColors = new MaterialDynamicColors();
+export const materialColors = new MaterialDynamicColors();
 // Custom color role used for switch
 const onOnPrimary = DynamicColor.fromPalette({
   name: "on_on_primary",
