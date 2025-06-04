@@ -59,6 +59,7 @@
     --m3-chip-shape: var(--m3-util-rounding-small);
   }
   .m3-container {
+    display: flex;
     height: 2rem;
     border-radius: var(--m3-chip-shape);
     padding: 0 1rem;
