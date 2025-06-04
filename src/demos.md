@@ -488,7 +488,7 @@ let enabled = $state(true);
 Minimal demo:
 
 ```svelte
-<Chip variant="general" icon={iconCircle} on:click={() => alert("!")}>Hello</Chip>
+<Chip variant="general" icon={iconCircle} click={() => alert("!")}>Hello</Chip>
 ```
 
 Full demo:

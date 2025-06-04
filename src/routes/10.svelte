@@ -19,7 +19,7 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}Chip variant="general" icon={iconCircle} on:click={() => alert("!")}>Hello${"<"}/Chip>`;
+const minimalDemo = `${"<"}Chip variant="general" icon={iconCircle} click={() => alert("!")}>Hello${"<"}/Chip>`;
 const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Chip.svelte"}];
 </script>
 

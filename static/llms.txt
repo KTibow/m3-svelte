@@ -155,7 +155,7 @@ Here's an example todo list component:
         <Button
           variant="text"
           iconType="full"
-          on:click={() => (tasks = tasks.filter((t) => t.id != task.id))}
+          click={() => (tasks = tasks.filter((t) => t.id != task.id))}
         >
           <Icon icon={iconDelete} />
         </Button>
@@ -257,7 +257,7 @@ Here's an example notes app:
           <Button
             variant="text"
             iconType="full"
-            on:click={() =>
+            click={() =>
               (dialog = {
                 open: true,
                 editingId: note.id,
@@ -267,7 +267,7 @@ Here's an example notes app:
           >
             <Icon icon={iconEdit} />
           </Button>
-          <Button variant="text" iconType="full" on:click={() => deleteNote(note.id)}>
+          <Button variant="text" iconType="full" click={() => deleteNote(note.id)}>
             <Icon icon={iconDelete} />
           </Button>
         </div>
@@ -289,13 +289,13 @@ Here's an example notes app:
     <TextFieldMultiline name="Content" bind:value={dialog.content} />
   </div>
   <svelte:fragment slot="buttons">
-    <Button variant="text" on:click={closeDialog}>Cancel</Button>
+    <Button variant="text" click={closeDialog}>Cancel</Button>
     {#if dialog.editingId}
-      <Button variant="filled" disabled={!dialog.title || !dialog.content} on:click={updateNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} click={updateNote}>
         Update
       </Button>
     {:else}
-      <Button variant="filled" disabled={!dialog.title || !dialog.content} on:click={addNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} click={addNote}>
         Add
       </Button>
     {/if}
@@ -303,7 +303,7 @@ Here's an example notes app:
 </Dialog>
 
 <div class="fab">
-  <FAB color="primary" icon={iconAdd} on:click={openNewNoteDialog} />
+  <FAB color="primary" icon={iconAdd} click={openNewNoteDialog} />
 </div>
 
 <Snackbar bind:show={snackbar} />
@@ -473,7 +473,7 @@ img {
     <button
       class="m3-font-title-medium"
       disabled={currentTab == tab.id}
-      on:click={() => (currentTab = tab.id)}
+      click={() => (currentTab = tab.id)}
     >
       <Icon icon={tab.icon} width="1.5rem" height="1.5rem" />
       {tab.label}
@@ -936,7 +936,7 @@ The M3 Svelte interactive demo for this component uses Checkbox with the TS `let
 
 Minimal demo:
 ```svelte
-<Chip variant="general" icon={iconCircle} on:click={() => alert("!")}>Hello</Chip>
+<Chip variant="general" icon={iconCircle} click={() => alert("!")}>Hello</Chip>
 ```
 
 The M3 Svelte interactive demo for this component uses Chip with the TS `let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" =
@@ -988,11 +988,13 @@ Minimal demo:
 ```svelte
 <LinearProgress percent={60} />
 <LinearProgressEstimate sToHalfway={2} />
+<WavyLinearProgress percent={60} />
+<WavyLinearProgressEstimate sToHalfway={2} />
 <CircularProgress percent={60} />
 <CircularProgressEstimate sToHalfway={2} />
 ```
 
-The M3 Svelte interactive demo for this component uses LinearProgress, LinearProgressEstimate, CircularProgress, CircularProgressEstimate, WavyLinearProgress, WavyLinearProgressEstimate, Button, Slider with the TS `let type: "linear" | "linear-wavy" | "circular" = $state("linear");
+The M3 Svelte interactive demo for this component uses LinearProgress, LinearProgressEstimate, WavyLinearProgress, WavyLinearProgressEstimate, CircularProgress, CircularProgressEstimate, Button, Slider with the TS `let type: "linear" | "linear-wavy" | "circular" = $state("linear");
 let estimate = $state(false);
 let thick = $state(false);
 let percent = $state(10);` to make this demo:

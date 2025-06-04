@@ -235,7 +235,7 @@ Here's an example todo list component:
         <Button
           variant="text"
           iconType="full"
-          on:click={() => (tasks = tasks.filter((t) => t.id != task.id))}
+          click={() => (tasks = tasks.filter((t) => t.id != task.id))}
         >
           <Icon icon={iconDelete} />
         </Button>
@@ -337,7 +337,7 @@ Here's an example notes app:
           <Button
             variant="text"
             iconType="full"
-            on:click={() =>
+            click={() =>
               (dialog = {
                 open: true,
                 editingId: note.id,
@@ -347,7 +347,7 @@ Here's an example notes app:
           >
             <Icon icon={iconEdit} />
           </Button>
-          <Button variant="text" iconType="full" on:click={() => deleteNote(note.id)}>
+          <Button variant="text" iconType="full" click={() => deleteNote(note.id)}>
             <Icon icon={iconDelete} />
           </Button>
         </div>
@@ -369,13 +369,13 @@ Here's an example notes app:
     <TextFieldMultiline name="Content" bind:value={dialog.content} />
   </div>
   <svelte:fragment slot="buttons">
-    <Button variant="text" on:click={closeDialog}>Cancel</Button>
+    <Button variant="text" click={closeDialog}>Cancel</Button>
     {#if dialog.editingId}
-      <Button variant="filled" disabled={!dialog.title || !dialog.content} on:click={updateNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} click={updateNote}>
         Update
       </Button>
     {:else}
-      <Button variant="filled" disabled={!dialog.title || !dialog.content} on:click={addNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} click={addNote}>
         Add
       </Button>
     {/if}
@@ -383,7 +383,7 @@ Here's an example notes app:
 </Dialog>
 
 <div class="fab">
-  <FAB color="primary" icon={iconAdd} on:click={openNewNoteDialog} />
+  <FAB color="primary" icon={iconAdd} click={openNewNoteDialog} />
 </div>
 
 <Snackbar bind:show={snackbar} />
@@ -553,7 +553,7 @@ img {
     <button
       class="m3-font-title-medium"
       disabled={currentTab == tab.id}
-      on:click={() => (currentTab = tab.id)}
+      click={() => (currentTab = tab.id)}
     >
       <Icon icon={tab.icon} width="1.5rem" height="1.5rem" />
       {tab.label}

@@ -8,10 +8,10 @@ import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import LinearProgress from "$lib/forms/LinearProgress.svelte";
 import LinearProgressEstimate from "$lib/forms/LinearProgressEstimate.svelte";
-import CircularProgress from "$lib/forms/CircularProgress.svelte";
-import CircularProgressEstimate from "$lib/forms/CircularProgressEstimate.svelte";
 import WavyLinearProgress from "$lib/forms/WavyLinearProgress.svelte";
 import WavyLinearProgressEstimate from "$lib/forms/WavyLinearProgressEstimate.svelte";
+import CircularProgress from "$lib/forms/CircularProgress.svelte";
+import CircularProgressEstimate from "$lib/forms/CircularProgressEstimate.svelte";
 import Button from "$lib/buttons/Button.svelte";
 import Slider from "$lib/forms/Slider.svelte";
 let type: "linear" | "linear-wavy" | "circular" = $state("linear");
@@ -27,9 +27,11 @@ let { showCode }: { showCode: (
 
 const minimalDemo = `${"<"}LinearProgress percent={60} />
 ${"<"}LinearProgressEstimate sToHalfway={2} />
+${"<"}WavyLinearProgress percent={60} />
+${"<"}WavyLinearProgressEstimate sToHalfway={2} />
 ${"<"}CircularProgress percent={60} />
 ${"<"}CircularProgressEstimate sToHalfway={2} />`;
-const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgress.svelte"},{"title":"LinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgressEstimate.svelte"},{"title":"CircularProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgress.svelte"},{"title":"CircularProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgressEstimate.svelte"},{"title":"WavyLinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgress.svelte"},{"title":"WavyLinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgressEstimate.svelte"},{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"}];
+const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgress.svelte"},{"title":"LinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgressEstimate.svelte"},{"title":"WavyLinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgress.svelte"},{"title":"WavyLinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgressEstimate.svelte"},{"title":"CircularProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgress.svelte"},{"title":"CircularProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgressEstimate.svelte"},{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"}];
 </script>
 
 <InternalCard title="Progress" showCode={() => showCode("Progress", minimalDemo, relevantLinks)}>
