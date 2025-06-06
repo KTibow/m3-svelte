@@ -16,7 +16,7 @@ const onOnPrimary = DynamicColor.fromPalette({
 export const colors = [...materialColors.allColors, onOnPrimary];
 
 export const pairs = [
-  [materialColors.onPrimary(), onOnPrimary],
+  [materialColors.primary(), materialColors.onPrimary()],
   [materialColors.primaryContainer(), materialColors.onPrimaryContainer()],
   [materialColors.secondary(), materialColors.onSecondary()],
   [materialColors.secondaryContainer(), materialColors.onSecondaryContainer()],
