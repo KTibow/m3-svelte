@@ -553,7 +553,7 @@ img {
     <button
       class="m3-font-title-medium"
       disabled={currentTab == tab.id}
-      click={() => (currentTab = tab.id)}
+      onclick={() => (currentTab = tab.id)}
     >
       <Icon icon={tab.icon} width="1.5rem" height="1.5rem" />
       {tab.label}
