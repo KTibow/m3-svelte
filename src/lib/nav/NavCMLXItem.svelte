@@ -48,6 +48,12 @@
   .m3-container {
     display: flex;
 
+    &:is(button) {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
     .content {
       display: flex;
       gap: 0.25rem;
