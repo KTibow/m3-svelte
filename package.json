@@ -39,20 +39,20 @@
   },
   "dependencies": {
     "@iconify/types": "^2.0.0",
-    "@ktibow/iconset-material-symbols": "^0.0.1749408756",
-    "@ktibow/material-color-utilities-nightly": "^0.3.11749432490635",
-    "svelte": "^5.33.18"
+    "@ktibow/iconset-material-symbols": "^0.0.1749705809",
+    "@ktibow/material-color-utilities-nightly": "^0.3.11750037236983",
+    "svelte": "^5.34.3"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.2.9",
-    "@eslint/js": "^9.28.0",
+    "@eslint/compat": "^1.3.0",
+    "@eslint/js": "^9.29.0",
     "@sveltejs/adapter-static": "^3.0.8",
-    "@sveltejs/kit": "^2.21.3",
+    "@sveltejs/kit": "^2.21.5",
     "@sveltejs/package": "^2.3.11",
     "@sveltejs/vite-plugin-svelte": "^5.1.0",
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-svelte": "^3.9.1",
+    "eslint-plugin-svelte": "^3.9.2",
     "fast-glob": "^3.3.3",
     "globals": "^16.2.0",
     "prettier": "^3.5.3",
@@ -61,7 +61,7 @@
     "svelte-check": "^4.2.1",
     "svelte-highlight": "^7.8.3",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.34.0",
+    "typescript-eslint": "^8.34.1",
     "vite": "^6.3.5"
   },
   "keywords": [
