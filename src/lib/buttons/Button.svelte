@@ -144,11 +144,11 @@
       }
     }
     &.outlined {
-      outline: 1px solid rgb(var(--m3-scheme-outline));
+      outline: 1px solid rgb(var(--m3-scheme-outline-variant));
       outline-offset: -1px;
     }
     &.outlined:not(:disabled, :global(input:disabled) + label) {
-      outline-color: rgb(var(--m3-scheme-outline));
+      outline-color: rgb(var(--m3-scheme-outline-variant));
       color: rgb(var(--m3-scheme-on-surface-variant));
       &:is(:global(input:checked) + label) {
         outline-color: rgb(var(--m3-scheme-inverse-surface));
