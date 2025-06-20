@@ -15,6 +15,7 @@
 
   let {
     name,
+    label = name,
     leadingIcon,
     trailingIcon,
     trailingClick,
@@ -26,6 +27,7 @@
     ...extra
   }: {
     name: string;
+    label?: string;
     leadingIcon?: IconifyIcon;
     disabled?: boolean;
     required?: boolean;
@@ -49,12 +51,13 @@
     bind:value
     onkeydown={(e) => e.key == "Enter" && enter?.()}
     {id}
+    {name}
     {disabled}
     {required}
     {...extra}
   />
   <div class="layer"></div>
-  <label class="m3-font-body-large" for={id}>{name}</label>
+  <label class="m3-font-body-large" for={id}>{label}</label>
   {#if leadingIcon}
     <Icon icon={leadingIcon} class="leading" />
   {/if}

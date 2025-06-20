@@ -11,12 +11,14 @@
 
   let {
     name,
+    label = name,
     date = $bindable(""),
     required = false,
     disabled = false,
     ...extra
   }: {
     name: string;
+    label?: string;
     date?: string;
     required?: boolean;
     disabled?: boolean;
@@ -61,10 +63,11 @@ opacity: ${Math.min(t * 3, 1)};`,
     {disabled}
     {required}
     {id}
+    {name}
     bind:value={date}
     {...extra}
   />
-  <label class="m3-font-body-small" for={id}>{name}</label>
+  <label class="m3-font-body-small" for={id}>{label}</label>
   <button type="button" {disabled} onclick={() => (picker = !picker)}>
     <Layer />
     <Icon icon={iconCalendar} />
