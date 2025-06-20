@@ -10,13 +10,13 @@
   import { easeEmphasized } from "$lib/misc/easing";
 
   let {
-    name,
+    label: _label,
     date = $bindable(""),
     required = false,
     disabled = false,
     ...extra
   }: {
-    name: string;
+    label: string;
     date?: string;
     required?: boolean;
     disabled?: boolean;
@@ -52,6 +52,8 @@ transform: scaleY(${(t * 0.3 + 0.7) * 100}%);
 opacity: ${Math.min(t * 3, 1)};`,
     };
   };
+
+  let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
 
 <div class="m3-container" class:has-js={hasJs} class:disabled use:clickOutside>
@@ -64,7 +66,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     bind:value={date}
     {...extra}
   />
-  <label class="m3-font-body-small" for={id}>{name}</label>
+  <label class="m3-font-body-small" for={id}>{label}</label>
   <button type="button" {disabled} onclick={() => (picker = !picker)}>
     <Layer />
     <Icon icon={iconCalendar} />

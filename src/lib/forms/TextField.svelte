@@ -14,7 +14,7 @@
       };
 
   let {
-    name,
+    label: _label,
     leadingIcon,
     trailingIcon,
     trailingClick,
@@ -25,7 +25,7 @@
     enter,
     ...extra
   }: {
-    name: string;
+    label: string;
     leadingIcon?: IconifyIcon;
     disabled?: boolean;
     required?: boolean;
@@ -35,6 +35,8 @@
   } & TrailingProps &
     HTMLInputAttributes = $props();
   const id = crypto.randomUUID();
+
+  let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
 
 <div
@@ -53,7 +55,7 @@
     {required}
     {...extra}
   />
-  <label class="m3-font-body-large" for={id}>{name}</label>
+  <label class="m3-font-body-large" for={id}>{label}</label>
   <div class="layer"></div>
   {#if leadingIcon}
     <Icon icon={leadingIcon} class="leading" />
