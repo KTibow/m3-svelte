@@ -14,8 +14,7 @@
       };
 
   let {
-    name,
-    label = name,
+    label: _label,
     leadingIcon,
     trailingIcon,
     trailingClick,
@@ -26,8 +25,7 @@
     enter,
     ...extra
   }: {
-    name: string;
-    label?: string;
+    label: string;
     leadingIcon?: IconifyIcon;
     disabled?: boolean;
     required?: boolean;
@@ -37,6 +35,8 @@
   } & TrailingProps &
     HTMLInputAttributes = $props();
   const id = crypto.randomUUID();
+
+  let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
 
 <div
@@ -51,7 +51,6 @@
     bind:value
     onkeydown={(e) => e.key == "Enter" && enter?.()}
     {id}
-    {name}
     {disabled}
     {required}
     {...extra}

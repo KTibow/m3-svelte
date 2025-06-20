@@ -4,7 +4,7 @@
   import type { HTMLTextareaAttributes } from "svelte/elements";
 
   let {
-    name,
+    label: _label,
     leadingIcon,
     disabled = false,
     required = false,
@@ -12,7 +12,7 @@
     value = $bindable(""),
     ...extra
   }: {
-    name: string;
+    label: string;
     leadingIcon?: IconifyIcon;
     disabled?: boolean;
     required?: boolean;
@@ -34,6 +34,8 @@
       },
     };
   };
+
+  let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
 
 <div class="m3-container" class:leading-icon={leadingIcon} class:error use:resize>
@@ -47,7 +49,7 @@
     {...extra}
   ></textarea>
   <div class="layer"></div>
-  <label class="m3-font-body-large" for={id}>{name}</label>
+  <label class="m3-font-body-large" for={id}>{label}</label>
   {#if leadingIcon}
     <Icon icon={leadingIcon} />
   {/if}

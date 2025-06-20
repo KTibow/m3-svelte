@@ -15,12 +15,12 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}DateField name="Date" bind:date />`;
+const minimalDemo = `${"<"}DateField label="Date" bind:date />`;
 const relevantLinks = [{"title":"DateField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/utils/DateField.svelte"}];
 </script>
 
 <InternalCard title="Date field" showCode={() => showCode("Date field", minimalDemo, relevantLinks)}>
 {#snippet demo()}
-  <DateField name="Date" />
+  <DateField label="Date" />
 {/snippet}
 </InternalCard>

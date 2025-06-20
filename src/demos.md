@@ -777,7 +777,7 @@ let enabled = $state(true);
 Minimal demo:
 
 ```svelte
-<TextField name="Field" bind:value={text} />
+<TextField label="Field" bind:value={text} />
 ```
 
 Full demo:
@@ -838,7 +838,7 @@ let enabled = $state(true);
 {#snippet demo()}
   {#if type === "filled"}
     <TextField
-      name="Field"
+      label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
@@ -846,7 +846,7 @@ let enabled = $state(true);
     />
   {:else if type === "outlined"}
     <TextFieldOutlined
-      name="Field"
+      label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
@@ -854,14 +854,14 @@ let enabled = $state(true);
     />
   {:else if type === "filled_multiline"}
     <TextFieldMultiline
-      name="Field"
+      label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
     />
   {:else if type === "outlined_multiline"}
     <TextFieldOutlinedMultiline
-      name="Field"
+      label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
@@ -940,7 +940,7 @@ let items = $derived(
 Minimal demo:
 
 ```svelte
-<DateField name="Date" bind:date />
+<DateField label="Date" bind:date />
 ```
 
 Full demo:
@@ -955,6 +955,6 @@ DateField
 
 ```svelte
 {#snippet demo()}
-  <DateField name="Date" />
+  <DateField label="Date" />
 {/snippet}
 ```

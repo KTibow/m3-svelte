@@ -244,7 +244,7 @@ Here's an example todo list component:
   {/each}
 </div>
 <TextField
-  name="Task name"
+  label="Task name"
   trailingIcon={iconPlus}
   bind:value={newTaskText}
   on:enter={addTask}

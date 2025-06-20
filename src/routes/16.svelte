@@ -23,7 +23,7 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}TextField name="Field" bind:value={text} />`;
+const minimalDemo = `${"<"}TextField label="Field" bind:value={text} />`;
 const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextField.svelte"},{"title":"TextFieldOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldOutlined.svelte"},{"title":"TextFieldMultiline.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldMultiline.svelte"},{"title":"TextFieldOutlinedMultiline.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldOutlinedMultiline.svelte"}];
 </script>
 
@@ -67,7 +67,7 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
 {#snippet demo()}
   {#if type === "filled"}
     <TextField
-      name="Field"
+      label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
@@ -75,7 +75,7 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
     />
   {:else if type === "outlined"}
     <TextFieldOutlined
-      name="Field"
+      label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
@@ -83,14 +83,14 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
     />
   {:else if type === "filled_multiline"}
     <TextFieldMultiline
-      name="Field"
+      label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
     />
   {:else if type === "outlined_multiline"}
     <TextFieldOutlinedMultiline
-      name="Field"
+      label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
       error={errored}
       disabled={!enabled}
