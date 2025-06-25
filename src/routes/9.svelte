@@ -6,8 +6,9 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
-import Checkbox from "$lib/forms/Checkbox.svelte";
-let enabled = $state(true);
+import Button from "$lib/buttons/Button.svelte";
+import Snackbar, { type SnackbarIn } from "$lib/containers/Snackbar.svelte";
+let snackbar: ReturnType<typeof Snackbar>;
 
 let { showCode }: { showCode: (
   name: string,
@@ -15,24 +16,22 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}label>
-  ${"<"}Checkbox>
-    ${"<"}input type="checkbox" bind:checked={on} />
-  ${"<"}/Checkbox>
-${"<"}/label>`;
-const relevantLinks = [{"title":"Checkbox.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Checkbox.svelte"}];
+const minimalDemo = `${"<"}script lang="ts">
+  let snackbar: ReturnType${"<"}typeof Snackbar>;
+${"<"}/script>
+
+${"<"}Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
+  >Show${"<"}/Button
+>
+${"<"}Snackbar bind:this={snackbar} />`;
+const relevantLinks = [{"title":"Snackbar.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Snackbar.svelte"}];
 </script>
 
-<InternalCard title="Checkbox" showCode={() => showCode("Checkbox", minimalDemo, relevantLinks)}>
-<label>
-  <Switch bind:checked={enabled} />
-  {enabled ? "Enabled" : "Disabled"}
-</label>
+<InternalCard title="Snackbar" showCode={() => showCode("Snackbar", minimalDemo, relevantLinks)}>
 {#snippet demo()}
-  <label>
-    <Checkbox>
-      <input type="checkbox" checked disabled={!enabled} />
-    </Checkbox>
-  </label>
+  <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
+    >Show</Button
+  >
+  <Snackbar bind:this={snackbar} />
 {/snippet}
 </InternalCard>

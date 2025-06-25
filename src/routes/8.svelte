@@ -7,8 +7,8 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Button from "$lib/buttons/Button.svelte";
-import Snackbar, { type SnackbarIn } from "$lib/containers/Snackbar.svelte";
-let snackbar: ReturnType<typeof Snackbar>;
+import Dialog from "$lib/containers/Dialog.svelte";
+let open = $state(false);
 
 let { showCode }: { showCode: (
   name: string,
@@ -16,22 +16,24 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}script lang="ts">
-  let snackbar: ReturnType${"<"}typeof Snackbar>;
-${"<"}/script>
-
-${"<"}Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
-  >Show${"<"}/Button
->
-${"<"}Snackbar bind:this={snackbar} />`;
-const relevantLinks = [{"title":"Snackbar.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Snackbar.svelte"}];
+const minimalDemo = `${"<"}Dialog headline="Hello" bind:open>
+  I'm alive
+  {#snippet buttons()}
+    ${"<"}Button variant="tonal" click={() => (open = false)}>OK${"<"}/Button>
+  {/snippet}
+${"<"}/Dialog>`;
+const relevantLinks = [{"title":"Dialog.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Dialog.svelte"}];
 </script>
 
-<InternalCard title="Snackbar" showCode={() => showCode("Snackbar", minimalDemo, relevantLinks)}>
+<InternalCard title="Dialog" showCode={() => showCode("Dialog", minimalDemo, relevantLinks)}>
 {#snippet demo()}
-  <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
-    >Show</Button
-  >
-  <Snackbar bind:this={snackbar} />
+  <Button variant="tonal" click={() => (open = true)}>Open</Button>
+  <Dialog icon={iconCircle} headline="Hello" bind:open>
+    Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
+    ZomboCom! The unattainable is unknown at ZomboCom!
+    {#snippet buttons()}
+      <Button variant="tonal" click={() => (open = false)}>OK</Button>
+    {/snippet}
+  </Dialog>
 {/snippet}
 </InternalCard>

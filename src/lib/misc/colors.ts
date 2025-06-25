@@ -55,6 +55,7 @@ const onErrorContainerSubtle = DynamicColor.fromPalette({
 
 export const colors = [
   ...materialColors.allColors,
+  materialColors.shadow(),
   onOnPrimary,
   primaryContainerSubtle,
   onPrimaryContainerSubtle,

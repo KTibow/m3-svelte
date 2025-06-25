@@ -6,10 +6,15 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
-import Slider from "$lib/forms/Slider.svelte";
-import SliderTicks from "$lib/forms/SliderTicks.svelte";
-let precision: "continuous" | "discrete" | "discrete-ticks" = $state("continuous");
+import RadioAnim1 from "$lib/forms/RadioAnim1.svelte";
+import RadioAnim2 from "$lib/forms/RadioAnim2.svelte";
+import RadioAnim3 from "$lib/forms/RadioAnim3.svelte";
+let animation: "1" | "2" | "3" = $state("1");
 let enabled = $state(true);
+
+let Component = $derived(
+  animation == "1" ? RadioAnim1 : animation == "2" ? RadioAnim2 : RadioAnim3,
+);
 
 let { showCode }: { showCode: (
   name: string,
@@ -17,18 +22,16 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}Slider bind:value={n} />`;
-const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"},{"title":"SliderTicks.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/SliderTicks.svelte"}];
+const minimalDemo = `${"<"}RadioAnim1>${"<"}input type="radio" name="stuff" value="one" bind:group={stuff} />${"<"}/RadioAnim1>
+${"<"}RadioAnim1>${"<"}input type="radio" name="stuff" value="two" bind:group={stuff} />${"<"}/RadioAnim1>
+${"<"}RadioAnim1>${"<"}input type="radio" name="stuff" value="three" bind:group={stuff} />${"<"}/RadioAnim1>`;
+const relevantLinks = [{"title":"RadioAnim1.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/RadioAnim1.svelte"},{"title":"RadioAnim2.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/RadioAnim2.svelte"},{"title":"RadioAnim3.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/RadioAnim3.svelte"}];
 </script>
 
-<InternalCard title="Slider" showCode={() => showCode("Slider", minimalDemo, relevantLinks)}>
+<InternalCard title="Radio" showCode={() => showCode("Radio", minimalDemo, relevantLinks)}>
 <label>
-  <Arrows list={["continuous", "discrete", "discrete-ticks"]} bind:value={precision} />
-  {precision == "continuous"
-    ? "Continuous"
-    : precision == "discrete"
-      ? "Discrete"
-      : "Discrete (ticks)"}
+  <Arrows list={["1", "2", "3"]} bind:value={animation} />
+  Animation {animation}
 </label>
 <label>
   <Switch bind:checked={enabled} />
@@ -36,10 +39,22 @@ const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3
 </label>
 
 {#snippet demo()}
-  {#if precision == "discrete-ticks"}
-    <SliderTicks step={1} max={6} value={0} disabled={!enabled} />
-  {:else}
-    <Slider step={precision == "continuous" ? "any" : 10} value={0} disabled={!enabled} />
-  {/if}
+  <div style:display="flex" style:gap="0.5rem">
+    <label>
+      <Component>
+        <input type="radio" name="radio" checked disabled={!enabled} />
+      </Component>
+    </label>
+    <label>
+      <Component>
+        <input type="radio" name="radio" disabled={!enabled} />
+      </Component>
+    </label>
+    <label>
+      <Component>
+        <input type="radio" name="radio" disabled={!enabled} />
+      </Component>
+    </label>
+  </div>
 {/snippet}
 </InternalCard>

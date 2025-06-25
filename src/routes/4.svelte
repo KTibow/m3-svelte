@@ -6,21 +6,9 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
-import ListItem from "$lib/containers/ListItem.svelte";
-import Checkbox from "$lib/forms/Checkbox.svelte";
-import Divider from "$lib/utils/Divider.svelte";
-const headline = "Hello";
-
-let lines: "1" | "2" | "3" = $state("1");
-let type: "div" | "button" | "label" = $state("div");
-
-let supporting = $derived(
-  lines == "1"
-    ? undefined
-    : lines == "2"
-      ? "Welcome to ZomboCom!"
-      : "Welcome to ZomboCom! Anything is possible at ZomboCom! You can do anything at ZomboCom!",
-);
+import Card from "$lib/containers/Card.svelte";
+let variant: "elevated" | "filled" | "outlined" = $state("elevated");
+let clickable = $state(false);
 
 let { showCode }: { showCode: (
   name: string,
@@ -28,64 +16,21 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}div>
-  ${"<"}ListItem headline="Hello" />
-  ${"<"}ListItem headline="Hello" />
-${"<"}/div>`;
-const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/ListItem.svelte"}];
+const minimalDemo = `${"<"}Card variant="filled">Hello${"<"}/Card>
+${"<"}Card variant="filled" click={() => alert("!")}>Hello${"<"}/Card>`;
+const relevantLinks = [{"title":"Card.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Card.svelte"}];
 </script>
 
-<InternalCard title="List" showCode={() => showCode("List", minimalDemo, relevantLinks)}>
+<InternalCard title="Card" showCode={() => showCode("Card", minimalDemo, relevantLinks)}>
 <label>
-  <Arrows list={["1", "2", "3"]} bind:value={lines} />
-  {lines}
-  {lines == "1" ? "line" : "lines"}
+  <Arrows list={["elevated", "filled", "outlined"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
-  <Arrows list={["div", "button", "label"]} bind:value={type} />
-  {"<" + type + ">"}
+  <Switch bind:checked={clickable} />
+  {clickable ? "Clickable" : "Not clickable"}
 </label>
 {#snippet demo()}
-  <div class="demo">
-    {#snippet leading()}
-      {#if type == "label"}
-        <div class="box-wrapper">
-          <Checkbox><input type="checkbox" /></Checkbox>
-        </div>
-      {:else}
-        <Icon icon={iconCircle} />
-      {/if}
-    {/snippet}
-    <ListItem
-      {leading}
-      {headline}
-      {supporting}
-      lines={+lines}
-      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
-    />
-    <Divider />
-    <ListItem
-      {leading}
-      {headline}
-      {supporting}
-      lines={+lines}
-      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
-    />
-  </div>
+  <Card {variant} {...clickable ? { click: () => {} } : {}}>Hello</Card>
 {/snippet}
-
-<style>
-  .demo {
-    display: flex;
-    flex-direction: column;
-  }
-  .box-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-</style>
 </InternalCard>

@@ -94,6 +94,7 @@
     border-radius: var(--m3-button-shape);
     transition:
       border-radius var(--m3-util-easing-fast-spatial),
+      box-shadow var(--m3-util-easing-fast),
       background-color var(--m3-util-easing-fast),
       color var(--m3-util-easing-fast);
 

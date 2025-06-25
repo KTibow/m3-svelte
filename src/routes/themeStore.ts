@@ -56,7 +56,14 @@ export const styling = writable(`
     --m3-scheme-on-error: 255 247 247;
     --m3-scheme-error-container: 249 115 134;
     --m3-scheme-on-error-container: 110 5 35;
+    --m3-scheme-shadow: 0 0 0;
     --m3-scheme-on-on-primary: 101 87 136;
+    --m3-scheme-primary-container-subtle: 226 211 255;
+    --m3-scheme-on-primary-container-subtle: 83 69 117;
+    --m3-scheme-tertiary-container-subtle: 255 203 237;
+    --m3-scheme-on-tertiary-container-subtle: 103 64 93;
+    --m3-scheme-error-container-subtle: 255 206 210;
+    --m3-scheme-on-error-container-subtle: 143 35 57;
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -114,7 +121,14 @@ export const styling = writable(`
     --m3-scheme-on-error: 73 0 19;
     --m3-scheme-error-container: 135 28 52;
     --m3-scheme-on-error-container: 255 151 163;
+    --m3-scheme-shadow: 0 0 0;
     --m3-scheme-on-on-primary: 206 191 236;
+    --m3-scheme-primary-container-subtle: 48 38 73;
+    --m3-scheme-on-primary-container-subtle: 178 164 207;
+    --m3-scheme-tertiary-container-subtle: 67 32 59;
+    --m3-scheme-on-tertiary-container-subtle: 206 156 190;
+    --m3-scheme-error-container-subtle: 95 0 28;
+    --m3-scheme-on-error-container-subtle: 255 135 150;
   }
 }
 `);

@@ -6,15 +6,12 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
-import FAB from "$lib/buttons/FAB.svelte";
-let color:
-  | "primary-container"
-  | "secondary-container"
-  | "tertiary-container"
-  | "primary"
-  | "secondary"
-  | "tertiary" = $state("primary-container");
-let size: "small" | "normal" | "large" | "extended" = $state("normal");
+import SplitButton from "$lib/buttons/SplitButton.svelte";
+import Menu from "$lib/containers/Menu.svelte";
+import MenuItem from "$lib/containers/MenuItem.svelte";
+let variant: "elevated" | "filled" | "tonal" | "outlined" = $state("elevated");
+let position: "inner-down" | "inner-up" | "right-down" | "right-up" = $state("inner-down");
+let iconType: "none" | "left" | "full" = $state("none");
 
 let { showCode }: { showCode: (
   name: string,
@@ -22,37 +19,55 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}FAB color="primary" icon={iconCircle} click={() => alert("!")} />`;
-const relevantLinks = [{"title":"FAB.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/FAB.svelte"}];
+const minimalDemo = `${"<"}SplitButton
+  variant="filled"
+  click={() => alert("!")}
+>
+  Hello
+  {#snippet menu()}
+    and more
+  {/snippet}
+${"<"}/SplitButton>`;
+const relevantLinks = [{"title":"SplitButton.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/SplitButton.svelte"},{"title":"Menu.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Menu.svelte"},{"title":"MenuItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/MenuItem.svelte"}];
 </script>
 
-<InternalCard title="FAB" showCode={() => showCode("FAB", minimalDemo, relevantLinks)}>
+<InternalCard title="Split button" showCode={() => showCode("Split button", minimalDemo, relevantLinks)}>
 <label>
-  <Arrows
-    list={[
-      "primary-container",
-      "secondary-container",
-      "tertiary-container",
-      "primary",
-      "secondary",
-      "tertiary",
-    ]}
-    bind:value={color}
-  />
-  {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
+  <Arrows list={["elevated", "filled", "tonal", "outlined"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
-  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} initialIndex={1} />
-  {size[0].toUpperCase() + size.slice(1)}
+  <Arrows list={["inner-down", "inner-up", "right-down", "right-up"]} bind:value={position} />
+  {position[0].toUpperCase() + position.slice(1).replace("-", " ")}
 </label>
+<label>
+  <Arrows list={["none", "left", "full"]} bind:value={iconType} />
+  {iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}
+</label>
+
 {#snippet demo()}
   <div>
-    <FAB
-      {color}
+    <SplitButton
+      {variant}
+      x={position.startsWith("inner") ? "inner" : "right"}
+      y={position.endsWith("down") ? "down" : "up"}
       click={() => {}}
-      {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
-      icon={iconCircle}
-    />
+    >
+      {#if iconType == "none"}
+        Hello
+      {:else if iconType == "left"}
+        <Icon icon={iconCircle} /> Hello
+      {:else}
+        <Icon icon={iconCircle} />
+      {/if}
+      {#snippet menu()}
+        <Menu>
+          <MenuItem icon={iconCircle} click={() => {}}>Hi</MenuItem>
+          <MenuItem icon={iconSquare} click={() => {}}>Howdy</MenuItem>
+          <MenuItem icon={iconTriangle} click={() => {}}>G'day</MenuItem>
+        </Menu>
+      {/snippet}
+    </SplitButton>
   </div>
 {/snippet}
 </InternalCard>

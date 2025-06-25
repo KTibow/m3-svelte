@@ -660,6 +660,65 @@ let multiselect = $state(true);` to make this demo:
 {/snippet}
 ```
 
+### Split button
+
+Minimal demo:
+```svelte
+<SplitButton
+  variant="filled"
+  click={() => alert("!")}
+>
+  Hello
+  {#snippet menu()}
+    and more
+  {/snippet}
+</SplitButton>
+```
+
+The M3 Svelte interactive demo for this component uses SplitButton, Menu, MenuItem with the TS `let variant: "elevated" | "filled" | "tonal" | "outlined" = $state("elevated");
+let position: "inner-down" | "inner-up" | "right-down" | "right-up" = $state("inner-down");
+let iconType: "none" | "left" | "full" = $state("none");` to make this demo:
+```svelte
+<label>
+  <Arrows list={["elevated", "filled", "tonal", "outlined"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
+</label>
+<label>
+  <Arrows list={["inner-down", "inner-up", "right-down", "right-up"]} bind:value={position} />
+  {position[0].toUpperCase() + position.slice(1).replace("-", " ")}
+</label>
+<label>
+  <Arrows list={["none", "left", "full"]} bind:value={iconType} />
+  {iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}
+</label>
+
+{#snippet demo()}
+  <div>
+    <SplitButton
+      {variant}
+      x={position.startsWith("inner") ? "inner" : "right"}
+      y={position.endsWith("down") ? "down" : "up"}
+      click={() => {}}
+    >
+      {#if iconType == "none"}
+        Hello
+      {:else if iconType == "left"}
+        <Icon icon={iconCircle} /> Hello
+      {:else}
+        <Icon icon={iconCircle} />
+      {/if}
+      {#snippet menu()}
+        <Menu>
+          <MenuItem icon={iconCircle} click={() => {}}>Hi</MenuItem>
+          <MenuItem icon={iconSquare} click={() => {}}>Howdy</MenuItem>
+          <MenuItem icon={iconTriangle} click={() => {}}>G'day</MenuItem>
+        </Menu>
+      {/snippet}
+    </SplitButton>
+  </div>
+{/snippet}
+```
+
 ### FAB
 
 Minimal demo:

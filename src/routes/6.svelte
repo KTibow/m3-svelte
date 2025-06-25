@@ -6,9 +6,9 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
-import Button from "$lib/buttons/Button.svelte";
-import BottomSheet from "$lib/containers/BottomSheet.svelte";
-let open = $state(false);
+import Menu from "$lib/containers/Menu.svelte";
+import MenuItem from "$lib/containers/MenuItem.svelte";
+let icons = $state(false);
 
 let { showCode }: { showCode: (
   name: string,
@@ -16,21 +16,24 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `{#if open}
-  ${"<"}BottomSheet close={() => (open = false)}>Hello${"<"}/BottomSheet>
-{/if}`;
-const relevantLinks = [{"title":"BottomSheet.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/BottomSheet.svelte"}];
+const minimalDemo = `${"<"}Menu>
+  ${"<"}MenuItem icon={iconCircle}>Undo${"<"}/MenuItem>
+  ${"<"}MenuItem icon={iconSquare}>Redo${"<"}/MenuItem>
+  ${"<"}MenuItem icon={iconTriangle}>Cut${"<"}/MenuItem>
+${"<"}/Menu>`;
+const relevantLinks = [{"title":"Menu.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Menu.svelte"},{"title":"MenuItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/MenuItem.svelte"}];
 </script>
 
-<InternalCard title="Bottom sheet" showCode={() => showCode("Bottom sheet", minimalDemo, relevantLinks)}>
+<InternalCard title="Menu" showCode={() => showCode("Menu", minimalDemo, relevantLinks)}>
+<label>
+  <Switch bind:checked={icons} />
+  {icons ? "Icons" : "No icons"}
+</label>
 {#snippet demo()}
-  <Button variant="tonal" click={() => (open = true)}>Open</Button>
-  {#if open}
-    <BottomSheet close={() => (open = false)}>
-      {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(
-        20,
-      )}
-    </BottomSheet>
-  {/if}
+  <Menu>
+    <MenuItem icon={icons ? iconCircle : undefined} click={() => {}}>Cut</MenuItem>
+    <MenuItem icon={icons ? iconSquare : undefined} click={() => {}}>Undo</MenuItem>
+    <MenuItem icon={icons ? iconTriangle : undefined} disabled click={() => {}}>Redo</MenuItem>
+  </Menu>
 {/snippet}
 </InternalCard>
