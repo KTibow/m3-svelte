@@ -7,7 +7,7 @@
   import type { Snippet } from "svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
-  // If you want a toggle button, use `for` with an `<input>`.
+  // If you want a toggle button, use `for` with a checkbox input.
   type ActionProps =
     | ({ click?: () => void; disabled?: boolean } & HTMLButtonAttributes)
     | ({ href: string } & HTMLAnchorAttributes)
@@ -131,7 +131,7 @@
     &.filled:not(:disabled, :global(input:disabled) + label) {
       background-color: rgb(var(--m3-scheme-primary));
       color: rgb(var(--m3-scheme-on-primary));
-      &:is(:global(input:not(:checked)) + label) {
+      &:is(:global(input:is([type="checkbox"], [type="radio"]):not(:checked)) + label) {
         background-color: rgb(var(--m3-scheme-surface-container));
         color: rgb(var(--m3-scheme-on-surface-variant));
       }
