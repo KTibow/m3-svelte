@@ -67,6 +67,7 @@ jobs:
             const pkg = require('./package.json');
             pkg.name = '@ktibow/material-color-utilities-nightly';
             pkg.version = process.env.NIGHTLY_VERSION;
+            pkg.sideEffects = false;
             delete pkg.scripts.prepublishOnly;
             JSON.stringify(pkg, null, 2);
           " > package.tmp.json
