@@ -57,6 +57,7 @@ export const styling = writable(`
     --m3-scheme-error-container: 249 115 134;
     --m3-scheme-on-error-container: 110 5 35;
     --m3-scheme-shadow: 0 0 0;
+    --m3-scheme-scrim: 0 0 0;
     --m3-scheme-on-on-primary: 101 87 136;
     --m3-scheme-primary-container-subtle: 226 211 255;
     --m3-scheme-on-primary-container-subtle: 83 69 117;
@@ -122,6 +123,7 @@ export const styling = writable(`
     --m3-scheme-error-container: 135 28 52;
     --m3-scheme-on-error-container: 255 151 163;
     --m3-scheme-shadow: 0 0 0;
+    --m3-scheme-scrim: 0 0 0;
     --m3-scheme-on-on-primary: 206 191 236;
     --m3-scheme-primary-container-subtle: 48 38 73;
     --m3-scheme-on-primary-container-subtle: 178 164 207;
