@@ -1,12 +1,18 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { HTMLAttributes, HTMLButtonAttributes, HTMLLabelAttributes } from "svelte/elements";
+  import type {
+    HTMLAnchorAttributes,
+    HTMLAttributes,
+    HTMLButtonAttributes,
+    HTMLLabelAttributes,
+  } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
 
   type ActionProps =
     | HTMLAttributes<HTMLDivElement>
     | ({ click: () => void } & HTMLButtonAttributes)
-    | ({ label: true } & HTMLLabelAttributes);
+    | ({ label: true } & HTMLLabelAttributes)
+    | ({ href: string } & HTMLAnchorAttributes);
 
   let props: {
     leading?: Snippet;
@@ -78,6 +84,12 @@
     <Layer />
     {@render content(leading, overline, headline, supporting, trailing)}
   </button>
+{:else if "href" in props}
+  {@const { leading, overline = "", headline = "", supporting = "", trailing, ...extra } = props}
+  <a class="m3-container lines-{_lines}" {...extra}>
+    <Layer />
+    {@render content(leading, overline, headline, supporting, trailing)}
+  </a>
 {:else}
   {@const { leading, overline = "", headline = "", supporting = "", trailing, ...extra } = props}
   <div class="m3-container lines-{_lines}" {...extra}>
@@ -96,6 +108,7 @@
     border: none;
     position: relative;
     background: transparent;
+    color: inherit;
     -webkit-tap-highlight-color: transparent;
   }
   button.m3-container,
