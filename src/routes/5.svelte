@@ -12,7 +12,7 @@ import Divider from "$lib/utils/Divider.svelte";
 const headline = "Hello";
 
 let lines: "1" | "2" | "3" = $state("1");
-let type: "div" | "button" | "label" = $state("div");
+let type: "div" | "button" | "label" | "a" = $state("div");
 
 let supporting = $derived(
   lines == "1"
@@ -42,7 +42,7 @@ const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/
   {lines == "1" ? "line" : "lines"}
 </label>
 <label>
-  <Arrows list={["div", "button", "label"]} bind:value={type} />
+  <Arrows list={["div", "button", "label", "a"]} bind:value={type} />
   {"<" + type + ">"}
 </label>
 {#snippet demo()}
@@ -61,7 +61,7 @@ const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/
       {headline}
       {supporting}
       lines={+lines}
-      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : type == "a" ? { href: "/" } : {}}
     />
     <Divider />
     <ListItem
@@ -69,7 +69,7 @@ const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/
       {headline}
       {supporting}
       lines={+lines}
-      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : {}}
+      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : type == "a" ? { href: "/" } : {}}
     />
   </div>
 {/snippet}
