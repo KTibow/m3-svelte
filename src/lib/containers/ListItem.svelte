@@ -108,6 +108,7 @@
     border: none;
     position: relative;
     background: transparent;
+    color: inherit;
     -webkit-tap-highlight-color: transparent;
   }
   button.m3-container,
