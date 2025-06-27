@@ -174,7 +174,7 @@
     &:is(:global(input:checked) + label):not(.square) {
       border-radius: var(--m3-util-rounding-medium);
     }
-    &:active {
+    &:active:not(:disabled, :global(input:disabled) + label) {
       border-radius: var(--m3-util-rounding-small) !important;
     }
   }
