@@ -13,19 +13,21 @@
     opacity: 0;
     transition: opacity var(--m3-util-easing-fast);
 
-    @media (hover: hover) {
-      &:is(:global(:hover) > .tint):not(
-          :global(input:disabled + label) > .tint,
-          :global(input:disabled + .layer-container) > .tint,
-          :global(:disabled) > .tint
-        ) {
-        opacity: 0.08;
+    &:not(
+        :global(input:disabled + label) > .tint,
+        :global(input:disabled + .layer-container) > .tint,
+        :global(:disabled) > .tint
+      ) {
+      @media (hover: hover) {
+        &:is(:global(:hover) > .tint) {
+          opacity: 0.08;
+        }
       }
-    }
-    &:is(:global(input:focus-visible + label) > .tint),
-    &:is(:global(:focus-visible) > .tint),
-    &:is(.ripple-container.broken + .tint):is(:global(:active) > .tint) {
-      opacity: 0.12;
+      &:is(:global(input:focus-visible + label) > .tint),
+      &:is(:global(:focus-visible) > .tint),
+      &:is(:global(:active) > .tint) {
+        opacity: 0.12;
+      }
     }
   }
 </style>
