@@ -79,6 +79,7 @@
     border-radius: var(--m3-dialog-shape);
     min-width: 17.5rem;
     max-width: 35rem;
+    margin: auto;
     padding: 0;
     overflow: auto;
   }
