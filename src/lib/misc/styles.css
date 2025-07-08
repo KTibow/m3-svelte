@@ -302,3 +302,7 @@ or for very small text in the content body, such as captions. */
 a.m3-container {
   text-decoration: none;
 }
+.m3-container dialog,
+dialog.m3-container {
+  margin: auto;
+}
