@@ -36,6 +36,7 @@
 </script>
 
 <dialog
+  class="m3-container"
   oncancel={(e) => {
     if (closeOnEsc) {
       onEsc?.();
@@ -54,9 +55,9 @@
   bind:this={dialog}
   {...extra}
 >
-  <div class="m3-container">
+  <div class="d">
     {#if icon}
-      <Icon {icon} />
+      <Icon {icon} width="1.5rem" height="1.5rem" />
     {/if}
     <p class="headline m3-font-headline-small" class:center={icon}>{headline}</p>
     <div class="content m3-font-body-medium">
@@ -74,26 +75,22 @@
   }
   dialog {
     display: flex;
+    flex-direction: column;
     background-color: rgb(var(--m3-scheme-surface-container-high));
     border: none;
     border-radius: var(--m3-dialog-shape);
     min-width: 17.5rem;
     max-width: 35rem;
-    margin: auto;
     padding: 0;
     overflow: auto;
   }
-  .m3-container {
+  .d {
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    width: 100%;
   }
-
-  .m3-container > :global(svg) {
+  .d > :global(svg) {
     color: rgb(var(--m3-scheme-secondary));
-    width: 1.5rem;
-    height: 1.5rem;
 
     flex-shrink: 0;
     align-self: center;
