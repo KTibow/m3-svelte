@@ -88,7 +88,9 @@
     left: 0.75rem;
     top: 1rem;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
-    background-color: rgb(var(--m3-util-background, var(--m3-scheme-surface)));
+    background-color: rgb(
+      var(--m3-util-background, var(--m3-scheme-surface))
+    ); /* TODO: next breaking change, make --m3-util-background a full color and update the comment above */
     padding: 0 0.25rem;
     pointer-events: none;
     transition:
