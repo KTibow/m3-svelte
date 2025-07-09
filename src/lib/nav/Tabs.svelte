@@ -18,7 +18,7 @@
       value: string;
     }[];
   } & HTMLInputAttributes = $props();
-  const name = crypto.randomUUID();
+  const name = $props.id();
 </script>
 
 <div class="m3-container" class:primary={!secondary} style:--items={items.length}>

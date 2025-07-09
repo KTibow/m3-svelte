@@ -22,7 +22,7 @@
     disabled?: boolean;
   } & HTMLInputAttributes = $props();
 
-  const id = crypto.randomUUID();
+  const id = $props.id();
   let hasJs = $state(false);
   onMount(() => {
     hasJs = true;

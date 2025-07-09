@@ -34,7 +34,7 @@
     enter?: () => void;
   } & TrailingProps &
     HTMLInputAttributes = $props();
-  const id = crypto.randomUUID();
+  const id = $props.id();
 
   let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
