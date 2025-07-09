@@ -39,7 +39,7 @@
     border: none;
     border-radius: var(--m3-card-shape);
     background-color: rgb(var(--m3-scheme-surface));
-    --m3-util-background: rgb(var(--m3-scheme-surface));
+    --m3-util-background: var(--m3-scheme-surface);
     color: rgb(var(--m3-scheme-on-surface));
   }
 
@@ -61,12 +61,12 @@
 
   .elevated {
     background-color: rgb(var(--m3-scheme-surface-container-low));
-    --m3-util-background: rgb(var(--m3-scheme-surface-container-low));
+    --m3-util-background: var(--m3-scheme-surface-container-low);
     box-shadow: var(--m3-util-elevation-1);
   }
   .filled {
     background-color: rgb(var(--m3-scheme-surface-container-highest));
-    --m3-util-background: rgb(var(--m3-scheme-surface-container-highest));
+    --m3-util-background: var(--m3-scheme-surface-container-highest);
   }
   .outlined {
     border: solid 1px rgb(var(--m3-scheme-outline-variant));
