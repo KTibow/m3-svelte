@@ -19,7 +19,7 @@
     }[];
   } & HTMLInputAttributes = $props();
 
-  const name = crypto.randomUUID();
+  const name = $props.id();
   let wrapper: HTMLDivElement | undefined = $state();
   const handleInput = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
     const before = tab;

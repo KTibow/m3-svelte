@@ -13,7 +13,7 @@
     round?: boolean;
     children: Snippet;
   } = $props();
-  const id = crypto.randomUUID();
+  const id = $props.id();
 </script>
 
 <input type="checkbox" {id} bind:checked={toggle} />

@@ -19,7 +19,7 @@
     error?: boolean;
     value?: string;
   } & HTMLTextareaAttributes = $props();
-  const id = crypto.randomUUID();
+  const id = $props.id();
   const resize = (node: HTMLElement) => {
     const update = () => {
       const textarea = node.firstElementChild as HTMLTextAreaElement;
