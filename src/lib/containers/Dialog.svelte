@@ -140,7 +140,6 @@
     animation: opacity var(--m3-util-easing-fast) 50ms both;
   }
   dialog[open] .buttons {
-    position: relative;
     animation:
       buttonsIn var(--m3-util-curve-decel) 500ms,
       opacity var(--m3-util-easing-fast) 100ms both;
@@ -161,9 +160,11 @@
   }
   @keyframes buttonsIn {
     0% {
+      position: relative;
       bottom: 100%;
     }
     100% {
+      position: relative;
       bottom: 0;
     }
   }
