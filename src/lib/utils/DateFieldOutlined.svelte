@@ -68,6 +68,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     bind:value={date}
     {...extra}
   />
+  <div class="layer"></div>
   <label class="m3-font-body-small" for={id}>{label}</label>
   <button type="button" {disabled} onclick={() => (picker = !picker)}>
     <Layer />
@@ -86,16 +87,18 @@ opacity: ${Math.min(t * 3, 1)};`,
 </div>
 
 <style>
+  /*
+  want to customize the label's background?
+  do this: <DateFieldOutlined --m3-util-background="var(--m3-scheme-surface-container)" />
+  */
   :root {
-    --m3-datefield-shape: var(--m3-util-rounding-extra-small);
+    --m3-datefield-outlined-shape: var(--m3-util-rounding-extra-small);
   }
   .m3-container {
+    display: inline-flex;
     position: relative;
     height: 3.5rem;
     min-width: 15rem;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
-    border-radius: var(--m3-datefield-shape) var(--m3-datefield-shape) 0 0;
-    border-bottom: solid 1px rgb(var(--error, var(--m3-scheme-on-surface-variant)));
   }
   input {
     position: absolute;
@@ -104,24 +107,30 @@ opacity: ${Math.min(t * 3, 1)};`,
     height: 100%;
     border: none;
     outline: none;
-    padding: 1.5rem 1rem 0.5rem 1rem;
+    padding: 1rem;
+    border-radius: var(--m3-datefield-outlined-shape);
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
   }
   label {
     position: absolute;
-    left: 1rem;
-    top: 0.5rem;
+    left: 0.75rem;
+    top: calc(var(--m3-font-body-small-height, 1rem) * -0.5);
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    background-color: rgb(
+      var(--m3-util-background, var(--m3-scheme-surface))
+    ); /* TODO: next breaking change, make --m3-util-background a full color and update the comment above */
+    padding: 0 0.25rem;
     pointer-events: none;
+    transition: all 200ms;
   }
-  input {
-    padding-left: 0.875rem;
-  }
-  @supports (-moz-appearance: none) {
-    input {
-      padding-left: 0.75rem;
-    }
+  .layer {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgb(var(--error, var(--m3-scheme-outline)));
+    border-radius: var(--m3-datefield-outlined-shape);
+    pointer-events: none;
+    transition: all 200ms;
   }
 
   button {
@@ -136,27 +145,67 @@ opacity: ${Math.min(t * 3, 1)};`,
     border: none;
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface-variant));
-    border-top-right-radius: var(--m3-datefield-shape);
+    border-top-right-radius: var(--m3-datefield-outlined-shape);
 
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
   }
 
-  .m3-container.disabled {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.04);
-    border-bottom-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  input {
+    padding-left: 0.875rem;
   }
-  input:disabled,
-  input:disabled + label {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  @supports (-moz-appearance: none) {
+    input {
+      padding-left: 0.75rem;
+    }
   }
-  button:disabled {
-    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
-    cursor: auto;
+
+  input:hover ~ label {
+    color: rgb(var(--error, var(--m3-scheme-on-surface)));
+  }
+  input:hover ~ .layer {
+    border-color: rgb(var(--error, var(--m3-scheme-on-surface)));
+  }
+  input:focus ~ label {
+    color: rgb(var(--error, var(--m3-scheme-primary)));
+  }
+  input:focus ~ .layer {
+    border-color: rgb(var(--error, var(--m3-scheme-primary)));
+    border-width: 0.125rem;
+  }
+  @media (hover: hover) {
+    button:hover {
+      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
+    }
+  }
+  button:focus-visible,
+  button:active {
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
 
   .error {
     --error: var(--m3-scheme-error);
+  }
+  .error > input:hover ~ label,
+  .error > input:hover ~ .layer {
+    --error: var(--m3-scheme-on-error-container);
+  }
+
+  .m3-container.disabled {
+    opacity: 0.38;
+  }
+  input:disabled {
+    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  }
+  input:disabled ~ label {
+    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  }
+  input:disabled ~ .layer {
+    border-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+  }
+  button:disabled {
+    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    cursor: auto;
   }
 
   .picker {

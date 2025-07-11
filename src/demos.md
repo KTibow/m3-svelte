@@ -656,12 +656,11 @@ let percent = $state(10);
   <Switch bind:checked={thick} />
   {thick ? "Thicker" : "Default"}
 </label>
-{#if estimate}
-  <Button variant="tonal" click={() => (estimate = false)}>Estimated</Button>
-{:else}
+{#if !estimate}
   <Slider bind:value={percent} />
-  <Button variant="tonal" click={() => (estimate = true)}>Estimate</Button>
 {/if}
+<input type="checkbox" id="estimate-toggle" bind:checked={estimate} />
+<Button variant="tonal" for="estimate-toggle">{estimate ? "Estimated" : "Estimate"}</Button>
 
 {#snippet demo()}
   {#if estimate && type == "linear"}
@@ -678,6 +677,12 @@ let percent = $state(10);
     <CircularProgress {percent} thickness={thick ? 8 : 4} />
   {/if}
 {/snippet}
+
+<style>
+  #estimate-toggle {
+    display: none;
+  }
+</style>
 ```
 
 ## Loading
@@ -1012,20 +1017,41 @@ Minimal demo:
 
 ```svelte
 <DateField label="Date" bind:date />
+<DateFieldOutlined label="Date" bind:date />
 ```
 
 Full demo:
 
 ```use
 DateField
+DateFieldOutlined
 ```
 
 ```ts
-
+let variant: "filled" | "outlined" = $state("filled");
+let enabled = $state(true);
+let errored = $state(false);
 ```
 
 ```svelte
+<label>
+  <Arrows list={["filled", "outlined"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
+</label>
+<label>
+  <Switch bind:checked={errored} />
+  {errored ? "Errored" : "Not errored"}
+</label>
+<label>
+  <Switch bind:checked={enabled} />
+  {enabled ? "Enabled" : "Disabled"}
+</label>
+
 {#snippet demo()}
-  <DateField label="Date" />
+  {#if variant === "filled"}
+    <DateField label="Date" disabled={!enabled} error={errored} />
+  {:else}
+    <DateFieldOutlined label="Date" disabled={!enabled} error={errored} />
+  {/if}
 {/snippet}
 ```

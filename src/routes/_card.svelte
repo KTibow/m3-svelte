@@ -75,13 +75,11 @@
     flex-grow: 1;
     flex-wrap: wrap;
 
-    :global {
-      label {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-        height: 2rem;
-      }
+    :global(label:not([for])) {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      height: 2rem;
     }
   }
   .controls > button {

@@ -43,12 +43,11 @@ const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/K
   <Switch bind:checked={thick} />
   {thick ? "Thicker" : "Default"}
 </label>
-{#if estimate}
-  <Button variant="tonal" click={() => (estimate = false)}>Estimated</Button>
-{:else}
+{#if !estimate}
   <Slider bind:value={percent} />
-  <Button variant="tonal" click={() => (estimate = true)}>Estimate</Button>
 {/if}
+<input type="checkbox" id="estimate-toggle" bind:checked={estimate} />
+<Button variant="tonal" for="estimate-toggle">{estimate ? "Estimated" : "Estimate"}</Button>
 
 {#snippet demo()}
   {#if estimate && type == "linear"}
@@ -65,4 +64,10 @@ const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/K
     <CircularProgress {percent} thickness={thick ? 8 : 4} />
   {/if}
 {/snippet}
+
+<style>
+  #estimate-toggle {
+    display: none;
+  }
+</style>
 </InternalCard>

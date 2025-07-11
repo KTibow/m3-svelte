@@ -29,7 +29,7 @@ export { default as WavyLinearProgressEstimate } from "./forms/WavyLinearProgres
 export { default as CircularProgress } from "./forms/CircularProgress.svelte";
 export { default as CircularProgressEstimate } from "./forms/CircularProgressEstimate.svelte";
 export { default as CircularProgressIndeterminate } from "./forms/CircularProgressIndeterminate.svelte";
-export { default as LoadingIndicator } from "./forms/LoadingIndicator.svelte"
+export { default as LoadingIndicator } from "./forms/LoadingIndicator.svelte";
 export { default as RadioAnim1 } from "./forms/RadioAnim1.svelte";
 export { default as RadioAnim2 } from "./forms/RadioAnim2.svelte";
 export { default as RadioAnim3 } from "./forms/RadioAnim3.svelte";
@@ -54,3 +54,4 @@ export { default as VariableTabsLink } from "./nav/VariableTabsLink.svelte";
 export { default as ChipChooser } from "./utils/ChipChooser.svelte";
 export { default as Divider } from "./utils/Divider.svelte";
 export { default as DateField } from "./utils/DateField.svelte";
+export { default as DateFieldOutlined } from "./utils/DateFieldOutlined.svelte";
