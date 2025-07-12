@@ -131,18 +131,18 @@
     pointer-events: auto;
     animation:
       dialogIn var(--m3-util-curve-decel) 500ms,
-      opacity var(--m3-util-curve-decel) 100ms both;
+      opacity var(--m3-util-curve-decel) 100ms backwards;
   }
   dialog[open] .headline {
     animation: opacity var(--m3-util-easing-fast);
   }
   dialog[open] .content {
-    animation: opacity var(--m3-util-easing-fast) 50ms both;
+    animation: opacity var(--m3-util-easing-fast) 50ms backwards;
   }
   dialog[open] .buttons {
     animation:
       buttonsIn var(--m3-util-curve-decel) 500ms,
-      opacity var(--m3-util-easing-fast) 100ms both;
+      opacity var(--m3-util-easing-fast) 100ms backwards;
   }
   dialog::backdrop {
     background-color: rgb(var(--m3-scheme-scrim) / 0.3);
