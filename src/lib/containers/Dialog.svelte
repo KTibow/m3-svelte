@@ -38,12 +38,15 @@
 <dialog
   class="m3-container"
   oncancel={(e) => {
-    if (closeOnEsc) {
-      onEsc?.();
-      open = false;
-    } else {
+    if (e.target != e.currentTarget) return;
+
+    if (!closeOnEsc) {
       e.preventDefault();
+      return;
     }
+
+    onEsc?.();
+    open = false;
   }}
   onclick={(e) => {
     if (e.target != e.currentTarget) return;
