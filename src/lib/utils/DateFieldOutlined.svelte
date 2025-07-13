@@ -121,8 +121,17 @@ opacity: ${Math.min(t * 3, 1)};`,
       var(--m3-util-background, var(--m3-scheme-surface))
     ); /* TODO: next breaking change, make --m3-util-background a full color and update the comment above */
     padding: 0 0.25rem;
+    &:is(input:hover ~ label) {
+      color: rgb(var(--error, var(--m3-scheme-on-surface)));
+    }
+    &:is(input:focus ~ label) {
+      color: rgb(var(--error, var(--m3-scheme-primary)));
+    }
+    &:is(input:disabled ~ label) {
+      color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    }
     pointer-events: none;
-    transition: all 200ms;
+    transition: color 100ms;
   }
   .layer {
     position: absolute;
@@ -130,7 +139,17 @@ opacity: ${Math.min(t * 3, 1)};`,
     border: 1px solid rgb(var(--error, var(--m3-scheme-outline)));
     border-radius: var(--m3-datefield-outlined-shape);
     pointer-events: none;
-    transition: all 200ms;
+    transition: all 100ms;
+    &:is(input:hover ~ .layer) {
+      border-color: rgb(var(--error, var(--m3-scheme-on-surface)));
+    }
+    &:is(input:focus ~ .layer) {
+      border-color: rgb(var(--error, var(--m3-scheme-primary)));
+      border-width: 0.125rem;
+    }
+    &:is(input:disabled ~ .layer) {
+      border-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    }
   }
 
   button {
@@ -160,19 +179,6 @@ opacity: ${Math.min(t * 3, 1)};`,
     }
   }
 
-  input:hover ~ label {
-    color: rgb(var(--error, var(--m3-scheme-on-surface)));
-  }
-  input:hover ~ .layer {
-    border-color: rgb(var(--error, var(--m3-scheme-on-surface)));
-  }
-  input:focus ~ label {
-    color: rgb(var(--error, var(--m3-scheme-primary)));
-  }
-  input:focus ~ .layer {
-    border-color: rgb(var(--error, var(--m3-scheme-primary)));
-    border-width: 0.125rem;
-  }
   @media (hover: hover) {
     button:hover {
       background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
@@ -196,12 +202,6 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
   input:disabled {
     color: rgb(var(--m3-scheme-on-surface) / 0.38);
-  }
-  input:disabled ~ label {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
-  }
-  input:disabled ~ .layer {
-    border-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
   button:disabled {
     color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
