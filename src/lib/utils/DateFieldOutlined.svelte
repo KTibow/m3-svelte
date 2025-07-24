@@ -11,7 +11,7 @@
 
   let {
     label: _label,
-    date = $bindable(""),
+    date = $bindable(), // TODO: next major release, rename to value
     required = false,
     disabled = false,
     error = false,
