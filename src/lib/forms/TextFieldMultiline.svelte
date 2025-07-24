@@ -47,7 +47,9 @@
     {disabled}
     {required}
     {...extra}
+    defaultValue={extra.defaultValue}
   ></textarea>
+  <!-- TODO: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
   <label class="m3-font-body-large" for={id}>{label}</label>
   <div class="layer"></div>
   {#if leadingIcon}
@@ -73,7 +75,7 @@
     height: 100%;
     border: none;
     outline: none;
-    padding: 1.5rem 1rem 0.5rem 1rem;
+    padding: 1.375rem 1rem 0.625rem 1rem;
     border-radius: var(--m3-textfield-filled-shape) var(--m3-textfield-filled-shape) 0 0;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     color: rgb(var(--m3-scheme-on-surface));

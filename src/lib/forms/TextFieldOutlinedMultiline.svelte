@@ -47,7 +47,9 @@
     {disabled}
     {required}
     {...extra}
+    defaultValue={extra.defaultValue}
   ></textarea>
+  <!-- TODO: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
   <div class="layer"></div>
   <label class="m3-font-body-large" for={id}>{label}</label>
   {#if leadingIcon}
