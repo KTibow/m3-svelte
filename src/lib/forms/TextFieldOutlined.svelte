@@ -21,7 +21,7 @@
     disabled = false,
     required = false,
     error = false,
-    value = $bindable(""),
+    value = $bindable(),
     enter,
     ...extra
   }: {

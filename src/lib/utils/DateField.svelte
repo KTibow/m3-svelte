@@ -11,7 +11,7 @@
 
   let {
     label: _label,
-    date = $bindable(""),
+    date = $bindable(),
     required = false,
     disabled = false,
     error = false,
