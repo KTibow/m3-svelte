@@ -75,7 +75,7 @@
     height: 100%;
     border: none;
     outline: none;
-    padding: 1.375rem 1rem 0.625rem 1rem;
+    padding: 1.5rem 1rem 0.5rem 1rem;
     border-radius: var(--m3-textfield-filled-shape) var(--m3-textfield-filled-shape) 0 0;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     color: rgb(var(--m3-scheme-on-surface));
@@ -98,8 +98,8 @@
     &:is(textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label) {
       top: 0.5rem;
       font-size: var(--m3-font-body-small-size, 0.75rem);
-      line-height: var(--m3-font-body-small-height, 1);
-      letter-spacing: var(--m3-font-body-small-tracking, 0.4);
+      line-height: var(--m3-font-body-small-height, 1.333);
+      letter-spacing: var(--m3-font-body-small-tracking, 0.025rem);
     }
     pointer-events: none;
     transition:

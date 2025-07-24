@@ -106,8 +106,8 @@
     &:is(textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label) {
       top: calc(var(--m3-font-body-small-height, 1rem) * -0.5);
       font-size: var(--m3-font-body-small-size, 0.75rem);
-      line-height: var(--m3-font-body-small-height, 1);
-      letter-spacing: var(--m3-font-body-small-tracking, 0.4);
+      line-height: var(--m3-font-body-small-height, 1.333);
+      letter-spacing: var(--m3-font-body-small-tracking, 0.025rem);
     }
     pointer-events: none;
     transition:
