@@ -67,7 +67,9 @@ opacity: ${Math.min(t * 3, 1)};`,
     {id}
     bind:value={date}
     {...extra}
+    defaultValue={extra.defaultValue}
   />
+  <!-- TODO: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
   <label class="m3-font-body-small" for={id}>{label}</label>
   <button type="button" {disabled} onclick={() => (picker = !picker)}>
     <Layer />
