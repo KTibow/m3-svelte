@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  import Icon from "$lib/misc/_icon.svelte";
   import type { HTMLInputAttributes } from "svelte/elements";
+  import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/Layer.svelte";
 
   type TrailingProps =
     | {
@@ -62,6 +63,7 @@
   {/if}
   {#if trailingIcon}
     <button type="button" onclick={trailingClick} class="trailing">
+      <Layer />
       <Icon icon={trailingIcon} />
     </button>
   {/if}
@@ -166,16 +168,6 @@
 
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-  }
-
-  @media (hover: hover) {
-    button:hover {
-      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
-    }
-  }
-  button:focus-visible,
-  button:active {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
 
   .leading-icon > input {
