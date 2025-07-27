@@ -6,8 +6,8 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
-import DateField from "$lib/utils/DateField.svelte";
-import DateFieldOutlined from "$lib/utils/DateFieldOutlined.svelte";
+import DateField from "$lib/forms/DateField.svelte";
+import DateFieldOutlined from "$lib/forms/DateFieldOutlined.svelte";
 let variant: "filled" | "outlined" = $state("filled");
 let enabled = $state(true);
 let errored = $state(false);
@@ -20,7 +20,7 @@ let { showCode }: { showCode: (
 
 const minimalDemo = `${"<"}DateField label="Date" bind:value />
 ${"<"}DateFieldOutlined label="Date" bind:value />`;
-const relevantLinks = [{"title":"DateField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/utils/DateField.svelte"},{"title":"DateFieldOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/utils/DateFieldOutlined.svelte"}];
+const relevantLinks = [{"title":"DateField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/DateField.svelte"},{"title":"DateFieldOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/DateFieldOutlined.svelte"}];
 </script>
 
 <InternalCard title="Date field" showCode={() => showCode("Date field", minimalDemo, relevantLinks)}>
