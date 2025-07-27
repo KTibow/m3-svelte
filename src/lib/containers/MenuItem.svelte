@@ -17,7 +17,7 @@
   } = $props();
 </script>
 
-<button class="item m3-font-label-large" {disabled} onclick={click}>
+<button type="button" class="item m3-font-label-large" {disabled} onclick={click}>
   <Layer />
   {#if icon == "space"}
     <span class="icon"></span>

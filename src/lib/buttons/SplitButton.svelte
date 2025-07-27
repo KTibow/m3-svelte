@@ -36,7 +36,7 @@
 </script>
 
 <div class="m3-container {variant}">
-  <button class="split m3-font-label-large" onclick={click}>
+  <button type="button" class="split m3-font-label-large" onclick={click}>
     <Layer />
     {@render children()}
   </button>
