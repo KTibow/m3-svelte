@@ -62,7 +62,7 @@
     <Icon icon={leadingIcon} class="leading" />
   {/if}
   {#if trailingIcon}
-    <button onclick={trailingClick} class="trailing">
+    <button type="button" onclick={trailingClick} class="trailing">
       <Layer />
       <Icon icon={trailingIcon} />
     </button>

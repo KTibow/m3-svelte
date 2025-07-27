@@ -34,7 +34,14 @@
   } & ButtonAttrs = $props();
 </script>
 
-<button class="m3-container {variant}" class:elevated class:selected {disabled} {...extra}>
+<button
+  type="button"
+  class="m3-container {variant}"
+  class:elevated
+  class:selected
+  {disabled}
+  {...extra}
+>
   <Layer />
   {#if icon}
     <Icon {icon} class="leading" />

@@ -38,6 +38,7 @@
 </script>
 
 <button
+  type="button"
   {onclick}
   class="m3-container m3-font-label-large color-{color} size-{size} elevation-{elevation}"
   {...extra}

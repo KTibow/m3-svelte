@@ -48,6 +48,7 @@
         <p class="m3-font-body-medium">{snackbar.message}</p>
         {#each Object.entries(snackbar.actions) as [key, action]}
           <button
+            type="button"
             class="action m3-font-label-large"
             onclick={() => {
               snackbar = undefined;
@@ -59,6 +60,7 @@
         {/each}
         {#if snackbar.closable}
           <button
+            type="button"
             class="close"
             onclick={() => {
               snackbar = undefined;

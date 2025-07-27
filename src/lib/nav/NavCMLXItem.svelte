@@ -18,6 +18,7 @@
 {#if "click" in props}
   {@const { variant, icon, text, selected, click, ...extra } = props}
   <button
+    type="button"
     onclick={click}
     class="m3-container m3-font-label-medium {variant}"
     disabled={selected}

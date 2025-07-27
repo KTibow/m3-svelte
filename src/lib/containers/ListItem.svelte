@@ -68,7 +68,7 @@
   </label>
 {:else if "onclick" in props}
   {@const { leading, overline = "", headline = "", supporting = "", trailing, ...extra } = props}
-  <button class="m3-container lines-{_lines}" {...extra}>
+  <button type="button" class="m3-container lines-{_lines}" {...extra}>
     <Layer />
     {@render content(leading, overline, headline, supporting, trailing)}
   </button>

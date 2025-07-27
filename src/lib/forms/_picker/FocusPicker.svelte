@@ -16,7 +16,12 @@
 
 <div class="m3-container">
   {#each options as { name, selected, activate }}
-    <button class="m3-font-body-large" onclick={activate} use:conditionalScroll={selected}>
+    <button
+      type="button"
+      class="m3-font-body-large"
+      onclick={activate}
+      use:conditionalScroll={selected}
+    >
       <Layer />
       {#if selected}
         <Icon icon={iconCheck} />
