@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { HTMLButtonAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
+  import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   let {
     variant,
@@ -13,7 +13,6 @@
     disabled = false,
     selected = false,
     children,
-    click,
     ...extra
   }: {
     /**
@@ -32,8 +31,7 @@
     disabled?: boolean;
     selected?: boolean;
     children: Snippet;
-    click: () => void;
-  } & HTMLButtonAttributes = $props();
+  } & ButtonAttrs = $props();
 </script>
 
 <button
@@ -42,7 +40,6 @@
   class:elevated
   class:selected
   {disabled}
-  onclick={click}
   {...extra}
 >
   <Layer />

@@ -4,7 +4,7 @@
   import type { HTMLTextareaAttributes } from "svelte/elements";
 
   let {
-    label: _label,
+    label,
     leadingIcon,
     disabled = false,
     required = false,
@@ -34,8 +34,6 @@
       },
     };
   };
-
-  let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
 
 <div class="m3-container" class:leading-icon={leadingIcon} class:error use:resize>
@@ -60,7 +58,7 @@
 <style>
   /*
   want to customize the label's background?
-  do this: <TextFieldOutlinedMultiline --m3-util-background="var(--m3-scheme-surface-container)" />
+  do this: <TextFieldOutlinedMultiline --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
   */
   :root {
     --m3-textfield-outlined-shape: var(--m3-util-rounding-extra-small);
@@ -90,9 +88,7 @@
     left: 0.75rem;
     top: 1rem;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
-    background-color: rgb(
-      var(--m3-util-background, var(--m3-scheme-surface))
-    ); /* TODO: next breaking change, make --m3-util-background a full color and update the comment above */
+    background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
     padding: 0 0.25rem;
     &:is(textarea:hover ~ label) {
       color: rgb(var(--error, var(--m3-scheme-on-surface)));

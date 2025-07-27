@@ -17,7 +17,7 @@ let { showCode }: { showCode: (
 ) => void } = $props();
 
 const minimalDemo = `${"<"}Card variant="filled">Hello${"<"}/Card>
-${"<"}Card variant="filled" click={() => alert("!")}>Hello${"<"}/Card>`;
+${"<"}Card variant="filled" onclick={() => alert("!")}>Hello${"<"}/Card>`;
 const relevantLinks = [{"title":"Card.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Card.svelte"}];
 </script>
 
@@ -31,6 +31,6 @@ const relevantLinks = [{"title":"Card.sv","link":"https://github.com/KTibow/m3-s
   {clickable ? "Clickable" : "Not clickable"}
 </label>
 {#snippet demo()}
-  <Card {variant} {...clickable ? { click: () => {} } : {}}>Hello</Card>
+  <Card {variant} {...clickable ? { onclick: () => {} } : {}}>Hello</Card>
 {/snippet}
 </InternalCard>

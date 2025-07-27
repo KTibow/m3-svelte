@@ -14,6 +14,7 @@ import type { HTMLInputAttributes } from "svelte/elements";
 let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
 let option: "text" | "password" | "number" | "file" = $state("text");
 let leadingIcon = $state(false);
+let trailingIcon = $state(false);
 let errored = $state(false);
 let enabled = $state(true);
 
@@ -56,6 +57,10 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
   {leadingIcon ? "Leading icon" : "No leading icon"}
 </label>
 <label>
+  <Switch bind:checked={trailingIcon} />
+  {trailingIcon ? "Trailing icon" : "No trailing icon"}
+</label>
+<label>
   <Switch bind:checked={errored} />
   {errored ? "Errored" : "Not errored"}
 </label>
@@ -69,6 +74,7 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
     <TextField
       label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
+      {...(trailingIcon ? { trailingIcon: iconSquare, trailingClick: () => {} } as object : {})}
       error={errored}
       disabled={!enabled}
       type={option}
@@ -77,6 +83,7 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
     <TextFieldOutlined
       label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
+      {...(trailingIcon ? { trailingIcon: iconSquare, trailingClick: () => {} } as object : {})}
       error={errored}
       disabled={!enabled}
       type={option}

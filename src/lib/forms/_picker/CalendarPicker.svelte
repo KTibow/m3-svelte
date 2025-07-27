@@ -45,7 +45,7 @@
         day.day == today.getDate()}
       selected={!day.disabled && day.iso == chosenDate}
       label={day.day.toString()}
-      click={() => (chosenDate = day.iso)}
+      onclick={() => (chosenDate = day.iso)}
     />
   {/each}
 </div>

@@ -22,7 +22,7 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}FAB color="primary" icon={iconCircle} click={() => alert("!")} />`;
+const minimalDemo = `${"<"}FAB color="primary" icon={iconCircle} onclick={() => alert("!")} />`;
 const relevantLinks = [{"title":"FAB.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/FAB.svelte"}];
 </script>
 
@@ -49,7 +49,7 @@ const relevantLinks = [{"title":"FAB.sv","link":"https://github.com/KTibow/m3-sv
   <div>
     <FAB
       {color}
-      click={() => {}}
+      onclick={() => {}}
       {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
       icon={iconCircle}
     />

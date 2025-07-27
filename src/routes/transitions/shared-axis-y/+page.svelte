@@ -10,7 +10,7 @@
   {#if page == 0}
     <div transition:sharedAxisTransition={{ direction: "Y", rightSeam: true }}>
       <p>
-        <Button variant="outlined" click={() => ((prevPage = page), (page = 1))}>next</Button>
+        <Button variant="outlined" onclick={() => ((prevPage = page), (page = 1))}>next</Button>
       </p>
       <img
         src="https://picsum.photos/id/12/192/168"
@@ -31,8 +31,8 @@
       }}
     >
       <p>
-        <Button variant="outlined" click={() => ((prevPage = page), (page = 0))}>back</Button>
-        <Button variant="outlined" click={() => ((prevPage = page), (page = 2))}>next</Button>
+        <Button variant="outlined" onclick={() => ((prevPage = page), (page = 0))}>back</Button>
+        <Button variant="outlined" onclick={() => ((prevPage = page), (page = 2))}>next</Button>
       </p>
       <img
         src="https://picsum.photos/id/20/192/168"
@@ -53,8 +53,8 @@
       }}
     >
       <p>
-        <Button variant="outlined" click={() => ((prevPage = page), (page = 1))}>back</Button>
-        <Button variant="outlined" click={() => ((prevPage = page), (page = 3))}>next</Button>
+        <Button variant="outlined" onclick={() => ((prevPage = page), (page = 1))}>back</Button>
+        <Button variant="outlined" onclick={() => ((prevPage = page), (page = 3))}>next</Button>
       </p>
       <img
         src="https://picsum.photos/id/19/192/168"
@@ -66,7 +66,7 @@
   {:else}
     <div transition:sharedAxisTransition={{ direction: "Y", rightSeam: false }}>
       <p>
-        <Button variant="outlined" click={() => ((prevPage = page), (page = 2))}>back</Button>
+        <Button variant="outlined" onclick={() => ((prevPage = page), (page = 2))}>back</Button>
       </p>
       <img
         src="https://picsum.photos/id/18/192/168"

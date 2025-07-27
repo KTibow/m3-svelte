@@ -12,7 +12,7 @@
       out:sharedAxisTransition={{ direction: "Z", leaving: true }}
     >
       <p>
-        <Button variant="outlined" click={() => (page = 1)}>next</Button>
+        <Button variant="outlined" onclick={() => (page = 1)}>next</Button>
       </p>
       <img
         src="https://picsum.photos/id/12/192/168"
@@ -27,8 +27,8 @@
       out:sharedAxisTransition={{ direction: "Z", leaving: true }}
     >
       <p>
-        <Button variant="outlined" click={() => (page = 0)}>back</Button>
-        <Button variant="outlined" click={() => (page = 2)}>next</Button>
+        <Button variant="outlined" onclick={() => (page = 0)}>back</Button>
+        <Button variant="outlined" onclick={() => (page = 2)}>next</Button>
       </p>
       <img
         src="https://picsum.photos/id/20/192/168"
@@ -43,8 +43,8 @@
       out:sharedAxisTransition={{ direction: "Z", leaving: true }}
     >
       <p>
-        <Button variant="outlined" click={() => (page = 1)}>back</Button>
-        <Button variant="outlined" click={() => (page = 3)}>next</Button>
+        <Button variant="outlined" onclick={() => (page = 1)}>back</Button>
+        <Button variant="outlined" onclick={() => (page = 3)}>next</Button>
       </p>
       <img
         src="https://picsum.photos/id/19/192/168"
@@ -59,7 +59,7 @@
       out:sharedAxisTransition={{ direction: "Z", leaving: true }}
     >
       <p>
-        <Button variant="outlined" click={() => (page = 2)}>back</Button>
+        <Button variant="outlined" onclick={() => (page = 2)}>back</Button>
       </p>
       <img
         src="https://picsum.photos/id/18/192/168"

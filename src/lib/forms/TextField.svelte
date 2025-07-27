@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  import Icon from "$lib/misc/_icon.svelte";
   import type { HTMLInputAttributes } from "svelte/elements";
+  import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/Layer.svelte";
 
   type TrailingProps =
     | {
@@ -14,7 +15,7 @@
       };
 
   let {
-    label: _label,
+    label,
     leadingIcon,
     trailingIcon,
     trailingClick,
@@ -35,8 +36,6 @@
   } & TrailingProps &
     HTMLInputAttributes = $props();
   const id = $props.id();
-
-  let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
 
 <div
@@ -64,6 +63,7 @@
   {/if}
   {#if trailingIcon}
     <button type="button" onclick={trailingClick} class="trailing">
+      <Layer />
       <Icon icon={trailingIcon} />
     </button>
   {/if}
@@ -174,15 +174,6 @@
   input:focus ~ .layer::after {
     height: 0.125rem;
     background-color: rgb(var(--error, var(--m3-scheme-primary)));
-  }
-  @media (hover: hover) {
-    button:hover {
-      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
-    }
-  }
-  button:focus-visible,
-  button:active {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
 
   .leading-icon > input {
