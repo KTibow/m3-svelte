@@ -11,7 +11,7 @@
   type ActionProps =
     | ({ for: string } & HTMLLabelAttributes)
     | ({ href: string } & HTMLAnchorAttributes)
-    | ({ disabled?: boolean } & HTMLButtonAttributes);
+    | HTMLButtonAttributes;
   type Props = {
     variant?: "elevated" | "filled" | "tonal" | "outlined" | "text";
     square?: boolean;
