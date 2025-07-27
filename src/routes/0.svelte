@@ -51,7 +51,7 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
       {variant}
       {square}
       {...{
-        click: { click: () => {}, disabled: !enabled },
+        click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
         toggle: { for: "random-input" },
       }[action]}

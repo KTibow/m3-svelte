@@ -235,7 +235,7 @@ Here's an example todo list component:
         <Button
           variant="text"
           iconType="full"
-          click={() => (tasks = tasks.filter((t) => t.id != task.id))}
+          onclick={() => (tasks = tasks.filter((t) => t.id != task.id))}
         >
           <Icon icon={iconDelete} />
         </Button>
@@ -337,7 +337,7 @@ Here's an example notes app:
           <Button
             variant="text"
             iconType="full"
-            click={() =>
+            onclick={() =>
               (dialog = {
                 open: true,
                 editingId: note.id,
@@ -347,7 +347,7 @@ Here's an example notes app:
           >
             <Icon icon={iconEdit} />
           </Button>
-          <Button variant="text" iconType="full" click={() => deleteNote(note.id)}>
+          <Button variant="text" iconType="full" onclick={() => deleteNote(note.id)}>
             <Icon icon={iconDelete} />
           </Button>
         </div>
@@ -369,13 +369,13 @@ Here's an example notes app:
     <TextFieldMultiline name="Content" bind:value={dialog.content} />
   </div>
   <svelte:fragment slot="buttons">
-    <Button variant="text" click={closeDialog}>Cancel</Button>
+    <Button variant="text" onclick={closeDialog}>Cancel</Button>
     {#if dialog.editingId}
-      <Button variant="filled" disabled={!dialog.title || !dialog.content} click={updateNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} onclick={updateNote}>
         Update
       </Button>
     {:else}
-      <Button variant="filled" disabled={!dialog.title || !dialog.content} click={addNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} onclick={addNote}>
         Add
       </Button>
     {/if}
@@ -383,7 +383,7 @@ Here's an example notes app:
 </Dialog>
 
 <div class="fab">
-  <FAB color="primary" icon={iconAdd} click={openNewNoteDialog} />
+  <FAB color="primary" icon={iconAdd} onclick={openNewNoteDialog} />
 </div>
 
 <Snackbar bind:show={snackbar} />

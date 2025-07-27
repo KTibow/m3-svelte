@@ -48,7 +48,7 @@ let enabled = $state(true);
       {variant}
       {square}
       {...{
-        click: { click: () => {}, disabled: !enabled },
+        click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
         toggle: { for: "random-input" },
       }[action]}
@@ -346,7 +346,7 @@ let supporting = $derived(
       {...type == "label"
         ? { label: true }
         : type == "button"
-          ? { click: () => {} }
+          ? { onclick: () => {} }
           : type == "a"
             ? { href: "https://example.com" }
             : {}}
@@ -360,7 +360,7 @@ let supporting = $derived(
       {...type == "label"
         ? { label: true }
         : type == "button"
-          ? { click: () => {} }
+          ? { onclick: () => {} }
           : type == "a"
             ? { href: "https://example.com" }
             : {}}

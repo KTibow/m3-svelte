@@ -64,7 +64,7 @@ const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/
       {...type == "label"
         ? { label: true }
         : type == "button"
-          ? { click: () => {} }
+          ? { onclick: () => {} }
           : type == "a"
             ? { href: "https://example.com" }
             : {}}
@@ -78,7 +78,7 @@ const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/
       {...type == "label"
         ? { label: true }
         : type == "button"
-          ? { click: () => {} }
+          ? { onclick: () => {} }
           : type == "a"
             ? { href: "https://example.com" }
             : {}}
