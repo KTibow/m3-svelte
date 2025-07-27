@@ -37,6 +37,7 @@
 </script>
 
 <button
+  type="button"
   class="m3-container {variant}"
   class:elevated
   class:selected
