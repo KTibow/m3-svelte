@@ -19,11 +19,11 @@
 <div class="m3-container">
   {#if clearable}
     <span class="left">
-      <Button variant="text" click={clear} type="button">Clear</Button>
+      <Button variant="text" onclick={clear} type="button">Clear</Button>
     </span>
   {/if}
-  <Button variant="text" click={cancel} type="button">Cancel</Button>
-  <Button variant="text" disabled={!clearable && !chosenDate} click={ok} type="button">OK</Button>
+  <Button variant="text" onclick={cancel} type="button">Cancel</Button>
+  <Button variant="text" disabled={!clearable && !chosenDate} onclick={ok} type="button">OK</Button>
 </div>
 
 <style>

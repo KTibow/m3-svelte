@@ -6,13 +6,13 @@
     today,
     selected,
     label,
-    click,
+    onclick,
   }: {
     disabled: boolean;
     today: boolean;
     selected: boolean;
     label: string;
-    click: () => void;
+    onclick: () => void;
   } = $props();
 </script>
 
@@ -22,7 +22,7 @@
   type="button"
   class:today
   class:selected
-  onclick={click}
+  {onclick}
 >
   <Layer />
   {label}

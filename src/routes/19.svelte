@@ -18,8 +18,8 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}DateField label="Date" bind:date />
-${"<"}DateFieldOutlined label="Date" bind:date />`;
+const minimalDemo = `${"<"}DateField label="Date" bind:value />
+${"<"}DateFieldOutlined label="Date" bind:value />`;
 const relevantLinks = [{"title":"DateField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/utils/DateField.svelte"},{"title":"DateFieldOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/utils/DateFieldOutlined.svelte"}];
 </script>
 

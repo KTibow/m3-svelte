@@ -10,14 +10,14 @@
     y = "down",
     children,
     menu,
-    click,
+    onclick,
   }: {
     variant: "elevated" | "filled" | "tonal" | "outlined";
     x?: "inner" | "right";
     y?: "down" | "up";
     children: Snippet;
     menu: Snippet;
-    click: () => void;
+    onclick: () => void;
   } = $props();
 
   const autoclose = (node: HTMLDetailsElement) => {
@@ -36,7 +36,7 @@
 </script>
 
 <div class="m3-container {variant}">
-  <button class="split m3-font-label-large" onclick={click}>
+  <button class="split m3-font-label-large" {onclick}>
     <Layer />
     {@render children()}
   </button>

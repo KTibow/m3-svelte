@@ -14,10 +14,10 @@
     transition: opacity var(--m3-util-easing-fast);
 
     &:not(
-        :global(input:disabled + label) > .tint,
-        :global(input:disabled + .layer-container) > .tint,
-        :global(:disabled) > .tint
-      ) {
+      :global(input:disabled + label) > .tint,
+      :global(input:disabled + .layer-container) > .tint,
+      :global(:disabled) > .tint
+    ) {
       @media (hover: hover) {
         &:is(:global(:hover) > .tint) {
           opacity: 0.08;

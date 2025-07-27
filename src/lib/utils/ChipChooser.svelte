@@ -17,7 +17,7 @@
       {...option}
       variant="input"
       selected={chosenOptions.includes(option.value)}
-      click={() =>
+      onclick={() =>
         chosenOptions.includes(option.value)
           ? (chosenOptions = chosenOptions.filter((o) => o != option.value))
           : (chosenOptions = [...chosenOptions, option.value])}

@@ -1,18 +1,14 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type {
-    HTMLAnchorAttributes,
-    HTMLAttributes,
-    HTMLButtonAttributes,
-    HTMLLabelAttributes,
-  } from "svelte/elements";
+  import type { HTMLAnchorAttributes, HTMLAttributes, HTMLLabelAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
+  import type { ButtonAttrs, NotButton } from "$lib/misc/typing-utils";
 
   type ActionProps =
-    | HTMLAttributes<HTMLDivElement>
-    | ({ click: () => void } & HTMLButtonAttributes)
-    | ({ label: true } & HTMLLabelAttributes)
-    | ({ href: string } & HTMLAnchorAttributes);
+    | NotButton<HTMLAttributes<HTMLDivElement>>
+    | ButtonAttrs
+    | ({ label: true } & NotButton<HTMLLabelAttributes>)
+    | ({ href: string } & NotButton<HTMLAnchorAttributes>);
 
   let props: {
     leading?: Snippet;
@@ -70,17 +66,9 @@
     <Layer />
     {@render content(leading, overline, headline, supporting, trailing)}
   </label>
-{:else if "click" in props}
-  {@const {
-    leading,
-    overline = "",
-    headline = "",
-    supporting = "",
-    trailing,
-    click,
-    ...extra
-  } = props}
-  <button class="m3-container lines-{_lines}" onclick={click} {...extra}>
+{:else if "onclick" in props}
+  {@const { leading, overline = "", headline = "", supporting = "", trailing, ...extra } = props}
+  <button class="m3-container lines-{_lines}" {...extra}>
     <Layer />
     {@render content(leading, overline, headline, supporting, trailing)}
   </button>

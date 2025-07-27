@@ -10,15 +10,15 @@
   import { easeEmphasized } from "$lib/misc/easing";
 
   let {
-    label: _label,
-    date = $bindable(), // TODO: next major release, rename to value
+    label,
+    value = $bindable(),
     required = false,
     disabled = false,
     error = false,
     ...extra
   }: {
     label: string;
-    date?: string;
+    value?: string;
     required?: boolean;
     disabled?: boolean;
     error?: boolean;
@@ -54,8 +54,6 @@ transform: scaleY(${(t * 0.3 + 0.7) * 100}%);
 opacity: ${Math.min(t * 3, 1)};`,
     };
   };
-
-  let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
 
 <div class="m3-container" class:has-js={hasJs} class:disabled class:error use:clickOutside>
@@ -65,7 +63,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     {disabled}
     {required}
     {id}
-    bind:value={date}
+    bind:value
     {...extra}
     defaultValue={extra.defaultValue}
   />
@@ -78,10 +76,10 @@ opacity: ${Math.min(t * 3, 1)};`,
   {#if picker}
     <div class="picker" transition:enterExit>
       <DatePickerDocked
-        {date}
+        date={value}
         clearable={!required}
         close={() => (picker = false)}
-        setDate={(d) => (date = d)}
+        setDate={(d) => (value = d)}
       />
     </div>
   {/if}

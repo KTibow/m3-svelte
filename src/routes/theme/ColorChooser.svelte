@@ -22,10 +22,10 @@
 <div style:background-color={hexFromArgb(sourceColor)} class="color-disc">
   <div class="color-text">Color</div>
   <div>
-    <Button variant="text" iconType="full" click={() => sourceColorInput!.click()}>
+    <Button variant="text" iconType="full" onclick={() => sourceColorInput!.click()}>
       <Icon icon={iconColorLens} />
     </Button>
-    <Button variant="text" iconType="full" click={() => sourceFileInput!.click()}>
+    <Button variant="text" iconType="full" onclick={() => sourceFileInput!.click()}>
       <Icon icon={iconImage} />
     </Button>
   </div>

@@ -1,11 +1,10 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { HTMLAttributes, HTMLButtonAttributes } from "svelte/elements";
+  import type { HTMLAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
+  import type { ButtonAttrs, NotButton } from "$lib/misc/typing-utils";
 
-  type ActionProps =
-    | ({ click: () => void } & HTMLButtonAttributes)
-    | HTMLAttributes<HTMLDivElement>;
+  type ActionProps = ButtonAttrs | NotButton<HTMLAttributes<HTMLDivElement>>;
 
   let props: {
     variant: "elevated" | "filled" | "outlined";
@@ -13,9 +12,9 @@
   } & ActionProps = $props();
 </script>
 
-{#if "click" in props}
-  {@const { variant, click, children, ...extra } = props}
-  <button class="m3-container {variant}" onclick={click} {...extra}>
+{#if "onclick" in props}
+  {@const { variant, children, ...extra } = props}
+  <button class="m3-container {variant}" {...extra}>
     <Layer />
     {@render children()}
   </button>
@@ -39,7 +38,7 @@
     border: none;
     border-radius: var(--m3-card-shape);
     background-color: rgb(var(--m3-scheme-surface));
-    --m3-util-background: var(--m3-scheme-surface);
+    --m3-util-background: rgb(var(--m3-scheme-surface));
     color: rgb(var(--m3-scheme-on-surface));
   }
 
@@ -61,12 +60,12 @@
 
   .elevated {
     background-color: rgb(var(--m3-scheme-surface-container-low));
-    --m3-util-background: var(--m3-scheme-surface-container-low);
+    --m3-util-background: rgb(var(--m3-scheme-surface-container-low));
     box-shadow: var(--m3-util-elevation-1);
   }
   .filled {
     background-color: rgb(var(--m3-scheme-surface-container-highest));
-    --m3-util-background: var(--m3-scheme-surface-container-highest);
+    --m3-util-background: rgb(var(--m3-scheme-surface-container-highest));
   }
   .outlined {
     border: solid 1px rgb(var(--m3-scheme-outline-variant));
