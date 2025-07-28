@@ -74,7 +74,7 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
     <TextField
       label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
-      {...(trailingIcon ? { trailingIcon: iconSquare, trailingClick: () => {} } as object : {})}
+      trailing={trailingIcon ? { icon: iconSquare, onclick: () => {} } : undefined}
       error={errored}
       disabled={!enabled}
       type={option}
@@ -83,7 +83,7 @@ const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow
     <TextFieldOutlined
       label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
-      {...(trailingIcon ? { trailingIcon: iconSquare, trailingClick: () => {} } as object : {})}
+      trailing={trailingIcon ? { icon: iconSquare, onclick: () => {} } : undefined}
       error={errored}
       disabled={!enabled}
       type={option}

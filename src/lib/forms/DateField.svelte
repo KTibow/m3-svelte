@@ -69,7 +69,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   />
   <!-- TODO: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
   <label class="m3-font-body-small" for={id}>{label}</label>
-  <button type="button" {disabled} onclick={() => (picker = !picker)}>
+  <button type="button" {disabled} title="Pick date" onclick={() => (picker = !picker)}>
     <Layer />
     <Icon icon={iconCalendar} width="1.5rem" height="1.5rem" />
   </button>

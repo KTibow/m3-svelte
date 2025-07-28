@@ -62,6 +62,7 @@
           <button
             type="button"
             class="close"
+            title="Close"
             onclick={() => {
               snackbar = undefined;
             }}

@@ -930,7 +930,7 @@ let enabled = $state(true);
     <TextField
       label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
-      {...(trailingIcon ? { trailingIcon: iconSquare, trailingClick: () => {} } as object : {})}
+      trailing={trailingIcon ? { icon: iconSquare, onclick: () => {} } : undefined}
       error={errored}
       disabled={!enabled}
       type={option}
@@ -939,7 +939,7 @@ let enabled = $state(true);
     <TextFieldOutlined
       label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
-      {...(trailingIcon ? { trailingIcon: iconSquare, trailingClick: () => {} } as object : {})}
+      trailing={trailingIcon ? { icon: iconSquare, onclick: () => {} } : undefined}
       error={errored}
       disabled={!enabled}
       type={option}

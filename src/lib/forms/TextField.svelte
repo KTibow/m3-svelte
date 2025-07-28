@@ -3,22 +3,12 @@
   import type { HTMLInputAttributes } from "svelte/elements";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-
-  type TrailingProps =
-    | {
-        trailingIcon: IconifyIcon;
-        trailingClick: () => void;
-      }
-    | {
-        trailingIcon?: undefined;
-        trailingClick?: undefined;
-      };
+  import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   let {
     label,
     leadingIcon,
-    trailingIcon,
-    trailingClick,
+    trailing,
     disabled = false,
     required = false,
     error = false,
@@ -28,20 +18,20 @@
   }: {
     label: string;
     leadingIcon?: IconifyIcon;
+    trailing?: { icon: IconifyIcon } & ButtonAttrs;
     disabled?: boolean;
     required?: boolean;
     error?: boolean;
     value?: string;
     enter?: () => void;
-  } & TrailingProps &
-    HTMLInputAttributes = $props();
+  } & HTMLInputAttributes = $props();
   const id = $props.id();
 </script>
 
 <div
   class="m3-container"
   class:leading-icon={leadingIcon}
-  class:trailing-icon={trailingIcon}
+  class:trailing-icon={trailing}
   class:error
 >
   <input
@@ -61,10 +51,11 @@
   {#if leadingIcon}
     <Icon icon={leadingIcon} class="leading" />
   {/if}
-  {#if trailingIcon}
-    <button type="button" onclick={trailingClick} class="trailing">
+  {#if trailing}
+    {@const { icon, ...extra } = trailing}
+    <button type="button" class="trailing" {...extra}>
       <Layer />
-      <Icon icon={trailingIcon} />
+      <Icon {icon} />
     </button>
   {/if}
 </div>
