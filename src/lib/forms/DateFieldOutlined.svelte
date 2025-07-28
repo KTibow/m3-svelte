@@ -153,7 +153,8 @@ opacity: ${Math.min(t * 3, 1)};`,
   button {
     display: none;
     position: absolute;
-    width: 3.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
     height: 100%;
     right: 0;
 
