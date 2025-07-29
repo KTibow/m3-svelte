@@ -31,7 +31,7 @@
     <p class="name">{name}</p>
   {/if}
   <div class="button-container">
-    <Button variant="text" click={copyToClipboard} iconType="full">
+    <Button variant="text" onclick={copyToClipboard} iconType="full">
       <Icon icon={iconCopy} />
     </Button>
     <Snackbar bind:this={snackbar} />

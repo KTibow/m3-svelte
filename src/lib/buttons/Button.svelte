@@ -9,9 +9,9 @@
 
   // If you want a toggle button, use `for` with a checkbox input.
   type ActionProps =
-    | ({ click?: () => void; disabled?: boolean } & HTMLButtonAttributes)
+    | ({ for: string } & HTMLLabelAttributes)
     | ({ href: string } & HTMLAnchorAttributes)
-    | ({ for: string } & HTMLLabelAttributes);
+    | HTMLButtonAttributes;
   type Props = {
     variant?: "elevated" | "filled" | "tonal" | "outlined" | "text";
     square?: boolean;
@@ -59,18 +59,8 @@
     {@render children()}
   </a>
 {:else}
-  {@const {
-    variant = "filled",
-    click,
-    disabled,
-    square = false,
-    iconType = "none",
-    children,
-    ...extra
-  } = props}
+  {@const { variant = "filled", square = false, iconType = "none", children, ...extra } = props}
   <button
-    onclick={click}
-    {disabled}
     class="m3-container m3-font-label-large {variant} icon-{iconType}"
     class:square
     {...extra}

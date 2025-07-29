@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { HTMLButtonAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
+  import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   type ContentProps =
     | {
@@ -19,7 +19,6 @@
   let {
     color = "primary",
     elevation = "normal",
-    click,
     size = "normal",
     icon,
     text,
@@ -33,13 +32,12 @@
       | "secondary"
       | "tertiary";
     elevation?: "normal" | "lowered" | "none";
-    click: () => void;
   } & ContentProps &
-    HTMLButtonAttributes = $props();
+    ButtonAttrs = $props();
 </script>
 
 <button
-  onclick={click}
+  type="button"
   class="m3-container m3-font-label-large color-{color} size-{size} elevation-{elevation}"
   {...extra}
 >

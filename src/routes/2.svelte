@@ -19,10 +19,7 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}SplitButton
-  variant="filled"
-  click={() => alert("!")}
->
+const minimalDemo = `${"<"}SplitButton variant="filled" onclick={() => alert("!")}>
   Hello
   {#snippet menu()}
     and more
@@ -51,7 +48,7 @@ const relevantLinks = [{"title":"SplitButton.sv","link":"https://github.com/KTib
       {variant}
       x={position.startsWith("inner") ? "inner" : "right"}
       y={position.endsWith("down") ? "down" : "up"}
-      click={() => {}}
+      onclick={() => {}}
     >
       {#if iconType == "none"}
         Hello
@@ -62,9 +59,9 @@ const relevantLinks = [{"title":"SplitButton.sv","link":"https://github.com/KTib
       {/if}
       {#snippet menu()}
         <Menu>
-          <MenuItem icon={iconCircle} click={() => {}}>Hi</MenuItem>
-          <MenuItem icon={iconSquare} click={() => {}}>Howdy</MenuItem>
-          <MenuItem icon={iconTriangle} click={() => {}}>G'day</MenuItem>
+          <MenuItem icon={iconCircle} onclick={() => {}}>Hi</MenuItem>
+          <MenuItem icon={iconSquare} onclick={() => {}}>Howdy</MenuItem>
+          <MenuItem icon={iconTriangle} onclick={() => {}}>G'day</MenuItem>
         </Menu>
       {/snippet}
     </SplitButton>

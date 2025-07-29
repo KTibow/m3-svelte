@@ -61,7 +61,13 @@ const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/
       {headline}
       {supporting}
       lines={+lines}
-      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : type == "a" ? { href: "https://example.com" } : {}}
+      {...type == "label"
+        ? { label: true }
+        : type == "button"
+          ? { onclick: () => {} }
+          : type == "a"
+            ? { href: "https://example.com" }
+            : {}}
     />
     <Divider />
     <ListItem
@@ -69,7 +75,13 @@ const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/
       {headline}
       {supporting}
       lines={+lines}
-      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : type == "a" ? { href: "https://example.com" } : {}}
+      {...type == "label"
+        ? { label: true }
+        : type == "button"
+          ? { onclick: () => {} }
+          : type == "a"
+            ? { href: "https://example.com" }
+            : {}}
     />
   </div>
 {/snippet}

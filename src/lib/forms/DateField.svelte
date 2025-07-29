@@ -10,18 +10,20 @@
   import { easeEmphasized } from "$lib/misc/easing";
 
   let {
-    label: _label,
-    date = $bindable(), // TODO: next major release, rename to value
+    label,
+    value = $bindable(),
     required = false,
     disabled = false,
     error = false,
+    datePickerTitle = "Pick date",
     ...extra
   }: {
     label: string;
-    date?: string;
+    value?: string;
     required?: boolean;
     disabled?: boolean;
     error?: boolean;
+    datePickerTitle?: string;
   } & HTMLInputAttributes = $props();
 
   const id = $props.id();
@@ -54,8 +56,6 @@ transform: scaleY(${(t * 0.3 + 0.7) * 100}%);
 opacity: ${Math.min(t * 3, 1)};`,
     };
   };
-
-  let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
 
 <div class="m3-container" class:has-js={hasJs} class:disabled class:error use:clickOutside>
@@ -65,23 +65,23 @@ opacity: ${Math.min(t * 3, 1)};`,
     {disabled}
     {required}
     {id}
-    bind:value={date}
+    bind:value
     {...extra}
     defaultValue={extra.defaultValue}
   />
   <!-- TODO: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
   <label class="m3-font-body-small" for={id}>{label}</label>
-  <button type="button" {disabled} onclick={() => (picker = !picker)}>
+  <button type="button" {disabled} title={datePickerTitle} onclick={() => (picker = !picker)}>
     <Layer />
     <Icon icon={iconCalendar} width="1.5rem" height="1.5rem" />
   </button>
   {#if picker}
     <div class="picker" transition:enterExit>
       <DatePickerDocked
-        {date}
+        date={value}
         clearable={!required}
         close={() => (picker = false)}
-        setDate={(d) => (date = d)}
+        setDate={(d) => (value = d)}
       />
     </div>
   {/if}
@@ -129,7 +129,8 @@ opacity: ${Math.min(t * 3, 1)};`,
   button {
     display: none;
     position: absolute;
-    width: 3.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
     height: 100%;
     right: 0;
 

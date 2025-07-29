@@ -3,7 +3,7 @@
 Minimal demo:
 
 ```svelte
-<Button variant="elevated" click={() => alert("!")}>Hello</Button>
+<Button variant="elevated" onclick={() => alert("!")}>Hello</Button>
 ```
 
 Full demo:
@@ -48,7 +48,7 @@ let enabled = $state(true);
       {variant}
       {square}
       {...{
-        click: { click: () => {}, disabled: !enabled },
+        click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
         toggle: { for: "random-input" },
       }[action]}
@@ -130,10 +130,7 @@ let multiselect = $state(true);
 Minimal demo:
 
 ```svelte
-<SplitButton
-  variant="filled"
-  click={() => alert("!")}
->
+<SplitButton variant="filled" onclick={() => alert("!")}>
   Hello
   {#snippet menu()}
     and more
@@ -175,7 +172,7 @@ let iconType: "none" | "left" | "full" = $state("none");
       {variant}
       x={position.startsWith("inner") ? "inner" : "right"}
       y={position.endsWith("down") ? "down" : "up"}
-      click={() => {}}
+      onclick={() => {}}
     >
       {#if iconType == "none"}
         Hello
@@ -186,9 +183,9 @@ let iconType: "none" | "left" | "full" = $state("none");
       {/if}
       {#snippet menu()}
         <Menu>
-          <MenuItem icon={iconCircle} click={() => {}}>Hi</MenuItem>
-          <MenuItem icon={iconSquare} click={() => {}}>Howdy</MenuItem>
-          <MenuItem icon={iconTriangle} click={() => {}}>G'day</MenuItem>
+          <MenuItem icon={iconCircle} onclick={() => {}}>Hi</MenuItem>
+          <MenuItem icon={iconSquare} onclick={() => {}}>Howdy</MenuItem>
+          <MenuItem icon={iconTriangle} onclick={() => {}}>G'day</MenuItem>
         </Menu>
       {/snippet}
     </SplitButton>
@@ -201,7 +198,7 @@ let iconType: "none" | "left" | "full" = $state("none");
 Minimal demo:
 
 ```svelte
-<FAB color="primary" icon={iconCircle} click={() => alert("!")} />
+<FAB color="primary" icon={iconCircle} onclick={() => alert("!")} />
 ```
 
 Full demo:
@@ -244,7 +241,7 @@ let size: "small" | "normal" | "large" | "extended" = $state("normal");
   <div>
     <FAB
       {color}
-      click={() => {}}
+      onclick={() => {}}
       {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
       icon={iconCircle}
     />
@@ -258,7 +255,7 @@ Minimal demo:
 
 ```svelte
 <Card variant="filled">Hello</Card>
-<Card variant="filled" click={() => alert("!")}>Hello</Card>
+<Card variant="filled" onclick={() => alert("!")}>Hello</Card>
 ```
 
 Full demo:
@@ -282,7 +279,7 @@ let clickable = $state(false);
   {clickable ? "Clickable" : "Not clickable"}
 </label>
 {#snippet demo()}
-  <Card {variant} {...clickable ? { click: () => {} } : {}}>Hello</Card>
+  <Card {variant} {...clickable ? { onclick: () => {} } : {}}>Hello</Card>
 {/snippet}
 ```
 
@@ -346,7 +343,13 @@ let supporting = $derived(
       {headline}
       {supporting}
       lines={+lines}
-      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : type == "a" ? { href: "https://example.com" } : {}}
+      {...type == "label"
+        ? { label: true }
+        : type == "button"
+          ? { onclick: () => {} }
+          : type == "a"
+            ? { href: "https://example.com" }
+            : {}}
     />
     <Divider />
     <ListItem
@@ -354,7 +357,13 @@ let supporting = $derived(
       {headline}
       {supporting}
       lines={+lines}
-      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : type == "a" ? { href: "https://example.com" } : {}}
+      {...type == "label"
+        ? { label: true }
+        : type == "button"
+          ? { onclick: () => {} }
+          : type == "a"
+            ? { href: "https://example.com" }
+            : {}}
     />
   </div>
 {/snippet}
@@ -405,9 +414,9 @@ let icons = $state(false);
 </label>
 {#snippet demo()}
   <Menu>
-    <MenuItem icon={icons ? iconCircle : undefined} click={() => {}}>Cut</MenuItem>
-    <MenuItem icon={icons ? iconSquare : undefined} click={() => {}}>Undo</MenuItem>
-    <MenuItem icon={icons ? iconTriangle : undefined} disabled click={() => {}}>Redo</MenuItem>
+    <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Cut</MenuItem>
+    <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Undo</MenuItem>
+    <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Redo</MenuItem>
   </Menu>
 {/snippet}
 ```
@@ -435,7 +444,7 @@ let open = $state(false);
 
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" click={() => (open = true)}>Open</Button>
+  <Button variant="tonal" onclick={() => (open = true)}>Open</Button>
   {#if open}
     <BottomSheet close={() => (open = false)}>
       {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(
@@ -454,7 +463,7 @@ Minimal demo:
 <Dialog headline="Hello" bind:open>
   I'm alive
   {#snippet buttons()}
-    <Button variant="tonal" click={() => (open = false)}>OK</Button>
+    <Button variant="tonal" onclick={() => (open = false)}>OK</Button>
   {/snippet}
 </Dialog>
 ```
@@ -472,12 +481,12 @@ let open = $state(false);
 
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" click={() => (open = true)}>Open</Button>
+  <Button variant="tonal" onclick={() => (open = true)}>Open</Button>
   <Dialog icon={iconCircle} headline="Hello" bind:open>
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
     ZomboCom! The unattainable is unknown at ZomboCom!
     {#snippet buttons()}
-      <Button variant="tonal" click={() => (open = false)}>OK</Button>
+      <Button variant="tonal" onclick={() => (open = false)}>OK</Button>
     {/snippet}
   </Dialog>
 {/snippet}
@@ -492,9 +501,9 @@ Minimal demo:
   let snackbar: ReturnType<typeof Snackbar>;
 </script>
 
-<Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
-  >Show</Button
->
+<Button variant="tonal" onclick={() => snackbar.show({ message: "Hello", closable: true })}>
+  Show
+</Button>
 <Snackbar bind:this={snackbar} />
 ```
 
@@ -511,9 +520,9 @@ let snackbar: ReturnType<typeof Snackbar>;
 
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
-    >Show</Button
-  >
+  <Button variant="tonal" onclick={() => snackbar.show({ message: "Hello", closable: true })}>
+    Show
+  </Button>
   <Snackbar bind:this={snackbar} />
 {/snippet}
 ```
@@ -559,7 +568,7 @@ let enabled = $state(true);
 Minimal demo:
 
 ```svelte
-<Chip variant="general" icon={iconCircle} click={() => alert("!")}>Hello</Chip>
+<Chip variant="general" icon={iconCircle} onclick={() => alert("!")}>Hello</Chip>
 ```
 
 Full demo:
@@ -606,7 +615,7 @@ let selected = $state(false);
       trailingIcon={iconType == "right" ? iconSquare : undefined}
       disabled={!enabled}
       {selected}
-      click={() => (selected = !selected)}
+      onclick={() => (selected = !selected)}
     >
       Hello
     </Chip>
@@ -870,6 +879,7 @@ import type { HTMLInputAttributes } from "svelte/elements";
 let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
 let option: "text" | "password" | "number" | "file" = $state("text");
 let leadingIcon = $state(false);
+let trailingIcon = $state(false);
 let errored = $state(false);
 let enabled = $state(true);
 ```
@@ -903,6 +913,10 @@ let enabled = $state(true);
   {leadingIcon ? "Leading icon" : "No leading icon"}
 </label>
 <label>
+  <Switch bind:checked={trailingIcon} />
+  {trailingIcon ? "Trailing icon" : "No trailing icon"}
+</label>
+<label>
   <Switch bind:checked={errored} />
   {errored ? "Errored" : "Not errored"}
 </label>
@@ -916,6 +930,7 @@ let enabled = $state(true);
     <TextField
       label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
+      trailing={trailingIcon ? { icon: iconSquare, onclick: () => {} } : undefined}
       error={errored}
       disabled={!enabled}
       type={option}
@@ -924,6 +939,7 @@ let enabled = $state(true);
     <TextFieldOutlined
       label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
+      trailing={trailingIcon ? { icon: iconSquare, onclick: () => {} } : undefined}
       error={errored}
       disabled={!enabled}
       type={option}
@@ -1016,8 +1032,8 @@ let items = $derived(
 Minimal demo:
 
 ```svelte
-<DateField label="Date" bind:date />
-<DateFieldOutlined label="Date" bind:date />
+<DateField label="Date" bind:value />
+<DateFieldOutlined label="Date" bind:value />
 ```
 
 Full demo:

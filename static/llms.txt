@@ -155,7 +155,7 @@ Here's an example todo list component:
         <Button
           variant="text"
           iconType="full"
-          click={() => (tasks = tasks.filter((t) => t.id != task.id))}
+          onclick={() => (tasks = tasks.filter((t) => t.id != task.id))}
         >
           <Icon icon={iconDelete} />
         </Button>
@@ -257,7 +257,7 @@ Here's an example notes app:
           <Button
             variant="text"
             iconType="full"
-            click={() =>
+            onclick={() =>
               (dialog = {
                 open: true,
                 editingId: note.id,
@@ -267,7 +267,7 @@ Here's an example notes app:
           >
             <Icon icon={iconEdit} />
           </Button>
-          <Button variant="text" iconType="full" click={() => deleteNote(note.id)}>
+          <Button variant="text" iconType="full" onclick={() => deleteNote(note.id)}>
             <Icon icon={iconDelete} />
           </Button>
         </div>
@@ -289,13 +289,13 @@ Here's an example notes app:
     <TextFieldMultiline name="Content" bind:value={dialog.content} />
   </div>
   <svelte:fragment slot="buttons">
-    <Button variant="text" click={closeDialog}>Cancel</Button>
+    <Button variant="text" onclick={closeDialog}>Cancel</Button>
     {#if dialog.editingId}
-      <Button variant="filled" disabled={!dialog.title || !dialog.content} click={updateNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} onclick={updateNote}>
         Update
       </Button>
     {:else}
-      <Button variant="filled" disabled={!dialog.title || !dialog.content} click={addNote}>
+      <Button variant="filled" disabled={!dialog.title || !dialog.content} onclick={addNote}>
         Add
       </Button>
     {/if}
@@ -303,7 +303,7 @@ Here's an example notes app:
 </Dialog>
 
 <div class="fab">
-  <FAB color="primary" icon={iconAdd} click={openNewNoteDialog} />
+  <FAB color="primary" icon={iconAdd} onclick={openNewNoteDialog} />
 </div>
 
 <Snackbar bind:show={snackbar} />
@@ -559,7 +559,7 @@ Okay, now on to the components. Again, if you're unsure about how a component wo
 
 Minimal demo:
 ```svelte
-<Button variant="elevated" click={() => alert("!")}>Hello</Button>
+<Button variant="elevated" onclick={() => alert("!")}>Hello</Button>
 ```
 
 The M3 Svelte interactive demo for this component uses Button with the TS `let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("elevated");
@@ -595,7 +595,7 @@ let enabled = $state(true);` to make this demo:
       {variant}
       {square}
       {...{
-        click: { click: () => {}, disabled: !enabled },
+        click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
         toggle: { for: "random-input" },
       }[action]}
@@ -664,10 +664,7 @@ let multiselect = $state(true);` to make this demo:
 
 Minimal demo:
 ```svelte
-<SplitButton
-  variant="filled"
-  click={() => alert("!")}
->
+<SplitButton variant="filled" onclick={() => alert("!")}>
   Hello
   {#snippet menu()}
     and more
@@ -698,7 +695,7 @@ let iconType: "none" | "left" | "full" = $state("none");` to make this demo:
       {variant}
       x={position.startsWith("inner") ? "inner" : "right"}
       y={position.endsWith("down") ? "down" : "up"}
-      click={() => {}}
+      onclick={() => {}}
     >
       {#if iconType == "none"}
         Hello
@@ -709,9 +706,9 @@ let iconType: "none" | "left" | "full" = $state("none");` to make this demo:
       {/if}
       {#snippet menu()}
         <Menu>
-          <MenuItem icon={iconCircle} click={() => {}}>Hi</MenuItem>
-          <MenuItem icon={iconSquare} click={() => {}}>Howdy</MenuItem>
-          <MenuItem icon={iconTriangle} click={() => {}}>G'day</MenuItem>
+          <MenuItem icon={iconCircle} onclick={() => {}}>Hi</MenuItem>
+          <MenuItem icon={iconSquare} onclick={() => {}}>Howdy</MenuItem>
+          <MenuItem icon={iconTriangle} onclick={() => {}}>G'day</MenuItem>
         </Menu>
       {/snippet}
     </SplitButton>
@@ -723,7 +720,7 @@ let iconType: "none" | "left" | "full" = $state("none");` to make this demo:
 
 Minimal demo:
 ```svelte
-<FAB color="primary" icon={iconCircle} click={() => alert("!")} />
+<FAB color="primary" icon={iconCircle} onclick={() => alert("!")} />
 ```
 
 The M3 Svelte interactive demo for this component uses FAB with the TS `let color:
@@ -757,7 +754,7 @@ let size: "small" | "normal" | "large" | "extended" = $state("normal");` to make
   <div>
     <FAB
       {color}
-      click={() => {}}
+      onclick={() => {}}
       {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
       icon={iconCircle}
     />
@@ -770,7 +767,7 @@ let size: "small" | "normal" | "large" | "extended" = $state("normal");` to make
 Minimal demo:
 ```svelte
 <Card variant="filled">Hello</Card>
-<Card variant="filled" click={() => alert("!")}>Hello</Card>
+<Card variant="filled" onclick={() => alert("!")}>Hello</Card>
 ```
 
 The M3 Svelte interactive demo for this component uses Card with the TS `let variant: "elevated" | "filled" | "outlined" = $state("elevated");
@@ -785,7 +782,7 @@ let clickable = $state(false);` to make this demo:
   {clickable ? "Clickable" : "Not clickable"}
 </label>
 {#snippet demo()}
-  <Card {variant} {...clickable ? { click: () => {} } : {}}>Hello</Card>
+  <Card {variant} {...clickable ? { onclick: () => {} } : {}}>Hello</Card>
 {/snippet}
 ```
 
@@ -837,7 +834,13 @@ let supporting = $derived(
       {headline}
       {supporting}
       lines={+lines}
-      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : type == "a" ? { href: "https://example.com" } : {}}
+      {...type == "label"
+        ? { label: true }
+        : type == "button"
+          ? { onclick: () => {} }
+          : type == "a"
+            ? { href: "https://example.com" }
+            : {}}
     />
     <Divider />
     <ListItem
@@ -845,7 +848,13 @@ let supporting = $derived(
       {headline}
       {supporting}
       lines={+lines}
-      {...type == "label" ? { label: true } : type == "button" ? { click: () => {} } : type == "a" ? { href: "https://example.com" } : {}}
+      {...type == "label"
+        ? { label: true }
+        : type == "button"
+          ? { onclick: () => {} }
+          : type == "a"
+            ? { href: "https://example.com" }
+            : {}}
     />
   </div>
 {/snippet}
@@ -885,9 +894,9 @@ The M3 Svelte interactive demo for this component uses Menu, MenuItem with the T
 </label>
 {#snippet demo()}
   <Menu>
-    <MenuItem icon={icons ? iconCircle : undefined} click={() => {}}>Cut</MenuItem>
-    <MenuItem icon={icons ? iconSquare : undefined} click={() => {}}>Undo</MenuItem>
-    <MenuItem icon={icons ? iconTriangle : undefined} disabled click={() => {}}>Redo</MenuItem>
+    <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Cut</MenuItem>
+    <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Undo</MenuItem>
+    <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Redo</MenuItem>
   </Menu>
 {/snippet}
 ```
@@ -904,7 +913,7 @@ Minimal demo:
 The M3 Svelte interactive demo for this component uses Button, BottomSheet with the TS `let open = $state(false);` to make this demo:
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" click={() => (open = true)}>Open</Button>
+  <Button variant="tonal" onclick={() => (open = true)}>Open</Button>
   {#if open}
     <BottomSheet close={() => (open = false)}>
       {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(
@@ -922,7 +931,7 @@ Minimal demo:
 <Dialog headline="Hello" bind:open>
   I'm alive
   {#snippet buttons()}
-    <Button variant="tonal" click={() => (open = false)}>OK</Button>
+    <Button variant="tonal" onclick={() => (open = false)}>OK</Button>
   {/snippet}
 </Dialog>
 ```
@@ -930,12 +939,12 @@ Minimal demo:
 The M3 Svelte interactive demo for this component uses Button, Dialog with the TS `let open = $state(false);` to make this demo:
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" click={() => (open = true)}>Open</Button>
+  <Button variant="tonal" onclick={() => (open = true)}>Open</Button>
   <Dialog icon={iconCircle} headline="Hello" bind:open>
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
     ZomboCom! The unattainable is unknown at ZomboCom!
     {#snippet buttons()}
-      <Button variant="tonal" click={() => (open = false)}>OK</Button>
+      <Button variant="tonal" onclick={() => (open = false)}>OK</Button>
     {/snippet}
   </Dialog>
 {/snippet}
@@ -949,18 +958,18 @@ Minimal demo:
   let snackbar: ReturnType<typeof Snackbar>;
 </script>
 
-<Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
-  >Show</Button
->
+<Button variant="tonal" onclick={() => snackbar.show({ message: "Hello", closable: true })}>
+  Show
+</Button>
 <Snackbar bind:this={snackbar} />
 ```
 
 The M3 Svelte interactive demo for this component uses Button, Snackbar with the TS `let snackbar: ReturnType<typeof Snackbar>;` to make this demo:
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" click={() => snackbar.show({ message: "Hello", closable: true })}
-    >Show</Button
-  >
+  <Button variant="tonal" onclick={() => snackbar.show({ message: "Hello", closable: true })}>
+    Show
+  </Button>
   <Snackbar bind:this={snackbar} />
 {/snippet}
 ```
@@ -995,7 +1004,7 @@ The M3 Svelte interactive demo for this component uses Checkbox with the TS `let
 
 Minimal demo:
 ```svelte
-<Chip variant="general" icon={iconCircle} click={() => alert("!")}>Hello</Chip>
+<Chip variant="general" icon={iconCircle} onclick={() => alert("!")}>Hello</Chip>
 ```
 
 The M3 Svelte interactive demo for this component uses Chip with the TS `let style: "input" | "assist" | "assist elevated" | "general" | "general elevated" =
@@ -1033,7 +1042,7 @@ let selected = $state(false);` to make this demo:
       trailingIcon={iconType == "right" ? iconSquare : undefined}
       disabled={!enabled}
       {selected}
-      click={() => (selected = !selected)}
+      onclick={() => (selected = !selected)}
     >
       Hello
     </Chip>
@@ -1226,6 +1235,7 @@ The M3 Svelte interactive demo for this component uses TextField, TextFieldOutli
 let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
 let option: "text" | "password" | "number" | "file" = $state("text");
 let leadingIcon = $state(false);
+let trailingIcon = $state(false);
 let errored = $state(false);
 let enabled = $state(true);` to make this demo:
 ```svelte
@@ -1257,6 +1267,10 @@ let enabled = $state(true);` to make this demo:
   {leadingIcon ? "Leading icon" : "No leading icon"}
 </label>
 <label>
+  <Switch bind:checked={trailingIcon} />
+  {trailingIcon ? "Trailing icon" : "No trailing icon"}
+</label>
+<label>
   <Switch bind:checked={errored} />
   {errored ? "Errored" : "Not errored"}
 </label>
@@ -1270,6 +1284,7 @@ let enabled = $state(true);` to make this demo:
     <TextField
       label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
+      trailing={trailingIcon ? { icon: iconSquare, onclick: () => {} } : undefined}
       error={errored}
       disabled={!enabled}
       type={option}
@@ -1278,6 +1293,7 @@ let enabled = $state(true);` to make this demo:
     <TextFieldOutlined
       label="Field"
       leadingIcon={leadingIcon ? iconCircle : undefined}
+      trailing={trailingIcon ? { icon: iconSquare, onclick: () => {} } : undefined}
       error={errored}
       disabled={!enabled}
       type={option}
@@ -1358,8 +1374,8 @@ let items = $derived(
 
 Minimal demo:
 ```svelte
-<DateField label="Date" bind:date />
-<DateFieldOutlined label="Date" bind:date />
+<DateField label="Date" bind:value />
+<DateFieldOutlined label="Date" bind:value />
 ```
 
 The M3 Svelte interactive demo for this component uses DateField, DateFieldOutlined with the TS `let variant: "filled" | "outlined" = $state("filled");

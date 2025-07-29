@@ -23,8 +23,14 @@
 
   type SnackbarConfig = Omit<ComponentProps<typeof SnackbarItem>, "children">;
 
-  let { config = {}, ...extra }: { config?: SnackbarConfig } & HTMLAttributes<HTMLDivElement> =
-    $props();
+  let {
+    config = {},
+    closeButtonTitle = "Close",
+    ...extra
+  }: {
+    config?: SnackbarConfig;
+    closeButtonTitle?: string;
+  } & HTMLAttributes<HTMLDivElement> = $props();
   export const show = ({ message, actions = {}, closable = false, timeout = 4000 }: SnackbarIn) => {
     snackbar = { message, actions, closable, timeout };
     clearTimeout(timeoutId);
@@ -48,6 +54,7 @@
         <p class="m3-font-body-medium">{snackbar.message}</p>
         {#each Object.entries(snackbar.actions) as [key, action]}
           <button
+            type="button"
             class="action m3-font-label-large"
             onclick={() => {
               snackbar = undefined;
@@ -59,7 +66,9 @@
         {/each}
         {#if snackbar.closable}
           <button
+            type="button"
             class="close"
+            title={closeButtonTitle}
             onclick={() => {
               snackbar = undefined;
             }}

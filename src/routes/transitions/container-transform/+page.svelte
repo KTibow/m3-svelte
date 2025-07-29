@@ -32,7 +32,7 @@
     <div class="expanded" in:receive={{ key: "container" }} out:send={{ key: "container" }}>
       <div class="bar"></div>
       <p>Cool you have more info now</p>
-      <p><Button variant="outlined" click={() => (open = false)}>Close</Button></p>
+      <p><Button variant="outlined" onclick={() => (open = false)}>Close</Button></p>
     </div>
   {:else}
     <button

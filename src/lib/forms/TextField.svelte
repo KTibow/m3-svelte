@@ -1,23 +1,14 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  import Icon from "$lib/misc/_icon.svelte";
   import type { HTMLInputAttributes } from "svelte/elements";
-
-  type TrailingProps =
-    | {
-        trailingIcon: IconifyIcon;
-        trailingClick: () => void;
-      }
-    | {
-        trailingIcon?: undefined;
-        trailingClick?: undefined;
-      };
+  import Icon from "$lib/misc/_icon.svelte";
+  import Layer from "$lib/misc/Layer.svelte";
+  import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   let {
-    label: _label,
+    label,
     leadingIcon,
-    trailingIcon,
-    trailingClick,
+    trailing,
     disabled = false,
     required = false,
     error = false,
@@ -27,22 +18,20 @@
   }: {
     label: string;
     leadingIcon?: IconifyIcon;
+    trailing?: { icon: IconifyIcon } & ButtonAttrs;
     disabled?: boolean;
     required?: boolean;
     error?: boolean;
     value?: string;
     enter?: () => void;
-  } & TrailingProps &
-    HTMLInputAttributes = $props();
+  } & HTMLInputAttributes = $props();
   const id = $props.id();
-
-  let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
 
 <div
   class="m3-container"
   class:leading-icon={leadingIcon}
-  class:trailing-icon={trailingIcon}
+  class:trailing-icon={trailing}
   class:error
 >
   <input
@@ -62,9 +51,11 @@
   {#if leadingIcon}
     <Icon icon={leadingIcon} class="leading" />
   {/if}
-  {#if trailingIcon}
-    <button onclick={trailingClick} class="trailing">
-      <Icon icon={trailingIcon} />
+  {#if trailing}
+    {@const { icon, ...extra } = trailing}
+    <button type="button" class="trailing" {...extra}>
+      <Layer />
+      <Icon {icon} />
     </button>
   {/if}
 </div>
@@ -174,15 +165,6 @@
   input:focus ~ .layer::after {
     height: 0.125rem;
     background-color: rgb(var(--error, var(--m3-scheme-primary)));
-  }
-  @media (hover: hover) {
-    button:hover {
-      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
-    }
-  }
-  button:focus-visible,
-  button:active {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
   }
 
   .leading-icon > input {

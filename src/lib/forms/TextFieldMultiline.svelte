@@ -4,7 +4,7 @@
   import type { HTMLTextareaAttributes } from "svelte/elements";
 
   let {
-    label: _label,
+    label,
     leadingIcon,
     disabled = false,
     required = false,
@@ -34,8 +34,6 @@
       },
     };
   };
-
-  let label = $derived(_label || extra.name); // TODO: next breaking version, drop name backsupport
 </script>
 
 <div class="m3-container" class:leading-icon={leadingIcon} class:error use:resize>

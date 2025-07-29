@@ -19,7 +19,7 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}Button variant="elevated" click={() => alert("!")}>Hello${"<"}/Button>`;
+const minimalDemo = `${"<"}Button variant="elevated" onclick={() => alert("!")}>Hello${"<"}/Button>`;
 const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/Button.svelte"}];
 </script>
 
@@ -51,7 +51,7 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
       {variant}
       {square}
       {...{
-        click: { click: () => {}, disabled: !enabled },
+        click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
         toggle: { for: "random-input" },
       }[action]}

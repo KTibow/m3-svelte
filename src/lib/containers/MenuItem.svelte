@@ -7,17 +7,17 @@
   let {
     icon,
     disabled = false,
-    click,
+    onclick,
     children,
   }: {
     icon?: IconifyIcon | "space" | undefined;
     disabled?: boolean;
-    click: () => void;
+    onclick: () => void;
     children: Snippet;
   } = $props();
 </script>
 
-<button class="item m3-font-label-large" {disabled} onclick={click}>
+<button type="button" class="item m3-font-label-large" {disabled} {onclick}>
   <Layer />
   {#if icon == "space"}
     <span class="icon"></span>
