@@ -20,22 +20,20 @@
       return n.toFixed(0);
     },
     ...extra
-  } = $props<
-    {
-      value: number;
-      min?: number;
-      max?: number;
-      step?: number | "any";
-      disabled?: boolean;
-      showValue?: boolean;
-      size?: "xs" | "s" | "m" | "l" | "xl";
-      leadingIcon?: IconifyIcon;
-      trailingIcon?: IconifyIcon;
-      ticks?: boolean;
-      endStops?: boolean;
-      format?: (n: number) => string;
-    } & HTMLInputAttributes
-  >();
+  } = $props<{
+    value: number;
+    min?: number;
+    max?: number;
+    step?: number | "any";
+    disabled?: boolean;
+    showValue?: boolean;
+    size?: "xs" | "s" | "m" | "l" | "xl";
+    leadingIcon?: IconifyIcon;
+    trailingIcon?: IconifyIcon;
+    ticks?: boolean;
+    endStops?: boolean;
+    format?: (n: number) => string;
+  } & HTMLInputAttributes>();
   let container = $state<HTMLDivElement>();
 
   const valueDisplayed = new Spring(value, { stiffness: 0.3, damping: 1 });
@@ -58,16 +56,19 @@
 </script>
 
 <div class="m3-container {size}" style:--percent="{percent * 100}%" bind:this={container}>
-  <input
-    type="range"
-    oninput={updateValue}
-    value={valueDisplayed.current}
-    {min}
-    {max}
-    {step}
-    {disabled}
-    {...extra}
-  />
+  <!-- strange hack to update the step attribute -->
+  {#key step}
+    <input
+      type="range"
+      oninput={updateValue}
+      value={valueDisplayed.current}
+      {min}
+      {max}
+      {step}
+      {disabled}
+      {...extra}
+    />
+  {/key}
   
   <div class="track"></div>
   {#if leadingIcon}
@@ -85,7 +86,7 @@
         style:--x={tick / 100 - 0.5}
       ></div>
     {/each}
-    {:else if endStops && !trailingIcon}
+  {:else if endStops && !trailingIcon}
       <div class="end" class:hidden={(container?.offsetWidth ?? 0) - ((container?.offsetWidth ?? 0) * percent) < 14}></div>
   {/if}
   <div class="handle"></div>
@@ -184,7 +185,7 @@
     height: 4px;
     border-radius: var(--m3-util-rounding-full);
     top: 50%;
-    left: calc(50% + (100% - 0.75rem) * 0.5);
+    right: 2px;
     translate: -50% -50%;
     background-color: rgb(var(--m3-scheme-primary));
     pointer-events: none;
@@ -248,7 +249,7 @@
     height: 4px;
     border-radius: var(--m3-util-rounding-full);
     top: 50%;
-    right: 2px;
+    left: calc(50% + (100% - 0.75rem) * var(--x));
     translate: -50% -50%;
     background-color: rgb(var(--m3-scheme-primary-container));
     pointer-events: none;

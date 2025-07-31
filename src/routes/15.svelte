@@ -59,10 +59,12 @@ const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3
   <Switch bind:checked={trailingIcon} />
   {trailingIcon ? "Trailing icon" : "No trailing icon"}
 </label>
-<label>
-  <Switch bind:checked={endStops} />
-  {leadingIcon ? "Endstops" : "No Endstops"}
-</label>
+{#if precision !== 'discrete-ticks'}
+  <label>
+    <Switch bind:checked={endStops} />
+    {leadingIcon ? "Endstops" : "No Endstops"}
+  </label>
+{/if}
 
 {#snippet demo()}
   <Slider step={precision == "continuous" ? "any" : 10} value={10} disabled={!enabled} ticks={precision === 'discrete-ticks'} {size} {endStops} leadingIcon={leadingIcon ? iconCircle : undefined} trailingIcon={trailingIcon ? iconSquare : undefined} />
