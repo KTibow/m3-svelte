@@ -11,7 +11,7 @@
     step = "any",
     disabled = false,
     showValue = true,
-    size = "m",
+    size = "xs",
     leadingIcon,
     trailingIcon,
     ticks = false,
@@ -20,7 +20,7 @@
       return n.toFixed(0);
     },
     ...extra
-  } = $props<{
+  }: {
     value: number;
     min?: number;
     max?: number;
@@ -33,7 +33,7 @@
     ticks?: boolean;
     endStops?: boolean;
     format?: (n: number) => string;
-  } & HTMLInputAttributes>();
+  } & Omit<HTMLInputAttributes, "size"> = $props();
   let container = $state<HTMLDivElement>();
 
   const valueDisplayed = new Spring(value, { stiffness: 0.3, damping: 1 });
@@ -43,14 +43,14 @@
     value = newValue;
     valueDisplayed.target = newValue;
   };
-  
+
   const range = $derived(max - min);
   const percent = $derived((valueDisplayed.current - min) / range);
   const tickList = $derived.by(() => {
     const ticksList = [];
-    
+
     for (let i = 0; i <= range; i += step) ticksList.push((i / range) * 100);
-        
+
     return ticksList;
   });
 </script>
@@ -69,25 +69,41 @@
       {...extra}
     />
   {/key}
-  
+
   <div class="track"></div>
   {#if leadingIcon}
-    <Icon icon={leadingIcon} class="leading{(container.offsetWidth * percent) < (size === 'xl' ? 48 : 40) ? ' pop' : ''}" />
+    <Icon
+      icon={leadingIcon}
+      class="leading{container.offsetWidth * percent < (size === 'xl' ? 48 : 40) ? ' pop' : ''}"
+    />
   {/if}
   {#if trailingIcon}
-    <Icon icon={trailingIcon} class="trailing{container.offsetWidth - (container.offsetWidth * percent) < (size === 'xl' ? 48 : 40) ? ' pop' : ''}" />
+    <Icon
+      icon={trailingIcon}
+      class="trailing{container.offsetWidth - container.offsetWidth * percent <
+      (size === 'xl' ? 48 : 40)
+        ? ' pop'
+        : ''}"
+    />
   {/if}
   {#if ticks}
     {#each tickList as tick}
       <div
         class="tick"
-        class:hidden={Math.abs(tick / 100 - (min < 0 ? Math.abs(min) + valueDisplayed.current : valueDisplayed.current) / range) < 0.01}
-        class:inactive={tick / 100 > (min < 0 ? Math.abs(min) + valueDisplayed.current : valueDisplayed.current) / range}
+        class:hidden={Math.abs(
+          tick / 100 -
+            (min < 0 ? Math.abs(min) + valueDisplayed.current : valueDisplayed.current) / range,
+        ) < 0.01}
+        class:inactive={tick / 100 >
+          (min < 0 ? Math.abs(min) + valueDisplayed.current : valueDisplayed.current) / range}
         style:--x={tick / 100 - 0.5}
       ></div>
     {/each}
   {:else if endStops && !trailingIcon}
-      <div class="end" class:hidden={(container?.offsetWidth ?? 0) - ((container?.offsetWidth ?? 0) * percent) < 14}></div>
+    <div
+      class="end"
+      class:hidden={(container?.offsetWidth ?? 0) - (container?.offsetWidth ?? 0) * percent < 14}
+    ></div>
   {/if}
   <div class="handle"></div>
   {#if showValue}
@@ -101,7 +117,7 @@
     --m3-slider-track-in-shape: 0.125rem;
     --m3-slider-handle-shape: var(--m3-util-rounding-full);
   }
-  
+
   .m3-container {
     position: relative;
     height: var(--handle-height);
@@ -109,76 +125,76 @@
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
-  
+
   .m3-container.xs {
     --track-height: 1rem;
     --handle-height: 2.75rem;
     --track-radius: var(--m3-util-rounding-small);
     --icon-size: 0;
   }
-  
+
   .m3-container.s {
     --track-height: 1.5rem;
     --handle-height: 2.75rem;
     --track-radius: var(--m3-util-rounding-small);
     --icon-size: 0;
   }
-  
+
   .m3-container.m {
     --track-height: 2.5rem;
     --handle-height: 3.25rem;
     --track-radius: var(--m3-util-rounding-medium);
     --icon-size: 1.5rem;
   }
-  
+
   .m3-container.l {
     --track-height: 3.5rem;
     --handle-height: 4.25rem;
     --track-radius: var(--m3-util-rounding-large);
     --icon-size: 1.5rem;
   }
-  
+
   .m3-container.xl {
     --track-height: 6rem;
     --handle-height: 6.75rem;
     --track-radius: var(--m3-util-rounding-extra-large);
     --icon-size: 2rem;
   }
-  
+
   :global(.leading) {
     position: absolute;
     width: var(--icon-size);
     height: var(--icon-size);
     top: 50%;
-    left: .25rem;
+    left: 0.25rem;
     translate: 0 -50%;
     pointer-events: none;
     color: rgb(var(--m3-scheme-secondary-container));
   }
-  
+
   :global(.leading.pop) {
     left: var(--percent);
-    margin-left: .625rem;
+    margin-left: 0.625rem;
     color: rgb(var(--m3-scheme-primary));
   }
-  
+
   :global(.trailing) {
     position: absolute;
     width: var(--icon-size);
     height: var(--icon-size);
     top: 50%;
-    right: .25rem;
+    right: 0.25rem;
     translate: 0 -50%;
     pointer-events: none;
     color: rgb(var(--m3-scheme-primary));
   }
-  
+
   :global(.trailing.pop) {
     right: abs(100% - var(--percent));
-    margin-right: .625rem;
+    margin-right: 0.625rem;
     color: rgb(var(--m3-scheme-secondary-container));
   }
-  
+
   .end {
     position: absolute;
     width: 4px;
@@ -190,11 +206,11 @@
     background-color: rgb(var(--m3-scheme-primary));
     pointer-events: none;
   }
-  
+
   .end.hidden {
     display: none;
   }
-  
+
   input {
     position: absolute;
     left: -0.5rem;
@@ -225,7 +241,7 @@
     border-start-end-radius: var(--m3-slider-track-in-shape);
     border-end-end-radius: var(--m3-slider-track-in-shape);
   }
-  
+
   .track::after {
     position: absolute;
     content: " ";
@@ -242,7 +258,7 @@
     border-start-end-radius: var(--track-radius);
     border-end-end-radius: var(--track-radius);
   }
-  
+
   .tick {
     position: absolute;
     width: 4px;
@@ -254,19 +270,19 @@
     background-color: rgb(var(--m3-scheme-secondary-container));
     pointer-events: none;
   }
-  
+
   .tick.hidden {
     display: none;
   }
-  
+
   .tick.inactive {
     background-color: rgb(var(--m3-scheme-primary));
   }
-  
+
   :global(.leading) ~ .tick:nth-child(1 of div.tick) {
     display: none;
   }
-  
+
   :global(.trailing) ~ .tick:nth-last-child(1 of div.tick) {
     display: none;
   }
@@ -340,7 +356,7 @@
   input:disabled ~ .end {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
-  
+
   @media screen and (forced-colors: active) {
     .track::before {
       background-color: selecteditem;
