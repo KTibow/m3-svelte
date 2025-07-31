@@ -24,7 +24,7 @@ let { showCode } = $props<{
 }>();
 
 const minimalDemo = `${"<"}Slider bind:value={n} />`;
-const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"},{"title":"SliderTicks.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/SliderTicks.svelte"}];
+const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"}];
 </script>
 
 <InternalCard title="Slider" showCode={() => showCode("Slider", minimalDemo, relevantLinks)}>
@@ -53,18 +53,18 @@ const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3
 </label>
 <label>
   <Switch bind:checked={leadingIcon} />
-  {enabled ? "No leading icon" : "Leading icon"}
+  {leadingIcon ? "Leading icon" : "No leading icon"}
 </label>
 <label>
   <Switch bind:checked={trailingIcon} />
-  {enabled ? "No trailing icon" : "Trailing icon"}
+  {trailingIcon ? "Trailing icon" : "No trailing icon"}
 </label>
 <label>
   <Switch bind:checked={endStops} />
-  {enabled ? "Endstops" : "No Endstops"}
+  {leadingIcon ? "Endstops" : "No Endstops"}
 </label>
 
 {#snippet demo()}
-  <Slider step={precision == "continuous" ? "any" : 10} value={0} disabled={!enabled} ticks={precision === 'discrete-ticks'} {size} {endStops} leadingIcon={leadingIcon ? iconCircle : undefined} trailingIcon={trailingIcon ? iconSquare : undefined} />
+  <Slider step={precision == "continuous" ? "any" : 10} value={10} disabled={!enabled} ticks={precision === 'discrete-ticks'} {size} {endStops} leadingIcon={leadingIcon ? iconCircle : undefined} trailingIcon={trailingIcon ? iconSquare : undefined} />
 {/snippet}
 </InternalCard>

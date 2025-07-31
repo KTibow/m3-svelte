@@ -16,7 +16,6 @@
     trailingIcon,
     ticks = false,
     endStops = true,
-    vertical = false,
     format = (n: number) => {
       return n.toFixed(0);
     },
@@ -72,10 +71,10 @@
   
   <div class="track"></div>
   {#if leadingIcon}
-    <Icon icon={leadingIcon} class="leading{(container.offsetWidth * percent) < 40 ? ' pop' : ''}" />
+    <Icon icon={leadingIcon} class="leading{(container.offsetWidth * percent) < (size === 'xl' ? 48 : 40) ? ' pop' : ''}" />
   {/if}
   {#if trailingIcon}
-    <Icon icon={trailingIcon} class="trailing{container.offsetWidth - (container.offsetWidth * percent) < 40 ? ' pop' : ''}" />
+    <Icon icon={trailingIcon} class="trailing{container.offsetWidth - (container.offsetWidth * percent) < (size === 'xl' ? 48 : 40) ? ' pop' : ''}" />
   {/if}
   {#if ticks}
     {#each tickList as tick}
@@ -87,7 +86,7 @@
       ></div>
     {/each}
     {:else if endStops && !trailingIcon}
-      <div class="end" class:hidden={Math.abs(1 - (min < 0 ? Math.abs(min) + valueDisplayed.current : valueDisplayed.current) / range) < 0.035}></div>
+      <div class="end" class:hidden={(container?.offsetWidth ?? 0) - ((container?.offsetWidth ?? 0) * percent) < 14}></div>
   {/if}
   <div class="handle"></div>
   {#if showValue}
@@ -249,7 +248,7 @@
     height: 4px;
     border-radius: var(--m3-util-rounding-full);
     top: 50%;
-    left: calc(50% + (100% - 0.75rem) * var(--x));
+    right: 2px;
     translate: -50% -50%;
     background-color: rgb(var(--m3-scheme-primary-container));
     pointer-events: none;
