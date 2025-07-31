@@ -337,7 +337,8 @@
   input:disabled ~ .tick {
     background-color: rgb(var(--m3-scheme-inverse-on-surface) / 0.66);
   }
-  input:disabled ~ .tick.inactive {
+  input:disabled ~ .tick.inactive,
+  input:disabled ~ .end {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
   
