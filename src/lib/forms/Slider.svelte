@@ -282,6 +282,7 @@
 
     pointer-events: none;
     transition: width var(--m3-util-easing);
+    z-index: 1;
   }
 
   .value {
@@ -306,8 +307,10 @@
   }
 
   input:focus-visible ~ .handle {
-    outline: auto;
-    outline-offset: 0.5rem;
+    outline: solid;
+    outline-color: rgb(var(--m3-scheme-on-secondary-container));
+    outline-width: 4px;
+    outline-offset: 6px;
   }
   input:focus-visible ~ .handle,
   input:enabled:active ~ .handle {
