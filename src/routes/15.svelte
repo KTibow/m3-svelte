@@ -59,10 +59,10 @@ const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3
   <Switch bind:checked={trailingIcon} />
   {trailingIcon ? "Trailing icon" : "No trailing icon"}
 </label>
-{#if precision !== 'discrete-ticks'}
+{#if precision !== 'discrete-ticks' && !trailingIcon}
   <label>
     <Switch bind:checked={endStops} />
-    {leadingIcon ? "Endstops" : "No Endstops"}
+    {endStops ? "Endstops" : "No Endstops"}
   </label>
 {/if}
 
