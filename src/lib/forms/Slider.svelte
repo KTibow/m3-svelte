@@ -282,7 +282,6 @@
 
     pointer-events: none;
     transition: width var(--m3-util-easing);
-    z-index: 1;
   }
 
   .value {

@@ -1,9 +1,7 @@
 <script lang="ts">
 import iconCircle from "@ktibow/iconset-material-symbols/circle";
 import iconSquare from "@ktibow/iconset-material-symbols/square-rounded";
-import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
 import Switch from "$lib/forms/Switch.svelte";
-import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Slider from "$lib/forms/Slider.svelte";
