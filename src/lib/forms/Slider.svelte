@@ -34,7 +34,7 @@
     endStops?: boolean;
     format?: (n: number) => string;
   } & Omit<HTMLInputAttributes, "size"> = $props();
-  let container = $state<HTMLDivElement>();
+  let containerWidth = $state<number>(0);
 
   const valueDisplayed = new Spring(value, { stiffness: 0.3, damping: 1 });
   const updateValue = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
@@ -47,6 +47,8 @@
   const range = $derived(max - min);
   const percent = $derived((valueDisplayed.current - min) / range);
   const tickList = $derived.by(() => {
+    if (typeof step !== "number") return [];
+
     const ticksList = [];
 
     for (let i = 0; i <= range; i += step) ticksList.push((i / range) * 100);
@@ -55,33 +57,38 @@
   });
 </script>
 
-<div class="m3-container {size}" style:--percent="{percent * 100}%" bind:this={container}>
-  <!-- strange hack to update the step attribute -->
-  {#key step}
-    <input
-      type="range"
-      oninput={updateValue}
-      value={valueDisplayed.current}
-      {min}
-      {max}
-      {step}
-      {disabled}
-      {...extra}
-    />
-  {/key}
+<div
+  class="m3-container"
+  class:xs={size === "xs"}
+  class:s={size === "s"}
+  class:m={size === "m"}
+  class:l={size === "l"}
+  class:xl={size === "xl"}
+  style:--percent="{percent * 100}%"
+  bind:offsetWidth={containerWidth}
+>
+  <input
+    type="range"
+    oninput={updateValue}
+    value={valueDisplayed.current}
+    {min}
+    {max}
+    step={step === 'any' ? undefined : step}
+    {disabled}
+    {...extra}
+  />
 
   <div class="track"></div>
   {#if leadingIcon}
     <Icon
       icon={leadingIcon}
-      class="leading{container.offsetWidth * percent < (size === 'xl' ? 48 : 40) ? ' pop' : ''}"
+      class="leading{containerWidth * percent < (size === 'xl' ? 48 : 40) ? ' pop' : ''}"
     />
   {/if}
   {#if trailingIcon}
     <Icon
       icon={trailingIcon}
-      class="trailing{container.offsetWidth - container.offsetWidth * percent <
-      (size === 'xl' ? 48 : 40)
+      class="trailing{containerWidth - containerWidth * percent < (size === 'xl' ? 48 : 40)
         ? ' pop'
         : ''}"
     />
@@ -102,7 +109,7 @@
   {:else if endStops && !trailingIcon}
     <div
       class="end"
-      class:hidden={(container?.offsetWidth ?? 0) - (container?.offsetWidth ?? 0) * percent < 14}
+      class:hidden={(containerWidth ?? 0) - (containerWidth ?? 0) * percent < 14}
     ></div>
   {/if}
   <div class="handle"></div>
@@ -161,7 +168,7 @@
     --icon-size: 2rem;
   }
 
-  :global(.leading) {
+  .m3-container :global(.leading) {
     position: absolute;
     width: var(--icon-size);
     height: var(--icon-size);
@@ -172,13 +179,13 @@
     color: rgb(var(--m3-scheme-secondary-container));
   }
 
-  :global(.leading.pop) {
+  .m3-container :global(.leading.pop) {
     left: var(--percent);
     margin-left: 0.625rem;
     color: rgb(var(--m3-scheme-primary));
   }
 
-  :global(.trailing) {
+  .m3-container :global(.trailing) {
     position: absolute;
     width: var(--icon-size);
     height: var(--icon-size);
@@ -189,7 +196,7 @@
     color: rgb(var(--m3-scheme-primary));
   }
 
-  :global(.trailing.pop) {
+  .m3-container :global(.trailing.pop) {
     right: abs(100% - var(--percent));
     margin-right: 0.625rem;
     color: rgb(var(--m3-scheme-secondary-container));
