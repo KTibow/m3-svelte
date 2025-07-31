@@ -44,7 +44,7 @@ const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/K
   {thick ? "Thicker" : "Default"}
 </label>
 {#if !estimate}
-  <Slider bind:value={percent} />
+  <Slider bind:value={percent} size="s" />
 {/if}
 <input type="checkbox" id="estimate-toggle" bind:checked={estimate} />
 <Button variant="tonal" for="estimate-toggle">{estimate ? "Estimated" : "Estimate"}</Button>
