@@ -74,7 +74,7 @@
     value={valueDisplayed.current}
     {min}
     {max}
-    step={step === "any" ? 0.001 : step}
+    step={step === "any" ? undefined : step}
     {disabled}
     {...extra}
   />
