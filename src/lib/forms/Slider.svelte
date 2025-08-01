@@ -51,7 +51,7 @@
 
     const ticksList = [];
 
-    for (let i = 0; i <= range; i += step) ticksList.push((i / range) * 100);
+    for (let i = 0; i <= range; i += step) ticksList.push(i / range);
 
     return ticksList;
   });
@@ -67,13 +67,14 @@
   style:--percent="{percent * 100}%"
   bind:offsetWidth={containerWidth}
 >
+  <!-- TODO: once https://github.com/sveltejs/svelte/issues/16535 is resolved, remove step hack -->
   <input
     type="range"
     oninput={updateValue}
     value={valueDisplayed.current}
     {min}
     {max}
-    step={step === 'any' ? undefined : step}
+    step={step === "any" ? 0.001 : step}
     {disabled}
     {...extra}
   />
@@ -82,15 +83,14 @@
   {#if leadingIcon}
     <Icon
       icon={leadingIcon}
-      class="leading{containerWidth * percent < (size === 'xl' ? 48 : 40) ? ' pop' : ''}"
+      class={"leading" + (containerWidth * percent < (size === "xl" ? 48 : 40) ? " pop" : "")}
     />
   {/if}
   {#if trailingIcon}
     <Icon
       icon={trailingIcon}
-      class="trailing{containerWidth - containerWidth * percent < (size === 'xl' ? 48 : 40)
-        ? ' pop'
-        : ''}"
+      class={"trailing" +
+        (containerWidth - containerWidth * percent < (size === "xl" ? 48 : 40) ? " pop" : "")}
     />
   {/if}
   {#if ticks}
@@ -98,12 +98,12 @@
       <div
         class="tick"
         class:hidden={Math.abs(
-          tick / 100 -
+          tick -
             (min < 0 ? Math.abs(min) + valueDisplayed.current : valueDisplayed.current) / range,
         ) < 0.01}
-        class:inactive={tick / 100 >
+        class:inactive={tick >
           (min < 0 ? Math.abs(min) + valueDisplayed.current : valueDisplayed.current) / range}
-        style:--x={tick / 100 - 0.5}
+        style:--x={tick - 0.5}
       ></div>
     {/each}
   {:else if endStops && !trailingIcon}
