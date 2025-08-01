@@ -1,11 +1,12 @@
 <script lang="ts">
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
+import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
 import Switch from "$lib/forms/Switch.svelte";
-import Slider from "$lib/forms/Slider.svelte";
-import InternalCard from "./_card.svelte";
+import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
-
+import InternalCard from "./_card.svelte";
+import Slider from "$lib/forms/Slider.svelte";
 let precision = $state<"continuous" | "discrete" | "discrete-ticks">("continuous");
 let size = $state<"xs" | "s" | "m" | "l" | "xl">("xs");
 let trailingIcon = $state<boolean>(false);
