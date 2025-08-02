@@ -38,7 +38,6 @@ export { default as RadioAnim3 } from "./forms/RadioAnim3.svelte";
 export { default as Checkbox } from "./forms/Checkbox.svelte";
 export { default as Switch } from "./forms/Switch.svelte";
 export { default as Slider } from "./forms/Slider.svelte";
-export { default as SliderTicks } from "./forms/SliderTicks.svelte";
 export { default as TextField } from "./forms/TextField.svelte";
 export { default as TextFieldMultiline } from "./forms/TextFieldMultiline.svelte";
 export { default as TextFieldOutlined } from "./forms/TextFieldOutlined.svelte";
