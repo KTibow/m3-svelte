@@ -320,19 +320,21 @@
     border-radius: var(--m3-slider-handle-shape);
 
     left: var(--percent);
-    top: -3rem;
+    bottom: calc(var(--handle-height) + 4px);
     translate: -50% 0;
 
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--m3-util-easing);
+    z-index: 1;
   }
 
   input:focus-visible ~ .handle {
     outline: solid;
     outline-color: rgb(var(--m3-scheme-on-secondary-container));
-    outline-width: 3px;
-    outline-offset: 4px;
+    outline-width: 4px;
+    outline-offset: 5px;
+    z-index: 2;
   }
   input:focus-visible ~ .handle,
   input:enabled:active ~ .handle {
