@@ -331,8 +331,8 @@
   input:focus-visible ~ .handle {
     outline: solid;
     outline-color: rgb(var(--m3-scheme-on-secondary-container));
-    outline-width: 4px;
-    outline-offset: 6px;
+    outline-width: 3px;
+    outline-offset: 4px;
   }
   input:focus-visible ~ .handle,
   input:enabled:active ~ .handle {
