@@ -68,16 +68,18 @@
   bind:offsetWidth={containerWidth}
 >
   <!-- TODO: once https://github.com/sveltejs/svelte/issues/16535 is resolved, remove step hack -->
-  <input
-    type="range"
-    oninput={updateValue}
-    value={valueDisplayed.current}
-    {min}
-    {max}
-    step={step === "any" ? 0.001 : step}
-    {disabled}
-    {...extra}
-  />
+  {#key step}
+    <input
+      type="range"
+      oninput={updateValue}
+      value={valueDisplayed.current}
+      {min}
+      {max}
+      step={step === "any" ? 0.001 : step}
+      {disabled}
+      {...extra}
+    />
+  {/key}
 
   <div class="track"></div>
   {#if leadingIcon}
