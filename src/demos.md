@@ -829,7 +829,7 @@ let enabled = $state<boolean>(true);
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
-{#if size !== "xs" && size !== "s"}
+{#if size != "xs" && size != "s"}
   <label>
     <Switch bind:checked={leadingIcon} />
     {leadingIcon ? "Leading icon" : "No leading icon"}
@@ -839,7 +839,7 @@ let enabled = $state<boolean>(true);
     {trailingIcon ? "Trailing icon" : "No trailing icon"}
   </label>
 {/if}
-{#if precision !== "discrete-ticks" && !trailingIcon}
+{#if precision != "discrete-ticks" && !trailingIcon}
   <label>
     <Switch bind:checked={endStops} />
     {endStops ? "Endstops" : "No Endstops"}
@@ -851,7 +851,7 @@ let enabled = $state<boolean>(true);
     step={precision == "continuous" ? "any" : 10}
     value={10}
     disabled={!enabled}
-    ticks={precision === "discrete-ticks"}
+    ticks={precision == "discrete-ticks"}
     {size}
     {endStops}
     leadingIcon={leadingIcon ? iconCircle : undefined}

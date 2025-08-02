@@ -34,7 +34,7 @@
     endStops?: boolean;
     format?: (n: number) => string;
   } & Omit<HTMLInputAttributes, "size"> = $props();
-  let containerWidth = $state<number>(0);
+  let containerWidth = $state(600);
 
   const valueDisplayed = new Spring(value, { stiffness: 0.3, damping: 1 });
   const updateValue = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
@@ -47,7 +47,7 @@
   const range = $derived(max - min);
   const percent = $derived((valueDisplayed.current - min) / range);
   const tickList = $derived.by(() => {
-    if (typeof step !== "number") return [];
+    if (typeof step != "number") return [];
 
     const ticksList = [];
 
@@ -58,12 +58,7 @@
 </script>
 
 <div
-  class="m3-container"
-  class:xs={size === "xs"}
-  class:s={size === "s"}
-  class:m={size === "m"}
-  class:l={size === "l"}
-  class:xl={size === "xl"}
+  class="m3-container {size}"
   style:--percent="{percent * 100}%"
   bind:offsetWidth={containerWidth}
 >
@@ -75,7 +70,7 @@
       value={valueDisplayed.current}
       {min}
       {max}
-      step={step === "any" ? 0.001 : step}
+      {step}
       {disabled}
       {...extra}
     />
@@ -85,38 +80,31 @@
   {#if leadingIcon}
     <Icon
       icon={leadingIcon}
-      class={"leading" + (containerWidth * percent < (size === "xl" ? 48 : 40) ? " pop" : "")}
+      class={"leading" + (containerWidth * percent < (size == "xl" ? 48 : 40) ? " pop" : "")}
     />
   {/if}
   {#if trailingIcon}
     <Icon
       icon={trailingIcon}
-      class={"trailing" +
-        (containerWidth - containerWidth * percent < (size === "xl" ? 48 : 40) ? " pop" : "")}
+      class={"trailing" + (containerWidth * (1 - percent) < (size == "xl" ? 48 : 40) ? " pop" : "")}
     />
   {/if}
   {#if ticks}
     {#each tickList as tick}
       <div
         class="tick"
-        class:hidden={Math.abs(
-          tick -
-            (min < 0 ? Math.abs(min) + valueDisplayed.current : valueDisplayed.current) / range,
-        ) < 0.01}
-        class:inactive={tick >
-          (min < 0 ? Math.abs(min) + valueDisplayed.current : valueDisplayed.current) / range}
+        class:hidden={Math.abs(tick - percent) < 0.01}
+        class:inactive={tick > percent}
         style:--x={tick - 0.5}
       ></div>
     {/each}
-  {:else if endStops && !trailingIcon}
-    <div
-      class="end"
-      class:hidden={(containerWidth ?? 0) - (containerWidth ?? 0) * percent < 14}
-    ></div>
+  {/if}
+  {#if endStops && !ticks && !trailingIcon}
+    <div class="endstop" class:hidden={containerWidth * (1 - percent) < 14}></div>
   {/if}
   <div class="handle"></div>
   {#if showValue}
-    <div class="value m3-font-label-large"><span>{format(value)}</span></div>
+    <div class="value m3-font-label-large">{format(value)}</div>
   {/if}
 </div>
 
@@ -204,7 +192,7 @@
     color: rgb(var(--m3-scheme-secondary-container));
   }
 
-  .end {
+  .endstop {
     position: absolute;
     width: 4px;
     height: 4px;
@@ -214,10 +202,9 @@
     translate: -50% -50%;
     background-color: rgb(var(--m3-scheme-primary));
     pointer-events: none;
-  }
-
-  .end.hidden {
-    display: none;
+    &.hidden {
+      display: none;
+    }
   }
 
   input {
@@ -299,7 +286,7 @@
   .handle {
     position: absolute;
     left: var(--percent);
-    translate: -50%;
+    translate: -50% 0;
     width: 0.25rem;
     height: var(--handle-height);
     border-radius: 1.25rem;
@@ -364,7 +351,7 @@
     background-color: rgb(var(--m3-scheme-inverse-on-surface) / 0.66);
   }
   input:disabled ~ .tick.inactive,
-  input:disabled ~ .end {
+  input:disabled ~ .endstop {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
 
