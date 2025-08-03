@@ -62,19 +62,16 @@
   style:--percent="{percent * 100}%"
   bind:offsetWidth={containerWidth}
 >
-  <!-- TODO: once https://github.com/sveltejs/svelte/issues/16535 is resolved, remove step hack -->
-  {#key step}
-    <input
-      type="range"
-      oninput={updateValue}
-      value={valueDisplayed.current}
-      {min}
-      {max}
-      {step}
-      {disabled}
-      {...extra}
-    />
-  {/key}
+  <input
+    type="range"
+    oninput={updateValue}
+    value={valueDisplayed.current}
+    {min}
+    {max}
+    {step}
+    {disabled}
+    {...extra}
+  />
 
   <div class="track"></div>
   {#if leadingIcon}
