@@ -793,12 +793,15 @@ Full demo:
 
 ```use
 Slider
-SliderTicks
 ```
 
 ```ts
-let precision: "continuous" | "discrete" | "discrete-ticks" = $state("continuous");
-let enabled = $state(true);
+let precision = $state<"continuous" | "discrete" | "discrete-ticks">("continuous");
+let size = $state<"xs" | "s" | "m" | "l" | "xl">("xs");
+let trailingIcon = $state<boolean>(false);
+let leadingIcon = $state<boolean>(false);
+let endStops = $state<boolean>(true);
+let enabled = $state<boolean>(true);
 ```
 
 ```svelte
@@ -811,16 +814,49 @@ let enabled = $state(true);
       : "Discrete (ticks)"}
 </label>
 <label>
+  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} />
+  {size == "xs"
+    ? "Extra Small"
+    : size == "s"
+      ? "Small"
+      : size == "m"
+        ? "Medium"
+        : size == "l"
+          ? "Large"
+          : "Extra Large"}
+</label>
+<label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
+{#if size != "xs" && size != "s"}
+  <label>
+    <Switch bind:checked={leadingIcon} />
+    {leadingIcon ? "Leading icon" : "No leading icon"}
+  </label>
+  <label>
+    <Switch bind:checked={trailingIcon} />
+    {trailingIcon ? "Trailing icon" : "No trailing icon"}
+  </label>
+{/if}
+{#if precision != "discrete-ticks" && !trailingIcon}
+  <label>
+    <Switch bind:checked={endStops} />
+    {endStops ? "Endstops" : "No Endstops"}
+  </label>
+{/if}
 
 {#snippet demo()}
-  {#if precision == "discrete-ticks"}
-    <SliderTicks step={1} max={6} value={0} disabled={!enabled} />
-  {:else}
-    <Slider step={precision == "continuous" ? "any" : 10} value={0} disabled={!enabled} />
-  {/if}
+  <Slider
+    step={precision == "continuous" ? "any" : 10}
+    value={10}
+    disabled={!enabled}
+    ticks={precision == "discrete-ticks"}
+    {size}
+    {endStops}
+    leadingIcon={leadingIcon ? iconCircle : undefined}
+    trailingIcon={trailingIcon ? iconSquare : undefined}
+  />
 {/snippet}
 ```
 
