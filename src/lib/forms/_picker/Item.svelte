@@ -17,9 +17,9 @@
 </script>
 
 <button
-  {disabled}
-  class="item m3-font-body-small"
   type="button"
+  class="item m3-font-body-small"
+  {disabled}
   class:today
   class:selected
   {onclick}
