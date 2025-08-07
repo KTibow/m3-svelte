@@ -129,21 +129,21 @@
     position: relative;
   }
   summary {
-    padding-inline-start: 0.75rem;
-    padding-inline-end: 0.875rem;
-    border-start-start-radius: var(--m3-split-button-inner-shape);
-    border-end-start-radius: var(--m3-split-button-inner-shape);
+    /* correction = coef * (startCornerRadius - endCornerRadius) */
+    --_inner-shape: var(--m3-split-button-inner-shape);
+    --_correction: calc(var(--m3-util-centering-optical-coefficient) * (var(--_inner-shape) - 1.25rem));
+    padding-inline-start: round(calc(0.8125rem + var(--_correction)), 1px);
+    padding-inline-end: round(calc(0.8125rem - var(--_correction)), 1px);
+    border-start-start-radius: var(--_inner-shape);
+    border-end-start-radius: var(--_inner-shape);
     &:hover,
     &:active {
-      border-start-start-radius: var(--m3-split-button-half-shape);
-      border-end-start-radius: var(--m3-split-button-half-shape);
+      --_inner-shape: var(--m3-split-button-half-shape);
     }
     border-start-end-radius: var(--m3-split-button-outer-shape);
     border-end-end-radius: var(--m3-split-button-outer-shape);
     &:is(details[open] summary) {
-      padding-inline-start: 0.8125rem;
-      padding-inline-end: 0.8125rem;
-      border-radius: var(--m3-split-button-outer-shape);
+      --_inner-shape: var(--m3-split-button-outer-shape);
       > :global(.tint) {
         opacity: 0.08;
       }
