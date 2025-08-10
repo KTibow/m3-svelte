@@ -33,7 +33,7 @@
   .item {
     display: flex;
     align-items: center;
-    height: 3rem;
+    height: calc(3rem + var(--m3-util-density-term));
     padding: 0 0.75rem;
     white-space: nowrap;
 

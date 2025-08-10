@@ -91,7 +91,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 2.5rem;
+    height: calc(2.5rem + var(--m3-util-density-term));
     gap: 0.5rem;
 
     cursor: pointer;

@@ -79,7 +79,7 @@
   .m3-container {
     display: inline-flex;
     border: none;
-    height: 2.5rem;
+    height: calc(2.5rem + var(--m3-util-density-term));
     gap: 0.5rem;
     padding: 0 1rem;
     border-radius: var(--m3-button-shape);

@@ -104,13 +104,13 @@
     cursor: pointer;
   }
   .lines-1 {
-    height: 3.5rem;
+    height: calc(3.5rem + var(--m3-util-density-term));
   }
   .lines-2 {
-    height: 4.5rem;
+    height: calc(4.5rem + var(--m3-util-density-term));
   }
   .lines-3 {
-    height: 5.5rem;
+    height: calc(5.5rem + var(--m3-util-density-term));
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     align-items: flex-start;
