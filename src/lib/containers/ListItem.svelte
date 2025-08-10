@@ -62,19 +62,19 @@
     label: _,
     ...extra
   } = props}
-  <label class="m3-container lines-{_lines}" {...extra}>
+  <label class="m3-container focus-inset lines-{_lines}" {...extra}>
     <Layer />
     {@render content(leading, overline, headline, supporting, trailing)}
   </label>
 {:else if "onclick" in props}
   {@const { leading, overline = "", headline = "", supporting = "", trailing, ...extra } = props}
-  <button type="button" class="m3-container lines-{_lines}" {...extra}>
+  <button type="button" class="m3-container focus-inset lines-{_lines}" {...extra}>
     <Layer />
     {@render content(leading, overline, headline, supporting, trailing)}
   </button>
 {:else if "href" in props}
   {@const { leading, overline = "", headline = "", supporting = "", trailing, ...extra } = props}
-  <a class="m3-container lines-{_lines}" {...extra}>
+  <a class="m3-container focus-inset lines-{_lines}" {...extra}>
     <Layer />
     {@render content(leading, overline, headline, supporting, trailing)}
   </a>

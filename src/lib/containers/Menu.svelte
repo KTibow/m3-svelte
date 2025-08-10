@@ -15,7 +15,6 @@
   .m3-container {
     display: flex;
     position: relative;
-    overflow: hidden;
     flex-direction: column;
     padding: 0.5rem 0;
     border-radius: var(--m3-menu-shape);
