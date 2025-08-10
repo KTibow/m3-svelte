@@ -101,8 +101,7 @@
     position: relative;
     transition:
       box-shadow var(--m3-util-easing-fast),
-      border-radius var(--m3-util-easing-fast),
-      padding var(--m3-util-easing-fast);
+      border-radius var(--m3-util-easing-fast);
   }
 
   button {
@@ -129,21 +128,21 @@
     position: relative;
   }
   summary {
-    /* correction = coef * (startCornerRadius - endCornerRadius) */
-    --_inner-shape: var(--m3-split-button-inner-shape);
-    --_correction: calc(var(--m3-util-centering-optical-coefficient) * (var(--_inner-shape) - 1.25rem));
-    padding-inline-start: round(calc(0.8125rem + var(--_correction)), 1px);
-    padding-inline-end: round(calc(0.8125rem - var(--_correction)), 1px);
-    border-start-start-radius: var(--_inner-shape);
-    border-end-start-radius: var(--_inner-shape);
+    width: 3rem;
+
+    --inner-shape: var(--m3-split-button-inner-shape);
+    --outer-shape: var(--m3-split-button-outer-shape);
+    border-start-start-radius: var(--inner-shape);
+    border-end-start-radius: var(--inner-shape);
+    border-start-end-radius: var(--outer-shape);
+    border-end-end-radius: var(--outer-shape);
+
     &:hover,
     &:active {
-      --_inner-shape: var(--m3-split-button-half-shape);
+      --inner-shape: var(--m3-split-button-half-shape);
     }
-    border-start-end-radius: var(--m3-split-button-outer-shape);
-    border-end-end-radius: var(--m3-split-button-outer-shape);
     &:is(details[open] summary) {
-      --_inner-shape: var(--m3-split-button-outer-shape);
+      --inner-shape: var(--m3-split-button-outer-shape);
       > :global(.tint) {
         opacity: 0.08;
       }
@@ -152,7 +151,13 @@
       }
     }
     > :global(svg) {
-      transition: rotate var(--m3-util-easing-fast);
+      /* Push away from the most rounded side */
+      --shape-delta: calc(var(--inner-shape) - var(--outer-shape));
+      --correction: calc(var(--m3-util-optical-centering-coefficient) * var(--shape-delta));
+      translate: var(--correction) 0;
+      transition:
+        rotate var(--m3-util-easing-fast),
+        translate var(--m3-util-easing-fast);
     }
   }
   details > :global(:not(summary)) :global {
