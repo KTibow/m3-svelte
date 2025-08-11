@@ -72,7 +72,7 @@
     display: inline-flex;
     position: relative;
     align-items: center;
-    height: 3.5rem;
+    height: calc(3.5rem + var(--m3-util-density-term));
     min-width: 15rem;
   }
   input {
@@ -90,21 +90,22 @@
   label {
     position: absolute;
     left: 0.75rem;
-    top: 1rem;
+    top: 50%;
+    translate: 0 -50%;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
     background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
     padding: 0 0.25rem;
     &:is(input:hover ~ label) {
       color: rgb(var(--error, var(--m3-scheme-on-surface)));
     }
-    &:is(input:focus ~ label) {
+    &:is(input:enabled:focus ~ label) {
       color: rgb(var(--error, var(--m3-scheme-primary)));
     }
     &:is(input:disabled ~ label) {
       color: rgb(var(--m3-scheme-on-surface) / 0.38);
     }
     &:is(input:focus ~ label, input:not(:placeholder-shown) ~ label) {
-      top: calc(var(--m3-font-body-small-height, 1rem) * -0.5);
+      top: 0;
       font-size: var(--m3-font-body-small-size, 0.75rem);
       line-height: var(--m3-font-body-small-height, 1.333);
       letter-spacing: var(--m3-font-body-small-tracking, 0.025rem);
@@ -124,10 +125,10 @@
     border-radius: var(--m3-textfield-outlined-shape);
     pointer-events: none;
     transition: all 100ms;
-    &:is(input:hover ~ .layer) {
+    &:is(input:enabled:hover ~ .layer) {
       border-color: rgb(var(--error, var(--m3-scheme-on-surface)));
     }
-    &:is(input:focus ~ .layer) {
+    &:is(input:enabled:focus ~ .layer) {
       border-color: rgb(var(--error, var(--m3-scheme-primary)));
       border-width: 0.125rem;
     }

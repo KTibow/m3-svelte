@@ -93,7 +93,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
   .m3-container {
     position: relative;
-    height: 3.5rem;
+    height: calc(3.5rem + var(--m3-util-density-term));
     min-width: 15rem;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     border-radius: var(--m3-datefield-shape) var(--m3-datefield-shape) 0 0;
@@ -106,7 +106,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     height: 100%;
     border: none;
     outline: none;
-    padding: 1.5rem 1rem 0.5rem 1rem;
+    padding: 1rem 1rem 0rem 1rem;
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
   }

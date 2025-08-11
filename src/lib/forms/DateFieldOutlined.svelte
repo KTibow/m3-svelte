@@ -99,7 +99,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   .m3-container {
     display: inline-flex;
     position: relative;
-    height: 3.5rem;
+    height: calc(3.5rem + var(--m3-util-density-term));
     min-width: 15rem;
   }
   input {
@@ -117,7 +117,8 @@ opacity: ${Math.min(t * 3, 1)};`,
   label {
     position: absolute;
     left: 0.75rem;
-    top: calc(var(--m3-font-body-small-height, 1rem) * -0.5);
+    top: 0;
+    translate: 0 -50%;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
     background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
     padding: 0 0.25rem;

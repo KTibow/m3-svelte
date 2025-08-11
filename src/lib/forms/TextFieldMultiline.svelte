@@ -63,7 +63,7 @@
     display: inline-flex;
     position: relative;
     align-items: center;
-    min-height: 5rem;
+    min-height: calc(5rem + var(--m3-util-density-term));
     min-width: 15rem;
   }
   textarea {
@@ -82,7 +82,8 @@
   label {
     position: absolute;
     left: 1rem;
-    top: 1rem;
+    top: 50%;
+    translate: 0 -50%;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
     &:is(textarea:hover ~ label) {
       color: rgb(var(--error, var(--m3-scheme-on-surface)));
@@ -95,6 +96,7 @@
     }
     &:is(textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label) {
       top: 0.5rem;
+      translate: 0 0;
       font-size: var(--m3-font-body-small-size, 0.75rem);
       line-height: var(--m3-font-body-small-height, 1.333);
       letter-spacing: var(--m3-font-body-small-tracking, 0.025rem);
@@ -103,6 +105,7 @@
     transition:
       color 100ms,
       top 100ms,
+      translate 100ms,
       font-size 300ms,
       line-height 300ms,
       letter-spacing 300ms;
