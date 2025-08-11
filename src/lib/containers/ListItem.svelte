@@ -38,7 +38,8 @@
   {/if}
   <div class="body">
     {#if overline}
-      <p class="overline m3-font-label-small">{overline}</p>
+      <!-- Renamed to not conflict with Tailwind -->
+      <p class="overline- m3-font-label-small">{overline}</p>
     {/if}
     <p class="headline m3-font-body-large">{headline}</p>
     {#if supporting}
@@ -134,7 +135,7 @@
     margin: 0;
   }
   .supporting,
-  .overline {
+  .overline- {
     color: rgb(var(--m3-scheme-on-surface-variant));
   }
   .headline {
