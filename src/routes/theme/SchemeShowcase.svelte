@@ -17,15 +17,24 @@
   let {
     light,
     dark,
+    density,
   }: {
     light: DynamicScheme;
     dark: DynamicScheme;
+    density: number;
   } = $props();
   let showDark = $state(false);
   let grabbing = $state(false);
 
   $effect(() => {
-    $styling = genCSS(light, dark);
+    let style = genCSS(light, dark);
+    if (density) {
+      style = `:root {
+  --m3-util-density: ${density};
+}
+${style}`;
+    }
+    $styling = style;
   });
 
   const copyUsage = () =>

@@ -13,10 +13,12 @@
     schemes,
     variant = $bindable(),
     contrast = $bindable(),
+    density = $bindable(),
   }: {
     schemes: Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
     variant: Variant;
     contrast: number;
+    density: number;
   } = $props();
 
   const variantColor = (scheme: DynamicScheme, color: DynamicColor) => {
@@ -25,12 +27,12 @@
 </script>
 
 <div class="content">
-  <h2 class="m3-font-title-large">Algorithm</h2>
-  <div class="algorithms">
+  <h2 class="m3-font-title-large">Variant</h2>
+  <div class="variants">
     {#each variants as { id, name, desc }}
       {@const { light, dark } = schemes[id]}
-      <input type="radio" bind:group={variant} name="algorithms" value={id} id="algorithms-{id}" />
-      <label for="algorithms-{id}">
+      <input type="radio" bind:group={variant} name="variants" value={id} id="variants-{id}" />
+      <label for="variants-{id}">
         <div
           style:--light-background={variantColor(light, materialColors.primaryContainer())}
           style:--dark-background={variantColor(dark, materialColors.primaryContainer())}
@@ -51,6 +53,9 @@
   <br />
   <h2 class="m3-font-title-large">Contrast</h2>
   <Slider min={-1} max={1} step={0.05} format={(n) => n.toString()} bind:value={contrast} />
+  <br />
+  <h2 class="m3-font-title-large">Density</h2>
+  <Slider min={-3} max={3} step={1} bind:value={density} />
 </div>
 
 <style>
@@ -63,16 +68,22 @@
     margin: 0 0 0.5rem 0;
   }
 
-  .algorithms {
+  .variants {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     gap: 0.5rem;
-  }
-  .algorithms input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
+    @media (min-width: 52.5rem) {
+      flex-direction: row;
+    }
+    @media (min-width: 100rem) {
+      flex-wrap: nowrap;
+    }
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
   }
   label {
     display: flex;
@@ -121,15 +132,5 @@
   }
   p {
     margin: 0;
-  }
-  @media (min-width: 52.5rem) {
-    .algorithms {
-      flex-direction: row;
-    }
-  }
-  @media (min-width: 100rem) {
-    .algorithms {
-      flex-wrap: nowrap;
-    }
   }
 </style>
