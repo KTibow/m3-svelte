@@ -3,6 +3,7 @@
   import Button from "$lib/buttons/Button.svelte";
 
   import Snippet from "../Snippet.svelte";
+  import { colors } from "$lib";
 
   let styleType = $state("plain");
   const componentCode1 = `${"<"}button class="bg-surface-container-low text-primary rounded-full">Click me${"<"}/button>`;
@@ -20,6 +21,10 @@ ${"<"}/style>`;
 ${"<"}/script>
 
 ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"}/Button>`;
+  const tailwindColors = colors
+    .map((c) => c.name.replaceAll("_", "-"))
+    .map((c) => `  --color-${c}: rgb(var(--m3-scheme-${c}));`)
+    .join("\n");
 </script>
 
 <p>
@@ -68,43 +73,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
   <p>You'll need to update your Tailwind config too:</p>
   <Snippet
     code={`@theme {
-  --color-primary: rgb(var(--m3-scheme-primary));
-  --color-on-primary: rgb(var(--m3-scheme-on-primary));
-  --color-primary-container: rgb(var(--m3-scheme-primary-container));
-  --color-on-primary-container: rgb(var(--m3-scheme-on-primary-container));
-  --color-secondary: rgb(var(--m3-scheme-secondary));
-  --color-on-secondary: rgb(var(--m3-scheme-on-secondary));
-  --color-secondary-container: rgb(var(--m3-scheme-secondary-container));
-  --color-on-secondary-container: rgb(var(--m3-scheme-on-secondary-container));
-  --color-tertiary: rgb(var(--m3-scheme-tertiary));
-  --color-on-tertiary: rgb(var(--m3-scheme-on-tertiary));
-  --color-tertiary-container: rgb(var(--m3-scheme-tertiary-container));
-  --color-on-tertiary-container: rgb(var(--m3-scheme-on-tertiary-container));
-  --color-error: rgb(var(--m3-scheme-error));
-  --color-on-error: rgb(var(--m3-scheme-on-error));
-  --color-error-container: rgb(var(--m3-scheme-error-container));
-  --color-on-error-container: rgb(var(--m3-scheme-on-error-container));
-  --color-background: rgb(var(--m3-scheme-background));
-  --color-on-background: rgb(var(--m3-scheme-on-background));
-  --color-surface: rgb(var(--m3-scheme-surface));
-  --color-on-surface: rgb(var(--m3-scheme-on-surface));
-  --color-surface-variant: rgb(var(--m3-scheme-surface-variant));
-  --color-on-surface-variant: rgb(var(--m3-scheme-on-surface-variant));
-  --color-outline: rgb(var(--m3-scheme-outline));
-  --color-outline-variant: rgb(var(--m3-scheme-outline-variant));
-  --color-shadow: rgb(var(--m3-scheme-shadow));
-  --color-scrim: rgb(var(--m3-scheme-scrim));
-  --color-inverse-surface: rgb(var(--m3-scheme-inverse-surface));
-  --color-inverse-on-surface: rgb(var(--m3-scheme-inverse-on-surface));
-  --color-inverse-primary: rgb(var(--m3-scheme-inverse-primary));
-  --color-surface-bright: rgb(var(--m3-scheme-surface-bright));
-  --color-surface-container: rgb(var(--m3-scheme-surface-container));
-  --color-surface-container-high: rgb(var(--m3-scheme-surface-container-high));
-  --color-surface-container-highest: rgb(var(--m3-scheme-surface-container-highest));
-  --color-surface-container-low: rgb(var(--m3-scheme-surface-container-low));
-  --color-surface-container-lowest: rgb(var(--m3-scheme-surface-container-lowest));
-  --color-surface-dim: rgb(var(--m3-scheme-surface-dim));
-  --color-surface-tint: rgb(var(--m3-scheme-surface-tint));
+${tailwindColors}
 }`}
     name="app.css"
     lang="css"
