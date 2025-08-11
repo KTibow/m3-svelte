@@ -36,14 +36,14 @@ const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3
 <label>
   <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} />
   {size == "xs"
-    ? "Extra Small"
+    ? "Extra small"
     : size == "s"
       ? "Small"
       : size == "m"
         ? "Medium"
         : size == "l"
           ? "Large"
-          : "Extra Large"}
+          : "Extra large"}
 </label>
 <label>
   <Switch bind:checked={enabled} />
@@ -62,7 +62,7 @@ const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3
 {#if precision != "discrete-ticks" && !trailingIcon}
   <label>
     <Switch bind:checked={endStops} />
-    {endStops ? "Endstops" : "No Endstops"}
+    {endStops ? "Endstops" : "No endstops"}
   </label>
 {/if}
 
