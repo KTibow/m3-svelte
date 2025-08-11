@@ -50,10 +50,6 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
   <code>--m3-util-rounding-small</code>
   and <code>--m3-button-shape</code>.
 </p>
-<p>
-  One obscure thing you can configure is ripples. You can use a simpler layer by defining
-  <code>M3_SVELTE_NO_RIPPLE</code> to <code>true</code> in your Vite config.
-</p>
 
 <h2 class="m3-font-headline-large">
   Make your own components
