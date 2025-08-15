@@ -16,6 +16,7 @@
   import "../app.css";
 
   let { children }: { children: Snippet } = $props();
+  let innerWidth = $state(0);
 
   const paths = [
     {
@@ -40,6 +41,7 @@
 </script>
 
 {@html `<style>${$styling}</style>`}
+<svelte:window bind:innerWidth />
 <div class="container">
   <div class="sidebar">
     <NavCMLX variant="auto">
@@ -53,7 +55,7 @@
           text={label}
         />
       {/each}
-      {#if page.url.pathname.startsWith(base + "/docs")}
+      {#if page.url.pathname.startsWith(base + "/docs") || innerWidth >= 840}
         {#each [["Quick start", `${base}/docs/quick-start`], ["Walkthrough", `${base}/docs/detailed-walkthrough`], ["llms.txt", `${base}/llms.txt`]] as [text, href]}
           <NavCMLXItem
             variant="auto"
