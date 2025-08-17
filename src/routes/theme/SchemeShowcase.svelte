@@ -38,11 +38,12 @@ ${style}`;
   });
 
   const copyUsage = () =>
-    navigator.clipboard.writeText(`@import url("m3-svelte/misc/styles.css");
-@import url("m3-svelte/misc/recommended-styles.css");${
+    navigator.clipboard.writeText(`@import "m3-svelte/misc/styles.css";
+@import "m3-svelte/misc/recommended-styles.css";${
       $appType == "tailwind"
         ? `
-@import url("m3-svelte/misc/tailwind-styles.css");`
+@import "m3-svelte/misc/tailwind-styles.css";
+@import "tailwindcss";`
         : ""
     }
 ${$styling}`);
