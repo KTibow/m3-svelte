@@ -175,7 +175,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     }
     .has-js input {
       clip-path: inset(0 3.5rem 0 0);
-      &:is(:global([dir="rtl"]) input) {
+      &:dir(rtl) {
         clip-path: inset(0 0 0 3.5rem);
       }
     }

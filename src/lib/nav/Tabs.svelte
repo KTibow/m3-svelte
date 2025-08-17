@@ -137,7 +137,7 @@
     border-radius: 0.1875rem 0.1875rem 0 0;
     margin-inline-start: calc(50% / var(--items));
     translate: -50% 0;
-    &:is(:global([dir="rtl"]) .bar) {
+    &:dir(rtl) {
       translate: 50% 0;
     }
   }

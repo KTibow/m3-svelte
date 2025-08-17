@@ -259,7 +259,7 @@
     top: 50%;
     inset-inline-start: calc(50% + (100% - 0.75rem) * var(--x));
     translate: -50% -50%;
-    &:is(:global([dir="rtl"] .tick)) {
+    &:dir(rtl) {
       translate: 50% -50%;
     }
     background-color: rgb(var(--m3-scheme-secondary-container));
@@ -286,7 +286,7 @@
     position: absolute;
     inset-inline-start: var(--percent);
     translate: -50% 0;
-    &:is(:global([dir="rtl"]) .handle) {
+    &:dir(rtl) {
       translate: 50% 0;
     }
     width: 0.25rem;
@@ -313,7 +313,7 @@
     inset-inline-start: var(--percent);
     bottom: calc(var(--handle-height) + 4px);
     translate: -50% 0;
-    &:is(:global([dir="rtl"]) .value) {
+    &:dir(rtl) {
       translate: 50% 0;
     }
 
