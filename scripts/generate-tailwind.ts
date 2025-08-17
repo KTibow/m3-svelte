@@ -46,11 +46,6 @@ ${colors
   .map((c) => `  --color-${c}: rgb(var(--m3-scheme-${c}));`)
   .join("\n")}
 }
-@layer base {
-  :root {
-    box-sizing: border-box;
-  }
-}
 ${classes
   .map(
     (c) => `@utility ${c} {
