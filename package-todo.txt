@@ -1,0 +1,3 @@
+deprecated stuff, the todo is to remove them next breaking version
+- change `svelte` to `peerDependencies` and make it `^5.0.0`
+- drop the `import` export conditions for the css
