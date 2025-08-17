@@ -11,9 +11,9 @@
   --shadow-5: var(--m3-util-elevation-5);
 
   --radius-xs: var(--m3-util-rounding-extra-small); /* = 4px = rounded-sm */
-  --radius-s: var(--m3-util-rounding-small); /* = 8px = rounded-lg */
-  --radius-m: var(--m3-util-rounding-medium); /* = 12px = rounded-xl */
-  --radius-l: var(--m3-util-rounding-large); /* = 16px = rounded-2xl */
+  --radius-sm: var(--m3-util-rounding-small); /* = 8px = rounded-lg */
+  --radius-md: var(--m3-util-rounding-medium); /* = 12px = rounded-xl */
+  --radius-lg: var(--m3-util-rounding-large); /* = 16px = rounded-2xl */
   --radius-xl: var(--m3-util-rounding-extra-large); /* = 28px ≅ rounded-3xl */
 
   --breakpoint-m: 37.5rem; /* ≅ sm */
