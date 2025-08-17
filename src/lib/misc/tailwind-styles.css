@@ -2,7 +2,7 @@
   --*: initial;
 
   --spacing: 0.25rem;
-  --font-mono: "Google Sans Code", "Roboto Mono", monospace;
+  --font-mono: var(--m3-font-mono);
 
   --shadow-1: var(--m3-util-elevation-1);
   --shadow-2: var(--m3-util-elevation-2);
@@ -20,6 +20,19 @@
   --breakpoint-x: 52.5rem; /* ≅ md */
   --breakpoint-l: 75rem; /* ≅ lg, xl */
   --breakpoint-xl: 100rem; /* ≅ 2xl */
+
+  --ease-fast-spatial: var(--m3-util-timing-function-fast-spatial);
+  --ease-spatial: var(--m3-util-timing-function-spatial);
+  --ease-slow-spatial: var(--m3-util-timing-function-slow-spatial);
+  --ease-fast: var(--m3-util-timing-function-fast);
+  --ease: var(--m3-util-timing-function);
+  --ease-slow: var(--m3-util-timing-function-slow);
+  --ease-emphasized: var(--m3-util-timing-function-emphasized);
+  --ease-emphasized-accel: var(--m3-util-timing-function-emphasized-accel);
+  --ease-emphasized-decel: var(--m3-util-timing-function-emphasized-decel);
+
+  --default-transition-timing-function: var(--ease);
+  --default-transition-duration: var(--m3-util-duration);
 
   --color-background: rgb(var(--m3-scheme-background));
   --color-on-background: rgb(var(--m3-scheme-on-background));
@@ -80,6 +93,28 @@
   --color-error-container-subtle: rgb(var(--m3-scheme-error-container-subtle));
   --color-on-error-container-subtle: rgb(var(--m3-scheme-on-error-container-subtle));
 }
+
+@utility transition-fast-spatial {
+  transition-timing-function: var(--m3-util-timing-function-fast-spatial);
+  transition-duration: var(--m3-util-duration-fast-spatial);
+}
+@utility transition-spatial {
+  transition-timing-function: var(--m3-util-timing-function-spatial);
+  transition-duration: var(--m3-util-duration-spatial);
+}
+@utility transition-slow-spatial {
+  transition-timing-function: var(--m3-util-timing-function-slow-spatial);
+  transition-duration: var(--m3-util-duration-slow-spatial);
+}
+@utility transition-fast {
+  transition-timing-function: var(--m3-util-timing-function-fast);
+  transition-duration: var(--m3-util-duration-fast);
+}
+@utility transition-slow {
+  transition-timing-function: var(--m3-util-timing-function-slow);
+  transition-duration: var(--m3-util-duration-slow);
+}
+
 @utility m3-font-display-large {
   --: "";
 }

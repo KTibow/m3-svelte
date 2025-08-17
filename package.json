@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "5.2.6",
+  "version": "5.3.0",
   "license": "Apache-2.0 OR GPL-3.0-only",
   "repository": "KTibow/m3-svelte",
   "author": {
@@ -16,7 +16,7 @@
     "prepack": "svelte-kit sync && svelte-package -o package && publint",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint",
     "format": "prettier --write .",
-    "lint": "prettier --check . && eslint ."
+    "lint": "eslint ."
   },
   "files": [
     "package",
@@ -36,6 +36,9 @@
     },
     "./misc/recommended-styles.css": {
       "import": "./package/misc/recommended-styles.css"
+    },
+    "./misc/tailwind-styles.css": {
+      "import": "./package/misc/tailwind-styles.css"
     }
   },
   "dependencies": {

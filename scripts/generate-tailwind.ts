@@ -1,7 +1,9 @@
 import { writeFile } from "node:fs/promises";
 import { colors } from "../src/lib/misc/colors.ts";
 
-const classes = [
+const easings = ["-fast-spatial", "-spatial", "-slow-spatial", "-fast", "", "-slow"];
+const easingsTF = ["-emphasized", "-emphasized-accel", "-emphasized-decel"];
+const fontClasses = [
   "m3-font-display-large",
   "m3-font-display-medium",
   "m3-font-display-small",
@@ -22,7 +24,7 @@ const style = `@theme {
   --*: initial;
 
   --spacing: 0.25rem;
-  --font-mono: "Google Sans Code", "Roboto Mono", monospace;
+  --font-mono: var(--m3-font-mono);
 
   --shadow-1: var(--m3-util-elevation-1);
   --shadow-2: var(--m3-util-elevation-2);
@@ -41,12 +43,28 @@ const style = `@theme {
   --breakpoint-l: 75rem; /* ≅ lg, xl */
   --breakpoint-xl: 100rem; /* ≅ 2xl */
 
+${[...easings, ...easingsTF].map((e) => `  --ease${e}: var(--m3-util-timing-function${e});`).join("\n")}
+
+  --default-transition-timing-function: var(--ease);
+  --default-transition-duration: var(--m3-util-duration);
+
 ${colors
   .map((c) => c.name.replaceAll("_", "-"))
   .map((c) => `  --color-${c}: rgb(var(--m3-scheme-${c}));`)
   .join("\n")}
 }
-${classes
+
+${easings
+  .filter((e) => e != "")
+  .map(
+    (e) => `@utility transition${e} {
+  transition-timing-function: var(--m3-util-timing-function${e});
+  transition-duration: var(--m3-util-duration${e});
+}`,
+  )
+  .join("\n")}
+
+${fontClasses
   .map(
     (c) => `@utility ${c} {
   --: "";
