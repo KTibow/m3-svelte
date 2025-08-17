@@ -1,13 +1,14 @@
 @theme {
   --*: initial;
   --spacing: 0.25rem;
-  --font-mono: var(--m3-font-mono);
   --breakpoint-m: 37.5rem; /* ≅ sm */
   --breakpoint-x: 52.5rem; /* ≅ md */
   --breakpoint-l: 75rem; /* ≅ lg, xl */
   --breakpoint-xl: 100rem; /* ≅ 2xl */
 }
 @theme inline {
+  --font-mono: var(--m3-font-mono);
+
   --shadow-1: var(--m3-util-elevation-1);
   --shadow-2: var(--m3-util-elevation-2);
   --shadow-3: var(--m3-util-elevation-3);
