@@ -81,7 +81,7 @@
   }
   label {
     position: absolute;
-    left: 1rem;
+    inset-inline-start: 1rem;
     top: 50%;
     translate: 0 -50%;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
@@ -135,7 +135,7 @@
     position: relative;
     width: 1.5rem;
     height: 1.5rem;
-    margin-left: 0.75rem;
+    margin-inline-start: 0.75rem;
     color: rgb(var(--m3-scheme-on-surface-variant));
     pointer-events: none;
   }
@@ -146,10 +146,10 @@
   }
 
   .leading-icon > textarea {
-    padding-left: 3.25rem;
+    padding-inline-start: 3.25rem;
   }
   .leading-icon > label {
-    left: 3.25rem;
+    inset-inline-start: 3.25rem;
   }
   .error {
     --error: var(--m3-scheme-error);

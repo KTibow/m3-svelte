@@ -89,7 +89,7 @@
   }
   label {
     position: absolute;
-    left: 0.75rem;
+    inset-inline-start: 0.75rem;
     top: 50%;
     translate: 0 -50%;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
@@ -141,35 +141,34 @@
   }
   .m3-container > :global(.leading) {
     position: relative;
-    margin-left: 0.75rem;
+    margin-inline-start: 0.75rem;
   }
   .trailing {
     position: absolute;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-inline: 0.75rem;
     height: 100%;
-    right: 0;
+    inset-inline-end: 0;
 
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
     background-color: transparent;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+    border-start-end-radius: 0.25rem;
+    border-end-end-radius: 0.25rem;
 
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
   }
 
   .leading-icon > input {
-    padding-left: 3.25rem;
+    padding-inline-start: 3.25rem;
   }
   .leading-icon > input:not(:focus):placeholder-shown ~ label {
-    left: 3rem;
+    inset-inline-start: 3rem;
   }
   .trailing-icon > input {
-    padding-right: 3.25rem;
+    padding-inline-end: 3.25rem;
   }
 
   .error {

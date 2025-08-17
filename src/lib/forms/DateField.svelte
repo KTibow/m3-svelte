@@ -106,7 +106,16 @@ opacity: ${Math.min(t * 3, 1)};`,
     height: 100%;
     border: none;
     outline: none;
+
     padding: 1rem 1rem 0rem 1rem;
+    padding-inline-start: 0.875rem;
+    @supports (-moz-appearance: none) {
+      padding-inline-start: 0.75rem;
+    }
+    &:dir(rtl) {
+      text-align: right; /* work around chromium bug 41489719 */
+    }
+
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
   }
@@ -116,14 +125,6 @@ opacity: ${Math.min(t * 3, 1)};`,
     top: 0.5rem;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
     pointer-events: none;
-  }
-  input {
-    padding-inline-start: 0.875rem;
-  }
-  @supports (-moz-appearance: none) {
-    input {
-      padding-inline-start: 0.75rem;
-    }
   }
 
   button {

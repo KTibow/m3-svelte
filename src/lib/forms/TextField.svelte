@@ -157,8 +157,8 @@
     justify-content: center;
     border: none;
     background-color: transparent;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+    border-start-end-radius: 0.25rem;
+    border-end-end-radius: 0.25rem;
 
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;

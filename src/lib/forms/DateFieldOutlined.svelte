@@ -109,14 +109,23 @@ opacity: ${Math.min(t * 3, 1)};`,
     height: 100%;
     border: none;
     outline: none;
+
     padding: 1rem;
+    padding-inline-start: 0.875rem;
+    @supports (-moz-appearance: none) {
+      padding-inline-start: 0.75rem;
+    }
+    &:dir(rtl) {
+      text-align: right; /* work around chromium bug 41489719 */
+    }
+
     border-radius: var(--m3-datefield-outlined-shape);
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
   }
   label {
     position: absolute;
-    left: 0.75rem;
+    inset-inline-start: 0.75rem;
     top: 0;
     translate: 0 -50%;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
@@ -159,7 +168,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     height: 100%;
-    right: 0;
+    inset-inline-end: 0;
 
     align-items: center;
     justify-content: center;
@@ -170,15 +179,6 @@ opacity: ${Math.min(t * 3, 1)};`,
 
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-  }
-
-  input {
-    padding-left: 0.875rem;
-  }
-  @supports (-moz-appearance: none) {
-    input {
-      padding-left: 0.75rem;
-    }
   }
 
   @media (hover: hover) {
@@ -223,6 +223,9 @@ opacity: ${Math.min(t * 3, 1)};`,
     }
     .has-js input {
       clip-path: inset(0 3.5rem 0 0);
+      &:dir(rtl) {
+        clip-path: inset(0 0 0 3.5rem);
+      }
     }
   }
 </style>
