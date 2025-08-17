@@ -35,6 +35,7 @@
     align-items: center;
     height: calc(3rem + var(--m3-util-density-term));
     padding: 0 0.75rem;
+    gap: 0.75rem;
     white-space: nowrap;
 
     border: none;
@@ -48,7 +49,6 @@
   .icon {
     width: 1.5rem;
     height: 1.5rem;
-    margin-right: 0.75rem;
   }
   .icon > :global(svg) {
     width: 1.5rem;

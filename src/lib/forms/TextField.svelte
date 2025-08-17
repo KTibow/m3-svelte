@@ -86,7 +86,7 @@
   }
   label {
     position: absolute;
-    left: 1rem;
+    inset-inline-start: 1rem;
     top: 50%;
     translate: 0 -50%;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
@@ -144,14 +144,13 @@
   }
   .m3-container > :global(.leading) {
     position: relative;
-    margin-left: 0.75rem;
+    margin-inline-start: 0.75rem;
   }
   .trailing {
     position: absolute;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-inline: 0.75rem;
     height: 100%;
-    right: 0;
+    inset-inline-end: 0;
 
     display: flex;
     align-items: center;
@@ -171,13 +170,13 @@
   }
 
   .leading-icon > input {
-    padding-left: 3.25rem;
+    padding-inline-start: 3.25rem;
   }
   .leading-icon > label {
-    left: 3.25rem;
+    inset-inline-start: 3.25rem;
   }
   .trailing-icon > input {
-    padding-right: 3.25rem;
+    padding-inline-end: 3.25rem;
   }
   .error {
     --error: var(--m3-scheme-error);

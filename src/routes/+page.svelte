@@ -114,8 +114,8 @@
     display: flex;
     flex-direction: column;
     width: 16rem;
-    margin-left: 1rem;
-    border-left: solid 1px rgb(var(--m3-scheme-outline));
+    margin-inline-start: 1rem;
+    border-inline-start: solid 1px rgb(var(--m3-scheme-outline));
 
     position: sticky;
     top: 0;
@@ -135,7 +135,7 @@
       margin-bottom: 1.5rem;
     }
     .sheet {
-      margin-left: 1.5rem;
+      margin-inline-start: 1.5rem;
     }
   }
 </style>

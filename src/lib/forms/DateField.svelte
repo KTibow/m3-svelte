@@ -112,17 +112,17 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
   label {
     position: absolute;
-    left: 1rem;
+    inset-inline-start: 1rem;
     top: 0.5rem;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
     pointer-events: none;
   }
   input {
-    padding-left: 0.875rem;
+    padding-inline-start: 0.875rem;
   }
   @supports (-moz-appearance: none) {
     input {
-      padding-left: 0.75rem;
+      padding-inline-start: 0.75rem;
     }
   }
 
@@ -132,7 +132,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     height: 100%;
-    right: 0;
+    inset-inline-end: 0;
 
     align-items: center;
     justify-content: center;
@@ -175,6 +175,9 @@ opacity: ${Math.min(t * 3, 1)};`,
     }
     .has-js input {
       clip-path: inset(0 3.5rem 0 0);
+      &:is(:global([dir="rtl"]) input) {
+        clip-path: inset(0 0 0 3.5rem);
+      }
     }
   }
 </style>

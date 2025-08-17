@@ -52,7 +52,10 @@
     justify-content: space-between;
 
     background-color: rgb(var(--m3-scheme-surface-container-low));
-    border-radius: 1.5rem 1.5rem 0.5rem 0.5rem;
+    border-start-start-radius: 1.5rem;
+    border-start-end-radius: 1.5rem;
+    border-end-start-radius: 0.5rem;
+    border-end-end-radius: 0.5rem;
 
     padding: 0.75rem;
     line-height: 1.1;
@@ -69,7 +72,8 @@
     display: flex;
     gap: 1rem;
     padding: 0.75rem;
-    border-radius: 0.5rem 0.5rem 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    border-end-start-radius: 1.5rem;
     background-color: rgb(var(--m3-scheme-surface-container-low));
     color: rgb(var(--m3-scheme-on-surface));
     flex-grow: 1;
@@ -86,21 +90,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0.5rem 0.5rem 1.5rem 1.5rem;
+    border-radius: 0.5rem;
+    border-end-end-radius: 1.5rem;
     background-color: rgb(var(--m3-scheme-surface-container-low));
     color: rgb(var(--m3-scheme-primary));
 
     min-width: 3rem;
     min-height: 3rem;
-    flex-grow: 1;
+    flex-grow: 0;
     position: relative;
     padding: 0;
     border: none;
     cursor: pointer;
-  }
-  .controls > div + button {
-    flex-grow: 0;
-    border-radius: 0.5rem 0.5rem 1.5rem 0.5rem;
   }
 
   .name {
