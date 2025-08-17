@@ -112,6 +112,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     @supports (-moz-appearance: none) {
       padding-inline-start: 0.75rem;
     }
+
     &:dir(rtl) {
       text-align: right; /* work around chromium bug 41489719 */
     }
@@ -175,9 +176,16 @@ opacity: ${Math.min(t * 3, 1)};`,
       display: flex;
     }
     .has-js input {
-      clip-path: inset(0 3.5rem 0 0);
-      &:dir(rtl) {
-        clip-path: inset(0 0 0 3.5rem);
+      @supports selector(::-webkit-calendar-picker-indicator) {
+        &::-webkit-calendar-picker-indicator {
+          display: none;
+        }
+      }
+      @supports not selector(::-webkit-calendar-picker-indicator) {
+        clip-path: inset(0 3.5rem 0 0);
+        &:dir(rtl) {
+          clip-path: inset(0 0 0 3.5rem);
+        }
       }
     }
   }
