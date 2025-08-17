@@ -1,5 +1,7 @@
 <script lang="ts">
-  let cancelRipples: (() => void)[] = $state([]);
+  type Ripples = (() => void)[];
+  let pointerRipples: Ripples = $state([]);
+  let keyboardRipples: Ripples = $state([]);
 
   const createRipple = (node: HTMLDivElement) => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -8,24 +10,22 @@
 
     const parent = node.parentElement!;
 
-    const ripple = (e: MouseEvent) => {
-      if (e.button != 0) return;
+    const isEnabled = () => {
       if (parent instanceof HTMLButtonElement) {
-        if (parent.disabled) return;
+        if (parent.disabled) return false;
       }
       if (parent instanceof HTMLLabelElement) {
         const control = parent.control;
-        if (control instanceof HTMLInputElement && control.disabled) return;
+        if (control instanceof HTMLInputElement && control.disabled) return false;
       }
       if (parent.classList.contains("layer-container")) {
         const input = parent.previousElementSibling;
-        if (input instanceof HTMLInputElement && input.disabled) return;
+        if (input instanceof HTMLInputElement && input.disabled) return false;
       }
-
-      const rect = parent.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const size = Math.hypot(Math.max(x, rect.width - x), Math.max(y, rect.height - y)) * 2.5;
+      return true;
+    };
+    const ripple = (x: number, y: number, width: number, height: number) => {
+      const size = Math.hypot(Math.max(x, width - x), Math.max(y, height - y)) * 2.5;
       const speed = Math.max(Math.min(Math.log(size) * 50, 600), 200);
 
       const gradient = document.createElementNS("http://www.w3.org/2000/svg", "radialGradient");
@@ -103,7 +103,7 @@
 
       node.appendChild(svg);
 
-      cancelRipples.push(() => {
+      return () => {
         const fade = document.createElementNS("http://www.w3.org/2000/svg", "animate");
         fade.setAttribute("attributeName", "opacity");
         fade.setAttribute("from", "1");
@@ -115,14 +115,35 @@
         circle.appendChild(fade);
         fade.beginElement();
         setTimeout(() => svg.remove(), 800);
-      });
+      };
+    };
+    const pointerdown = (e: PointerEvent) => {
+      if (!isEnabled()) return;
+      if (e.button != 0) return;
+
+      const rect = parent.getBoundingClientRect();
+      const cancel = ripple(e.clientX - rect.left, e.clientY - rect.top, rect.width, rect.height);
+      pointerRipples.push(cancel);
+    };
+    const keydown = (e: KeyboardEvent) => {
+      if (!isEnabled()) return;
+      if (e.repeat) return;
+
+      const isActivate = e.key == "Enter" || (e.key == " " && parent.tagName == "BUTTON");
+      if (!isActivate) return;
+
+      const rect = parent.getBoundingClientRect();
+      const cancel = ripple(rect.width / 2, rect.height / 2, rect.width, rect.height);
+      keyboardRipples.push(cancel);
     };
 
-    parent.addEventListener("pointerdown", ripple);
+    parent.addEventListener("pointerdown", pointerdown);
+    parent.addEventListener("keydown", keydown);
 
     return {
       destroy() {
-        parent.removeEventListener("pointerdown", ripple);
+        parent.removeEventListener("pointerdown", pointerdown);
+        parent.removeEventListener("keydown", keydown);
       },
     };
   };
@@ -130,12 +151,16 @@
 
 <svelte:window
   onpointerup={() => {
-    cancelRipples.forEach((cancel) => cancel());
-    cancelRipples = [];
+    pointerRipples.forEach((cancel) => cancel());
+    pointerRipples = [];
   }}
   ondragend={() => {
-    cancelRipples.forEach((cancel) => cancel());
-    cancelRipples = [];
+    pointerRipples.forEach((cancel) => cancel());
+    pointerRipples = [];
+  }}
+  onkeyup={() => {
+    keyboardRipples.forEach((cancel) => cancel());
+    keyboardRipples = [];
   }}
 />
 
