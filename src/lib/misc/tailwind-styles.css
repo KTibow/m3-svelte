@@ -1,0 +1,132 @@
+@theme {
+  --*: initial;
+
+  --spacing: 0.25rem;
+  --font-mono: "Google Sans Code", "Roboto Mono", monospace;
+
+  --shadow-1: var(--m3-util-elevation-1);
+  --shadow-2: var(--m3-util-elevation-2);
+  --shadow-3: var(--m3-util-elevation-3);
+  --shadow-4: var(--m3-util-elevation-4);
+  --shadow-5: var(--m3-util-elevation-5);
+
+  --radius-xs: var(--m3-util-rounding-extra-small); /* = 4px = rounded-sm */
+  --radius-s: var(--m3-util-rounding-small); /* = 8px = rounded-lg */
+  --radius-m: var(--m3-util-rounding-medium); /* = 12px = rounded-xl */
+  --radius-l: var(--m3-util-rounding-large); /* = 16px = rounded-2xl */
+  --radius-xl: var(--m3-util-rounding-extra-large); /* = 28px ≅ rounded-3xl */
+
+  --breakpoint-m: 37.5rem; /* ≅ sm */
+  --breakpoint-x: 52.5rem; /* ≅ md */
+  --breakpoint-l: 75rem; /* ≅ lg, xl */
+  --breakpoint-xl: 100rem; /* ≅ 2xl */
+
+  --color-background: rgb(var(--m3-scheme-background));
+  --color-on-background: rgb(var(--m3-scheme-on-background));
+  --color-surface: rgb(var(--m3-scheme-surface));
+  --color-surface-dim: rgb(var(--m3-scheme-surface-dim));
+  --color-surface-bright: rgb(var(--m3-scheme-surface-bright));
+  --color-surface-container-lowest: rgb(var(--m3-scheme-surface-container-lowest));
+  --color-surface-container-low: rgb(var(--m3-scheme-surface-container-low));
+  --color-surface-container: rgb(var(--m3-scheme-surface-container));
+  --color-surface-container-high: rgb(var(--m3-scheme-surface-container-high));
+  --color-surface-container-highest: rgb(var(--m3-scheme-surface-container-highest));
+  --color-on-surface: rgb(var(--m3-scheme-on-surface));
+  --color-on-surface-variant: rgb(var(--m3-scheme-on-surface-variant));
+  --color-outline: rgb(var(--m3-scheme-outline));
+  --color-outline-variant: rgb(var(--m3-scheme-outline-variant));
+  --color-inverse-surface: rgb(var(--m3-scheme-inverse-surface));
+  --color-inverse-on-surface: rgb(var(--m3-scheme-inverse-on-surface));
+  --color-primary: rgb(var(--m3-scheme-primary));
+  --color-primary-dim: rgb(var(--m3-scheme-primary-dim));
+  --color-on-primary: rgb(var(--m3-scheme-on-primary));
+  --color-primary-container: rgb(var(--m3-scheme-primary-container));
+  --color-on-primary-container: rgb(var(--m3-scheme-on-primary-container));
+  --color-primary-fixed: rgb(var(--m3-scheme-primary-fixed));
+  --color-primary-fixed-dim: rgb(var(--m3-scheme-primary-fixed-dim));
+  --color-on-primary-fixed: rgb(var(--m3-scheme-on-primary-fixed));
+  --color-on-primary-fixed-variant: rgb(var(--m3-scheme-on-primary-fixed-variant));
+  --color-inverse-primary: rgb(var(--m3-scheme-inverse-primary));
+  --color-secondary: rgb(var(--m3-scheme-secondary));
+  --color-secondary-dim: rgb(var(--m3-scheme-secondary-dim));
+  --color-on-secondary: rgb(var(--m3-scheme-on-secondary));
+  --color-secondary-container: rgb(var(--m3-scheme-secondary-container));
+  --color-on-secondary-container: rgb(var(--m3-scheme-on-secondary-container));
+  --color-secondary-fixed: rgb(var(--m3-scheme-secondary-fixed));
+  --color-secondary-fixed-dim: rgb(var(--m3-scheme-secondary-fixed-dim));
+  --color-on-secondary-fixed: rgb(var(--m3-scheme-on-secondary-fixed));
+  --color-on-secondary-fixed-variant: rgb(var(--m3-scheme-on-secondary-fixed-variant));
+  --color-tertiary: rgb(var(--m3-scheme-tertiary));
+  --color-tertiary-dim: rgb(var(--m3-scheme-tertiary-dim));
+  --color-on-tertiary: rgb(var(--m3-scheme-on-tertiary));
+  --color-tertiary-container: rgb(var(--m3-scheme-tertiary-container));
+  --color-on-tertiary-container: rgb(var(--m3-scheme-on-tertiary-container));
+  --color-tertiary-fixed: rgb(var(--m3-scheme-tertiary-fixed));
+  --color-tertiary-fixed-dim: rgb(var(--m3-scheme-tertiary-fixed-dim));
+  --color-on-tertiary-fixed: rgb(var(--m3-scheme-on-tertiary-fixed));
+  --color-on-tertiary-fixed-variant: rgb(var(--m3-scheme-on-tertiary-fixed-variant));
+  --color-error: rgb(var(--m3-scheme-error));
+  --color-error-dim: rgb(var(--m3-scheme-error-dim));
+  --color-on-error: rgb(var(--m3-scheme-on-error));
+  --color-error-container: rgb(var(--m3-scheme-error-container));
+  --color-on-error-container: rgb(var(--m3-scheme-on-error-container));
+  --color-shadow: rgb(var(--m3-scheme-shadow));
+  --color-scrim: rgb(var(--m3-scheme-scrim));
+  --color-on-on-primary: rgb(var(--m3-scheme-on-on-primary));
+  --color-primary-container-subtle: rgb(var(--m3-scheme-primary-container-subtle));
+  --color-on-primary-container-subtle: rgb(var(--m3-scheme-on-primary-container-subtle));
+  --color-tertiary-container-subtle: rgb(var(--m3-scheme-tertiary-container-subtle));
+  --color-on-tertiary-container-subtle: rgb(var(--m3-scheme-on-tertiary-container-subtle));
+  --color-error-container-subtle: rgb(var(--m3-scheme-error-container-subtle));
+  --color-on-error-container-subtle: rgb(var(--m3-scheme-on-error-container-subtle));
+}
+@layer base {
+  :root {
+    box-sizing: border-box;
+  }
+}
+@utility m3-font-display-large {
+  --: "";
+}
+@utility m3-font-display-medium {
+  --: "";
+}
+@utility m3-font-display-small {
+  --: "";
+}
+@utility m3-font-headline-large {
+  --: "";
+}
+@utility m3-font-headline-medium {
+  --: "";
+}
+@utility m3-font-headline-small {
+  --: "";
+}
+@utility m3-font-title-large {
+  --: "";
+}
+@utility m3-font-title-medium {
+  --: "";
+}
+@utility m3-font-title-small {
+  --: "";
+}
+@utility m3-font-label-large {
+  --: "";
+}
+@utility m3-font-label-medium {
+  --: "";
+}
+@utility m3-font-label-small {
+  --: "";
+}
+@utility m3-font-body-large {
+  --: "";
+}
+@utility m3-font-body-medium {
+  --: "";
+}
+@utility m3-font-body-small {
+  --: "";
+}

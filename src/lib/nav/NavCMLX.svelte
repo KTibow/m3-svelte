@@ -59,7 +59,7 @@
       width: 6rem;
     }
     @media (100rem <= width) {
-      /* Expanded */
+      /* Extra large: expanded */
       flex-direction: column;
       padding-block: 1.25rem;
       min-width: 13.75rem;

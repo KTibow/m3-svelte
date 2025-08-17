@@ -273,7 +273,7 @@
       }
     }
     @media (100rem <= width) {
-      /* Expanded */
+      /* Extra large: expanded */
       height: 3.5rem;
       padding-inline: 1.25rem;
       font-size: var(--m3-font-label-large-size, 0.875rem);
