@@ -1,9 +1,13 @@
 @theme {
   --*: initial;
-
   --spacing: 0.25rem;
   --font-mono: var(--m3-font-mono);
-
+  --breakpoint-m: 37.5rem; /* ≅ sm */
+  --breakpoint-x: 52.5rem; /* ≅ md */
+  --breakpoint-l: 75rem; /* ≅ lg, xl */
+  --breakpoint-xl: 100rem; /* ≅ 2xl */
+}
+@theme inline {
   --shadow-1: var(--m3-util-elevation-1);
   --shadow-2: var(--m3-util-elevation-2);
   --shadow-3: var(--m3-util-elevation-3);
@@ -15,11 +19,6 @@
   --radius-md: var(--m3-util-rounding-medium); /* = 12px = rounded-xl */
   --radius-lg: var(--m3-util-rounding-large); /* = 16px = rounded-2xl */
   --radius-xl: var(--m3-util-rounding-extra-large); /* = 28px ≅ rounded-3xl */
-
-  --breakpoint-m: 37.5rem; /* ≅ sm */
-  --breakpoint-x: 52.5rem; /* ≅ md */
-  --breakpoint-l: 75rem; /* ≅ lg, xl */
-  --breakpoint-xl: 100rem; /* ≅ 2xl */
 
   --ease-fast-spatial: var(--m3-util-timing-function-fast-spatial);
   --ease-spatial: var(--m3-util-timing-function-spatial);
