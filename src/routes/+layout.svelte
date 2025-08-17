@@ -12,7 +12,7 @@
   import { page } from "$app/state";
   import NavCMLX from "$lib/nav/NavCMLX.svelte";
   import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
-  import { styling } from "./themeStore";
+  import { styling } from "./state";
   import "../app.css";
 
   let { children }: { children: Snippet } = $props();

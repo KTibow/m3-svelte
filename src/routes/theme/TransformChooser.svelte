@@ -1,13 +1,21 @@
 <script lang="ts">
-  import { materialColors } from "$lib";
-  import Slider from "$lib/forms/Slider.svelte";
-  import variants from "./variants";
   import {
     hexFromArgb,
     type DynamicColor,
     type DynamicScheme,
     type Variant,
   } from "@ktibow/material-color-utilities-nightly";
+  import iconContrast from "@ktibow/iconset-material-symbols/contrast";
+  import iconDensityLarge from "@ktibow/iconset-material-symbols/density-large-rounded";
+  import iconDensitySmall from "@ktibow/iconset-material-symbols/density-small-rounded";
+  import iconDensityMedium from "@ktibow/iconset-material-symbols/density-medium-rounded";
+  import { materialColors } from "$lib";
+  import Slider from "$lib/forms/Slider.svelte";
+  import Layer from "$lib/misc/Layer.svelte";
+  import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
+  import Button from "$lib/buttons/Button.svelte";
+  import { appType } from "../state";
+  import variants from "./variants";
 
   let {
     schemes,
@@ -24,48 +32,86 @@
   const variantColor = (scheme: DynamicScheme, color: DynamicColor) => {
     return hexFromArgb(color.getArgb(scheme));
   };
+  let showMore = $state(contrast != 0 || density != 0 || $appType != "vanilla");
 </script>
 
-<div class="content">
-  <h2 class="m3-font-title-large">Variant</h2>
-  <div class="variants">
-    {#each variants as { id, name, desc }}
-      {@const { light, dark } = schemes[id]}
-      <input type="radio" bind:group={variant} name="variants" value={id} id="variants-{id}" />
-      <label for="variants-{id}">
-        <div
-          style:--light-background={variantColor(light, materialColors.primaryContainer())}
-          style:--dark-background={variantColor(dark, materialColors.primaryContainer())}
-          style:--light-foreground={variantColor(light, materialColors.onPrimaryContainer())}
-          style:--dark-foreground={variantColor(dark, materialColors.onPrimaryContainer())}
-        >
-          <p>{name}</p>
-        </div>
-        <div
-          style:--light-background={variantColor(light, materialColors.surfaceContainerLow())}
-          style:--dark-background={variantColor(dark, materialColors.surfaceContainerLow())}
-        >
-          <p class="m3-font-body-medium">{desc}</p>
-        </div>
-      </label>
-    {/each}
-  </div>
-  <br />
-  <h2 class="m3-font-title-large">Contrast</h2>
-  <Slider min={-1} max={1} step={0.05} format={(n) => n.toString()} bind:value={contrast} />
-  <br />
-  <h2 class="m3-font-title-large">Density</h2>
-  <Slider min={-3} max={3} step={1} bind:value={density} />
+<div class="content variants">
+  {#each variants as { id, name, desc }}
+    {@const { light, dark } = schemes[id]}
+    <input type="radio" bind:group={variant} name="variants" value={id} id="variants-{id}" />
+    <label for="variants-{id}">
+      <div
+        style:--light-background={variantColor(light, materialColors.primaryContainer())}
+        style:--dark-background={variantColor(dark, materialColors.primaryContainer())}
+        style:--light-foreground={variantColor(light, materialColors.onPrimaryContainer())}
+        style:--dark-foreground={variantColor(dark, materialColors.onPrimaryContainer())}
+      >
+        <p>{name}</p>
+      </div>
+      <div
+        style:--light-background={variantColor(light, materialColors.surfaceContainerLow())}
+        style:--dark-background={variantColor(dark, materialColors.surfaceContainerLow())}
+      >
+        <p class="m3-font-body-medium">{desc}</p>
+      </div>
+    </label>
+  {/each}
 </div>
+{#if showMore}
+  <div class="content more">
+    <Slider
+      min={-1}
+      max={1}
+      step={0.05}
+      size="m"
+      leadingIcon={iconContrast}
+      format={(n) => n.toString()}
+      bind:value={contrast}
+    />
+    <Slider
+      min={-3}
+      max={3}
+      step={1}
+      size="m"
+      leadingIcon={density > 0
+        ? iconDensityLarge
+        : density < 0
+          ? iconDensitySmall
+          : iconDensityMedium}
+      format={(n) => new Intl.NumberFormat(undefined, { signDisplay: "exceptZero" }).format(n)}
+      bind:value={density}
+    />
+    <ConnectedButtons>
+      <input
+        type="radio"
+        name="apptype"
+        value="vanilla"
+        id="apptype-vanilla"
+        bind:group={$appType}
+      />
+      <Button for="apptype-vanilla" square>Vanilla</Button>
+      <input
+        type="radio"
+        name="apptype"
+        value="tailwind"
+        id="apptype-tailwind"
+        bind:group={$appType}
+      />
+      <Button for="apptype-tailwind" square>Tailwind</Button>
+    </ConnectedButtons>
+  </div>
+{:else}
+  <button class="content more m3-font-label-large" onclick={() => (showMore = true)}>
+    <Layer />
+    Contrast, density, Tailwind
+  </button>
+{/if}
 
 <style>
   .content {
     background-color: rgb(var(--m3-scheme-surface-container-low));
     padding: 1rem;
-    border-radius: 1rem;
-  }
-  h2 {
-    margin: 0 0 0.5rem 0;
+    border-radius: 0.5rem;
   }
 
   .variants {
@@ -132,5 +178,24 @@
   }
   p {
     margin: 0;
+  }
+
+  .content.variants {
+    border-start-start-radius: 1rem;
+    border-start-end-radius: 1rem;
+  }
+  .more {
+    margin-top: 0.5rem;
+    position: relative;
+    border: none;
+    border-end-start-radius: 1rem;
+    border-end-end-radius: 1rem;
+  }
+  div.more {
+    display: grid;
+    align-items: center;
+    gap: 0.5rem;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
   }
 </style>

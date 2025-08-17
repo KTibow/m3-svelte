@@ -1,12 +1,10 @@
 <script>
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
   import Button from "$lib/buttons/Button.svelte";
-
   import Snippet from "../Snippet.svelte";
-  import { colors } from "$lib";
+  import { appType } from "../../state";
 
-  let styleType = $state("plain");
-  const componentCode1 = `${"<"}button class="bg-surface-container-low text-primary rounded-full">Click me${"<"}/button>`;
+  const componentCode1 = `${"<"}button class="rounded-full bg-surface-container-low text-primary shadow-1">Click me${"<"}/button>`;
   const componentCode2 = `${"<"}button>Click me${"<"}/button>
 ${"<"}style>
   button {
@@ -21,10 +19,6 @@ ${"<"}/style>`;
 ${"<"}/script>
 
 ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"}/Button>`;
-  const tailwindColors = colors
-    .map((c) => c.name.replaceAll("_", "-"))
-    .map((c) => `  --color-${c}: rgb(var(--m3-scheme-${c}));`)
-    .join("\n");
 </script>
 
 <p>
@@ -54,31 +48,23 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
 <h2 class="m3-font-headline-large">
   Make your own components
   <ConnectedButtons>
-    <input type="radio" id="styletype-plain" value="plain" bind:group={styleType} />
-    <Button for="styletype-plain" variant="filled" square>Plain</Button>
-    <input type="radio" id="styletype-tailwind" value="tailwind" bind:group={styleType} />
-    <Button for="styletype-tailwind" variant="filled" square>Tailwind</Button>
+    <input type="radio" value="vanilla" id="apptype-vanilla" bind:group={$appType} />
+    <Button for="apptype-vanilla" variant="filled" square>Vanilla</Button>
+    <input type="radio" value="tailwind" id="apptype-tailwind" bind:group={$appType} />
+    <Button for="apptype-tailwind" variant="filled" square>Tailwind</Button>
   </ConnectedButtons>
 </h2>
 <p>
   Chances are M3 doesn't have everything you need. That's where you can make your own components
   while still using Material 3 elements. Here's an example.
 </p>
-{#if styleType == "tailwind"}
+{#if $appType == "tailwind"}
   <Snippet code={componentCode1} name="Component.svelte" lang="xml" />
-  <p>You'll need to update your Tailwind config too:</p>
-  <Snippet
-    code={`@theme {
-${tailwindColors}
-}`}
-    name="app.css"
-    lang="css"
-  />
 {:else}
   <Snippet code={componentCode2} name="Component.svelte" lang="xml" />
 {/if}
 <p>You might also want to make your app match your theme. Here's what that could look like:</p>
-{#if styleType == "tailwind"}
+{#if $appType == "tailwind"}
   <Snippet
     code={`<body class="m3-font-body-large bg-background text-on-background">`}
     name="app.html"

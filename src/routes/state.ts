@@ -134,3 +134,4 @@ export const styling = writable(`
   }
 }
 `);
+export const appType = writable("vanilla");

@@ -10,7 +10,7 @@
 
   import Button from "$lib/buttons/Button.svelte";
   import ColorCard from "./ColorCard.svelte";
-  import { styling } from "../themeStore";
+  import { appType, styling } from "../state";
   import { pairs } from "$lib/misc/colors";
   import { genCSS } from "$lib/misc/utils";
 
@@ -39,7 +39,12 @@ ${style}`;
 
   const copyUsage = () =>
     navigator.clipboard.writeText(`@import url("m3-svelte/misc/styles.css");
-@import url("m3-svelte/misc/recommended-styles.css");
+@import url("m3-svelte/misc/recommended-styles.css");${
+      $appType == "tailwind"
+        ? `
+@import url("m3-svelte/misc/tailwind-styles.css");`
+        : ""
+    }
 ${$styling}`);
 
   onMount(() => {
