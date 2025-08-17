@@ -37,16 +37,19 @@ ${style}`;
     $styling = style;
   });
 
-  const copyUsage = () =>
-    navigator.clipboard.writeText(`@import "m3-svelte/misc/styles.css";
-@import "m3-svelte/misc/recommended-styles.css";${
-      $appType == "tailwind"
-        ? `
-@import "m3-svelte/misc/tailwind-styles.css";
-@import "tailwindcss";`
-        : ""
-    }
-${$styling}`);
+  const copyUsage = () => {
+    const innerStyles = `@import "m3-svelte/misc/styles.css";
+@import "m3-svelte/misc/recommended-styles.css";`;
+    navigator.clipboard.writeText(
+      ($appType == "tailwind"
+        ? `@import "tailwindcss";
+${innerStyles}
+@import "m3-svelte/misc/tailwind-styles.css";`
+        : innerStyles) +
+        "\n" +
+        $styling,
+    );
+  };
 
   onMount(() => {
     showDark = window.matchMedia("(prefers-color-scheme: dark)").matches;

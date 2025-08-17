@@ -10,7 +10,7 @@ export const genCSS = (light: DynamicScheme, dark: DynamicScheme) => {
     const red = (argb >> 16) & 255;
     const green = (argb >> 8) & 255;
     const blue = argb & 255;
-    return `--m3-scheme-${kebabCase}: ${red} ${green} ${blue};`;
+    return `    --m3-scheme-${kebabCase}: ${red} ${green} ${blue};`;
   };
   const lightColors = colors
     .map((color) => genColorVariable(color.name, color.getArgb(light)))

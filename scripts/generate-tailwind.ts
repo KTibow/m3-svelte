@@ -20,13 +20,20 @@ const fontClasses = [
   "m3-font-body-medium",
   "m3-font-body-small",
 ];
+
 const style = `@theme {
   --*: initial;
   --spacing: 0.25rem;
+
   --breakpoint-m: 37.5rem; /* ≅ sm */
-  --breakpoint-x: 52.5rem; /* ≅ md */
+  --breakpoint-x: 52.5rem; /* expanded; ≅ md */
   --breakpoint-l: 75rem; /* ≅ lg, xl */
   --breakpoint-xl: 100rem; /* ≅ 2xl */
+
+  --container-m: 37.5rem; /* ≅ xl */
+  --container-x: 52.5rem; /* ≅ 3xl, 4xl */
+  --container-l: 75rem; /* ≅ 6xl, 7xl */
+  --container-xl: 100rem;
 }
 @theme inline {
   --font-mono: var(--m3-font-mono);
@@ -52,6 +59,7 @@ ${colors
   .map((c) => c.name.replaceAll("_", "-"))
   .map((c) => `  --color-${c}: rgb(var(--m3-scheme-${c}));`)
   .join("\n")}
+  --color-util-background: var(--m3-util-background);
 }
 
 ${easings
@@ -71,5 +79,11 @@ ${fontClasses
 }`,
   )
   .join("\n")}
+
+@layer base {
+  :root {
+    box-sizing: border-box;
+  }
+}
 `;
 await writeFile("src/lib/misc/tailwind-styles.css", style);
