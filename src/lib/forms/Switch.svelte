@@ -11,14 +11,14 @@
     disabled = false,
     checkedIcon = iconCheck,
     uncheckedIcon = iconClose,
-    icons = 'checked',
+    icons = "checked",
     ...extra
   } = $props<{
     checked?: boolean;
     disabled?: boolean;
     checkedIcon?: IconifyIcon;
     uncheckedIcon?: IconifyIcon;
-    icons?: 'both' | 'none' | 'checked';
+    icons?: "both" | "none" | "checked";
   } & HTMLInputAttributes>();
 
   let startX = $state<number | undefined>();
@@ -57,11 +57,11 @@
     }}
   />
   <div class="handle">
-    {#if icons !== 'none'}
+    {#if icons !== "none"}
       <Icon icon={checkedIcon} />
     {/if}
     
-    {#if icons === 'both'}
+    {#if icons === "both"}
       <Icon icon={uncheckedIcon} />
     {/if}
   </div>

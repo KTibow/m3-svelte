@@ -3,7 +3,7 @@ import Switch from "$lib/forms/Switch.svelte";
 import InternalCard from "./_card.svelte";
 import Arrows from "./_arrows.svelte";
 
-let icons = $state<'both' | 'none' | 'checked'>('checked');
+let icons = $state<"both" | "none" | "checked">("checked");
 let enabled = $state<boolean>(true);
 
 let { showCode } = $props<{
