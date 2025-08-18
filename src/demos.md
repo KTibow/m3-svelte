@@ -877,10 +877,15 @@ Switch
 ```
 
 ```ts
-let enabled = $state(true);
+let icons = $state<"both" | "none" | "checked">("checked");
+let enabled = $state<boolean>(true);
 ```
 
 ```svelte
+<label>
+  <Arrows list={["checked", "both", "none"]} bind:value={icons} />
+  {icons == "checked" ? "Icon when checked" : icons == "both" ? "Both icons" : "No icons"}
+</label>
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
@@ -888,7 +893,7 @@ let enabled = $state(true);
 
 {#snippet demo()}
   <label>
-    <Switch disabled={!enabled} />
+    <Switch disabled={!enabled} {icons} />
   </label>
 {/snippet}
 ```

@@ -1,19 +1,18 @@
 <script lang="ts">
-import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
-import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
-import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
 import Switch from "$lib/forms/Switch.svelte";
-import Icon from "$lib/misc/_icon.svelte";
-import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
+import Arrows from "./_arrows.svelte";
 
-let enabled = $state(true);
+let icons = $state<'both' | 'none' | 'checked'>('checked');
+let enabled = $state<boolean>(true);
 
-let { showCode }: { showCode: (
-  name: string,
-  minimalDemo: string,
-  relevantLinks: { title: string; link: string }[],
-) => void } = $props();
+let { showCode } = $props<{
+  showCode: (
+    name: string,
+    minimalDemo: string,
+    relevantLinks: { title: string; link: string }[],
+  ) => void
+}>();
 
 const minimalDemo = `${"<"}label>
   ${"<"}Switch bind:checked={on} />
@@ -23,13 +22,21 @@ const relevantLinks = [{"title":"Switch.sv","link":"https://github.com/KTibow/m3
 
 <InternalCard title="Switch" showCode={() => showCode("Switch", minimalDemo, relevantLinks)}>
 <label>
+  <Arrows list={["checked", "both", "none"]} bind:value={icons} />
+  {icons == "checked"
+    ? "Icon when checked"
+    : icons == "both"
+      ? "Both icons"
+      : "No icons"}
+</label>
+<label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
 {#snippet demo()}
   <label>
-    <Switch disabled={!enabled} />
+    <Switch disabled={!enabled} {icons} />
   </label>
 {/snippet}
 </InternalCard>

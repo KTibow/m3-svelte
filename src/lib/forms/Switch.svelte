@@ -1,19 +1,27 @@
 <script lang="ts">
   import Icon from "$lib/misc/_icon.svelte";
+  import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
+  import iconClose from "@ktibow/iconset-material-symbols/close";
   import type { HTMLInputAttributes } from "svelte/elements";
 
   // MUST BE WRAPPED IN A <label>
   let {
     checked = $bindable(false),
     disabled = false,
+    checkedIcon = iconCheck,
+    uncheckedIcon = iconClose,
+    icons = 'checked',
     ...extra
-  }: {
+  } = $props<{
     checked?: boolean;
     disabled?: boolean;
-  } & HTMLInputAttributes = $props();
+    checkedIcon?: IconifyIcon;
+    uncheckedIcon?: IconifyIcon;
+    icons?: 'both' | 'none' | 'checked';
+  } & HTMLInputAttributes>();
 
-  let startX: number | undefined = $state();
+  let startX = $state<number | undefined>();
   const handleMouseUp = (e: MouseEvent) => {
     if (!startX) return;
     const distance = e.clientX - startX;
@@ -49,7 +57,13 @@
     }}
   />
   <div class="handle">
-    <Icon icon={iconCheck} />
+    {#if icons !== 'none'}
+      <Icon icon={checkedIcon} />
+    {/if}
+    
+    {#if icons === 'both'}
+      <Icon icon={uncheckedIcon} />
+    {/if}
   </div>
   <div class="hover"></div>
 </div>
@@ -106,6 +120,20 @@
       opacity var(--m3-util-easing-fast-spatial),
       scale var(--m3-util-easing-fast-spatial);
   }
+  input:not(:checked) + :global(.handle:has(>:last-child:nth-child(2))) {
+    scale: 1.5;
+  }
+  input:not(:checked) + :global(.handle:has(>:last-child:nth-child(2))) > :global(svg) {
+    color: rgb(var(--m3-scheme-surface-container-highest));
+    scale: 0.667;
+    opacity: 1;
+  }
+  
+  input:checked + :global(.handle:has(>:last-child:nth-child(2))) > :global(svg:last-of-type),
+  input:not(:checked) + :global(.handle:has(>:last-child:nth-child(2))) > :global(svg:first-of-type) {
+    display: none;
+  }
+  
   .hover {
     position: absolute;
     width: 3rem;
@@ -126,18 +154,30 @@
 
   .m3-container:hover > input:enabled + .handle,
   .m3-container > input:enabled:is(:global(:active, :focus-visible)) + .handle {
-    background-color: rgb(var(--m3-scheme-on-surface-variant));
+    background-color: rgb(var(--m3-scheme-on-surface-variant) / .3);
+  }
+  .m3-container:hover > input:enabled,
+  .m3-container > input:enabled:is(:global(:active, :focus-visible)) {
+    border-color: rgb(var(--m3-scheme-on-surface-variant) / .3);
   }
   .m3-container:hover > input:enabled:checked + .handle,
   .m3-container > input:enabled:checked:is(:global(:active, :focus-visible)) + .handle {
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: rgb(var(--m3-scheme-secondary-container));
+    color: rgb(var(--m3-scheme-secondary-dim));
   }
   .m3-container:hover > input ~ .hover {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
   }
   .m3-container:hover > input:checked ~ .hover {
     background-color: rgb(var(--m3-scheme-primary) / 0.08);
+  }
+  
+  input:focus-visible {
+    animation: none;
+    outline: solid;
+    outline-color: rgb(var(--m3-scheme-on-secondary-container));
+    outline-width: 3px;
+    outline-offset: 2px;
   }
 
   input:checked {
