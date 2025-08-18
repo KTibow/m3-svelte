@@ -80,6 +80,7 @@
     height: 2rem;
   }
   input {
+    animation: none !important;
     appearance: none;
     width: 3.25rem;
     height: 2rem;
@@ -136,8 +137,8 @@
   
   .hover {
     position: absolute;
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: var(--m3-util-rounding-full);
 
     cursor: pointer;
@@ -152,13 +153,9 @@
     justify-content: center;
   }
 
-  .m3-container:hover > input:enabled + .handle,
-  .m3-container > input:enabled:is(:global(:active, :focus-visible)) + .handle {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / .3);
-  }
-  .m3-container:hover > input:enabled,
-  .m3-container > input:enabled:is(:global(:active, :focus-visible)) {
-    border-color: rgb(var(--m3-scheme-on-surface-variant) / .3);
+  .m3-container:hover > input:not(:checked):not(:disabled) + .handle,
+  .m3-container:active > input:not(:checked):not(:disabled) + .handle {
+    background-color: rgb(var(--m3-scheme-on-surface-variant));
   }
   .m3-container:hover > input:enabled:checked + .handle,
   .m3-container > input:enabled:checked:is(:global(:active, :focus-visible)) + .handle {
@@ -172,10 +169,9 @@
     background-color: rgb(var(--m3-scheme-primary) / 0.08);
   }
   
-  input:focus-visible {
-    animation: none;
+  input:not(:disabled):focus-visible {
     outline: solid;
-    outline-color: rgb(var(--m3-scheme-on-secondary-container));
+    outline-color: rgb(var(--m3-scheme-secondary));
     outline-width: 3px;
     outline-offset: 2px;
   }
