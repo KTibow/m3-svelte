@@ -781,6 +781,45 @@ let Component = $derived(
 {/snippet}
 ```
 
+## Select
+
+Minimal demo:
+
+```svelte
+<Select label="Option" options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />
+```
+
+Full demo:
+
+```use
+Select
+```
+
+```ts
+let enabled = $state(true);
+let options = [
+  { text: "Option 1", value: "option1" },
+  { text: "Option 2", value: "option2" },
+  { text: "Option 3", value: "option3" },
+];
+```
+
+```svelte
+<label>
+  <Switch bind:checked={enabled} />
+  {enabled ? "Enabled" : "Disabled"}
+</label>
+
+{#snippet demo()}
+  <Select
+    label="Choose option"
+    {options}
+    disabled={!enabled}
+  />
+{/snippet}
+```
+
+
 ## Slider
 
 Minimal demo:

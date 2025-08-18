@@ -27,6 +27,7 @@
   import Demo17 from "./17.svelte";
   import Demo18 from "./18.svelte";
   import Demo19 from "./19.svelte";
+  import Demo20 from "./20.svelte";
 
   type DocData = {
     name: string;
@@ -79,6 +80,7 @@
     <Demo17 {showCode} />
     <Demo18 {showCode} />
     <Demo19 {showCode} />
+    <Demo20 {showCode} />
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
     <div class="sheet" transition:slide={{ easing: easeEmphasized, duration: 500, axis: "x" }}>
