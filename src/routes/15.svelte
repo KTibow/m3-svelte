@@ -10,9 +10,9 @@ import Select from "$lib/forms/Select.svelte";
 let icons = $state(false);
 let enabled = $state(true);
 let options = $derived([
-  { icon: icons ? iconCircle : undefined, text: "Option 1", value: "option1" },
-  { icon: icons ? iconSquare : undefined, text: "Option 2", value: "option2" },
-  { icon: icons ? iconTriangle : undefined, text: "Option 3", value: "option3" },
+  { icon: icons ? iconCircle : undefined, text: "Alpha", value: "alpha" },
+  { icon: icons ? iconSquare : undefined, text: "Beta", value: "beta" },
+  { icon: icons ? iconTriangle : undefined, text: "Charlie", value: "charlie" },
 ]);
 
 let { showCode }: { showCode: (
@@ -39,7 +39,7 @@ const relevantLinks = [{"title":"Select.sv","link":"https://github.com/KTibow/m3
   <Select
     {options}
     disabled={!enabled}
-    value="option1"
+    value="alpha"
   />
 {/snippet}
 </InternalCard>
