@@ -124,7 +124,9 @@
       height 500ms var(--m3-util-timing-function-emphasized-decel),
       display 500ms allow-discrete,
       overlay 500ms allow-discrete;
-    @starting-style {
+  }
+  @starting-style {
+    select:open::picker(select) {
       width: calc-size(var(--width), size - 0.001px);
       height: 0;
     }
