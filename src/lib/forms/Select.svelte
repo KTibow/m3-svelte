@@ -1,8 +1,10 @@
 <script lang="ts">
-  import Layer from "$lib/misc/Layer.svelte";
+  import type { IconifyIcon } from "@iconify/types";
   import type { HTMLSelectAttributes } from "svelte/elements";
+  import Layer from "$lib/misc/Layer.svelte";
+  import Icon from "$lib/misc/_icon.svelte";
 
-  type Option = { text: string; value: string };
+  type Option = { icon?: IconifyIcon; text: string; value: string };
   let {
     options,
     width = "auto",
@@ -22,10 +24,13 @@
   bind:value
   {...extra}
 >
-  {#each options as { text, value }, i (i)}
+  {#each options as { icon, text, value }, i (i)}
     <option class="focus-inset" {value}>
       <Layer />
       {text}
+      {#if icon}
+        <Icon {icon} width="1.5rem" height="1.5rem" />
+      {/if}
     </option>
   {/each}
 </select>
@@ -153,13 +158,27 @@
     }
 
     background-color: transparent;
+    > :global(svg) {
+      margin-right: 0.5rem;
+    }
+    &:not(:checked) {
+      > :global(svg) {
+        color: rgb(var(--m3-scheme-on-surface-variant));
+      }
+    }
     &:checked {
       background-color: rgb(var(--m3-scheme-primary-container));
       color: rgb(var(--m3-scheme-on-primary-container));
+      > :global(svg) {
+        opacity: 0.8;
+      }
     }
     &::checkmark {
       opacity: 0;
     }
+    transition:
+      background-color var(--m3-util-easing-fast),
+      color var(--m3-util-easing-fast);
 
     position: relative;
     cursor: pointer;

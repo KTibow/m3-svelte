@@ -7,12 +7,13 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Select from "$lib/forms/Select.svelte";
+let icons = $state(false);
 let enabled = $state(true);
-let options = [
-  { text: "Option 1", value: "option1" },
-  { text: "Option 2", value: "option2" },
-  { text: "Option 3", value: "option3" },
-];
+let options = $derived([
+  { icon: icons ? iconCircle : undefined, text: "Option 1", value: "option1" },
+  { icon: icons ? iconSquare : undefined, text: "Option 2", value: "option2" },
+  { icon: icons ? iconTriangle : undefined, text: "Option 3", value: "option3" },
+]);
 
 let { showCode }: { showCode: (
   name: string,
@@ -25,6 +26,10 @@ const relevantLinks = [{"title":"Select.sv","link":"https://github.com/KTibow/m3
 </script>
 
 <InternalCard title="Select" showCode={() => showCode("Select", minimalDemo, relevantLinks)}>
+<label>
+  <Switch bind:checked={icons} />
+  {icons ? "Icons" : "No icons"}
+</label>
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}

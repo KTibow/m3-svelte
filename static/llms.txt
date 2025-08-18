@@ -1176,13 +1176,18 @@ Minimal demo:
 <Select options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />
 ```
 
-The M3 Svelte interactive demo for this component uses Select with the TS `let enabled = $state(true);
-let options = [
-  { text: "Option 1", value: "option1" },
-  { text: "Option 2", value: "option2" },
-  { text: "Option 3", value: "option3" },
-];` to make this demo:
+The M3 Svelte interactive demo for this component uses Select with the TS `let icons = $state(false);
+let enabled = $state(true);
+let options = $derived([
+  { icon: icons ? iconCircle : undefined, text: "Option 1", value: "option1" },
+  { icon: icons ? iconSquare : undefined, text: "Option 2", value: "option2" },
+  { icon: icons ? iconTriangle : undefined, text: "Option 3", value: "option3" },
+]);` to make this demo:
 ```svelte
+<label>
+  <Switch bind:checked={icons} />
+  {icons ? "Icons" : "No icons"}
+</label>
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}

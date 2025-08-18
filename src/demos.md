@@ -796,15 +796,20 @@ Select
 ```
 
 ```ts
+let icons = $state(false);
 let enabled = $state(true);
-let options = [
-  { text: "Option 1", value: "option1" },
-  { text: "Option 2", value: "option2" },
-  { text: "Option 3", value: "option3" },
-];
+let options = $derived([
+  { icon: icons ? iconCircle : undefined, text: "Option 1", value: "option1" },
+  { icon: icons ? iconSquare : undefined, text: "Option 2", value: "option2" },
+  { icon: icons ? iconTriangle : undefined, text: "Option 3", value: "option3" },
+]);
 ```
 
 ```svelte
+<label>
+  <Switch bind:checked={icons} />
+  {icons ? "Icons" : "No icons"}
+</label>
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
