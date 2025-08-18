@@ -75,7 +75,6 @@
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     border: solid 0.125rem rgb(var(--m3-scheme-outline));
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
     transition: var(--m3-util-easing);
   }
   .handle {
@@ -88,7 +87,6 @@
     /* Fallback for those without on on primary */
     color: rgb(var(--m3-scheme-on-on-primary, var(--m3-scheme-on-primary-container)));
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
     transition: var(--m3-util-easing-fast-spatial);
 
     left: 0.5rem;
@@ -113,7 +111,6 @@
     border-radius: var(--m3-util-rounding-full);
 
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
     transition: var(--m3-util-easing-fast);
 
     left: 1rem;

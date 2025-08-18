@@ -213,7 +213,6 @@
     opacity: 0;
     appearance: none;
     margin: 0;
-    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
   }
 

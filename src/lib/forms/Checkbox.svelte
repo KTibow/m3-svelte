@@ -56,7 +56,6 @@
     border-radius: 0.125rem;
     border: solid 0.125rem currentColor;
     transition: var(--m3-util-easing-fast);
-    -webkit-tap-highlight-color: transparent;
   }
 
   svg {

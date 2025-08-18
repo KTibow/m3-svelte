@@ -103,7 +103,6 @@
     color: rgb(var(--m3-scheme-on-surface-variant));
     border: none;
     padding: 0;
-    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     position: relative;
   }

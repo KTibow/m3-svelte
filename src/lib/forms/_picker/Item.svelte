@@ -40,7 +40,6 @@
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
     border: none;
-    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     transition: var(--m3-util-easing-fast);
     position: relative;

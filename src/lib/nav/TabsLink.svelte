@@ -67,7 +67,6 @@
 
     color: rgb(var(--m3-scheme-on-surface-variant));
     user-select: none;
-    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     transition: color var(--m3-util-easing-fast);
   }

@@ -69,7 +69,6 @@
     border: solid 1px rgb(var(--m3-scheme-outline));
     position: relative;
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
     transition: var(--m3-util-easing-fast);
   }
 

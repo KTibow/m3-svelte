@@ -52,7 +52,6 @@
     border-radius: var(--m3-util-rounding-full);
     border: solid 0.125rem currentColor;
     transition: border var(--m3-util-easing-fast);
-    -webkit-tap-highlight-color: transparent;
   }
 
   .radio-dot {
@@ -63,7 +62,6 @@
     border-radius: var(--m3-util-rounding-full);
     outline: solid 0 currentColor;
     transition: var(--m3-util-easing);
-    -webkit-tap-highlight-color: transparent;
   }
 
   :global(input:focus-visible) + .layer-container {

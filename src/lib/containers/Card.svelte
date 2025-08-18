@@ -47,7 +47,6 @@
     font: inherit;
     letter-spacing: inherit;
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
     button:hover {

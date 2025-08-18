@@ -43,7 +43,6 @@
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
 
-    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
   }
   .icon {
