@@ -20,7 +20,7 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}Select label="Option" options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />`;
+const minimalDemo = `${"<"}Select options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />`;
 const relevantLinks = [{"title":"Select.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Select.svelte"}];
 </script>
 
@@ -32,7 +32,6 @@ const relevantLinks = [{"title":"Select.sv","link":"https://github.com/KTibow/m3
 
 {#snippet demo()}
   <Select
-    label="Choose option"
     {options}
     disabled={!enabled}
   />

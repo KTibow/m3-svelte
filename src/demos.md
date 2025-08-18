@@ -786,7 +786,7 @@ let Component = $derived(
 Minimal demo:
 
 ```svelte
-<Select label="Option" options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />
+<Select options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />
 ```
 
 Full demo:
@@ -812,7 +812,6 @@ let options = [
 
 {#snippet demo()}
   <Select
-    label="Choose option"
     {options}
     disabled={!enabled}
   />

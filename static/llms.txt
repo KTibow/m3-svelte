@@ -1173,7 +1173,7 @@ let Component = $derived(
 
 Minimal demo:
 ```svelte
-<Select label="Option" options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />
+<Select options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />
 ```
 
 The M3 Svelte interactive demo for this component uses Select with the TS `let enabled = $state(true);
@@ -1190,7 +1190,6 @@ let options = [
 
 {#snippet demo()}
   <Select
-    label="Choose option"
     {options}
     disabled={!enabled}
   />
