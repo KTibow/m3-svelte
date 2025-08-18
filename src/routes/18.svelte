@@ -6,26 +6,17 @@ import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
-import Tabs from "$lib/nav/Tabs.svelte";
-import VariableTabs from "$lib/nav/VariableTabs.svelte";
-let type: "primary" | "secondary" = $state("primary");
-let icons = $state(false);
-let variable = $state(false);
-let tab = $state("hello");
-
-let items = $derived(
-  icons
-    ? [
-        { icon: iconCircle, name: "Hello", value: "hello" },
-        { icon: iconSquare, name: "World", value: "world" },
-        { icon: iconTriangle, name: "The longest item", value: "long" },
-      ]
-    : [
-        { name: "Hello", value: "hello" },
-        { name: "World", value: "world" },
-        { name: "The longest item", value: "long" },
-      ],
-);
+import TextField from "$lib/forms/TextField.svelte";
+import TextFieldOutlined from "$lib/forms/TextFieldOutlined.svelte";
+import TextFieldMultiline from "$lib/forms/TextFieldMultiline.svelte";
+import TextFieldOutlinedMultiline from "$lib/forms/TextFieldOutlinedMultiline.svelte";
+import type { HTMLInputAttributes } from "svelte/elements";
+let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
+let option: "text" | "password" | "number" | "file" = $state("text");
+let leadingIcon = $state(false);
+let trailingIcon = $state(false);
+let errored = $state(false);
+let enabled = $state(true);
 
 let { showCode }: { showCode: (
   name: string,
@@ -33,35 +24,84 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}Tabs
-  items={[
-    { name: "A", value: "a" },
-    { name: "B", value: "b" },
-  ]}
-  bind:tab
-/>`;
-const relevantLinks = [{"title":"Tabs.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/Tabs.svelte"},{"title":"VariableTabs.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/VariableTabs.svelte"}];
+const minimalDemo = `${"<"}TextField label="Field" bind:value={text} />`;
+const relevantLinks = [{"title":"TextField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextField.svelte"},{"title":"TextFieldOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldOutlined.svelte"},{"title":"TextFieldMultiline.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldMultiline.svelte"},{"title":"TextFieldOutlinedMultiline.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/TextFieldOutlinedMultiline.svelte"}];
 </script>
 
-<InternalCard title="Tabs" showCode={() => showCode("Tabs", minimalDemo, relevantLinks)}>
+<InternalCard title="Text field" showCode={() => showCode("Text field", minimalDemo, relevantLinks)}>
 <label>
-  <Arrows list={["primary", "secondary"]} bind:value={type} />
-  {type == "primary" ? "Primary" : "Secondary"}
+  <Arrows
+    list={["filled", "filled_multiline", "outlined", "outlined_multiline"]}
+    bind:value={type}
+  />
+  {type == "filled"
+    ? "Filled"
+    : type == "filled_multiline"
+      ? "Filled multiline"
+      : type == "outlined"
+        ? "Outlined"
+        : "Outlined multiline"}
 </label>
 <label>
-  <Switch bind:checked={icons} />
-  {icons ? "Icons" : "No icons"}
+  <Arrows list={["text", "password", "number", "file"]} bind:value={option} />
+  {option == "text"
+    ? "Text"
+    : option == "password"
+      ? "Password"
+      : option == "number"
+        ? "Number"
+        : "File"}
 </label>
 <label>
-  <Switch bind:checked={variable} />
-  {variable ? "Variable" : "Fixed"}
+  <Switch bind:checked={leadingIcon} />
+  {leadingIcon ? "Leading icon" : "No leading icon"}
+</label>
+<label>
+  <Switch bind:checked={trailingIcon} />
+  {trailingIcon ? "Trailing icon" : "No trailing icon"}
+</label>
+<label>
+  <Switch bind:checked={errored} />
+  {errored ? "Errored" : "Not errored"}
+</label>
+<label>
+  <Switch bind:checked={enabled} />
+  {enabled ? "Enabled" : "Disabled"}
 </label>
 
 {#snippet demo()}
-  {#if variable}
-    <VariableTabs bind:tab secondary={type == "secondary"} {items} />
-  {:else}
-    <Tabs bind:tab secondary={type == "secondary"} {items} />
+  {#if type === "filled"}
+    <TextField
+      label="Field"
+      leadingIcon={leadingIcon ? iconCircle : undefined}
+      trailing={trailingIcon ? { icon: iconSquare, onclick: () => {} } : undefined}
+      error={errored}
+      disabled={!enabled}
+      type={option}
+    />
+  {:else if type === "outlined"}
+    <TextFieldOutlined
+      label="Field"
+      leadingIcon={leadingIcon ? iconCircle : undefined}
+      trailing={trailingIcon ? { icon: iconSquare, onclick: () => {} } : undefined}
+      error={errored}
+      disabled={!enabled}
+      type={option}
+    />
+  {:else if type === "filled_multiline"}
+    <TextFieldMultiline
+      label="Field"
+      leadingIcon={leadingIcon ? iconCircle : undefined}
+      error={errored}
+      disabled={!enabled}
+    />
+  {:else if type === "outlined_multiline"}
+    <TextFieldOutlinedMultiline
+      label="Field"
+      leadingIcon={leadingIcon ? iconCircle : undefined}
+      error={errored}
+      disabled={!enabled}
+    />
   {/if}
 {/snippet}
 </InternalCard>

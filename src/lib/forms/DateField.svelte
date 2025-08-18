@@ -143,7 +143,6 @@ opacity: ${Math.min(t * 3, 1)};`,
     color: rgb(var(--m3-scheme-on-surface-variant));
     border-top-right-radius: var(--m3-datefield-shape);
 
-    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
   }
 

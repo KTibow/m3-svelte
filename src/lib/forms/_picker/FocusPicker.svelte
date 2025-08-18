@@ -49,7 +49,6 @@
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
     border: none;
-    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     position: relative;
   }

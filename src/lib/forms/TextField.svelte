@@ -160,7 +160,6 @@
     border-start-end-radius: 0.25rem;
     border-end-end-radius: 0.25rem;
 
-    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
   }
 

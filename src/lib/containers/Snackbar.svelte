@@ -103,7 +103,6 @@
     border: none;
 
     background-color: transparent;
-    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     position: relative;
   }

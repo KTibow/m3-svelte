@@ -96,7 +96,6 @@
     user-select: none;
     position: relative;
     overflow: hidden;
-    -webkit-tap-highlight-color: transparent;
 
     &:disabled,
     &:is(:global(input:disabled) + label) {

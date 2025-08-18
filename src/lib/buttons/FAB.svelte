@@ -127,9 +127,6 @@
     color: rgb(var(--m3-scheme-on-tertiary-container));
   }
 
-  button {
-    -webkit-tap-highlight-color: transparent;
-  }
   @media (hover: hover) {
     .elevation-normal:hover {
       box-shadow: var(--m3-util-elevation-4);
