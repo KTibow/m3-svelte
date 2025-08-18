@@ -10,7 +10,7 @@
     ...extra
   }: {
     options: Option[];
-    width: string;
+    width?: string;
     value: string;
   } & HTMLSelectAttributes = $props();
 </script>

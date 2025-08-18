@@ -814,6 +814,7 @@ let options = [
   <Select
     {options}
     disabled={!enabled}
+    value="option1"
   />
 {/snippet}
 ```
