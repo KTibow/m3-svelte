@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  import type { HTMLSelectAttributes } from "svelte/elements";
+  import type { HTMLOptionAttributes, HTMLSelectAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
   import Icon from "$lib/misc/_icon.svelte";
 
-  type Option = { icon?: IconifyIcon; text: string; value: string };
+  type Option = { icon?: IconifyIcon; text: string; value: string } & HTMLOptionAttributes;
   let {
     options,
     width = "auto",
@@ -24,8 +24,8 @@
   bind:value
   {...extra}
 >
-  {#each options as { icon, text, value }, i (i)}
-    <option class="focus-inset" {value}>
+  {#each options as { icon, text, ...extra }, i (i)}
+    <option class="focus-inset" {...extra}>
       <Layer />
       {text}
       {#if icon}
