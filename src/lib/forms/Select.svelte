@@ -135,6 +135,7 @@
   option {
     display: flex;
     flex-direction: row-reverse;
+    justify-content: space-between;
     align-items: center;
     padding-inline: 1rem;
     padding-block: calc(
