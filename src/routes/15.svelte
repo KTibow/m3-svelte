@@ -34,6 +34,7 @@ const relevantLinks = [{"title":"Select.sv","link":"https://github.com/KTibow/m3
   <Select
     {options}
     disabled={!enabled}
+    value="option1"
   />
 {/snippet}
 </InternalCard>
