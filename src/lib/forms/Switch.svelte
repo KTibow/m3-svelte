@@ -18,7 +18,7 @@
     disabled?: boolean;
     uncheckedIcon?: IconifyIcon;
     checkedIcon?: IconifyIcon;
-    icons?: "both" | "none" | "checked";
+    icons?: "checked" | "both" | "none";
   } & HTMLInputAttributes = $props();
 
   let startX: number | undefined = $state();

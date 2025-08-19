@@ -916,8 +916,8 @@ Switch
 ```
 
 ```ts
-let icons = $state<"both" | "none" | "checked">("checked");
-let enabled = $state<boolean>(true);
+let icons: "checked" | "both" | "none" = $state("checked");
+let enabled = $state(true);
 ```
 
 ```svelte

@@ -7,8 +7,8 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 
-let icons = $state<"both" | "none" | "checked">("checked");
-let enabled = $state<boolean>(true);
+let icons: "checked" | "both" | "none" = $state("checked");
+let enabled = $state(true);
 
 let { showCode }: { showCode: (
   name: string,

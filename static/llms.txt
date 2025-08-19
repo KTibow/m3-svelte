@@ -1275,8 +1275,8 @@ Minimal demo:
 </label>
 ```
 
-The M3 Svelte interactive demo for this component uses Switch with the TS `let icons = $state<"both" | "none" | "checked">("checked");
-let enabled = $state<boolean>(true);` to make this demo:
+The M3 Svelte interactive demo for this component uses Switch with the TS `let icons: "checked" | "both" | "none" = $state("checked");
+let enabled = $state(true);` to make this demo:
 ```svelte
 <label>
   <Arrows list={["checked", "both", "none"]} bind:value={icons} />
