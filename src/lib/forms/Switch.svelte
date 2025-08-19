@@ -2,24 +2,24 @@
   import Icon from "$lib/misc/_icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
-  import iconClose from "@ktibow/iconset-material-symbols/close";
+  import iconX from "@ktibow/iconset-material-symbols/close";
   import type { HTMLInputAttributes } from "svelte/elements";
 
   // MUST BE WRAPPED IN A <label>
   let {
     checked = $bindable(false),
     disabled = false,
+    uncheckedIcon = iconX,
     checkedIcon = iconCheck,
-    uncheckedIcon = iconClose,
     icons = "checked",
     ...extra
-  } = $props<{
+  }: {
     checked?: boolean;
     disabled?: boolean;
-    checkedIcon?: IconifyIcon;
     uncheckedIcon?: IconifyIcon;
+    checkedIcon?: IconifyIcon;
     icons?: "both" | "none" | "checked";
-  } & HTMLInputAttributes>();
+  } & HTMLInputAttributes = $props();
 
   let startX = $state<number | undefined>();
   const handleMouseUp = (e: MouseEvent) => {
@@ -57,12 +57,11 @@
     }}
   />
   <div class="handle">
-    {#if icons !== "none"}
+    {#if icons != "none"}
       <Icon icon={checkedIcon} />
-    {/if}
-    
-    {#if icons === "both"}
-      <Icon icon={uncheckedIcon} />
+      {#if icons == "both"}
+        <Icon icon={uncheckedIcon} />
+      {/if}
     {/if}
   </div>
   <div class="hover"></div>
@@ -80,7 +79,6 @@
     height: 2rem;
   }
   input {
-    animation: none !important;
     appearance: none;
     width: 3.25rem;
     height: 2rem;
@@ -119,20 +117,20 @@
       opacity var(--m3-util-easing-fast-spatial),
       scale var(--m3-util-easing-fast-spatial);
   }
-  input:not(:checked) + :global(.handle:has(>:last-child:nth-child(2))) {
+  input:not(:checked) + :global(.handle:has(:nth-child(2))) {
     scale: 1.5;
+    > :global(svg) {
+      color: rgb(var(--m3-scheme-surface-container-highest));
+      scale: 0.667;
+      opacity: 1;
+    }
   }
-  input:not(:checked) + :global(.handle:has(>:last-child:nth-child(2))) > :global(svg) {
-    color: rgb(var(--m3-scheme-surface-container-highest));
-    scale: 0.667;
-    opacity: 1;
-  }
-  
-  input:checked + :global(.handle:has(>:last-child:nth-child(2))) > :global(svg:last-of-type),
-  input:not(:checked) + :global(.handle:has(>:last-child:nth-child(2))) > :global(svg:first-of-type) {
+
+  input:checked + :global(.handle) > :global(svg:nth-child(2)),
+  input:not(:checked) + :global(.handle) > :global(svg:first-child) {
     display: none;
   }
-  
+
   .hover {
     position: absolute;
     width: 2.5rem;
@@ -164,13 +162,6 @@
   }
   .m3-container:hover > input:checked ~ .hover {
     background-color: rgb(var(--m3-scheme-primary) / 0.08);
-  }
-  
-  input:not(:disabled):focus-visible {
-    outline: solid;
-    outline-color: rgb(var(--m3-scheme-secondary));
-    outline-width: 3px;
-    outline-offset: 2px;
   }
 
   input:checked {

@@ -923,7 +923,7 @@ let enabled = $state<boolean>(true);
 ```svelte
 <label>
   <Arrows list={["checked", "both", "none"]} bind:value={icons} />
-  {icons == "checked" ? "Icon on selected" : icons == "both" ? "Icon on both" : "Without icons"}
+  {icons == "checked" ? "Checked icon" : icons == "both" ? "Both icons" : "No icons"}
 </label>
 <label>
   <Switch bind:checked={enabled} />

@@ -25,7 +25,7 @@ const relevantLinks = [{"title":"Switch.sv","link":"https://github.com/KTibow/m3
 <InternalCard title="Switch" showCode={() => showCode("Switch", minimalDemo, relevantLinks)}>
 <label>
   <Arrows list={["checked", "both", "none"]} bind:value={icons} />
-  {icons == "checked" ? "Icon on selected" : icons == "both" ? "Icon on both" : "Without icons"}
+  {icons == "checked" ? "Checked icon" : icons == "both" ? "Both icons" : "No icons"}
 </label>
 <label>
   <Switch bind:checked={enabled} />
