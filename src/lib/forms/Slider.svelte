@@ -197,7 +197,7 @@
     top: 50%;
     inset-inline-end: 4px;
     translate: 0 -50%;
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: rgb(var(--m3-scheme-on-secondary-container));
     pointer-events: none;
     &.hidden {
       display: none;
@@ -261,7 +261,7 @@
     &:dir(rtl) {
       translate: 50% -50%;
     }
-    background-color: rgb(var(--m3-scheme-secondary-container));
+    background-color: rgb(var(--m3-scheme-on-primary));
     pointer-events: none;
   }
 
@@ -270,7 +270,7 @@
   }
 
   .tick.inactive {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: rgb(var(--m3-scheme-on-secondary-container));
   }
 
   :global(.leading) ~ .tick:nth-child(1 of div.tick) {

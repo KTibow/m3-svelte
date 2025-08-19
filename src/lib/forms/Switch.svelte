@@ -1,16 +1,24 @@
 <script lang="ts">
   import Icon from "$lib/misc/_icon.svelte";
+  import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
+  import iconX from "@ktibow/iconset-material-symbols/close";
   import type { HTMLInputAttributes } from "svelte/elements";
 
   // MUST BE WRAPPED IN A <label>
   let {
     checked = $bindable(false),
     disabled = false,
+    uncheckedIcon = iconX,
+    checkedIcon = iconCheck,
+    icons = "checked",
     ...extra
   }: {
     checked?: boolean;
     disabled?: boolean;
+    uncheckedIcon?: IconifyIcon;
+    checkedIcon?: IconifyIcon;
+    icons?: "checked" | "both" | "none";
   } & HTMLInputAttributes = $props();
 
   let startX: number | undefined = $state();
@@ -49,7 +57,12 @@
     }}
   />
   <div class="handle">
-    <Icon icon={iconCheck} />
+    {#if icons != "none"}
+      <Icon icon={checkedIcon} />
+      {#if icons == "both"}
+        <Icon icon={uncheckedIcon} />
+      {/if}
+    {/if}
   </div>
   <div class="hover"></div>
 </div>
@@ -104,6 +117,20 @@
       opacity var(--m3-util-easing-fast-spatial),
       scale var(--m3-util-easing-fast-spatial);
   }
+  input:not(:checked) + :global(.handle:has(:nth-child(2))) {
+    scale: 1.5;
+    > :global(svg) {
+      color: rgb(var(--m3-scheme-surface-container-highest));
+      scale: 0.667;
+      opacity: 1;
+    }
+  }
+
+  input:checked + :global(.handle) > :global(svg:nth-child(2)),
+  input:not(:checked) + :global(.handle) > :global(svg:first-child) {
+    display: none;
+  }
+
   .hover {
     position: absolute;
     width: 3rem;
@@ -121,8 +148,8 @@
     justify-content: center;
   }
 
-  .m3-container:hover > input:enabled + .handle,
-  .m3-container > input:enabled:is(:global(:active, :focus-visible)) + .handle {
+  .m3-container:hover > input:not(:checked):not(:disabled) + .handle,
+  .m3-container:active > input:not(:checked):not(:disabled) + .handle {
     background-color: rgb(var(--m3-scheme-on-surface-variant));
   }
   .m3-container:hover > input:enabled:checked + .handle,

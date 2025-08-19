@@ -921,10 +921,15 @@ Switch
 ```
 
 ```ts
+let icons: "checked" | "both" | "none" = $state("checked");
 let enabled = $state(true);
 ```
 
 ```svelte
+<label>
+  <Arrows list={["checked", "both", "none"]} bind:value={icons} />
+  {icons == "checked" ? "Checked icon" : icons == "both" ? "Both icons" : "No icons"}
+</label>
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
@@ -932,7 +937,7 @@ let enabled = $state(true);
 
 {#snippet demo()}
   <label>
-    <Switch disabled={!enabled} />
+    <Switch disabled={!enabled} {icons} />
   </label>
 {/snippet}
 ```

@@ -7,6 +7,7 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 
+let icons: "checked" | "both" | "none" = $state("checked");
 let enabled = $state(true);
 
 let { showCode }: { showCode: (
@@ -23,13 +24,17 @@ const relevantLinks = [{"title":"Switch.sv","link":"https://github.com/KTibow/m3
 
 <InternalCard title="Switch" showCode={() => showCode("Switch", minimalDemo, relevantLinks)}>
 <label>
+  <Arrows list={["checked", "both", "none"]} bind:value={icons} />
+  {icons == "checked" ? "Checked icon" : icons == "both" ? "Both icons" : "No icons"}
+</label>
+<label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
 
 {#snippet demo()}
   <label>
-    <Switch disabled={!enabled} />
+    <Switch disabled={!enabled} {icons} />
   </label>
 {/snippet}
 </InternalCard>
