@@ -21,7 +21,7 @@
     icons?: "both" | "none" | "checked";
   } & HTMLInputAttributes = $props();
 
-  let startX = $state<number | undefined>();
+  let startX: number | undefined = $state();
   const handleMouseUp = (e: MouseEvent) => {
     if (!startX) return;
     const distance = e.clientX - startX;
@@ -133,8 +133,8 @@
 
   .hover {
     position: absolute;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: var(--m3-util-rounding-full);
 
     cursor: pointer;
