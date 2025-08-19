@@ -16,6 +16,7 @@
     trailingIcon,
     ticks = false,
     endStops = true,
+    handle = true,
     format = (n: number) => {
       return n.toFixed(0);
     },
@@ -32,6 +33,7 @@
     trailingIcon?: IconifyIcon;
     ticks?: boolean;
     endStops?: boolean;
+    handle?: boolean;
     format?: (n: number) => string;
   } & Omit<HTMLInputAttributes, "size"> = $props();
   let containerWidth = $state(600);
@@ -261,7 +263,7 @@
     &:dir(rtl) {
       translate: 50% -50%;
     }
-    background-color: rgb(var(--m3-scheme-secondary-container));
+    background-color: rgb(var(--m3-scheme-on-primary));
     pointer-events: none;
   }
 
@@ -270,7 +272,7 @@
   }
 
   .tick.inactive {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: rgb(var(--m3-scheme-on-surface-variant));
   }
 
   :global(.leading) ~ .tick:nth-child(1 of div.tick) {
