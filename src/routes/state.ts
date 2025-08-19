@@ -5,8 +5,7 @@ export const styling = writable(`
   :root {
     color-scheme: light;
   }
-  :root,
-  ::backdrop {
+  :root, ::backdrop {
     --m3-scheme-background: 253 247 254;
     --m3-scheme-on-background: 52 49 58;
     --m3-scheme-surface: 253 247 254;
@@ -71,8 +70,7 @@ export const styling = writable(`
   :root {
     color-scheme: dark;
   }
-  :root,
-  ::backdrop {
+  :root, ::backdrop {
     --m3-scheme-background: 15 13 18;
     --m3-scheme-on-background: 234 227 239;
     --m3-scheme-surface: 15 13 18;
@@ -84,7 +82,7 @@ export const styling = writable(`
     --m3-scheme-surface-container-high: 33 30 38;
     --m3-scheme-surface-container-highest: 39 36 45;
     --m3-scheme-on-surface: 234 227 239;
-    --m3-scheme-on-surface-variant: 151 145 156;
+    --m3-scheme-on-surface-variant: 175 169 180;
     --m3-scheme-outline: 120 115 126;
     --m3-scheme-outline-variant: 74 70 80;
     --m3-scheme-inverse-surface: 253 247 254;
