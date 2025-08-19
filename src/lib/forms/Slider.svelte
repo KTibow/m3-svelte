@@ -16,7 +16,6 @@
     trailingIcon,
     ticks = false,
     endStops = true,
-    handle = true,
     format = (n: number) => {
       return n.toFixed(0);
     },
@@ -33,7 +32,6 @@
     trailingIcon?: IconifyIcon;
     ticks?: boolean;
     endStops?: boolean;
-    handle?: boolean;
     format?: (n: number) => string;
   } & Omit<HTMLInputAttributes, "size"> = $props();
   let containerWidth = $state(600);
