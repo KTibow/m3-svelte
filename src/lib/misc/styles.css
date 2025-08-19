@@ -83,7 +83,7 @@
   --m3-util-timing-function-emphasized-accel: cubic-bezier(0.3, 0, 0.8, 0.15);
   --m3-util-timing-function-emphasized-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
 
-  /* deprecated / todo next release remove */
+  /* deprecated */
   --m3-util-curve: var(--m3-util-timing-function-emphasized);
   --m3-util-curve-accel: var(--m3-util-timing-function-emphasized-accel);
   --m3-util-curve-decel: var(--m3-util-timing-function-emphasized-decel);
