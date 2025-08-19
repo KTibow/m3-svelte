@@ -15,8 +15,8 @@ importers:
         specifier: ^0.0.1755063979
         version: 0.0.1755063979
       '@ktibow/material-color-utilities-nightly':
-        specifier: ^0.3.11755481233385
-        version: 0.3.11755481233385
+        specifier: ^0.3.11755566548582
+        version: 0.3.11755566548582
       svelte:
         specifier: ^5.38.2
         version: 5.38.2
@@ -29,10 +29,10 @@ importers:
         version: 9.33.0
       '@sveltejs/adapter-static':
         specifier: ^3.0.9
-        version: 3.0.9(@sveltejs/kit@2.32.0(@sveltejs/vite-plugin-svelte@6.1.2(svelte@5.38.2)(vite@7.1.2))(svelte@5.38.2)(vite@7.1.2))
+        version: 3.0.9(@sveltejs/kit@2.33.0(@sveltejs/vite-plugin-svelte@6.1.2(svelte@5.38.2)(vite@7.1.2))(svelte@5.38.2)(vite@7.1.2))
       '@sveltejs/kit':
-        specifier: ^2.32.0
-        version: 2.32.0(@sveltejs/vite-plugin-svelte@6.1.2(svelte@5.38.2)(vite@7.1.2))(svelte@5.38.2)(vite@7.1.2)
+        specifier: ^2.33.0
+        version: 2.33.0(@sveltejs/vite-plugin-svelte@6.1.2(svelte@5.38.2)(vite@7.1.2))(svelte@5.38.2)(vite@7.1.2)
       '@sveltejs/package':
         specifier: ^2.4.1
         version: 2.4.1(svelte@5.38.2)(typescript@5.9.2)
@@ -336,8 +336,8 @@ packages:
   '@ktibow/iconset-material-symbols@0.0.1755063979':
     resolution: {integrity: sha512-ru49BoA2f+GZHFk1Ha/gUqEUOqBit+8bUIYYR2lbGwH9MwOCIdbl3pgrDHbgeW+q96rDnJDyg8+HXgI8AwCLSg==}
 
-  '@ktibow/material-color-utilities-nightly@0.3.11755481233385':
-    resolution: {integrity: sha512-5I5vzVL1DLkrZeoKhIbUylNTTDlCx/If2bMqI53e1fE6jP1BUh1mBS05cVcjGdaLYC8too88E0oY0witk4+AzQ==}
+  '@ktibow/material-color-utilities-nightly@0.3.11755566548582':
+    resolution: {integrity: sha512-jeaJEt177QcXbAdjxXlxYqUe6yz+3OU+EEVx0Vne0DuJmB+GMyU9ISRspiUAzk2pWLHM/OYrnvsBpMZgXvAKrg==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -471,8 +471,8 @@ packages:
     peerDependencies:
       '@sveltejs/kit': ^2.0.0
 
-  '@sveltejs/kit@2.32.0':
-    resolution: {integrity: sha512-G2iWAd8KizWnn439vn+yyV2CCIpSnv64D+nIW/xs+SnrIEOdUtiGoWhlxVm25ETI+fZQmfqVquyN0EkKr5p5OA==}
+  '@sveltejs/kit@2.33.0':
+    resolution: {integrity: sha512-cqS4wIl93pI0s830A3c1e5m8nMp9vt9XDadyPfzGlKR0jTaREJvouN87AqqNUHZUVdI9GQDsu3FMKfb/UXPUkA==}
     engines: {node: '>=18.13'}
     hasBin: true
     peerDependencies:
@@ -1414,7 +1414,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@ktibow/material-color-utilities-nightly@0.3.11755481233385': {}
+  '@ktibow/material-color-utilities-nightly@0.3.11755566548582': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -1498,11 +1498,11 @@ snapshots:
     dependencies:
       acorn: 8.15.0
 
-  '@sveltejs/adapter-static@3.0.9(@sveltejs/kit@2.32.0(@sveltejs/vite-plugin-svelte@6.1.2(svelte@5.38.2)(vite@7.1.2))(svelte@5.38.2)(vite@7.1.2))':
+  '@sveltejs/adapter-static@3.0.9(@sveltejs/kit@2.33.0(@sveltejs/vite-plugin-svelte@6.1.2(svelte@5.38.2)(vite@7.1.2))(svelte@5.38.2)(vite@7.1.2))':
     dependencies:
-      '@sveltejs/kit': 2.32.0(@sveltejs/vite-plugin-svelte@6.1.2(svelte@5.38.2)(vite@7.1.2))(svelte@5.38.2)(vite@7.1.2)
+      '@sveltejs/kit': 2.33.0(@sveltejs/vite-plugin-svelte@6.1.2(svelte@5.38.2)(vite@7.1.2))(svelte@5.38.2)(vite@7.1.2)
 
-  '@sveltejs/kit@2.32.0(@sveltejs/vite-plugin-svelte@6.1.2(svelte@5.38.2)(vite@7.1.2))(svelte@5.38.2)(vite@7.1.2)':
+  '@sveltejs/kit@2.33.0(@sveltejs/vite-plugin-svelte@6.1.2(svelte@5.38.2)(vite@7.1.2))(svelte@5.38.2)(vite@7.1.2)':
     dependencies:
       '@standard-schema/spec': 1.0.0
       '@sveltejs/acorn-typescript': 1.0.5(acorn@8.15.0)
