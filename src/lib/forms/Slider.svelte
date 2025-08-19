@@ -272,7 +272,7 @@
   }
 
   .tick.inactive {
-    background-color: rgb(var(--m3-scheme-on-surface-variant));
+    background-color: rgb(var(--m3-scheme-on-secondary-container));
   }
 
   :global(.leading) ~ .tick:nth-child(1 of div.tick) {
