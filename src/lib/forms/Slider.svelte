@@ -197,7 +197,7 @@
     top: 50%;
     inset-inline-end: 4px;
     translate: 0 -50%;
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: rgb(var(--m3-scheme-on-secondary-container));
     pointer-events: none;
     &.hidden {
       display: none;

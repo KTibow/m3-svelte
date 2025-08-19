@@ -156,8 +156,8 @@
   }
   .m3-container:hover > input:enabled:checked + .handle,
   .m3-container > input:enabled:checked:is(:global(:active, :focus-visible)) + .handle {
-    background-color: rgb(var(--m3-scheme-secondary-container));
-    color: rgb(var(--m3-scheme-secondary-dim));
+    background-color: rgb(var(--m3-scheme-primary-container));
+    color: rgb(var(--m3-scheme-on-primary-container));
   }
   .m3-container:hover > input ~ .hover {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
