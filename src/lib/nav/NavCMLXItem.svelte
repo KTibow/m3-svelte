@@ -8,7 +8,7 @@
     | ({ click: () => void } & HTMLButtonAttributes)
     | ({ href: string } & HTMLAnchorAttributes);
   let props: {
-    variant: "compact" | "medium" | "large" | "expanded" | "auto";
+    variant: "compact" | "medium" | "large" | "expanded" | "auto"; // next release / "deprecated": rename expanded to extra-large
     icon: IconifyIcon;
     text: string;
     selected: boolean;
