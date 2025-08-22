@@ -68,14 +68,14 @@
       &:hover,
       &:open {
         background-color: color-mix(
-          in oklab,
+          in srgb-linear,
           rgb(var(--m3-scheme-surface-container-highest)),
           currentColor 8%
         );
       }
       &:active {
         background-color: color-mix(
-          in oklab,
+          in srgb-linear,
           rgb(var(--m3-scheme-surface-container-highest)),
           currentColor 12%
         );
