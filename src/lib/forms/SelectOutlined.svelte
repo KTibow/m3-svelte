@@ -39,14 +39,20 @@
       </option>
     {/each}
   </select>
+  <div class="layer"></div>
   <label for={id} class="m3-font-body-small">
     {label}
   </label>
 </div>
 
 <style>
+  /*
+  want to customize the label's background?
+  do this: <SelectOutlined --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
+  */
   :root {
     --m3-menu-shape: var(--m3-util-rounding-extra-small);
+    --m3-select-outlined-shape: var(--m3-util-rounding-extra-small);
   }
 
   .m3-container {
@@ -54,23 +60,37 @@
     flex-direction: column;
     position: relative;
     --secondary-color: rgb(var(--m3-scheme-on-surface-variant));
+    --outline-color: rgb(var(--m3-scheme-outline));
     &.enabled {
       &:hover {
         --secondary-color: rgb(var(--m3-scheme-on-surface));
+        --outline-color: rgb(var(--m3-scheme-on-surface));
       }
       &:focus-within {
         --secondary-color: rgb(var(--m3-scheme-primary));
-        select {
-          box-shadow: inset 0px -2px var(--secondary-color);
+        --outline-color: rgb(var(--m3-scheme-primary));
+        .layer {
+          border-width: 0.125rem;
         }
       }
     }
   }
+  .layer {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--outline-color);
+    border-radius: var(--m3-select-outlined-shape);
+    pointer-events: none;
+    transition: all 100ms;
+  }
   label {
     position: absolute;
-    top: 0.5rem;
-    inset-inline: 1rem;
+    top: 0;
+    inset-inline-start: 0.75rem;
+    translate: 0 -50%;
     color: var(--secondary-color);
+    background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
+    padding: 0 0.25rem;
     pointer-events: none;
     transition: color var(--m3-util-easing-fast);
   }
@@ -87,44 +107,23 @@
     display: flex;
     align-items: center;
     height: calc(3.5rem + var(--m3-util-density-term));
-    padding-top: calc(
-      var(--m3-font-body-small-size, 0.75rem) * var(--m3-font-body-small-height, 1.333)
-    );
     padding-inline: 1rem;
 
-    border-radius: var(--m3-textfield-filled-shape) var(--m3-textfield-filled-shape) 0 0;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
-    transition:
-      background-color var(--m3-util-easing-fast),
-      box-shadow var(--m3-util-easing-fast);
+    border-radius: var(--m3-select-outlined-shape);
+    background-color: transparent;
+    color: rgb(var(--m3-scheme-on-surface));
 
     border: none;
+    outline: none;
     position: relative;
 
     &:enabled {
       cursor: pointer;
-      &:hover,
-      &:open {
-        background-color: color-mix(
-          in oklab,
-          rgb(var(--m3-scheme-surface-container-highest)),
-          currentColor 8%
-        );
-      }
-      &:active {
-        background-color: color-mix(
-          in oklab,
-          rgb(var(--m3-scheme-surface-container-highest)),
-          currentColor 12%
-        );
-      }
     }
-
-    box-shadow: inset 0px -1px var(--secondary-color);
   }
 
   select::picker-icon {
-    scale: 1 0.6; /* yes we are squashing the arrow, surely you don't have a problem with that */
+    scale: 1 0.6;
     color: var(--secondary-color);
     transition:
       color var(--m3-util-easing-fast),

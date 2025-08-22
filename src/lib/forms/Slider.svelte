@@ -352,11 +352,11 @@
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
   input:disabled ~ .tick {
-    background-color: rgb(var(--m3-scheme-inverse-on-surface) / 0.66);
+    background-color: rgb(var(--m3-scheme-inverse-on-surface));
   }
   input:disabled ~ .tick.inactive,
   input:disabled ~ .endstop {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: rgb(var(--m3-scheme-on-surface));
   }
 
   @media screen and (forced-colors: active) {
