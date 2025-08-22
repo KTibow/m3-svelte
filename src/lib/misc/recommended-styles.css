@@ -37,3 +37,8 @@
   background-color: rgb(var(--m3-scheme-tertiary-container));
   color: rgb(var(--m3-scheme-on-tertiary-container));
 }
+
+:root {
+    scroll-behavior: smooth;
+    scrollbar-color: rgb(var(--m3-scheme-on-secondary-fixed-variant)) rgb(var(--m3-scheme-surface-container-low));
+}

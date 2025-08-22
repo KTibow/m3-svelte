@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { slide } from "svelte/transition";
+  import { fly } from "svelte/transition";
   import { innerWidth } from "svelte/reactivity/window";
   import { easeEmphasized } from "$lib/misc/easing";
   import StandardSideSheet from "$lib/containers/StandardSideSheet.svelte";
@@ -28,6 +28,7 @@
   import Demo18 from "./18.svelte";
   import Demo19 from "./19.svelte";
   import Demo20 from "./20.svelte";
+  import Demo21 from "./21.svelte";
 
   type DocData = {
     name: string;
@@ -81,9 +82,10 @@
     <Demo18 {showCode} />
     <Demo19 {showCode} />
     <Demo20 {showCode} />
+    <Demo21 {showCode} />
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
-    <div class="sheet" transition:slide={{ easing: easeEmphasized, duration: 500, axis: "x" }}>
+    <div class="sheet" transition:fly={{ easing: easeEmphasized, duration: 500, x: 320 }}>
       <StandardSideSheet headline={doc.name} close={() => (doc = undefined)}>
         {@render docs()}
       </StandardSideSheet>
@@ -113,18 +115,16 @@
     grid-column: 1;
   }
   .sheet {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: column;
-    width: 16rem;
-    margin-inline-start: 1rem;
-    border-inline-start: solid 1px rgb(var(--m3-scheme-outline));
-
-    position: sticky;
-    top: 0;
-    height: 100dvh;
-    overflow: auto;
-    grid-row: 1 / span 3;
-    grid-column: 2;
+    width: 20rem;
+    background: rgb(var(--m3-scheme-surface-container));
+    border-top-left-radius: var(--m3-util-rounding-large);
+    border-bottom-left-radius: var(--m3-util-rounding-large);
   }
 
   @media (width >= 52.5rem) {
