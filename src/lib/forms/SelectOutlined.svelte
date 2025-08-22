@@ -60,12 +60,15 @@
     flex-direction: column;
     position: relative;
     --secondary-color: rgb(var(--m3-scheme-on-surface-variant));
+    --outline-color: rgb(var(--m3-scheme-outline));
     &.enabled {
       &:hover {
         --secondary-color: rgb(var(--m3-scheme-on-surface));
+        --outline-color: rgb(var(--m3-scheme-on-surface));
       }
       &:focus-within {
         --secondary-color: rgb(var(--m3-scheme-primary));
+        --outline-color: rgb(var(--m3-scheme-primary));
         .layer {
           border-width: 0.125rem;
         }
@@ -75,7 +78,7 @@
   .layer {
     position: absolute;
     inset: 0;
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--outline-color);
     border-radius: var(--m3-select-outlined-shape);
     pointer-events: none;
     transition: all 100ms;
