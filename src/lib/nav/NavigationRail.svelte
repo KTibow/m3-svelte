@@ -6,6 +6,7 @@
 
   import Icon from "$lib/misc/_icon.svelte";
 
+  let m3Container = $state<HTMLDivElement>();
   let {
     open = false,
     collapsible = true,
@@ -23,8 +24,8 @@
   } = $props();
 </script>
 
-<div class="m3-container" class:fullyCollapse>
-  <div class="rail" class:open={open && collapsible} class:modal>
+<div class="m3-container" bind:this={m3Container}>
+  <div class="rail" class:open={open && collapsible} class:fullyCollapse class:modal>
     <div class="top">
       {#if collapsible}
         <button class="collapse" onclick={() => (open = !open)}>
@@ -43,6 +44,11 @@
       {@render children()}
     </div>
   </div>
+  
+  {#if modal}
+    <!--svelte-ignore a11y_no_static_element_interactions--><!--svelte-ignore a11y_click_events_have_key_events-->
+    <div class="shadow" onclick={() => open = false}></div>
+  {/if}
 </div>
 
 <style>
@@ -51,20 +57,20 @@
     height: 100%;
   }
 
-  .m3-container.fullyCollapse {
+  .m3-container:has(.fullyCollapse) {
     width: 0;
   }
 
-  .m3-container.fullyCollapse > .rail:not(.open) {
+  .rail.fullyCollapse:not(.open) {
     background: none !important;
   }
 
-  .m3-container.fullyCollapse > .rail {
+  .rail.fullyCollapse {
     position: fixed;
   }
 
-  .m3-container.fullyCollapse > .rail:not(.open) > .items,
-  .m3-container.fullyCollapse > .rail:not(.open) > .top > div {
+  .rail.fullyCollapse:not(.open) > .items,
+  .rail.fullyCollapse:not(.open) > .top > div {
     opacity: 0;
     pointer-events: none;
   }
@@ -127,8 +133,21 @@
     width: 180px;
     gap: 0px;
   }
+  
+  .shadow {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: rgb(var(--m3-scheme-scrim) / 0.5);
+    transition: all 200ms;
+  }
+  
+  .rail:not(.open) + .shadow {
+    opacity: 0;
+    pointer-events: none;
+  }
 
-  @media (width <= 220px) {
+  @media (width <= 300px) {
     .rail.open {
       border-radius: 0px !important;
       width: 100%;

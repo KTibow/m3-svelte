@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fly } from "svelte/transition";
+  import { fade, fly } from "svelte/transition";
   import { innerWidth } from "svelte/reactivity/window";
   import { easeEmphasized } from "$lib/misc/easing";
   import StandardSideSheet from "$lib/containers/StandardSideSheet.svelte";
@@ -86,12 +86,15 @@
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
     <div class="sheet" transition:fly={{ easing: easeEmphasized, duration: 500, x: 320 }}>
-      <StandardSideSheet headline={doc.name} close={() => (doc = undefined)}>
+      <StandardSideSheet headline={doc.name} close={() => doc = undefined}>
         {@render docs()}
       </StandardSideSheet>
     </div>
+    
+    <!--svelte-ignore a11y_no_static_element_interactions--><!--svelte-ignore a11y_click_events_have_key_events-->
+    <div class="shadow" transition:fade={{ duration: 200 }} onclick={() => doc = undefined}></div>
   {:else if doc}
-    <BottomSheet close={() => (doc = undefined)}>
+    <BottomSheet close={() => doc = undefined}>
       {@render docs()}
     </BottomSheet>
   {/if}
@@ -116,15 +119,22 @@
   }
   .sheet {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    z-index: 1;
+    inset: 0;
+    left: auto;
     display: flex;
     flex-direction: column;
     width: 20rem;
     background: rgb(var(--m3-scheme-surface-container));
     border-top-left-radius: var(--m3-util-rounding-large);
     border-bottom-left-radius: var(--m3-util-rounding-large);
+  }
+  
+  .shadow {
+    position: fixed;
+    inset: 0;
+    background: rgb(var(--m3-scheme-scrim) / 0.5);
+    transition: all 200ms;
   }
 
   @media (width >= 52.5rem) {

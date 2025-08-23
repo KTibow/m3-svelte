@@ -53,7 +53,7 @@
     gap: 4px;
     font-size: 12px;
     user-select: none;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: rgb(var(--m3-scheme-secondary));
     width: fit-content;
     position: relative;
   }

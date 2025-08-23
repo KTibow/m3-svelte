@@ -112,6 +112,7 @@
     background-color: rgb(var(--m3-scheme-surface-container-low));
     padding: 1rem;
     border-radius: 0.5rem;
+    width: calc(100% - 2rem);
   }
 
   .variants {

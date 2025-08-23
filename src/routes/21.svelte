@@ -24,7 +24,7 @@
 
   const minimalDemo = `${"<"}NavigationRail>
   {#snippet fab(open)}
-    ${"<"}FAB color="primary-container" icon={iconCircle} text={open ? 'Label' : ''} onclick={() => alert("!")} />
+    ${"<"}FAB color="primary-container" icon={iconCircle} text={open ? "Label" : ""} onclick={() => alert("!")} />
   {/snippet}
     
   ${"<"}NavigationRailItem label="Label" icon={iconStar} active />
@@ -32,7 +32,7 @@
   ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} />
 
   ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} badge={{
-      label: '3'
+      label: "3"
   }} />
 
   ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} badge={{

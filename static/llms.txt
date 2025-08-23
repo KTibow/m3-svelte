@@ -1560,41 +1560,39 @@ let modal = $state<boolean>(false);` to make this demo:
 </label>
 
 {#snippet demo()}
-  <div class="container">
-    <NavigationRail
-      fullyCollapse={fullyCollapse && !(!modal || !collapsible)}
-      {collapsible}
-      {modal}
-    >
-      {#snippet fab(open)}
-        <FAB
-          color="primary-container"
-          icon={EditIcon}
-          text={open ? "Label" : ""}
-          onclick={() => {}}
-        />
-      {/snippet}
-
-      <NavigationRailItem label="Label" icon={StarIcon} active />
-
-      <NavigationRailItem label="Label" icon={StarsOutlineIcon} />
-
-      <NavigationRailItem
-        label="Label"
-        icon={StarsOutlineIcon}
-        badge={{
-          label: "3",
-        }}
+  <NavigationRail
+    fullyCollapse={fullyCollapse && !(!modal || !collapsible)}
+    {collapsible}
+    {modal}
+  >
+    {#snippet fab(open)}
+      <FAB
+        color="primary-container"
+        icon={EditIcon}
+        text={open ? "Label" : ""}
+        onclick={() => {}}
       />
+    {/snippet}
 
-      <NavigationRailItem
-        label="Label"
-        icon={StarsOutlineIcon}
-        badge={{
-          small: true,
-        }}
-      />
-    </NavigationRail>
-  </div>
+    <NavigationRailItem label="Label" icon={StarIcon} active />
+
+    <NavigationRailItem label="Label" icon={StarsOutlineIcon} />
+
+    <NavigationRailItem
+      label="Label"
+      icon={StarsOutlineIcon}
+      badge={{
+        label: "3",
+      }}
+    />
+
+    <NavigationRailItem
+      label="Label"
+      icon={StarsOutlineIcon}
+      badge={{
+        small: true,
+      }}
+    />
+  </NavigationRail>
 {/snippet}
 ```
