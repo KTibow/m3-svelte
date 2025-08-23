@@ -152,6 +152,11 @@
     .m3-container:not(.active):active {
       background-color: color-mix(in srgb-linear, currentColor 12%, transparent);
     }
+    
+    .icon {
+        width: 24px;
+        height: 24px;
+    }
 
     .icon > .badge {
       right: -4px;

@@ -77,16 +77,13 @@
   </div>
 
   <div class="content">
-    <div>
-      {@render children()}
-    </div>
+    {@render children()}
   </div>
 </div>
 
 <style>
   .container {
     display: flex;
-    min-height: 100dvh;
     height: 100vh;
     overflow: hidden;
     background: rgb(var(--m3-scheme-surface-container));
@@ -95,11 +92,10 @@
     z-index: 1;
   }
   .content {
-    display: flex;
-    flex-direction: column;
     overflow: auto;
     padding: 1rem;
     width: 100%;
+    height: 100%;
     position: relative;
     background: rgb(var(--m3-scheme-background));
   }
