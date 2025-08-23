@@ -92,7 +92,7 @@
     background: rgb(var(--m3-scheme-surface-container));
   }
   .sidebar {
-    z-index: 999;
+    z-index: 1;
   }
   .content {
     display: flex;

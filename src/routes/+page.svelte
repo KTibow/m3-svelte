@@ -119,7 +119,7 @@
   }
   .sheet {
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     inset: 0;
     left: auto;
     display: flex;
@@ -132,6 +132,7 @@
   
   .shadow {
     position: fixed;
+    z-index: 2;
     inset: 0;
     background: rgb(var(--m3-scheme-scrim) / 0.5);
     transition: all 200ms;
