@@ -1479,8 +1479,6 @@ let errored = $state(false);` to make this demo:
 {/snippet}
 ```
 
-## Addendum: more components
-
 ### Nav CMLX
 
 This component works across all 4 breakpoints: compact, small, large, and expanded. Compact is equivalent to the old navigation bar (items vertical but arranged horizontally), Small is new (items horizontal and arranged horizontally), Large is equivalent to the old navigation rail (items vertical and arranged vertically), and Expanded is equivalent to the old navigation drawer (items horizontal but arranged vertically). It can take a `click` if it's a button or an `href` if it's a link.
@@ -1491,4 +1489,97 @@ Minimal demo:
   <NavCMLXItem variant="auto" icon={iconCircle} text="A" selected={item == "a"} click={() => item = "a"} />
   <NavCMLXItem variant="auto" icon={iconSquare} text="B" selected={item == "b"} click={() => item = "b"} />
 </NavCMLX>
+```
+
+### Navigation Rail
+
+Minimal demo:
+```svelte
+<NavigationRail>
+  {#snippet fab(open)}
+    <FAB
+      color="primary-container"
+      icon={iconCircle}
+      text={open ? "Label" : ""}
+      onclick={() => alert("!")}
+    />
+  {/snippet}
+
+  <NavigationRailItem label="Label" icon={iconStar} active />
+
+  <NavigationRailItem label="Label" icon={iconStarOutline} />
+
+  <NavigationRailItem
+    label="Label"
+    icon={iconStarOutline}
+    badge={{
+      label: "3",
+    }}
+  />
+
+  <NavigationRailItem
+    label="Label"
+    icon={iconStarOutline}
+    badge={{
+      small: true,
+    }}
+  />
+</NavigationRail>
+```
+
+The M3 Svelte interactive demo for this component uses NavigationRail, NavigationRailItem with the TS `let fullyCollapse = $state<boolean>(false);
+let collapsible = $state<boolean>(true);
+let modal = $state<boolean>(false);` to make this demo:
+```svelte
+<label>
+  <Switch bind:checked={modal} />
+  {modal ? "Modal" : "Normal"}
+</label>
+<label>
+  <Switch bind:checked={fullyCollapse} disabled={!modal || !collapsible} />
+  {fullyCollapse ? "Fully Collapse" : "Collapse"}
+</label>
+<label>
+  <Switch bind:checked={collapsible} />
+  {collapsible ? "Collapsible" : "Fixed"}
+</label>
+
+{#snippet demo()}
+  <div class="container">
+    <NavigationRail
+      fullyCollapse={fullyCollapse && !(!modal || !collapsible)}
+      {collapsible}
+      {modal}
+    >
+      {#snippet fab(open)}
+        <FAB
+          color="primary-container"
+          icon={EditIcon}
+          text={open ? "Label" : ""}
+          onclick={() => {}}
+        />
+      {/snippet}
+
+      <NavigationRailItem label="Label" icon={StarIcon} active />
+
+      <NavigationRailItem label="Label" icon={StarsOutlineIcon} />
+
+      <NavigationRailItem
+        label="Label"
+        icon={StarsOutlineIcon}
+        badge={{
+          label: "3",
+        }}
+      />
+
+      <NavigationRailItem
+        label="Label"
+        icon={StarsOutlineIcon}
+        badge={{
+          small: true,
+        }}
+      />
+    </NavigationRail>
+  </div>
+{/snippet}
 ```

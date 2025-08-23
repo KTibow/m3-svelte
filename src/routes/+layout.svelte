@@ -12,8 +12,8 @@
   import { page } from "$app/state";
   import NavCMLX from "$lib/nav/NavCMLX.svelte";
   import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
-  import NavigationRailItem from '$lib/nav/NavigationRailItem.svelte';
-  import NavigationRail from '$lib/nav/NavigationRail.svelte';
+  import NavigationRailItem from "$lib/nav/NavigationRailItem.svelte";
+  import NavigationRail from "$lib/nav/NavigationRail.svelte";
   import { styling } from "./state";
   import "../app.css";
 
@@ -50,7 +50,7 @@
       icon: iconBook,
       iconS: iconBookS,
       label: "llms.txt",
-    }
+    },
   ];
   const normalizePath = (path: string) => {
     const u = new URL(path, page.url.href);
@@ -75,7 +75,7 @@
       {/each}
     </NavigationRail>
   </div>
-  
+
   <div class="content">
     <div>
       {@render children()}
@@ -113,7 +113,7 @@
       padding: 1.5rem;
     }
   }
-  
+
   @media (width >= 560px) {
     .content {
       border-top-left-radius: var(--m3-util-rounding-extra-large);

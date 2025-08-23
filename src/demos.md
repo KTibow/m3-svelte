@@ -786,7 +786,13 @@ let Component = $derived(
 Minimal demo:
 
 ```svelte
-<Select options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />
+<Select
+  options={[
+    { text: "A", value: "a" },
+    { text: "B", value: "b" },
+  ]}
+  bind:value
+/>
 ```
 
 Full demo:
@@ -816,14 +822,9 @@ let options = $derived([
 </label>
 
 {#snippet demo()}
-  <Select
-    {options}
-    disabled={!enabled}
-    value="alpha"
-  />
+  <Select {options} disabled={!enabled} value="alpha" />
 {/snippet}
 ```
-
 
 ## Slider
 
@@ -1154,5 +1155,109 @@ let errored = $state(false);
   {:else}
     <DateFieldOutlined label="Date" disabled={!enabled} error={errored} />
   {/if}
+{/snippet}
+```
+
+## Navigation Rail
+
+Minimal demo:
+
+```svelte
+<NavigationRail>
+  {#snippet fab(open)}
+    <FAB
+      color="primary-container"
+      icon={iconCircle}
+      text={open ? "Label" : ""}
+      onclick={() => alert("!")}
+    />
+  {/snippet}
+
+  <NavigationRailItem label="Label" icon={iconStar} active />
+
+  <NavigationRailItem label="Label" icon={iconStarOutline} />
+
+  <NavigationRailItem
+    label="Label"
+    icon={iconStarOutline}
+    badge={{
+      label: "3",
+    }}
+  />
+
+  <NavigationRailItem
+    label="Label"
+    icon={iconStarOutline}
+    badge={{
+      small: true,
+    }}
+  />
+</NavigationRail>
+```
+
+Full demo:
+
+```use
+DateField
+DateFieldOutlined
+```
+
+```ts
+let fullyCollapse = $state<boolean>(false);
+let collapsible = $state<boolean>(true);
+let modal = $state<boolean>(false);
+```
+
+```svelte
+<label>
+  <Switch bind:checked={modal} />
+  {modal ? "Modal" : "Normal"}
+</label>
+<label>
+  <Switch bind:checked={fullyCollapse} disabled={!modal || !collapsible} />
+  {fullyCollapse ? "Fully Collapse" : "Collapse"}
+</label>
+<label>
+  <Switch bind:checked={collapsible} />
+  {collapsible ? "Collapsible" : "Fixed"}
+</label>
+
+{#snippet demo()}
+  <div class="container">
+    <NavigationRail
+      fullyCollapse={fullyCollapse && !(!modal || !collapsible)}
+      {collapsible}
+      {modal}
+    >
+      {#snippet fab(open)}
+        <FAB
+          color="primary-container"
+          icon={EditIcon}
+          text={open ? "Label" : ""}
+          onclick={() => {}}
+        />
+      {/snippet}
+
+      <NavigationRailItem label="Label" icon={StarIcon} active />
+
+      <NavigationRailItem label="Label" icon={StarsOutlineIcon} />
+
+      <NavigationRailItem
+        label="Label"
+        icon={StarsOutlineIcon}
+        badge={{
+          label: "3",
+        }}
+      />
+
+      <NavigationRailItem
+        label="Label"
+        icon={StarsOutlineIcon}
+        badge={{
+          small: true,
+        }}
+      />
+    </NavigationRail>
+  </div>
 {/snippet}
 ```
