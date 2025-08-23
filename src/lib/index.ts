@@ -49,6 +49,8 @@ export { default as WavyLinearProgressEstimate } from "./forms/WavyLinearProgres
 
 export { default as NavCMLX } from "./nav/NavCMLX.svelte";
 export { default as NavCMLXItem } from "./nav/NavCMLXItem.svelte";
+export { default as NavigationRail } from "./nav/NavigationRail.svelte";
+export { default as NavigationRailItem } from "./nav/NavigationRailItem.svelte";
 export { default as Tabs } from "./nav/Tabs.svelte";
 export { default as TabsLink } from "./nav/TabsLink.svelte";
 export { default as VariableTabs } from "./nav/VariableTabs.svelte";
