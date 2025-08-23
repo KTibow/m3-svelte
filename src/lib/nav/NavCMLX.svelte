@@ -5,7 +5,7 @@
     variant,
     children,
   }: {
-    variant: "compact" | "medium" | "large" | "expanded" | "auto";
+    variant: "compact" | "medium" | "large" | "expanded" | "auto"; // next release / "deprecated": rename expanded to extra-large
     children: Snippet;
   } = $props();
 </script>

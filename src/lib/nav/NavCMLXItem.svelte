@@ -8,7 +8,7 @@
     | ({ click: () => void } & HTMLButtonAttributes)
     | ({ href: string } & HTMLAnchorAttributes);
   let props: {
-    variant: "compact" | "medium" | "large" | "expanded" | "auto";
+    variant: "compact" | "medium" | "large" | "expanded" | "auto"; // next release / "deprecated": rename expanded to extra-large
     icon: IconifyIcon;
     text: string;
     selected: boolean;
@@ -81,13 +81,13 @@
         }
         &:hover {
           > .icon {
-            background-color: color-mix(in srgb-linear, currentColor 8%, transparent);
+            background-color: color-mix(in oklab, currentColor 8%, transparent);
           }
         }
         &:focus-visible,
         &:active {
           > .icon {
-            background-color: color-mix(in srgb-linear, currentColor 12%, transparent);
+            background-color: color-mix(in oklab, currentColor 12%, transparent);
           }
         }
         > .icon {
@@ -188,14 +188,14 @@
 
         &:hover {
           > .icon {
-            background-color: color-mix(in srgb-linear, currentColor 8%, transparent);
+            background-color: color-mix(in oklab, currentColor 8%, transparent);
           }
         }
 
         &:focus-visible,
         &:active {
           > .icon {
-            background-color: color-mix(in srgb-linear, currentColor 12%, transparent);
+            background-color: color-mix(in oklab, currentColor 12%, transparent);
           }
         }
 
@@ -251,14 +251,14 @@
 
         &:hover {
           > .icon {
-            background-color: color-mix(in srgb-linear, currentColor 8%, transparent);
+            background-color: color-mix(in oklab, currentColor 8%, transparent);
           }
         }
 
         &:focus-visible,
         &:active {
           > .icon {
-            background-color: color-mix(in srgb-linear, currentColor 12%, transparent);
+            background-color: color-mix(in oklab, currentColor 12%, transparent);
           }
         }
 

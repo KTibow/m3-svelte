@@ -786,22 +786,18 @@ let Component = $derived(
 Minimal demo:
 
 ```svelte
-<Select
-  options={[
-    { text: "A", value: "a" },
-    { text: "B", value: "b" },
-  ]}
-  bind:value
-/>
+<Select label="Select" options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />
 ```
 
 Full demo:
 
 ```use
 Select
+SelectOutlined
 ```
 
 ```ts
+let variant: "filled" | "outlined" = $state("filled");
 let icons = $state(false);
 let enabled = $state(true);
 let options = $derived([
@@ -813,6 +809,10 @@ let options = $derived([
 
 ```svelte
 <label>
+  <Arrows list={["filled", "outlined"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
+</label>
+<label>
   <Switch bind:checked={icons} />
   {icons ? "Icons" : "No icons"}
 </label>
@@ -822,7 +822,11 @@ let options = $derived([
 </label>
 
 {#snippet demo()}
-  <Select {options} disabled={!enabled} value="alpha" />
+  <Select
+    {options}
+    disabled={!enabled}
+    value="alpha"
+  />
 {/snippet}
 ```
 
