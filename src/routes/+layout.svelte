@@ -94,19 +94,21 @@
   .content {
     overflow: auto;
     padding: 1rem;
-    width: 100%;
-    height: 100%;
     position: relative;
     background: rgb(var(--m3-scheme-background));
   }
   @media (width < 52.5rem) {
     .container {
       --m3-util-bottom-offset: 5rem;
+      width: calc(100% - 2rem);
+      height: calc(100% - 2rem);
     }
   }
   @media (width >= 52.5rem) {
     .content {
       padding: 1.5rem;
+      width: calc(100% - 3rem);
+      height: calc(100% - 3rem);
     }
   }
 
