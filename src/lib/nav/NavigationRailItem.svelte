@@ -16,7 +16,6 @@
     icon: IconifyIcon;
     active?: boolean;
     badge?: string | boolean;
-    onclick?: (e: MouseEvent) => void;
   } & (({ href: string } & HTMLAnchorAttributes) | HTMLButtonAttributes) = $props();
 </script>
 
