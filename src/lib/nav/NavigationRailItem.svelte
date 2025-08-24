@@ -10,7 +10,6 @@
     icon,
     active = false,
     badge,
-    onclick,
     ...props
   }: {
     label: string;
