@@ -35,7 +35,7 @@
   <div class="rail" class:open={open && (collapse !== 'none' && collapse !== false)} class:fullyCollapse={collapse === 'full'} class:modal>
     <div class="top">
       {#if collapse !== 'none' && collapse !== false}
-        <button class="collapse" aria-haspopup="true" aria-controls="menu" onclick={() => (open = !open)}>
+        <button class="collapse" type="button" aria-haspopup="true" aria-controls="menu" onclick={() => (open = !open)}>
           <Icon icon={open ? iconMenuOpen : iconMenu} />
         </button>
       {/if}
