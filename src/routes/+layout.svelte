@@ -69,9 +69,8 @@
     <NavigationRail collapse={!!innerWidth && innerWidth < 560 ? 'full' : 'normal'} modal>
       {#each paths as { path, icon, iconS, label }}
         {@const active = normalizePath(path) === normalizePath(page.url.pathname)}
-        <a href={normalizePath(path)} tabindex="-1">
-          <NavigationRailItem icon={active ? iconS : icon} {active} {label} />
-        </a>
+        
+        <NavigationRailItem icon={active ? iconS : icon} {active} {label} link href={normalizePath(path)} />
       {/each}
     </NavigationRail>
   </div>

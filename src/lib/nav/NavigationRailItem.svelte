@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { HTMLButtonAttributes } from "svelte/elements";
+  import type { HTMLLinkAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
 
   import Layer from "$lib/misc/Layer.svelte";
@@ -12,6 +12,7 @@
     link = false,
     badge,
     onclick,
+    ...props
   }: {
     label: string;
     icon: IconifyIcon;
@@ -19,10 +20,21 @@
     link?: boolean;
     badge?: string | boolean;
     onclick?: (e: MouseEvent) => void;
-  } & HTMLButtonAttributes = $props();
+  } & HTMLLinkAttributes = $props();
 </script>
 
-<button class="m3-container" type="button" class:active {onclick}>
+{#if link}
+  {/* @ts-expect-error */ null}
+  <a class="m3-container" class:active {...props}>
+    {@render item()}
+  </a>
+{:else}
+  <button class="m3-container" type="button" class:active {onclick}>
+    {@render item()}
+  </button>
+{/if}
+
+{#snippet item()}
   <Layer />
 
   <div class="icon">
@@ -36,7 +48,7 @@
   </div>
 
   {label}
-</button>
+{/snippet}
 
 <style>
   .m3-container {

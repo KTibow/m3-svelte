@@ -1184,17 +1184,13 @@ Minimal demo:
   <NavigationRailItem
     label="Label"
     icon={iconStarOutline}
-    badge={{
-      label: "3",
-    }}
+    badge="3"
   />
 
   <NavigationRailItem
     label="Label"
     icon={iconStarOutline}
-    badge={{
-      small: true,
-    }}
+    badge
   />
 </NavigationRail>
 ```
@@ -1243,17 +1239,13 @@ let modal = $state<boolean>(false);
     <NavigationRailItem
       label="Label"
       icon={StarsOutlineIcon}
-      badge={{
-        label: "3",
-      }}
+      badge="3"
     />
 
     <NavigationRailItem
       label="Label"
       icon={StarsOutlineIcon}
-      badge={{
-        small: true,
-      }}
+      badge
     />
   </NavigationRail>
 {/snippet}
