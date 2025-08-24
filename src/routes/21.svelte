@@ -21,6 +21,10 @@
       }[],
     ) => void;
   }>();
+  
+  $effect(() => {
+    modal = collapse === 'full' ? true : modal;
+  });
 
   const minimalDemo = `${"<"}NavigationRail>
   {#snippet fab(open)}
@@ -68,12 +72,7 @@ ${"<"}/NavigationRail>`;
     <div class="container">
       <NavigationRail {collapse} {modal}>
         {#snippet fab(open)}
-          <FAB
-            color="primary-container"
-            icon={EditIcon}
-            text={open ? "Label" : ""}
-            onclick={() => {}}
-          />
+          <FAB color="primary-container" icon={EditIcon} text={open ? "Label" : ""} onclick={() => {}} />
         {/snippet}
 
         <NavigationRailItem label="Label" icon={StarIcon} active />
