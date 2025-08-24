@@ -112,7 +112,7 @@
     width: 24px;
     height: 24px;
     margin: 1rem;
-    pointer-events: all;
+    pointer-events: auto;
   }
 
   .collapse > :global(svg) {
