@@ -107,7 +107,7 @@
     }
 
     .m3-container:not(.active):hover > .icon {
-      background: color-mix(in srgb-linear, currentColor 8%, transparent);
+      background: color-mix(in oklab, currentColor 8%, transparent);
     }
 
     .m3-container:not(.active):focus-visible > .icon,
