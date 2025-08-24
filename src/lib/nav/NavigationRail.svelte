@@ -10,12 +10,14 @@
     open = false,
     collapse = 'normal',
     modal = false,
+    alignment = 'top',
     fab,
     children,
   }: {
     open?: boolean;
     collapse?: 'normal' | 'full' | 'none' | boolean;
     modal?: boolean;
+    alignment?: 'top' | 'center';
     fab?: Snippet<[open: boolean]>;
     children: Snippet;
   } = $props();
@@ -32,7 +34,7 @@
 <svelte:window {onkeydown} />
 
 <div class="m3-container">
-  <div class="rail" class:open={open && (collapse !== 'none' && collapse !== false)} class:fullyCollapse={collapse === 'full'} class:modal>
+  <div class="rail" class:open={open && (collapse !== 'none' && collapse !== false)} class:center={alignment === 'center'} class:fullyCollapse={collapse === 'full'} class:modal>
     <div class="top">
       {#if collapse !== 'none' && collapse !== false}
         <button class="collapse" type="button" aria-haspopup="true" aria-controls="menu" onclick={() => (open = !open)}>
@@ -83,6 +85,8 @@
   }
 
   .rail {
+    display: flex;
+    flex-direction: column;
     width: 96px;
     height: 100%;
     padding: 40px 0px;
@@ -110,6 +114,7 @@
     margin-inline-start: 20px;
     display: flex;
     flex-direction: column;
+    z-index: 1;
   }
 
   .collapse {
@@ -144,11 +149,16 @@
     margin-inline-start: 20px;
     width: 56px;
     container: items / inline-size;
+    align-self: stretch;
   }
 
   .rail.open > .items {
     width: 180px;
     gap: 0px;
+  }
+  
+  .rail.center > .items {
+    justify-content: center;
   }
   
   .shadow {

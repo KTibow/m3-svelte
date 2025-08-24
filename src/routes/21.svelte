@@ -10,6 +10,7 @@
     import Arrows from "./_arrows.svelte";
 
   let collapse = $state<'full' | 'normal' | 'none'>('normal');
+  let alignment = $state<'top' | 'center'>('center');
   let modal = $state<boolean>(false);
   let { showCode } = $props<{
     showCode: (
@@ -57,6 +58,12 @@ ${"<"}/NavigationRail>`;
     {modal ? "Modal" : "Normal"}
   </label>
   <label>
+    <Arrows list={['top', 'center']} bind:value={alignment} />
+    {alignment == "top"
+    ? "Top"
+    : "Center"}
+  </label>
+  <label>
     <Arrows list={['normal', 'full', 'none']} bind:value={collapse} />
     {collapse == "normal"
     ? "Collapse"
@@ -67,7 +74,7 @@ ${"<"}/NavigationRail>`;
 
   {#snippet demo()}
     <div class="container">
-      <NavigationRail {collapse} {modal}>
+      <NavigationRail {collapse} {alignment} {modal}>
         {#snippet fab(open)}
           <FAB color="primary-container" icon={EditIcon} text={open ? "Label" : ""} onclick={() => {}} />
         {/snippet}
