@@ -86,7 +86,7 @@
     width: 96px;
     height: 100%;
     padding: 40px 0px;
-    transition: all 200ms;
+    transition: all var(--m3-util-easing);
     overflow: hidden;
     overflow-y: auto;
   }
@@ -156,7 +156,7 @@
     inset: 0;
     z-index: -1;
     background: rgb(var(--m3-scheme-scrim) / 0.5);
-    transition: all 200ms;
+    transition: all var(--m3-util-easing);
   }
   
   .rail:not(.open) + .shadow {
