@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { HTMLLinkAttributes } from "svelte/elements";
+  import type { HTMLButtonAttributes, HTMLLinkAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
 
   import Layer from "$lib/misc/Layer.svelte";
@@ -9,7 +9,6 @@
     label,
     icon,
     active = false,
-    link = false,
     badge,
     onclick,
     ...props
@@ -17,19 +16,18 @@
     label: string;
     icon: IconifyIcon;
     active?: boolean;
-    link?: boolean;
     badge?: string | boolean;
     onclick?: (e: MouseEvent) => void;
-  } & HTMLLinkAttributes = $props();
+  } & HTMLLinkAttributes & HTMLButtonAttributes = $props();
 </script>
 
-{#if link}
-  {/* @ts-expect-error */ null}
-  <a class="m3-container" class:active {...props}>
+{#if 'href' in props}
+  {/* @ts-expect-error explanation */ null}
+  <a class="m3-container" role="menuitem" class:active {...props}>
     {@render item()}
   </a>
 {:else}
-  <button class="m3-container" type="button" class:active {onclick}>
+  <button class="m3-container" type="button" role="menuitem" class:active {onclick} {...props}>
     {@render item()}
   </button>
 {/if}
@@ -66,6 +64,7 @@
     width: fit-content;
     position: relative;
     font-family: var(--m3-font-body, var(--m3-font));
+    animation: none !important;
   }
 
   .icon {
@@ -103,6 +102,7 @@
       font-size: var(--m3-font-label-medium-size, 0.75rem);
       line-height: var(--m3-font-label-medium-height, 1.333);
       letter-spacing: var(--m3-font-label-medium-tracking, 0.031rem);
+      font-weight: var(--m3-font-label-medium-weight, 500);
     }
     
     .m3-container.active > .icon {
@@ -116,6 +116,13 @@
     .m3-container:not(.active):focus-visible > .icon,
     .m3-container:not(.active):active > .icon {
       background-color: color-mix(in srgb-linear, currentColor 12%, transparent);
+    }
+    
+    .m3-container:focus-visible > .icon {
+      outline: solid;
+      outline-color: rgb(var(--m3-scheme-on-secondary-container));
+      outline-width: 3px;
+      outline-offset: 2px;
     }
 
     .icon {
@@ -159,6 +166,7 @@
       font-size: var(--m3-font-label-large-size, 0.875rem);
       line-height: var(--m3-font-label-large-height, 1.429);
       letter-spacing: var(--m3-font-label-large-tracking, 0.006rem);
+      font-weight: var(--m3-font-label-large-weight, 500);
     }
 
     .m3-container.active {
@@ -172,6 +180,13 @@
     .m3-container:not(.active):focus-visible,
     .m3-container:not(.active):active {
       background-color: color-mix(in srgb-linear, currentColor 12%, transparent);
+    }
+    
+    .m3-container:focus-visible {
+      outline: solid;
+      outline-color: rgb(var(--m3-scheme-on-secondary-container));
+      outline-width: 3px;
+      outline-offset: 2px;
     }
     
     .icon {

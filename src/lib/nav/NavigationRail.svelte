@@ -19,13 +19,23 @@
     fab?: Snippet<[open: boolean]>;
     children: Snippet;
   } = $props();
+  
+  const onkeydown = (e: KeyboardEvent) => {
+    if (modal && open && e.key === 'Escape') {
+      e.preventDefault();
+      
+      open = false;
+    }
+  }
 </script>
+
+<svelte:window {onkeydown} />
 
 <div class="m3-container">
   <div class="rail" class:open={open && (collapse !== 'none' && collapse !== false)} class:fullyCollapse={collapse === 'full'} class:modal>
     <div class="top">
       {#if collapse !== 'none' && collapse !== false}
-        <button class="collapse" onclick={() => (open = !open)}>
+        <button class="collapse" aria-haspopup="true" aria-controls="menu" onclick={() => (open = !open)}>
           <Icon icon={open ? iconMenuOpen : iconMenu} />
         </button>
       {/if}
@@ -37,7 +47,7 @@
       {/if}
     </div>
 
-    <div class="items">
+    <div class="items" role="menu" aria-labelledby="menubutton">
       {@render children()}
     </div>
   </div>
@@ -111,6 +121,15 @@
     height: 24px;
     margin: 1rem;
     pointer-events: auto;
+    border-radius: var(--m3-util-rounding-extra-small);
+  }
+  
+  .collapse:focus-visible {
+    animation: none;
+    outline: solid;
+    outline-color: rgb(var(--m3-scheme-on-secondary-container));
+    outline-width: 3px;
+    outline-offset: 3px;
   }
 
   .collapse > :global(svg) {

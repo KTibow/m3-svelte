@@ -35,7 +35,7 @@
     minimalDemo: string;
     relevantLinks: { title: string; link: string }[];
   };
-  let doc: DocData | undefined = $state();
+  let doc = $state<DocData | undefined>();
   const showCode = (
     name: string,
     minimalDemo: string,
@@ -43,7 +43,17 @@
   ) => {
     doc = { name, minimalDemo, relevantLinks };
   };
+  
+  const onkeydown = (e: KeyboardEvent) => {
+    if (doc && e.key === 'Escape') {
+      e.preventDefault();
+      
+      doc = undefined;
+    }
+  }
 </script>
+
+<svelte:window {onkeydown} />
 
 <svelte:head>
   <title>M3 Svelte</title>

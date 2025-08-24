@@ -70,7 +70,7 @@
       {#each paths as { path, icon, iconS, label }}
         {@const active = normalizePath(path) === normalizePath(page.url.pathname)}
         
-        <NavigationRailItem icon={active ? iconS : icon} {active} {label} link href={normalizePath(path)} />
+        <NavigationRailItem icon={active ? iconS : icon} {active} {label} href={normalizePath(path)} />
       {/each}
     </NavigationRail>
   </div>
