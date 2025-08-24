@@ -96,19 +96,16 @@
     padding: 1rem;
     position: relative;
     background: rgb(var(--m3-scheme-background));
+    width: 100%;
   }
   @media (width < 52.5rem) {
     .container {
       --m3-util-bottom-offset: 5rem;
-      width: calc(100% - 2rem);
-      height: calc(100% - 2rem);
     }
   }
   @media (width >= 52.5rem) {
     .content {
       padding: 1.5rem;
-      width: calc(100% - 3rem);
-      height: calc(100% - 3rem);
     }
   }
 

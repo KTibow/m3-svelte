@@ -123,8 +123,12 @@
       top: 4px;
     }
 
-    .m3-container > :global(:is(.ripple-container, .tint)) {
-      display: none;
+    .m3-container > :global(.ripple-container),
+    .m3-container > :global(.tint) {
+      z-index: 1;
+      width: 56px;
+      height: 32px;
+      border-radius: var(--m3-util-rounding-full);
     }
   }
 
