@@ -10,14 +10,12 @@
     icon,
     active = false,
     badge,
-    onclick,
     ...props
   }: {
     label: string;
     icon: IconifyIcon;
     active?: boolean;
     badge?: string | boolean;
-    onclick?: (e: MouseEvent) => void;
   } & (({ href: string } & HTMLAnchorAttributes) | HTMLButtonAttributes) = $props();
 </script>
 
@@ -26,7 +24,7 @@
     {@render item()}
   </a>
 {:else}
-  <button class="m3-container" type="button" role="menuitem" class:active {onclick} {...props}>
+  <button class="m3-container" type="button" role="menuitem" class:active {...props}>
     {@render item()}
   </button>
 {/if}
@@ -109,12 +107,12 @@
     }
 
     .m3-container:not(.active):hover > .icon {
-      background: color-mix(in srgb-linear, currentColor 8%, transparent);
+      background: color-mix(in oklab, currentColor 8%, transparent);
     }
 
     .m3-container:not(.active):focus-visible > .icon,
     .m3-container:not(.active):active > .icon {
-      background-color: color-mix(in srgb-linear, currentColor 12%, transparent);
+      background-color: color-mix(in oklab, currentColor 12%, transparent);
     }
     
     .m3-container:focus-visible > .icon {
@@ -173,12 +171,12 @@
     }
 
     .m3-container:not(.active):hover {
-      background: color-mix(in srgb-linear, currentColor 8%, transparent);
+      background: color-mix(in oklab, currentColor 8%, transparent);
     }
 
     .m3-container:not(.active):focus-visible,
     .m3-container:not(.active):active {
-      background-color: color-mix(in srgb-linear, currentColor 12%, transparent);
+      background-color: color-mix(in oklab, currentColor 12%, transparent);
     }
     
     .m3-container:focus-visible {
