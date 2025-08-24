@@ -82,8 +82,8 @@
   }
 
   .rail.modal {
-    border-top-right-radius: var(--m3-util-rounding-large);
-    border-bottom-right-radius: var(--m3-util-rounding-large);
+    border-start-end-radius: var(--m3-util-rounding-large);
+    border-end-end-radius: var(--m3-util-rounding-large);
   }
 
   .rail.modal.open,
@@ -96,7 +96,8 @@
   }
 
   .top {
-    margin: 0px 0px 46px 20px;
+    margin-block-end: 46px;
+    margin-inline-start: 20px;
     display: flex;
     flex-direction: column;
   }
@@ -121,7 +122,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-left: 20px;
+    margin-inline-start: 20px;
     width: 56px;
     container: items / inline-size;
   }

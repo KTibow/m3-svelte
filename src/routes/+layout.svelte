@@ -111,7 +111,7 @@
 
   @media (width >= 560px) {
     .content {
-      border-top-left-radius: var(--m3-util-rounding-extra-large);
+      border-start-start-radius: var(--m3-util-rounding-extra-large);
     }
   }
 </style>
