@@ -112,7 +112,7 @@
 
     .m3-container:not(.active):focus-visible > .icon,
     .m3-container:not(.active):active > .icon {
-      background-color: color-mix(in srgb-linear, currentColor 12%, transparent);
+      background-color: color-mix(in oklab, currentColor 12%, transparent);
     }
     
     .m3-container:focus-visible > .icon {
