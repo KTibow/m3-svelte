@@ -36,13 +36,9 @@
 
   ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} />
 
-  ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} badge={{
-      label: '3'
-  }} />
+  ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} badge="3" />
 
-  ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} badge={{
-    small: true
-  }} />
+  ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} badge />
 ${"<"}/NavigationRail>`;
   const relevantLinks = [
     {
@@ -80,21 +76,9 @@ ${"<"}/NavigationRail>`;
 
         <NavigationRailItem label="Label" icon={StarsOutlineIcon} />
 
-        <NavigationRailItem
-          label="Label"
-          icon={StarsOutlineIcon}
-          badge={{
-            label: "3",
-          }}
-        />
+        <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge="3" />
 
-        <NavigationRailItem
-          label="Label"
-          icon={StarsOutlineIcon}
-          badge={{
-            small: true,
-          }}
-        />
+        <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge />
       </NavigationRail>
     </div>
   {/snippet}

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { HTMLButtonAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
 
   import Layer from "$lib/misc/Layer.svelte";
@@ -8,20 +9,17 @@
     label,
     icon,
     active = false,
+    link = false,
     badge,
     onclick,
   }: {
     label: string;
     icon: IconifyIcon;
     active?: boolean;
-    badge?:
-      | {
-          label?: string;
-          small?: boolean;
-        }
-      | true;
+    link?: boolean;
+    badge?: string | boolean;
     onclick?: (e: MouseEvent) => void;
-  } = $props();
+  } & HTMLButtonAttributes = $props();
 </script>
 
 <button class="m3-container" type="button" class:active {onclick}>
@@ -30,9 +28,9 @@
   <div class="icon">
     <Icon {icon} />
 
-    {#if badge}
-      <span class="badge" class:small={badge && typeof badge === "object" ? badge.small : false}>
-        {typeof badge === "object" ? badge.label : ""}
+    {#if typeof badge === "string" || badge === true}
+      <span class="badge m3-font-label-small" class:small={badge === true}>
+        {typeof badge === "string" ? badge : ""}
       </span>
     {/if}
   </div>
@@ -76,11 +74,10 @@
     width: 16px;
     height: 16px;
     position: absolute;
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bolder;
-    font-size: 10px;
   }
 
   .icon > .badge.small {
@@ -120,13 +117,13 @@
     }
 
     .icon > .badge {
-      right: 12px;
-      top: 2px;
+      margin-block-start: 2px;
+      margin-inline-start: 12px;
     }
 
     .icon > .badge.small {
-      right: 16px;
-      top: 4px;
+      margin-inline-start: 20px;
+      margin-block-start: 4px;
     }
 
     .m3-container > :global(.ripple-container),
@@ -166,18 +163,18 @@
     }
     
     .icon {
-        width: 24px;
-        height: 24px;
+      width: 24px;
+      height: 24px;
     }
 
     .icon > .badge {
-      right: -4px;
-      top: -4px;
+      margin-block-start: -2px;
+      margin-inline-start: 12px;
     }
 
     .icon > .badge.small {
-      right: 0;
-      top: 0;
+      margin-inline-start: 20px;
+      margin-block-start: 0px;
     }
   }
 </style>
