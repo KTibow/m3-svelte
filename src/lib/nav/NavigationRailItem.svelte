@@ -24,7 +24,7 @@
     {@render item()}
   </a>
 {:else}
-  <button class="m3-container" type="button" role="menuitem" class:active {onclick} {...props}>
+  <button class="m3-container" type="button" role="menuitem" class:active {...props}>
     {@render item()}
   </button>
 {/if}
