@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { HTMLButtonAttributes, HTMLLinkAttributes } from "svelte/elements";
+  import type { HTMLButtonAttributes, HTMLAnchorAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
 
   import Layer from "$lib/misc/Layer.svelte";
@@ -18,11 +18,10 @@
     active?: boolean;
     badge?: string | boolean;
     onclick?: (e: MouseEvent) => void;
-  } & HTMLLinkAttributes & HTMLButtonAttributes = $props();
+  } & (({ href: string } & HTMLAnchorAttributes) | HTMLButtonAttributes) = $props();
 </script>
 
 {#if 'href' in props}
-  {/* @ts-expect-error explanation */ null}
   <a class="m3-container" role="menuitem" class:active {...props}>
     {@render item()}
   </a>
