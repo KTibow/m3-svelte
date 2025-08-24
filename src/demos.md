@@ -822,24 +822,13 @@ let options = $derived([
 </label>
 
 {#snippet demo()}
-  {#if variant === "filled"}
-    <Select
-      label="Select"
-      {options}
-      disabled={!enabled}
-      value="alpha"
-    />
-  {:else}
-    <SelectOutlined
-      label="Select"
-      {options}
-      disabled={!enabled}
-      value="alpha"
-    />
-  {/if}
+  <Select
+    {options}
+    disabled={!enabled}
+    value="alpha"
+  />
 {/snippet}
 ```
-
 
 ## Slider
 
@@ -1170,5 +1159,88 @@ let errored = $state(false);
   {:else}
     <DateFieldOutlined label="Date" disabled={!enabled} error={errored} />
   {/if}
+{/snippet}
+```
+
+## Navigation Rail
+
+Minimal demo:
+
+```svelte
+<NavigationRail>
+  {#snippet fab(open)}
+    <FAB
+      color="primary-container"
+      icon={iconCircle}
+      text={open ? "Label" : ""}
+      onclick={() => alert("!")}
+    />
+  {/snippet}
+
+  <NavigationRailItem label="Label" icon={iconStar} active />
+
+  <NavigationRailItem label="Label" icon={iconStarOutline} />
+
+  <NavigationRailItem
+    label="Label"
+    icon={iconStarOutline}
+    badge="3"
+  />
+
+  <NavigationRailItem
+    label="Label"
+    icon={iconStarOutline}
+    badge
+  />
+</NavigationRail>
+```
+
+Full demo:
+
+```use
+DateField
+DateFieldOutlined
+```
+
+```ts
+let collapse = $state<'full' | 'normal' | 'none'>('normal');
+let alignment = $state<'top' | 'center'>('center');
+let modal = $state<boolean>(false);
+```
+
+```svelte
+<label>
+  <Switch bind:checked={modal} />
+  {modal ? "Modal" : "Normal"}
+</label>
+<label>
+  <Arrows list={['top', 'center']} bind:value={alignment} />
+  {alignment == "top"
+  ? "Top"
+  : "Center"}
+</label>
+<label>
+  <Arrows list={['normal', 'full', 'none']} bind:value={collapse} />
+  {collapse == "normal"
+  ? "Collapse"
+  : collapse == "full"
+    ? "Fully Collapse"
+    : "Don't Collapse"}
+</label>
+
+{#snippet demo()}
+  <NavigationRail {collapse} {alignment} {modal}>
+    {#snippet fab(open)}
+      <FAB color="primary-container" icon={EditIcon} text={open ? "Label" : ""} onclick={() => {}} />
+    {/snippet}
+
+    <NavigationRailItem label="Label" icon={StarIcon} active />
+
+    <NavigationRailItem label="Label" icon={StarsOutlineIcon} />
+
+    <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge="3" />
+
+    <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge />
+  </NavigationRail>
 {/snippet}
 ```

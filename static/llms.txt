@@ -1199,21 +1199,11 @@ let options = $derived([
 </label>
 
 {#snippet demo()}
-  {#if variant === "filled"}
-    <Select
-      label="Select"
-      {options}
-      disabled={!enabled}
-      value="alpha"
-    />
-  {:else}
-    <SelectOutlined
-      label="Select"
-      {options}
-      disabled={!enabled}
-      value="alpha"
-    />
-  {/if}
+  <Select
+    {options}
+    disabled={!enabled}
+    value="alpha"
+  />
 {/snippet}
 ```
 
@@ -1491,6 +1481,78 @@ let errored = $state(false);` to make this demo:
   {:else}
     <DateFieldOutlined label="Date" disabled={!enabled} error={errored} />
   {/if}
+{/snippet}
+```
+
+### Navigation Rail
+
+Minimal demo:
+```svelte
+<NavigationRail>
+  {#snippet fab(open)}
+    <FAB
+      color="primary-container"
+      icon={iconCircle}
+      text={open ? "Label" : ""}
+      onclick={() => alert("!")}
+    />
+  {/snippet}
+
+  <NavigationRailItem label="Label" icon={iconStar} active />
+
+  <NavigationRailItem label="Label" icon={iconStarOutline} />
+
+  <NavigationRailItem
+    label="Label"
+    icon={iconStarOutline}
+    badge="3"
+  />
+
+  <NavigationRailItem
+    label="Label"
+    icon={iconStarOutline}
+    badge
+  />
+</NavigationRail>
+```
+
+The M3 Svelte interactive demo for this component uses DateField, DateFieldOutlined with the TS `let collapse = $state<'full' | 'normal' | 'none'>('normal');
+let alignment = $state<'top' | 'center'>('center');
+let modal = $state<boolean>(false);` to make this demo:
+```svelte
+<label>
+  <Switch bind:checked={modal} />
+  {modal ? "Modal" : "Normal"}
+</label>
+<label>
+  <Arrows list={['top', 'center']} bind:value={alignment} />
+  {alignment == "top"
+  ? "Top"
+  : "Center"}
+</label>
+<label>
+  <Arrows list={['normal', 'full', 'none']} bind:value={collapse} />
+  {collapse == "normal"
+  ? "Collapse"
+  : collapse == "full"
+    ? "Fully Collapse"
+    : "Don't Collapse"}
+</label>
+
+{#snippet demo()}
+  <NavigationRail {collapse} {alignment} {modal}>
+    {#snippet fab(open)}
+      <FAB color="primary-container" icon={EditIcon} text={open ? "Label" : ""} onclick={() => {}} />
+    {/snippet}
+
+    <NavigationRailItem label="Label" icon={StarIcon} active />
+
+    <NavigationRailItem label="Label" icon={StarsOutlineIcon} />
+
+    <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge="3" />
+
+    <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge />
+  </NavigationRail>
 {/snippet}
 ```
 
