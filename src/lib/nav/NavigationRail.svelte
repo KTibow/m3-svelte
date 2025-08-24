@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import MenuOpenIcon from "@ktibow/iconset-material-symbols/menu-open";
-  import MenuIcon from "@ktibow/iconset-material-symbols/menu";
+  import iconMenuOpen from "@ktibow/iconset-material-symbols/menu-open";
+  import iconMenu from "@ktibow/iconset-material-symbols/menu";
 
   import Icon from "$lib/misc/_icon.svelte";
 
