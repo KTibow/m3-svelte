@@ -69,21 +69,7 @@
   .m3-container:has(.fullyCollapse) {
     width: 0;
   }
-
-  .rail.fullyCollapse:not(.open) {
-    background: none !important;
-  }
-
-  .rail.fullyCollapse {
-    position: fixed;
-  }
-
-  .rail.fullyCollapse:not(.open) > .items,
-  .rail.fullyCollapse:not(.open) > .top > div {
-    opacity: 0;
-    pointer-events: none;
-  }
-
+  
   .rail {
     display: flex;
     flex-direction: column;
@@ -93,6 +79,20 @@
     transition: all var(--m3-util-easing);
     overflow: hidden;
     overflow-y: auto;
+  }
+
+  .rail.fullyCollapse:not(.open) {
+    background: none !important;
+  }
+
+  .rail.fullyCollapse {
+    position: absolute;
+  }
+
+  .rail.fullyCollapse:not(.open) > .items,
+  .rail.fullyCollapse:not(.open) > .top > div {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .rail.modal {

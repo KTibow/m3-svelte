@@ -1204,6 +1204,7 @@ DateFieldOutlined
 
 ```ts
 let collapse = $state<'full' | 'normal' | 'none'>('normal');
+let alignment = $state<'top' | 'center'>('center');
 let modal = $state<boolean>(false);
 ```
 
@@ -1211,6 +1212,12 @@ let modal = $state<boolean>(false);
 <label>
   <Switch bind:checked={modal} />
   {modal ? "Modal" : "Normal"}
+</label>
+<label>
+  <Arrows list={['top', 'center']} bind:value={alignment} />
+  {alignment == "top"
+  ? "Top"
+  : "Center"}
 </label>
 <label>
   <Arrows list={['normal', 'full', 'none']} bind:value={collapse} />
@@ -1222,31 +1229,18 @@ let modal = $state<boolean>(false);
 </label>
 
 {#snippet demo()}
-  <NavigationRail {collapse} {modal}>
+  <NavigationRail {collapse} {alignment} {modal}>
     {#snippet fab(open)}
-      <FAB
-        color="primary-container"
-        icon={EditIcon}
-        text={open ? "Label" : ""}
-        onclick={() => {}}
-      />
+      <FAB color="primary-container" icon={EditIcon} text={open ? "Label" : ""} onclick={() => {}} />
     {/snippet}
 
     <NavigationRailItem label="Label" icon={StarIcon} active />
 
     <NavigationRailItem label="Label" icon={StarsOutlineIcon} />
 
-    <NavigationRailItem
-      label="Label"
-      icon={StarsOutlineIcon}
-      badge="3"
-    />
+    <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge="3" />
 
-    <NavigationRailItem
-      label="Label"
-      icon={StarsOutlineIcon}
-      badge
-    />
+    <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge />
   </NavigationRail>
 {/snippet}
 ```
