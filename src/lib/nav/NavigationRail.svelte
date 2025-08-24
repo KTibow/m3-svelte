@@ -6,7 +6,6 @@
 
   import Icon from "$lib/misc/_icon.svelte";
 
-  let m3Container = $state<HTMLDivElement>();
   let {
     open = false,
     collapse = 'normal',
@@ -22,7 +21,7 @@
   } = $props();
 </script>
 
-<div class="m3-container" bind:this={m3Container}>
+<div class="m3-container">
   <div class="rail" class:open={open && (collapse !== 'none' && collapse !== false)} class:fullyCollapse={collapse === 'full'} class:modal>
     <div class="top">
       {#if collapse !== 'none' && collapse !== false}
@@ -33,7 +32,7 @@
 
       {#if fab}
         <div>
-          {@render fab(open)}
+          {@render fab(open && (collapse !== 'none' && collapse !== false))}
         </div>
       {/if}
     </div>

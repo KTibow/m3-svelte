@@ -57,6 +57,12 @@ export default ts.config(
   {
     files: ["src/routes/*.svelte"],
     rules: {
+      "svelte/prefer-writable-derived": "off",
+    },
+  },
+  {
+    files: ["src/routes/*.svelte"],
+    rules: {
       "@typescript-eslint/no-unused-vars": "off",
     },
   },

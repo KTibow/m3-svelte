@@ -24,7 +24,7 @@
   } = $props();
 </script>
 
-<button class="m3-container" class:active {onclick}>
+<button class="m3-container" type="button" class:active {onclick}>
   <Layer />
 
   <div class="icon">
@@ -51,11 +51,11 @@
     align-items: center;
     cursor: pointer;
     gap: 4px;
-    font-size: 12px;
     user-select: none;
     color: rgb(var(--m3-scheme-secondary));
     width: fit-content;
     position: relative;
+    font-family: var(--m3-font-body, var(--m3-font));
   }
 
   .icon {
@@ -90,6 +90,12 @@
   }
 
   @container items (width <= 56px) {
+    .m3-container {
+      font-size: var(--m3-font-label-medium-size, 0.75rem);
+      line-height: var(--m3-font-label-medium-height, 1.333);
+      letter-spacing: var(--m3-font-label-medium-tracking, 0.031rem);
+    }
+    
     .m3-container.active > .icon {
       background: rgb(var(--m3-scheme-secondary-container));
     }
@@ -140,8 +146,10 @@
       gap: 12px;
       padding: 0px 16px;
       border-radius: var(--m3-util-rounding-full);
-      font-size: 14px;
       height: 56px;
+      font-size: var(--m3-font-label-large-size, 0.875rem);
+      line-height: var(--m3-font-label-large-height, 1.429);
+      letter-spacing: var(--m3-font-label-large-tracking, 0.006rem);
     }
 
     .m3-container.active {

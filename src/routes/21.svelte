@@ -22,6 +22,7 @@
     ) => void;
   }>();
   
+  // There is no other good way to do this
   $effect(() => {
     modal = collapse === 'full' ? true : modal;
   });
