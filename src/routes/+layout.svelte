@@ -66,7 +66,7 @@
 
 <div class="container">
   <div class="sidebar">
-    <NavigationRail fullyCollapse={!!innerWidth && innerWidth < 560} modal>
+    <NavigationRail collapse={!!innerWidth && innerWidth < 560 ? 'full' : 'normal'} modal>
       {#each paths as { path, icon, iconS, label }}
         {@const active = normalizePath(path) === normalizePath(page.url.pathname)}
         <a href={normalizePath(path)} tabindex="-1">

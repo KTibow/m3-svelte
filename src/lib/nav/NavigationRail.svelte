@@ -9,15 +9,13 @@
   let m3Container = $state<HTMLDivElement>();
   let {
     open = false,
-    collapsible = true,
-    fullyCollapse = false,
+    collapse = 'normal',
     modal = false,
     fab,
     children,
   }: {
     open?: boolean;
-    collapsible?: boolean;
-    fullyCollapse?: boolean;
+    collapse?: 'normal' | 'full' | 'none' | boolean;
     modal?: boolean;
     fab?: Snippet<[open: boolean]>;
     children: Snippet;
@@ -25,11 +23,11 @@
 </script>
 
 <div class="m3-container" bind:this={m3Container}>
-  <div class="rail" class:open={open && collapsible} class:fullyCollapse class:modal>
+  <div class="rail" class:open={open && (collapse !== 'none' && collapse !== false)} class:fullyCollapse={collapse === 'full'} class:modal>
     <div class="top">
-      {#if collapsible}
+      {#if collapse !== 'none' && collapse !== false}
         <button class="collapse" onclick={() => (open = !open)}>
-          <Icon icon={open ? MenuOpenIcon : MenuIcon} />
+          <Icon icon={open ? iconMenuOpen : iconMenu} />
         </button>
       {/if}
 

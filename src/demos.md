@@ -1207,8 +1207,7 @@ DateFieldOutlined
 ```
 
 ```ts
-let fullyCollapse = $state<boolean>(false);
-let collapsible = $state<boolean>(true);
+let collapse = $state<'full' | 'normal' | 'none'>('normal');
 let modal = $state<boolean>(false);
 ```
 
@@ -1218,20 +1217,16 @@ let modal = $state<boolean>(false);
   {modal ? "Modal" : "Normal"}
 </label>
 <label>
-  <Switch bind:checked={fullyCollapse} disabled={!modal || !collapsible} />
-  {fullyCollapse ? "Fully Collapse" : "Collapse"}
-</label>
-<label>
-  <Switch bind:checked={collapsible} />
-  {collapsible ? "Collapsible" : "Fixed"}
+  <Arrows list={['normal', 'full', 'none']} bind:value={collapse} />
+  {collapse == "normal"
+  ? "Collapse"
+  : collapse == "full"
+    ? "Fully Collapse"
+    : "Don't Collapse"}
 </label>
 
 {#snippet demo()}
-  <NavigationRail
-    fullyCollapse={fullyCollapse && !(!modal || !collapsible)}
-    {collapsible}
-    {modal}
-  >
+  <NavigationRail {collapse} {modal}>
     {#snippet fab(open)}
       <FAB
         color="primary-container"
