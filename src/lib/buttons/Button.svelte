@@ -61,7 +61,7 @@
 {:else}
   {@const { variant = "filled", square = false, iconType = "none", children, ...extra } = props}
   <button
-    type={"onclick" in extra ? "button" : undefined}
+    type={"onclick" in extra ? "button" : "submit"}
     class="m3-container m3-font-label-large {variant} icon-{iconType}"
     class:square
     {...extra}

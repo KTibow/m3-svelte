@@ -55,6 +55,10 @@
       open = false;
     }
   }}
+  onclose={(e) => {
+    if (e.target != e.currentTarget) return;
+    open = false;
+  }}
   bind:this={dialog}
   {...extra}
 >
@@ -66,9 +70,9 @@
     <div class="content m3-font-body-medium">
       {@render children()}
     </div>
-    <div class="buttons">
+    <form method="dialog" class="buttons">
       {@render buttons()}
-    </div>
+    </form>
   </div>
 </dialog>
 
