@@ -856,7 +856,7 @@ Slider
 ```
 
 ```ts
-let precision = $state<"continuous" | "discrete" | "discrete-ticks">("continuous");
+let precision = $state<"continuous" | "discrete" | "discrete-stops">("continuous");
 let size = $state<"xs" | "s" | "m" | "l" | "xl">("xs");
 let trailingIcon = $state<boolean>(false);
 let leadingIcon = $state<boolean>(false);
@@ -866,12 +866,12 @@ let enabled = $state<boolean>(true);
 
 ```svelte
 <label>
-  <Arrows list={["continuous", "discrete", "discrete-ticks"]} bind:value={precision} />
+  <Arrows list={["continuous", "discrete", "discrete-stops"]} bind:value={precision} />
   {precision == "continuous"
     ? "Continuous"
     : precision == "discrete"
       ? "Discrete"
-      : "Discrete (ticks)"}
+      : "Discrete (stops)"}
 </label>
 <label>
   <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} />
@@ -899,7 +899,7 @@ let enabled = $state<boolean>(true);
     {trailingIcon ? "Trailing icon" : "No trailing icon"}
   </label>
 {/if}
-{#if precision != "discrete-ticks" && !trailingIcon}
+{#if precision != "discrete-stops" && !trailingIcon}
   <label>
     <Switch bind:checked={endStops} />
     {endStops ? "Endstops" : "No endstops"}
@@ -911,8 +911,8 @@ let enabled = $state<boolean>(true);
     step={precision == "continuous" ? "any" : 10}
     value={10}
     disabled={!enabled}
-    ticks={precision == "discrete-ticks"}
     {size}
+    stops={precision == "discrete-stops"}
     {endStops}
     leadingIcon={leadingIcon ? iconCircle : undefined}
     trailingIcon={trailingIcon ? iconSquare : undefined}

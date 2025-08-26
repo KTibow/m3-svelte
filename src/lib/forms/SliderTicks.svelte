@@ -6,7 +6,7 @@
   import type { ComponentProps } from "svelte";
   import Slider from "./Slider.svelte";
 
-  let props: Omit<ComponentProps<typeof Slider>, "ticks"> = $props();
+  let props: Omit<ComponentProps<typeof Slider>, "stops"> = $props();
 </script>
 
-<Slider {...props} ticks={true}></Slider>
+<Slider {...props} stops={true}></Slider>
