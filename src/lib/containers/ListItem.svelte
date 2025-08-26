@@ -10,7 +10,15 @@
     | ({ label: true } & NotButton<HTMLLabelAttributes>)
     | ({ href: string } & NotButton<HTMLAnchorAttributes>);
 
-  let props: {
+  let {
+    leading,
+    overline = "",
+    headline = "",
+    supporting = "",
+    trailing,
+    lines = overline && supporting ? 3 : overline || supporting ? 2 : 1,
+    ..._props
+  }: {
     leading?: Snippet;
     overline?: string;
     headline?: string;
@@ -18,19 +26,11 @@
     trailing?: Snippet;
     lines?: number;
   } & ActionProps = $props();
-  let _lines = $derived(
-    props.lines ||
-      (props.overline && props.supporting ? 3 : props.overline || props.supporting ? 2 : 1),
-  );
+
+  let props = $derived({ role: "listitem", "aria-label": headline, ..._props });
 </script>
 
-{#snippet content(
-  leading: Snippet | undefined,
-  overline: string,
-  headline: string,
-  supporting: string,
-  trailing: Snippet | undefined,
-)}
+{#snippet content()}
   {#if leading}
     <div class="leading">
       {@render leading()}
@@ -54,35 +54,24 @@
 {/snippet}
 
 {#if "label" in props}
-  {@const {
-    leading,
-    overline = "",
-    headline = "",
-    supporting = "",
-    trailing,
-    label: _,
-    ...extra
-  } = props}
-  <label class="m3-container focus-inset lines-{_lines}" {...extra}>
+  {@const { label: _, ...extra } = props}
+  <label class="m3-container focus-inset lines-{lines}" {...extra}>
     <Layer />
-    {@render content(leading, overline, headline, supporting, trailing)}
+    {@render content()}
   </label>
 {:else if "onclick" in props}
-  {@const { leading, overline = "", headline = "", supporting = "", trailing, ...extra } = props}
-  <button type="button" class="m3-container focus-inset lines-{_lines}" {...extra}>
+  <button type="button" class="m3-container focus-inset lines-{lines}" {...props}>
     <Layer />
-    {@render content(leading, overline, headline, supporting, trailing)}
+    {@render content()}
   </button>
 {:else if "href" in props}
-  {@const { leading, overline = "", headline = "", supporting = "", trailing, ...extra } = props}
-  <a class="m3-container focus-inset lines-{_lines}" {...extra}>
+  <a class="m3-container focus-inset lines-{lines}" {...props}>
     <Layer />
-    {@render content(leading, overline, headline, supporting, trailing)}
+    {@render content()}
   </a>
 {:else}
-  {@const { leading, overline = "", headline = "", supporting = "", trailing, ...extra } = props}
-  <div class="m3-container lines-{_lines}" {...extra}>
-    {@render content(leading, overline, headline, supporting, trailing)}
+  <div class="m3-container lines-{lines}" {...props}>
+    {@render content()}
   </div>
 {/if}
 
