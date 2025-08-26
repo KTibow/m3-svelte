@@ -3,7 +3,6 @@
   import type { HTMLDialogAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
   import Icon from "$lib/misc/_icon.svelte";
-  import Divider from "$lib/utils/Divider.svelte";
 
   let {
     icon,
