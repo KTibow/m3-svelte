@@ -19,7 +19,7 @@ let { showCode }: { showCode: (
 const minimalDemo = `${"<"}Dialog headline="Hello" bind:open>
   I'm alive
   {#snippet buttons()}
-    ${"<"}Button variant="tonal" onclick={() => (open = false)}>OK${"<"}/Button>
+    ${"<"}Button variant="tonal">OK${"<"}/Button>
   {/snippet}
 ${"<"}/Dialog>`;
 const relevantLinks = [{"title":"Dialog.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Dialog.svelte"}];
@@ -32,7 +32,7 @@ const relevantLinks = [{"title":"Dialog.sv","link":"https://github.com/KTibow/m3
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
     ZomboCom! The unattainable is unknown at ZomboCom!
     {#snippet buttons()}
-      <Button variant="tonal" onclick={() => (open = false)}>OK</Button>
+      <Button variant="tonal">OK</Button>
     {/snippet}
   </Dialog>
 {/snippet}

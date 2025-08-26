@@ -60,6 +60,7 @@
       : extra.closeOnClick == false
         ? "closerequest"
         : "any")}
+  role="alertdialog"
   {...extra}
 >
   {#if icon}
@@ -69,9 +70,9 @@
   <div class="content m3-font-body-medium">
     {@render children()}
   </div>
-  <div class="buttons">
+  <form method="dialog" class="buttons">
     {@render buttons()}
-  </div>
+  </form>
 </dialog>
 
 <style>

@@ -463,7 +463,7 @@ Minimal demo:
 <Dialog headline="Hello" bind:open>
   I'm alive
   {#snippet buttons()}
-    <Button variant="tonal" onclick={() => (open = false)}>OK</Button>
+    <Button variant="tonal">OK</Button>
   {/snippet}
 </Dialog>
 ```
@@ -486,7 +486,7 @@ let open = $state(false);
     Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at
     ZomboCom! The unattainable is unknown at ZomboCom!
     {#snippet buttons()}
-      <Button variant="tonal" onclick={() => (open = false)}>OK</Button>
+      <Button variant="tonal">OK</Button>
     {/snippet}
   </Dialog>
 {/snippet}
