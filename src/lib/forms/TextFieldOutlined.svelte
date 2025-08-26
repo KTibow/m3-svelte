@@ -66,7 +66,11 @@
   do this: <TextFieldOutlined --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
   */
   :root {
-    --m3-textfield-outlined-shape: var(--m3-util-rounding-extra-small);
+    /* "textfield" is deprecated */
+    --m3-field-outlined-shape: var(
+      --m3-textfield-outlined-shape,
+      var(--m3-util-rounding-extra-small)
+    );
   }
   .m3-container {
     display: inline-flex;
@@ -83,7 +87,7 @@
     border: none;
     outline: none;
     padding: 1rem;
-    border-radius: var(--m3-textfield-outlined-shape);
+    border-radius: var(--m3-field-outlined-shape);
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
   }
@@ -122,7 +126,7 @@
     position: absolute;
     inset: 0;
     border: 1px solid rgb(var(--error, var(--m3-scheme-outline)));
-    border-radius: var(--m3-textfield-outlined-shape);
+    border-radius: var(--m3-field-outlined-shape);
     pointer-events: none;
     transition: all 100ms;
     &:is(input:enabled:hover ~ .layer) {

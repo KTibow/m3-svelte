@@ -57,7 +57,8 @@
 
 <style>
   :root {
-    --m3-textfield-filled-shape: var(--m3-util-rounding-extra-small);
+    /* "textfield" is deprecated */
+    --m3-field-filled-shape: var(--m3-textfield-filled-shape, var(--m3-util-rounding-extra-small));
   }
   .m3-container {
     display: inline-flex;
@@ -74,7 +75,7 @@
     border: none;
     outline: none;
     padding: 1.5rem 1rem 0.5rem 1rem;
-    border-radius: var(--m3-textfield-filled-shape) var(--m3-textfield-filled-shape) 0 0;
+    border-radius: var(--m3-field-filled-shape) var(--m3-field-filled-shape) 0 0;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     color: rgb(var(--m3-scheme-on-surface));
     resize: none;
@@ -113,7 +114,7 @@
   .layer {
     position: absolute;
     inset: 0;
-    border-radius: var(--m3-textfield-filled-shape) var(--m3-textfield-filled-shape) 0 0;
+    border-radius: var(--m3-field-filled-shape) var(--m3-field-filled-shape) 0 0;
     pointer-events: none;
     transition: all 100ms;
     &:is(textarea:enabled:hover ~ .layer) {

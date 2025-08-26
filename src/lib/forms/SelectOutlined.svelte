@@ -52,7 +52,7 @@
   */
   :root {
     --m3-menu-shape: var(--m3-util-rounding-extra-small);
-    --m3-select-outlined-shape: var(--m3-util-rounding-extra-small);
+    --m3-field-outlined-shape: var(--m3-util-rounding-extra-small);
   }
 
   .m3-container {
@@ -79,7 +79,7 @@
     position: absolute;
     inset: 0;
     border: 1px solid var(--outline-color);
-    border-radius: var(--m3-select-outlined-shape);
+    border-radius: var(--m3-field-outlined-shape);
     pointer-events: none;
     transition: all 100ms;
   }
@@ -109,7 +109,7 @@
     height: calc(3.5rem + var(--m3-util-density-term));
     padding-inline: 1rem;
 
-    border-radius: var(--m3-select-outlined-shape);
+    border-radius: var(--m3-field-outlined-shape);
     background-color: transparent;
     color: rgb(var(--m3-scheme-on-surface));
 
