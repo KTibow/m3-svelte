@@ -22,9 +22,9 @@
     closeOnEsc?: boolean;
     /** @deprecated use closedby instead */
     closeOnClick?: boolean;
-    /** @deprecated use closedby instead */
+    /** @deprecated listen to `open` state changes instead of onEsc */
     onEsc?: () => void;
-    /** @deprecated use closedby instead */
+    /** @deprecated listen to `open` state changes instead of onClick */
     onClick?: () => void;
   } & HTMLDialogAttributes = $props();
 
