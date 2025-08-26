@@ -1,17 +1,11 @@
 <script lang="ts">
-  import type {
-    HTMLButtonAttributes,
-    HTMLAnchorAttributes,
-    HTMLLabelAttributes,
-  } from "svelte/elements";
+  import type { HTMLButtonAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
+  import type { LabelAttrs, AnchorAttrs } from "$lib/misc/typing-utils";
   import Layer from "$lib/misc/Layer.svelte";
 
   // If you want a toggle button, use `for` with a checkbox input.
-  type ActionProps =
-    | ({ for: string } & HTMLLabelAttributes)
-    | ({ href: string } & HTMLAnchorAttributes)
-    | HTMLButtonAttributes;
+  type ActionProps = LabelAttrs | AnchorAttrs | HTMLButtonAttributes;
   type Props = {
     variant?: "elevated" | "filled" | "tonal" | "outlined" | "text";
     square?: boolean;
