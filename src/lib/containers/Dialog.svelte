@@ -60,6 +60,7 @@
       : extra.closeOnClick == false
         ? "closerequest"
         : "any")}
+  role="alertdialog"
   {...extra}
 >
   {#if icon}
