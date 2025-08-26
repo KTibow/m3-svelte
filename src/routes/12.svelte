@@ -25,12 +25,12 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}LinearProgress percent={60} />
-${"<"}LinearProgressEstimate sToHalfway={2} />
-${"<"}WavyLinearProgress percent={60} />
-${"<"}WavyLinearProgressEstimate sToHalfway={2} />
-${"<"}CircularProgress percent={60} />
-${"<"}CircularProgressEstimate sToHalfway={2} />`;
+const minimalDemo = `${"<"}LinearProgress percent={60} aria-label="Loading episodes" />
+${"<"}LinearProgressEstimate sToHalfway={2} aria-label="Loading episodes" />
+${"<"}WavyLinearProgress percent={60} aria-label="Loading episodes" />
+${"<"}WavyLinearProgressEstimate sToHalfway={2} aria-label="Loading episodes" />
+${"<"}CircularProgress percent={60} aria-label="Loading episodes" />
+${"<"}CircularProgressEstimate sToHalfway={2} aria-label="Loading episodes" />`;
 const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgress.svelte"},{"title":"LinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgressEstimate.svelte"},{"title":"WavyLinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgress.svelte"},{"title":"WavyLinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgressEstimate.svelte"},{"title":"CircularProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgress.svelte"},{"title":"CircularProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgressEstimate.svelte"},{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"}];
 </script>
 
@@ -51,17 +51,17 @@ const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/K
 
 {#snippet demo()}
   {#if estimate && type == "linear"}
-    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : 4} />
+    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : 4} aria-label="LinearProgressEstimate" />
   {:else if estimate && type == "linear-wavy"}
-    <WavyLinearProgressEstimate height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+    <WavyLinearProgressEstimate height={thick ? 14 : 10} thickness={thick ? 8 : 4} aria-label="WavyLinearProgressEstimate" />
   {:else if estimate && type == "circular"}
-    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : 4} />
+    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : 4} aria-label="CircularProgressEstimate" />
   {:else if type == "linear"}
-    <LinearProgress {percent} height={thick ? 8 : 4} />
+    <LinearProgress {percent} height={thick ? 8 : 4} aria-label="LinearProgress" />
   {:else if type == "linear-wavy"}
-    <WavyLinearProgress {percent} height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+    <WavyLinearProgress {percent} height={thick ? 14 : 10} thickness={thick ? 8 : 4} aria-label="WavyLinearProgress" />
   {:else if type == "circular"}
-    <CircularProgress {percent} thickness={thick ? 8 : 4} />
+    <CircularProgress {percent} thickness={thick ? 8 : 4} aria-label="CircularProgress" />
   {/if}
 {/snippet}
 

@@ -1,17 +1,20 @@
 <script lang="ts">
+  import type { OneOf } from "$lib/misc/typing-utils";
+
   // for more weird loaders check out https://www.npmjs.com/package/kreations
   let {
     size = 48,
     container = false,
     center = true,
+    ...props
   }: {
     size?: number;
     container?: boolean;
     center?: boolean;
-  } = $props();
+  } & OneOf<{ "aria-label": string; "aria-labelledby": string }> = $props();
 </script>
 
-<svg width={size} height={size} class:container class:center>
+<svg width={size} height={size} class:container class:center role="progressbar" {...props}>
   <path fill="currentColor">
     <animate
       attributeName="d"

@@ -1,8 +1,23 @@
 <script lang="ts">
-  let { percent, height = 4 }: { percent: number; height?: number } = $props();
+  import type { OneOf } from "$lib/misc/typing-utils";
+
+  let {
+    percent,
+    height = 4,
+    ...props
+  }: { percent: number; height?: number } & OneOf<{
+    "aria-label": string;
+    "aria-labelledby": string;
+  }> = $props();
 </script>
 
-<div class="m3-container" role="progressbar" style:height="{height / 16}rem">
+<div
+  class="m3-container"
+  role="progressbar"
+  aria-valuenow={percent}
+  style:height="{height / 16}rem"
+  {...props}
+>
   <div class="percent" style:width="{percent}%"></div>
   <div class="track"></div>
 </div>

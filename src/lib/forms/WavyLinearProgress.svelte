@@ -1,13 +1,18 @@
 <script lang="ts">
   import { onMount, untrack } from "svelte";
   import { linear, trackOpacity } from "./_wavy";
+  import type { OneOf } from "$lib/misc/typing-utils";
 
   let {
     width = 600,
     height = 10,
     thickness = 4,
     percent,
-  }: { width?: number; height?: number; thickness?: number; percent: number } = $props();
+    ...props
+  }: { width?: number; height?: number; thickness?: number; percent: number } & OneOf<{
+    "aria-label": string;
+    "aria-labelledby": string;
+  }> = $props();
 
   let time = $state(0);
 
@@ -39,7 +44,7 @@
   });
 </script>
 
-<svg viewBox="0 0 {width} {height}">
+<svg viewBox="0 0 {width} {height}" role="progressbar" aria-valuenow={percent} {...props}>
   <path
     fill="none"
     stroke="rgb(var(--m3-scheme-primary))"
