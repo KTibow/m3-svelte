@@ -53,10 +53,6 @@
       extra.onClick();
     }
   }}
-  onclose={(e) => {
-    if (e.target != e.currentTarget) return;
-    open = false;
-  }}
   bind:this={dialog}
   closedby={closedby ||
     (extra.closeOnClick == false && extra.closeOnEsc == false
