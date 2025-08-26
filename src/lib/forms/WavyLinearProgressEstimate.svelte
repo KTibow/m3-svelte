@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { ProgressAria } from "$lib/misc/typing-utils";
   import { linear, trackOpacity } from "./_wavy";
 
   let {
@@ -6,7 +7,13 @@
     width = 600,
     height = 10,
     thickness = 4,
-  }: { sToHalfway?: number; width?: number; height?: number; thickness?: number } = $props();
+    ...props
+  }: {
+    sToHalfway?: number;
+    width?: number;
+    height?: number;
+    thickness?: number;
+  } & ProgressAria = $props();
 
   let top = $derived(thickness * 0.5);
   let bottom = $derived(height - thickness * 0.5);
@@ -51,7 +58,7 @@
   });
 </script>
 
-<svg viewBox="0 0 {width} {height}">
+<svg viewBox="0 0 {width} {height}" role="progressbar" {...props}>
   <path
     fill="none"
     stroke="rgb(var(--m3-scheme-primary))"

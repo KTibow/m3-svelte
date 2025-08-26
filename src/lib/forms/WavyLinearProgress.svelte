@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, untrack } from "svelte";
   import { linear, trackOpacity } from "./_wavy";
-  import type { OneOf } from "$lib/misc/typing-utils";
+  import type { ProgressAria } from "$lib/misc/typing-utils";
 
   let {
     width = 600,
@@ -9,10 +9,12 @@
     thickness = 4,
     percent,
     ...props
-  }: { width?: number; height?: number; thickness?: number; percent: number } & OneOf<{
-    "aria-label": string;
-    "aria-labelledby": string;
-  }> = $props();
+  }: {
+    width?: number;
+    height?: number;
+    thickness?: number;
+    percent: number;
+  } & ProgressAria = $props();
 
   let time = $state(0);
 

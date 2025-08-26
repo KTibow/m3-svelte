@@ -1,5 +1,11 @@
 <script lang="ts">
-  let { sToHalfway = 1, height = 4 }: { sToHalfway?: number; height?: number } = $props();
+  import type { ProgressAria } from "$lib/misc/typing-utils";
+
+  let {
+    sToHalfway = 1,
+    height = 4,
+    ...props
+  }: { sToHalfway?: number; height?: number } & ProgressAria = $props();
   /*
   Easing calculated with
   // 1) define the original mapping f(y)=time-%, capped at 100% for y=1
@@ -72,6 +78,7 @@
   role="progressbar"
   style:height="{height / 16}rem"
   style:--speed="{sToHalfway * 8}s"
+  {...props}
 >
   <div class="percent"></div>
   <div class="track"></div>

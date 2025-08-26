@@ -1,13 +1,16 @@
 <script lang="ts">
+  import type { ProgressAria } from "$lib/misc/typing-utils";
+
   let {
     sToHalfway = 1,
     size = 48,
     thickness = 2,
+    ...props
   }: {
     sToHalfway?: number;
     size?: number;
     thickness?: number;
-  } = $props();
+  } & ProgressAria = $props();
 
   let r = $derived(size / 2 - thickness / 2);
   let circumference = $derived(Math.PI * r * 2);
@@ -23,6 +26,7 @@
   role="progressbar"
   style:--speed="{sToHalfway * 8}s"
   style:--circumference={circumference}
+  {...props}
 >
   <circle
     cx={size / 2}

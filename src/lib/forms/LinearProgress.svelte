@@ -1,14 +1,11 @@
 <script lang="ts">
-  import type { OneOf } from "$lib/misc/typing-utils";
+  import type { ProgressAria } from "$lib/misc/typing-utils";
 
   let {
     percent,
     height = 4,
     ...props
-  }: { percent: number; height?: number } & OneOf<{
-    "aria-label": string;
-    "aria-labelledby": string;
-  }> = $props();
+  }: { percent: number; height?: number } & ProgressAria = $props();
 </script>
 
 <div
