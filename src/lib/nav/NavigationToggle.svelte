@@ -46,15 +46,15 @@
   }
   
   .toggle.noAnimations {
-    --m3-util-easing-spatial: 0s;
+    --m3-util-easing: 0s;
   }
   
   .toggle:not(.noAnimations).active > :global(svg) {
-    animation: in_spin var(--m3-util-easing-spatial);
+    animation: in_spin var(--m3-util-easing);
   }
   
   .toggle:not(.active) > :global(svg) {
-    animation: out_spin var(--m3-util-easing-spatial);
+    animation: out_spin var(--m3-util-easing);
   }
   
   @keyframes in_spin {

@@ -53,6 +53,7 @@
     padding: 0;
     border: none;
     cursor: pointer;
+    animation: none !important;
   }
   
   .m3-container {
@@ -118,12 +119,12 @@
       background: color-mix(in oklab, currentColor 8%, transparent);
     }
 
-    .m3-container:not(.active):focus-visible > .icon,
+    :is(button, a):focus-visible > .m3-container:not(.active) > .icon,
     .m3-container:not(.active):active > .icon {
       background-color: color-mix(in oklab, currentColor 12%, transparent);
     }
     
-    .m3-container:focus-visible > .icon {
+    :is(button, a):focus-visible .icon {
       outline: solid;
       outline-color: rgb(var(--m3-scheme-on-secondary-container));
       outline-width: 3px;
@@ -172,6 +173,7 @@
       line-height: var(--m3-font-label-large-height, 1.429);
       letter-spacing: var(--m3-font-label-large-tracking, 0.006rem);
       font-weight: var(--m3-font-label-large-weight, 500);
+      transition: background-color var(--m3-util-easing);
     }
 
     .m3-container.active {
@@ -183,12 +185,12 @@
       background: color-mix(in oklab, currentColor 8%, transparent);
     }
 
-    .m3-container:not(.active):focus-visible,
+    :is(button, a):focus-visible > .m3-container:not(.active),
     .m3-container:not(.active):active {
       background-color: color-mix(in oklab, currentColor 12%, transparent);
     }
     
-    .m3-container:focus-visible {
+    :is(button, a):focus-visible > .m3-container {
       outline: solid;
       outline-color: rgb(var(--m3-scheme-on-secondary-container));
       outline-width: 3px;

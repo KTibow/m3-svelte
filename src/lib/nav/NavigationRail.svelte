@@ -67,7 +67,8 @@
   }
   
   .rail.open,
-  .m3-container:has(>.rail.open:not(.modal)) {
+  .m3-container:has(>.rail.open:not(.modal)),
+  .rail.fullyCollapse {
     width: 220px;
   }
   
@@ -83,8 +84,13 @@
   }
 
   .rail:not(.open).fullyCollapse {
-    opacity: 0;
     pointer-events: none;
+    width: 0px;
+  }
+  
+  .rail:not(.open).fullyCollapse > .top > :not(:global(.toggle)),
+  .rail:not(.open).fullyCollapse > .items {
+    opacity: 0;
   }
 
   .rail.modal {
@@ -109,18 +115,20 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    width: 100%;
+    width: 96px;
     container: items / inline-size;
     align-self: stretch;
+    transition: gap var(--m3-util-easing-fast), opacity var(--m3-util-easing);
   }
 
-  .rail.open > .items {
+  .rail.open > .items,
+  .rail.fullyCollapse > .items {
     gap: 0px;
+    width: 220px;
   }
   
   .rail.center > .items {
     justify-content: center;
-    width: 100%;
   }
   
   .shadow {
