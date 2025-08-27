@@ -7,13 +7,15 @@
   import iconBook from "@ktibow/iconset-material-symbols/book-2-outline";
   import iconBookS from "@ktibow/iconset-material-symbols/book-2";
   import iconAnimation from "@ktibow/iconset-material-symbols/animation";
-  import iconAnimationS from "@ktibow/iconset-material-symbols/animation";
+  import iconMenu from "@ktibow/iconset-material-symbols/menu";
   import { base } from "$app/paths";
   import { page } from "$app/state";
   import NavCMLX from "$lib/nav/NavCMLX.svelte";
   import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
   import NavigationRailItem from "$lib/nav/NavigationRailItem.svelte";
   import NavigationRail from "$lib/nav/NavigationRail.svelte";
+  import Button from "$lib/buttons/Button.svelte";
+  import Icon from "$lib/misc/_icon.svelte";
   import { styling } from "./state";
   import "../app.css";
 
@@ -51,6 +53,12 @@
       iconS: iconBookS,
       label: "llms.txt",
     },
+    {
+      path: base + "/transitions",
+      icon: iconAnimation,
+      iconS: iconAnimation,
+      label: "Motion",
+    }
   ];
   const normalizePath = (path: string) => {
     const u = new URL(path, page.url.href);
@@ -66,7 +74,7 @@
 
 <div class="container">
   <div class="sidebar">
-    <NavigationRail collapse={!!innerWidth && innerWidth < 560 ? 'full' : 'normal'} modal>
+    <NavigationRail collapse={!!innerWidth && innerWidth < 560 ? 'full' : 'normal'} modal={!!innerWidth && innerWidth < 560}>
       {#each paths as { path, icon, iconS, label }}
         {@const active = normalizePath(path) === normalizePath(page.url.pathname)}
         
@@ -76,6 +84,14 @@
   </div>
 
   <div class="content">
+    {#if !!innerWidth && innerWidth < 560}
+      <div class="railtoggle">
+        <Button variant="text" iconType="full" square>
+          <Icon icon={iconMenu} />
+        </Button>
+      </div>
+    {/if}
+    
     {@render children()}
   </div>
 </div>
@@ -97,6 +113,12 @@
     background: rgb(var(--m3-scheme-background));
     width: 100%;
   }
+  
+  .railtoggle {
+    margin-block-start: 40px;
+    margin-inline-start: 20px;
+  }
+  
   @media (width < 52.5rem) {
     .container {
       --m3-util-bottom-offset: 5rem;

@@ -1,11 +1,10 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import iconMenuOpen from "@ktibow/iconset-material-symbols/menu-open";
-  import iconMenu from "@ktibow/iconset-material-symbols/menu";
-
+  import NavigationToggle from "./NavigationToggle.svelte";
   import Icon from "$lib/misc/_icon.svelte";
 
+  let active = $state<boolean>(false);
   let {
     open = false,
     collapse = 'normal',
@@ -13,14 +12,14 @@
     alignment = 'top',
     fab,
     children,
-  }: {
+  } = $props<{
     open?: boolean;
     collapse?: 'normal' | 'full' | 'none' | boolean;
     modal?: boolean;
     alignment?: 'top' | 'center';
     fab?: Snippet<[open: boolean]>;
     children: Snippet;
-  } = $props();
+  }>();
   
   const onkeydown = (e: KeyboardEvent) => {
     if (modal && open && e.key === 'Escape') {
@@ -29,6 +28,10 @@
       open = false;
     }
   }
+  
+  $effect(() => {
+    console.log(active);
+  });
 </script>
 
 <svelte:window {onkeydown} />
@@ -37,9 +40,7 @@
   <div class="rail" class:open={open && (collapse !== 'none' && collapse !== false)} class:center={alignment === 'center'} class:fullyCollapse={collapse === 'full'} class:modal>
     <div class="top">
       {#if collapse !== 'none' && collapse !== false}
-        <button class="collapse" type="button" aria-haspopup="true" aria-controls="menu" onclick={() => (open = !open)}>
-          <Icon icon={open ? iconMenuOpen : iconMenu} />
-        </button>
+        <NavigationToggle bind:active />
       {/if}
 
       {#if fab}
@@ -64,10 +65,16 @@
   .m3-container {
     width: 96px;
     height: 100%;
+    transition: width var(--m3-util-easing-spatial);
   }
 
-  .m3-container:has(.fullyCollapse) {
+  .m3-container:has(>.rail.fullyCollapse) {
     width: 0;
+  }
+  
+  .rail.open,
+  .m3-container:has(>.rail.open:not(.modal)) {
+    width: 220px;
   }
   
   .rail {
@@ -76,21 +83,12 @@
     width: 96px;
     height: 100%;
     padding: 40px 0px;
-    transition: all var(--m3-util-easing);
+    transition: all var(--m3-util-easing-spatial);
     overflow: hidden;
     overflow-y: auto;
   }
 
-  .rail.fullyCollapse:not(.open) {
-    background: none !important;
-  }
-
-  .rail.fullyCollapse {
-    position: absolute;
-  }
-
-  .rail.fullyCollapse:not(.open) > .items,
-  .rail.fullyCollapse:not(.open) > .top > div {
+  .rail:not(.open).fullyCollapse {
     opacity: 0;
     pointer-events: none;
   }
@@ -105,10 +103,6 @@
     background: rgb(var(--m3-scheme-surface-container));
   }
 
-  .rail.open {
-    width: 220px;
-  }
-
   .top {
     margin-block-end: 46px;
     margin-inline-start: 20px;
@@ -116,32 +110,7 @@
     flex-direction: column;
     z-index: 1;
   }
-
-  .collapse {
-    background: none;
-    padding: 0;
-    border: none;
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-    margin: 1rem;
-    pointer-events: auto;
-    border-radius: var(--m3-util-rounding-extra-small);
-  }
   
-  .collapse:focus-visible {
-    animation: none;
-    outline: solid;
-    outline-color: rgb(var(--m3-scheme-on-secondary-container));
-    outline-width: 3px;
-    outline-offset: 3px;
-  }
-
-  .collapse > :global(svg) {
-    width: 24px;
-    height: 24px;
-  }
-
   .items {
     display: flex;
     flex-direction: column;
