@@ -1,4 +1,12 @@
-import type { HTMLButtonAttributes } from "svelte/elements";
+import type {
+  HTMLLabelAttributes,
+  HTMLAnchorAttributes,
+  HTMLButtonAttributes,
+} from "svelte/elements";
+
+export type LabelAttrs = HTMLLabelAttributes & Required<Pick<HTMLLabelAttributes, "for">>;
+
+export type AnchorAttrs = HTMLAnchorAttributes & Required<Pick<HTMLAnchorAttributes, "href">>;
 
 export type NotButton<T> = Omit<T, "onclick">;
 export type ButtonAttrs = HTMLButtonAttributes & Required<Pick<HTMLButtonAttributes, "onclick">>;

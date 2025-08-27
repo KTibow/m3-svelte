@@ -7,7 +7,7 @@ import Icon from "$lib/misc/_icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Slider from "$lib/forms/Slider.svelte";
-let precision = $state<"continuous" | "discrete" | "discrete-ticks">("continuous");
+let precision = $state<"continuous" | "discrete" | "discrete-stops">("continuous");
 let size = $state<"xs" | "s" | "m" | "l" | "xl">("xs");
 let trailingIcon = $state<boolean>(false);
 let leadingIcon = $state<boolean>(false);
@@ -26,12 +26,12 @@ const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3
 
 <InternalCard title="Slider" showCode={() => showCode("Slider", minimalDemo, relevantLinks)}>
 <label>
-  <Arrows list={["continuous", "discrete", "discrete-ticks"]} bind:value={precision} />
+  <Arrows list={["continuous", "discrete", "discrete-stops"]} bind:value={precision} />
   {precision == "continuous"
     ? "Continuous"
     : precision == "discrete"
       ? "Discrete"
-      : "Discrete (ticks)"}
+      : "Discrete (stops)"}
 </label>
 <label>
   <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} />
@@ -59,7 +59,7 @@ const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3
     {trailingIcon ? "Trailing icon" : "No trailing icon"}
   </label>
 {/if}
-{#if precision != "discrete-ticks" && !trailingIcon}
+{#if precision != "discrete-stops" && !trailingIcon}
   <label>
     <Switch bind:checked={endStops} />
     {endStops ? "Endstops" : "No endstops"}
@@ -71,8 +71,8 @@ const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3
     step={precision == "continuous" ? "any" : 10}
     value={10}
     disabled={!enabled}
-    ticks={precision == "discrete-ticks"}
     {size}
+    stops={precision == "discrete-stops"}
     {endStops}
     leadingIcon={leadingIcon ? iconCircle : undefined}
     trailingIcon={trailingIcon ? iconSquare : undefined}

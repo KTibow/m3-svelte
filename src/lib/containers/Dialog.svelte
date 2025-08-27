@@ -22,9 +22,9 @@
     closeOnEsc?: boolean;
     /** @deprecated use closedby instead */
     closeOnClick?: boolean;
-    /** @deprecated use closedby instead */
+    /** @deprecated listen to `open` state changes instead of onEsc */
     onEsc?: () => void;
-    /** @deprecated use closedby instead */
+    /** @deprecated listen to `open` state changes instead of onClick */
     onClick?: () => void;
   } & HTMLDialogAttributes = $props();
 
@@ -60,6 +60,7 @@
       : extra.closeOnClick == false
         ? "closerequest"
         : "any")}
+  role="alertdialog"
   {...extra}
 >
   {#if icon}
@@ -69,9 +70,9 @@
   <div class="content m3-font-body-medium">
     {@render children()}
   </div>
-  <div class="buttons">
+  <form method="dialog" class="buttons">
     {@render buttons()}
-  </div>
+  </form>
 </dialog>
 
 <style>

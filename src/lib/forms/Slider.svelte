@@ -14,7 +14,7 @@
     size = "xs",
     leadingIcon,
     trailingIcon,
-    ticks = false,
+    stops: _stops = false,
     endStops = true,
     format = (n: number) => {
       return n.toFixed(0);
@@ -30,10 +30,12 @@
     size?: "xs" | "s" | "m" | "l" | "xl";
     leadingIcon?: IconifyIcon;
     trailingIcon?: IconifyIcon;
-    ticks?: boolean;
+    stops?: boolean;
     endStops?: boolean;
     format?: (n: number) => string;
   } & Omit<HTMLInputAttributes, "size"> = $props();
+  // @ts-expect-error deprecated backwards compatibility with ticks
+  let stops = $derived(extra.ticks ? true : _stops);
   let containerWidth = $state(600);
 
   const valueDisplayed = new Spring(value, { stiffness: 0.3, damping: 1 });
@@ -46,14 +48,14 @@
 
   const range = $derived(max - min);
   const percent = $derived((valueDisplayed.current - min) / range);
-  const tickList = $derived.by(() => {
+  const stopList = $derived.by(() => {
     if (typeof step != "number") return [];
 
-    const ticksList = [];
+    const stopsList = [];
 
-    for (let i = 0; i <= range; i += step) ticksList.push(i / range);
+    for (let i = 0; i <= range; i += step) stopsList.push(i / range);
 
-    return ticksList;
+    return stopsList;
   });
 </script>
 
@@ -86,17 +88,16 @@
       class={"trailing" + (containerWidth * (1 - percent) < (size == "xl" ? 48 : 40) ? " pop" : "")}
     />
   {/if}
-  {#if ticks}
-    {#each tickList as tick}
+  {#if stops}
+    {#each stopList as stop}
       <div
-        class="tick"
-        class:hidden={Math.abs(tick - percent) < 0.01}
-        class:inactive={tick > percent}
-        style:--x={tick - 0.5}
+        class="stop"
+        class:hidden={Math.abs(stop - percent) < 0.01}
+        class:inactive={stop > percent}
+        style:--x={stop - 0.5}
       ></div>
     {/each}
-  {/if}
-  {#if endStops && !ticks && !trailingIcon}
+  {:else if endStops && !trailingIcon}
     <div class="endstop" class:hidden={containerWidth * (1 - percent) < 14}></div>
   {/if}
   <div class="handle"></div>
@@ -250,7 +251,7 @@
     border-end-end-radius: var(--track-radius);
   }
 
-  .tick {
+  .stop {
     position: absolute;
     width: 4px;
     height: 4px;
@@ -265,19 +266,19 @@
     pointer-events: none;
   }
 
-  .tick.hidden {
+  .stop.hidden {
     display: none;
   }
 
-  .tick.inactive {
+  .stop.inactive {
     background-color: rgb(var(--m3-scheme-on-secondary-container));
   }
 
-  :global(.leading) ~ .tick:nth-child(1 of div.tick) {
+  :global(.leading) ~ .stop:nth-child(1 of div.stop) {
     display: none;
   }
 
-  :global(.trailing) ~ .tick:nth-last-child(1 of div.tick) {
+  :global(.trailing) ~ .stop:nth-last-child(1 of div.stop) {
     display: none;
   }
 
@@ -351,10 +352,10 @@
   input:disabled ~ .handle {
     background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
   }
-  input:disabled ~ .tick {
+  input:disabled ~ .stop {
     background-color: rgb(var(--m3-scheme-inverse-on-surface));
   }
-  input:disabled ~ .tick.inactive,
+  input:disabled ~ .stop.inactive,
   input:disabled ~ .endstop {
     background-color: rgb(var(--m3-scheme-on-surface));
   }
