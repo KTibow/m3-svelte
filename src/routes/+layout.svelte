@@ -10,17 +10,17 @@
   import iconMenu from "@ktibow/iconset-material-symbols/menu";
   import { base } from "$app/paths";
   import { page } from "$app/state";
-  import NavCMLX from "$lib/nav/NavCMLX.svelte";
-  import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
   import NavigationRailItem from "$lib/nav/NavigationRailItem.svelte";
   import NavigationRail from "$lib/nav/NavigationRail.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import Icon from "$lib/misc/_icon.svelte";
   import { styling } from "./state";
   import "../app.css";
+    import NavigationToggle from "$lib/nav/NavigationToggle.svelte";
 
   let { children }: { children: Snippet } = $props();
   let innerWidth = $state<number | undefined>();
+  let open = $state<boolean>(false);
 
   const paths = [
     {
@@ -74,7 +74,7 @@
 
 <div class="container">
   <div class="sidebar">
-    <NavigationRail collapse={!!innerWidth && innerWidth < 560 ? 'full' : 'normal'} modal={!!innerWidth && innerWidth < 560}>
+    <NavigationRail collapse={!!innerWidth && innerWidth < 560 ? 'full' : 'normal'} modal={!!innerWidth && innerWidth < 560} bind:open>
       {#each paths as { path, icon, iconS, label }}
         {@const active = normalizePath(path) === normalizePath(page.url.pathname)}
         
@@ -86,9 +86,7 @@
   <div class="content">
     {#if !!innerWidth && innerWidth < 560}
       <div class="railtoggle">
-        <Button variant="text" iconType="full" square>
-          <Icon icon={iconMenu} />
-        </Button>
+        <NavigationToggle bind:active={open} />
       </div>
     {/if}
     
@@ -115,8 +113,8 @@
   }
   
   .railtoggle {
-    margin-block-start: 40px;
-    margin-inline-start: 20px;
+    margin-block-start: 24px;
+    margin-inline-start: 4px;
   }
   
   @media (width < 52.5rem) {

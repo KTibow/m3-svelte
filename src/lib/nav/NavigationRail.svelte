@@ -2,11 +2,9 @@
   import type { Snippet } from "svelte";
 
   import NavigationToggle from "./NavigationToggle.svelte";
-  import Icon from "$lib/misc/_icon.svelte";
 
-  let active = $state<boolean>(false);
   let {
-    open = false,
+    open = $bindable(false),
     collapse = 'normal',
     modal = false,
     alignment = 'top',
@@ -28,10 +26,6 @@
       open = false;
     }
   }
-  
-  $effect(() => {
-    console.log(active);
-  });
 </script>
 
 <svelte:window {onkeydown} />
@@ -40,7 +34,7 @@
   <div class="rail" class:open={open && (collapse !== 'none' && collapse !== false)} class:center={alignment === 'center'} class:fullyCollapse={collapse === 'full'} class:modal>
     <div class="top">
       {#if collapse !== 'none' && collapse !== false}
-        <NavigationToggle bind:active />
+        <NavigationToggle bind:active={open} />
       {/if}
 
       {#if fab}

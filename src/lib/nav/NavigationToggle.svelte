@@ -7,16 +7,13 @@
   
   let noAnimations = $state<boolean>(true);
   let {
-    active
+    active = $bindable()
   } = $props<{
     active: boolean;
   }>();
   
   // Prevent the animation on page load
   onMount(() => setTimeout(() => noAnimations = false));
-  $effect(() => {
-    console.log(active);
-  });
 </script>
 
 <button class="toggle" class:active class:noAnimations type="button" aria-haspopup="true" aria-controls="menu" onclick={() => (active = !active)}>
