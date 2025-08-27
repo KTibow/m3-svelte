@@ -5,7 +5,7 @@
   let { children, ...extra }: { children: Snippet } & HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
-<div class="m3-container" {...extra}>
+<div class="m3-container" role="status" {...extra}>
   {@render children()}
 </div>
 
