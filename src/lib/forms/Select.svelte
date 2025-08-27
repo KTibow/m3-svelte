@@ -47,6 +47,7 @@
 <style>
   :root {
     --m3-menu-shape: var(--m3-util-rounding-extra-small);
+    --m3-field-filled-shape: var(--m3-util-rounding-extra-small);
   }
 
   .m3-container {
@@ -92,7 +93,7 @@
     );
     padding-inline: 1rem;
 
-    border-radius: var(--m3-textfield-filled-shape) var(--m3-textfield-filled-shape) 0 0;
+    border-radius: var(--m3-field-filled-shape) var(--m3-field-filled-shape) 0 0;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     transition:
       background-color var(--m3-util-easing-fast),

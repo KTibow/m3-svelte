@@ -3,14 +3,15 @@
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/_icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  import type { ButtonAttrs } from "$lib/misc/typing-utils";
+  import type { LabelAttrs, AnchorAttrs, ButtonAttrs } from "$lib/misc/typing-utils";
+
+  type ActionProps = LabelAttrs | AnchorAttrs | ButtonAttrs;
 
   let {
     variant,
     icon,
     trailingIcon,
     elevated = false,
-    disabled = false,
     selected = false,
     children,
     ...extra
@@ -28,20 +29,12 @@
     icon?: IconifyIcon | undefined;
     trailingIcon?: IconifyIcon | undefined;
     elevated?: boolean;
-    disabled?: boolean;
     selected?: boolean;
     children: Snippet;
-  } & ButtonAttrs = $props();
+  } & ActionProps = $props();
 </script>
 
-<button
-  type="button"
-  class="m3-container {variant}"
-  class:elevated
-  class:selected
-  {disabled}
-  {...extra}
->
+{#snippet content()}
   <Layer />
   {#if icon}
     <Icon {icon} class="leading" />
@@ -50,7 +43,21 @@
   {#if trailingIcon}
     <Icon icon={trailingIcon} class="trailing" />
   {/if}
-</button>
+{/snippet}
+
+{#if "for" in extra}
+  <label class="m3-container {variant}" class:elevated class:selected {...extra}>
+    {@render content()}
+  </label>
+{:else if "href" in extra}
+  <a class="m3-container {variant}" class:elevated class:selected {...extra}>
+    {@render content()}
+  </a>
+{:else}
+  <button class="m3-container {variant}" class:elevated class:selected {...extra} type="button">
+    {@render content()}
+  </button>
+{/if}
 
 <style>
   :root {

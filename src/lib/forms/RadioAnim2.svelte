@@ -32,6 +32,7 @@
   .m3-container :global(input) {
     position: absolute;
     opacity: 0;
+    pointer-events: none;
   }
 
   .layer-container {

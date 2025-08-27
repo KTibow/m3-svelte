@@ -10,10 +10,7 @@
     buttons,
     children,
     open = $bindable(),
-    closeOnEsc = true,
-    closeOnClick = true,
-    onEsc,
-    onClick,
+    closedby = "any",
     ...extra
   }: {
     icon?: IconifyIcon | undefined;
@@ -21,9 +18,13 @@
     buttons: Snippet;
     children: Snippet;
     open: boolean;
+    /** @deprecated use closedby instead */
     closeOnEsc?: boolean;
+    /** @deprecated use closedby instead */
     closeOnClick?: boolean;
+    /** @deprecated listen to `open` state changes instead of onEsc */
     onEsc?: () => void;
+    /** @deprecated listen to `open` state changes instead of onClick */
     onClick?: () => void;
   } & HTMLDialogAttributes = $props();
 
@@ -37,39 +38,41 @@
 
 <dialog
   class="m3-container"
+  ontoggle={(e) => {
+    open = e.newState == "open";
+  }}
   oncancel={(e) => {
     if (e.target != e.currentTarget) return;
-
-    if (!closeOnEsc) {
-      e.preventDefault();
-      return;
+    if (extra.closeOnEsc && extra.onEsc) {
+      extra.onEsc();
     }
-
-    onEsc?.();
-    open = false;
   }}
   onclick={(e) => {
     if (e.target != e.currentTarget) return;
-    if (closeOnClick) {
-      onClick?.();
-      open = false;
+    if (extra.closeOnClick && extra.onClick) {
+      extra.onClick();
     }
   }}
   bind:this={dialog}
+  closedby={closedby ||
+    (extra.closeOnClick == false && extra.closeOnEsc == false
+      ? "none"
+      : extra.closeOnClick == false
+        ? "closerequest"
+        : "any")}
+  role="alertdialog"
   {...extra}
 >
-  <div class="d">
-    {#if icon}
-      <Icon {icon} width="1.5rem" height="1.5rem" />
-    {/if}
-    <p class="headline m3-font-headline-small" class:center={icon}>{headline}</p>
-    <div class="content m3-font-body-medium">
-      {@render children()}
-    </div>
-    <div class="buttons">
-      {@render buttons()}
-    </div>
+  {#if icon}
+    <Icon {icon} width="1.5rem" height="1.5rem" />
+  {/if}
+  <p class="headline m3-font-headline-small" class:center={icon}>{headline}</p>
+  <div class="content m3-font-body-medium">
+    {@render children()}
   </div>
+  <form method="dialog" class="buttons">
+    {@render buttons()}
+  </form>
 </dialog>
 
 <style>
@@ -85,20 +88,15 @@
     border-radius: var(--m3-dialog-shape);
     min-width: 17.5rem;
     max-width: 35rem;
-    padding: 0;
-    overflow: auto;
-  }
-  .d {
-    display: flex;
-    flex-direction: column;
     padding: 1.5rem;
-  }
-  .d > :global(svg) {
-    color: rgb(var(--m3-scheme-secondary));
+    overflow: auto;
+    > :global(svg) {
+      color: rgb(var(--m3-scheme-secondary));
 
-    flex-shrink: 0;
-    align-self: center;
-    margin-bottom: 1rem;
+      flex-shrink: 0;
+      align-self: center;
+      margin-bottom: 1rem;
+    }
   }
   .headline {
     color: rgb(var(--m3-scheme-on-surface));
