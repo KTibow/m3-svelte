@@ -17,7 +17,13 @@
   } = $props();
 </script>
 
-<button type="button" class="item focus-inset m3-font-label-large" {disabled} {onclick}>
+<button
+  type="button"
+  class="item focus-inset m3-font-label-large"
+  role="menuitem"
+  {disabled}
+  {onclick}
+>
   <Layer />
   {#if icon == "space"}
     <span class="icon"></span>

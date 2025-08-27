@@ -4,7 +4,7 @@
   let { children }: { children: Snippet } = $props();
 </script>
 
-<div class="m3-container">
+<div class="m3-container" role="menu">
   {@render children()}
 </div>
 
