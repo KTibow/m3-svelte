@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { OneOf, ProgressAria } from "$lib/misc/typing-utils";
+  import type { OneOf, LabelledAria } from "$lib/misc/typing-utils";
 
   let {
     percent,
     size = 48,
     thickness = 4,
     ...props
-  }: { percent: number; size?: number; thickness?: number } & ProgressAria = $props();
+  }: { percent: number; size?: number; thickness?: number } & LabelledAria = $props();
 
   let r = $derived(size / 2 - thickness / 2);
   let circumference = $derived(Math.PI * r * 2);

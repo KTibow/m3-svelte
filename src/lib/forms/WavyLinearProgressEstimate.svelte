@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ProgressAria } from "$lib/misc/typing-utils";
+  import type { LabelledAria } from "$lib/misc/typing-utils";
   import { linear, trackOpacity } from "./_wavy";
 
   let {
@@ -13,7 +13,7 @@
     width?: number;
     height?: number;
     thickness?: number;
-  } & ProgressAria = $props();
+  } & LabelledAria = $props();
 
   let top = $derived(thickness * 0.5);
   let bottom = $derived(height - thickness * 0.5);

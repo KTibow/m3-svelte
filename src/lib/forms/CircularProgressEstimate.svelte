@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ProgressAria } from "$lib/misc/typing-utils";
+  import type { LabelledAria } from "$lib/misc/typing-utils";
 
   let {
     sToHalfway = 1,
@@ -10,7 +10,7 @@
     sToHalfway?: number;
     size?: number;
     thickness?: number;
-  } & ProgressAria = $props();
+  } & LabelledAria = $props();
 
   let r = $derived(size / 2 - thickness / 2);
   let circumference = $derived(Math.PI * r * 2);

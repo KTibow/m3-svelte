@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { ProgressAria } from "$lib/misc/typing-utils";
+  import type { LabelledAria } from "$lib/misc/typing-utils";
 
   let {
     percent,
     height = 4,
     ...props
-  }: { percent: number; height?: number } & ProgressAria = $props();
+  }: { percent: number; height?: number } & LabelledAria = $props();
 </script>
 
 <div

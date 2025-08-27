@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { ProgressAria } from "$lib/misc/typing-utils";
+  import type { LabelledAria } from "$lib/misc/typing-utils";
 
   let {
     sToHalfway = 1,
     height = 4,
     ...props
-  }: { sToHalfway?: number; height?: number } & ProgressAria = $props();
+  }: { sToHalfway?: number; height?: number } & LabelledAria = $props();
   /*
   Easing calculated with
   // 1) define the original mapping f(y)=time-%, capped at 100% for y=1
