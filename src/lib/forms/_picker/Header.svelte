@@ -31,6 +31,7 @@
       type="button"
       class="arrow"
       onclick={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}
+      aria-label={getShortMonth((focusedMonth - 1 + 12) % 12)}
     >
       <Layer />
       <Icon icon={iconLeft} />
@@ -45,7 +46,12 @@
       {getShortMonth(focusedMonth)}
       <Icon icon={iconDown} />
     </button>
-    <button type="button" class="arrow" onclick={() => (focusedMonth = (focusedMonth + 1) % 12)}>
+    <button
+      type="button"
+      class="arrow"
+      onclick={() => (focusedMonth = (focusedMonth + 1) % 12)}
+      aria-label={getShortMonth((focusedMonth + 1) % 12)}
+    >
       <Layer />
       <Icon icon={iconRight} />
     </button>
@@ -56,6 +62,7 @@
       class="arrow"
       disabled={focusedYear <= startYear}
       onclick={() => focusedYear--}
+      aria-label={(focusedYear - 1).toString()}
     >
       <Layer />
       <Icon icon={iconLeft} />
@@ -75,6 +82,7 @@
       class="arrow"
       disabled={focusedYear >= endYear}
       onclick={() => focusedYear++}
+      aria-label={(focusedYear + 1).toString()}
     >
       <Layer />
       <Icon icon={iconRight} />
