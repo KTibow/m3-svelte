@@ -51,7 +51,7 @@
   {/if}
 {/snippet}
 
-<li style:display="contents" aria-label={headline}>
+<li style:display="contents">
   {#if "label" in props}
     {@const { label: _, ...extra } = props}
     <label class="m3-container focus-inset lines-{lines}" {...extra}>
