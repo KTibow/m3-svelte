@@ -94,7 +94,7 @@ ${"<"}/NavigationRail>`;
 <style>
   .container {
     position: relative;
-    height: 500px;
+    height: 550px;
     width: 100%;
 
     :global(> .m3-container > .rail) {

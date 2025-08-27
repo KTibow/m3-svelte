@@ -109,18 +109,18 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    width: 56px;
+    width: 100%;
     container: items / inline-size;
     align-self: stretch;
   }
 
   .rail.open > .items {
-    width: 180px;
     gap: 0px;
   }
   
   .rail.center > .items {
     justify-content: center;
+    width: 100%;
   }
   
   .shadow {

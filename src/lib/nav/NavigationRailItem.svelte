@@ -61,7 +61,7 @@
     align-items: center;
     cursor: pointer;
     gap: 4px;
-    margin-inline-start: 20px;
+    margin-inline: 20px;
     user-select: none;
     width: fit-content;
     position: relative;
@@ -101,7 +101,7 @@
     font-size: 0px;
   }
 
-  @container items (width <= 56px) {
+  @container items (width <= 96px) {
     .m3-container {
       font-size: var(--m3-font-label-medium-size, 0.75rem);
       line-height: var(--m3-font-label-medium-height, 1.333);
@@ -159,7 +159,7 @@
     }
   }
 
-  @container items (width > 56px) {
+  @container items (width > 96px) {
     .m3-container {
       flex-direction: row;
       align-items: center;
