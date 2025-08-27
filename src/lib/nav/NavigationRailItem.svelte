@@ -57,11 +57,11 @@
     cursor: pointer;
     gap: 4px;
     user-select: none;
-    color: rgb(var(--m3-scheme-secondary));
     width: fit-content;
     position: relative;
     font-family: var(--m3-font-body, var(--m3-font));
     animation: none !important;
+    color: rgb(var(--m3-scheme-on-surface-variant));
   }
 
   .icon {
@@ -104,6 +104,7 @@
     
     .m3-container.active > .icon {
       background: rgb(var(--m3-scheme-secondary-container));
+      color: rgb(var(--m3-scheme-secondary));
     }
 
     .m3-container:not(.active):hover > .icon {
@@ -168,6 +169,7 @@
 
     .m3-container.active {
       background: rgb(var(--m3-scheme-secondary-container));
+      color: rgb(var(--m3-scheme-on-secondary-container));
     }
 
     .m3-container:not(.active):hover {
