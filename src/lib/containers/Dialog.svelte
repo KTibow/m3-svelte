@@ -34,6 +34,8 @@
     if (open) dialog.showModal();
     else dialog.close();
   });
+
+  const id = $props.id();
 </script>
 
 <dialog
@@ -61,12 +63,13 @@
         ? "closerequest"
         : "any")}
   role="alertdialog"
+  aria-labelledby="{id}headline"
   {...extra}
 >
   {#if icon}
     <Icon {icon} width="1.5rem" height="1.5rem" />
   {/if}
-  <p class="headline m3-font-headline-small" class:center={icon}>{headline}</p>
+  <h2 class="headline m3-font-headline-small" class:center={icon} id="{id}headline">{headline}</h2>
   <div class="content m3-font-body-medium">
     {@render children()}
   </div>
