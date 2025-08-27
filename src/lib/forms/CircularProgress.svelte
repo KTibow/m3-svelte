@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { OneOf, LabelledAria } from "$lib/misc/typing-utils";
+  import type { LabelledAria } from "$lib/misc/typing-utils";
 
   let {
     percent,

@@ -16,7 +16,7 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}Menu>
+const minimalDemo = `${"<"}Menu aria-label="Template Menu">
   ${"<"}MenuItem icon={iconCircle}>Undo${"<"}/MenuItem>
   ${"<"}MenuItem icon={iconSquare}>Redo${"<"}/MenuItem>
   ${"<"}MenuItem icon={iconTriangle}>Cut${"<"}/MenuItem>
@@ -30,7 +30,7 @@ const relevantLinks = [{"title":"Menu.sv","link":"https://github.com/KTibow/m3-s
   {icons ? "Icons" : "No icons"}
 </label>
 {#snippet demo()}
-  <Menu>
+  <Menu aria-label="Template Menu">
     <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Cut</MenuItem>
     <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Undo</MenuItem>
     <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Redo</MenuItem>

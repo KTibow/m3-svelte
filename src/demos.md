@@ -173,6 +173,7 @@ let iconType: "none" | "left" | "full" = $state("none");
       x={position.startsWith("inner") ? "inner" : "right"}
       y={position.endsWith("down") ? "down" : "up"}
       onclick={() => {}}
+      id="splitbutton"
     >
       {#if iconType == "none"}
         Hello
@@ -182,7 +183,7 @@ let iconType: "none" | "left" | "full" = $state("none");
         <Icon icon={iconCircle} />
       {/if}
       {#snippet menu()}
-        <Menu>
+        <Menu aria-labelledby="splitbutton">
           <MenuItem icon={iconCircle} onclick={() => {}}>Hi</MenuItem>
           <MenuItem icon={iconSquare} onclick={() => {}}>Howdy</MenuItem>
           <MenuItem icon={iconTriangle} onclick={() => {}}>G'day</MenuItem>
@@ -389,7 +390,7 @@ let supporting = $derived(
 Minimal demo:
 
 ```svelte
-<Menu>
+<Menu aria-label="Template Menu">
   <MenuItem icon={iconCircle}>Undo</MenuItem>
   <MenuItem icon={iconSquare}>Redo</MenuItem>
   <MenuItem icon={iconTriangle}>Cut</MenuItem>
@@ -413,7 +414,7 @@ let icons = $state(false);
   {icons ? "Icons" : "No icons"}
 </label>
 {#snippet demo()}
-  <Menu>
+  <Menu aria-label="Template Menu">
     <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Cut</MenuItem>
     <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Undo</MenuItem>
     <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Redo</MenuItem>
