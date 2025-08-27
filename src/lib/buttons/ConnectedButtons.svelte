@@ -4,7 +4,7 @@
   let { round = false, children }: { round?: boolean; children: Snippet } = $props();
 </script>
 
-<div class="m3-container" class:round>
+<div class="m3-container" role="group" class:round>
   {@render children()}
 </div>
 
