@@ -20,48 +20,55 @@
 </script>
 
 {#if 'href' in props}
-  <a class="m3-container" role="menuitem" class:active {...props}>
+  <a role="menuitem" {...props}>
     {@render item()}
   </a>
 {:else}
-  <button class="m3-container" type="button" role="menuitem" class:active {...props}>
+  <button role="menuitem" type="button" {...props}>
     {@render item()}
   </button>
 {/if}
 
 {#snippet item()}
-  <Layer />
+  <div class="m3-container" id="m3-menubutton" class:active>
+    <Layer />
 
-  <div class="icon">
-    <Icon {icon} />
+    <div class="icon">
+      <Icon {icon} />
 
-    {#if typeof badge === "string" || badge === true}
-      <span class="badge m3-font-label-small" class:small={badge === true}>
-        {typeof badge === "string" ? badge : ""}
-      </span>
-    {/if}
+      {#if typeof badge === "string" || badge === true}
+        <span class="badge m3-font-label-small" class:small={badge === true}>
+          {typeof badge === "string" ? badge : ""}
+        </span>
+      {/if}
+    </div>
+
+    {label}
   </div>
-
-  {label}
 {/snippet}
 
 <style>
-  .m3-container {
+  button, a {
     background: none;
     padding: 0;
     border: none;
     cursor: pointer;
+  }
+  
+  .m3-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
     gap: 4px;
+    margin-inline-start: 20px;
     user-select: none;
     width: fit-content;
     position: relative;
     font-family: var(--m3-font-body, var(--m3-font));
     animation: none !important;
     color: rgb(var(--m3-scheme-on-surface-variant));
+    transition: width var(--m3-util-easing-spatial);
   }
 
   .icon {

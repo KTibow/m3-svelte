@@ -44,7 +44,7 @@
       {/if}
     </div>
 
-    <div class="items" role="menu" aria-labelledby="menubutton">
+    <div class="items" role="menu" aria-labelledby="m3-menubutton">
       {@render children()}
     </div>
   </div>
@@ -76,7 +76,7 @@
     flex-direction: column;
     width: 96px;
     height: 100%;
-    padding: 40px 0px;
+    padding: 44px 0px;
     transition: all var(--m3-util-easing-spatial);
     overflow: hidden;
     overflow-y: auto;
@@ -109,7 +109,6 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-inline-start: 20px;
     width: 56px;
     container: items / inline-size;
     align-self: stretch;
