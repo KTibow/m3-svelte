@@ -20,17 +20,17 @@
 </script>
 
 {#if 'href' in props}
-  <a role="menuitem" {...props}>
+  <a id="m3-menubutton" role="menuitem" {...props}>
     {@render item()}
   </a>
 {:else}
-  <button role="menuitem" type="button" {...props}>
+  <button id="m3-menubutton" role="menuitem" type="button" {...props}>
     {@render item()}
   </button>
 {/if}
 
 {#snippet item()}
-  <div class="m3-container" id="m3-menubutton" class:active>
+  <div class="m3-container" class:active>
     <Layer />
 
     <div class="icon">
@@ -62,7 +62,6 @@
     align-items: center;
     cursor: pointer;
     gap: 4px;
-    margin-inline: 20px;
     user-select: none;
     width: fit-content;
     position: relative;
@@ -108,6 +107,9 @@
       line-height: var(--m3-font-label-medium-height, 1.333);
       letter-spacing: var(--m3-font-label-medium-tracking, 0.031rem);
       font-weight: var(--m3-font-label-medium-weight, 500);
+      margin: auto;
+      width: 56px;
+      text-align: center;
     }
     
     .m3-container.active > .icon {
@@ -165,6 +167,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: start;
+      margin-inline: 20px;
       gap: 12px;
       padding: 0px 16px;
       border-radius: var(--m3-util-rounding-full);
