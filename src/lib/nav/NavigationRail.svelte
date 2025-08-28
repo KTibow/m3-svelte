@@ -118,6 +118,7 @@
     flex-direction: column;
     gap: 16px;
     width: 96px;
+    height: 100%;
     container: items / inline-size;
     align-self: stretch;
     transition: gap var(--m3-util-easing-fast), opacity var(--m3-util-easing);
@@ -150,7 +151,7 @@
   @media (width <= 300px) {
     .rail.open {
       border-radius: 0px !important;
-      width: 100%;
+      width: 100vw;
     }
   }
 </style>
