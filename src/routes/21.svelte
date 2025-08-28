@@ -9,7 +9,7 @@
   import InternalCard from "./_card.svelte";
     import Arrows from "./_arrows.svelte";
 
-  let collapse = $state<'full' | 'normal' | 'none'>('normal');
+  let collapse = $state<'full' | 'normal' | 'no'>('normal');
   let alignment = $state<'top' | 'center'>('center');
   let modal = $state<boolean>(false);
   let { showCode } = $props<{
@@ -64,7 +64,7 @@ ${"<"}/NavigationRail>`;
     : "Center"}
   </label>
   <label>
-    <Arrows list={['normal', 'full', 'none']} bind:value={collapse} />
+    <Arrows list={['normal', 'full', 'no']} bind:value={collapse} />
     {collapse == "normal"
     ? "Collapse"
     : collapse == "full"

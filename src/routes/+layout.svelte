@@ -7,13 +7,10 @@
   import iconBook from "@ktibow/iconset-material-symbols/book-2-outline";
   import iconBookS from "@ktibow/iconset-material-symbols/book-2";
   import iconAnimation from "@ktibow/iconset-material-symbols/animation";
-  import iconMenu from "@ktibow/iconset-material-symbols/menu";
   import { base } from "$app/paths";
   import { page } from "$app/state";
   import NavigationRailItem from "$lib/nav/NavigationRailItem.svelte";
   import NavigationRail from "$lib/nav/NavigationRail.svelte";
-  import Button from "$lib/buttons/Button.svelte";
-  import Icon from "$lib/misc/_icon.svelte";
   import { styling } from "./state";
   import "../app.css";
     import NavigationToggle from "$lib/nav/NavigationToggle.svelte";

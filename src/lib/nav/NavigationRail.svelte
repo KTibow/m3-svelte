@@ -12,7 +12,7 @@
     children,
   } = $props<{
     open?: boolean;
-    collapse?: 'normal' | 'full' | 'none' | boolean;
+    collapse?: 'normal' | 'full' | 'no' | boolean;
     modal?: boolean;
     alignment?: 'top' | 'center';
     fab?: Snippet<[open: boolean]>;
@@ -31,18 +31,20 @@
 <svelte:window {onkeydown} />
 
 <div class="m3-container">
-  <div class="rail" class:open={open && (collapse !== 'none' && collapse !== false)} class:center={alignment === 'center'} class:fullyCollapse={collapse === 'full'} class:modal>
-    <div class="top">
-      {#if collapse !== 'none' && collapse !== false}
-        <NavigationToggle bind:active={open} />
-      {/if}
+  <div class="rail" class:open={open && (collapse !== 'no' && collapse !== false)} class:centered={alignment === 'center'} class:fullyCollapse={collapse === 'full'} class:modal>
+    {#if (collapse !== 'no' && collapse !== false) || fab}
+      <div class="top">
+        {#if collapse !== 'no' && collapse !== false}
+          <NavigationToggle bind:active={open} />
+        {/if}
 
-      {#if fab}
-        <div>
-          {@render fab(open && (collapse !== 'none' && collapse !== false))}
-        </div>
-      {/if}
-    </div>
+        {#if fab}
+          <div>
+            {@render fab(open && (collapse !== 'no' && collapse !== false))}
+          </div>
+        {/if}
+      </div>
+    {/if}
 
     <div class="items" role="menu" aria-labelledby="m3-menubutton">
       {@render children()}
@@ -75,9 +77,10 @@
   .rail {
     display: flex;
     flex-direction: column;
+    gap: 40px;
     width: 96px;
     height: 100%;
-    padding: 44px 0px;
+    padding: 44px 0px 56px 0px;
     transition: all var(--m3-util-easing-spatial);
     overflow: hidden;
     overflow-y: auto;
@@ -104,8 +107,7 @@
   }
 
   .top {
-    margin-block-end: 46px;
-    margin-inline-start: 20px;
+    margin-inline: 20px;
     display: flex;
     flex-direction: column;
     z-index: 1;
@@ -119,6 +121,7 @@
     container: items / inline-size;
     align-self: stretch;
     transition: gap var(--m3-util-easing-fast), opacity var(--m3-util-easing);
+    height: 100%;
   }
 
   .rail.open > .items,
@@ -127,7 +130,7 @@
     width: 220px;
   }
   
-  .rail.center > .items {
+  .rail.centered > .items {
     justify-content: center;
   }
   

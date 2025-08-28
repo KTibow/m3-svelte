@@ -1203,7 +1203,7 @@ DateFieldOutlined
 ```
 
 ```ts
-let collapse = $state<'full' | 'normal' | 'none'>('normal');
+let collapse = $state<'full' | 'normal' | 'no'>('normal');
 let alignment = $state<'top' | 'center'>('center');
 let modal = $state<boolean>(false);
 ```
@@ -1220,7 +1220,7 @@ let modal = $state<boolean>(false);
   : "Center"}
 </label>
 <label>
-  <Arrows list={['normal', 'full', 'none']} bind:value={collapse} />
+  <Arrows list={['normal', 'full', 'no']} bind:value={collapse} />
   {collapse == "normal"
   ? "Collapse"
   : collapse == "full"

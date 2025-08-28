@@ -1516,7 +1516,7 @@ Minimal demo:
 </NavigationRail>
 ```
 
-The M3 Svelte interactive demo for this component uses DateField, DateFieldOutlined with the TS `let collapse = $state<'full' | 'normal' | 'none'>('normal');
+The M3 Svelte interactive demo for this component uses DateField, DateFieldOutlined with the TS `let collapse = $state<'full' | 'normal' | 'no'>('normal');
 let alignment = $state<'top' | 'center'>('center');
 let modal = $state<boolean>(false);` to make this demo:
 ```svelte
@@ -1531,7 +1531,7 @@ let modal = $state<boolean>(false);` to make this demo:
   : "Center"}
 </label>
 <label>
-  <Arrows list={['normal', 'full', 'none']} bind:value={collapse} />
+  <Arrows list={['normal', 'full', 'no']} bind:value={collapse} />
   {collapse == "normal"
   ? "Collapse"
   : collapse == "full"
