@@ -5,7 +5,7 @@
     sToHalfway = 1,
     size = 48,
     thickness = 2,
-    ...props
+    ...extra
   }: {
     sToHalfway?: number;
     size?: number;
@@ -26,7 +26,7 @@
   role="progressbar"
   style:--speed="{sToHalfway * 8}s"
   style:--circumference={circumference}
-  {...props}
+  {...extra}
 >
   <circle
     cx={size / 2}

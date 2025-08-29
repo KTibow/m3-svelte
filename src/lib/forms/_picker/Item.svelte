@@ -5,7 +5,7 @@
     today,
     selected,
     label,
-    ...props
+    ...extra
   }: {
     disabled: boolean;
     today: boolean;
@@ -16,7 +16,7 @@
   } = $props();
 </script>
 
-<button type="button" class="item m3-font-body-small" class:today class:selected {...props}>
+<button type="button" class="item m3-font-body-small" class:today class:selected {...extra}>
   <Layer />
   {label}
 </button>

@@ -7,7 +7,7 @@
     width = 600,
     height = 10,
     thickness = 4,
-    ...props
+    ...extra
   }: {
     sToHalfway?: number;
     width?: number;
@@ -58,7 +58,7 @@
   });
 </script>
 
-<svg viewBox="0 0 {width} {height}" role="progressbar" {...props}>
+<svg viewBox="0 0 {width} {height}" role="progressbar" {...extra}>
   <path
     fill="none"
     stroke="rgb(var(--m3-scheme-primary))"

@@ -4,7 +4,7 @@
   let {
     sToHalfway = 1,
     height = 4,
-    ...props
+    ...extra
   }: { sToHalfway?: number; height?: number } & LabelledAria = $props();
   /*
   Easing calculated with
@@ -78,7 +78,7 @@
   role="progressbar"
   style:height="{height / 16}rem"
   style:--speed="{sToHalfway * 8}s"
-  {...props}
+  {...extra}
 >
   <div class="percent"></div>
   <div class="track"></div>

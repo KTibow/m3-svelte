@@ -4,7 +4,7 @@
   let {
     percent,
     height = 4,
-    ...props
+    ...extra
   }: { percent: number; height?: number } & LabelledAria = $props();
 </script>
 
@@ -13,7 +13,7 @@
   role="progressbar"
   aria-valuenow={percent}
   style:height="{height / 16}rem"
-  {...props}
+  {...extra}
 >
   <div class="percent" style:width="{percent}%"></div>
   <div class="track"></div>

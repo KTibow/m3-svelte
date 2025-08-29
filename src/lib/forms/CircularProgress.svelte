@@ -5,7 +5,7 @@
     percent,
     size = 48,
     thickness = 4,
-    ...props
+    ...extra
   }: { percent: number; size?: number; thickness?: number } & LabelledAria = $props();
 
   let r = $derived(size / 2 - thickness / 2);
@@ -20,7 +20,7 @@
   class="m3-container"
   role="progressbar"
   aria-valuenow={percent}
-  {...props}
+  {...extra}
 >
   <circle
     cx={size / 2}

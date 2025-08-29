@@ -8,7 +8,7 @@
     height = 10,
     thickness = 4,
     percent,
-    ...props
+    ...extra
   }: {
     width?: number;
     height?: number;
@@ -46,7 +46,7 @@
   });
 </script>
 
-<svg viewBox="0 0 {width} {height}" role="progressbar" aria-valuenow={percent} {...props}>
+<svg viewBox="0 0 {width} {height}" role="progressbar" aria-valuenow={percent} {...extra}>
   <path
     fill="none"
     stroke="rgb(var(--m3-scheme-primary))"

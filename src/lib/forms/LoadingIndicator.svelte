@@ -6,7 +6,7 @@
     size = 48,
     container = false,
     center = true,
-    ...props
+    ...extra
   }: {
     size?: number;
     container?: boolean;
@@ -14,7 +14,7 @@
   } & OneOf<{ "aria-label": string; "aria-labelledby": string }> = $props();
 </script>
 
-<svg width={size} height={size} class:container class:center role="progressbar" {...props}>
+<svg width={size} height={size} class:container class:center role="progressbar" {...extra}>
   <path fill="currentColor">
     <animate
       attributeName="d"

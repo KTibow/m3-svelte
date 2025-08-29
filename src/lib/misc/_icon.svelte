@@ -6,7 +6,7 @@
     width = "1em",
     height = "1em",
     class: clazz,
-    ...props
+    ...extra
   }: {
     icon: IconifyIcon;
     width?: string;
@@ -20,9 +20,9 @@
   {height}
   class={clazz}
   viewBox="0 0 {icon.width} {icon.height}"
-  aria-hidden={!props["aria-label"] && !props["aria-labelledby"]}
+  aria-hidden={!extra["aria-label"] && !extra["aria-labelledby"]}
   data-badge={icon.body.includes("<!--badge-->") ? "" : undefined}
-  {...props}
+  {...extra}
 >
   {@html icon.body}
 </svg>

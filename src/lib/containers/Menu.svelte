@@ -2,10 +2,10 @@
   import type { LabelledAria } from "$lib/misc/typing-utils";
   import type { Snippet } from "svelte";
 
-  let { children, ...props }: { children: Snippet } & LabelledAria = $props();
+  let { children, ...extra }: { children: Snippet } & LabelledAria = $props();
 </script>
 
-<div class="m3-container" role="menu" {...props}>
+<div class="m3-container" role="menu" {...extra}>
   {@render children()}
 </div>
 
