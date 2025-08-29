@@ -49,6 +49,7 @@ const relevantLinks = [{"title":"SplitButton.sv","link":"https://github.com/KTib
       x={position.startsWith("inner") ? "inner" : "right"}
       y={position.endsWith("down") ? "down" : "up"}
       onclick={() => {}}
+      id="splitbutton"
     >
       {#if iconType == "none"}
         Hello
@@ -58,7 +59,7 @@ const relevantLinks = [{"title":"SplitButton.sv","link":"https://github.com/KTib
         <Icon icon={iconCircle} />
       {/if}
       {#snippet menu()}
-        <Menu>
+        <Menu aria-labelledby="splitbutton">
           <MenuItem icon={iconCircle} onclick={() => {}}>Hi</MenuItem>
           <MenuItem icon={iconSquare} onclick={() => {}}>Howdy</MenuItem>
           <MenuItem icon={iconTriangle} onclick={() => {}}>G'day</MenuItem>
