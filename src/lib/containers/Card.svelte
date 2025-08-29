@@ -1,10 +1,9 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { HTMLAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
-  import type { ButtonAttrs, NotButton } from "$lib/misc/typing-utils";
+  import type { ButtonAttrs, DivAttrs } from "$lib/misc/typing-utils";
 
-  type ActionProps = ButtonAttrs | NotButton<HTMLAttributes<HTMLDivElement>>;
+  type ActionProps = ButtonAttrs | DivAttrs;
 
   let props: {
     variant: "elevated" | "filled" | "outlined";
