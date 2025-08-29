@@ -14,12 +14,12 @@
 
 <script lang="ts">
   import { onDestroy, type ComponentProps } from "svelte";
-  import type { HTMLAttributes } from "svelte/elements";
   import { fade } from "svelte/transition";
   import iconX from "@ktibow/iconset-material-symbols/close";
   import Icon from "$lib/misc/_icon.svelte";
   import SnackbarItem from "./SnackbarItem.svelte";
   import Layer from "$lib/misc/Layer.svelte";
+  import type { DivAttrs } from "$lib/misc/typing-utils";
 
   type SnackbarConfig = Omit<ComponentProps<typeof SnackbarItem>, "children">;
 
@@ -30,7 +30,7 @@
   }: {
     config?: SnackbarConfig;
     closeButtonTitle?: string;
-  } & HTMLAttributes<HTMLDivElement> = $props();
+  } & DivAttrs = $props();
   export const show = ({ message, actions = {}, closable = false, timeout = 4000 }: SnackbarIn) => {
     snackbar = { message, actions, closable, timeout };
     clearTimeout(timeoutId);

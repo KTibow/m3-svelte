@@ -3,7 +3,7 @@
   import type { Snippet } from "svelte";
   import Layer from "$lib/misc/Layer.svelte";
   import Icon from "$lib/misc/_icon.svelte";
-  import type { HTMLButtonAttributes } from "svelte/elements";
+  import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   let {
     variant,
@@ -11,14 +11,14 @@
     y = "down",
     children,
     menu,
-    ...props
+    ...extra
   }: {
     variant: "elevated" | "filled" | "tonal" | "outlined";
     x?: "inner" | "right";
     y?: "down" | "up";
     children: Snippet;
     menu: Snippet;
-  } & HTMLButtonAttributes = $props();
+  } & ButtonAttrs = $props();
 
   const autoclose = (node: HTMLDetailsElement) => {
     const close = (e: Event) => {
@@ -36,7 +36,7 @@
 </script>
 
 <div class="m3-container {variant}">
-  <button type="button" class="split m3-font-label-large" {...props}>
+  <button type="button" class="split m3-font-label-large" {...extra}>
     <Layer />
     {@render children()}
   </button>

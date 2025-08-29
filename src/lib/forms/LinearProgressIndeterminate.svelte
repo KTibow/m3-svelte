@@ -3,9 +3,9 @@
 @deprecated use LoadingIndicator or one of the Estimate components instead
 -->
 <script lang="ts">
-  import type { HTMLAttributes } from "svelte/elements";
+  import type { DivAttrs } from "$lib/misc/typing-utils";
 
-  let extra: HTMLAttributes<HTMLDivElement> = $props();
+  let extra: DivAttrs = $props();
 </script>
 
 <div class="m3-container" role="progressbar" {...extra}>

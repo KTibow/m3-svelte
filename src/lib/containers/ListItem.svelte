@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { HTMLAnchorAttributes, HTMLAttributes, HTMLLabelAttributes } from "svelte/elements";
+  import type { HTMLAnchorAttributes, HTMLLabelAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
-  import type { ButtonAttrs, NotButton } from "$lib/misc/typing-utils";
+  import type { ButtonAttrs, DivAttrs, NotButton } from "$lib/misc/typing-utils";
 
   type ActionProps =
-    | NotButton<HTMLAttributes<HTMLDivElement>>
+    | DivAttrs
     | ButtonAttrs
     | ({ label: true } & NotButton<HTMLLabelAttributes>)
     | ({ href: string } & NotButton<HTMLAnchorAttributes>);

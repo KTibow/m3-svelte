@@ -79,7 +79,7 @@
         href={normalizePath(base + "/transitions")}
         selected={page.url.pathname.startsWith(base + "/transitions")}
         icon={page.url.pathname.startsWith(base + "/transitions") ? iconAnimationS : iconAnimation}
-        text="Animations"
+        text="Transitions"
       />
     </NavCMLX>
   </div>

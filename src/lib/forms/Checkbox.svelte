@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { HTMLAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
+  import type { DivAttrs } from "$lib/misc/typing-utils";
 
   // MUST BE WRAPPED IN A <label>
   let {
@@ -9,7 +9,7 @@
     ...extra
   }: {
     children: Snippet;
-  } & HTMLAttributes<HTMLDivElement> = $props();
+  } & DivAttrs = $props();
 </script>
 
 <div class="m3-container" {...extra}>

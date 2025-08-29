@@ -21,7 +21,15 @@
   class={clazz}
   viewBox="0 0 {icon.width} {icon.height}"
   aria-hidden={!props["aria-label"] && !props["aria-labelledby"]}
+  data-badge={icon.body.includes("<!--badge-->") ? "" : undefined}
   {...props}
 >
   {@html icon.body}
 </svg>
+
+<style>
+  /* deprecated: eventually want to just do this for all icons */
+  svg[data-badge] {
+    overflow: visible;
+  }
+</style>
