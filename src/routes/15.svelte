@@ -23,7 +23,14 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}Select label="Select" options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />`;
+const minimalDemo = `${"<"}Select
+  label="Select"
+  options={[
+    { text: "A", value: "a" },
+    { text: "B", value: "b" },
+  ]}
+  bind:value
+/>`;
 const relevantLinks = [{"title":"Select.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Select.svelte"},{"title":"SelectOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/SelectOutlined.svelte"}];
 </script>
 
@@ -43,19 +50,9 @@ const relevantLinks = [{"title":"Select.sv","link":"https://github.com/KTibow/m3
 
 {#snippet demo()}
   {#if variant === "filled"}
-    <Select
-      label="Select"
-      {options}
-      disabled={!enabled}
-      value="alpha"
-    />
+    <Select label="Select" {options} disabled={!enabled} value="alpha" />
   {:else}
-    <SelectOutlined
-      label="Select"
-      {options}
-      disabled={!enabled}
-      value="alpha"
-    />
+    <SelectOutlined label="Select" {options} disabled={!enabled} value="alpha" />
   {/if}
 {/snippet}
 </InternalCard>

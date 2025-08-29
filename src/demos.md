@@ -787,7 +787,14 @@ let Component = $derived(
 Minimal demo:
 
 ```svelte
-<Select label="Select" options={[{text: "A", value: "a"}, {text: "B", value: "b"}]} bind:value />
+<Select
+  label="Select"
+  options={[
+    { text: "A", value: "a" },
+    { text: "B", value: "b" },
+  ]}
+  bind:value
+/>
 ```
 
 Full demo:
@@ -824,23 +831,12 @@ let options = $derived([
 
 {#snippet demo()}
   {#if variant === "filled"}
-    <Select
-      label="Select"
-      {options}
-      disabled={!enabled}
-      value="alpha"
-    />
+    <Select label="Select" {options} disabled={!enabled} value="alpha" />
   {:else}
-    <SelectOutlined
-      label="Select"
-      {options}
-      disabled={!enabled}
-      value="alpha"
-    />
+    <SelectOutlined label="Select" {options} disabled={!enabled} value="alpha" />
   {/if}
 {/snippet}
 ```
-
 
 ## Slider
 
