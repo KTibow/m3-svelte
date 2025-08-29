@@ -49,7 +49,7 @@
   <div style:display="contents" role="row">
     {#each ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] as day}
       <!-- TODO: use a tooltip -->
-      <div class="day m3-font-body-small" role="columnheader" aria-label={day}>{day.at(0)}</div>
+      <div class="day m3-font-body-small" role="columnheader" title={day}>{day.at(0)}</div>
     {/each}
   </div>
   {#each makeCalendar(focusedYear, focusedMonth) as row}
