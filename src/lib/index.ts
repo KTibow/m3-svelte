@@ -54,5 +54,6 @@ export { default as TabsLink } from "./nav/TabsLink.svelte";
 export { default as VariableTabs } from "./nav/VariableTabs.svelte";
 export { default as VariableTabsLink } from "./nav/VariableTabsLink.svelte";
 
+export * from "./utils/badge.js";
 export { default as ChipChooser } from "./utils/ChipChooser.svelte";
 export { default as Divider } from "./utils/Divider.svelte";
