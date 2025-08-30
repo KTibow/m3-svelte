@@ -1168,3 +1168,73 @@ let errored = $state(false);
   {/if}
 {/snippet}
 ```
+
+## Navigation Rail
+
+Minimal demo:
+
+```svelte
+<NavigationRail>
+  {#snippet fab(open)}
+    <FAB color="primary-container" icon={iconEdit} text={open ? "Label" : ""} onclick={() => alert("!")} />
+  {/snippet}
+
+  <NavigationRailItem label="Label" icon={iconStars} active />
+
+  <NavigationRailItem label="Label" icon={iconStarsOutline} />
+
+  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
+
+  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
+</NavigationRail>
+```
+
+Full demo:
+
+```use
+DateField
+DateFieldOutlined
+```
+
+```ts
+let collapse = $state<'full' | 'normal' | 'no'>('normal');
+let alignment = $state<'top' | 'center'>('center');
+let modal = $state<boolean>(false);
+```
+
+```svelte
+<label>
+  <Switch bind:checked={modal} />
+  {modal ? "Modal" : "Normal"}
+</label>
+<label>
+  <Arrows list={['top', 'center']} bind:value={alignment} />
+  {alignment == "top"
+  ? "Top"
+  : "Center"}
+</label>
+<label>
+  <Arrows list={['normal', 'full', 'no']} bind:value={collapse} />
+  {collapse == "normal"
+  ? "Collapse"
+  : collapse == "full"
+    ? "Fully Collapse"
+    : "Don't Collapse"}
+</label>
+
+{#snippet demo()}
+  <NavigationRail {collapse} {alignment} {modal}>
+    {#snippet fab(open)}
+      <FAB color="primary-container" icon={iconEdit} text={open ? "Label" : ""} onclick={() => {}} />
+    {/snippet}
+
+    <NavigationRailItem label="Label" icon={iconStar} active />
+
+    <NavigationRailItem label="Label" icon={iconStarsOutline} />
+
+    <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
+
+    <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
+  </NavigationRail>
+{/snippet}
+```
