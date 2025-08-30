@@ -9,13 +9,11 @@
     label,
     icon,
     active = false,
-    badge,
     ...props
   }: {
     label: string;
     icon: IconifyIcon;
     active?: boolean;
-    badge?: string | boolean;
   } & (({ href: string } & HTMLAnchorAttributes) | HTMLButtonAttributes) = $props();
 </script>
 
@@ -35,12 +33,6 @@
 
     <div class="icon">
       <Icon {icon} />
-
-      {#if typeof badge === "string" || badge === true}
-        <span class="badge m3-font-label-small" class:small={badge === true}>
-          {typeof badge === "string" ? badge : ""}
-        </span>
-      {/if}
     </div>
 
     {label}
@@ -80,25 +72,6 @@
     height: 24px;
     color: rgb(var(--m3-scheme-on-secondary-container));
     position: relative;
-  }
-
-  .icon > .badge {
-    border-radius: var(--m3-util-rounding-full);
-    background: rgb(var(--m3-scheme-error));
-    color: rgb(var(--m3-scheme-on-error));
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .icon > .badge.small {
-    width: 6px;
-    height: 6px;
-    font-size: 0px;
   }
 
   @container items (width <= 96px) {
@@ -141,16 +114,6 @@
 
     .icon > :global(svg) {
       margin: 4px 0px;
-    }
-
-    .icon > .badge {
-      margin-block-start: 2px;
-      margin-inline-start: 12px;
-    }
-
-    .icon > .badge.small {
-      margin-inline-start: 20px;
-      margin-block-start: 4px;
     }
 
     .m3-container > :global(.ripple-container),
@@ -203,16 +166,6 @@
     .icon {
       width: 24px;
       height: 24px;
-    }
-
-    .icon > .badge {
-      margin-block-start: -2px;
-      margin-inline-start: 12px;
-    }
-
-    .icon > .badge.small {
-      margin-inline-start: 20px;
-      margin-block-start: 0px;
     }
   }
 </style>

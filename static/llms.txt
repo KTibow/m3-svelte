@@ -1497,29 +1497,16 @@ Minimal demo:
 ```svelte
 <NavigationRail>
   {#snippet fab(open)}
-    <FAB
-      color="primary-container"
-      icon={iconCircle}
-      text={open ? "Label" : ""}
-      onclick={() => alert("!")}
-    />
+    <FAB color="primary-container" icon={iconEdit} text={open ? "Label" : ""} onclick={() => alert("!")} />
   {/snippet}
 
-  <NavigationRailItem label="Label" icon={iconStar} active />
+  <NavigationRailItem label="Label" icon={iconStars} active />
 
-  <NavigationRailItem label="Label" icon={iconStarOutline} />
+  <NavigationRailItem label="Label" icon={iconStarsOutline} />
 
-  <NavigationRailItem
-    label="Label"
-    icon={iconStarOutline}
-    badge="3"
-  />
+  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
 
-  <NavigationRailItem
-    label="Label"
-    icon={iconStarOutline}
-    badge
-  />
+  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
 </NavigationRail>
 ```
 
@@ -1549,16 +1536,16 @@ let modal = $state<boolean>(false);` to make this demo:
 {#snippet demo()}
   <NavigationRail {collapse} {alignment} {modal}>
     {#snippet fab(open)}
-      <FAB color="primary-container" icon={EditIcon} text={open ? "Label" : ""} onclick={() => {}} />
+      <FAB color="primary-container" icon={iconEdit} text={open ? "Label" : ""} onclick={() => {}} />
     {/snippet}
 
-    <NavigationRailItem label="Label" icon={StarIcon} active />
+    <NavigationRailItem label="Label" icon={iconStar} active />
 
-    <NavigationRailItem label="Label" icon={StarsOutlineIcon} />
+    <NavigationRailItem label="Label" icon={iconStarsOutline} />
 
-    <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge="3" />
+    <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
 
-    <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge />
+    <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
   </NavigationRail>
 {/snippet}
 ```

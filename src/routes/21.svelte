@@ -1,13 +1,14 @@
 <script lang="ts">
-  import StarsOutlineIcon from "@ktibow/iconset-material-symbols/stars-outline";
-  import EditIcon from "@ktibow/iconset-material-symbols/edit";
-  import StarIcon from "@ktibow/iconset-material-symbols/stars";
+  import iconStarsOutline from "@ktibow/iconset-material-symbols/stars-outline";
+  import iconEdit from "@ktibow/iconset-material-symbols/edit";
+  import iconStars from "@ktibow/iconset-material-symbols/stars";
   import NavigationRailItem from "$lib/nav/NavigationRailItem.svelte";
   import NavigationRail from "$lib/nav/NavigationRail.svelte";
   import Switch from "$lib/forms/Switch.svelte";
   import FAB from "$lib/buttons/FAB.svelte";
   import InternalCard from "./_card.svelte";
-    import Arrows from "./_arrows.svelte";
+  import Arrows from "./_arrows.svelte";
+  import { addBadge } from "$lib/utils/badge";
 
   let collapse = $state<'full' | 'normal' | 'no'>('normal');
   let alignment = $state<'top' | 'center'>('center');
@@ -37,9 +38,9 @@
 
   ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} />
 
-  ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} badge="3" />
+  ${"<"}NavigationRailItem label="Label" icon={addBadge(StarsOutlineIcon, 3)} />
 
-  ${"<"}NavigationRailItem label="Label" icon={iconStarOutline} badge />
+  ${"<"}NavigationRailItem label="Label" icon={addBadge(StarsOutlineIcon)} />
 ${"<"}/NavigationRail>`;
   const relevantLinks = [
     {
@@ -76,16 +77,16 @@ ${"<"}/NavigationRail>`;
     <div class="container">
       <NavigationRail {collapse} {alignment} {modal}>
         {#snippet fab(open)}
-          <FAB color="primary-container" icon={EditIcon} text={open ? "Label" : ""} onclick={() => {}} />
+          <FAB color="primary-container" icon={iconEdit} text={open ? "Label" : ""} onclick={() => {}} />
         {/snippet}
 
-        <NavigationRailItem label="Label" icon={StarIcon} active />
+        <NavigationRailItem label="Label" icon={iconStars} active />
 
-        <NavigationRailItem label="Label" icon={StarsOutlineIcon} />
+        <NavigationRailItem label="Label" icon={iconStarsOutline} />
 
-        <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge="3" />
+        <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
 
-        <NavigationRailItem label="Label" icon={StarsOutlineIcon} badge />
+        <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
       </NavigationRail>
     </div>
   {/snippet}
