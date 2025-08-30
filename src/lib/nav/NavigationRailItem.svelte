@@ -20,11 +20,11 @@
 </script>
 
 {#if 'href' in props}
-  <a id="m3-menubutton" role="menuitem" {...props}>
+  <a role="menuitem" {...props}>
     {@render item()}
   </a>
 {:else}
-  <button id="m3-menubutton" role="menuitem" type="button" {...props}>
+  <button role="menuitem" type="button" {...props}>
     {@render item()}
   </button>
 {/if}

@@ -42,7 +42,7 @@
       path: base + "/docs/detailed-walkthrough",
       icon: iconBook,
       iconS: iconBookS,
-      label: "Advanced",
+      label: "Usage",
     },
     {
       path: base + "/llms.txt",

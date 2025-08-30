@@ -46,7 +46,7 @@
       </div>
     {/if}
 
-    <div class="items" role="menu" aria-labelledby="m3-menubutton">
+    <div class="items" role="menu" aria-labelledby="m3-menutoggle">
       {@render children()}
     </div>
   </div>

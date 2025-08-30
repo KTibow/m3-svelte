@@ -16,7 +16,7 @@
   onMount(() => setTimeout(() => noAnimations = false));
 </script>
 
-<button class="toggle" class:active class:noAnimations type="button" aria-haspopup="true" aria-controls="menu" onclick={() => (active = !active)}>
+<button class="toggle" class:active class:noAnimations type="button" id="m3-menutoggle" aria-haspopup="true" aria-controls="menu" onclick={() => (active = !active)}>
     <Icon icon={active ? iconMenuOpen : iconMenu} />
 </button>
 
