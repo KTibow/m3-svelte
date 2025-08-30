@@ -1,8 +1,8 @@
 <script lang="ts">
+  import type { DivAttrs } from "$lib/misc/typing-utils";
   import type { Snippet } from "svelte";
-  import type { HTMLAttributes } from "svelte/elements";
 
-  let { children, ...extra }: { children: Snippet } & HTMLAttributes<HTMLDivElement> = $props();
+  let { children, ...extra }: { children: Snippet } & DivAttrs = $props();
 </script>
 
 <div class="m3-container" {...extra}>
