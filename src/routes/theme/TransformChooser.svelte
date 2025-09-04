@@ -21,11 +21,13 @@
     schemes,
     variant = $bindable(),
     contrast = $bindable(),
+    specVersion = $bindable(),
     density = $bindable(),
   }: {
     schemes: Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
     variant: Variant;
     contrast: number;
+    specVersion: "2021" | "2025";
     density: number;
   } = $props();
 
@@ -68,6 +70,24 @@
       format={(n) => n.toString()}
       bind:value={contrast}
     />
+    <ConnectedButtons>
+      <input
+        type="radio"
+        name="specversion"
+        value="2021"
+        id="specversion-2021"
+        bind:group={specVersion}
+      />
+      <Button for="specversion-2021" square>2021</Button>
+      <input
+        type="radio"
+        name="specversion"
+        value="2025"
+        id="specversion-2025"
+        bind:group={specVersion}
+      />
+      <Button for="specversion-2025" square>2025</Button>
+    </ConnectedButtons>
     <Slider
       min={-3}
       max={3}
@@ -103,7 +123,7 @@
 {:else}
   <button class="content more m3-font-label-large" onclick={() => (showMore = true)}>
     <Layer />
-    Contrast, density, Tailwind
+    Contrast, version, density, Tailwind
   </button>
 {/if}
 
