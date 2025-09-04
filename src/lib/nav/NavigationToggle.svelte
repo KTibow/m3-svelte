@@ -7,16 +7,18 @@
   
   let noAnimations = $state<boolean>(true);
   let {
-    active = $bindable()
+    active = $bindable(),
+    mode = 'detached'
   } = $props<{
     active: boolean;
+    mode?: 'detached' | 'inline' | 'inline-detached';
   }>();
   
   // Prevent the animation on page load
   onMount(() => setTimeout(() => noAnimations = false));
 </script>
 
-<button class="toggle" class:active class:noAnimations type="button" id="m3-menutoggle" aria-haspopup="true" aria-controls="menu" onclick={() => (active = !active)}>
+<button class="toggle" class:active class:noAnimations type="button" id={(mode === 'detached' ? !active : (mode === 'inline-detached' ? active : true)) ? "m3-navigationtoggle" : undefined} aria-haspopup="true" aria-controls="menu" onclick={() => (active = !active)}>
     <Icon icon={active ? iconMenuOpen : iconMenu} />
 </button>
 

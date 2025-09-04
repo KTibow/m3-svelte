@@ -35,7 +35,7 @@
     {#if (collapse !== 'no' && collapse !== false) || fab}
       <div class="top">
         {#if collapse !== 'no' && collapse !== false}
-          <NavigationToggle bind:active={open} />
+          <NavigationToggle mode={collapse === 'full' ? 'inline-detached' : 'inline'} bind:active={open} />
         {/if}
 
         {#if fab}
@@ -46,7 +46,7 @@
       </div>
     {/if}
 
-    <div class="items" role="menu" aria-labelledby="m3-menutoggle">
+    <div class="items" role="menu" aria-labelledby="m3-navigationtoggle">
       {@render children()}
     </div>
   </div>
