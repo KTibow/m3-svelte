@@ -21,11 +21,20 @@
   const name = $props.id();
 </script>
 
-<div class="m3-container" class:primary={!secondary} style:--items={items.length}>
-  <div class="divider"></div>
+<div class="m3-container" class:primary={!secondary} style:--items={items.length} role="tablist">
+  <div class="divider" aria-hidden="true"></div>
   {#each items as item}
     {@const id = name + item.value}
-    <input type="radio" {name} {id} value={item.value} bind:group={tab} {...extra} />
+    <input
+      type="radio"
+      {name}
+      {id}
+      value={item.value}
+      bind:group={tab}
+      role="tab"
+      aria-selected={item.value === tab}
+      {...extra}
+    />
     <label for={id} class:tall={item.icon}>
       <Layer />
       {#if item.icon}
@@ -34,7 +43,7 @@
       <span class="m3-font-title-small">{item.name}</span>
     </label>
   {/each}
-  <div class="bar"></div>
+  <div class="bar" aria-hidden="true"></div>
 </div>
 
 <style>

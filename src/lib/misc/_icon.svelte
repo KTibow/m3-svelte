@@ -6,20 +6,23 @@
     width = "1em",
     height = "1em",
     class: clazz,
+    ...extra
   }: {
     icon: IconifyIcon;
     width?: string;
     height?: string;
     class?: string;
-  } = $props();
+  } & Partial<{ "aria-label": string; "aria-labelledby": string }> = $props();
 </script>
 
 <svg
   {width}
   {height}
   class={clazz}
-  data-badge={icon.body.includes("<!--badge-->") ? "" : undefined}
   viewBox="0 0 {icon.width} {icon.height}"
+  aria-hidden={!extra["aria-label"] && !extra["aria-labelledby"]}
+  data-badge={icon.body.includes("<!--badge-->") ? "" : undefined}
+  {...extra}
 >
   {@html icon.body}
 </svg>

@@ -15,7 +15,7 @@ let { showCode }: { showCode: (
   relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = `${"<"}LoadingIndicator />`;
+const minimalDemo = `${"<"}LoadingIndicator aria-label="Loading episodes" />`;
 const relevantLinks = [{"title":"LoadingIndicator.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LoadingIndicator.svelte"}];
 </script>
 
@@ -26,6 +26,6 @@ const relevantLinks = [{"title":"LoadingIndicator.sv","link":"https://github.com
 </label>
 
 {#snippet demo()}
-  <LoadingIndicator {container} />
+  <LoadingIndicator {container} aria-label="LoadingIndicator" />
 {/snippet}
 </InternalCard>
