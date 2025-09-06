@@ -26,16 +26,14 @@
   };
 
   onMount(() => {
-    let mounted = true;
     const start = performance.now();
-    const update = () => {
-      if (!mounted) return;
-
+    let id: number;
+    const updateTime = () => {
       time = performance.now() - start;
-      requestAnimationFrame(update);
+      id = requestAnimationFrame(updateTime);
     };
-    update();
-    return () => (mounted = false);
+    updateTime();
+    return () => cancelAnimationFrame(id);
   });
 </script>
 
