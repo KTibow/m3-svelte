@@ -119,9 +119,8 @@
     gap: 16px;
     width: 96px;
     height: 100%;
-    container: items / inline-size;
     align-self: stretch;
-    transition: gap var(--m3-util-easing-fast), opacity var(--m3-util-easing);
+    transition: gap var(--m3-util-easing-fast), width 0.2s;
     height: 100%;
   }
 
@@ -140,7 +139,7 @@
     inset: 0;
     z-index: -1;
     background: rgb(var(--m3-scheme-scrim) / 0.5);
-    transition: all var(--m3-util-easing);
+    transition: opacity var(--m3-util-easing);
   }
   
   .rail:not(.open) + .shadow {

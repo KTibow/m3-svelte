@@ -77,7 +77,7 @@ ${"<"}/NavigationRail>`;
     <div class="container">
       <NavigationRail {collapse} {alignment} {modal}>
         {#snippet fab(open)}
-          <FAB color="primary-container" icon={iconEdit} text={open ? "Label" : ""} onclick={() => {}} />
+          <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} onclick={() => {}} />
         {/snippet}
 
         <NavigationRailItem label="Label" icon={iconStars} active />
