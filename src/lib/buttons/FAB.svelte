@@ -19,6 +19,7 @@
   let {
     color = "primary",
     elevation = "normal",
+    showLabel = "auto",
     size = "normal",
     icon,
     text,
@@ -32,6 +33,7 @@
       | "secondary"
       | "tertiary";
     elevation?: "normal" | "lowered" | "none";
+    showLabel?: boolean | "auto";
   } & ContentProps &
     ButtonAttrs = $props();
 </script>
@@ -39,15 +41,16 @@
 <button
   type="button"
   class="m3-container m3-font-label-large color-{color} size-{size} elevation-{elevation}"
+  class:label={showLabel === null ? !!text : showLabel}
   {...extra}
 >
   <Layer />
   {#if icon}
-    <Icon {icon} />
+    <div class="icon">
+      <Icon {icon} />
+    </div>
   {/if}
-  {#if text}
-    {text}
-  {/if}
+  <span>{text}</span>
 </button>
 
 <style>
@@ -61,10 +64,27 @@
     border: none;
     position: relative;
     overflow: hidden;
+    flex-direction: row;
 
     align-items: center;
-    justify-content: center;
     cursor: pointer;
+    transition: width var(--m3-util-easing);
+  }
+  
+  .m3-container > span {
+    transition: opacity var(--m3-util-easing-fast);
+  }
+  
+  .m3-container.label {
+    width: max-content;
+  }
+  
+  .m3-container.label > span {
+    opacity: 1;
+  }
+  
+  .m3-container:not(.label) > span {
+    opacity: 0;
   }
 
   .elevation-normal {
@@ -76,28 +96,37 @@
 
   .size-small {
     height: 2.5rem;
+    width: 2.5rem;
     padding: 0.5rem;
     gap: 0.5rem;
     border-radius: var(--m3-fab-small-shape);
   }
+  
   .size-normal {
     height: 3.5rem;
+    width: 3.5rem;
     padding: 1rem;
     gap: 0.75rem;
     border-radius: var(--m3-fab-normal-shape);
   }
+  
   .size-large {
     height: 6rem;
+    width: 6rem;
     padding: 1.875rem;
     gap: 1.875rem;
     border-radius: var(--m3-fab-large-shape);
   }
-  .size-small > :global(svg),
-  .size-normal > :global(svg) {
+  
+  .size-small > .icon > :global(svg),
+  .size-normal > .icon > :global(svg),
+  .size-small > .icon,
+  .size-normal > .icon {
     width: 1.5rem;
     height: 1.5rem;
   }
-  .size-large > :global(svg) {
+  .size-large > .icon > :global(svg),
+  .size-large > .icon {
     width: 2.25rem;
     height: 2.25rem;
   }
