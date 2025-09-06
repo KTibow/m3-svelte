@@ -106,6 +106,9 @@
           color: rgb(var(--m3-scheme-on-secondary-container));
         }
       }
+      &:is(.large .content) {
+        padding-block: 0.375rem;
+      }
       &:is(.expanded .content) {
         gap: 0.75rem;
       }
@@ -148,7 +151,6 @@
     &.large {
       flex-direction: column;
       min-height: 4rem;
-      padding-block: 0.375rem;
     }
     &.expanded {
       height: 3.5rem;
@@ -229,10 +231,10 @@
       flex-direction: column;
       text-align: center;
       min-height: 4rem;
-      padding-block: 0.375rem;
 
       .content {
         flex-direction: column;
+        padding-block: 0.375rem;
 
         &.selected {
           color: rgb(var(--m3-scheme-secondary));
