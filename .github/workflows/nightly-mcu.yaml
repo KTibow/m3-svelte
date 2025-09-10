@@ -57,12 +57,12 @@ jobs:
       - name: Update package.json for nightly
         working-directory: upstream/typescript
         run: |
-          LAST_COMMIT_TIMESTAMP=$(git log -1 --format="%ct" | awk '{print $1 * 1000}')
-
-          node -p "
+          LAST_COMMIT_TIMESTAMP=$(git log -1 --format="%ct") node -p "
             const pkg = require('./package.json');
             pkg.name = '@ktibow/material-color-utilities-nightly';
-            pkg.version += process.env.LAST_COMMIT_TIMESTAMP;
+            const lastCommit = parseInt(process.env.LAST_COMMIT_TIMESTAMP) * 1000;
+            if (!lastCommit) throw new Error(`${process.env.LAST_COMMIT_TIMESTAMP} is not a valid timestamp`);
+            pkg.version += lastCommit.toString();
             pkg.sideEffects = false;
             delete pkg.scripts.prepublishOnly;
             JSON.stringify(pkg, null, 2);
