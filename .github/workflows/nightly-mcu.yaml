@@ -57,16 +57,12 @@ jobs:
       - name: Update package.json for nightly
         working-directory: upstream/typescript
         run: |
-          NIGHTLY_VERSION=$(node -p "
-            const pkg = require('./package.json');
-            const date = Date.now();
-            \`\${pkg.version}\${date}\`;
-          ")
+          LAST_COMMIT_TIMESTAMP=$(git log -1 --format="%ct" | awk '{print $1 * 1000}')
 
           node -p "
             const pkg = require('./package.json');
             pkg.name = '@ktibow/material-color-utilities-nightly';
-            pkg.version = process.env.NIGHTLY_VERSION;
+            pkg.version += process.env.LAST_COMMIT_TIMESTAMP;
             pkg.sideEffects = false;
             delete pkg.scripts.prepublishOnly;
             JSON.stringify(pkg, null, 2);
