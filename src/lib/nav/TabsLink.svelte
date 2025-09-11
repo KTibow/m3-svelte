@@ -21,15 +21,21 @@
   } & HTMLAnchorAttributes = $props();
 </script>
 
-<div
+<nav
   class="m3-container"
   class:primary={!secondary}
   style:--items={items.length}
   style:--i={items.findIndex((i) => i.value == tab)}
 >
-  <div class="divider"></div>
+  <div class="divider" aria-hidden="true"></div>
   {#each items as item}
-    <a href={item.href} class:tall={item.icon} class:selected={item.value == tab} {...extra}>
+    <a
+      href={item.href}
+      class:tall={item.icon}
+      class:selected={item.value == tab}
+      aria-current={item.value == tab ? "page" : "false"}
+      {...extra}
+    >
       <Layer />
       {#if item.icon}
         <Icon icon={item.icon} />
@@ -37,8 +43,8 @@
       <span class="m3-font-title-small">{item.name}</span>
     </a>
   {/each}
-  <div class="bar"></div>
-</div>
+  <div class="bar" aria-hidden="true"></div>
+</nav>
 
 <style>
   .m3-container {
