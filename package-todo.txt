@@ -1,3 +1,7 @@
 "deprecated" things:
 - change `svelte` to `peerDependencies` and make it `^5.0.0`
 - drop the `import` export conditions for the css
+
+other general things:
+- switch to px instead of rem where it makes sense
+- use logical properties instead of top/bottom/left/right
