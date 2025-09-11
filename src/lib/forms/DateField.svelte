@@ -26,11 +26,49 @@
     datePickerTitle?: string;
   } & HTMLInputAttributes = $props();
 
+  const ANIMATION_DURATION = 400;
+
+  let positionTranslate = $state<string>();
+  let paddingTranslate = $state<string>();
+
   const id = $props.id();
   let hasJs = $state(false);
   onMount(() => {
     hasJs = true;
+    return () => {
+      if (intervalId) clearTimeout(intervalId);
+    };
   });
+
+
+  function detectPickerPosition(element: HTMLElement): { position: string; padding: string } {
+    const rect = element.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const middleOfScreen = windowHeight / 2;
+    return rect.top < middleOfScreen
+      ? { position: '0%',                       padding: '1rem'  }
+      : { position: `-100% - ${rect.height}px`, padding: '-1rem' };
+  }
+
+  let intervalId: number
+
+  const toggleModal = () => {
+    let isOpen = picker = !picker;
+    if (intervalId) clearTimeout(intervalId);
+    if (isOpen) {
+      const element = document.getElementById(id);
+      if (element instanceof HTMLElement) {
+        const { position, padding } = detectPickerPosition(element);
+        positionTranslate = position;
+        paddingTranslate = padding;
+      }
+    } else {
+      intervalId = setTimeout(() => {
+        positionTranslate = undefined
+        paddingTranslate = undefined
+      }, ANIMATION_DURATION);
+    }
+  }
 
   let picker = $state(false);
   const clickOutside = (container: Node) => {
@@ -48,7 +86,7 @@
   };
   const enterExit = (_: Node): TransitionConfig => {
     return {
-      duration: 400,
+      duration: ANIMATION_DURATION,
       easing: easeEmphasized,
       css: (t, u) => `clip-path: inset(-100% 0 ${u * 100}% 0 round 1rem);
 transform-origin: top;
@@ -58,20 +96,34 @@ opacity: ${Math.min(t * 3, 1)};`,
   };
 </script>
 
-<div class="m3-container" class:has-js={hasJs} class:disabled class:error use:clickOutside>
-  <input
-    type="date"
-    class="focus-none m3-font-body-large"
-    {disabled}
-    {required}
-    {id}
-    bind:value
-    {...extra}
-    defaultValue={extra.defaultValue}
-  />
-  <!-- TODO/deprecated: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
+<div
+    class="m3-container"
+    class:has-js={hasJs}
+    class:disabled
+    class:error
+    use:clickOutside
+    style:--position-translate={positionTranslate}
+    style:--padding-translate={paddingTranslate}
+>
+
+    <input
+        type="date"
+        class="focus-none m3-font-body-large"
+        {disabled}
+        {required}
+        {id}
+        bind:value
+        {...extra}
+        defaultValue={extra.defaultValue}
+    />
+  <!-- TODO: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
   <label class="m3-font-body-small" for={id}>{label}</label>
-  <button type="button" {disabled} title={datePickerTitle} onclick={() => (picker = !picker)}>
+  <button
+      type="button"
+      {disabled}
+      title={datePickerTitle}
+      onclick={() => toggleModal()}
+  >
     <Layer />
     <Icon icon={iconCalendar} width="1.5rem" height="1.5rem" />
   </button>
@@ -165,7 +217,8 @@ opacity: ${Math.min(t * 3, 1)};`,
 
   .picker {
     position: absolute;
-    top: calc(100% + 1rem);
+    top: 100%;
+    translate: 0 calc(var(--position-translate) + var(--padding-translate));
     right: 0;
     z-index: 1;
   }
