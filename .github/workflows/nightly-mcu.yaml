@@ -73,6 +73,6 @@ jobs:
 
       - name: Publish to npm
         working-directory: upstream/typescript
-        run: npm publish --access public --tag latest
+        run: npm publish --access public --tag latest || exit 0
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
