@@ -131,6 +131,7 @@
   .content {
     background-color: rgb(var(--m3-scheme-surface-container-low));
     padding: 1rem;
+    width: calc(100% - 2rem);
     border-radius: 0.5rem;
   }
 
@@ -138,6 +139,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    
     gap: 0.5rem;
     @media (min-width: 52.5rem) {
       flex-direction: row;

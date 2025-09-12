@@ -1,5 +1,6 @@
 /* Needed for elevation to work */
 :root {
+  interpolate-size: allow-keywords;
   --m3-util-elevation-0: none;
   --m3-util-elevation-1:
     /* Spot */
