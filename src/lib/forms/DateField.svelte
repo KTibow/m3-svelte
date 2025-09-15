@@ -186,15 +186,27 @@ opacity: ${Math.min(t * 3, 1)};`,
     --error: var(--m3-scheme-error);
   }
 
-  .picker {
-    position: fixed;
-    position-anchor: var(--anchor-name);
-    position-area: bottom;
-    margin-top: 1rem;
-    position-try-fallbacks:
-        --picker-bottom, --picker-top;
-      z-index: 1;
-  }
+    @supports not (anchor-name: --a) {
+        .picker {
+            position: absolute;
+            top: calc(100% + 1rem);
+            right: 0;
+            z-index: 1;
+        }
+    }
+
+    @supports (anchor-name: --a) {
+        .picker {
+            position: fixed;
+            position-anchor: var(--anchor-name);
+            position-area: bottom;
+            margin-top: 1rem;
+            position-try-fallbacks:
+                --picker-bottom, --picker-top, bottom right, bottom left, top right, top left;
+            z-index: 1;
+            translate: 15% 0;
+        }
+    }
 
   @media (min-width: 37.5rem) {
     .has-js button {
