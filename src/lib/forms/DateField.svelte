@@ -107,6 +107,14 @@ opacity: ${Math.min(t * 3, 1)};`,
           position-area: top;
           margin-bottom: 1rem;
         }
+        @position-try --picker-bottom-left {
+            position-area: bottom left;
+            margin-bottom: 1rem;
+        }
+        @position-try --picker-top-left {
+            position-area: top left;
+            margin-bottom: 1rem;
+        }
     }
 
 
@@ -115,7 +123,6 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
   .m3-container {
     position: relative;
-    anchor-name: var(--anchor-name);
     height: calc(3.5rem + var(--m3-util-density-term));
     min-width: 15rem;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
@@ -158,6 +165,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     padding-right: 0.75rem;
     height: 100%;
     inset-inline-end: 0;
+    anchor-name: var(--anchor-name);
 
     align-items: center;
     justify-content: center;
@@ -199,12 +207,13 @@ opacity: ${Math.min(t * 3, 1)};`,
         .picker {
             position: fixed;
             position-anchor: var(--anchor-name);
-            position-area: bottom;
+            position-area: bottom left;
             margin-top: 1rem;
+            margin-right: -48px /* button width * 2 */;
             position-try-fallbacks:
-                --picker-bottom, --picker-top, bottom right, bottom left, top right, top left;
+                --picker-bottom, --picker-top,
+                --picker-bottom-left, --picker-top-left;
             z-index: 1;
-            translate: 15% 0;
         }
     }
 
