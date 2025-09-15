@@ -165,8 +165,8 @@
       }
     }
 
-    &.square:not(:global(input:checked) + label),
-    &:is(:global(input:checked) + label):not(.square) {
+    &.square:not(:is(:global(input:checked) + label, :global(:open) > summary)),
+    &:is(:global(input:checked) + label, :global(:open) > summary):not(.square) {
       border-radius: var(--m3-util-rounding-medium);
     }
     &:active:not(:disabled, :global(input:disabled) + label) {
