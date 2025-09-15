@@ -166,7 +166,6 @@ opacity: ${Math.min(t * 3, 1)};`,
     height: 100%;
     inset-inline-end: 0;
     anchor-name: var(--anchor-name);
-
     align-items: center;
     justify-content: center;
     border: none;
@@ -209,7 +208,7 @@ opacity: ${Math.min(t * 3, 1)};`,
             position-anchor: var(--anchor-name);
             position-area: bottom left;
             margin-top: 1rem;
-            margin-right: -48px /* button width * 2 */;
+            margin-right: -3rem;
             position-try-fallbacks:
                 --picker-bottom, --picker-top,
                 --picker-bottom-left, --picker-top-left;
