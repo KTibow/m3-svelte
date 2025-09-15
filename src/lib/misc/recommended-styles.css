@@ -29,7 +29,9 @@
   }
 }
 
-::placeholder {
+::placeholder,
+input::placeholder,
+textarea::placeholder {
   color: rgb(var(--m3-scheme-on-background) / 0.5);
   opacity: 1;
 }
