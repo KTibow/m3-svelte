@@ -109,7 +109,7 @@ opacity: ${Math.min(t * 3, 1)};`,
         }
         @position-try --picker-bottom-left {
             position-area: bottom left;
-            margin-bottom: 1rem;
+            margin-top: 1rem;
         }
         @position-try --picker-top-left {
             position-area: top left;
