@@ -58,7 +58,14 @@ opacity: ${Math.min(t * 3, 1)};`,
   };
 </script>
 
-<div class="m3-container" class:has-js={hasJs} class:disabled class:error use:clickOutside>
+<div
+    class="m3-container"
+    class:has-js={hasJs}
+    class:disabled
+    class:error
+    use:clickOutside
+    style:--anchor-name={`--${id}`}
+>
   <input
     type="date"
     class="focus-none m3-font-body-large"
@@ -76,7 +83,10 @@ opacity: ${Math.min(t * 3, 1)};`,
     <Icon icon={iconCalendar} width="1.5rem" height="1.5rem" />
   </button>
   {#if picker}
-    <div class="picker" transition:enterExit>
+    <div
+        class="picker"
+        transition:enterExit
+    >
       <DatePickerDocked
         date={value}
         clearable={!required}
@@ -88,11 +98,24 @@ opacity: ${Math.min(t * 3, 1)};`,
 </div>
 
 <style>
+    :global {
+        @position-try --picker-bottom {
+          position-area: bottom;
+          margin-top: 1rem;
+        }
+        @position-try --picker-top {
+          position-area: top;
+          margin-bottom: 1rem;
+        }
+    }
+
+
   :root {
     --m3-datefield-shape: var(--m3-util-rounding-extra-small);
   }
   .m3-container {
     position: relative;
+    anchor-name: var(--anchor-name);
     height: calc(3.5rem + var(--m3-util-density-term));
     min-width: 15rem;
     background-color: rgb(var(--m3-scheme-surface-container-highest));
@@ -164,10 +187,13 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
 
   .picker {
-    position: absolute;
-    top: calc(100% + 1rem);
-    right: 0;
-    z-index: 1;
+    position: fixed;
+    position-anchor: var(--anchor-name);
+    position-area: bottom;
+    margin-top: 1rem;
+    position-try-fallbacks:
+        --picker-bottom, --picker-top;
+      z-index: 1;
   }
 
   @media (min-width: 37.5rem) {
