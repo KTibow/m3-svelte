@@ -98,23 +98,21 @@ opacity: ${Math.min(t * 3, 1)};`,
 </div>
 
 <style>
-    :global {
-        @position-try --picker-bottom {
-          position-area: bottom;
-          margin-top: 1rem;
-        }
-        @position-try --picker-top {
-          position-area: top;
-          margin-bottom: 1rem;
-        }
-        @position-try --picker-bottom-left {
-            position-area: bottom left;
-            margin-top: 1rem;
-        }
-        @position-try --picker-top-left {
-            position-area: top left;
-            margin-bottom: 1rem;
-        }
+    @position-try --picker-bottom {
+        position-area: bottom;
+        margin-top: 1rem;
+    }
+    @position-try --picker-top {
+        position-area: top;
+        margin-bottom: 1rem;
+    }
+    @position-try --picker-bottom-left {
+        position-area: bottom left;
+        margin-top: 1rem;
+    }
+    @position-try --picker-top-left {
+        position-area: top left;
+        margin-bottom: 1rem;
     }
 
 
@@ -159,13 +157,14 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
 
   button {
+    anchor-name: var(--anchor-name);
     display: none;
     position: absolute;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     height: 100%;
     inset-inline-end: 0;
-    anchor-name: var(--anchor-name);
+
     align-items: center;
     justify-content: center;
     border: none;
