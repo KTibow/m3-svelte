@@ -64,7 +64,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     class:disabled
     class:error
     use:clickOutside
-    style:--anchor-name={`--${id}`}
+    style:--anchor-name="--{id}"
 >
   <input
     type="date"
