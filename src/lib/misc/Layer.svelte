@@ -192,7 +192,7 @@
       :global(:disabled) > .tint
     ) {
       @media (hover: hover) {
-        &:is(:global(:hover) > .tint) {
+        &:is(:global(:hover) > .tint, :global(:active) > .tint) {
           opacity: 0.08;
         }
       }
