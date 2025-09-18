@@ -59,12 +59,12 @@ opacity: ${Math.min(t * 3, 1)};`,
 </script>
 
 <div
-    class="m3-container"
-    class:has-js={hasJs}
-    class:disabled
-    class:error
-    use:clickOutside
-    style:--anchor-name="--{id}"
+  class="m3-container"
+  class:has-js={hasJs}
+  class:disabled
+  class:error
+  use:clickOutside
+  style:--anchor-name="--{id}"
 >
   <input
     type="date"
@@ -96,22 +96,21 @@ opacity: ${Math.min(t * 3, 1)};`,
 </div>
 
 <style>
-    @position-try --picker-bottom {
-      position-area: bottom;
-      margin-top: 1rem;
-    }
-    @position-try --picker-top {
-      position-area: top;
-      margin-bottom: 1rem;
-    }
-    @position-try --picker-bottom-left {
-        position-area: bottom left;
-        margin-top: 1rem;
-    }
-    @position-try --picker-top-left {
-        position-area: top left;
-        margin-bottom: 1rem;
-    }
+  @position-try --picker-bottom-right {
+    position-area: bottom center;
+    justify-self: end;
+    margin-block-start: 1rem;
+  }
+  @position-try --picker-top-left {
+    position-area: top center;
+    justify-self: start;
+    margin-block-end: 1rem;
+  }
+  @position-try --picker-top-right {
+    position-area: top center;
+    justify-self: end;
+    margin-block-end: 1rem;
+  }
 
   /*
   want to customize the label's background?
@@ -125,6 +124,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     position: relative;
     height: calc(3.5rem + var(--m3-util-density-term));
     min-width: 15rem;
+    anchor-name: var(--anchor-name);
   }
   input {
     position: absolute;
@@ -188,7 +188,6 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
 
   button {
-    anchor-name: var(--anchor-name);
     display: none;
     position: absolute;
     padding-left: 0.75rem;
@@ -235,29 +234,24 @@ opacity: ${Math.min(t * 3, 1)};`,
     cursor: auto;
   }
 
-  @supports not (anchor-name: --a) {
-      .picker {
-          position: absolute;
-          top: calc(100% + 1rem);
-          right: 0;
-          z-index: 1;
-      }
+  .picker {
+    @supports not (anchor-name: --a) {
+      position: absolute;
+      top: calc(100% + 1rem);
+      right: 0;
+    }
+    @supports (anchor-name: --a) {
+      position: fixed;
+      position-anchor: var(--anchor-name);
+      /* Default */
+      position-area: bottom center;
+      justify-self: start;
+      margin-block-start: 1rem;
+      /* Alternatives */
+      position-try-fallbacks: --picker-bottom-right, --picker-top-left, --picker-top-right;
+    }
+    z-index: 1;
   }
-
-  @supports (anchor-name: --a) {
-      .picker {
-          position: fixed;
-          position-anchor: var(--anchor-name);
-          position-area: bottom left;
-          margin-top: 1rem;
-          margin-right: -3rem;
-          position-try-fallbacks:
-              --picker-bottom, --picker-top,
-              --picker-bottom-left, --picker-top-left;
-          z-index: 1;
-      }
-  }
-
 
   @media (min-width: 37.5rem) {
     .has-js button {
