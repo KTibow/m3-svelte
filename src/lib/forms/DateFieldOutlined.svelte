@@ -58,7 +58,14 @@ opacity: ${Math.min(t * 3, 1)};`,
   };
 </script>
 
-<div class="m3-container" class:has-js={hasJs} class:disabled class:error use:clickOutside>
+<div
+  class="m3-container"
+  class:has-js={hasJs}
+  class:disabled
+  class:error
+  use:clickOutside
+  style:--anchor-name="--{id}"
+>
   <input
     type="date"
     class="focus-none m3-font-body-large"
@@ -89,6 +96,22 @@ opacity: ${Math.min(t * 3, 1)};`,
 </div>
 
 <style>
+  @position-try --picker-bottom-right {
+    position-area: bottom center;
+    justify-self: end;
+    margin-block-start: 1rem;
+  }
+  @position-try --picker-top-left {
+    position-area: top center;
+    justify-self: start;
+    margin-block-end: 1rem;
+  }
+  @position-try --picker-top-right {
+    position-area: top center;
+    justify-self: end;
+    margin-block-end: 1rem;
+  }
+
   /*
   want to customize the label's background?
   do this: <DateFieldOutlined --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
@@ -101,6 +124,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     position: relative;
     height: calc(3.5rem + var(--m3-util-density-term));
     min-width: 15rem;
+    anchor-name: var(--anchor-name);
   }
   input {
     position: absolute;
@@ -211,9 +235,21 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
 
   .picker {
-    position: absolute;
-    top: calc(100% + 1rem);
-    right: 0;
+    @supports not (anchor-name: --a) {
+      position: absolute;
+      top: calc(100% + 1rem);
+      right: 0;
+    }
+    @supports (anchor-name: --a) {
+      position: fixed;
+      position-anchor: var(--anchor-name);
+      /* Default */
+      position-area: bottom center;
+      justify-self: start;
+      margin-block-start: 1rem;
+      /* Alternatives */
+      position-try-fallbacks: --picker-bottom-right, --picker-top-left, --picker-top-right;
+    }
     z-index: 1;
   }
 
