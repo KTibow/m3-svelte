@@ -21,7 +21,7 @@
   } & HTMLAnchorAttributes = $props();
 
   let prevTab = $state(tab);
-  let wrapper: HTMLDivElement | undefined = $state();
+  let wrapper: HTMLElement | undefined = $state();
   $effect(() => {
     if (!wrapper) return;
 
@@ -74,19 +74,20 @@
   });
 </script>
 
-<div
+<nav
   class="m3-container"
   class:primary={!secondary}
   style:--items={items.length}
   bind:this={wrapper}
 >
-  <div class="divider"></div>
+  <div class="divider" aria-hidden="true"></div>
   {#each items as item, i}
     <a
       href={item.href}
       class:tall={item.icon}
       class:selected={item.value == tab}
       style:grid-column={i + 1}
+      aria-current={item.value == tab ? "page" : "false"}
       {...extra}
     >
       <Layer />
@@ -96,8 +97,12 @@
       <span class="m3-font-title-small">{item.name}</span>
     </a>
   {/each}
-  <div class="bar" style="grid-column: {items.findIndex((i) => i.value == tab) + 1}"></div>
-</div>
+  <div
+    class="bar"
+    aria-hidden="true"
+    style="grid-column: {items.findIndex((i) => i.value == tab) + 1}"
+  ></div>
+</nav>
 
 <style>
   .m3-container {
