@@ -26,6 +26,19 @@ const onPrimaryContainerSubtle = DynamicColor.fromPalette({
   background: () => primaryContainerSubtle,
   contrastCurve: () => new ContrastCurve(6, 6, 7, 11),
 });
+const secondaryContainerSubtle = DynamicColor.fromPalette({
+  name: "secondary_container_subtle",
+  palette: (s) => s.secondaryPalette,
+  isBackground: true,
+  background: (s) => materialColors.highestSurface(s),
+  contrastCurve: () => undefined,
+});
+const onSecondaryContainerSubtle = DynamicColor.fromPalette({
+  name: "on_secondary_container_subtle",
+  palette: (s) => s.secondaryPalette,
+  background: () => secondaryContainerSubtle,
+  contrastCurve: () => new ContrastCurve(6, 6, 7, 11),
+});
 const tertiaryContainerSubtle = DynamicColor.fromPalette({
   name: "tertiary_container_subtle",
   palette: (s) => s.tertiaryPalette,
@@ -60,6 +73,8 @@ export const colors = [
   onOnPrimary,
   primaryContainerSubtle,
   onPrimaryContainerSubtle,
+  secondaryContainerSubtle,
+  onSecondaryContainerSubtle,
   tertiaryContainerSubtle,
   onTertiaryContainerSubtle,
   errorContainerSubtle,
