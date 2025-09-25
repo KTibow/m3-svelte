@@ -60,7 +60,24 @@
   }
 
   @supports (anchor-name: --a) {
+    @position-try --bottom-right {
+        position-area: bottom right;
+        margin-left: -3rem;
+    }
+    @position-try --top-right {
+        position-area: top right;
+        margin-left: -3rem;
+    }
+    @position-try --bottom-left {
+        position-area: bottom left;
+        margin-right: -3rem;
+    }
+    @position-try --top-left {
+        position-area: top left;
+        margin-right: -3rem;
+    }
     details {
+        z-index: 1;
         & summary {
             anchor-name: var(--anchor-name);
         }
@@ -68,7 +85,7 @@
             position: fixed !important;
             position-anchor: var(--anchor-name);
             margin-left: -3rem;
-            position-try-fallbacks: bottom right, top right;
+            position-try-fallbacks: --bottom-right, --top-right, --bottom-left, --top-left;
         }
     }
   }
