@@ -54,7 +54,14 @@
     {@render children()}
   </a>
 {:else if "summary" in props}
-  {@const { variant = "filled", square = false, iconType = "none", children, ...extra } = props}
+  {@const {
+    variant = "filled",
+    square = false,
+    iconType = "none",
+    children,
+    summary: _,
+    ...extra
+  } = props}
   <summary
     class="m3-container m3-font-label-large {variant} icon-{iconType}"
     class:square
