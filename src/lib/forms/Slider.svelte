@@ -34,6 +34,7 @@
     endStops?: boolean;
     format?: (n: number) => string;
   } & Omit<HTMLInputAttributes, "size"> = $props();
+  const id = $props.id();
   // @ts-expect-error deprecated backwards compatibility with ticks
   let stops = $derived(extra.ticks ? true : _stops);
   let containerWidth = $state(600);
@@ -67,7 +68,7 @@
   });
 </script>
 
-<div class="m3-container {size}" style:--handle={handle - 0.5} bind:offsetWidth={containerWidth}>
+<div class="m3-container {size}" style:--handle={handle - 0.5} style:--anchor-name="--{id}" bind:offsetWidth={containerWidth}>
   <input
     type="range"
     oninput={updateValue}
