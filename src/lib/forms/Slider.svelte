@@ -68,7 +68,7 @@
   });
 </script>
 
-<div class="m3-container {size}" style:--handle={handle - 0.5} style:--anchor-name="--{id}" bind:offsetWidth={containerWidth}>
+<div class="m3-container {size}" style:--handle={handle - 0.5} bind:offsetWidth={containerWidth}>
   <input
     type="range"
     oninput={updateValue}
