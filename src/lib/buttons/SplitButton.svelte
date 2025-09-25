@@ -197,16 +197,16 @@
     details > :global(:not(summary)) :global {
         position: absolute !important;
         &:is(details.align-inner > *) {
-        left: 0;
+            left: 0;
         }
         &:is(details.align-right > *) {
-        right: 0;
+            right: 0;
         }
         &:is(details.align-down > *) {
-        top: 100%;
+            top: 100%;
         }
         &:is(details.align-up > *) {
-        bottom: 100%;
+            bottom: 100%;
         }
     }
   }
