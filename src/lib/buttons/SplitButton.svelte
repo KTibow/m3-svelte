@@ -68,7 +68,7 @@
             position: fixed !important;
             position-anchor: var(--anchor-name);
             margin-left: -3rem;
-            position-try-fallbacks: top right, bottom right;
+            position-try-fallbacks: bottom right, top right;
         }
     }
   }
