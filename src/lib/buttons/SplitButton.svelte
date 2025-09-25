@@ -41,7 +41,7 @@
     <Layer />
     {@render children()}
   </button>
-  <details class="" use:autoclose>
+  <details use:autoclose>
     <summary class="split">
       <Layer />
       <Icon icon={iconExpand} width="1.375rem" height="1.375rem" />
