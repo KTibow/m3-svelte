@@ -34,7 +34,6 @@
     endStops?: boolean;
     format?: (n: number) => string;
   } & Omit<HTMLInputAttributes, "size"> = $props();
-  const id = $props.id();
   // @ts-expect-error deprecated backwards compatibility with ticks
   let stops = $derived(extra.ticks ? true : _stops);
   let containerWidth = $state(600);
