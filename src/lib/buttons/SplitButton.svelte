@@ -19,6 +19,7 @@
     children: Snippet;
     menu: Snippet;
   } & ButtonAttrs = $props();
+  const id = $props.id();
 
   const autoclose = (node: HTMLDetailsElement) => {
     const close = (e: Event) => {
@@ -35,17 +36,19 @@
   };
 </script>
 
-<div class="m3-container {variant}">
+<div class="m3-container {variant}" style:--anchor-name="--{id}">
   <button type="button" class="split m3-font-label-large" {...extra}>
     <Layer />
     {@render children()}
   </button>
-  <details class="align-{x} align-{y}" use:autoclose>
+  <details class="" use:autoclose>
     <summary class="split">
       <Layer />
       <Icon icon={iconExpand} width="1.375rem" height="1.375rem" />
     </summary>
-    {@render menu()}
+    <div class="floating-container">
+        {@render menu()}
+    </div>
   </details>
 </div>
 
@@ -54,6 +57,20 @@
     --m3-split-button-outer-shape: 1.25rem;
     --m3-split-button-half-shape: var(--m3-util-rounding-medium);
     --m3-split-button-inner-shape: var(--m3-util-rounding-extra-small);
+  }
+
+  @supports (anchor-name: --a) {
+    details {
+        & summary {
+            anchor-name: var(--anchor-name);
+        }
+        & .floating-container {
+            position: fixed !important;
+            position-anchor: var(--anchor-name);
+            margin-left: -3rem;
+            position-try-fallbacks: top right, bottom right;
+        }
+    }
   }
 
   .m3-container {

@@ -63,7 +63,6 @@
     <Demo0 {showCode} />
     <Demo1 {showCode} />
     <Demo2 {showCode} />
-    <Demo3 {showCode} />
     <Demo4 {showCode} />
     <Demo5 {showCode} />
     <Demo6 {showCode} />
