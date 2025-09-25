@@ -5,9 +5,15 @@
   import Layer from "$lib/misc/Layer.svelte";
 
   type ActionProps =
-    | ({ click: () => void } & HTMLButtonAttributes)
+    | ({ click: () => void } & HTMLButtonAttributes) // next release: drop in favour of `onclick`
     | ({ href: string } & HTMLAnchorAttributes);
-  let props: {
+  let {
+    variant,
+    icon,
+    text,
+    selected,
+    ...props
+  }: {
     variant: "compact" | "medium" | "large" | "expanded" | "auto"; // next release / "deprecated": rename expanded to extra-large
     icon: IconifyIcon;
     text: string;
@@ -16,7 +22,7 @@
 </script>
 
 {#if "click" in props}
-  {@const { variant, icon, text, selected, click, ...extra } = props}
+  {@const { click, ...extra } = props}
   <button
     type="button"
     onclick={click}
@@ -33,8 +39,7 @@
     </div>
   </button>
 {:else}
-  {@const { variant, icon, text, selected, href, ...extra } = props}
-  <a {href} class="m3-container m3-font-label-medium {variant}" {...extra}>
+  <a class="m3-container m3-font-label-medium {variant}" {...props}>
     <div class="content" class:selected>
       <Layer />
       <div class="icon">
