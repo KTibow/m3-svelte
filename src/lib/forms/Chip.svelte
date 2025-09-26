@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { IconifyIcon } from "@iconify/types";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
   import type { LabelAttrs, AnchorAttrs, ButtonAttrs } from "$lib/misc/typing-utils";
 

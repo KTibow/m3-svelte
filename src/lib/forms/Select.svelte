@@ -2,7 +2,7 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLOptionAttributes, HTMLSelectAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   type Option = { icon?: IconifyIcon; text: string; value: string } & HTMLOptionAttributes;
   let {

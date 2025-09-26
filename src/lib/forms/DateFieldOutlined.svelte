@@ -3,7 +3,7 @@
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { TransitionConfig } from "svelte/transition";
   import iconCalendar from "@ktibow/iconset-material-symbols/calendar-today-outline";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";

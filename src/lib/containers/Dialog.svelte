@@ -2,7 +2,7 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLDialogAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   let {
     icon,

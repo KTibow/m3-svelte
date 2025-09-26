@@ -16,7 +16,7 @@
   import { onDestroy, type ComponentProps } from "svelte";
   import { fade } from "svelte/transition";
   import iconX from "@ktibow/iconset-material-symbols/close";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import SnackbarItem from "./SnackbarItem.svelte";
   import Layer from "$lib/misc/Layer.svelte";
   import type { DivAttrs } from "$lib/misc/typing-utils";

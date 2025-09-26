@@ -2,7 +2,7 @@
   import iconExpand from "@ktibow/iconset-material-symbols/keyboard-arrow-down";
   import type { Snippet } from "svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   let {

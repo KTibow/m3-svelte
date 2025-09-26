@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { DynamicScheme } from "@ktibow/material-color-utilities-nightly";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
   import iconLight from "@ktibow/iconset-material-symbols/light-mode-outline";
   import iconDark from "@ktibow/iconset-material-symbols/dark-mode-outline";

@@ -3,7 +3,7 @@
   import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
 
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import { resolve } from "$app/paths";

@@ -1,5 +1,5 @@
 <script>
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import iconArrow from "@ktibow/iconset-material-symbols/arrow-downward";
 </script>
 

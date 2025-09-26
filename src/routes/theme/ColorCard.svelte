@@ -6,7 +6,7 @@
     type DynamicScheme,
     hexFromArgb,
   } from "@ktibow/material-color-utilities-nightly";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   let {
     bg,
