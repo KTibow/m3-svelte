@@ -19,6 +19,7 @@
     children: Snippet;
     menu: Snippet;
   } & ButtonAttrs = $props();
+  const id = $props.id();
 
   const autoclose = (node: HTMLDetailsElement) => {
     const close = (e: Event) => {
@@ -35,7 +36,7 @@
   };
 </script>
 
-<div class="m3-container {variant}">
+<div class="m3-container {variant}" style:--anchor-name="--{id}">
   <button type="button" class="split m3-font-label-large" {...extra}>
     <Layer />
     {@render children()}
@@ -160,19 +161,53 @@
         translate var(--m3-util-easing-fast);
     }
   }
-  details > :global(:not(summary)) :global {
-    position: absolute !important;
-    &:is(details.align-inner > *) {
-      left: 0;
+
+  @supports (anchor-name: --a) {
+    @position-try --bottom-right {
+        position-area: bottom right;
+        margin-left: -3rem;
     }
-    &:is(details.align-right > *) {
-      right: 0;
+    @position-try --top-right {
+        position-area: top right;
+        margin-left: -3rem;
     }
-    &:is(details.align-down > *) {
-      top: 100%;
+    @position-try --bottom-left {
+        position-area: bottom left;
+        margin-right: -3rem;
     }
-    &:is(details.align-up > *) {
-      bottom: 100%;
+    @position-try --top-left {
+        position-area: top left;
+        margin-right: -3rem;
+    }
+    details {
+        z-index: 1;
+        & summary {
+            anchor-name: var(--anchor-name);
+        }
+        & > :global(:not(summary)) :global {
+            position: fixed !important;
+            position-anchor: var(--anchor-name);
+            margin-left: -3rem;
+            position-try-fallbacks: --bottom-right, --top-right, --bottom-left, --top-left;
+        }
+    }
+  }
+
+  @supports not (anchor-name: --a) {
+    details > :global(:not(summary)) :global {
+        position: absolute !important;
+        &:is(details.align-inner > *) {
+            left: 0;
+        }
+        &:is(details.align-right > *) {
+            right: 0;
+        }
+        &:is(details.align-down > *) {
+            top: 100%;
+        }
+        &:is(details.align-up > *) {
+            bottom: 100%;
+        }
     }
   }
 
