@@ -28,14 +28,14 @@
       </div>
       <button onclick={showCode}>
         <Layer />
-        <Icon icon={iconCode} width="1.5rem" height="1.5rem" />
+        <Icon icon={iconCode} size={24} />
       </button>
     </div>
   {:else}
     <button class="name m3-font-headline-medium" onclick={showCode}>
       <Layer />
       {title}
-      <Icon icon={iconCode} width="1.5rem" height="1.5rem" />
+      <Icon icon={iconCode} size={24} />
     </button>
   {/if}
   {@render demo()}

@@ -63,7 +63,7 @@
       class:invert={ui == 1}
       style:background-color={ui == 2 ? bgColor : fgColor}
     >
-      <Icon width="1.5rem" height="1.5rem" icon={iconCopy} />
+      <Icon size={24} icon={iconCopy} />
     </div>
   {/if}
 </div>

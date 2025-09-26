@@ -33,7 +33,7 @@
       <option class="focus-inset" {...extra}>
         <Layer />
         {#if icon}
-          <Icon {icon} width="1.5rem" height="1.5rem" />
+          <Icon {icon} size={24} />
         {/if}
         {@render render(text)}
       </option>

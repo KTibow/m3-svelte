@@ -43,7 +43,7 @@
   <details class="align-{x} align-{y}" use:autoclose>
     <summary class="split">
       <Layer />
-      <Icon icon={iconExpand} width="1.375rem" height="1.375rem" />
+      <Icon icon={iconExpand} size={22} />
     </summary>
     {@render menu()}
   </details>

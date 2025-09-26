@@ -81,7 +81,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   <label class="m3-font-body-small" for={id}>{label}</label>
   <button type="button" {disabled} title={datePickerTitle} onclick={() => (picker = !picker)}>
     <Layer />
-    <Icon icon={iconCalendar} width="1.5rem" height="1.5rem" />
+    <Icon icon={iconCalendar} size={24} />
   </button>
   {#if picker}
     <div class="picker" transition:enterExit>

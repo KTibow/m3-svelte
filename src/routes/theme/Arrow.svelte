@@ -4,7 +4,7 @@
 </script>
 
 <div>
-  <Icon width="3rem" height="3rem" icon={iconArrow} />
+  <Icon size={48} icon={iconArrow} />
 </div>
 
 <style>

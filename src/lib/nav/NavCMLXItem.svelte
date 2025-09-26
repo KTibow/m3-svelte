@@ -27,7 +27,7 @@
     <div class="content" class:selected>
       <Layer />
       <div class="icon">
-        <Icon {icon} width="1.5rem" height="1.5rem" />
+        <Icon {icon} size={24} />
       </div>
       {text}
     </div>
@@ -38,7 +38,7 @@
     <div class="content" class:selected>
       <Layer />
       <div class="icon">
-        <Icon {icon} width="1.5rem" height="1.5rem" />
+        <Icon {icon} size={24} />
       </div>
       {text}
     </div>
