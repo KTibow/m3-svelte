@@ -75,7 +75,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
       {:else}
         <Snippet
           code={`body {
-  --m3-font: [your font], system-ui, sans-serif;
+  --m3-font: [your font], system-ui;
 }`}
           name="app.css"
           lang="css"
