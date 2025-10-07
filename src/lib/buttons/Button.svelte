@@ -14,54 +14,27 @@
     children: Snippet;
   } & ActionProps;
 
-  let props: Props = $props();
-</script>
-
-{#if "for" in props}
-  {@const {
+  let {
     variant = "filled",
-    for: forItem,
     square = false,
     iconType = "none",
     children,
-    ...extra
-  } = props}
-  <label
-    for={forItem}
-    class="m3-container m3-font-label-large {variant} icon-{iconType}"
-    class:square
-    {...extra}
-  >
+    ...props
+  }: Props = $props();
+</script>
+
+{#if "for" in props}
+  <label class="m3-container m3-font-label-large {variant} icon-{iconType}" class:square {...props}>
     <Layer />
     {@render children()}
   </label>
 {:else if "href" in props}
-  {@const {
-    variant = "filled",
-    href,
-    square = false,
-    iconType = "none",
-    children,
-    ...extra
-  } = props}
-  <a
-    {href}
-    class="m3-container m3-font-label-large {variant} icon-{iconType}"
-    class:square
-    {...extra}
-  >
+  <a class="m3-container m3-font-label-large {variant} icon-{iconType}" class:square {...props}>
     <Layer />
     {@render children()}
   </a>
 {:else if "summary" in props}
-  {@const {
-    variant = "filled",
-    square = false,
-    iconType = "none",
-    children,
-    summary: _,
-    ...extra
-  } = props}
+  {@const { summary: _, ...extra } = props}
   <summary
     class="m3-container m3-font-label-large {variant} icon-{iconType}"
     class:square
@@ -71,12 +44,11 @@
     {@render children()}
   </summary>
 {:else}
-  {@const { variant = "filled", square = false, iconType = "none", children, ...extra } = props}
   <button
-    type={"onclick" in extra ? "button" : "submit"}
+    type={"onclick" in props ? "button" : "submit"}
     class="m3-container m3-font-label-large {variant} icon-{iconType}"
     class:square
-    {...extra}
+    {...props}
   >
     <Layer />
     {@render children()}
