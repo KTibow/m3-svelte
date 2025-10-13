@@ -67,7 +67,7 @@
     "svelte-check": "^4.3.3",
     "svelte-highlight": "^7.8.4",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.0",
+    "typescript-eslint": "^8.46.1",
     "vite": "^7.1.9"
   },
   "keywords": [
