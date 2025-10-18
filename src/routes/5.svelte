@@ -46,7 +46,7 @@ const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/
   {"<" + type + ">"}
 </label>
 {#snippet demo()}
-  <div class="demo">
+  <div class="demo" role="list">
     {#snippet leading()}
       {#if type == "label"}
         <div class="box-wrapper">
