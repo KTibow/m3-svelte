@@ -5,7 +5,7 @@
   import Layer from "$lib/misc/Layer.svelte";
 
   type ActionProps =
-    | ({ click: () => void } & HTMLButtonAttributes) // deprecated: drop in favour of `onclick`
+    | ({ click?: () => void } & HTMLButtonAttributes) // deprecated: drop in favour of `onclick`
     | ({ href: string } & HTMLAnchorAttributes);
   let {
     variant,
