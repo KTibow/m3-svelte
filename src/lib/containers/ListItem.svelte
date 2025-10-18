@@ -100,8 +100,7 @@
   }
   .lines-3 {
     height: calc(5.5rem + var(--m3-util-density-term));
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-block: 0.75rem;
     align-items: flex-start;
   }
   .body {

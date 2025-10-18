@@ -16,7 +16,6 @@
     border-bottom: solid 1px rgb(var(--m3-scheme-outline-variant));
   }
   .inset {
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-inline: 1rem;
   }
 </style>

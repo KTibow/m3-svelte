@@ -155,8 +155,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   button {
     display: none;
     position: absolute;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-inline: 0.75rem;
     height: 100%;
     inset-inline-end: 0;
 
