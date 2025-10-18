@@ -5,7 +5,7 @@
   import Layer from "$lib/misc/Layer.svelte";
 
   type ActionProps =
-    | ({ click: () => void } & HTMLButtonAttributes) // next release: drop in favour of `onclick`
+    | ({ click: () => void } & HTMLButtonAttributes) // deprecated: drop in favour of `onclick`
     | ({ href: string } & HTMLAnchorAttributes);
   let {
     variant,
@@ -21,7 +21,17 @@
   } & ActionProps = $props();
 </script>
 
-{#if "click" in props}
+{#if "href" in props}
+  <a class="m3-container m3-font-label-medium {variant}" {...props}>
+    <div class="content" class:selected>
+      <Layer />
+      <div class="icon">
+        <Icon {icon} width="1.5rem" height="1.5rem" />
+      </div>
+      {text}
+    </div>
+  </a>
+{:else}
   {@const { click, ...extra } = props}
   <button
     type="button"
@@ -38,16 +48,6 @@
       {text}
     </div>
   </button>
-{:else}
-  <a class="m3-container m3-font-label-medium {variant}" {...props}>
-    <div class="content" class:selected>
-      <Layer />
-      <div class="icon">
-        <Icon {icon} width="1.5rem" height="1.5rem" />
-      </div>
-      {text}
-    </div>
-  </a>
 {/if}
 
 <style>
