@@ -3,7 +3,7 @@
   import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
 
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import { resolve } from "$app/paths";
@@ -75,7 +75,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
       {:else}
         <Snippet
           code={`body {
-  --m3-font: [your font], system-ui, sans-serif;
+  --m3-font: [your font], system-ui;
 }`}
           name="app.css"
           lang="css"

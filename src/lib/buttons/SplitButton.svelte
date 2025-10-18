@@ -2,7 +2,7 @@
   import iconExpand from "@ktibow/iconset-material-symbols/keyboard-arrow-down";
   import type { Snippet } from "svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   let {
@@ -43,7 +43,7 @@
   <details class="align-{x} align-{y}" use:autoclose>
     <summary class="split">
       <Layer />
-      <Icon icon={iconExpand} width="1.375rem" height="1.375rem" />
+      <Icon icon={iconExpand} size={22} />
     </summary>
     {@render menu()}
   </details>

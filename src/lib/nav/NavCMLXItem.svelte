@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLButtonAttributes, HTMLAnchorAttributes } from "svelte/elements";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
   type ActionProps =
@@ -22,11 +22,12 @@
 </script>
 
 {#if "href" in props}
-  <a class="m3-container m3-font-label-medium {variant}" {...props}>
+  {@const { variant, icon, text, selected, href, ...extra } = props}
+  <a {href} class="m3-container m3-font-label-medium {variant}" {...extra}>
     <div class="content" class:selected>
       <Layer />
       <div class="icon">
-        <Icon {icon} width="1.5rem" height="1.5rem" />
+        <Icon {icon} size={24} />
       </div>
       {text}
     </div>
@@ -43,7 +44,7 @@
     <div class="content" class:selected>
       <Layer />
       <div class="icon">
-        <Icon {icon} width="1.5rem" height="1.5rem" />
+        <Icon {icon} size={24} />
       </div>
       {text}
     </div>

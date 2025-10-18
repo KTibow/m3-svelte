@@ -79,7 +79,6 @@
     cursor: pointer;
     user-select: none;
     position: relative;
-    overflow: hidden;
 
     &:disabled,
     &:is(:global(input:disabled) + label) {
