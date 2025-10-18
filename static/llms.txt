@@ -955,22 +955,22 @@ The M3 Svelte interactive demo for this component uses Button, Dialog with the T
 Minimal demo:
 ```svelte
 <script lang="ts">
-  let snackbar: ReturnType<typeof Snackbar>;
+  import { snackbar } from "m3-svelte";
 </script>
 
-<Button variant="tonal" onclick={() => snackbar.show({ message: "Hello", closable: true })}>
+<Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>
   Show
 </Button>
-<Snackbar bind:this={snackbar} />
+<NewSnackbar />
 ```
 
-The M3 Svelte interactive demo for this component uses Button, Snackbar with the TS `let snackbar: ReturnType<typeof Snackbar>;` to make this demo:
+The M3 Svelte interactive demo for this component uses Button, NewSnackbar with the TS `import { snackbar } from "$lib/containers/NewSnackbar.svelte";` to make this demo:
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" onclick={() => snackbar.show({ message: "Hello", closable: true })}>
+  <Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>
     Show
   </Button>
-  <Snackbar bind:this={snackbar} />
+  <NewSnackbar />
 {/snippet}
 ```
 

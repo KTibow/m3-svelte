@@ -498,32 +498,32 @@ Minimal demo:
 
 ```svelte
 <script lang="ts">
-  let snackbar: ReturnType<typeof Snackbar>;
+  import { snackbar } from "m3-svelte";
 </script>
 
-<Button variant="tonal" onclick={() => snackbar.show({ message: "Hello", closable: true })}>
+<Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>
   Show
 </Button>
-<Snackbar bind:this={snackbar} />
+<NewSnackbar />
 ```
 
 Full demo:
 
 ```use
 Button
-Snackbar
+NewSnackbar
 ```
 
 ```ts
-let snackbar: ReturnType<typeof Snackbar>;
+import { snackbar } from "$lib/containers/NewSnackbar.svelte";
 ```
 
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" onclick={() => snackbar.show({ message: "Hello", closable: true })}>
+  <Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>
     Show
   </Button>
-  <Snackbar bind:this={snackbar} />
+  <NewSnackbar />
 {/snippet}
 ```
 

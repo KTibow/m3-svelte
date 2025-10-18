@@ -35,11 +35,7 @@ ${components
   .split("\n")
   .filter(Boolean)
   .filter((c) => !["Switch"].includes(c))
-  .map((c) =>
-    c == "Snackbar"
-      ? `import Snackbar, { type SnackbarIn } from "$lib/containers/Snackbar.svelte";`
-      : `import ${c} from "${getFile(c).replace("src/lib", "$lib")}";`,
-  )
+  .map((c) => `import ${c} from "${getFile(c).replace("src/lib", "$lib")}";`)
   .join("\n")}
 ${fullDemoTs}
 

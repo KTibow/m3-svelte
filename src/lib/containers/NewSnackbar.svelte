@@ -1,80 +1,66 @@
-<!--
-@component
-@deprecated use NewSnackbar instead
--->
 <script module lang="ts">
-  export type SnackbarIn = {
-    message: string;
-    actions?: Record<string, () => void>;
-    closable?: boolean;
+  export const snackbar = (
+    message: string,
+    actions?: Record<string, () => void>,
+    closable?: boolean,
     /*
-    timeout: undefined/unset -> 4s timeout
-    timeout: null -> no timeout
-    timeout: 2000 -> 2s timeout
+    undefined/unset -> 4s timeout
+    2000 -> 2s timeout
+    -1 -> no timeout
     */
-    timeout?: number | null;
+    timeout?: number,
+  ) => {
+    _show(message, actions, closable, timeout);
   };
+  let _show: typeof snackbar;
 </script>
 
 <script lang="ts">
-  import { onDestroy, type ComponentProps } from "svelte";
   import { fade } from "svelte/transition";
   import iconX from "@ktibow/iconset-material-symbols/close";
   import Icon from "$lib/misc/Icon.svelte";
   import SnackbarItem from "./SnackbarItem.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  import type { DivAttrs } from "$lib/misc/typing-utils";
 
-  type SnackbarConfig = Omit<ComponentProps<typeof SnackbarItem>, "children">;
-
-  let {
-    config = {},
-    closeButtonTitle = "Close",
-    ...extra
-  }: {
-    config?: SnackbarConfig;
-    closeButtonTitle?: string;
-  } & DivAttrs = $props();
-  export const show = ({ message, actions = {}, closable = false, timeout = 4000 }: SnackbarIn) => {
-    snackbar = { message, actions, closable, timeout };
+  let { closeTitle = "Close" }: { closeTitle?: string } = $props();
+  let shown:
+    | { message: string; actions: Record<string, () => void>; closable: boolean }
+    | undefined = $state();
+  let timeoutId: number;
+  _show = (message, actions = {}, closable = false, timeout = 4000) => {
+    shown = { message, actions, closable };
     clearTimeout(timeoutId);
-    if (timeout)
+    if (timeout && timeout > 0)
       timeoutId = setTimeout(() => {
-        snackbar = undefined;
+        shown = undefined;
       }, timeout);
   };
-
-  let snackbar: Required<SnackbarIn> | undefined = $state();
-  let timeoutId: number;
-  onDestroy(() => {
-    clearTimeout(timeoutId);
-  });
 </script>
 
-{#if snackbar}
-  <div class="holder" out:fade={{ duration: 200 }} {...extra}>
-    {#key snackbar}
-      <SnackbarItem {...config}>
-        <p class="m3-font-body-medium">{snackbar.message}</p>
-        {#each Object.entries(snackbar.actions) as [key, action]}
+{#if shown}
+  <div class="holder" out:fade={{ duration: 200 }}>
+    {#key shown}
+      <SnackbarItem>
+        <p class="m3-font-body-medium">{shown.message}</p>
+        {#each Object.entries(shown.actions) as [key, action]}
           <button
             type="button"
             class="action m3-font-label-large"
             onclick={() => {
-              snackbar = undefined;
+              shown = undefined;
               action();
             }}
           >
             {key}
           </button>
         {/each}
-        {#if snackbar.closable}
+        {#if shown.closable}
           <button
             type="button"
             class="close"
-            title={closeButtonTitle}
+            title={closeTitle}
             onclick={() => {
-              snackbar = undefined;
+              shown = undefined;
             }}
           >
             <Layer />
@@ -107,6 +93,7 @@
     border: none;
 
     background-color: transparent;
+    color: unset;
     cursor: pointer;
     position: relative;
   }
@@ -116,11 +103,10 @@
   }
 
   .action {
-    color: var(--m3-scheme-inverse-primary);
+    color: rgb(var(--m3-scheme-inverse-primary));
     padding: 0 0.5rem;
   }
   .close {
-    color: var(--m3-scheme-inverse-on-surface);
     padding: 0 0.75rem;
     margin-right: -1rem;
   }
