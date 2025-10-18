@@ -8,20 +8,20 @@
   let {
     variant,
     children,
-    ...props
+    ...extra
   }: {
     variant: "elevated" | "filled" | "outlined";
     children: Snippet;
   } & ActionProps = $props();
 </script>
 
-{#if "onclick" in props}
-  <button type="button" class="m3-container {variant}" {...props}>
+{#if "onclick" in extra}
+  <button type="button" class="m3-container {variant}" {...extra}>
     <Layer />
     {@render children()}
   </button>
 {:else}
-  <div class="m3-container {variant}" {...props}>
+  <div class="m3-container {variant}" {...extra}>
     {@render children()}
   </div>
 {/if}
