@@ -13,16 +13,17 @@ Button
 ```
 
 ```ts
-let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("elevated");
+let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("filled");
 let action: "click" | "link" | "toggle" = $state("click");
 let square = $state(false);
 let iconType: "none" | "left" | "full" = $state("none");
+let size: "xs" | "s" | "m" | "l" | "xl" = $state("s");
 let enabled = $state(true);
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} />
+  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} initialIndex={1} />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
@@ -38,6 +39,18 @@ let enabled = $state(true);
   {iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}
 </label>
 <label>
+  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} initialIndex={1} />
+  {size == "xs"
+    ? "Extra small"
+    : size == "s"
+      ? "Small"
+      : size == "m"
+        ? "Medium"
+        : size == "l"
+          ? "Large"
+          : "Extra large"}
+</label>
+<label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
@@ -47,6 +60,7 @@ let enabled = $state(true);
     <Button
       {variant}
       {square}
+      {size}
       {...{
         click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
@@ -96,6 +110,7 @@ TogglePrimitive
 ```ts
 let variant: "filled" | "tonal" = $state("filled");
 let multiselect = $state(true);
+let size: "xs" | "s" | "m" | "l" | "xl" = $state("s");
 ```
 
 ```svelte
@@ -107,19 +122,31 @@ let multiselect = $state(true);
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
+<label>
+  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} initialIndex={1} />
+  {size == "xs"
+    ? "Extra small"
+    : size == "s"
+      ? "Small"
+      : size == "m"
+        ? "Medium"
+        : size == "l"
+          ? "Large"
+          : "Extra large"}
+</label>
 {#snippet demo()}
   <ConnectedButtons>
     {#if multiselect}
-      <TogglePrimitive toggle={true} {variant}>Alpha</TogglePrimitive>
-      <TogglePrimitive toggle={false} {variant}>Beta</TogglePrimitive>
-      <TogglePrimitive toggle={false} {variant}>Charlie</TogglePrimitive>
+      <TogglePrimitive toggle={true} {variant} {size}>Alpha</TogglePrimitive>
+      <TogglePrimitive toggle={false} {variant} {size}>Beta</TogglePrimitive>
+      <TogglePrimitive toggle={false} {variant} {size}>Charlie</TogglePrimitive>
     {:else}
       <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-      <Button for="segmented-b-0" {variant} square>Alpha</Button>
+      <Button for="segmented-b-0" {variant} {size} square>Alpha</Button>
       <input type="radio" name="segmented-b" id="segmented-b-1" />
-      <Button for="segmented-b-1" {variant} square>Beta</Button>
+      <Button for="segmented-b-1" {variant} {size} square>Beta</Button>
       <input type="radio" name="segmented-b" id="segmented-b-2" />
-      <Button for="segmented-b-2" {variant} square>Charlie</Button>
+      <Button for="segmented-b-2" {variant} {size} square>Charlie</Button>
     {/if}
   </ConnectedButtons>
 {/snippet}
