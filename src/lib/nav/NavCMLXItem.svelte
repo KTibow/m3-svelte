@@ -22,8 +22,7 @@
 </script>
 
 {#if "href" in props}
-  {@const { variant, icon, text, selected, href, ...extra } = props}
-  <a {href} class="m3-container m3-font-label-medium {variant}" {...extra}>
+  <a class="m3-container m3-font-label-medium {variant}" {...props}>
     <div class="content" class:selected>
       <Layer />
       <div class="icon">
