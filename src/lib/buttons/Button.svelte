@@ -1,11 +1,12 @@
 <script lang="ts">
-  import type { HTMLButtonAttributes } from "svelte/elements";
+  import type { HTMLButtonAttributes, HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
   import type { LabelAttrs, AnchorAttrs } from "$lib/misc/typing-utils";
   import Layer from "$lib/misc/Layer.svelte";
 
   // If you want a toggle button, use `for` with a checkbox input.
-  type ActionProps = LabelAttrs | AnchorAttrs | HTMLButtonAttributes;
+  type SummaryAttrs = HTMLAttributes<HTMLElement> & { summary: true };
+  type ActionProps = LabelAttrs | AnchorAttrs | SummaryAttrs | HTMLButtonAttributes;
   type Props = {
     variant?: "elevated" | "filled" | "tonal" | "outlined" | "text";
     square?: boolean;
@@ -52,6 +53,23 @@
     <Layer />
     {@render children()}
   </a>
+{:else if "summary" in props}
+  {@const {
+    variant = "filled",
+    square = false,
+    iconType = "none",
+    children,
+    summary: _,
+    ...extra
+  } = props}
+  <summary
+    class="m3-container m3-font-label-large {variant} icon-{iconType}"
+    class:square
+    {...extra}
+  >
+    <Layer />
+    {@render children()}
+  </summary>
 {:else}
   {@const { variant = "filled", square = false, iconType = "none", children, ...extra } = props}
   <button
@@ -89,7 +107,6 @@
     cursor: pointer;
     user-select: none;
     position: relative;
-    overflow: hidden;
 
     &:disabled,
     &:is(:global(input:disabled) + label) {
@@ -154,8 +171,8 @@
       }
     }
 
-    &.square:not(:global(input:checked) + label),
-    &:is(:global(input:checked) + label):not(.square) {
+    &.square:not(:is(:global(input:checked) + label, :global(:open) > summary)),
+    &:is(:global(input:checked) + label, :global(:open) > summary):not(.square) {
       border-radius: var(--m3-util-rounding-medium);
     }
     &:active:not(:disabled, :global(input:disabled) + label) {

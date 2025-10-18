@@ -8,7 +8,7 @@
   import iconBookS from "@ktibow/iconset-material-symbols/book-2";
   import iconAnimation from "@ktibow/iconset-material-symbols/animation";
   import iconAnimationS from "@ktibow/iconset-material-symbols/animation";
-  import { base } from "$app/paths";
+  import { base, resolve } from "$app/paths";
   import { page } from "$app/state";
   import NavCMLX from "$lib/nav/NavCMLX.svelte";
   import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
@@ -20,13 +20,13 @@
 
   const paths = [
     {
-      path: base || "/",
+      path: resolve("/"),
       icon: iconHome,
       iconS: iconHomeS,
       label: "Home",
     },
     {
-      path: base + "/theme",
+      path: resolve("/theme"),
       icon: iconPalette,
       iconS: iconPaletteS,
       label: "Theme",
@@ -55,8 +55,8 @@
           text={label}
         />
       {/each}
-      {#if page.url.pathname.startsWith(base + "/docs") || innerWidth >= 840}
-        {#each [["Quick start", `${base}/docs/quick-start`], ["Walkthrough", `${base}/docs/detailed-walkthrough`], ["llms.txt", `${base}/llms.txt`]] as [text, href]}
+      {#if page.url.pathname.startsWith(resolve("/docs")) || innerWidth >= 840}
+        {#each [["Quick start", `${resolve("/docs/quick-start")}`], ["Walkthrough", `${resolve("/docs/detailed-walkthrough")}`], ["llms.txt", `${base}/llms.txt`]] as [text, href]}
           <NavCMLXItem
             variant="auto"
             {href}
@@ -68,17 +68,19 @@
       {:else}
         <NavCMLXItem
           variant="auto"
-          href={normalizePath(base + "/docs/quick-start")}
-          selected={page.url.pathname.startsWith(base + "/docs")}
-          icon={page.url.pathname.startsWith(base + "/docs") ? iconBookS : iconBook}
+          href={normalizePath(resolve("/docs/quick-start"))}
+          selected={page.url.pathname.startsWith(resolve("/docs"))}
+          icon={page.url.pathname.startsWith(resolve("/docs")) ? iconBookS : iconBook}
           text="Docs"
         />
       {/if}
       <NavCMLXItem
         variant="auto"
-        href={normalizePath(base + "/transitions")}
-        selected={page.url.pathname.startsWith(base + "/transitions")}
-        icon={page.url.pathname.startsWith(base + "/transitions") ? iconAnimationS : iconAnimation}
+        href={normalizePath(resolve("/transitions"))}
+        selected={page.url.pathname.startsWith(resolve("/transitions"))}
+        icon={page.url.pathname.startsWith(resolve("/transitions"))
+          ? iconAnimationS
+          : iconAnimation}
         text="Transitions"
       />
     </NavCMLX>

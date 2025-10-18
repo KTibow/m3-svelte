@@ -2,7 +2,7 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLDialogAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   let {
     icon,
@@ -67,7 +67,7 @@
   {...extra}
 >
   {#if icon}
-    <Icon {icon} width="1.5rem" height="1.5rem" />
+    <Icon {icon} size={24} />
   {/if}
   <h2 class="headline m3-font-headline-small" class:center={icon} id="{id}headline">{headline}</h2>
   <div class="content m3-font-body-medium">

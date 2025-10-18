@@ -1,27 +1,23 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
+  import type { SVGAttributes } from "svelte/elements";
 
   let {
     icon,
-    width = "1em",
-    height = "1em",
-    class: clazz,
+    size,
     ...extra
   }: {
     icon: IconifyIcon;
-    width?: string;
-    height?: string;
-    class?: string;
-  } & Partial<{ "aria-label": string; "aria-labelledby": string }> = $props();
+    size?: number;
+  } & Omit<SVGAttributes<SVGElement>, "width" | "height"> = $props();
 </script>
 
 <svg
-  {width}
-  {height}
-  class={clazz}
+  width={size || "1em"}
+  height={size || "1em"}
   viewBox="0 0 {icon.width} {icon.height}"
-  aria-hidden={!extra["aria-label"] && !extra["aria-labelledby"]}
   data-badge={icon.body.includes("<!--badge-->") ? "" : undefined}
+  aria-hidden={!extra["aria-label"] && !extra["aria-labelledby"]}
   {...extra}
 >
   {@html icon.body}

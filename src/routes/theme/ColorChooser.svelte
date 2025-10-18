@@ -6,7 +6,7 @@
   } from "@ktibow/material-color-utilities-nightly";
   import iconColorLens from "@ktibow/iconset-material-symbols/palette-outline";
   import iconImage from "@ktibow/iconset-material-symbols/wallpaper";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import Button from "$lib/buttons/Button.svelte";
 
   let sourceColorInput: HTMLInputElement | undefined = $state(),

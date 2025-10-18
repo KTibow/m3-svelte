@@ -9,6 +9,7 @@
 
   let sourceColor = $state(13679871);
   let variant: Variant = $state(Variant.TONAL_SPOT);
+  let specVersion: "2021" | "2025" = $state("2025");
   let contrast = $state(0);
   let density = $state(0);
 
@@ -16,7 +17,7 @@
     const commonArgs = {
       sourceColorHct: Hct.fromInt(sourceColor),
       contrastLevel: contrast,
-      specVersion: "2025",
+      specVersion,
     } as const;
     const result = {} as Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
     for (const { id } of variants) {
@@ -39,6 +40,6 @@
 </svelte:head>
 <ColorChooser bind:sourceColor />
 <Arrow />
-<TransformChooser {schemes} bind:variant bind:contrast bind:density />
+<TransformChooser {schemes} bind:variant bind:contrast bind:specVersion bind:density />
 <Arrow />
 <SchemeShowcase {light} {dark} {density} />

@@ -45,6 +45,7 @@ export default ts.config(
       "svelte/require-each-key": "off",
       "svelte/no-at-html-tags": "off",
       "svelte/no-useless-mustaches": "off",
+      "svelte/no-navigation-without-resolve": "off",
     },
   },
   {

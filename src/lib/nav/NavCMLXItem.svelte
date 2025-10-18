@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLButtonAttributes, HTMLAnchorAttributes } from "svelte/elements";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
   type ActionProps =
@@ -27,7 +27,7 @@
     <div class="content" class:selected>
       <Layer />
       <div class="icon">
-        <Icon {icon} width="1.5rem" height="1.5rem" />
+        <Icon {icon} size={24} />
       </div>
       {text}
     </div>
@@ -38,7 +38,7 @@
     <div class="content" class:selected>
       <Layer />
       <div class="icon">
-        <Icon {icon} width="1.5rem" height="1.5rem" />
+        <Icon {icon} size={24} />
       </div>
       {text}
     </div>
@@ -106,6 +106,9 @@
           color: rgb(var(--m3-scheme-on-secondary-container));
         }
       }
+      &:is(.large .content) {
+        padding-block: 0.375rem;
+      }
       &:is(.expanded .content) {
         gap: 0.75rem;
       }
@@ -148,7 +151,6 @@
     &.large {
       flex-direction: column;
       min-height: 4rem;
-      padding-block: 0.375rem;
     }
     &.expanded {
       height: 3.5rem;
@@ -229,10 +231,10 @@
       flex-direction: column;
       text-align: center;
       min-height: 4rem;
-      padding-block: 0.375rem;
 
       .content {
         flex-direction: column;
+        padding-block: 0.375rem;
 
         &.selected {
           color: rgb(var(--m3-scheme-secondary));

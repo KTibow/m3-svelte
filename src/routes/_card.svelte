@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import iconCode from "@ktibow/iconset-material-symbols/code";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
   let {
@@ -28,14 +28,14 @@
       </div>
       <button onclick={showCode}>
         <Layer />
-        <Icon icon={iconCode} width="1.5rem" height="1.5rem" />
+        <Icon icon={iconCode} size={24} />
       </button>
     </div>
   {:else}
     <button class="name m3-font-headline-medium" onclick={showCode}>
       <Layer />
       {title}
-      <Icon icon={iconCode} width="1.5rem" height="1.5rem" />
+      <Icon icon={iconCode} size={24} />
     </button>
   {/if}
   {@render demo()}

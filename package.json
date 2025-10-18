@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "5.6.0",
+  "version": "5.9.1",
   "license": "Apache-2.0 OR GPL-3.0-only",
   "repository": "KTibow/m3-svelte",
   "author": {
@@ -45,30 +45,30 @@
   },
   "dependencies": {
     "@iconify/types": "^2.0.0",
-    "@ktibow/iconset-material-symbols": "^0.0.1755063979",
-    "@ktibow/material-color-utilities-nightly": "^0.3.11756085020728",
-    "svelte": "^5.38.3"
+    "@ktibow/iconset-material-symbols": "~0.0.1760073587",
+    "@ktibow/material-color-utilities-nightly": "^0.3.11760125264000",
+    "svelte": "^5.39.11"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.3.2",
-    "@eslint/js": "^9.34.0",
-    "@sveltejs/adapter-static": "^3.0.9",
-    "@sveltejs/kit": "^2.36.2",
-    "@sveltejs/package": "^2.5.0",
-    "@sveltejs/vite-plugin-svelte": "^6.1.3",
-    "eslint": "^9.27.0",
+    "@eslint/compat": "^1.4.0",
+    "@eslint/js": "^9.37.0",
+    "@sveltejs/adapter-static": "^3.0.10",
+    "@sveltejs/kit": "^2.46.4",
+    "@sveltejs/package": "^2.5.4",
+    "@sveltejs/vite-plugin-svelte": "^6.2.1",
+    "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-svelte": "^3.11.0",
+    "eslint-plugin-svelte": "^3.12.4",
     "fast-glob": "^3.3.3",
-    "globals": "^16.3.0",
+    "globals": "^16.4.0",
     "prettier": "^3.6.2",
     "prettier-plugin-svelte": "^3.4.0",
-    "publint": "^0.3.12",
-    "svelte-check": "^4.3.1",
-    "svelte-highlight": "^7.8.3",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.41.0",
-    "vite": "^7.1.3"
+    "publint": "^0.3.14",
+    "svelte-check": "^4.3.3",
+    "svelte-highlight": "^7.8.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.1",
+    "vite": "^7.1.9"
   },
   "keywords": [
     "svelte",

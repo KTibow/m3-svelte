@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
   import iconX from "@ktibow/iconset-material-symbols/close";
