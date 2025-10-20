@@ -22,7 +22,14 @@
   };
 </script>
 
-<div class="container">
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div
+  class="container"
+  onkeydown={({ key }) => {
+    if (key == "ArrowLeft") left();
+    if (key == "ArrowRight") right();
+  }}
+>
   <button class="m3-font-label-large left" onclick={left}>&lt;</button>
   <button class="m3-font-label-large right" onclick={right}>&gt;</button>
 </div>
