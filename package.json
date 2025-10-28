@@ -46,8 +46,8 @@
   "dependencies": {
     "@iconify/types": "^2.0.0",
     "@ktibow/iconset-material-symbols": "~0.0.1760591837",
-    "@ktibow/material-color-utilities-nightly": "^0.3.11760728781000",
-    "svelte": "^5.41.1"
+    "@ktibow/material-color-utilities-nightly": "^0.3.11761036883000",
+    "svelte": "^5.42.2"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
@@ -65,10 +65,10 @@
     "prettier-plugin-svelte": "^3.4.0",
     "publint": "^0.3.15",
     "svelte-check": "^4.3.3",
-    "svelte-highlight": "^7.8.4",
+    "svelte-highlight": "^7.9.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2",
-    "vite": "^7.1.11"
+    "vite": "^7.1.12"
   },
   "keywords": [
     "svelte",
