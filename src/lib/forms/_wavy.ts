@@ -3,8 +3,8 @@ const frequencyX = (Math.PI * 2) / 40;
 const round2 = (x: number) => Math.round(x * 100) / 100;
 const round1 = (x: number) => Math.round(x * 10) / 10;
 export const linear = (
-  t: number,
-  b: number,
+  amp: number,
+  center: number,
   from: number,
   to: number,
   time: number,
@@ -18,8 +18,8 @@ export const linear = (
   let path = "";
   for (let xIterator = from; xIterator <= to; xIterator += 0.5) {
     const x = cutoffTo ? Math.min(cutoffTo, xIterator) : xIterator;
-    const sinV = (Math.sin(x * frequencyX + time) + 1) * 0.5;
-    const y = sinV * (t - b) + b;
+    const sinV = Math.sin(x * frequencyX + time);
+    const y = sinV * amp + center;
 
     if (x == from) {
       path = `M ${round1(x)} ${round2(y)}`;
