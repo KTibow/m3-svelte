@@ -112,13 +112,6 @@
           currentColor 8%
         );
       }
-      &:active {
-        background-color: color-mix(
-          in oklab,
-          rgb(var(--m3-scheme-surface-container-highest)),
-          currentColor 12%
-        );
-      }
     }
 
     box-shadow: inset 0px -1px var(--secondary-color);
