@@ -17,6 +17,7 @@
   height={size || "1em"}
   viewBox="0 0 {icon.width} {icon.height}"
   data-badge={icon.body.includes("<!--badge-->") ? "" : undefined}
+  aria-hidden={!extra["aria-label"] && !extra["aria-labelledby"]}
   {...extra}
 >
   {@html icon.body}

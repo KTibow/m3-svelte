@@ -200,6 +200,7 @@ let iconType: "none" | "left" | "full" = $state("none");
       x={position.startsWith("inner") ? "inner" : "right"}
       y={position.endsWith("down") ? "down" : "up"}
       onclick={() => {}}
+      id="splitbutton"
     >
       {#if iconType == "none"}
         Hello
@@ -209,7 +210,7 @@ let iconType: "none" | "left" | "full" = $state("none");
         <Icon icon={iconCircle} />
       {/if}
       {#snippet menu()}
-        <Menu>
+        <Menu aria-labelledby="splitbutton">
           <MenuItem icon={iconCircle} onclick={() => {}}>Hi</MenuItem>
           <MenuItem icon={iconSquare} onclick={() => {}}>Howdy</MenuItem>
           <MenuItem icon={iconTriangle} onclick={() => {}}>G'day</MenuItem>
@@ -355,7 +356,7 @@ let supporting = $derived(
   {"<" + type + ">"}
 </label>
 {#snippet demo()}
-  <div class="demo">
+  <div class="demo" role="list">
     {#snippet leading()}
       {#if type == "label"}
         <div class="box-wrapper">
@@ -416,7 +417,7 @@ let supporting = $derived(
 Minimal demo:
 
 ```svelte
-<Menu>
+<Menu aria-label="Template Menu">
   <MenuItem icon={iconCircle}>Undo</MenuItem>
   <MenuItem icon={iconSquare}>Redo</MenuItem>
   <MenuItem icon={iconTriangle}>Cut</MenuItem>
@@ -440,7 +441,7 @@ let icons = $state(false);
   {icons ? "Icons" : "No icons"}
 </label>
 {#snippet demo()}
-  <Menu>
+  <Menu aria-label="Template Menu">
     <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Cut</MenuItem>
     <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Undo</MenuItem>
     <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Redo</MenuItem>
@@ -655,12 +656,12 @@ let selected = $state(false);
 Minimal demo:
 
 ```svelte
-<LinearProgress percent={60} />
-<LinearProgressEstimate sToHalfway={2} />
-<WavyLinearProgress percent={60} />
-<WavyLinearProgressEstimate sToHalfway={2} />
-<CircularProgress percent={60} />
-<CircularProgressEstimate sToHalfway={2} />
+<LinearProgress percent={60} aria-label="Loading episodes" />
+<LinearProgressEstimate sToHalfway={2} aria-label="Loading episodes" />
+<WavyLinearProgress percent={60} aria-label="Loading episodes" />
+<WavyLinearProgressEstimate sToHalfway={2} aria-label="Loading episodes" />
+<CircularProgress percent={60} aria-label="Loading episodes" />
+<CircularProgressEstimate sToHalfway={2} aria-label="Loading episodes" />
 ```
 
 Full demo:
@@ -700,17 +701,34 @@ let percent = $state(10);
 
 {#snippet demo()}
   {#if estimate && type == "linear"}
-    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : 4} />
+    <LinearProgressEstimate
+      sToHalfway={2}
+      height={thick ? 8 : 4}
+      aria-label="LinearProgressEstimate"
+    />
   {:else if estimate && type == "linear-wavy"}
-    <WavyLinearProgressEstimate height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+    <WavyLinearProgressEstimate
+      height={thick ? 14 : 10}
+      thickness={thick ? 8 : 4}
+      aria-label="WavyLinearProgressEstimate"
+    />
   {:else if estimate && type == "circular"}
-    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : 4} />
+    <CircularProgressEstimate
+      sToHalfway={2}
+      thickness={thick ? 8 : 4}
+      aria-label="CircularProgressEstimate"
+    />
   {:else if type == "linear"}
-    <LinearProgress {percent} height={thick ? 8 : 4} />
+    <LinearProgress {percent} height={thick ? 8 : 4} aria-label="LinearProgress" />
   {:else if type == "linear-wavy"}
-    <WavyLinearProgress {percent} height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+    <WavyLinearProgress
+      {percent}
+      height={thick ? 14 : 10}
+      thickness={thick ? 8 : 4}
+      aria-label="WavyLinearProgress"
+    />
   {:else if type == "circular"}
-    <CircularProgress {percent} thickness={thick ? 8 : 4} />
+    <CircularProgress {percent} thickness={thick ? 8 : 4} aria-label="CircularProgress" />
   {/if}
 {/snippet}
 
@@ -726,7 +744,7 @@ let percent = $state(10);
 Minimal demo:
 
 ```svelte
-<LoadingIndicator />
+<LoadingIndicator aria-label="Loading episodes" />
 ```
 
 Full demo:
@@ -746,7 +764,7 @@ let container = $state(false);
 </label>
 
 {#snippet demo()}
-  <LoadingIndicator {container} />
+  <LoadingIndicator {container} aria-label="LoadingIndicator" />
 {/snippet}
 ```
 
