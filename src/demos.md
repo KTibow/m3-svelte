@@ -700,17 +700,17 @@ let percent = $state(10);
 
 {#snippet demo()}
   {#if estimate && type == "linear"}
-    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : 4} />
+    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : undefined} />
   {:else if estimate && type == "linear-wavy"}
-    <WavyLinearProgressEstimate height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+    <WavyLinearProgressEstimate height={thick ? 14 : undefined} thickness={thick ? 8 : undefined} />
   {:else if estimate && type == "circular"}
-    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : 4} />
+    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : undefined} />
   {:else if type == "linear"}
-    <LinearProgress {percent} height={thick ? 8 : 4} />
+    <LinearProgress {percent} height={thick ? 8 : undefined} />
   {:else if type == "linear-wavy"}
-    <WavyLinearProgress {percent} height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+    <WavyLinearProgress {percent} height={thick ? 14 : undefined} thickness={thick ? 8 : undefined} />
   {:else if type == "circular"}
-    <CircularProgress {percent} thickness={thick ? 8 : 4} />
+    <CircularProgress {percent} thickness={thick ? 8 : undefined} />
   {/if}
 {/snippet}
 

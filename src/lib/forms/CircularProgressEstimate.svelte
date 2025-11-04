@@ -4,7 +4,7 @@
   let {
     sToHalfway = 1,
     size = 48,
-    thickness = 2,
+    thickness = 4,
     ...extra
   }: {
     sToHalfway?: number;
