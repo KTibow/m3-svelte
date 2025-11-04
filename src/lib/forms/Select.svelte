@@ -2,7 +2,7 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLOptionAttributes, HTMLSelectAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   type Option = { icon?: IconifyIcon; text: string; value: string } & HTMLOptionAttributes;
   let {
@@ -33,7 +33,7 @@
       <option class="focus-inset" {...extra}>
         <Layer />
         {#if icon}
-          <Icon {icon} width="1.5rem" height="1.5rem" />
+          <Icon {icon} size={24} />
         {/if}
         {@render render(text)}
       </option>
@@ -110,13 +110,6 @@
           in oklab,
           rgb(var(--m3-scheme-surface-container-highest)),
           currentColor 8%
-        );
-      }
-      &:active {
-        background-color: color-mix(
-          in oklab,
-          rgb(var(--m3-scheme-surface-container-highest)),
-          currentColor 12%
         );
       }
     }

@@ -3,14 +3,15 @@ import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
 import Switch from "$lib/forms/Switch.svelte";
-import Icon from "$lib/misc/_icon.svelte";
+import Icon from "$lib/misc/Icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Button from "$lib/buttons/Button.svelte";
-let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("elevated");
+let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("filled");
 let action: "click" | "link" | "toggle" = $state("click");
 let square = $state(false);
 let iconType: "none" | "left" | "full" = $state("none");
+let size: "xs" | "s" | "m" | "l" | "xl" = $state("s");
 let enabled = $state(true);
 
 let { showCode }: { showCode: (
@@ -25,7 +26,7 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
 
 <InternalCard title="Button" showCode={() => showCode("Button", minimalDemo, relevantLinks)}>
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} />
+  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} initialIndex={1} />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
@@ -41,6 +42,18 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
   {iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}
 </label>
 <label>
+  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} initialIndex={1} />
+  {size == "xs"
+    ? "Extra small"
+    : size == "s"
+      ? "Small"
+      : size == "m"
+        ? "Medium"
+        : size == "l"
+          ? "Large"
+          : "Extra large"}
+</label>
+<label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
@@ -50,6 +63,7 @@ const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3
     <Button
       {variant}
       {square}
+      {size}
       {...{
         click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },

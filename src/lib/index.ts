@@ -1,4 +1,4 @@
-export { default as Icon } from "./misc/_icon.svelte";
+export { default as Icon } from "./misc/Icon.svelte";
 export { default as Layer } from "./misc/Layer.svelte";
 export * from "./misc/animation.js";
 export * from "./misc/colors.js";
@@ -20,6 +20,7 @@ export { default as MenuItem } from "./containers/MenuItem.svelte";
 export { default as Snackbar } from "./containers/Snackbar.svelte";
 export type { SnackbarIn } from "./containers/Snackbar.svelte";
 export { default as SnackbarItem } from "./containers/SnackbarItem.svelte";
+export { default as NewSnackbar, snackbar } from "./containers/NewSnackbar.svelte";
 
 export { default as Checkbox } from "./forms/Checkbox.svelte";
 export { default as Chip } from "./forms/Chip.svelte";

@@ -28,18 +28,14 @@ import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
 import Switch from "$lib/forms/Switch.svelte";
-import Icon from "$lib/misc/_icon.svelte";
+import Icon from "$lib/misc/Icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 ${components
   .split("\n")
   .filter(Boolean)
   .filter((c) => !["Switch"].includes(c))
-  .map((c) =>
-    c == "Snackbar"
-      ? `import Snackbar, { type SnackbarIn } from "$lib/containers/Snackbar.svelte";`
-      : `import ${c} from "${getFile(c).replace("src/lib", "$lib")}";`,
-  )
+  .map((c) => `import ${c} from "${getFile(c).replace("src/lib", "$lib")}";`)
   .join("\n")}
 ${fullDemoTs}
 

@@ -2,7 +2,7 @@
   import type { Snippet } from "svelte";
   import iconX from "@ktibow/iconset-material-symbols/close";
   import Button from "$lib/buttons/Button.svelte";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   let {
     headline,

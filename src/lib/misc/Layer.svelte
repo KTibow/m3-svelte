@@ -164,10 +164,15 @@
   }}
 />
 
+<div class="hitbox"></div>
 <div class="ripple-container broken" use:createRipple></div>
 <div class="tint"></div>
 
 <style>
+  .hitbox {
+    position: absolute;
+    inset: 0;
+  }
   .ripple-container {
     position: absolute;
     inset: 0;
@@ -192,7 +197,7 @@
       :global(:disabled) > .tint
     ) {
       @media (hover: hover) {
-        &:is(:global(:hover) > .tint) {
+        &:is(:global(:hover) > .tint, :global(:active) > .tint) {
           opacity: 0.08;
         }
       }

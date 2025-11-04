@@ -1,10 +1,10 @@
 <script>
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import iconArrow from "@ktibow/iconset-material-symbols/arrow-downward";
 </script>
 
 <div>
-  <Icon width="3rem" height="3rem" icon={iconArrow} />
+  <Icon size={48} icon={iconArrow} />
 </div>
 
 <style>

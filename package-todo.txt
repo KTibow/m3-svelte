@@ -1,3 +1,17 @@
 "deprecated" things:
 - change `svelte` to `peerDependencies` and make it `^5.0.0`
 - drop the `import` export conditions for the css
+
+other general things:
+- switch to px instead of rem where it makes sense
+- use logical properties instead of top/bottom/left/right
+
+WHEN anchor positioning:
+use it for date field, tab indicator, split button, etc etc etc
+
+WHEN mixins:
+use it for nav cmlx
+
+WHEN css functions:
+use it for semitransparency, rename m3-scheme to m3-color, use direct colors instead of rgb numbers
+and use it for density sizing

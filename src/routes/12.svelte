@@ -3,7 +3,7 @@ import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
 import Switch from "$lib/forms/Switch.svelte";
-import Icon from "$lib/misc/_icon.svelte";
+import Icon from "$lib/misc/Icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import LinearProgress from "$lib/forms/LinearProgress.svelte";
@@ -51,17 +51,17 @@ const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/K
 
 {#snippet demo()}
   {#if estimate && type == "linear"}
-    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : 4} />
+    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : undefined} />
   {:else if estimate && type == "linear-wavy"}
-    <WavyLinearProgressEstimate height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+    <WavyLinearProgressEstimate height={thick ? 14 : undefined} thickness={thick ? 8 : undefined} />
   {:else if estimate && type == "circular"}
-    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : 4} />
+    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : undefined} />
   {:else if type == "linear"}
-    <LinearProgress {percent} height={thick ? 8 : 4} />
+    <LinearProgress {percent} height={thick ? 8 : undefined} />
   {:else if type == "linear-wavy"}
-    <WavyLinearProgress {percent} height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+    <WavyLinearProgress {percent} height={thick ? 14 : undefined} thickness={thick ? 8 : undefined} />
   {:else if type == "circular"}
-    <CircularProgress {percent} thickness={thick ? 8 : 4} />
+    <CircularProgress {percent} thickness={thick ? 8 : undefined} />
   {/if}
 {/snippet}
 

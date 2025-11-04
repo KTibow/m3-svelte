@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import { Spring } from "svelte/motion";
 
   let {

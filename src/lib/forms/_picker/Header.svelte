@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import iconLeft from "@ktibow/iconset-material-symbols/chevron-left";
   import iconRight from "@ktibow/iconset-material-symbols/chevron-right";
   import iconDown from "@ktibow/iconset-material-symbols/arrow-drop-down";

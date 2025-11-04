@@ -3,7 +3,7 @@
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { TransitionConfig } from "svelte/transition";
   import iconCalendar from "@ktibow/iconset-material-symbols/calendar-today-outline";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
@@ -58,7 +58,14 @@ opacity: ${Math.min(t * 3, 1)};`,
   };
 </script>
 
-<div class="m3-container" class:has-js={hasJs} class:disabled class:error use:clickOutside>
+<div
+  class="m3-container"
+  class:has-js={hasJs}
+  class:disabled
+  class:error
+  use:clickOutside
+  style:--anchor-name="--{id}"
+>
   <input
     type="date"
     class="focus-none m3-font-body-large"
@@ -69,11 +76,11 @@ opacity: ${Math.min(t * 3, 1)};`,
     {...extra}
     defaultValue={extra.defaultValue}
   />
-  <!-- TODO: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
+  <!-- TODO/deprecated: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
   <label class="m3-font-body-small" for={id}>{label}</label>
   <button type="button" {disabled} title={datePickerTitle} onclick={() => (picker = !picker)}>
     <Layer />
-    <Icon icon={iconCalendar} width="1.5rem" height="1.5rem" />
+    <Icon icon={iconCalendar} size={24} />
   </button>
   {#if picker}
     <div class="picker" transition:enterExit>
@@ -88,6 +95,22 @@ opacity: ${Math.min(t * 3, 1)};`,
 </div>
 
 <style>
+  @position-try --picker-bottom-right {
+    position-area: bottom center;
+    justify-self: end;
+    margin-block-start: 1rem;
+  }
+  @position-try --picker-top-left {
+    position-area: top center;
+    justify-self: start;
+    margin-block-end: 1rem;
+  }
+  @position-try --picker-top-right {
+    position-area: top center;
+    justify-self: end;
+    margin-block-end: 1rem;
+  }
+
   :root {
     --m3-datefield-shape: var(--m3-util-rounding-extra-small);
   }
@@ -98,6 +121,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     background-color: rgb(var(--m3-scheme-surface-container-highest));
     border-radius: var(--m3-datefield-shape) var(--m3-datefield-shape) 0 0;
     border-bottom: solid 1px rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    anchor-name: var(--anchor-name);
   }
   input {
     position: absolute;
@@ -164,9 +188,21 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
 
   .picker {
-    position: absolute;
-    top: calc(100% + 1rem);
-    right: 0;
+    @supports not (anchor-name: --a) {
+      position: absolute;
+      top: calc(100% + 1rem);
+      right: 0;
+    }
+    @supports (anchor-name: --a) {
+      position: fixed;
+      position-anchor: var(--anchor-name);
+      /* Default */
+      position-area: bottom center;
+      justify-self: start;
+      margin-block-start: 1rem;
+      /* Alternatives */
+      position-try-fallbacks: --picker-bottom-right, --picker-top-left, --picker-top-right;
+    }
     z-index: 1;
   }
 

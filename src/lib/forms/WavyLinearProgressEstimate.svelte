@@ -8,8 +8,6 @@
     thickness = 4,
   }: { sToHalfway?: number; width?: number; height?: number; thickness?: number } = $props();
 
-  let top = $derived(thickness * 0.5);
-  let bottom = $derived(height - thickness * 0.5);
   let left = $derived(thickness * 0.5);
   let right = $derived(width - thickness * 0.5);
   let endTime = $derived(sToHalfway * 8);
@@ -21,14 +19,23 @@
       let value = 1 - Math.pow(0.5, time / sToHalfway);
       if (value == 0) value = 0.001;
       const ms = time * 1000;
-      paths.push(linear(top, bottom, left, right, ms, value * (right - left) + left));
+      paths.push(
+        linear(
+          height / 2 - thickness / 2,
+          height / 2,
+          left,
+          right,
+          ms,
+          value * (right - left) + left,
+        ),
+      );
     }
     return paths.join(";");
   });
   const infiniteSMIL = $derived.by(() => {
     let paths: string[] = [];
     for (let time = 0; time <= 1; time += 1 / 30) {
-      paths.push(linear(top, bottom, left, right, time * 1000));
+      paths.push(linear(height / 2 - thickness / 2, height / 2, left, right, time * 1000));
     }
     return paths.join(";");
   });

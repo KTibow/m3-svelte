@@ -5,20 +5,22 @@
 
   type ActionProps = ButtonAttrs | DivAttrs;
 
-  let props: {
+  let {
+    variant,
+    children,
+    ...extra
+  }: {
     variant: "elevated" | "filled" | "outlined";
     children: Snippet;
   } & ActionProps = $props();
 </script>
 
-{#if "onclick" in props}
-  {@const { variant, children, ...extra } = props}
+{#if "onclick" in extra}
   <button type="button" class="m3-container {variant}" {...extra}>
     <Layer />
     {@render children()}
   </button>
 {:else}
-  {@const { variant, children, ...extra } = props}
   <div class="m3-container {variant}" {...extra}>
     {@render children()}
   </div>

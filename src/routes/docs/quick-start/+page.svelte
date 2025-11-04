@@ -3,10 +3,10 @@
   import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
 
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
   import Button from "$lib/buttons/Button.svelte";
-  import { base } from "$app/paths";
+  import { resolve } from "$app/paths";
 
   import Snippet from "../Snippet.svelte";
 
@@ -39,7 +39,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     </div>
     <div class="text">
       <p>
-        <a href="{base}/theme">Copy a theme snippet</a> and paste it on your site.
+        <a href={resolve("/theme")}>Copy a theme snippet</a> and paste it on your site.
       </p>
       <Snippet
         code={`<${""}script>
@@ -75,7 +75,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
       {:else}
         <Snippet
           code={`body {
-  --m3-font: [your font], system-ui, sans-serif;
+  --m3-font: [your font], system-ui;
 }`}
           name="app.css"
           lang="css"
