@@ -68,7 +68,14 @@
       size="m"
       leadingIcon={iconContrast}
       format={(n) => n.toString()}
-      bind:value={contrast}
+      bind:value={
+        () => contrast,
+        (n) => {
+          if (n <= -0.5) n = -1;
+          else if (n > -0.5 && n < 0) n = 0;
+          contrast = n;
+        }
+      }
     />
     <ConnectedButtons>
       <input

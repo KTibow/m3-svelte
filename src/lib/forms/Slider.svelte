@@ -43,8 +43,8 @@
     const newValue = Number(e.currentTarget.value);
     e.preventDefault();
     value = newValue;
-    valueDisplayed.target = newValue;
   };
+  $effect(() => (valueDisplayed.target = value));
 
   const range = $derived(max - min);
   const handle = $derived((valueDisplayed.current - min) / range);
