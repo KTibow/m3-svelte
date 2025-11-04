@@ -61,7 +61,7 @@
     font-family: var(--m3-font-body, var(--m3-font));
     animation: none !important;
     color: rgb(var(--m3-scheme-on-surface-variant));
-    transition: width var(--m3-util-easing-fast);
+    transition: width var(--m3-util-easing-fast), border var(--m3-util-easing-slow);
   }
 
   .m3-container::before {
@@ -85,6 +85,11 @@
   .m3-container > span {
     z-index: 1;
   }
+  
+  .m3-container > :global(.ripple-container),
+  .m3-container > :global(.tint) {
+    border-radius: var(--m3-util-rounding-full);
+  }
 
   :global(.rail:not(.open) > .items) .m3-container {
     font-size: var(--m3-font-label-medium-size, 0.75rem);
@@ -99,9 +104,9 @@
   }
 
   :global(.rail:not(.open) > .items) .m3-container::before {
+    border-radius: var(--m3-util-rounding-full);
     width: 56px;
     height: 32px;
-    border-radius: var(--m3-util-rounding-full);
   }
 
   :global(.rail:not(.open) > .items) .m3-container.active::before {
@@ -116,10 +121,7 @@
     background: color-mix(in oklab, currentColor 8%, transparent);
   }
 
-  :global(.rail:not(.open) > .items)
-    :is(button, a):focus-visible
-    > .m3-container:not(.active)
-    > .icon,
+  :global(.rail:not(.open) > .items) :is(button, a):focus-visible > .m3-container:not(.active) > .icon,
   :global(.rail:not(.open) > .items) .m3-container:not(.active):active > .icon {
     background-color: color-mix(in oklab, currentColor 12%, transparent);
   }
@@ -132,6 +134,7 @@
   }
 
   :global(.rail:not(.open) > .items) .icon {
+    border-radius: var(--m3-util-rounding-full);
     padding: 0px 16px;
     height: 32px;
   }
@@ -145,7 +148,6 @@
     z-index: 1;
     width: 56px;
     height: 32px;
-    border-radius: var(--m3-util-rounding-full);
   }
 
   :global(.rail.open > .items) .m3-container {
@@ -160,10 +162,7 @@
     line-height: var(--m3-font-label-large-height, 1.429);
     letter-spacing: var(--m3-font-label-large-tracking, 0.006rem);
     font-weight: var(--m3-font-label-large-weight, 500);
-    transition:
-      width var(--m3-util-easing-spatial),
-      gap var(--m3-util-easing-spatial),
-      opacity var(--m3-util-easing-fast);
+    transition: width var(--m3-util-easing-spatial), opacity var(--m3-util-easing-fast);
   }
 
   :global(.rail.open > .items) .m3-container::before {
@@ -180,16 +179,17 @@
     overflow: hidden;
   }
 
-  :global(.rail.open > .items) .m3-container:not(.active):hover {
+  :global(.rail.open > .items) .m3-container:not(.active):hover::before {
     background: color-mix(in oklab, currentColor 8%, transparent);
   }
 
-  :global(.rail.open > .items) :is(button, a):focus-visible > .m3-container:not(.active),
-  :global(.rail.open > .items) .m3-container:not(.active):active {
+  :global(.rail.open > .items) :is(button, a):focus-visible > .m3-container:not(.active)::before,
+  :global(.rail.open > .items) .m3-container:not(.active):active::before {
     background-color: color-mix(in oklab, currentColor 12%, transparent);
   }
 
   :global(.rail.open > .items) :is(button, a):focus-visible > .m3-container {
+    border-radius: var(--m3-util-rounding-full);
     outline: solid;
     outline-color: rgb(var(--m3-scheme-on-secondary-container));
     outline-width: 3px;
@@ -199,13 +199,5 @@
   :global(.rail.open > .items) .icon {
     width: 24px;
     height: 24px;
-  }
-
-  @keyframes expand {
-    0% {
-    }
-
-    100% {
-    }
   }
 </style>

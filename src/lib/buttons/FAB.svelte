@@ -79,6 +79,10 @@
     width: max-content;
   }
   
+  .m3-container:has(span:empty) {
+    gap: 0;
+  }
+  
   .m3-container.label > span {
     opacity: 1;
   }
