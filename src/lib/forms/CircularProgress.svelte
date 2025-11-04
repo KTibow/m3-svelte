@@ -5,6 +5,7 @@
     percent,
     size = 48,
     thickness = 4,
+    ...extra
   }: { percent: number; size?: number; thickness?: number } & HTMLAttributes<SVGElement> = $props();
 
   let r = $derived(size / 2 - thickness / 2);
@@ -18,6 +19,7 @@
   xmlns="http://www.w3.org/2000/svg"
   class="m3-container"
   role="progressbar"
+  {...extra}
 >
   <circle
     cx={size / 2}
