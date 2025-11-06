@@ -23,6 +23,9 @@
 </svg>
 
 <style>
+  svg {
+    flex-shrink: 0;
+  }
   /* deprecated: eventually want to just do this for all icons */
   svg[data-badge] {
     overflow: visible;

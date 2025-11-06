@@ -11,7 +11,7 @@
   } = $props();
 </script>
 
-<svg width={size} height={size} class:container class:center>
+<svg width={size} height={size} viewBox="0 0 48 48" class:container class:center>
   <path fill="currentColor">
     <animate
       attributeName="d"
