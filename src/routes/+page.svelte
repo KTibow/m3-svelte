@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { slide } from "svelte/transition";
+  import { fade, fly } from "svelte/transition";
   import { innerWidth } from "svelte/reactivity/window";
   import { easeEmphasized } from "$lib/misc/easing";
   import StandardSideSheet from "$lib/containers/StandardSideSheet.svelte";
@@ -28,13 +28,14 @@
   import Demo18 from "./18.svelte";
   import Demo19 from "./19.svelte";
   import Demo20 from "./20.svelte";
+  import Demo21 from "./21.svelte";
 
   type DocData = {
     name: string;
     minimalDemo: string;
     relevantLinks: { title: string; link: string }[];
   };
-  let doc: DocData | undefined = $state();
+  let doc = $state<DocData | undefined>();
   const showCode = (
     name: string,
     minimalDemo: string,
@@ -42,7 +43,17 @@
   ) => {
     doc = { name, minimalDemo, relevantLinks };
   };
+  
+  const onkeydown = (e: KeyboardEvent) => {
+    if (doc && e.key === 'Escape') {
+      e.preventDefault();
+      
+      doc = undefined;
+    }
+  }
 </script>
+
+<svelte:window {onkeydown} />
 
 <svelte:head>
   <title>M3 Svelte</title>
@@ -81,15 +92,19 @@
     <Demo18 {showCode} />
     <Demo19 {showCode} />
     <Demo20 {showCode} />
+    <Demo21 {showCode} />
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
-    <div class="sheet" transition:slide={{ easing: easeEmphasized, duration: 500, axis: "x" }}>
-      <StandardSideSheet headline={doc.name} close={() => (doc = undefined)}>
+    <div class="sheet" transition:fly={{ easing: easeEmphasized, duration: 500, x: 320 }}>
+      <StandardSideSheet headline={doc.name} close={() => doc = undefined}>
         {@render docs()}
       </StandardSideSheet>
     </div>
+    
+    <!--svelte-ignore a11y_no_static_element_interactions--><!--svelte-ignore a11y_click_events_have_key_events-->
+    <div class="shadow" transition:fade={{ duration: 200 }} onclick={() => doc = undefined}></div>
   {:else if doc}
-    <BottomSheet close={() => (doc = undefined)}>
+    <BottomSheet close={() => doc = undefined}>
       {@render docs()}
     </BottomSheet>
   {/if}
@@ -113,18 +128,24 @@
     grid-column: 1;
   }
   .sheet {
+    position: fixed;
+    z-index: 3;
+    inset: 0;
+    left: auto;
     display: flex;
     flex-direction: column;
-    width: 16rem;
-    margin-inline-start: 1rem;
-    border-inline-start: solid 1px rgb(var(--m3-scheme-outline));
-
-    position: sticky;
-    top: 0;
-    height: 100dvh;
-    overflow: auto;
-    grid-row: 1 / span 3;
-    grid-column: 2;
+    width: 20rem;
+    background: rgb(var(--m3-scheme-surface-container));
+    border-top-left-radius: var(--m3-util-rounding-large);
+    border-bottom-left-radius: var(--m3-util-rounding-large);
+  }
+  
+  .shadow {
+    position: fixed;
+    z-index: 2;
+    inset: 0;
+    background: rgb(var(--m3-scheme-scrim) / 0.5);
+    transition: all 200ms;
   }
 
   @media (width >= 52.5rem) {
