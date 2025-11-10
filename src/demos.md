@@ -1405,7 +1405,7 @@ let otherShape = $state("pathGem");
         const pathB = paths[otherShape];
         const morph = interpolate(pathA, pathB, { maxSegmentLength: 5 });
         const getPath = (n: number) => morph(n).replace(/(\d+\.\d)\d+,(\d+\.\d)\d+/g, "$1,$2");
-        const text = `const Path1${title} = "${getPath(0.001)}";\nconst Path2${title} = "${getPath(0.999)}";`;
+        const text = `const path1${title} = "${getPath(0.001)}";\nconst path2${title} = "${getPath(0.999)}";`;
         navigator.clipboard.writeText(text);
         snackbar(`Copied ${title} to clipboard`, undefined, true);
       }}
