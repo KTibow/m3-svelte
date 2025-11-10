@@ -21,7 +21,7 @@ const minimalDemo = `${"<"}Menu>
   ${"<"}MenuItem icon={iconSquare}>Redo${"<"}/MenuItem>
   ${"<"}MenuItem icon={iconTriangle}>Cut${"<"}/MenuItem>
 ${"<"}/Menu>`;
-const relevantLinks = [{"title":"Menu.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Menu.svelte"},{"title":"MenuItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/MenuItem.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"Menu.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Menu.svelte"},{"title":"MenuItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/MenuItem.svelte"}];
 </script>
 
 <InternalCard title="Menu" showCode={() => showCode("Menu", minimalDemo, relevantLinks)}>

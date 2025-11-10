@@ -20,7 +20,7 @@ let { showCode }: { showCode: (
 
 const minimalDemo = `${"<"}DateField label="Date" bind:value />
 ${"<"}DateFieldOutlined label="Date" bind:value />`;
-const relevantLinks = [{"title":"DateField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/DateField.svelte"},{"title":"DateFieldOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/DateFieldOutlined.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"DateField.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/DateField.svelte"},{"title":"DateFieldOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/DateFieldOutlined.svelte"}];
 </script>
 
 <InternalCard title="Date field" showCode={() => showCode("Date field", minimalDemo, relevantLinks)}>

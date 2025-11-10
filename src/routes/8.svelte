@@ -22,7 +22,7 @@ const minimalDemo = `${"<"}Dialog headline="Hello" bind:open>
     ${"<"}Button variant="tonal">OK${"<"}/Button>
   {/snippet}
 ${"<"}/Dialog>`;
-const relevantLinks = [{"title":"Dialog.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Dialog.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"Dialog.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Dialog.svelte"}];
 </script>
 
 <InternalCard title="Dialog" showCode={() => showCode("Dialog", minimalDemo, relevantLinks)}>

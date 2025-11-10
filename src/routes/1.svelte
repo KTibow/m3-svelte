@@ -23,7 +23,7 @@ const minimalDemo = `${"<"}ConnectedButtons>
   ${"<"}TogglePrimitive bind:toggle={itemA}>A${"<"}/TogglePrimitive>
   ${"<"}TogglePrimitive bind:toggle={itemB}>B${"<"}/TogglePrimitive>
 ${"<"}/ConnectedButtons>`;
-const relevantLinks = [{"title":"ConnectedButtons.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/ConnectedButtons.svelte"},{"title":"TogglePrimitive.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/TogglePrimitive.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"ConnectedButtons.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/ConnectedButtons.svelte"},{"title":"TogglePrimitive.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/TogglePrimitive.svelte"}];
 </script>
 
 <InternalCard title="Connected buttons" showCode={() => showCode("Connected buttons", minimalDemo, relevantLinks)}>

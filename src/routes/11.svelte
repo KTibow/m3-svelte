@@ -20,7 +20,7 @@ let { showCode }: { showCode: (
 ) => void } = $props();
 
 const minimalDemo = `${"<"}Chip variant="general" icon={iconCircle} onclick={() => alert("!")}>Hello${"<"}/Chip>`;
-const relevantLinks = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Chip.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"Chip.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Chip.svelte"}];
 </script>
 
 <InternalCard title="Chip" showCode={() => showCode("Chip", minimalDemo, relevantLinks)}>

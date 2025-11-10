@@ -32,7 +32,7 @@ const minimalDemo = `${"<"}div>
   ${"<"}ListItem headline="Hello" />
   ${"<"}ListItem headline="Hello" />
 ${"<"}/div>`;
-const relevantLinks = [{"title":"ListItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/ListItem.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"ListItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/ListItem.svelte"}];
 </script>
 
 <InternalCard title="List" showCode={() => showCode("List", minimalDemo, relevantLinks)}>

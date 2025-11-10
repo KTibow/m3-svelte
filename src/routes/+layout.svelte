@@ -74,15 +74,6 @@
           text="Docs"
         />
       {/if}
-      <NavCMLXItem
-        variant="auto"
-        href={normalizePath(resolve("/transitions"))}
-        selected={page.url.pathname.startsWith(resolve("/transitions"))}
-        icon={page.url.pathname.startsWith(resolve("/transitions"))
-          ? iconAnimationS
-          : iconAnimation}
-        text="Transitions"
-      />
     </NavCMLX>
   </div>
   <div class="content">

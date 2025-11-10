@@ -31,7 +31,7 @@ ${"<"}WavyLinearProgress percent={60} />
 ${"<"}WavyLinearProgressEstimate sToHalfway={2} />
 ${"<"}CircularProgress percent={60} />
 ${"<"}CircularProgressEstimate sToHalfway={2} />`;
-const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgress.svelte"},{"title":"LinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgressEstimate.svelte"},{"title":"WavyLinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgress.svelte"},{"title":"WavyLinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgressEstimate.svelte"},{"title":"CircularProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgress.svelte"},{"title":"CircularProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgressEstimate.svelte"},{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"LinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgress.svelte"},{"title":"LinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LinearProgressEstimate.svelte"},{"title":"WavyLinearProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgress.svelte"},{"title":"WavyLinearProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/WavyLinearProgressEstimate.svelte"},{"title":"CircularProgress.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgress.svelte"},{"title":"CircularProgressEstimate.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/CircularProgressEstimate.svelte"},{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"}];
 </script>
 
 <InternalCard title="Progress" showCode={() => showCode("Progress", minimalDemo, relevantLinks)}>
@@ -59,7 +59,11 @@ const relevantLinks = [{"title":"LinearProgress.sv","link":"https://github.com/K
   {:else if type == "linear"}
     <LinearProgress {percent} height={thick ? 8 : undefined} />
   {:else if type == "linear-wavy"}
-    <WavyLinearProgress {percent} height={thick ? 14 : undefined} thickness={thick ? 8 : undefined} />
+    <WavyLinearProgress
+      {percent}
+      height={thick ? 14 : undefined}
+      thickness={thick ? 8 : undefined}
+    />
   {:else if type == "circular"}
     <CircularProgress {percent} thickness={thick ? 8 : undefined} />
   {/if}

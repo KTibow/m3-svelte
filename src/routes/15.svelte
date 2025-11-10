@@ -31,7 +31,7 @@ const minimalDemo = `${"<"}Select
   ]}
   bind:value
 />`;
-const relevantLinks = [{"title":"Select.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Select.svelte"},{"title":"SelectOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/SelectOutlined.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"Select.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Select.svelte"},{"title":"SelectOutlined.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/SelectOutlined.svelte"}];
 </script>
 
 <InternalCard title="Select" showCode={() => showCode("Select", minimalDemo, relevantLinks)}>

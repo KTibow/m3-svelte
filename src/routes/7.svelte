@@ -19,7 +19,7 @@ let { showCode }: { showCode: (
 const minimalDemo = `{#if open}
   ${"<"}BottomSheet close={() => (open = false)}>Hello${"<"}/BottomSheet>
 {/if}`;
-const relevantLinks = [{"title":"BottomSheet.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/BottomSheet.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"BottomSheet.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/BottomSheet.svelte"}];
 </script>
 
 <InternalCard title="Bottom sheet" showCode={() => showCode("Bottom sheet", minimalDemo, relevantLinks)}>

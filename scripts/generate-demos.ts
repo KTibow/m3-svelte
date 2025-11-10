@@ -46,7 +46,7 @@ let { showCode }: { showCode: (
 ) => void } = $props();
 
 const minimalDemo = \`${minimalDemo.replaceAll("$", '${"$"}').replaceAll("<", '${"<"}')}\`;
-const relevantLinks = ${JSON.stringify(
+const relevantLinks: { title: string; link: string }[] = ${JSON.stringify(
     components
       .split("\n")
       .filter(Boolean)

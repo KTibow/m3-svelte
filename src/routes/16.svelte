@@ -21,7 +21,7 @@ let { showCode }: { showCode: (
 ) => void } = $props();
 
 const minimalDemo = `${"<"}Slider bind:value={n} />`;
-const relevantLinks = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"Slider.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Slider.svelte"}];
 </script>
 
 <InternalCard title="Slider" showCode={() => showCode("Slider", minimalDemo, relevantLinks)}>

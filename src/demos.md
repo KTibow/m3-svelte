@@ -23,7 +23,11 @@ let enabled = $state(true);
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} initialIndex={1} />
+  <Arrows
+    list={["elevated", "filled", "tonal", "outlined", "text"]}
+    bind:value={variant}
+    initialIndex={1}
+  />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
@@ -528,9 +532,7 @@ Minimal demo:
   import { snackbar } from "m3-svelte";
 </script>
 
-<Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>
-  Show
-</Button>
+<Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>Show</Button>
 <NewSnackbar />
 ```
 
@@ -547,9 +549,7 @@ import { snackbar } from "$lib/containers/NewSnackbar.svelte";
 
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>
-    Show
-  </Button>
+  <Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>Show</Button>
   <NewSnackbar />
 {/snippet}
 ```
@@ -708,7 +708,11 @@ let percent = $state(10);
   {:else if type == "linear"}
     <LinearProgress {percent} height={thick ? 8 : undefined} />
   {:else if type == "linear-wavy"}
-    <WavyLinearProgress {percent} height={thick ? 14 : undefined} thickness={thick ? 8 : undefined} />
+    <WavyLinearProgress
+      {percent}
+      height={thick ? 14 : undefined}
+      thickness={thick ? 8 : undefined}
+    />
   {:else if type == "circular"}
     <CircularProgress {percent} thickness={thick ? 8 : undefined} />
   {/if}
@@ -1194,4 +1198,270 @@ let errored = $state(false);
     <DateFieldOutlined label="Date" disabled={!enabled} error={errored} />
   {/if}
 {/snippet}
+```
+
+## UI transitions
+
+Minimal demo:
+
+```svelte
+<script>
+  import { containerTransform, sharedAxisTransition } from "m3-svelte";
+</script>
+```
+
+Full demo:
+
+```use
+
+```
+
+```ts
+import { containerTransform, sharedAxisTransition } from "$lib/misc/animation";
+let mode: "X" | "Y" | "Z" | "container" = $state("X");
+let affected = $state(false);
+const [send, receive] = containerTransform({ duration: 1000 });
+```
+
+```svelte
+<label>
+  <Arrows list={["X", "Y", "Z", "container"]} bind:value={mode} />
+  {mode[0].toUpperCase() + mode.slice(1)}
+</label>
+
+{#snippet demo()}
+  <article>
+    {#if mode == "container"}
+      {#if affected}
+        <div class="expanded" in:receive={{ key: "container" }} out:send={{ key: "container" }}>
+          <p>More info now!</p>
+          <button onclick={() => (affected = false)}>Close</button>
+        </div>
+      {:else}
+        <button
+          class="btn m3-font-label-large"
+          onclick={() => (affected = true)}
+          in:receive={{ key: "container" }}
+          out:send={{ key: "container" }}
+        >
+          Click
+        </button>
+      {/if}
+    {:else if mode == "Z"}
+      {#if affected}
+        <div
+          class="pane"
+          in:sharedAxisTransition={{
+            direction: "Z",
+            leaving: false,
+          }}
+          out:sharedAxisTransition={{
+            direction: "Z",
+            leaving: true,
+          }}
+        >
+          <button class="btn m3-font-label-large" onclick={() => (affected = false)}> Beta </button>
+        </div>
+      {:else}
+        <div
+          class="pane"
+          in:sharedAxisTransition={{
+            direction: "Z",
+            leaving: false,
+          }}
+          out:sharedAxisTransition={{
+            direction: "Z",
+            leaving: true,
+          }}
+        >
+          <button class="btn m3-font-label-large" onclick={() => (affected = true)}> Alpha </button>
+        </div>
+      {/if}
+    {:else if affected}
+      <div
+        class="pane"
+        transition:sharedAxisTransition={{
+          direction: mode,
+          rightSeam: false,
+        }}
+      >
+        <button class="btn m3-font-label-large" onclick={() => (affected = false)}> Beta </button>
+      </div>
+    {:else}
+      <div
+        class="pane"
+        transition:sharedAxisTransition={{
+          direction: mode,
+          rightSeam: true,
+        }}
+      >
+        <button class="btn m3-font-label-large" onclick={() => (affected = true)}> Alpha </button>
+      </div>
+    {/if}
+  </article>
+{/snippet}
+
+<style>
+  article {
+    display: grid;
+    height: 4rem;
+    > * {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+  .pane {
+    display: grid;
+    background-color: rgb(var(--m3-scheme-background));
+    overflow: hidden;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    place-self: center;
+
+    background-color: rgb(var(--m3-scheme-primary));
+    color: rgb(var(--m3-scheme-on-primary));
+    border: none;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    padding: 0 1rem;
+    cursor: pointer;
+  }
+  .expanded {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-image: linear-gradient(
+      to bottom right,
+      rgb(var(--m3-scheme-primary-container)),
+      rgb(var(--m3-scheme-tertiary-container))
+    );
+    > p {
+      margin: 0;
+    }
+    > button {
+      background-color: unset;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font: unset;
+      font-weight: bold;
+      text-align: start;
+      cursor: pointer;
+    }
+  }
+</style>
+```
+
+## Shapes
+
+Minimal demo:
+
+```svelte
+<script>
+  import { squarePath } from "m3-svelte";
+</script>
+
+<!-- go use it in an svg -->
+```
+
+Full demo:
+
+```use
+Button
+```
+
+```ts
+import * as _paths from "$lib/misc/shapes";
+import { snackbar } from "$lib/containers/NewSnackbar.svelte";
+import iconGo from "@ktibow/iconset-material-symbols/arrow-forward-rounded";
+const paths = _paths as Record<string, string>;
+let shape = $state("archPath");
+let otherShape = $state("gemPath");
+```
+
+```svelte
+{#snippet _shapes()}
+  {#each Object.keys(paths) as key}
+    {#snippet content()}
+      <svg width="1rem" height="1rem" viewBox="0 0 380 380">
+        <path d={paths[key]} fill="rgb(var(--m3-scheme-primary))" />
+      </svg>
+      {key.replace("Path", "")}
+    {/snippet}
+    <option value={key}>
+      {@render content()}
+    </option>
+  {/each}
+{/snippet}
+
+<select class="m3-font-body-medium" bind:value={shape}>
+  {@render _shapes()}
+</select>
+
+{#snippet demo()}
+  <svg width="4rem" height="4rem" style:margin="auto" viewBox="0 0 380 380">
+    <path d={paths[shape]} fill="rgb(var(--m3-scheme-primary))" />
+  </svg>
+  <div class="morph-to">
+    <span class="m3-font-body-medium">Morph to</span>
+    <select class="m3-font-body-medium" bind:value={otherShape}>
+      {@render _shapes()}
+    </select>
+    <Button
+      variant="tonal"
+      iconType="full"
+      onclick={async () => {
+        const title = `${shape.replace("Path", "")}To${otherShape[0].toUpperCase() + otherShape.slice(1).replace("Path","")}`;
+
+        const { interpolate } = await import("flubber");
+        const pathA = paths[shape];
+        const pathB = paths[otherShape];
+        const morph = interpolate(pathA, pathB, { maxSegmentLength: 5 });
+        const getPath = (n: number) => morph(n).replace(/(\d+\.\d)\d+,(\d+\.\d)\d+/g, "$1,$2");
+        const text = `const ${title}StartPath = "${getPath(0.001)}";\nconst ${title}EndPath = "${getPath(0.999)}";`;
+        navigator.clipboard.writeText(text);
+        snackbar(`Copied ${title} to clipboard`, undefined, true);
+      }}
+    >
+      <Icon icon={iconGo} />
+    </Button>
+  </div>
+{/snippet}
+
+<style>
+  select, ::picker(select) {
+    appearance: base-select;
+  }
+  select {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: transparent;
+  }
+  ::picker(select) {
+    border: none;
+  }
+  .morph-to {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: 2rem;
+    > * {
+      display: flex;
+      padding: 0 1rem;
+      align-items: center;
+      background-color: rgb(var(--m3-scheme-surface-container-low));
+      color: rgb(var(--m3-scheme-on-surface-variant));
+      border-radius: var(--m3-util-rounding-small);
+      &:first-child {
+        border-start-start-radius: 1.25rem;
+        border-end-start-radius: 1.25rem;
+      }
+      border: none;
+    }
+  }
+</style>
 ```

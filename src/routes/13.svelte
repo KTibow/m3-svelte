@@ -16,7 +16,7 @@ let { showCode }: { showCode: (
 ) => void } = $props();
 
 const minimalDemo = `${"<"}LoadingIndicator />`;
-const relevantLinks = [{"title":"LoadingIndicator.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LoadingIndicator.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"LoadingIndicator.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/LoadingIndicator.svelte"}];
 </script>
 
 <InternalCard title="Loading" showCode={() => showCode("Loading", minimalDemo, relevantLinks)}>

@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "5.12.3",
+  "version": "5.13.0",
   "license": "Apache-2.0 OR GPL-3.0-only",
   "repository": "KTibow/m3-svelte",
   "author": {
@@ -56,10 +56,12 @@
     "@sveltejs/kit": "^2.47.1",
     "@sveltejs/package": "^2.5.4",
     "@sveltejs/vite-plugin-svelte": "^6.2.1",
+    "@types/flubber": "^0.4.0",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.12.4",
     "fast-glob": "^3.3.3",
+    "flubber": "^0.4.2",
     "globals": "^16.5.0",
     "prettier": "^3.6.2",
     "prettier-plugin-svelte": "^3.4.0",

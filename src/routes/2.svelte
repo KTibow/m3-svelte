@@ -25,7 +25,7 @@ const minimalDemo = `${"<"}SplitButton variant="filled" onclick={() => alert("!"
     and more
   {/snippet}
 ${"<"}/SplitButton>`;
-const relevantLinks = [{"title":"SplitButton.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/SplitButton.svelte"},{"title":"Menu.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Menu.svelte"},{"title":"MenuItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/MenuItem.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"SplitButton.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/SplitButton.svelte"},{"title":"Menu.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Menu.svelte"},{"title":"MenuItem.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/MenuItem.svelte"}];
 </script>
 
 <InternalCard title="Split button" showCode={() => showCode("Split button", minimalDemo, relevantLinks)}>

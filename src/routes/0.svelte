@@ -21,12 +21,16 @@ let { showCode }: { showCode: (
 ) => void } = $props();
 
 const minimalDemo = `${"<"}Button variant="elevated" onclick={() => alert("!")}>Hello${"<"}/Button>`;
-const relevantLinks = [{"title":"Button.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/Button.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"Button.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/Button.svelte"}];
 </script>
 
 <InternalCard title="Button" showCode={() => showCode("Button", minimalDemo, relevantLinks)}>
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} initialIndex={1} />
+  <Arrows
+    list={["elevated", "filled", "tonal", "outlined", "text"]}
+    bind:value={variant}
+    initialIndex={1}
+  />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>

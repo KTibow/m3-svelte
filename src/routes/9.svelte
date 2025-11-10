@@ -20,18 +20,14 @@ const minimalDemo = `${"<"}script lang="ts">
   import { snackbar } from "m3-svelte";
 ${"<"}/script>
 
-${"<"}Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>
-  Show
-${"<"}/Button>
+${"<"}Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>Show${"<"}/Button>
 ${"<"}NewSnackbar />`;
-const relevantLinks = [{"title":"NewSnackbar.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/NewSnackbar.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"NewSnackbar.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/NewSnackbar.svelte"}];
 </script>
 
 <InternalCard title="Snackbar" showCode={() => showCode("Snackbar", minimalDemo, relevantLinks)}>
 {#snippet demo()}
-  <Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>
-    Show
-  </Button>
+  <Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>Show</Button>
   <NewSnackbar />
 {/snippet}
 </InternalCard>
