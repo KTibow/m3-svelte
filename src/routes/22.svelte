@@ -9,12 +9,14 @@ import InternalCard from "./_card.svelte";
 import Button from "$lib/buttons/Button.svelte";
 import iconGo from "@ktibow/iconset-material-symbols/arrow-forward-rounded";
 import * as _paths from "$lib/misc/shapes";
+import * as _pathsAnimatable from "$lib/misc/shapesAnimatable";
 import { snackbar } from "$lib/containers/NewSnackbar.svelte";
 import ShapeSelector from "./ShapeSelector.svelte";
 
 const paths = _paths as Record<string, string>;
+const pathsAnimatable = _pathsAnimatable as Record<string, string>;
 let shape = $state("pathArch");
-let otherShape = $state("pathGem");
+let animatable = $state(false);
 
 let { showCode }: { showCode: (
   name: string,
@@ -32,54 +34,20 @@ const relevantLinks: { title: string; link: string }[] = [];
 
 <InternalCard title="Shapes" showCode={() => showCode("Shapes", minimalDemo, relevantLinks)}>
 <ShapeSelector class="m3-font-body-large" style="background-color:rgb(var(--m3-scheme-surface-container))" bind:shape />
+<label>
+  <Switch bind:checked={animatable} />
+  {animatable ? "Animatable path" : "Normal path"}
+</label>
 
 {#snippet demo()}
   <svg width="4rem" height="4rem" style:margin="auto" viewBox="0 0 380 380">
-    <path d={paths[shape]} fill="rgb(var(--m3-scheme-primary))" />
+    <path class="shape" d="{animatable ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="rgb(var(--m3-scheme-primary))" />
   </svg>
-  <div class="morph-to">
-    <span class="m3-font-body-medium">Morph to</span>
-    <ShapeSelector class="m3-font-body-medium" bind:shape={otherShape} />
-    <Button
-      variant="tonal"
-      iconType="full"
-      onclick={async () => {
-        const title = `${shape.slice(4)}To${otherShape.slice(4)}`;
-
-        const { interpolate } = await import("flubber");
-        const pathA = paths[shape];
-        const pathB = paths[otherShape];
-        const morph = interpolate(pathA, pathB, { maxSegmentLength: 5 });
-        const getPath = (n: number) => morph(n).replace(/(\d+\.\d)\d+,(\d+\.\d)\d+/g, "$1,$2");
-        const text = `const path1${title} = "${getPath(0.001)}";\nconst path2${title} = "${getPath(0.999)}";`;
-        navigator.clipboard.writeText(text);
-        snackbar(`Copied ${title} to clipboard`, undefined, true);
-      }}
-    >
-      <Icon icon={iconGo} />
-    </Button>
-  </div>
 {/snippet}
 
 <style>
-  .morph-to {
-    display: flex;
-    justify-content: center;
-    gap: 0.25rem;
-    margin-top: 2rem;
-    > span {
-      display: flex;
-      padding: 0 1rem;
-      align-items: center;
-      border-radius: var(--m3-util-rounding-small);
-      border-start-start-radius: 1.25rem;
-      border-end-start-radius: 1.25rem;
-      border: none;
-    }
-    > * {
-      background-color: rgb(var(--m3-scheme-surface-container-low));
-      color: rgb(var(--m3-scheme-on-surface-variant));
-    }
+  path.shape {
+    transition: d 200ms;
   }
 </style>
 </InternalCard>
