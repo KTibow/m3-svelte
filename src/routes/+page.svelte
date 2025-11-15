@@ -49,7 +49,7 @@
   afterNavigate(() => {
     if (location.hash) {
       const el = document.querySelector(location.hash);
-      if (el) el.scrollIntoView();
+      el?.scrollIntoView();
     }
   });
 </script>
