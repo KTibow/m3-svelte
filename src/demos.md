@@ -1377,25 +1377,27 @@ Button
 import iconGo from "@ktibow/iconset-material-symbols/arrow-forward-rounded";
 import * as _paths from "$lib/misc/shapes";
 import * as _pathsAnimatable from "$lib/misc/shapesAnimatable";
+import * as _pathsAnimatableSmall from "$lib/misc/shapesAnimatableSmall";
 import { snackbar } from "$lib/containers/NewSnackbar.svelte";
 import ShapeSelector from "./ShapeSelector.svelte";
 
 const paths = _paths as Record<string, string>;
 const pathsAnimatable = _pathsAnimatable as Record<string, string>;
+const pathsAnimatableSmall = _pathsAnimatableSmall as Record<string, string>;
 let shape = $state("pathArch");
-let animatable = $state(false);
+let mode: "normal" | "animatable" | "animatable small" = $state("normal");
 ```
 
 ```svelte
 <ShapeSelector class="m3-font-body-large" style="background-color:rgb(var(--m3-scheme-surface-container))" bind:shape />
 <label>
-  <Switch bind:checked={animatable} />
-  {animatable ? "Animatable path" : "Normal path"}
+  <Arrows list={["normal", "animatable", "animatable small"]} bind:value={mode} />
+  {mode[0].toUpperCase() + mode.slice(1)} paths
 </label>
 
 {#snippet demo()}
-  <svg width="4rem" height="4rem" style:margin="auto" viewBox="0 0 380 380">
-    <path class="shape" d="{animatable ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="rgb(var(--m3-scheme-primary))" />
+  <svg width="4rem" height="4rem" style:margin="auto" viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}>
+    <path class="shape" d="{mode == "animatable small" ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")] : mode == "animatable" ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="rgb(var(--m3-scheme-primary))" />
   </svg>
 {/snippet}
 
