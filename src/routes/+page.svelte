@@ -30,6 +30,7 @@
   import Demo20 from "./20.svelte";
   import Demo21 from "./21.svelte";
   import Demo22 from "./22.svelte";
+  import { afterNavigate } from "$app/navigation";
 
   type DocData = {
     name: string;
@@ -44,6 +45,13 @@
   ) => {
     doc = { name, minimalDemo, relevantLinks };
   };
+
+  afterNavigate(() => {
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      el?.scrollIntoView();
+    }
+  });
 </script>
 
 <svelte:head>
