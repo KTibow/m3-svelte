@@ -15,13 +15,17 @@
     demo: Snippet;
     showCode: () => void;
   } = $props();
+
+  let id = $derived(`${title.toLowerCase().replaceAll(" ", "-")}-demo`);
 </script>
 
 <div class="container">
   {#if children}
-    <h2 class="m3-font-headline-medium">
-      {title}
-    </h2>
+    <a href={`#${id}`}>
+      <h2 class="m3-font-headline-medium" {id}>
+        {title}
+      </h2>
+    </a>
     <div class="controls">
       <div>
         {@render children()}
@@ -47,6 +51,11 @@
     flex-direction: column;
   }
 
+  a {
+    display: contents;
+    color: currentColor;
+  }
+
   h2 {
     display: flex;
     justify-content: space-between;
@@ -62,6 +71,9 @@
     margin: 0;
     margin-bottom: 0.5rem;
     flex-grow: 1;
+  }
+  h2:target {
+    color: rgb(var(--m3-scheme-primary));
   }
   .controls {
     display: flex;
