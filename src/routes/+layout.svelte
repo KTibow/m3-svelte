@@ -6,8 +6,6 @@
   import iconPaletteS from "@ktibow/iconset-material-symbols/palette";
   import iconBook from "@ktibow/iconset-material-symbols/book-2-outline";
   import iconBookS from "@ktibow/iconset-material-symbols/book-2";
-  import iconAnimation from "@ktibow/iconset-material-symbols/animation";
-  import iconAnimationS from "@ktibow/iconset-material-symbols/animation";
   import { base, resolve } from "$app/paths";
   import { page } from "$app/state";
   import NavCMLX from "$lib/nav/NavCMLX.svelte";
