@@ -18,7 +18,7 @@ let { showCode }: { showCode: (
 
 const minimalDemo = `${"<"}Card variant="filled">Hello${"<"}/Card>
 ${"<"}Card variant="filled" onclick={() => alert("!")}>Hello${"<"}/Card>`;
-const relevantLinks: { title: string; link: string }[] = [{"title":"Card.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Card.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"Card.svelte","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Card.svelte"}];
 </script>
 
 <InternalCard title="Card" showCode={() => showCode("Card", minimalDemo, relevantLinks)}>

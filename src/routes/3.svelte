@@ -23,7 +23,7 @@ let { showCode }: { showCode: (
 ) => void } = $props();
 
 const minimalDemo = `${"<"}FAB color="primary" icon={iconCircle} onclick={() => alert("!")} />`;
-const relevantLinks: { title: string; link: string }[] = [{"title":"FAB.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/FAB.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"FAB.svelte","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/buttons/FAB.svelte"}];
 </script>
 
 <InternalCard title="FAB" showCode={() => showCode("FAB", minimalDemo, relevantLinks)}>

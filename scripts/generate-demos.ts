@@ -56,7 +56,7 @@ const relevantLinks: { title: string; link: string }[] = ${JSON.stringify(
           : !["Checkbox", "Divider", "Button"].includes(c),
       )
       .map((c) => ({
-        title: `${c}.sv`,
+        title: c.length > 10 ? `${c}.sv` : `${c}.svelte`,
         link: getFile(c).replace(
           "src/lib",
           "https://github.com/KTibow/m3-svelte/blob/main/src/lib",

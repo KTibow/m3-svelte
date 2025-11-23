@@ -40,7 +40,7 @@ const minimalDemo = `${"<"}Tabs
   ]}
   bind:tab
 />`;
-const relevantLinks: { title: string; link: string }[] = [{"title":"Tabs.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/Tabs.svelte"},{"title":"VariableTabs.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/VariableTabs.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"Tabs.svelte","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/Tabs.svelte"},{"title":"VariableTabs.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/nav/VariableTabs.svelte"}];
 </script>
 
 <InternalCard title="Tabs" showCode={() => showCode("Tabs", minimalDemo, relevantLinks)}>

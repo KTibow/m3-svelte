@@ -19,7 +19,7 @@ let { showCode }: { showCode: (
 const minimalDemo = `${"<"}label>
   ${"<"}Switch bind:checked={on} />
 ${"<"}/label>`;
-const relevantLinks: { title: string; link: string }[] = [{"title":"Switch.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Switch.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"Switch.svelte","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Switch.svelte"}];
 </script>
 
 <InternalCard title="Switch" showCode={() => showCode("Switch", minimalDemo, relevantLinks)}>

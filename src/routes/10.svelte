@@ -20,7 +20,7 @@ const minimalDemo = `${"<"}label>
     ${"<"}input type="checkbox" bind:checked={on} />
   ${"<"}/Checkbox>
 ${"<"}/label>`;
-const relevantLinks: { title: string; link: string }[] = [{"title":"Checkbox.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Checkbox.svelte"}];
+const relevantLinks: { title: string; link: string }[] = [{"title":"Checkbox.svelte","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/forms/Checkbox.svelte"}];
 </script>
 
 <InternalCard title="Checkbox" showCode={() => showCode("Checkbox", minimalDemo, relevantLinks)}>

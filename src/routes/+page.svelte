@@ -125,8 +125,7 @@
     grid-column: 1;
   }
   .sheet {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     width: 16rem;
     margin-inline-start: 1rem;
     border-inline-start: solid 1px rgb(var(--m3-scheme-outline));
