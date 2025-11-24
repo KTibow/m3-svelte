@@ -45,16 +45,16 @@
   },
   "dependencies": {
     "@iconify/types": "^2.0.0",
-    "@ktibow/iconset-material-symbols": "~0.0.1763101875",
-    "@ktibow/material-color-utilities-nightly": "^0.3.11763158244000",
-    "svelte": "^5.43.8"
+    "@ktibow/iconset-material-symbols": "~0.0.1763966051",
+    "@ktibow/material-color-utilities-nightly": "^0.3.11763580498000",
+    "svelte": "^5.43.14"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.0",
     "@eslint/js": "^9.39.1",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.47.1",
-    "@sveltejs/package": "^2.5.4",
+    "@sveltejs/package": "^2.5.6",
     "@sveltejs/vite-plugin-svelte": "^6.2.1",
     "@types/flubber": "^0.4.0",
     "eslint": "^9.38.0",
@@ -69,8 +69,8 @@
     "svelte-check": "^4.3.4",
     "svelte-highlight": "^7.9.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.47.0",
-    "vite": "^7.2.2"
+    "typescript-eslint": "^8.48.0",
+    "vite": "^7.2.4"
   },
   "keywords": [
     "svelte",
