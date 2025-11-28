@@ -133,7 +133,7 @@
   }
 
   .m3-container.vertical {
-    writing-mode: vertical-lr;
+    writing-mode: sideways-lr;
   }
 
   .m3-container.xs {
@@ -229,7 +229,7 @@
     }
 
     &:is(.vertical > input) {
-      translate: 0 -50%;
+      translate: 0 50%;
     }
   }
 
@@ -254,8 +254,8 @@
     }
     &:is(.vertical > .track-1) {
       clip-path: inset(
-        0 0 calc(100% - var(--handle-left)) 0 round var(--track-radius) var(--track-radius)
-          var(--m3-slider-track-in-shape) var(--m3-slider-track-in-shape)
+        calc(100% - var(--handle-left)) 0 0 0 round var(--m3-slider-track-in-shape)
+          var(--m3-slider-track-in-shape) var(--track-radius) var(--track-radius)
       );
     }
 
@@ -283,8 +283,8 @@
     }
     &:is(.vertical > .track-2) {
       clip-path: inset(
-        var(--handle-right) 0 0 0 round var(--m3-slider-track-in-shape)
-          var(--m3-slider-track-in-shape) var(--track-radius) var(--track-radius)
+        0 0 var(--handle-right) 0 round var(--track-radius) var(--track-radius)
+          var(--m3-slider-track-in-shape) var(--m3-slider-track-in-shape)
       );
     }
 
@@ -310,7 +310,7 @@
       translate: 50% -50%;
     }
     &:is(.vertical .stop) {
-      translate: -50% -50%;
+      translate: -50% 50%;
     }
     &:is(.track-1 > .stop) {
       background-color: rgb(var(--m3-scheme-on-primary));
@@ -337,7 +337,7 @@
       translate: 50% 0;
     }
     &:is(.vertical > .handle) {
-      translate: 0 -50%;
+      translate: 0 50%;
     }
     border-radius: 1.25rem;
     background-color: rgb(var(--m3-scheme-primary));
@@ -385,8 +385,8 @@
     }
 
     &:is(.vertical > .value) {
-      translate: 0 -50%;
-      rotate: -90deg;
+      translate: 0 50%;
+      rotate: 90deg;
     }
   }
 
