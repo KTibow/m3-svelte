@@ -16,6 +16,7 @@
     trailingIcon,
     stops: _stops = false,
     endStops = true,
+    vertical = false,
     format = (n: number) => {
       return n.toFixed(0);
     },
@@ -32,6 +33,7 @@
     trailingIcon?: IconifyIcon;
     stops?: boolean;
     endStops?: boolean;
+    vertical?: boolean;
     format?: (n: number) => string;
   } & Omit<HTMLInputAttributes, "size"> = $props();
   // @ts-expect-error deprecated backwards compatibility with ticks
@@ -67,7 +69,11 @@
   });
 </script>
 
-<div class="m3-container {size}" style:--handle={handle - 0.5} bind:offsetWidth={containerWidth}>
+<div
+  class="m3-container {size} {vertical ? 'vertical' : ''}"
+  style:--handle={handle - 0.5}
+  bind:offsetWidth={containerWidth}
+>
   <input
     type="range"
     oninput={updateValue}
@@ -115,8 +121,8 @@
 
   .m3-container {
     position: relative;
-    height: var(--handle-height);
-    min-width: 10rem;
+    block-size: var(--handle-height);
+    min-inline-size: 10rem;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
 
@@ -124,6 +130,10 @@
     --handle-left: calc(50% + var(--functional-width) * var(--handle) - 0.125rem - 0.375rem);
     --handle-center: calc(50% + var(--functional-width) * var(--handle));
     --handle-right: calc(50% + var(--functional-width) * var(--handle) + 0.125rem + 0.375rem);
+  }
+
+  .m3-container.vertical {
+    writing-mode: vertical-lr;
   }
 
   .m3-container.xs {
@@ -165,12 +175,16 @@
     position: absolute;
     width: var(--icon-size);
     height: var(--icon-size);
-    top: 50%;
+    inset-block-start: 50%;
     inset-inline-start: 0;
     margin-inline-start: 0.25rem;
     translate: 0 -50%;
     pointer-events: none;
     color: rgb(var(--m3-scheme-secondary-container));
+
+    &:is(.vertical :global(.leading)) {
+      translate: -50% 0;
+    }
   }
 
   .m3-container :global(.leading.pop) {
@@ -182,12 +196,16 @@
     position: absolute;
     width: var(--icon-size);
     height: var(--icon-size);
-    top: 50%;
+    inset-block-start: 50%;
     inset-inline-end: 0;
     margin-inline-end: 0.25rem;
     translate: 0 -50%;
     pointer-events: none;
     color: rgb(var(--m3-scheme-primary));
+
+    &:is(.vertical :global(.trailing)) {
+      translate: -50% 0;
+    }
   }
 
   .m3-container :global(.trailing.pop) {
@@ -197,10 +215,10 @@
 
   input {
     position: absolute;
-    width: calc(var(--functional-width) + 1rem);
-    left: 50%;
+    inline-size: calc(var(--functional-width) + 1rem);
+    inset-inline-start: 50%;
     translate: -50% 0;
-    height: 100%;
+    block-size: 100%;
 
     opacity: 0;
     appearance: none;
@@ -209,15 +227,17 @@
     &:enabled {
       cursor: pointer;
     }
+
+    &:is(.vertical > input) {
+      translate: 0 -50%;
+    }
   }
 
   .track-1,
   .track-2 {
     position: absolute;
     inset-inline: 0;
-    top: 50%;
-    translate: 0 -50%;
-    height: var(--track-height);
+    inset-block: calc((var(--handle-height) - var(--track-height)) / 2);
     pointer-events: none;
   }
   .track-1 {
@@ -230,6 +250,12 @@
       clip-path: inset(
         0 0 0 calc(100% - var(--handle-left)) round var(--m3-slider-track-in-shape)
           var(--track-radius) var(--track-radius) var(--m3-slider-track-in-shape)
+      );
+    }
+    &:is(.vertical > .track-1) {
+      clip-path: inset(
+        0 0 calc(100% - var(--handle-left)) 0 round var(--track-radius) var(--track-radius)
+          var(--m3-slider-track-in-shape) var(--m3-slider-track-in-shape)
       );
     }
 
@@ -255,6 +281,12 @@
           var(--m3-slider-track-in-shape) var(--track-radius)
       );
     }
+    &:is(.vertical > .track-2) {
+      clip-path: inset(
+        var(--handle-right) 0 0 0 round var(--m3-slider-track-in-shape)
+          var(--m3-slider-track-in-shape) var(--track-radius) var(--track-radius)
+      );
+    }
 
     @media screen and (forced-colors: active) {
       background-color: canvastext;
@@ -271,11 +303,14 @@
     width: 4px;
     height: 4px;
     border-radius: var(--m3-util-rounding-full);
-    top: 50%;
+    inset-block-start: 50%;
     inset-inline-start: calc(50% + (100% - 0.5rem - 0.25rem) * var(--x));
     translate: -50% -50%;
     &:dir(rtl) {
       translate: 50% -50%;
+    }
+    &:is(.vertical .stop) {
+      translate: -50% -50%;
     }
     &:is(.track-1 > .stop) {
       background-color: rgb(var(--m3-scheme-on-primary));
@@ -295,17 +330,20 @@
   .handle {
     position: absolute;
     inset-inline-start: var(--handle-center);
+    inset-block: 0;
+    inline-size: 0.25rem;
     translate: -50% 0;
     &:dir(rtl) {
       translate: 50% 0;
     }
-    width: 0.25rem;
-    height: var(--handle-height);
+    &:is(.vertical > .handle) {
+      translate: 0 -50%;
+    }
     border-radius: 1.25rem;
     background-color: rgb(var(--m3-scheme-primary));
 
     pointer-events: none;
-    transition: width var(--m3-util-easing);
+    transition: inline-size var(--m3-util-easing);
 
     @media screen and (forced-colors: active) {
       background-color: selecteditem;
@@ -331,7 +369,7 @@
     border-radius: var(--m3-slider-handle-shape);
 
     inset-inline-start: var(--handle-center);
-    bottom: calc(var(--handle-height) + 4px);
+    inset-block-end: calc(var(--handle-height) + 4px);
     translate: -50% 0;
     &:dir(rtl) {
       translate: 50% 0;
@@ -345,6 +383,11 @@
       border: 2px solid selecteditem;
       overflow: hidden;
     }
+
+    &:is(.vertical > .value) {
+      translate: 0 -50%;
+      rotate: -90deg;
+    }
   }
 
   input:focus-visible ~ .handle {
@@ -356,7 +399,7 @@
   }
   input:focus-visible ~ .handle,
   input:enabled:active ~ .handle {
-    width: 0.125rem;
+    inline-size: 0.125rem;
   }
   input:enabled:hover ~ .value,
   input:enabled:focus-visible ~ .value,

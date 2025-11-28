@@ -889,6 +889,7 @@ let trailingIcon = $state<boolean>(false);
 let leadingIcon = $state<boolean>(false);
 let endStops = $state<boolean>(true);
 let enabled = $state<boolean>(true);
+let vertical = $state<boolean>(false);
 ```
 
 ```svelte
@@ -916,6 +917,10 @@ let enabled = $state<boolean>(true);
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
+<label>
+  <Switch bind:checked={vertical} />
+  {vertical ? "Vertical" : "Horizontal"}
+</label>
 {#if size != "xs" && size != "s"}
   <label>
     <Switch bind:checked={leadingIcon} />
@@ -939,6 +944,7 @@ let enabled = $state<boolean>(true);
     value={10}
     disabled={!enabled}
     {size}
+    {vertical}
     stops={precision == "discrete-stops"}
     {endStops}
     leadingIcon={leadingIcon ? iconCircle : undefined}
