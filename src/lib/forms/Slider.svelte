@@ -38,7 +38,9 @@
   } & Omit<HTMLInputAttributes, "size"> = $props();
   // @ts-expect-error deprecated backwards compatibility with ticks
   let stops = $derived(extra.ticks ? true : _stops);
-  let containerWidth = $state(600);
+  let offsetWidth = $state(600);
+  let offsetHeight = $state(600);
+  let inlineSize = $derived(vertical ? offsetHeight : offsetWidth);
 
   const valueDisplayed = new Spring(value, { stiffness: 0.3, damping: 1 });
   const updateValue = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
@@ -72,7 +74,8 @@
 <div
   class="m3-container {size} {vertical ? 'vertical' : ''}"
   style:--handle={handle - 0.5}
-  bind:offsetWidth={containerWidth}
+  bind:offsetWidth
+  bind:offsetHeight
 >
   <input
     type="range"
@@ -97,13 +100,13 @@
   {#if leadingIcon}
     <Icon
       icon={leadingIcon}
-      class={"leading" + (containerWidth * handle < (size == "xl" ? 48 : 40) ? " pop" : "")}
+      class={"leading" + (inlineSize * handle < (size == "xl" ? 48 : 40) ? " pop" : "")}
     />
   {/if}
   {#if trailingIcon}
     <Icon
       icon={trailingIcon}
-      class={"trailing" + (containerWidth * (1 - handle) < (size == "xl" ? 48 : 40) ? " pop" : "")}
+      class={"trailing" + (inlineSize * (1 - handle) < (size == "xl" ? 48 : 40) ? " pop" : "")}
     />
   {/if}
   <div class="handle"></div>
