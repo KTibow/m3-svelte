@@ -117,8 +117,8 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     border-radius: 3rem;
     padding: 0 1rem;
     font-size: 1.2rem;
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: var(--color-primary-container);
+    color: var(--color-on-primary-container);
   }
   .text {
     display: flex;
@@ -130,7 +130,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     border-radius: 1.5rem;
 
     min-height: 3rem;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--color-surface-container-low);
   }
 
   p {
@@ -138,12 +138,12 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
   }
   code {
     font-size: 0.9rem;
-    background-color: rgb(var(--m3-scheme-surface-variant));
+    background-color: var(--color-surface-variant);
     padding-inline: 2px;
     border-radius: 0.3rem;
   }
   a {
     text-decoration: none;
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
   }
 </style>

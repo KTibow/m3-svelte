@@ -47,7 +47,7 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: var(--m3-util-rounding-full);
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     cursor: pointer;
   }
 
@@ -62,7 +62,7 @@
   svg {
     position: absolute;
     inset: 0;
-    color: rgb(var(--m3-scheme-on-primary));
+    color: var(--color-on-primary);
     opacity: 0;
     pointer-events: none;
     transition: var(--m3-util-easing-fast);
@@ -74,14 +74,14 @@
   }
 
   :global(input:focus-visible) + .layer-container {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
   }
 
   :global(input:checked) + .layer-container {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
   }
   :global(input:checked) + .layer-container .checkbox-box {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-primary);
   }
 
   :global(input:checked) ~ svg {
@@ -93,7 +93,7 @@
   }
 
   :global(input:disabled) + .layer-container {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--color-on-surface), 0.38);
     cursor: not-allowed;
   }
 
@@ -101,11 +101,11 @@
     color: transparent;
   }
   :global(input:disabled:checked) + .layer-container .checkbox-box {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: --translucent(var(--color-on-surface), 0.38);
   }
 
   :global(input:disabled) ~ svg {
-    color: rgb(var(--m3-scheme-surface));
+    color: var(--color-surface);
   }
 
   .m3-container {

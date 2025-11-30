@@ -48,7 +48,7 @@
 <style>
   /*
   want to customize the label's background?
-  do this: <SelectOutlined --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
+  do this: <SelectOutlined --m3-util-background="var(--color-surface-container)" />
   */
   :root {
     --m3-menu-shape: var(--m3-util-rounding-extra-small);
@@ -59,16 +59,16 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    --secondary-color: rgb(var(--m3-scheme-on-surface-variant));
-    --outline-color: rgb(var(--m3-scheme-outline));
+    --secondary-color: var(--color-on-surface-variant);
+    --outline-color: var(--color-outline);
     &.enabled {
       &:hover {
-        --secondary-color: rgb(var(--m3-scheme-on-surface));
-        --outline-color: rgb(var(--m3-scheme-on-surface));
+        --secondary-color: var(--color-on-surface);
+        --outline-color: var(--color-on-surface);
       }
       &:focus-within {
-        --secondary-color: rgb(var(--m3-scheme-primary));
-        --outline-color: rgb(var(--m3-scheme-primary));
+        --secondary-color: var(--color-primary);
+        --outline-color: var(--color-primary);
         .layer {
           border-width: 0.125rem;
         }
@@ -89,7 +89,7 @@
     inset-inline-start: 0.75rem;
     translate: 0 -50%;
     color: var(--secondary-color);
-    background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
+    background-color: var(--m3-util-background, var(--color-surface));
     padding: 0 0.25rem;
     pointer-events: none;
     transition: color var(--m3-util-easing-fast);
@@ -111,7 +111,7 @@
 
     border-radius: var(--m3-field-outlined-shape);
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
 
     border: none;
     outline: none;
@@ -134,7 +134,7 @@
   }
 
   ::picker(select) {
-    background-color: rgb(var(--m3-scheme-surface-container));
+    background-color: var(--color-surface-container);
     box-shadow: var(--m3-util-elevation-2);
     border-radius: var(--m3-menu-shape);
 
@@ -188,8 +188,8 @@
 
     background-color: transparent;
     &:checked {
-      background-color: rgb(var(--m3-scheme-primary-container));
-      color: rgb(var(--m3-scheme-on-primary-container));
+      background-color: var(--color-primary-container);
+      color: var(--color-on-primary-container);
     }
 
     > *,
@@ -206,7 +206,7 @@
         margin-right: 0.5rem;
       }
       &:not(:checked) > :global(svg) {
-        color: rgb(var(--m3-scheme-on-surface-variant));
+        color: var(--color-on-surface-variant);
       }
       &:checked > :global(svg) {
         opacity: 0.8;

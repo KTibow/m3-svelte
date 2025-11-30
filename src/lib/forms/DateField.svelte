@@ -118,9 +118,9 @@ opacity: ${Math.min(t * 3, 1)};`,
     position: relative;
     height: calc(3.5rem + var(--m3-util-density-term));
     min-width: 15rem;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    background-color: var(--color-surface-container-highest);
     border-radius: var(--m3-datefield-shape) var(--m3-datefield-shape) 0 0;
-    border-bottom: solid 1px rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    border-bottom: solid 1px var(--error, var(--color-on-surface-variant));
     anchor-name: var(--anchor-name);
   }
   input {
@@ -142,13 +142,13 @@ opacity: ${Math.min(t * 3, 1)};`,
     }
 
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
   }
   label {
     position: absolute;
     inset-inline-start: 1rem;
     top: 0.5rem;
-    color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    color: var(--error, var(--color-on-surface-variant));
     pointer-events: none;
   }
 
@@ -164,27 +164,27 @@ opacity: ${Math.min(t * 3, 1)};`,
     justify-content: center;
     border: none;
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     border-top-right-radius: var(--m3-datefield-shape);
 
     cursor: pointer;
   }
 
   .m3-container.disabled {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.04);
-    border-bottom-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: --translucent(var(--color-on-surface), 0.04);
+    border-bottom-color: --translucent(var(--color-on-surface), 0.38);
   }
   input:disabled,
   input:disabled + label {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--color-on-surface), 0.38);
   }
   button:disabled {
-    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    color: --translucent(var(--color-on-surface-variant), 0.38);
     cursor: auto;
   }
 
   .error {
-    --error: var(--m3-scheme-error);
+    --error: var(--color-error);
   }
 
   .picker {

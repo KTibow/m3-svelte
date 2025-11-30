@@ -20,7 +20,7 @@
     border-radius: var(--m3-menu-shape);
     min-width: 7rem;
     max-width: 17.5rem;
-    background-color: rgb(var(--m3-scheme-surface-container));
+    background-color: var(--color-surface-container);
     z-index: 2;
     box-shadow: var(--m3-util-elevation-2);
   }

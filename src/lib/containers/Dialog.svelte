@@ -82,8 +82,8 @@
   dialog {
     display: flex;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-surface-container-high));
-    --m3-util-background: rgb(var(--m3-scheme-surface-container-high));
+    background-color: var(--color-surface-container-high);
+    --m3-util-background: var(--color-surface-container-high);
     border: none;
     border-radius: var(--m3-dialog-shape);
     min-width: 17.5rem;
@@ -91,7 +91,7 @@
     padding: 1.5rem;
     overflow: auto;
     > :global(svg) {
-      color: rgb(var(--m3-scheme-secondary));
+      color: var(--color-secondary);
 
       flex-shrink: 0;
       align-self: center;
@@ -99,7 +99,7 @@
     }
   }
   .headline {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
     margin-top: 0;
     margin-bottom: 1rem;
   }
@@ -107,7 +107,7 @@
     text-align: center;
   }
   .content {
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     margin-bottom: 1.5rem;
   }
   .buttons {
@@ -146,7 +146,7 @@
       opacity var(--m3-util-easing-fast) 100ms backwards;
   }
   dialog::backdrop {
-    background-color: rgb(var(--m3-scheme-scrim) / 0.3);
+    background-color: --translucent(var(--color-scrim), 0.3);
     animation: opacity var(--m3-util-curve-decel) 500ms;
   }
   @keyframes dialogIn {

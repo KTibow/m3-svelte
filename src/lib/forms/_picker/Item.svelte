@@ -38,7 +38,7 @@
     justify-content: center;
 
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
     border: none;
     cursor: pointer;
     transition: var(--m3-util-easing-fast);
@@ -46,14 +46,14 @@
   }
   button:disabled {
     cursor: auto;
-    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    color: --translucent(var(--color-on-surface-variant), 0.38);
   }
   .today {
-    border: solid 1px rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-primary));
+    border: solid 1px var(--color-primary);
+    color: var(--color-primary);
   }
   .selected {
-    background-color: rgb(var(--m3-scheme-primary)) !important;
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--color-primary) !important;
+    color: var(--color-on-primary);
   }
 </style>

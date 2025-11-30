@@ -110,7 +110,7 @@
   .leading,
   .trailing {
     display: contents;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
   }
   .leading > :global(svg),
   .trailing > :global(svg) {
@@ -124,9 +124,9 @@
   }
   .supporting,
   .overline- {
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
   }
   .headline {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
   }
 </style>

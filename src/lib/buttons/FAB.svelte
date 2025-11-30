@@ -103,28 +103,28 @@
   }
 
   .color-primary {
-    background-color: rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
   }
   .color-secondary {
-    background-color: rgb(var(--m3-scheme-secondary));
-    color: rgb(var(--m3-scheme-on-secondary));
+    background-color: var(--color-secondary);
+    color: var(--color-on-secondary);
   }
   .color-tertiary {
-    background-color: rgb(var(--m3-scheme-tertiary));
-    color: rgb(var(--m3-scheme-on-tertiary));
+    background-color: var(--color-tertiary);
+    color: var(--color-on-tertiary);
   }
   .color-primary-container {
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: var(--color-primary-container);
+    color: var(--color-on-primary-container);
   }
   .color-secondary-container {
-    background-color: rgb(var(--m3-scheme-secondary-container));
-    color: rgb(var(--m3-scheme-on-secondary-container));
+    background-color: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
   }
   .color-tertiary-container {
-    background-color: rgb(var(--m3-scheme-tertiary-container));
-    color: rgb(var(--m3-scheme-on-tertiary-container));
+    background-color: var(--color-tertiary-container);
+    color: var(--color-on-tertiary-container);
   }
 
   @media (hover: hover) {

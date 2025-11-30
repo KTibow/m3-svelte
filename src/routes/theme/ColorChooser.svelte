@@ -69,7 +69,7 @@
     align-items: center;
     padding: 0 0.5rem;
     border-radius: 2.5rem;
-    background-color: rgb(var(--m3-scheme-background) / 0.5);
+    background-color: --translucent(var(--color-background), 0.5);
   }
   .color-text {
     height: 100%;

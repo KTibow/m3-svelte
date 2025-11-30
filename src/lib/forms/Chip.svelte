@@ -71,9 +71,9 @@
     gap: 0.5rem;
     align-items: center;
 
-    background-color: rgb(var(--m3-scheme-surface));
-    color: rgb(var(--m3-scheme-on-surface-variant));
-    border: solid 1px rgb(var(--m3-scheme-outline));
+    background-color: var(--color-surface);
+    color: var(--color-on-surface-variant);
+    border: solid 1px var(--color-outline);
     position: relative;
     cursor: pointer;
     transition: var(--m3-util-easing-fast);
@@ -87,7 +87,7 @@
     height: 1.125rem;
   }
   .m3-container:enabled:not(.input):not(.selected) > :global(.leading) {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
   }
   .m3-container > :global(.leading) {
     margin-left: -0.5rem;
@@ -103,20 +103,20 @@
   }
 
   .assist {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
   }
   .input {
     padding: 0 0.75rem;
   }
   .elevated {
     border-color: transparent;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--color-surface-container-low);
     box-shadow: var(--m3-util-elevation-1);
   }
   .selected {
     border-color: transparent;
-    background-color: rgb(var(--m3-scheme-secondary-container));
-    color: rgb(var(--m3-scheme-on-secondary-container));
+    background-color: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
   }
 
   .layer {
@@ -135,9 +135,9 @@
   .m3-container:disabled {
     cursor: auto;
     box-shadow: none;
-    border-color: rgb(var(--m3-scheme-on-surface) / 0.12);
-    background-color: rgb(var(--m3-scheme-surface));
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    border-color: --translucent(var(--color-on-surface), 0.12);
+    background-color: var(--color-surface);
+    color: --translucent(var(--color-on-surface), 0.38);
   }
   .selected:disabled,
   .elevated:disabled {
@@ -145,7 +145,7 @@
   }
   .selected:disabled,
   .elevated:disabled {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+    background-color: --translucent(var(--color-on-surface), 0.12);
   }
 
   .m3-container {

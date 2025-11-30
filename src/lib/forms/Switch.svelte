@@ -85,8 +85,8 @@
     margin: 0;
     border-radius: var(--m3-switch-track-shape);
 
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
-    border: solid 0.125rem rgb(var(--m3-scheme-outline));
+    background-color: var(--color-surface-container-highest);
+    border: solid 0.125rem var(--color-outline);
     cursor: pointer;
     transition: var(--m3-util-easing);
   }
@@ -96,9 +96,9 @@
     height: 1rem;
     border-radius: var(--m3-switch-handle-shape);
 
-    background-color: rgb(var(--m3-scheme-outline));
-    /* Fallback for those without on on primary */
-    color: rgb(var(--m3-scheme-on-on-primary, var(--m3-scheme-on-primary-container)));
+    background-color: var(--color-outline);
+    /* Deprecated fallback for those without on on primary */
+    color: var(--color-on-on-primary, var(--color-on-primary-container));
     cursor: pointer;
     transition: var(--m3-util-easing-fast-spatial);
 
@@ -120,7 +120,7 @@
   input:not(:checked) + :global(.handle:has(:nth-child(2))) {
     scale: 1.5;
     > :global(svg) {
-      color: rgb(var(--m3-scheme-surface-container-highest));
+      color: var(--color-surface-container-highest);
       scale: 0.667;
       opacity: 1;
     }
@@ -150,26 +150,26 @@
 
   .m3-container:hover > input:not(:checked):not(:disabled) + .handle,
   .m3-container:active > input:not(:checked):not(:disabled) + .handle {
-    background-color: rgb(var(--m3-scheme-on-surface-variant));
+    background-color: var(--color-on-surface-variant);
   }
   .m3-container:hover > input:enabled:checked + .handle,
   .m3-container > input:enabled:checked:is(:global(:active, :focus-visible)) + .handle {
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: var(--color-primary-container);
+    color: var(--color-on-primary-container);
   }
   .m3-container:hover > input ~ .hover {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
+    background-color: --translucent(var(--color-on-surface), 0.08);
   }
   .m3-container:hover > input:checked ~ .hover {
-    background-color: rgb(var(--m3-scheme-primary) / 0.08);
+    background-color: --translucent(var(--color-primary), 0.08);
   }
 
   input:checked {
-    background-color: rgb(var(--m3-scheme-primary));
-    border-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
   }
   input:checked + .handle {
-    background-color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--color-on-primary);
     scale: 1.5;
     left: 1.75rem;
   }
@@ -188,23 +188,23 @@
   }
 
   input:disabled {
-    background-color: rgb(var(--m3-scheme-surface-container-highest) / 0.12);
-    border-color: rgb(var(--m3-scheme-outline) / 0.12);
+    background-color: --translucent(var(--color-surface-container-highest), 0.12);
+    border-color: --translucent(var(--color-outline), 0.12);
     cursor: auto;
   }
   input:disabled:checked {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+    background-color: --translucent(var(--color-on-surface), 0.12);
     border-color: transparent;
   }
   input:disabled + .handle {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: --translucent(var(--color-on-surface), 0.38);
     cursor: auto;
   }
   input:disabled:checked + .handle {
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: var(--color-surface);
   }
   input:disabled:checked + .handle > :global(svg) {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--color-on-surface), 0.38);
   }
   input:disabled ~ .hover {
     display: none;

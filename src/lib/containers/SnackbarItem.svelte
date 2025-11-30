@@ -22,8 +22,8 @@
     min-height: 3rem;
     border-radius: var(--m3-snackbar-shape);
     box-shadow: var(--m3-util-elevation-3);
-    background-color: rgb(var(--m3-scheme-inverse-surface));
-    color: rgb(var(--m3-scheme-inverse-on-surface));
+    background-color: var(--color-inverse-surface);
+    color: var(--color-inverse-on-surface);
     animation:
       snackbarIn var(--m3-util-curve-decel) 500ms,
       opacity var(--m3-util-curve-decel) 100ms;

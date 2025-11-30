@@ -101,14 +101,14 @@
     overflow: hidden;
     touch-action: none;
 
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-on-surface));
+    background-color: var(--color-surface-container-low);
+    color: var(--color-on-surface);
     border-radius: var(--m3-bottom-sheet-shape) var(--m3-bottom-sheet-shape) 0 0;
     border: none;
     padding: 0;
   }
   dialog::backdrop {
-    background-color: rgb(var(--m3-scheme-scrim) / 0.5);
+    background-color: --translucent(var(--color-scrim), 0.5);
     animation: backdrop 400ms;
   }
   dialog:global(.leaving)::backdrop {
@@ -127,7 +127,7 @@
     cursor: grab;
   }
   .handle {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.4);
+    background-color: --translucent(var(--color-on-surface-variant), 0.4);
     width: 2rem;
     height: 0.25rem;
     border-radius: 0.25rem;
@@ -137,12 +137,12 @@
       background-color: transparent;
     }
     100% {
-      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
+      background-color: --translucent(var(--color-scrim), 0.5);
     }
   }
   @keyframes backdropReverse {
     0% {
-      background-color: rgb(var(--m3-scheme-scrim) / 0.5);
+      background-color: --translucent(var(--color-scrim), 0.5);
     }
     100% {
       background-color: transparent;

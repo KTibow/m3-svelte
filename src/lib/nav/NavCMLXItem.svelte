@@ -65,15 +65,15 @@
       gap: 0.25rem;
       align-items: center;
       position: relative;
-      color: rgb(var(--m3-scheme-on-surface-variant));
+      color: var(--color-on-surface-variant);
       transition: var(--m3-util-easing);
       &:is(.compact .content, .large .content) {
         flex-direction: column;
         text-align: center;
         &.selected {
-          color: rgb(var(--m3-scheme-secondary));
+          color: var(--color-secondary);
           > .icon {
-            color: rgb(var(--m3-scheme-on-secondary-container));
+            color: var(--color-on-secondary-container);
           }
           > .icon::before {
             opacity: 1;
@@ -107,8 +107,8 @@
         padding-inline: 1rem;
         border-radius: var(--m3-util-rounding-full);
         &.selected {
-          background-color: rgb(var(--m3-scheme-secondary-container));
-          color: rgb(var(--m3-scheme-on-secondary-container));
+          background-color: var(--color-secondary-container);
+          color: var(--color-on-secondary-container);
         }
       }
       &:is(.large .content) {
@@ -130,7 +130,7 @@
       position: absolute;
       display: block;
       content: " ";
-      background-color: rgb(var(--m3-scheme-secondary-container));
+      background-color: var(--color-secondary-container);
 
       opacity: 0;
       inset: 0 50%;
@@ -179,9 +179,9 @@
         text-align: center;
 
         &.selected {
-          color: rgb(var(--m3-scheme-secondary));
+          color: var(--color-secondary);
           > .icon {
-            color: rgb(var(--m3-scheme-on-secondary-container));
+            color: var(--color-on-secondary-container);
           }
           > .icon::before {
             opacity: 1;
@@ -226,8 +226,8 @@
         border-radius: var(--m3-util-rounding-full);
 
         &.selected {
-          background-color: rgb(var(--m3-scheme-secondary-container));
-          color: rgb(var(--m3-scheme-on-secondary-container));
+          background-color: var(--color-secondary-container);
+          color: var(--color-on-secondary-container);
         }
       }
     }
@@ -242,9 +242,9 @@
         padding-block: 0.375rem;
 
         &.selected {
-          color: rgb(var(--m3-scheme-secondary));
+          color: var(--color-secondary);
           > .icon {
-            color: rgb(var(--m3-scheme-on-secondary-container));
+            color: var(--color-on-secondary-container);
           }
           > .icon::before {
             opacity: 1;
@@ -294,8 +294,8 @@
         gap: 0.75rem;
 
         &.selected {
-          background-color: rgb(var(--m3-scheme-secondary-container));
-          color: rgb(var(--m3-scheme-on-secondary-container));
+          background-color: var(--color-secondary-container);
+          color: var(--color-on-secondary-container);
         }
       }
     }

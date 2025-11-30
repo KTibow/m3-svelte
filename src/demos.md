@@ -1318,7 +1318,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
   }
   .pane {
     display: grid;
-    background-color: rgb(var(--m3-scheme-background));
+    background-color: var(--color-background);
     overflow: hidden;
   }
   .btn {
@@ -1326,8 +1326,8 @@ const [send, receive] = containerTransform({ duration: 1000 });
     align-items: center;
     place-self: center;
 
-    background-color: rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
     border: none;
     height: 2.5rem;
     border-radius: 1.25rem;
@@ -1341,8 +1341,8 @@ const [send, receive] = containerTransform({ duration: 1000 });
     border-radius: 0.5rem;
     background-image: linear-gradient(
       to bottom right,
-      rgb(var(--m3-scheme-primary-container)),
-      rgb(var(--m3-scheme-tertiary-container))
+      var(--color-primary-container),
+      var(--color-tertiary-container)
     );
     > p {
       margin: 0;
@@ -1395,7 +1395,7 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");
 ```
 
 ```svelte
-<ShapeSelector class="m3-font-body-large" style="background-color:rgb(var(--m3-scheme-surface-container))" bind:shape />
+<ShapeSelector class="m3-font-body-large" style="background-color:var(--color-surface-container)" bind:shape />
 <label>
   <Arrows list={["normal", "animatable", "animatable small"]} bind:value={mode} />
   {mode[0].toUpperCase() + mode.slice(1)} paths
@@ -1403,7 +1403,7 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");
 
 {#snippet demo()}
   <svg width="4rem" height="4rem" style:margin="auto" viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}>
-    <path class="shape" d="{mode == "animatable small" ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")] : mode == "animatable" ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="rgb(var(--m3-scheme-primary))" />
+    <path class="shape" d="{mode == "animatable small" ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")] : mode == "animatable" ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="var(--color-primary)" />
   </svg>
 {/snippet}
 

@@ -14,26 +14,26 @@
 }
 @keyframes refocus-outward {
   0% {
-    box-shadow: 0 0 0 0px rgb(var(--m3-scheme-secondary));
+    box-shadow: 0 0 0 0px var(--color-secondary);
   }
   100% {
-    box-shadow: 0 0 0 3px rgb(var(--m3-scheme-secondary));
+    box-shadow: 0 0 0 3px var(--color-secondary);
   }
 }
 @keyframes refocus-inward {
   0% {
-    box-shadow: inset 0 0 0 0px rgb(var(--m3-scheme-secondary));
+    box-shadow: inset 0 0 0 0px var(--color-secondary);
   }
   100% {
-    box-shadow: inset 0 0 0 3px rgb(var(--m3-scheme-secondary));
+    box-shadow: inset 0 0 0 3px var(--color-secondary);
   }
 }
 
 [placeholder]::placeholder {
-  color: rgb(var(--m3-scheme-on-background) / 0.5);
+  color: --translucent(var(--color-on-background), 0.5);
   opacity: 1;
 }
 ::selection {
-  background-color: rgb(var(--m3-scheme-tertiary-container));
-  color: rgb(var(--m3-scheme-on-tertiary-container));
+  background-color: var(--color-tertiary-container);
+  color: var(--color-on-tertiary-container);
 }

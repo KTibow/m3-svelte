@@ -41,7 +41,7 @@
     border: none;
     position: relative;
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
 
     cursor: pointer;
   }
@@ -52,14 +52,14 @@
   .icon > :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
   }
 
   .item:disabled {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--color-on-surface), 0.38);
     cursor: auto;
   }
   .item:disabled > .icon > :global(svg) {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--color-on-surface), 0.38);
   }
 </style>

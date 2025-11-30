@@ -100,7 +100,7 @@
     justify-content: center;
 
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     border: none;
     padding: 0;
     cursor: pointer;
@@ -108,7 +108,7 @@
   }
   button:disabled {
     cursor: auto;
-    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    color: --translucent(var(--color-on-surface-variant), 0.38);
   }
 
   .chooser {
@@ -129,7 +129,7 @@
   }
 
   .choosing {
-    border-color: rgb(var(--m3-scheme-outline-variant));
+    border-color: var(--color-outline-variant);
   }
   .choosing .arrow {
     opacity: 0;

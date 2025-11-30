@@ -103,7 +103,7 @@
   }
 
   .action {
-    color: rgb(var(--m3-scheme-inverse-primary));
+    color: var(--color-inverse-primary);
     padding: 0 0.5rem;
   }
   .close {

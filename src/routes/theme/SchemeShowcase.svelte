@@ -94,7 +94,7 @@ ${innerStyles}
 
 <style>
   .content {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--color-surface-container-low);
     padding: 1rem;
     border-radius: 1rem;
   }

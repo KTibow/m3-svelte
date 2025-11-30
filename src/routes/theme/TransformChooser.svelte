@@ -136,7 +136,7 @@
 
 <style>
   .content {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--color-surface-container-low);
     padding: 1rem;
     border-radius: 0.5rem;
   }
@@ -198,8 +198,8 @@
       }
       > :last-child {
         border-radius: 0.25rem 0.25rem 1rem 1rem;
-        background-color: rgb(var(--m3-scheme-primary));
-        color: rgb(var(--m3-scheme-on-primary));
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
       }
     }
   }

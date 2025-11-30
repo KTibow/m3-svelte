@@ -76,8 +76,8 @@
     outline: none;
     padding: 1.5rem 1rem 0.5rem 1rem;
     border-radius: var(--m3-field-filled-shape) var(--m3-field-filled-shape) 0 0;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
-    color: rgb(var(--m3-scheme-on-surface));
+    background-color: var(--color-surface-container-highest);
+    color: var(--color-on-surface);
     resize: none;
   }
   label {
@@ -85,15 +85,15 @@
     inset-inline-start: 1rem;
     top: 50%;
     translate: 0 -50%;
-    color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    color: var(--error, var(--color-on-surface-variant));
     &:is(textarea:hover ~ label) {
-      color: rgb(var(--error, var(--m3-scheme-on-surface)));
+      color: var(--error, var(--color-on-surface));
     }
     &:is(textarea:focus ~ label) {
-      color: rgb(var(--error, var(--m3-scheme-primary)));
+      color: var(--error, var(--color-primary));
     }
     &:is(textarea:disabled ~ label) {
-      color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      color: --translucent(var(--color-on-surface), 0.38);
     }
     &:is(textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label) {
       top: 0.5rem;
@@ -118,7 +118,7 @@
     pointer-events: none;
     transition: all 100ms;
     &:is(textarea:enabled:hover ~ .layer) {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
+      background-color: --translucent(var(--color-on-surface), 0.08);
     }
   }
   .layer::after {
@@ -129,7 +129,7 @@
     bottom: 0;
 
     height: 1px;
-    background-color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    background-color: var(--error, var(--color-on-surface-variant));
     transition: all 100ms;
   }
   .m3-container > :global(svg) {
@@ -137,13 +137,13 @@
     width: 1.5rem;
     height: 1.5rem;
     margin-inline-start: 0.75rem;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     pointer-events: none;
   }
 
   textarea:focus ~ .layer::after {
     height: 0.125rem;
-    background-color: rgb(var(--error, var(--m3-scheme-primary)));
+    background-color: var(--error, var(--color-primary));
   }
 
   .leading-icon > textarea {
@@ -153,21 +153,21 @@
     inset-inline-start: 3.25rem;
   }
   .error {
-    --error: var(--m3-scheme-error);
+    --error: var(--color-error);
   }
   .error > textarea:hover ~ label,
   .error > textarea:hover ~ .layer {
-    --error: var(--m3-scheme-on-error-container);
+    --error: var(--color-on-error-container);
   }
   textarea:disabled {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.04);
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: --translucent(var(--color-on-surface), 0.04);
+    color: --translucent(var(--color-on-surface), 0.38);
   }
   textarea:disabled ~ .layer::after {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: --translucent(var(--color-on-surface), 0.38);
   }
   textarea:disabled ~ :global(svg) {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--color-on-surface), 0.38);
   }
 
   .m3-container {

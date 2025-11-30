@@ -25,7 +25,7 @@
     cx={size / 2}
     cy={size / 2}
     {r}
-    stroke="rgb(var(--m3-scheme-secondary-container))"
+    stroke="var(--color-secondary-container)"
     stroke-width={thickness}
     fill="none"
   />
@@ -33,7 +33,7 @@
     cx={size / 2}
     cy={size / 2}
     {r}
-    stroke="rgb(var(--m3-scheme-primary))"
+    stroke="var(--color-primary)"
     stroke-width={thickness}
     stroke-dasharray="{circumference} {circumference}"
     stroke-dashoffset={(percent / -100) * circumference + circumference}

@@ -114,7 +114,7 @@ opacity: ${Math.min(t * 3, 1)};`,
 
   /*
   want to customize the label's background?
-  do this: <DateFieldOutlined --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
+  do this: <DateFieldOutlined --m3-util-background="var(--color-surface-container)" />
   */
   :root {
     --m3-datefield-outlined-shape: var(--m3-util-rounding-extra-small);
@@ -146,24 +146,24 @@ opacity: ${Math.min(t * 3, 1)};`,
 
     border-radius: var(--m3-datefield-outlined-shape);
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
   }
   label {
     position: absolute;
     inset-inline-start: 0.75rem;
     top: 0;
     translate: 0 -50%;
-    color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
-    background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
+    color: var(--error, var(--color-on-surface-variant));
+    background-color: var(--m3-util-background, var(--color-surface));
     padding: 0 0.25rem;
     &:is(input:hover ~ label) {
-      color: rgb(var(--error, var(--m3-scheme-on-surface)));
+      color: var(--error, var(--color-on-surface));
     }
     &:is(input:focus ~ label) {
-      color: rgb(var(--error, var(--m3-scheme-primary)));
+      color: var(--error, var(--color-primary));
     }
     &:is(input:disabled ~ label) {
-      color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      color: --translucent(var(--color-on-surface), 0.38);
     }
     pointer-events: none;
     transition: color 100ms;
@@ -171,19 +171,19 @@ opacity: ${Math.min(t * 3, 1)};`,
   .layer {
     position: absolute;
     inset: 0;
-    border: 1px solid rgb(var(--error, var(--m3-scheme-outline)));
+    border: 1px solid var(--error, var(--color-outline));
     border-radius: var(--m3-datefield-outlined-shape);
     pointer-events: none;
     transition: all 100ms;
     &:is(input:hover ~ .layer) {
-      border-color: rgb(var(--error, var(--m3-scheme-on-surface)));
+      border-color: var(--error, var(--color-on-surface));
     }
     &:is(input:focus ~ .layer) {
-      border-color: rgb(var(--error, var(--m3-scheme-primary)));
+      border-color: var(--error, var(--color-primary));
       border-width: 0.125rem;
     }
     &:is(input:disabled ~ .layer) {
-      border-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      border-color: --translucent(var(--color-on-surface), 0.38);
     }
   }
 
@@ -199,7 +199,7 @@ opacity: ${Math.min(t * 3, 1)};`,
     justify-content: center;
     border: none;
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     border-top-right-radius: var(--m3-datefield-outlined-shape);
 
     cursor: pointer;
@@ -207,30 +207,30 @@ opacity: ${Math.min(t * 3, 1)};`,
 
   @media (hover: hover) {
     button:hover {
-      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
+      background-color: --translucent(var(--color-on-surface-variant), 0.08);
     }
   }
   button:focus-visible,
   button:active {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
+    background-color: --translucent(var(--color-on-surface-variant), 0.12);
   }
 
   .error {
-    --error: var(--m3-scheme-error);
+    --error: var(--color-error);
   }
   .error > input:hover ~ label,
   .error > input:hover ~ .layer {
-    --error: var(--m3-scheme-on-error-container);
+    --error: var(--color-on-error-container);
   }
 
   .m3-container.disabled {
     opacity: 0.38;
   }
   input:disabled {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--color-on-surface), 0.38);
   }
   button:disabled {
-    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    color: --translucent(var(--color-on-surface-variant), 0.38);
     cursor: auto;
   }
 

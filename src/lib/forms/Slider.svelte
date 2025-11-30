@@ -183,7 +183,7 @@
     margin-inline-start: 0.25rem;
     translate: 0 -50%;
     pointer-events: none;
-    color: rgb(var(--m3-scheme-secondary-container));
+    color: var(--color-secondary-container);
 
     &:is(.vertical :global(.leading)) {
       translate: -50% 0;
@@ -192,7 +192,7 @@
 
   .m3-container :global(.leading.pop) {
     inset-inline-start: var(--handle-right);
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
   }
 
   .m3-container :global(.trailing) {
@@ -204,7 +204,7 @@
     margin-inline-end: 0.25rem;
     translate: 0 -50%;
     pointer-events: none;
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
 
     &:is(.vertical :global(.trailing)) {
       translate: -50% 0;
@@ -213,7 +213,7 @@
 
   .m3-container :global(.trailing.pop) {
     inset-inline-end: calc(100% - var(--handle-left));
-    color: rgb(var(--m3-scheme-secondary-container));
+    color: var(--color-secondary-container);
   }
 
   input {
@@ -244,7 +244,7 @@
     pointer-events: none;
   }
   .track-1 {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-primary);
     clip-path: inset(
       0 calc(100% - var(--handle-left)) 0 0 round var(--track-radius)
         var(--m3-slider-track-in-shape) var(--m3-slider-track-in-shape) var(--track-radius)
@@ -266,14 +266,14 @@
       background-color: selecteditem;
     }
     &:is(input:disabled ~ .track-1) {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      background-color: --translucent(var(--color-on-surface), 0.38);
       @media screen and (forced-colors: active) {
         background-color: canvastext;
       }
     }
   }
   .track-2 {
-    background-color: rgb(var(--m3-scheme-secondary-container));
+    background-color: var(--color-secondary-container);
     clip-path: inset(
       0 0 0 var(--handle-right) round var(--m3-slider-track-in-shape) var(--track-radius)
         var(--track-radius) var(--m3-slider-track-in-shape)
@@ -295,7 +295,7 @@
       background-color: canvastext;
     }
     &:is(input:disabled ~ .track-2) {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+      background-color: --translucent(var(--color-on-surface), 0.12);
       @media screen and (forced-colors: active) {
         background-color: graytext;
       }
@@ -316,15 +316,15 @@
       translate: -50% 50%;
     }
     &:is(.track-1 > .stop) {
-      background-color: rgb(var(--m3-scheme-on-primary));
+      background-color: var(--color-on-primary);
       &:is(input:disabled ~ .track-1 > .stop) {
-        background-color: rgb(var(--m3-scheme-inverse-on-surface));
+        background-color: var(--color-inverse-on-surface);
       }
     }
     &:is(.track-2 > .stop) {
-      background-color: rgb(var(--m3-scheme-primary));
+      background-color: var(--color-primary);
       &:is(input:disabled ~ .track-2 > .stop) {
-        background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+        background-color: --translucent(var(--color-on-surface), 0.38);
       }
     }
     pointer-events: none;
@@ -343,7 +343,7 @@
       translate: 0 50%;
     }
     border-radius: 1.25rem;
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-primary);
 
     pointer-events: none;
     transition: inline-size var(--m3-util-easing);
@@ -352,7 +352,7 @@
       background-color: selecteditem;
     }
     &:is(input:disabled ~ .handle) {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      background-color: --translucent(var(--color-on-surface), 0.38);
       @media screen and (forced-colors: active) {
         background-color: graytext;
       }
@@ -365,8 +365,8 @@
     justify-content: center;
     position: absolute;
 
-    background-color: rgb(var(--m3-scheme-inverse-surface));
-    color: rgb(var(--m3-scheme-inverse-on-surface));
+    background-color: var(--color-inverse-surface);
+    color: var(--color-inverse-on-surface);
     width: 3rem;
     padding: 0.75rem 1rem;
     border-radius: var(--m3-slider-handle-shape);
@@ -395,7 +395,7 @@
 
   input:focus-visible ~ .handle {
     outline: solid;
-    outline-color: rgb(var(--m3-scheme-on-secondary-container));
+    outline-color: var(--color-on-secondary-container);
     outline-width: 4px;
     outline-offset: 5px;
     z-index: 2;

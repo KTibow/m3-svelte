@@ -60,7 +60,7 @@
     display: flex;
     justify-content: space-between;
 
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--color-surface-container-low);
     border-start-start-radius: 1.5rem;
     border-start-end-radius: 1.5rem;
     border-end-start-radius: 0.5rem;
@@ -73,7 +73,7 @@
     flex-grow: 1;
   }
   h2:target {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
   }
   .controls {
     display: flex;
@@ -86,8 +86,8 @@
     padding: 0.75rem;
     border-radius: 0.5rem;
     border-end-start-radius: 1.5rem;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-on-surface));
+    background-color: var(--color-surface-container-low);
+    color: var(--color-on-surface);
     flex-grow: 1;
     flex-wrap: wrap;
 
@@ -104,8 +104,8 @@
     justify-content: center;
     border-radius: 0.5rem;
     border-end-end-radius: 1.5rem;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-surface-container-low);
+    color: var(--color-primary);
 
     min-width: 3rem;
     min-height: 3rem;
@@ -122,8 +122,8 @@
     text-align: left;
     border-radius: 1.5rem;
     padding: 0.75rem;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-surface-container-low);
+    color: var(--color-primary);
 
     flex-grow: 1;
     margin-bottom: 1.5rem;

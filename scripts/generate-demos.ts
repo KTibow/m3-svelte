@@ -112,7 +112,7 @@ M3 Svelte is built on a few core concepts:
 
 ### CSS Custom Properties: The foundation of theming
 \`\`\`css
---m3-scheme-[color]: [R G B];            /* Color tokens */
+--color-[color]: [color];                /* Color tokens */
 --m3-util-elevation-[0-5]: [box shadow]; /* Elevation levels */
 --m3-util-rounding-[size]: [size];       /* Border radius sizes */
 /*
@@ -429,8 +429,8 @@ body {
   height: 100dvh;
   margin: 0;
   box-sizing: border-box;
-  background: rgb(var(--m3-scheme-background));
-  color: rgb(var(--m3-scheme-on-background));
+  background: var(--color-background);
+  color: var(--color-on-background);
 }
 @media (width < 52.5rem) {
   body {
@@ -494,7 +494,7 @@ img {
 
   @media (width < 37.5rem) {
     .nav {
-      background: rgb(var(--m3-scheme-surface-container));
+      background: var(--color-surface-container);
     }
     .search {
       position: fixed;
@@ -576,7 +576,7 @@ img {
       flex-direction: column;
       justify-content: center;
 
-      background-color: rgb(var(--m3-scheme-surface-container));
+      background-color: var(--color-surface-container);
       padding: 2rem;
 
       > * {
@@ -588,7 +588,7 @@ img {
   .tabs {
     display: flex;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-surface-container));
+    background-color: var(--color-surface-container);
     border-radius: 3rem;
     margin-top: 0.5rem;
     flex-shrink: 0;
@@ -619,8 +619,8 @@ img {
       cursor: pointer;
 
       &:disabled {
-        background-color: rgb(var(--m3-scheme-secondary-container));
-        color: rgb(var(--m3-scheme-on-surface-container));
+        background-color: var(--color-secondary-container);
+        color: var(--color-on-surface-container);
       }
     }
   }

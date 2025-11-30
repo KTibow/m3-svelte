@@ -65,6 +65,6 @@
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
   }
 </style>

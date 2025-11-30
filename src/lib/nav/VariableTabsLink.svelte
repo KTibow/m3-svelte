@@ -104,7 +104,7 @@
     display: grid;
     grid-template-columns: repeat(var(--items), auto);
     position: relative;
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: var(--color-surface);
     padding-inline: 1rem;
     justify-content: start;
     overflow-x: auto;
@@ -113,7 +113,7 @@
     position: absolute;
     inset: auto 0 0 0;
     height: 1px;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    background-color: var(--color-surface-container-highest);
   }
   a {
     height: 3rem;
@@ -126,7 +126,7 @@
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     user-select: none;
     cursor: pointer;
     transition: color var(--m3-util-easing-fast);
@@ -138,13 +138,13 @@
 
   @media (hover: hover) {
     a:hover {
-      color: rgb(var(--m3-scheme-on-surface));
+      color: var(--color-on-surface);
     }
   }
   a:focus-visible,
   a:active,
   a.selected {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
   }
 
   a,
@@ -152,7 +152,7 @@
     grid-row: 1;
   }
   .bar {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-primary);
     height: 0.125rem;
     z-index: 1;
     align-self: end;
@@ -171,7 +171,7 @@
     height: 1.5rem;
   }
   .primary > a.selected {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
   }
   .primary > .bar {
     width: 3rem;

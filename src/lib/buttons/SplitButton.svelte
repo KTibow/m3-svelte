@@ -62,8 +62,8 @@
     gap: 0.125rem;
 
     &.elevated .split {
-      background-color: rgb(var(--m3-scheme-surface-container-low));
-      color: rgb(var(--m3-scheme-primary));
+      background-color: var(--color-surface-container-low);
+      color: var(--color-primary);
       box-shadow: var(--m3-util-elevation-1);
       &:hover {
         box-shadow: var(--m3-util-elevation-2);
@@ -71,19 +71,19 @@
     }
 
     &.filled .split {
-      background-color: rgb(var(--m3-scheme-primary));
-      color: rgb(var(--m3-scheme-on-primary));
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
     }
 
     &.tonal .split {
-      background-color: rgb(var(--m3-scheme-secondary-container));
-      color: rgb(var(--m3-scheme-on-secondary-container));
+      background-color: var(--color-secondary-container);
+      color: var(--color-on-secondary-container);
     }
 
     &.outlined .split {
-      outline: 1px solid rgb(var(--m3-scheme-outline-variant));
+      outline: 1px solid var(--color-outline-variant);
       outline-offset: -1px;
-      color: rgb(var(--m3-scheme-on-surface-variant));
+      color: var(--color-on-surface-variant);
     }
   }
 

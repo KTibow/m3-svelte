@@ -58,7 +58,7 @@
 <style>
   /*
   want to customize the label's background?
-  do this: <TextFieldOutlinedMultiline --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
+  do this: <TextFieldOutlinedMultiline --m3-util-background="var(--color-surface-container)" />
   */
   :root {
     /* "textfield" is deprecated */
@@ -84,7 +84,7 @@
     padding: 1rem;
     border-radius: var(--m3-field-outlined-shape);
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
     resize: none;
   }
   label {
@@ -92,17 +92,17 @@
     inset-inline-start: 0.75rem;
     top: 50%;
     translate: 0 -50%;
-    color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
-    background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
+    color: var(--error, var(--color-on-surface-variant));
+    background-color: var(--m3-util-background, var(--color-surface));
     padding: 0 0.25rem;
     &:is(textarea:hover ~ label) {
-      color: rgb(var(--error, var(--m3-scheme-on-surface)));
+      color: var(--error, var(--color-on-surface));
     }
     &:is(textarea:focus ~ label) {
-      color: rgb(var(--error, var(--m3-scheme-primary)));
+      color: var(--error, var(--color-primary));
     }
     &:is(textarea:disabled ~ label) {
-      color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      color: --translucent(var(--color-on-surface), 0.38);
     }
     &:is(textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label) {
       top: 0;
@@ -121,15 +121,15 @@
   .layer {
     position: absolute;
     inset: 0;
-    border: 1px solid rgb(var(--error, var(--m3-scheme-outline)));
+    border: 1px solid var(--error, var(--color-outline));
     border-radius: var(--m3-field-outlined-shape);
     pointer-events: none;
     transition: all 100ms;
     &:is(textarea:enabled:hover ~ .layer) {
-      border-color: rgb(var(--error, var(--m3-scheme-on-surface)));
+      border-color: var(--error, var(--color-on-surface));
     }
     &:is(textarea:enabled:focus ~ .layer) {
-      border-color: rgb(var(--error, var(--m3-scheme-primary)));
+      border-color: var(--error, var(--color-primary));
       border-width: 0.125rem;
     }
   }
@@ -138,7 +138,7 @@
     width: 1.5rem;
     height: 1.5rem;
     margin-inline-start: 0.75rem;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     pointer-events: none;
   }
 
@@ -150,21 +150,21 @@
   }
 
   .error {
-    --error: var(--m3-scheme-error);
+    --error: var(--color-error);
   }
   .error > textarea:hover ~ label,
   .error > textarea:hover ~ .layer {
-    --error: var(--m3-scheme-on-error-container);
+    --error: var(--color-on-error-container);
   }
 
   textarea:disabled {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--color-on-surface), 0.38);
   }
   textarea:disabled ~ .layer {
-    border-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    border-color: --translucent(var(--color-on-surface), 0.38);
   }
   textarea:disabled ~ :global(svg) {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--color-on-surface), 0.38);
   }
 
   .m3-container {

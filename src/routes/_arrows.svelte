@@ -49,8 +49,8 @@
     padding: 0;
 
     border: none;
-    background-color: rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
     cursor: pointer;
   }
   button.left {

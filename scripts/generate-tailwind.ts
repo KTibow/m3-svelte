@@ -57,7 +57,7 @@ ${[...easings, ...easingsTF].map((e) => `  --ease${e}: var(--m3-util-timing-func
 
 ${colors
   .map((c) => c.name.replaceAll("_", "-"))
-  .map((c) => `  --color-${c}: rgb(var(--m3-scheme-${c}));`)
+  .map((c) => `  --color-${c}: var(--color-${c});`)
   .join("\n")}
   --color-util-background: var(--m3-util-background);
 }

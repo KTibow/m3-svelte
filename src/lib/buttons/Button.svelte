@@ -143,18 +143,18 @@
 
     &:disabled,
     &:is(:global(input:disabled) + label) {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
-      color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      background-color: --translucent(var(--color-on-surface), 0.12);
+      color: --translucent(var(--color-on-surface), 0.38);
       cursor: auto;
     }
 
     &.elevated:not(:disabled, :global(input:disabled) + label) {
-      background-color: rgb(var(--m3-scheme-surface-container-low));
-      color: rgb(var(--m3-scheme-primary));
+      background-color: var(--color-surface-container-low);
+      color: var(--color-primary);
       box-shadow: var(--m3-util-elevation-1);
       &:is(:global(input:checked) + .m3-container) {
-        background-color: rgb(var(--m3-scheme-primary));
-        color: rgb(var(--m3-scheme-on-primary));
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
       }
       @media (hover: hover) {
         &:hover {
@@ -163,23 +163,23 @@
       }
     }
     &.filled:not(:disabled, :global(input:disabled) + label) {
-      background-color: rgb(var(--m3-scheme-primary));
-      color: rgb(var(--m3-scheme-on-primary));
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
       &:is(:global(input:is([type="checkbox"], [type="radio"]):not(:checked)) + label) {
-        background-color: rgb(var(--m3-scheme-surface-container));
-        color: rgb(var(--m3-scheme-on-surface-variant));
+        background-color: var(--color-surface-container);
+        color: var(--color-on-surface-variant);
       }
     }
     &.tonal:not(:disabled, :global(input:disabled) + label) {
-      background-color: rgb(var(--m3-scheme-secondary-container));
-      color: rgb(var(--m3-scheme-on-secondary-container));
+      background-color: var(--color-secondary-container);
+      color: var(--color-on-secondary-container);
       &:is(:global(input:checked) + label) {
-        background-color: rgb(var(--m3-scheme-secondary));
-        color: rgb(var(--m3-scheme-on-secondary));
+        background-color: var(--color-secondary);
+        color: var(--color-on-secondary);
       }
     }
     &.outlined {
-      outline: 1px solid rgb(var(--m3-scheme-outline-variant));
+      outline: 1px solid var(--color-outline-variant);
       outline-offset: -1px;
     }
     &.outlined.l {
@@ -191,20 +191,20 @@
       outline-offset: -3px;
     }
     &.outlined:not(:disabled, :global(input:disabled) + label) {
-      outline-color: rgb(var(--m3-scheme-outline-variant));
-      color: rgb(var(--m3-scheme-on-surface-variant));
+      outline-color: var(--color-outline-variant);
+      color: var(--color-on-surface-variant);
       &:is(:global(input:checked) + label) {
-        outline-color: rgb(var(--m3-scheme-inverse-surface));
-        background-color: rgb(var(--m3-scheme-inverse-surface));
-        color: rgb(var(--m3-scheme-inverse-on-surface));
+        outline-color: var(--color-inverse-surface);
+        background-color: var(--color-inverse-surface);
+        color: var(--color-inverse-on-surface);
       }
     }
     &.outlined:is(:disabled, :global(input:disabled) + label) {
-      outline-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+      outline-color: --translucent(var(--color-on-surface), 0.12);
       background-color: transparent;
     }
     &.text:not(:disabled, :global(input:disabled) + label) {
-      color: rgb(var(--m3-scheme-primary));
+      color: var(--color-primary);
     }
     @media (hover: hover) {
       &:is(.filled, .tonal):not(:disabled, label):hover {

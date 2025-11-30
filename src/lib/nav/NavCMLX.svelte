@@ -19,7 +19,7 @@
     display: flex;
     &.compact,
     &.medium {
-      background-color: rgb(var(--m3-scheme-surface-container));
+      background-color: var(--color-surface-container);
     }
     &.compact {
       justify-content: space-evenly;
@@ -44,12 +44,12 @@
   .m3-container.auto {
     @media (width < 37.5rem) {
       /* Compact */
-      background-color: rgb(var(--m3-scheme-surface-container));
+      background-color: var(--color-surface-container);
       justify-content: space-evenly;
     }
     @media (37.5rem <= width < 52.5rem) {
       /* Medium */
-      background-color: rgb(var(--m3-scheme-surface-container));
+      background-color: var(--color-surface-container);
       justify-content: center;
     }
     @media (52.5rem <= width < 100rem) {

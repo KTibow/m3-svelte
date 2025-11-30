@@ -41,7 +41,7 @@
   .m3-container {
     display: flex;
     position: relative;
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: var(--color-surface);
   }
   input {
     position: absolute;
@@ -52,7 +52,7 @@
     position: absolute;
     inset: auto 0 0 0;
     height: 1px;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    background-color: var(--color-surface-container-highest);
   }
   label {
     flex: 1 0;
@@ -67,7 +67,7 @@
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     user-select: none;
     cursor: pointer;
     transition: color var(--m3-util-easing-fast);
@@ -79,18 +79,18 @@
 
   @media (hover: hover) {
     label:hover {
-      color: rgb(var(--m3-scheme-on-surface));
+      color: var(--color-on-surface);
     }
   }
   input:focus-visible + label,
   input:active + label,
   input:checked + label {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
   }
 
   .bar {
     position: absolute;
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-primary);
     width: calc(100% / var(--items));
     height: 0;
     bottom: 0;
@@ -128,7 +128,7 @@
     height: 1.5rem;
   }
   .primary > input:checked + label {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
   }
   .primary > .bar {
     width: 3rem;

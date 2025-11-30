@@ -7,10 +7,8 @@ import { colors } from "./colors";
 export const genCSS = (light: DynamicScheme, dark: DynamicScheme) => {
   const genColorVariable = (name: string, argb: number) => {
     const kebabCase = name.replaceAll("_", "-");
-    const red = (argb >> 16) & 255;
-    const green = (argb >> 8) & 255;
-    const blue = argb & 255;
-    return `    --m3-scheme-${kebabCase}: ${red} ${green} ${blue};`;
+    const hex = `#${argb.toString(16).padStart(8, "0").slice(-6)}`;
+    return `    --color-${kebabCase}: ${hex};`;
   };
   const lightColors = colors
     .map((color) => genColorVariable(color.name, color.getArgb(light)))

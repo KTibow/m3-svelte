@@ -13,5 +13,4 @@ WHEN mixins:
 use it for nav cmlx
 
 WHEN css functions:
-use it for semitransparency, rename m3-scheme to m3-color, use direct colors instead of rgb numbers
-and use it for density sizing
+use it for density sizing?

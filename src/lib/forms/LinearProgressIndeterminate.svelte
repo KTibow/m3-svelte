@@ -18,7 +18,7 @@
   }
   .m3-container {
     display: inline-flex;
-    background-color: rgb(var(--m3-scheme-primary-container));
+    background-color: var(--color-primary-container);
     height: 0.25rem;
     min-width: 8rem;
     position: relative;
@@ -26,7 +26,7 @@
     border-radius: var(--m3-linear-progress-shape);
   }
   .percent {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-primary);
     animation: progress infinite 1.5s ease-out;
     border-radius: var(--m3-linear-progress-shape);
     width: 50%;

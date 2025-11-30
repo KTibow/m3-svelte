@@ -1,10 +1,14 @@
 @import url("$lib/misc/styles.css");
 @import url("$lib/misc/recommended-styles.css");
 
+@function --translucent(--color, --opacity) {
+  result: oklch(from var(--color) l c h / var(--opacity));
+}
+
 body {
   margin: 0;
-  background-color: rgb(var(--m3-scheme-background));
-  color: rgb(var(--m3-scheme-on-background));
+  background-color: var(--color-background);
+  color: var(--color-on-background);
 }
 
 pre code.hljs {

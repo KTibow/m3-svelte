@@ -24,8 +24,8 @@
     justify-content: center;
     padding-inline: 1.5rem;
     border-radius: 1.75rem;
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: var(--color-primary-container);
+    color: var(--color-on-primary-container);
     transition: var(--transition);
     overflow: hidden;
 
@@ -64,7 +64,7 @@
         width: 3rem;
         height: 3rem;
         border-radius: 3rem;
-        background-color: rgb(var(--m3-scheme-background));
+        background-color: var(--color-background);
         transition: var(--transition);
       }
       h1 {
@@ -80,8 +80,8 @@
         margin-left: 0.5rem;
         border-radius: 1.5rem;
         overflow: hidden;
-        background-color: rgb(var(--m3-scheme-primary));
-        color: rgb(var(--m3-scheme-on-primary)) !important;
+        background-color: var(--color-primary);
+        color: var(--color-on-primary) !important;
         text-decoration: none !important;
         transition: var(--transition);
       }

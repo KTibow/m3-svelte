@@ -35,7 +35,7 @@ const relevantLinks: { title: string; link: string }[] = [];
 </script>
 
 <InternalCard title="Shapes" showCode={() => showCode("Shapes", minimalDemo, relevantLinks)}>
-<ShapeSelector class="m3-font-body-large" style="background-color:rgb(var(--m3-scheme-surface-container))" bind:shape />
+<ShapeSelector class="m3-font-body-large" style="background-color:var(--color-surface-container)" bind:shape />
 <label>
   <Arrows list={["normal", "animatable", "animatable small"]} bind:value={mode} />
   {mode[0].toUpperCase() + mode.slice(1)} paths
@@ -43,7 +43,7 @@ const relevantLinks: { title: string; link: string }[] = [];
 
 {#snippet demo()}
   <svg width="4rem" height="4rem" style:margin="auto" viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}>
-    <path class="shape" d="{mode == "animatable small" ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")] : mode == "animatable" ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="rgb(var(--m3-scheme-primary))" />
+    <path class="shape" d="{mode == "animatable small" ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")] : mode == "animatable" ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="var(--color-primary)" />
   </svg>
 {/snippet}
 

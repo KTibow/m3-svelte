@@ -41,7 +41,7 @@
 
 <style>
   .snippet {
-    background-color: rgb(var(--m3-scheme-surface-container-high));
+    background-color: var(--color-surface-container-high);
     border-radius: var(--m3-util-rounding-large);
     padding: 1rem;
 

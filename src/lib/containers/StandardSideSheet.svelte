@@ -38,6 +38,6 @@
     padding: 1.5rem;
   }
   .header > :global(button.m3-container) {
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
   }
 </style>

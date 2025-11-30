@@ -83,7 +83,7 @@
     gap: 0.25rem;
   }
   .percent {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-primary);
     border-radius: var(--m3-util-rounding-full);
     flex-shrink: 0;
     animation: grow
@@ -129,7 +129,7 @@
     }
   }
   .track {
-    background-color: rgb(var(--m3-scheme-secondary-container));
+    background-color: var(--color-secondary-container);
     border-radius: var(--m3-util-rounding-full);
     flex-grow: 1;
   }

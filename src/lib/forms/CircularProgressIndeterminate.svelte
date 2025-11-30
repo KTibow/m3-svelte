@@ -19,7 +19,7 @@
     cx="24"
     cy="24"
     r="20"
-    stroke="rgb(var(--m3-scheme-primary))"
+    stroke="var(--color-primary)"
     stroke-width="4"
     stroke-dasharray="125.66 125.66"
     stroke-linecap="round"

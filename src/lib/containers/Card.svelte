@@ -38,9 +38,9 @@
     padding: 1rem; /* protip: use margin: -1rem (adjust as needed) to make images stretch to the end */
     border: none;
     border-radius: var(--m3-card-shape);
-    background-color: rgb(var(--m3-scheme-surface));
-    --m3-util-background: rgb(var(--m3-scheme-surface));
-    color: rgb(var(--m3-scheme-on-surface));
+    background-color: var(--color-surface);
+    --m3-util-background: var(--color-surface);
+    color: var(--color-on-surface);
   }
 
   button {
@@ -59,16 +59,16 @@
   }
 
   .elevated {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    --m3-util-background: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--color-surface-container-low);
+    --m3-util-background: var(--color-surface-container-low);
     box-shadow: var(--m3-util-elevation-1);
   }
   .filled {
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
-    --m3-util-background: rgb(var(--m3-scheme-surface-container-highest));
+    background-color: var(--color-surface-container-highest);
+    --m3-util-background: var(--color-surface-container-highest);
   }
   .outlined {
-    border: solid 1px rgb(var(--m3-scheme-outline-variant));
+    border: solid 1px var(--color-outline-variant);
   }
 
   @media print, (forced-colors: active) {

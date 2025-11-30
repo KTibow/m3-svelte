@@ -8,8 +8,8 @@
   const componentCode2 = `${"<"}button>Click me${"<"}/button>
 ${"<"}style>
   button {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-surface-container-low);
+    color: var(--color-primary);
     box-shadow: var(--m3-util-elevation-1);
     border-radius: var(--m3-util-rounding-full);
   }
@@ -74,8 +74,8 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
   <Snippet code={`<body class="m3-font-body-large">`} name="app.html" lang="xml" />
   <Snippet
     code={`body {
-  background-color: rgb(var(--m3-scheme-background));
-  color: rgb(var(--m3-scheme-on-background));
+  background-color: var(--color-background);
+  color: var(--color-on-background);
 }`}
     name="app.css"
     lang="css"
@@ -110,11 +110,11 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
   }
   code {
     font-size: 0.9rem;
-    background-color: rgb(var(--m3-scheme-surface-variant));
+    background-color: var(--color-surface-variant);
     padding-inline: 2px;
     border-radius: 0.25rem;
   }
   a {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
   }
 </style>

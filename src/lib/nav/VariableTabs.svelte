@@ -100,7 +100,7 @@
   .m3-container {
     display: grid;
     position: relative;
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: var(--color-surface);
     grid-template-columns: repeat(var(--items), auto);
     padding-inline: 1rem;
     justify-content: start;
@@ -115,7 +115,7 @@
     position: absolute;
     inset: auto 0 0 0;
     height: 1px;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    background-color: var(--color-surface-container-highest);
   }
   label {
     height: 3rem;
@@ -128,7 +128,7 @@
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     user-select: none;
     cursor: pointer;
     transition: color var(--m3-util-easing-fast);
@@ -140,13 +140,13 @@
 
   @media (hover: hover) {
     label:hover {
-      color: rgb(var(--m3-scheme-on-surface));
+      color: var(--color-on-surface);
     }
   }
   input:focus-visible + label,
   input:active + label,
   input:checked + label {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
   }
 
   label,
@@ -154,7 +154,7 @@
     grid-row: 1;
   }
   .bar {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-primary);
     height: 0.125rem;
     z-index: 1;
     align-self: end;
@@ -203,7 +203,7 @@
     height: 1.5rem;
   }
   .primary > input:checked + label {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
   }
   .primary > .bar {
     width: 3rem;

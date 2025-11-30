@@ -13,8 +13,8 @@ export const addBadge = (icon: IconifyIcon, n?: number) => {
     badge =
       `<!--badge--><foreignObject x="${x}" y="${y}" width="40" height="16">` +
       `<div class="m3-font-label-small" style="${[
-        "background-color:rgb(var(--m3-scheme-error))",
-        "color:rgb(var(--m3-scheme-on-error))",
+        "background-color:var(--color-error)",
+        "color:var(--color-on-error)",
         "width:max-content",
         "padding-inline:4px",
         "border-radius:var(--m3-util-rounding-full)",
@@ -22,7 +22,7 @@ export const addBadge = (icon: IconifyIcon, n?: number) => {
       text +
       `</div>`;
   } else {
-    badge = `<circle cx="${width - 3}" cy="3" r="3" fill="rgb(var(--m3-scheme-error))"/>`;
+    badge = `<circle cx="${width - 3}" cy="3" r="3" fill="var(--color-error)"/>`;
   }
   return {
     ...icon,

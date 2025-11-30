@@ -39,7 +39,7 @@
     flex-wrap: wrap;
   }
   .pill {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--color-surface-container-low);
 
     height: 2rem;
     display: flex;

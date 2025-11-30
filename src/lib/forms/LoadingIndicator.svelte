@@ -38,10 +38,10 @@
 
 <style>
   svg {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
     &.container {
-      background-color: rgb(var(--m3-scheme-primary-container));
-      color: rgb(var(--m3-scheme-on-primary-container));
+      background-color: var(--color-primary-container);
+      color: var(--color-on-primary-container);
       border-radius: var(--m3-util-rounding-full);
     }
     &.center {

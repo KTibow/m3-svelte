@@ -10,7 +10,7 @@
   {#each Object.keys(paths) as key}
     {#snippet content()}
       <svg width="1rem" height="1rem" viewBox="0 0 380 380">
-        <path d={paths[key]} fill="rgb(var(--m3-scheme-primary))" />
+        <path d={paths[key]} fill="var(--color-primary)" />
       </svg>
       {key.replace("path", "")}
     {/snippet}

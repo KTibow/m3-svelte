@@ -44,13 +44,13 @@
   .m3-container {
     display: flex;
     position: relative;
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: var(--color-surface);
   }
   .divider {
     position: absolute;
     inset: auto 0 0 0;
     height: 1px;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    background-color: var(--color-surface-container-highest);
   }
   a {
     flex: 1 0;
@@ -65,7 +65,7 @@
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--color-on-surface-variant);
     user-select: none;
     cursor: pointer;
     transition: color var(--m3-util-easing-fast);
@@ -77,18 +77,18 @@
 
   @media (hover: hover) {
     a:hover {
-      color: rgb(var(--m3-scheme-on-surface));
+      color: var(--color-on-surface);
     }
   }
   a:focus-visible,
   a:active,
   a.selected {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
   }
 
   .bar {
     position: absolute;
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--color-primary);
     width: calc(100% / var(--items));
     height: 0.125rem;
     left: calc(100% / var(--items) * var(--i));
@@ -109,7 +109,7 @@
     height: 1.5rem;
   }
   .primary > a.selected {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--color-primary);
   }
   .primary > .bar {
     width: 3rem;

@@ -90,7 +90,7 @@
     position: relative;
     overflow: hidden;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-surface-container-high));
+    background-color: var(--color-surface-container-high);
     width: 20.5rem;
     height: 26.75rem;
     border-radius: var(--m3-date-picker-shape);

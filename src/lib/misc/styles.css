@@ -3,20 +3,20 @@
   --m3-util-elevation-0: none;
   --m3-util-elevation-1:
     /* Spot */
-    0px 1px 2px 0px rgb(var(--m3-scheme-shadow) / 0.3),
-    /* Ambient */ 0px 1px 3px 1px rgb(var(--m3-scheme-shadow) / 0.15);
+    0px 1px 2px 0px --translucent(var(--color-shadow), 0.3),
+    /* Ambient */ 0px 1px 3px 1px --translucent(var(--color-shadow), 0.15);
   --m3-util-elevation-2:
-    0px 1px 2px 0px rgb(var(--m3-scheme-shadow) / 0.3),
-    0px 2px 6px 2px rgb(var(--m3-scheme-shadow) / 0.15);
+    0px 1px 2px 0px --translucent(var(--color-shadow), 0.3),
+    0px 2px 6px 2px --translucent(var(--color-shadow), 0.15);
   --m3-util-elevation-3:
-    0px 1px 3px 0px rgb(var(--m3-scheme-shadow) / 0.3),
-    0px 4px 8px 3px rgb(var(--m3-scheme-shadow) / 0.15);
+    0px 1px 3px 0px --translucent(var(--color-shadow), 0.3),
+    0px 4px 8px 3px --translucent(var(--color-shadow), 0.15);
   --m3-util-elevation-4:
-    0px 2px 3px 0px rgb(var(--m3-scheme-shadow) / 0.3),
-    0px 6px 10px 4px rgb(var(--m3-scheme-shadow) / 0.15);
+    0px 2px 3px 0px --translucent(var(--color-shadow), 0.3),
+    0px 6px 10px 4px --translucent(var(--color-shadow), 0.15);
   --m3-util-elevation-5:
-    0px 4px 4px 0px rgb(var(--m3-scheme-shadow) / 0.3),
-    0px 8px 12px 6px rgb(var(--m3-scheme-shadow) / 0.15);
+    0px 4px 4px 0px --translucent(var(--color-shadow), 0.3),
+    0px 8px 12px 6px --translucent(var(--color-shadow), 0.15);
 
   /* Sizing */
   --m3-util-bottom-offset: 0;
@@ -88,7 +88,7 @@
   --m3-util-curve-accel: var(--m3-util-timing-function-emphasized-accel);
   --m3-util-curve-decel: var(--m3-util-timing-function-emphasized-decel);
 
-  accent-color: rgb(var(--m3-scheme-primary));
+  accent-color: var(--color-primary);
 }
 .m3-font-display-large,
 .m3-font-display-medium,

@@ -113,7 +113,7 @@ const relevantLinks: { title: string; link: string }[] = [];
   }
   .pane {
     display: grid;
-    background-color: rgb(var(--m3-scheme-background));
+    background-color: var(--color-background);
     overflow: hidden;
   }
   .btn {
@@ -121,8 +121,8 @@ const relevantLinks: { title: string; link: string }[] = [];
     align-items: center;
     place-self: center;
 
-    background-color: rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
     border: none;
     height: 2.5rem;
     border-radius: 1.25rem;
@@ -136,8 +136,8 @@ const relevantLinks: { title: string; link: string }[] = [];
     border-radius: 0.5rem;
     background-image: linear-gradient(
       to bottom right,
-      rgb(var(--m3-scheme-primary-container)),
-      rgb(var(--m3-scheme-tertiary-container))
+      var(--color-primary-container),
+      var(--color-tertiary-container)
     );
     > p {
       margin: 0;

@@ -47,7 +47,7 @@
     flex-shrink: 0;
 
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--color-on-surface);
     border: none;
     cursor: pointer;
     position: relative;
