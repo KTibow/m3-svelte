@@ -85,8 +85,8 @@ importers:
         specifier: ^7.2.4
         version: 7.2.4
       vite-plugin-functions-mixins:
-        specifier: ^0.0.1
-        version: 0.0.1(vite@7.2.4)
+        specifier: ^0.0.2
+        version: 0.0.2(vite@7.2.4)
 
 packages:
 
@@ -1216,8 +1216,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  vite-plugin-functions-mixins@0.0.1:
-    resolution: {integrity: sha512-PkdWHSM19TOZFsw9kBDyS4u8wVY3+chm3dBLj1BGOArrLohQbO7cbcvosY5uXAkW0a4poLaQHY6vTMaToxdomQ==}
+  vite-plugin-functions-mixins@0.0.2:
+    resolution: {integrity: sha512-zSnojdHyOb00mHZBCOmWG75SUICSbx83mn/4YVaQNSUkXdNo0r9r3DzIOY8HgHUo0iHsCHLMf97zeEthct7LsA==}
     peerDependencies:
       vite: ^7.2.4
 
@@ -2335,7 +2335,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite-plugin-functions-mixins@0.0.1(vite@7.2.4):
+  vite-plugin-functions-mixins@0.0.2(vite@7.2.4):
     dependencies:
       vite: 7.2.4
 
