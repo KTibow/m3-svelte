@@ -2,7 +2,7 @@
 @import url("$lib/misc/recommended-styles.css");
 
 @function --translucent(--color, --opacity) {
-  result: oklch(from var(--color) l c h / var(--opacity));
+  result: oklab(from var(--color) l a b / var(--opacity));
 }
 
 body {
