@@ -88,9 +88,7 @@
     display: flex;
     align-items: center;
     height: calc(3.5rem + var(--m3-util-density-term));
-    padding-top: calc(
-      var(--m3-font-body-small-size, 0.75rem) * var(--m3-font-body-small-height, 1.333)
-    );
+    padding-top: calc(var(--m3-font-body-small-size) * var(--m3-font-body-small-height));
     padding-inline: 1rem;
 
     border-radius: var(--m3-field-filled-shape) var(--m3-field-filled-shape) 0 0;
@@ -170,7 +168,7 @@
     padding-block: calc(
       (
           3rem + var(--m3-util-density-term) -
-            (var(--m3-font-body-large-size, 1rem) * var(--m3-font-body-large-height, 1.5))
+            (var(--m3-font-body-large-size) * var(--m3-font-body-large-height))
         ) /
         2
     );

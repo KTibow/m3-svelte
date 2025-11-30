@@ -160,10 +160,10 @@
     &.expanded {
       height: 3.5rem;
       padding-inline: 1.25rem;
-      font-size: var(--m3-font-label-large-size, 0.875rem);
-      line-height: var(--m3-font-label-large-height, 1.429);
-      letter-spacing: var(--m3-font-label-large-tracking, 0.006rem);
-      font-weight: var(--m3-font-label-large-weight, 500);
+      font-size: var(--m3-font-label-large-size);
+      line-height: var(--m3-font-label-large-height);
+      letter-spacing: var(--m3-font-label-large-tracking);
+      font-weight: var(--m3-font-label-large-weight);
     }
   }
 
@@ -283,10 +283,10 @@
       /* Extra large: expanded */
       height: 3.5rem;
       padding-inline: 1.25rem;
-      font-size: var(--m3-font-label-large-size, 0.875rem);
-      line-height: var(--m3-font-label-large-height, 1.429);
-      letter-spacing: var(--m3-font-label-large-tracking, 0.006rem);
-      font-weight: var(--m3-font-label-large-weight, 500);
+      font-size: var(--m3-font-label-large-size);
+      line-height: var(--m3-font-label-large-height);
+      letter-spacing: var(--m3-font-label-large-tracking);
+      font-weight: var(--m3-font-label-large-weight);
 
       .content {
         padding-inline: 1rem;

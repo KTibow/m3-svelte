@@ -175,7 +175,7 @@
     padding-block: calc(
       (
           3rem + var(--m3-util-density-term) -
-            (var(--m3-font-body-large-size, 1rem) * var(--m3-font-body-large-height, 1.5))
+            (var(--m3-font-body-large-size) * var(--m3-font-body-large-height))
         ) /
         2
     );

@@ -61,11 +61,11 @@
     --m3-button-shape: 1rem;
     --m3-button-square-shape: var(--m3-util-rounding-medium);
     --m3-button-pressed-shape: var(--m3-util-rounding-small);
-    font-family: var(--m3-font-label, var(--m3-font));
-    font-size: var(--m3-font-label-large-size, 0.875rem);
-    line-height: var(--m3-font-label-large-height, 1.429);
-    letter-spacing: var(--m3-font-label-large-tracking, 0.006rem);
-    font-weight: var(--m3-font-label-large-weight, 500);
+    font-family: var(--m3-font-label);
+    font-size: var(--m3-font-label-large-size);
+    line-height: var(--m3-font-label-large-height);
+    letter-spacing: var(--m3-font-label-large-tracking);
+    font-weight: var(--m3-font-label-large-weight);
   }
 
   .m3-container.s {
@@ -75,11 +75,11 @@
     --m3-button-shape: 1.25rem;
     --m3-button-square-shape: var(--m3-util-rounding-medium);
     --m3-button-pressed-shape: var(--m3-util-rounding-small);
-    font-family: var(--m3-font-label, var(--m3-font));
-    font-size: var(--m3-font-label-large-size, 0.875rem);
-    line-height: var(--m3-font-label-large-height, 1.429);
-    letter-spacing: var(--m3-font-label-large-tracking, 0.006rem);
-    font-weight: var(--m3-font-label-large-weight, 500);
+    font-family: var(--m3-font-label);
+    font-size: var(--m3-font-label-large-size);
+    line-height: var(--m3-font-label-large-height);
+    letter-spacing: var(--m3-font-label-large-tracking);
+    font-weight: var(--m3-font-label-large-weight);
   }
 
   .m3-container.m {
@@ -89,11 +89,11 @@
     --m3-button-shape: 1.75rem;
     --m3-button-square-shape: var(--m3-util-rounding-large);
     --m3-button-pressed-shape: var(--m3-util-rounding-medium);
-    font-family: var(--m3-font-title, var(--m3-font));
-    font-size: var(--m3-font-title-medium-size, 1rem);
-    line-height: var(--m3-font-title-medium-height, 1.5);
-    letter-spacing: var(--m3-font-title-medium-tracking, 0);
-    font-weight: var(--m3-font-title-medium-weight, 500);
+    font-family: var(--m3-font-title);
+    font-size: var(--m3-font-title-medium-size);
+    line-height: var(--m3-font-title-medium-height);
+    letter-spacing: var(--m3-font-title-medium-tracking);
+    font-weight: var(--m3-font-title-medium-weight);
   }
 
   .m3-container.l {
@@ -103,11 +103,11 @@
     --m3-button-shape: 3rem;
     --m3-button-square-shape: var(--m3-util-rounding-extra-large);
     --m3-button-pressed-shape: var(--m3-util-rounding-large);
-    font-family: var(--m3-font-headline, var(--m3-font));
-    font-size: var(--m3-font-headline-small-size, 1.5rem);
-    line-height: var(--m3-font-headline-small-height, 1.333);
-    letter-spacing: var(--m3-font-headline-small-tracking, 0);
-    font-weight: var(--m3-font-headline-small-weight, 400);
+    font-family: var(--m3-font-headline);
+    font-size: var(--m3-font-headline-small-size);
+    line-height: var(--m3-font-headline-small-height);
+    letter-spacing: var(--m3-font-headline-small-tracking);
+    font-weight: var(--m3-font-headline-small-weight);
   }
 
   .m3-container.xl {
@@ -117,11 +117,11 @@
     --m3-button-shape: 4.25rem;
     --m3-button-square-shape: var(--m3-util-rounding-extra-large);
     --m3-button-pressed-shape: var(--m3-util-rounding-large);
-    font-family: var(--m3-font-headline, var(--m3-font));
-    font-size: var(--m3-font-headline-large-size, 2rem);
-    line-height: var(--m3-font-headline-large-height, 1.25);
-    letter-spacing: var(--m3-font-headline-large-tracking, 0);
-    font-weight: var(--m3-font-headline-large-weight, 400);
+    font-family: var(--m3-font-headline);
+    font-size: var(--m3-font-headline-large-size);
+    line-height: var(--m3-font-headline-large-height);
+    letter-spacing: var(--m3-font-headline-large-tracking);
+    font-weight: var(--m3-font-headline-large-weight);
   }
 
   .m3-container {
