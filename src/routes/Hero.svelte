@@ -14,7 +14,7 @@
     </div>
     <div class="pill">
       <Icon icon={iconSquoosh} />
-      Theme tree shaking soon
+      Tokens are shakeable
     </div>
   </div>
 </div>

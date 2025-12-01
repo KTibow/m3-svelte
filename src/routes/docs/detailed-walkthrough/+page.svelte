@@ -45,6 +45,17 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
   and <code>--m3-button-shape</code>.
 </p>
 
+<h2 class="m3-font-headline-large">Shake your tokens</h2>
+<p>
+  All tokens from
+  <a href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/misc/styles.css">styles.css</a> are
+  marked as such, which means
+  <a href="https://www.npmjs.com/package/vite-plugin-token-shaker">vite-plugin-token-shaker</a> can
+  automatically remove unused ones and choose between mangling or inlining ones that are used. This
+  very site was token shaken - check out the styles on <code>:root</code> in your inspector - for about
+  a 15 kB size reduction.
+</p>
+
 <h2 class="m3-font-headline-large">
   Make your own components
   <ConnectedButtons>

@@ -84,6 +84,9 @@ importers:
       vite:
         specifier: ^7.2.4
         version: 7.2.4
+      vite-plugin-token-shaker:
+        specifier: ^0.0.2
+        version: 0.0.2(vite@7.2.4)
 
 packages:
 
@@ -1213,6 +1216,11 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  vite-plugin-token-shaker@0.0.2:
+    resolution: {integrity: sha512-XKJrQcgvLdJ1vSowwTqG2K8jf0fODIVz7ZsdtkEatnd30neKvvkDIm4I7PQFfpaqyv81t9pGp7/sBf6mdyvWtQ==}
+    peerDependencies:
+      vite: ^7.2.4
+
   vite@7.2.4:
     resolution: {integrity: sha512-NL8jTlbo0Tn4dUEXEsUg8KeyG/Lkmc4Fnzb8JXN/Ykm9G4HNImjtABMJgkQoVjOBN/j2WAwDTRytdqJbZsah7w==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -2326,6 +2334,10 @@ snapshots:
       punycode: 2.3.1
 
   util-deprecate@1.0.2: {}
+
+  vite-plugin-token-shaker@0.0.2(vite@7.2.4):
+    dependencies:
+      vite: 7.2.4
 
   vite@7.2.4:
     dependencies:
