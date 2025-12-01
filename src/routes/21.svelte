@@ -136,8 +136,8 @@ const relevantLinks: { title: string; link: string }[] = [];
     border-radius: 0.5rem;
     background-image: linear-gradient(
       to bottom right,
-      rgb(var(--m3-scheme-primary-container)),
-      rgb(var(--m3-scheme-tertiary-container))
+      rgb(var(--m3-scheme-primary-container-subtle)),
+      rgb(var(--m3-scheme-tertiary-container-subtle))
     );
     > p {
       margin: 0;
