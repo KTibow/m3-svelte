@@ -66,6 +66,11 @@
     line-height: var(--m3-font-label-large-height);
     letter-spacing: var(--m3-font-label-large-tracking);
     font-weight: var(--m3-font-label-large-weight);
+
+    &.icon-full {
+      width: 2rem;
+      padding: 0;
+    }
   }
 
   .m3-container.s {
@@ -80,6 +85,11 @@
     line-height: var(--m3-font-label-large-height);
     letter-spacing: var(--m3-font-label-large-tracking);
     font-weight: var(--m3-font-label-large-weight);
+
+    &.icon-full {
+      width: 2.5rem;
+      padding: 0;
+    }
   }
 
   .m3-container.m {
@@ -94,6 +104,19 @@
     line-height: var(--m3-font-title-medium-height);
     letter-spacing: var(--m3-font-title-medium-tracking);
     font-weight: var(--m3-font-title-medium-weight);
+
+    &.icon-left > :global(svg) {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    &.icon-full {
+      width: 3.5rem;
+      padding: 0;
+      > :global(svg) {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
   }
 
   .m3-container.l {
@@ -108,6 +131,19 @@
     line-height: var(--m3-font-headline-small-height);
     letter-spacing: var(--m3-font-headline-small-tracking);
     font-weight: var(--m3-font-headline-small-weight);
+
+    &.icon-left > :global(svg) {
+      width: 2rem;
+      height: 2rem;
+    }
+    &.icon-full {
+      width: 6rem;
+      padding: 0;
+      > :global(svg) {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
   }
 
   .m3-container.xl {
@@ -122,6 +158,19 @@
     line-height: var(--m3-font-headline-large-height);
     letter-spacing: var(--m3-font-headline-large-tracking);
     font-weight: var(--m3-font-headline-large-weight);
+
+    &.icon-left > :global(svg) {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    &.icon-full {
+      width: 8.5rem;
+      padding: 0;
+      > :global(svg) {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+    }
   }
 
   .m3-container {
@@ -224,62 +273,9 @@
   .m3-container > :global(*) {
     flex-shrink: 0;
   }
-
-  .xs.icon-left > :global(svg),
-  .s.icon-left > :global(svg) {
+  .m3-container > :global(svg) {
     width: 1.25rem;
     height: 1.25rem;
-  }
-  .m.icon-left > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .l.icon-left > :global(svg) {
-    width: 2rem;
-    height: 2rem;
-  }
-  .xl.icon-left > :global(svg) {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-
-  .xs.icon-full {
-    width: 2rem;
-    padding: 0;
-  }
-  .s.icon-full {
-    width: 2.5rem;
-    padding: 0;
-  }
-  .m.icon-full {
-    width: 3.5rem;
-    padding: 0;
-  }
-  .l.icon-full {
-    width: 6rem;
-    padding: 0;
-  }
-  .xl.icon-full {
-    width: 8.5rem;
-    padding: 0;
-  }
-
-  .xs.icon-full > :global(svg),
-  .s.icon-full > :global(svg) {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-  .m.icon-full > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .l.icon-full > :global(svg) {
-    width: 2rem;
-    height: 2rem;
-  }
-  .xl.icon-full > :global(svg) {
-    width: 2.5rem;
-    height: 2.5rem;
   }
 
   .m3-container {
