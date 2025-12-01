@@ -81,8 +81,10 @@
 </div>
 
 <style>
-  :root {
-    --m3-date-picker-shape: var(--m3-util-rounding-large);
+  @layer tokens {
+    :root {
+      --m3-date-picker-shape: var(--m3-util-rounding-large);
+    }
   }
 
   .m3-container {

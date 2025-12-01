@@ -1,5 +1,7 @@
-:root {
-  --m3-util-refocus: refocus-outward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
+@layer tokens {
+  :root {
+    --m3-util-refocus: refocus-outward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
+  }
 }
 :focus-visible:not(.focus-inset, .focus-none) {
   animation: var(--m3-util-refocus);

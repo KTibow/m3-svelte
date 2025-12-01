@@ -76,8 +76,10 @@
 </dialog>
 
 <style>
-  :root {
-    --m3-dialog-shape: var(--m3-util-rounding-extra-large);
+  @layer tokens {
+    :root {
+      --m3-dialog-shape: var(--m3-util-rounding-extra-large);
+    }
   }
   dialog {
     display: flex;

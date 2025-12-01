@@ -116,8 +116,10 @@ opacity: ${Math.min(t * 3, 1)};`,
   want to customize the label's background?
   do this: <DateFieldOutlined --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
   */
-  :root {
-    --m3-datefield-outlined-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-datefield-outlined-shape: var(--m3-util-rounding-extra-small);
+    }
   }
   .m3-container {
     display: inline-flex;

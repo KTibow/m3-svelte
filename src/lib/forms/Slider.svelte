@@ -116,10 +116,12 @@
 </div>
 
 <style>
-  :root {
-    --m3-slider-track-out-shape: 0.5rem;
-    --m3-slider-track-in-shape: 0.125rem;
-    --m3-slider-handle-shape: var(--m3-util-rounding-full);
+  @layer tokens {
+    :root {
+      --m3-slider-track-out-shape: 0.5rem;
+      --m3-slider-track-in-shape: 0.125rem;
+      --m3-slider-handle-shape: var(--m3-util-rounding-full);
+    }
   }
 
   .m3-container {

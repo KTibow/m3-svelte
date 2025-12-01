@@ -68,9 +68,11 @@
 </div>
 
 <style>
-  :root {
-    --m3-switch-track-shape: var(--m3-util-rounding-full);
-    --m3-switch-handle-shape: var(--m3-util-rounding-full);
+  @layer tokens {
+    :root {
+      --m3-switch-track-shape: var(--m3-util-rounding-full);
+      --m3-switch-handle-shape: var(--m3-util-rounding-full);
+    }
   }
   .m3-container {
     display: inline-flex;

@@ -60,12 +60,14 @@
   want to customize the label's background?
   do this: <TextFieldOutlinedMultiline --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
   */
-  :root {
-    /* "textfield" is deprecated */
-    --m3-field-outlined-shape: var(
-      --m3-textfield-outlined-shape,
-      var(--m3-util-rounding-extra-small)
-    );
+  @layer tokens {
+    :root {
+      /* "textfield" is deprecated */
+      --m3-field-outlined-shape: var(
+        --m3-textfield-outlined-shape,
+        var(--m3-util-rounding-extra-small)
+      );
+    }
   }
   .m3-container {
     display: inline-flex;

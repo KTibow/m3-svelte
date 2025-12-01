@@ -9,8 +9,10 @@
 </div>
 
 <style>
-  :root {
-    --m3-menu-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-menu-shape: var(--m3-util-rounding-extra-small);
+    }
   }
   .m3-container {
     display: flex;

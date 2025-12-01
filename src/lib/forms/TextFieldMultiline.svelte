@@ -56,9 +56,14 @@
 </div>
 
 <style>
-  :root {
-    /* "textfield" is deprecated */
-    --m3-field-filled-shape: var(--m3-textfield-filled-shape, var(--m3-util-rounding-extra-small));
+  @layer tokens {
+    :root {
+      /* "textfield" is deprecated */
+      --m3-field-filled-shape: var(
+        --m3-textfield-filled-shape,
+        var(--m3-util-rounding-extra-small)
+      );
+    }
   }
   .m3-container {
     display: inline-flex;

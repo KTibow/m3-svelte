@@ -60,8 +60,10 @@
 {/if}
 
 <style>
-  :root {
-    --m3-chip-shape: var(--m3-util-rounding-small);
+  @layer tokens {
+    :root {
+      --m3-chip-shape: var(--m3-util-rounding-small);
+    }
   }
   .m3-container {
     display: flex;

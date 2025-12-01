@@ -50,9 +50,11 @@
   want to customize the label's background?
   do this: <SelectOutlined --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
   */
-  :root {
-    --m3-menu-shape: var(--m3-util-rounding-extra-small);
-    --m3-field-outlined-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-menu-shape: var(--m3-util-rounding-extra-small);
+      --m3-field-outlined-shape: var(--m3-util-rounding-extra-small);
+    }
   }
 
   .m3-container {

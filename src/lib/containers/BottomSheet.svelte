@@ -90,8 +90,10 @@
 </dialog>
 
 <style>
-  :root {
-    --m3-bottom-sheet-shape: var(--m3-util-rounding-extra-large);
+  @layer tokens {
+    :root {
+      --m3-bottom-sheet-shape: var(--m3-util-rounding-extra-large);
+    }
   }
 
   .m3-container {

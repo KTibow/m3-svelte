@@ -13,8 +13,10 @@
 </div>
 
 <style>
-  :root {
-    --m3-linear-progress-shape: var(--m3-util-rounding-full);
+  @layer tokens {
+    :root {
+      --m3-linear-progress-shape: var(--m3-util-rounding-full);
+    }
   }
   .m3-container {
     display: inline-flex;

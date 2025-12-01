@@ -50,10 +50,12 @@
 </div>
 
 <style>
-  :root {
-    --m3-split-button-outer-shape: 1.25rem;
-    --m3-split-button-half-shape: var(--m3-util-rounding-medium);
-    --m3-split-button-inner-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-split-button-outer-shape: 1.25rem;
+      --m3-split-button-half-shape: var(--m3-util-rounding-medium);
+      --m3-split-button-inner-shape: var(--m3-util-rounding-extra-small);
+    }
   }
 
   .m3-container {

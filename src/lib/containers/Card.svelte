@@ -27,8 +27,10 @@
 {/if}
 
 <style>
-  :root {
-    --m3-card-shape: var(--m3-util-rounding-medium);
+  @layer tokens {
+    :root {
+      --m3-card-shape: var(--m3-util-rounding-medium);
+    }
   }
 
   .m3-container {

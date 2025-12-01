@@ -51,10 +51,12 @@
 </button>
 
 <style>
-  :root {
-    --m3-fab-small-shape: var(--m3-util-rounding-small);
-    --m3-fab-normal-shape: var(--m3-util-rounding-large);
-    --m3-fab-large-shape: var(--m3-util-rounding-extra-large);
+  @layer tokens {
+    :root {
+      --m3-fab-small-shape: var(--m3-util-rounding-small);
+      --m3-fab-normal-shape: var(--m3-util-rounding-large);
+      --m3-fab-large-shape: var(--m3-util-rounding-extra-large);
+    }
   }
   button {
     display: inline-flex;

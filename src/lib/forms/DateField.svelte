@@ -111,8 +111,10 @@ opacity: ${Math.min(t * 3, 1)};`,
     margin-block-end: 1rem;
   }
 
-  :root {
-    --m3-datefield-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-datefield-shape: var(--m3-util-rounding-extra-small);
+    }
   }
   .m3-container {
     position: relative;
