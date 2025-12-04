@@ -1,12 +1,11 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  import type { HTMLButtonAttributes, HTMLAnchorAttributes } from "svelte/elements";
+  import type { HTMLButtonAttributes } from "svelte/elements";
+  import type { AnchorAttrs } from "$lib/misc/typing-utils";
   import Icon from "$lib/misc/Icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
-  type ActionProps =
-    | ({ click?: () => void } & HTMLButtonAttributes) // deprecated: drop in favour of `onclick`
-    | ({ href: string } & HTMLAnchorAttributes);
+  type ActionProps = AnchorAttrs | ({ click?: () => void } & HTMLButtonAttributes); // deprecated: drop in favour of `onclick`;
   let {
     variant,
     icon,

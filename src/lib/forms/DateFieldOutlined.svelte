@@ -118,7 +118,10 @@ opacity: ${Math.min(t * 3, 1)};`,
   */
   @layer tokens {
     :root {
-      --m3-datefield-outlined-shape: var(--m3-util-rounding-extra-small);
+      --m3-field-outlined-shape: var(--m3-util-rounding-extra-small);
+      --m3-datefield-outlined-shape: var(
+        --m3-field-outlined-shape
+      ); /* todo/deprecated: use field directly */
     }
   }
   .m3-container {
