@@ -91,7 +91,7 @@
     inset-inline-start: 0.75rem;
     translate: 0 -50%;
     color: var(--secondary-color);
-    background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
+    background-color: var(--m3-util-background);
     padding: 0 0.25rem;
     pointer-events: none;
     transition: color var(--m3-util-easing-fast);

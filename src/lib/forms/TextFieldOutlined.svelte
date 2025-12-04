@@ -99,7 +99,7 @@
     top: 50%;
     translate: 0 -50%;
     color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
-    background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
+    background-color: var(--m3-util-background);
     padding: 0 0.25rem;
     &:is(input:hover ~ label) {
       color: rgb(var(--error, var(--m3-scheme-on-surface)));
