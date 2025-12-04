@@ -32,7 +32,7 @@
 </script>
 
 <svelte:head>
-  <title>M3 Svelte: Theme</title>
+  <title>Theme</title>
   <meta
     name="description"
     content="Generate a Material 3/You theme for use with the library M3 Svelte."
