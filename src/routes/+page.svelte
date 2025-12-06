@@ -29,6 +29,7 @@
   import Demo19 from "./19.svelte";
   import Demo20 from "./20.svelte";
   import Demo21 from "./21.svelte";
+  import Demo22 from "./22.svelte";
   import { afterNavigate } from "$app/navigation";
 
   type DocData = {
@@ -91,8 +92,9 @@
     <Demo19 {showCode} />
     <Demo20 {showCode} />
     <Demo21 {showCode} />
-    {#await import("./22.svelte") then { default: Demo22 }}
-      <Demo22 {showCode} />
+    <Demo22 {showCode} />
+    {#await import("./23.svelte") then { default: Demo23 }}
+      <Demo23 {showCode} />
     {/await}
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}

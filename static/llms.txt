@@ -1673,6 +1673,30 @@ const [send, receive] = containerTransform({ duration: 1000 });` to make this de
 </style>
 ```
 
+### Icons
+
+Minimal demo:
+```svelte
+<script>
+  import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
+</script>
+
+<Icon icon={iconCircle} />
+```
+
+The M3 Svelte interactive demo for this component uses Icon, Slider with the TS `let size = $state(24);` to make this demo:
+```svelte
+<Slider bind:value={size} min={16} max={96} format={(n) => n.toFixed(0) + "px"} />
+
+{#snippet demo()}
+  <div style:display="flex" style:gap="1rem" style:align-items="center" style:justify-content="center">
+    <Icon icon={iconCircle} {size} />
+    <Icon icon={iconSquare} {size} />
+    <Icon icon={iconTriangle} {size} />
+  </div>
+{/snippet}
+```
+
 ### Shapes
 
 Minimal demo:

@@ -1361,6 +1361,41 @@ const [send, receive] = containerTransform({ duration: 1000 });
 </style>
 ```
 
+## Icons
+
+Minimal demo:
+
+```svelte
+<script>
+  import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
+</script>
+
+<Icon icon={iconCircle} />
+```
+
+Full demo:
+
+```use
+Icon
+Slider
+```
+
+```ts
+let size = $state(24);
+```
+
+```svelte
+<Slider bind:value={size} min={16} max={96} format={(n) => n.toFixed(0) + "px"} />
+
+{#snippet demo()}
+  <div style:display="flex" style:gap="1rem" style:align-items="center" style:justify-content="center">
+    <Icon icon={iconCircle} {size} />
+    <Icon icon={iconSquare} {size} />
+    <Icon icon={iconTriangle} {size} />
+  </div>
+{/snippet}
+```
+
 ## Shapes
 
 Minimal demo:

@@ -34,7 +34,7 @@ import InternalCard from "./_card.svelte";
 ${components
   .split("\n")
   .filter(Boolean)
-  .filter((c) => !["Switch"].includes(c))
+  .filter((c) => !["Switch", "Icon"].includes(c))
   .map((c) => `import ${c} from "${getFile(c).replace("src/lib", "$lib")}";`)
   .join("\n")}
 ${fullDemoTs}
