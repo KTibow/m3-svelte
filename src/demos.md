@@ -1420,7 +1420,7 @@ import * as _paths from "$lib/misc/shapes";
 import * as _pathsAnimatable from "$lib/misc/shapesAnimatable";
 import * as _pathsAnimatableSmall from "$lib/misc/shapesAnimatableSmall";
 import { snackbar } from "$lib/containers/Snackbar.svelte";
-import ShapeSelector from "./ShapeSelector.svelte";
+import ShapeSelector from "/src/routes/ShapeSelector.svelte";
 
 const paths = _paths as Record<string, string>;
 const pathsAnimatable = _pathsAnimatable as Record<string, string>;
