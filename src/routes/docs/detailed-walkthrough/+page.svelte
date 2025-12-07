@@ -45,7 +45,7 @@ ${"<"}/style>`;
 {:else}
   <Snippet code={componentCode2} name="Component.svelte" lang="xml" />
 {/if}
-<p>You might also want to make your app match your theme. Here's what that could look like:</p>
+<h2>Apply your theme</h2>
 {#if $appType == "tailwind"}
   <Snippet
     code={`<body class="m3-font-body-large bg-background text-on-background">`}
