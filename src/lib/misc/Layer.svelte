@@ -63,15 +63,15 @@
       circle.appendChild(expand);
 
       const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      svg.style.cssText = `
-        position: absolute;
-        left: ${x - size / 2}px;
-        top: ${y - size / 2}px;
-        width: ${size}px;
-        height: ${size}px;
-        pointer-events: none;
-        overflow: visible;
-      `;
+      svg.style.cssText = [
+        "position: absolute",
+        `left: ${x - size / 2}px`,
+        `top: ${y - size / 2}px`,
+        `width: ${size}px`,
+        `height: ${size}px`,
+        "pointer-events: none",
+        "overflow: visible",
+      ].join(";");
       svg.appendChild(gradient);
       svg.appendChild(circle);
 
