@@ -1,5 +1,5 @@
 import { readFile, writeFile, unlink } from "node:fs/promises";
-import glob from "fast-glob";
+import { glob } from "tinyglobby";
 
 const components = await glob(["src/lib/**/*.svelte", "!src/lib/forms/_picker"]);
 const getFile = (component: string) => {
