@@ -27,7 +27,7 @@
   let shown:
     | { message: string; actions: Record<string, () => void>; closable: boolean }
     | undefined = $state();
-  let timeoutId: number;
+  let timeoutId: ReturnType<typeof setTimeout>;
   _show = (message, actions = {}, closable = false, timeout = 4000) => {
     clearTimeout(timeoutId);
     shown = { message, actions, closable };
