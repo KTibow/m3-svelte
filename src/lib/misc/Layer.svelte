@@ -192,18 +192,20 @@
     transition: opacity var(--m3-easing-fast);
 
     &:not(
-      :global(input:disabled + label) > .tint,
-      :global(input:disabled + .layer-container) > .tint,
-      :global(:disabled) > .tint
+      :global(input:disabled + label) > *,
+      :global(input:disabled + .layer-container) > *,
+      :global(:disabled) > *
     ) {
       @media (hover: hover) {
-        &:is(:global(:hover) > .tint, :global(:active) > .tint) {
+        &:is(:global(:hover) > *, :global(:active) > *) {
           opacity: 0.08;
         }
       }
-      &:is(:global(input:focus-visible + label) > .tint),
-      &:is(:global(:focus-visible) > .tint),
-      &:is(.ripple-container.broken + .tint):is(:global(:active) > .tint) {
+      &:is(
+        :global(input:focus-visible + label) > *,
+        :global(:focus-visible) > *,
+        :global(:active) > .ripple-container.broken + *
+      ) {
         opacity: 0.12;
       }
     }
