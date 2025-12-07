@@ -70,7 +70,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
 import { functionsMixins } from "vite-plugin-functions-mixins";
 
 export default defineConfig({
-  plugins: [functionsMixins()],
+  plugins: [functionsMixins({ deps: ["m3-svelte"] })],
 });`}
         name="vite.config.ts"
         lang="javascript"
