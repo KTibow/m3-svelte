@@ -5,15 +5,20 @@ This is M3 Svelte, a Svelte component library that implements the Material 3 des
 ## Getting started
 
 The first step is installation:
+
 ```bash
 npm i m3-svelte
 ```
 
 M3 Svelte needs two things to work: a theme and a font. The simplest setup looks like this:
+
 ```html (your template)
 <head>
   [...]
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+  />
 </head>
 <body>
   [...]
@@ -39,6 +44,7 @@ Aim to keep configuration and boilerplate out of Svelte.
 M3 Svelte is built on a few core concepts:
 
 ### CSS Custom Properties: The foundation of theming
+
 ```css
 --m3c-[color]: [hex];               /* Color tokens */
 --m3-elevation-[0-5]: [box shadow]; /* Elevation levels */
@@ -52,6 +58,7 @@ none, extra-small, small, medium, large, extra-large, full
 ```
 
 ### Typography Mixins: Apply Material typography styles with `@apply`
+
 ```css
 h1 {
   @apply --m3-display-large;
@@ -66,10 +73,12 @@ Sizes: large, medium, small
 ```
 
 ### Components: Ready-to-use Material elements
+
 ```svelte
 <script>
   import { Button } from "m3-svelte";
 </script>
+
 <Button variant="filled">Hello</Button>
 ```
 
@@ -80,6 +89,7 @@ M3 Svelte is more and less than the typical component framework.
 On one hand, Material 3 consists of guidelines across color, shadow, easing, animation, and spacing, and M3 Svelte is all of that. You don't have to make your own components or animations - you could use components like `Card` and animate them with the `sharedAxisTransition`, eased with `easeEmphasized`.
 
 On the other hand, M3 Svelte doesn't give you a template. There are many things you have to do yourself, like:
+
 - Generating and pasting your theme
 - Including your font
 - Resetting CSS
@@ -92,11 +102,12 @@ If you're ever unsure about something, you might want to check the [m3-svelte re
 
 ## Troubleshooting
 
-You should avoid trying to restyle components. You can't set a `class` and due to Svelte scoped styles, even if you could, it wouldn't work. I repeat, you CANNOT set a `class` on M3 Svelte components. Always look for alternatives, like using `gap` instead of `margin`. If you *must* do this, you would have to do something like `.my-container > :global(.m3-container)`.
+You should avoid trying to restyle components. You can't set a `class` and due to Svelte scoped styles, even if you could, it wouldn't work. I repeat, you CANNOT set a `class` on M3 Svelte components. Always look for alternatives, like using `gap` instead of `margin`. If you _must_ do this, you would have to do something like `.my-container > :global(.m3-container)`.
 
 You must wrap Checkbox, Radio, and Switch in <label>s.
 
 M3 Svelte uses the Iconify ecosystem. M3 Svelte imports icons from NPM and renders them as SVG. Some components render icons for you:
+
 ```svelte
 <script>
   import { FAB } from "m3-svelte";
@@ -107,6 +118,7 @@ M3 Svelte uses the Iconify ecosystem. M3 Svelte imports icons from NPM and rende
 ```
 
 While in other cases, you render them yourselves:
+
 ```svelte
 <script>
   import { ListItem, Icon } from "m3-svelte";
@@ -121,9 +133,10 @@ While in other cases, you render them yourselves:
 ## Examples
 
 Here's an example todo list component:
+
 ```svelte
 <script>
-  import { TextField, Button, ListItem, Icon, Checkbox } from "$lib";
+  import { TextField, Button, ListItem, Icon, Checkbox } from "m3-svelte";
   import iconPlus from "@ktibow/iconset-material-symbols/add";
   import iconDelete from "@ktibow/iconset-material-symbols/delete";
 
@@ -195,12 +208,24 @@ Here's an example todo list component:
     align-self: stretch;
   }
 </style>
+
 ```
 
 Here's an example notes app:
+
 ```svelte
 <script lang="ts">
-  import { FAB, Dialog, Button, ListItem, TextFieldMultiline, Snackbar, Card, Icon } from "$lib";
+  import {
+    FAB,
+    Dialog,
+    Button,
+    ListItem,
+    TextFieldMultiline,
+    Snackbar,
+    snackbar,
+    Card,
+    Icon,
+  } from "m3-svelte";
   import iconAdd from "@ktibow/iconset-material-symbols/add";
   import iconDelete from "@ktibow/iconset-material-symbols/delete";
   import iconEdit from "@ktibow/iconset-material-symbols/edit";
@@ -218,7 +243,6 @@ Here's an example notes app:
     title: "",
     content: "",
   };
-  let snackbar: (data: { message: string; closable?: boolean }) => void;
 
   function addNote() {
     const newNote = {
@@ -245,7 +269,7 @@ Here's an example notes app:
 
   function deleteNote(id: number) {
     notes = notes.filter((note) => note.id !== id);
-    snackbar({ message: "Note deleted", closable: true });
+    snackbar("Note deleted", undefined, true);
   }
 
   function openNewNoteDialog() {
@@ -293,10 +317,10 @@ Here's an example notes app:
 
 <Dialog headline={dialog.editingId ? "New note" : "Edit note"} bind:open={dialog.open}>
   <div class="dialog-content">
-    <TextFieldMultiline name="Title" bind:value={dialog.title} />
-    <TextFieldMultiline name="Content" bind:value={dialog.content} />
+    <TextFieldMultiline label="Title" bind:value={dialog.title} />
+    <TextFieldMultiline label="Content" bind:value={dialog.content} />
   </div>
-  <svelte:fragment slot="buttons">
+  {#snippet buttons()}
     <Button variant="text" onclick={closeDialog}>Cancel</Button>
     {#if dialog.editingId}
       <Button variant="filled" disabled={!dialog.title || !dialog.content} onclick={updateNote}>
@@ -307,14 +331,14 @@ Here's an example notes app:
         Add
       </Button>
     {/if}
-  </svelte:fragment>
+  {/snippet}
 </Dialog>
 
 <div class="fab">
   <FAB color="primary" icon={iconAdd} onclick={openNewNoteDialog} />
 </div>
 
-<Snackbar bind:show={snackbar} />
+<Snackbar />
 
 <style>
   .container {
@@ -354,21 +378,25 @@ Here's an example notes app:
     right: 1rem;
   }
 </style>
+
 ```
 
 Here's an even more complicated example - a partial clone of the M3 documentation website, using SvelteKit:
+
 ```css layout.css
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 /* snip: theme snippet */
 
+:root {
+  background: var(--m3c-background);
+  color: var(--m3c-on-background);
+}
 body {
   display: flex;
   height: 100dvh;
   margin: 0;
   box-sizing: border-box;
-  background: var(--m3c-background);
-  color: var(--m3c-on-background);
 }
 @media (width < 52.5rem) {
   body {
@@ -380,42 +408,48 @@ img {
   max-width: 100%;
 }
 /* not implemented: a comprehensive css reset */
+
 ```
 
 ```svelte +layout.svelte
 <script lang="ts">
-  import { NavCMLX, NavCMLXItem, FAB } from 'm3-svelte';
-  import iconSearch from '@ktibow/iconset-material-symbols/search';
-  import iconHome from '@ktibow/iconset-material-symbols/home';
-  import iconApps from '@ktibow/iconset-material-symbols/apps';
-  import iconCode from '@ktibow/iconset-material-symbols/code';
-  import iconBook from '@ktibow/iconset-material-symbols/book';
-  import iconPalette from '@ktibow/iconset-material-symbols/palette';
-  import iconExtension from '@ktibow/iconset-material-symbols/extension';
-  import iconPages from '@ktibow/iconset-material-symbols/pages';
-  import './layout.css';
+  import { NavCMLX, NavCMLXItem, FAB } from "m3-svelte";
+  import iconSearch from "@ktibow/iconset-material-symbols/search";
+  import iconHome from "@ktibow/iconset-material-symbols/home";
+  import iconApps from "@ktibow/iconset-material-symbols/apps";
+  import iconCode from "@ktibow/iconset-material-symbols/code";
+  import iconBook from "@ktibow/iconset-material-symbols/book";
+  import iconPalette from "@ktibow/iconset-material-symbols/palette";
+  import iconExtension from "@ktibow/iconset-material-symbols/extension";
+  import iconPages from "@ktibow/iconset-material-symbols/pages";
+  import "./layout.css";
 
   // not implemented: using an outlined icon if not selected
   const navItems = [
-    { icon: iconHome, label: 'Home', id: 'home' },
-    { icon: iconApps, label: 'Get started', id: 'get-started' },
-    { icon: iconCode, label: 'Develop', id: 'develop' },
-    { icon: iconBook, label: 'Foundations', id: 'foundations' },
-    { icon: iconPalette, label: 'Styles', id: 'styles' },
-    { icon: iconExtension, label: 'Components', id: 'components' },
-    { icon: iconPages, label: 'Blog', id: 'blog' }
+    { icon: iconHome, label: "Home", id: "home" },
+    { icon: iconApps, label: "Get started", id: "get-started" },
+    { icon: iconCode, label: "Develop", id: "develop" },
+    { icon: iconBook, label: "Foundations", id: "foundations" },
+    { icon: iconPalette, label: "Styles", id: "styles" },
+    { icon: iconExtension, label: "Components", id: "components" },
+    { icon: iconPages, label: "Blog", id: "blog" },
   ];
 </script>
 
 <div class="nav">
   <NavCMLX variant="auto">
     <div class="search">
-      <FAB icon={iconSearch} />
+      <FAB icon={iconSearch} onclick={() => {}} />
     </div>
     {#each navItems as item}
       <!-- not implemented: the ability to click on a destination -->
       <!-- (you would set an `href` and use better `selected` logic then) -->
-      <NavCMLXItem variant="auto" icon={item.icon} text={item.label} selected={item.id == 'components'} />
+      <NavCMLXItem
+        variant="auto"
+        icon={item.icon}
+        text={item.label}
+        selected={item.id == "components"}
+      />
     {/each}
   </NavCMLX>
 </div>
@@ -451,22 +485,23 @@ img {
     }
   }
 </style>
+
 ```
 
 ```svelte +page.svelte
 <script lang="ts">
-  import { Button, Icon } from 'm3-svelte';
-  import iconInfo from '@ktibow/iconset-material-symbols/info';
-  import iconSpecs from '@ktibow/iconset-material-symbols/rule';
-  import iconGuidelines from '@ktibow/iconset-material-symbols/lightbulb';
-  import iconAccessibility from '@ktibow/iconset-material-symbols/accessibility';
+  import { Icon } from "m3-svelte";
+  import iconInfo from "@ktibow/iconset-material-symbols/info";
+  import iconSpecs from "@ktibow/iconset-material-symbols/rule";
+  import iconGuidelines from "@ktibow/iconset-material-symbols/lightbulb";
+  import iconAccessibility from "@ktibow/iconset-material-symbols/accessibility";
 
-  let currentTab = 'overview';
+  let currentTab = "overview";
   const tabs = [
-    { icon: iconInfo, label: 'Overview', id: 'overview' },
-    { icon: iconSpecs, label: 'Specs', id: 'specs' },
-    { icon: iconGuidelines, label: 'Guidelines', id: 'guidelines' },
-    { icon: iconAccessibility, label: 'Accessibility', id: 'accessibility' }
+    { icon: iconInfo, label: "Overview", id: "overview" },
+    { icon: iconSpecs, label: "Specs", id: "specs" },
+    { icon: iconGuidelines, label: "Guidelines", id: "guidelines" },
+    { icon: iconAccessibility, label: "Accessibility", id: "accessibility" },
   ];
 </script>
 
@@ -484,18 +519,15 @@ img {
 
 <div class="tabs">
   {#each tabs as tab}
-    <button
-      disabled={currentTab == tab.id}
-      onclick={() => (currentTab = tab.id)}
-    >
-      <Icon icon={tab.icon} width="1.5rem" height="1.5rem" />
+    <button disabled={currentTab == tab.id} onclick={() => (currentTab = tab.id)}>
+      <Icon icon={tab.icon} size={24} />
       {tab.label}
     </button>
   {/each}
 </div>
 
 <article>
-  {Array.from({ length: 200 }, () => 'Lorem ipsum.').join(' ')}
+  {Array.from({ length: 200 }, () => "Lorem ipsum.").join(" ")}
 </article>
 
 <style>
@@ -512,7 +544,6 @@ img {
       display: flex;
       flex-direction: column;
       justify-content: center;
-
       background-color: var(--m3c-surface-container);
       padding: 2rem;
 
@@ -569,6 +600,7 @@ img {
     }
   }
 </style>
+
 ```
 
 ## Components
@@ -1764,12 +1796,25 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");` to m
 
 ### Nav CMLX
 
-This component works across all 4 breakpoints: compact, small, large, and expanded. Compact is equivalent to the old navigation bar (items vertical but arranged horizontally), Small is new (items horizontal and arranged horizontally), Large is equivalent to the old navigation rail (items vertical and arranged vertically), and Expanded is equivalent to the old navigation drawer (items horizontal but arranged vertically). It can take a `click` if it's a button or an `href` if it's a link.
+This component works across all 4 breakpoints: compact, small, large, and extra-large. Compact is equivalent to the old navigation bar (items vertical but arranged horizontally), Small is new (items horizontal and arranged horizontally), Large is equivalent to the old navigation rail (items vertical and arranged vertically), and Extra Large is an "expanded navigation rail" and equivalent to the old navigation drawer (items horizontal but arranged vertically). It can take an `onclick` if it's a button or an `href` if it's a link.
 
 Minimal demo:
+
 ```svelte
 <NavCMLX variant="auto">
-  <NavCMLXItem variant="auto" icon={iconCircle} text="A" selected={item == "a"} click={() => item = "a"} />
-  <NavCMLXItem variant="auto" icon={iconSquare} text="B" selected={item == "b"} click={() => item = "b"} />
+  <NavCMLXItem
+    variant="auto"
+    icon={iconCircle}
+    text="A"
+    selected={item == "a"}
+    onclick={() => (item = "a")}
+  />
+  <NavCMLXItem
+    variant="auto"
+    icon={iconSquare}
+    text="B"
+    selected={item == "b"}
+    onclick={() => (item = "b")}
+  />
 </NavCMLX>
 ```

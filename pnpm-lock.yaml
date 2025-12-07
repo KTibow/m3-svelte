@@ -54,6 +54,9 @@ importers:
       globals:
         specifier: ^16.5.0
         version: 16.5.0
+      m3-svelte:
+        specifier: 'link:'
+        version: 'link:'
       prettier:
         specifier: ^3.7.4
         version: 3.7.4

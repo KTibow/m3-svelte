@@ -59,6 +59,7 @@
     "eslint-plugin-svelte": "^3.13.1",
     "flubber": "^0.4.2",
     "globals": "^16.5.0",
+    "m3-svelte": "link:",
     "prettier": "^3.7.4",
     "prettier-plugin-svelte": "^3.4.0",
     "publint": "^0.3.15",
