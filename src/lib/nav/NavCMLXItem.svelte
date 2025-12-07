@@ -60,6 +60,7 @@
   }
 
   @mixin --cmlxi-vertical {
+    flex-direction: column;
     .content {
       flex-direction: column;
       text-align: center;
