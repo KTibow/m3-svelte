@@ -178,14 +178,14 @@ MenuItem
 ```
 
 ```ts
-let variant: "elevated" | "filled" | "tonal" | "outlined" = $state("elevated");
+let variant: "elevated" | "filled" | "tonal" | "outlined" = $state("filled");
 let position: "inner-down" | "inner-up" | "right-down" | "right-up" = $state("inner-down");
 let iconType: "none" | "left" | "full" = $state("none");
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined"]} bind:value={variant} />
+  <Arrows list={["elevated", "filled", "tonal", "outlined"]} bind:value={variant} initialIndex={1} />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
