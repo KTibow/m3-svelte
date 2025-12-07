@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "license": "Apache-2.0 OR GPL-3.0-only",
   "repository": "KTibow/m3-svelte",
   "author": {
@@ -13,7 +13,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
-    "prepack": "svelte-kit sync && svelte-package -o package && pnpm vite-plugin-functions-mixins package && publint",
+    "prepack": "svelte-kit sync && svelte-package -o package && publint",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint",
     "format": "prettier --write .",
     "lint": "eslint ."
