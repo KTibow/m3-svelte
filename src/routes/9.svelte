@@ -7,8 +7,8 @@ import Icon from "$lib/misc/Icon.svelte";
 import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import Button from "$lib/buttons/Button.svelte";
-import NewSnackbar from "$lib/containers/NewSnackbar.svelte";
-import { snackbar } from "$lib/containers/NewSnackbar.svelte";
+import Snackbar from "$lib/containers/Snackbar.svelte";
+import { snackbar } from "$lib/containers/Snackbar.svelte";
 
 let { showCode }: { showCode: (
   name: string,
@@ -21,13 +21,12 @@ const minimalDemo = `${"<"}script lang="ts">
 ${"<"}/script>
 
 ${"<"}Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>Show${"<"}/Button>
-${"<"}NewSnackbar />`;
-const relevantLinks: { title: string; link: string }[] = [{"title":"NewSnackbar.sv","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/NewSnackbar.svelte"}];
+${"<"}Snackbar />`;
+const relevantLinks: { title: string; link: string }[] = [{"title":"Snackbar.svelte","link":"https://github.com/KTibow/m3-svelte/blob/main/src/lib/containers/Snackbar.svelte"}];
 </script>
 
 <InternalCard title="Snackbar" showCode={() => showCode("Snackbar", minimalDemo, relevantLinks)}>
 {#snippet demo()}
   <Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>Show</Button>
-  <NewSnackbar />
 {/snippet}
 </InternalCard>

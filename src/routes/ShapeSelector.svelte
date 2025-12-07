@@ -10,7 +10,7 @@
   {#each Object.keys(paths) as key}
     {#snippet content()}
       <svg width="1rem" height="1rem" viewBox="0 0 380 380">
-        <path d={paths[key]} fill="rgb(var(--m3-scheme-primary))" />
+        <path d={paths[key]} fill="var(--m3c-primary)" />
       </svg>
       {key.replace("path", "")}
     {/snippet}
@@ -26,12 +26,13 @@
     appearance: base-select;
   }
   select {
+    @apply --m3-body-large;
     display: flex;
     align-items: center;
     cursor: pointer;
     border: none;
     padding: 0 1rem;
-    border-radius: var(--m3-util-rounding-small);
+    border-radius: var(--m3-shape-small);
   }
   ::picker(select) {
     border: none;

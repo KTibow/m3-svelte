@@ -93,7 +93,7 @@
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
-      <span class="m3-font-title-small">{item.name}</span>
+      <span>{item.name}</span>
     </a>
   {/each}
   <div class="bar" style="grid-column: {items.findIndex((i) => i.value == tab) + 1}"></div>
@@ -104,7 +104,7 @@
     display: grid;
     grid-template-columns: repeat(var(--items), auto);
     position: relative;
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: var(--m3c-surface);
     padding-inline: 1rem;
     justify-content: start;
     overflow-x: auto;
@@ -113,7 +113,7 @@
     position: absolute;
     inset: auto 0 0 0;
     height: 1px;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    background-color: var(--m3c-surface-container-highest);
   }
   a {
     height: 3rem;
@@ -126,25 +126,28 @@
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
     user-select: none;
     cursor: pointer;
-    transition: color var(--m3-util-easing-fast);
+    transition: color var(--m3-easing-fast);
   }
   a > :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
   }
+  a > span {
+    @apply --m3-title-small;
+  }
 
   @media (hover: hover) {
     a:hover {
-      color: rgb(var(--m3-scheme-on-surface));
+      color: var(--m3c-on-surface);
     }
   }
   a:focus-visible,
   a:active,
   a.selected {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
   }
 
   a,
@@ -152,7 +155,7 @@
     grid-row: 1;
   }
   .bar {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--m3c-primary);
     height: 0.125rem;
     z-index: 1;
     align-self: end;
@@ -171,7 +174,7 @@
     height: 1.5rem;
   }
   .primary > a.selected {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
   }
   .primary > .bar {
     width: 3rem;

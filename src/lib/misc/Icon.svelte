@@ -16,7 +16,6 @@
   width={size || "1em"}
   height={size || "1em"}
   viewBox="0 0 {icon.width} {icon.height}"
-  data-badge={icon.body.includes("<!--badge-->") ? "" : undefined}
   {...extra}
 >
   {@html icon.body}
@@ -25,9 +24,6 @@
 <style>
   svg {
     flex-shrink: 0;
-  }
-  /* deprecated: eventually want to just do this for all icons */
-  svg[data-badge] {
     overflow: visible;
   }
 </style>

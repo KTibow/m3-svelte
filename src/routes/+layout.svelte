@@ -12,6 +12,7 @@
   import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
   import { styling } from "./state";
   import "../app.css";
+  import Snackbar from "$lib/containers/Snackbar.svelte";
 
   let { children }: { children: Snippet } = $props();
   let innerWidth = $state(0);
@@ -40,6 +41,7 @@
 
 {@html `<style>${$styling}</style>`}
 <svelte:window bind:innerWidth />
+<Snackbar />
 <div class="container">
   <div class="sidebar">
     <NavCMLX variant="auto">
@@ -96,7 +98,7 @@
   @media (width < 52.5rem) {
     .container {
       grid-template-rows: 1fr auto;
-      --m3-util-bottom-offset: 5rem;
+      --m3v-bottom-offset: 5rem;
     }
     .sidebar {
       flex-direction: column;

@@ -35,7 +35,7 @@
   class:error
 >
   <input
-    class="focus-none m3-font-body-large"
+    class="focus-none"
     placeholder=" "
     bind:value
     onkeydown={(e) => e.key == "Enter" && enter?.()}
@@ -43,10 +43,8 @@
     {disabled}
     {required}
     {...extra}
-    defaultValue={extra.defaultValue}
   />
-  <!-- TODO/deprecated: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
-  <label class="m3-font-body-large" for={id}>{label}</label>
+  <label for={id}>{label}</label>
   <div class="layer"></div>
   {#if leadingIcon}
     <Icon icon={leadingIcon} class="leading" />
@@ -63,11 +61,7 @@
 <style>
   @layer tokens {
     :root {
-      /* "textfield" is deprecated */
-      --m3-field-filled-shape: var(
-        --m3-textfield-filled-shape,
-        var(--m3-util-rounding-extra-small)
-      );
+      --m3-field-filled-shape: var(--m3-shape-extra-small);
     }
   }
 
@@ -75,10 +69,11 @@
     display: inline-flex;
     position: relative;
     align-items: center;
-    height: calc(3.5rem + var(--m3-util-density-term));
+    height: --m3-density(3.5rem);
     min-width: 15rem;
   }
   input {
+    @apply --m3-body-large;
     position: absolute;
     inset: 0;
     width: 100%;
@@ -87,30 +82,29 @@
     outline: none;
     padding: 1.5rem 1rem 0.5rem 1rem;
     border-radius: var(--m3-field-filled-shape) var(--m3-field-filled-shape) 0 0;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
-    color: rgb(var(--m3-scheme-on-surface));
+    background-color: var(--m3c-surface-container-highest);
+    color: var(--m3c-on-surface);
   }
   label {
+    @apply --m3-body-large;
     position: absolute;
     inset-inline-start: 1rem;
     top: 50%;
     translate: 0 -50%;
-    color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    color: var(--error, var(--m3c-on-surface-variant));
     &:is(input:hover ~ label) {
-      color: rgb(var(--error, var(--m3-scheme-on-surface)));
+      color: var(--error, var(--m3c-on-surface));
     }
     &:is(input:focus ~ label) {
-      color: rgb(var(--error, var(--m3-scheme-primary)));
+      color: var(--error, var(--m3c-primary));
     }
     &:is(input:disabled ~ label) {
-      color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      color: --translucent(var(--m3c-on-surface), 0.38);
     }
     &:is(input:focus ~ label, input:not(:placeholder-shown) ~ label) {
+      @apply --m3-body-small;
       top: 0.5rem;
       translate: 0 0;
-      font-size: var(--m3-font-body-small-size);
-      line-height: var(--m3-font-body-small-height);
-      letter-spacing: var(--m3-font-body-small-tracking);
     }
     pointer-events: none;
     transition:
@@ -128,7 +122,7 @@
     pointer-events: none;
     transition: all 100ms;
     &:is(input:enabled:hover ~ .layer) {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
+      background-color: --translucent(var(--m3c-on-surface), 0.08);
     }
   }
   .layer::after {
@@ -139,13 +133,13 @@
     bottom: 0;
 
     height: 1px;
-    background-color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    background-color: var(--error, var(--m3c-on-surface-variant));
     transition: all 100ms;
   }
   .m3-container :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
     pointer-events: none;
   }
   .m3-container > :global(.leading) {
@@ -171,7 +165,7 @@
 
   input:focus ~ .layer::after {
     height: 0.125rem;
-    background-color: rgb(var(--error, var(--m3-scheme-primary)));
+    background-color: var(--error, var(--m3c-primary));
   }
 
   .leading-icon > input {
@@ -184,21 +178,21 @@
     padding-inline-end: 3.25rem;
   }
   .error {
-    --error: var(--m3-scheme-error);
+    --error: var(--m3c-error);
   }
   .error > input:hover ~ label,
   .error > input:hover ~ .layer {
-    --error: var(--m3-scheme-on-error-container);
+    --error: var(--m3c-on-error-container);
   }
   input:disabled {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.04);
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: --translucent(var(--m3c-on-surface), 0.04);
+    color: --translucent(var(--m3c-on-surface), 0.38);
   }
   input:disabled ~ .layer::after {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: --translucent(var(--m3c-on-surface), 0.38);
   }
   input:disabled ~ :global(svg) {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--m3c-on-surface), 0.38);
   }
 
   .m3-container {

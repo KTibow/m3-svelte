@@ -9,7 +9,7 @@
   import iconDensityLarge from "@ktibow/iconset-material-symbols/density-large-rounded";
   import iconDensitySmall from "@ktibow/iconset-material-symbols/density-small-rounded";
   import iconDensityMedium from "@ktibow/iconset-material-symbols/density-medium-rounded";
-  import { materialColors } from "$lib";
+  import { materialColors } from "$lib/misc/colors";
   import Slider from "$lib/forms/Slider.svelte";
   import Layer from "$lib/misc/Layer.svelte";
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
@@ -54,7 +54,7 @@
         style:--light-background={variantColor(light, materialColors.surfaceContainerLow())}
         style:--dark-background={variantColor(dark, materialColors.surfaceContainerLow())}
       >
-        <p class="m3-font-body-medium">{desc}</p>
+        <p class="desc">{desc}</p>
       </div>
     </label>
   {/each}
@@ -128,7 +128,7 @@
     </ConnectedButtons>
   </div>
 {:else}
-  <button class="content more m3-font-label-large" onclick={() => (showMore = true)}>
+  <button class="content more" onclick={() => (showMore = true)}>
     <Layer />
     Contrast, version, density, Tailwind
   </button>
@@ -136,7 +136,7 @@
 
 <style>
   .content {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--m3c-surface-container-low);
     padding: 1rem;
     border-radius: 0.5rem;
   }
@@ -166,7 +166,7 @@
     flex-grow: 1;
     cursor: pointer;
     &:is(input:focus-visible + label) {
-      animation: var(--m3-util-refocus);
+      animation: var(--m3-refocus);
     }
     > * {
       display: flex;
@@ -198,13 +198,16 @@
       }
       > :last-child {
         border-radius: 0.25rem 0.25rem 1rem 1rem;
-        background-color: rgb(var(--m3-scheme-primary));
-        color: rgb(var(--m3-scheme-on-primary));
+        background-color: var(--m3c-primary);
+        color: var(--m3c-on-primary);
       }
     }
   }
   p {
     margin: 0;
+  }
+  p.desc {
+    @apply --m3-body-medium;
   }
 
   .content.variants {
@@ -217,6 +220,9 @@
     border: none;
     border-end-start-radius: 1rem;
     border-end-end-radius: 1rem;
+  }
+  button.more {
+    @apply --m3-label-large;
   }
   div.more {
     display: grid;

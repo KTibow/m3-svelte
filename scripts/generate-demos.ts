@@ -91,13 +91,17 @@ M3 Svelte needs two things to work: a theme and a font. The simplest setup looks
   [...]
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
 </head>
-<body class="m3-font-body-large">
+<body>
   [...]
 </body>
 \`\`\`
 
 \`\`\`css (somewhere always loaded)
 /* The style snippet you copied from https://ktibow.github.io/m3-svelte/theme goes here */
+
+body {
+  @apply --m3-body-large;
+}
 
 :root {
   /* Any custom styles should go here */
@@ -112,9 +116,9 @@ M3 Svelte is built on a few core concepts:
 
 ### CSS Custom Properties: The foundation of theming
 \`\`\`css
---m3-scheme-[color]: [R G B];            /* Color tokens */
---m3-util-elevation-[0-5]: [box shadow]; /* Elevation levels */
---m3-util-rounding-[size]: [size];       /* Border radius sizes */
+--m3c-[color]: [hex];               /* Color tokens */
+--m3-elevation-[0-5]: [box shadow]; /* Elevation levels */
+--m3-shape-[size]: [size];          /* Border radius sizes */
 /*
 Colors:
 primary, on-primary, primary-container, on-primary-container, inverse-primary, secondary, on-secondary, secondary-container, on-secondary-container, tertiary, on-tertiary, tertiary-container, on-tertiary-container, error, on-error, error-container, on-error-container, background, on-background, surface, on-surface, surface-variant, on-surface-variant, inverse-surface, inverse-on-surface, outline, outline-variant, shadow, scrim, surface-dim, surface-bright, surface-container-lowest, surface-container-low, surface-container, surface-container-high, surface-container-highest, surface-tint
@@ -123,14 +127,18 @@ none, extra-small, small, medium, large, extra-large, full
 /*
 \`\`\`
 
-### Utility Classes: Common Material styles with the \`m3-\` prefix
-\`\`\`svelte
-<h1 class="m3-font-display-large">Large Title</h1>
-<p class="m3-font-body-large">Regular text</p>
-<!--
+### Typography Mixins: Apply Material typography styles with \`@apply\`
+\`\`\`css
+h1 {
+  @apply --m3-display-large;
+}
+p {
+  @apply --m3-body-large;
+}
+/*
 Scale: display, headline, title, body, label
 Sizes: large, medium, small
--->
+*/
 \`\`\`
 
 ### Components: Ready-to-use Material elements
@@ -352,8 +360,8 @@ Here's an example notes app:
   {:else}
     <Card variant="outlined">
       <div class="empty-content">
-        <p class="m3-font-body-large">No notes yet</p>
-        <p class="m3-font-body-medium">Click the + button to create one</p>
+        <p class="large">No notes yet</p>
+        <p class="medium">Click the + button to create one</p>
       </div>
     </Card>
   {/if}
@@ -398,6 +406,12 @@ Here's an example notes app:
   .empty-content {
     text-align: center;
   }
+  .empty-content > .large {
+    @apply --m3-body-large;
+  }
+  .empty-content > .medium {
+    @apply --m3-body-medium;
+  }
 
   .actions {
     display: flex;
@@ -429,13 +443,13 @@ body {
   height: 100dvh;
   margin: 0;
   box-sizing: border-box;
-  background: rgb(var(--m3-scheme-background));
-  color: rgb(var(--m3-scheme-on-background));
+  background: var(--m3c-background);
+  color: var(--m3c-on-background);
 }
 @media (width < 52.5rem) {
   body {
     flex-direction: column-reverse;
-    --m3-util-bottom-offset: 5rem;
+    --m3v-bottom-offset: 5rem;
   }
 }
 img {
@@ -494,12 +508,12 @@ img {
 
   @media (width < 37.5rem) {
     .nav {
-      background: rgb(var(--m3-scheme-surface-container));
+      background: var(--m3c-surface-container);
     }
     .search {
       position: fixed;
       right: 1.5rem;
-      bottom: calc(var(--m3-util-bottom-offset) + 1.5rem);
+      bottom: calc(var(--m3v-bottom-offset) + 1.5rem);
     }
   }
 
@@ -534,8 +548,8 @@ img {
 
 <div class="header">
   <div class="info">
-    <h1 class="m3-font-display-large">Lists</h1>
-    <p class="m3-font-title-large">Lists are continuous, vertical indexes of text and images</p>
+    <h1>Lists</h1>
+    <p>Lists are continuous, vertical indexes of text and images</p>
   </div>
   <img
     src="https://picsum.photos/id/12/1000/562"
@@ -547,7 +561,6 @@ img {
 <div class="tabs">
   {#each tabs as tab}
     <button
-      class="m3-font-title-medium"
       disabled={currentTab == tab.id}
       onclick={() => (currentTab = tab.id)}
     >
@@ -567,7 +580,7 @@ img {
     gap: 0.5rem;
 
     > * {
-      border-radius: var(--m3-util-rounding-large);
+      border-radius: var(--m3-shape-large);
       min-width: 0;
       flex: 1;
     }
@@ -576,11 +589,17 @@ img {
       flex-direction: column;
       justify-content: center;
 
-      background-color: rgb(var(--m3-scheme-surface-container));
+      background-color: var(--m3c-surface-container);
       padding: 2rem;
 
       > * {
         margin: 0;
+      }
+      > h1 {
+        @apply --m3-display-large;
+      }
+      > p {
+        @apply --m3-title-large;
       }
     }
   }
@@ -588,7 +607,7 @@ img {
   .tabs {
     display: flex;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-surface-container));
+    background-color: var(--m3c-surface-container);
     border-radius: 3rem;
     margin-top: 0.5rem;
     flex-shrink: 0;
@@ -602,6 +621,7 @@ img {
     }
 
     > * {
+      @apply --m3-title-medium;
       display: flex;
       gap: 1rem;
       align-items: center;
@@ -619,8 +639,8 @@ img {
       cursor: pointer;
 
       &:disabled {
-        background-color: rgb(var(--m3-scheme-secondary-container));
-        color: rgb(var(--m3-scheme-on-surface-container));
+        background-color: var(--m3c-secondary-container);
+        color: var(--m3c-on-surface-container);
       }
     }
   }

@@ -1,6 +1,6 @@
 import { Hct, argbFromHex, SchemeTonalSpot } from "@ktibow/material-color-utilities-nightly";
 
-// Same purple primary as in src/routes/state.ts (101 87 137)
+// Same purple primary as in src/routes/state.ts
 const scheme = new SchemeTonalSpot(Hct.fromInt(argbFromHex("655789")), true, 0);
 
 const toHex = (color: number) => "#" + (color >>> 0).toString(16).padStart(8, "0").slice(2);

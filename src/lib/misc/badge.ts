@@ -12,17 +12,20 @@ export const addBadge = (icon: IconifyIcon, n?: number) => {
     const text = n > max ? `${max}+` : n.toString();
     badge =
       `<!--badge--><foreignObject x="${x}" y="${y}" width="40" height="16">` +
-      `<div class="m3-font-label-small" style="${[
-        "background-color:rgb(var(--m3-scheme-error))",
-        "color:rgb(var(--m3-scheme-on-error))",
+      `<div style="${[
+        "font-size:0.688rem",
+        "letter-spacing:0.031rem",
+        "font-weight:500",
+        "background-color:var(--m3c-error)",
+        "color:var(--m3c-on-error)",
         "width:max-content",
         "padding-inline:4px",
-        "border-radius:var(--m3-util-rounding-full)",
+        "border-radius:var(--m3-shape-full)",
       ].join(";")}">` +
       text +
       `</div>`;
   } else {
-    badge = `<circle cx="${width - 3}" cy="3" r="3" fill="rgb(var(--m3-scheme-error))"/>`;
+    badge = `<circle cx="${width - 3}" cy="3" r="3" fill="var(--m3c-error)"/>`;
   }
   return {
     ...icon,

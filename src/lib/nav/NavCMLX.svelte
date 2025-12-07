@@ -5,7 +5,7 @@
     variant,
     children,
   }: {
-    variant: "compact" | "medium" | "large" | "expanded" | "auto"; // next release / "deprecated": rename expanded to extra-large
+    variant: "compact" | "medium" | "large" | "extra-large" | "auto";
     children: Snippet;
   } = $props();
 </script>
@@ -15,55 +15,61 @@
 </nav>
 
 <style>
+  @mixin --cmlx-compact {
+    background-color: var(--m3c-surface-container);
+    justify-content: space-evenly;
+  }
+
+  @mixin --cmlx-medium {
+    background-color: var(--m3c-surface-container);
+    justify-content: center;
+  }
+
+  @mixin --cmlx-large {
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 6rem;
+  }
+
+  @mixin --cmlx-extra-large {
+    flex-direction: column;
+    padding-block: 1.25rem;
+    min-width: 13.75rem;
+    max-width: 22.5rem;
+  }
+
   .m3-container {
     display: flex;
-    &.compact,
-    &.medium {
-      background-color: rgb(var(--m3-scheme-surface-container));
-    }
     &.compact {
-      justify-content: space-evenly;
+      @apply --cmlx-compact;
     }
     &.medium {
-      justify-content: center;
-    }
-    &.large,
-    &.expanded {
-      flex-direction: column;
+      @apply --cmlx-medium;
     }
     &.large {
-      width: 6rem;
-      gap: 0.25rem;
+      @apply --cmlx-large;
     }
-    &.expanded {
-      padding-block: 1.25rem;
-      min-width: 13.75rem;
-      max-width: 22.5rem;
+    &.extra-large {
+      @apply --cmlx-extra-large;
     }
   }
+
   .m3-container.auto {
     @media (width < 37.5rem) {
       /* Compact */
-      background-color: rgb(var(--m3-scheme-surface-container));
-      justify-content: space-evenly;
+      @apply --cmlx-compact;
     }
     @media (37.5rem <= width < 52.5rem) {
       /* Medium */
-      background-color: rgb(var(--m3-scheme-surface-container));
-      justify-content: center;
+      @apply --cmlx-medium;
     }
     @media (52.5rem <= width < 100rem) {
       /* Large */
-      gap: 0.25rem;
-      flex-direction: column;
-      width: 6rem;
+      @apply --cmlx-large;
     }
     @media (100rem <= width) {
-      /* Extra large: expanded */
-      flex-direction: column;
-      padding-block: 1.25rem;
-      min-width: 13.75rem;
-      max-width: 22.5rem;
+      /* Extra large */
+      @apply --cmlx-extra-large;
     }
   }
 </style>

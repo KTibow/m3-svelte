@@ -48,9 +48,9 @@
 
   a {
     font-family: monospace;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
     &:hover {
-      color: rgb(var(--m3-scheme-primary));
+      color: var(--m3c-primary);
     }
   }
 </style>

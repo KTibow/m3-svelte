@@ -1,10 +1,10 @@
 @layer tokens {
   :root {
-    --m3-util-refocus: refocus-outward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
+    --m3-refocus: refocus-outward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
   }
 }
 :focus-visible:not(.focus-inset, .focus-none) {
-  animation: var(--m3-util-refocus);
+  animation: var(--m3-refocus);
   outline: none;
 }
 :focus-visible:is(.focus-inset):not(.focus-none) {
@@ -16,26 +16,26 @@
 }
 @keyframes refocus-outward {
   0% {
-    box-shadow: 0 0 0 0px rgb(var(--m3-scheme-secondary));
+    box-shadow: 0 0 0 0px var(--m3c-secondary);
   }
   100% {
-    box-shadow: 0 0 0 3px rgb(var(--m3-scheme-secondary));
+    box-shadow: 0 0 0 3px var(--m3c-secondary);
   }
 }
 @keyframes refocus-inward {
   0% {
-    box-shadow: inset 0 0 0 0px rgb(var(--m3-scheme-secondary));
+    box-shadow: inset 0 0 0 0px var(--m3c-secondary);
   }
   100% {
-    box-shadow: inset 0 0 0 3px rgb(var(--m3-scheme-secondary));
+    box-shadow: inset 0 0 0 3px var(--m3c-secondary);
   }
 }
 
 [placeholder]::placeholder {
-  color: rgb(var(--m3-scheme-on-background) / 0.5);
+  color: --translucent(var(--m3c-on-background), 0.5);
   opacity: 1;
 }
 ::selection {
-  background-color: rgb(var(--m3-scheme-tertiary-container));
-  color: rgb(var(--m3-scheme-on-tertiary-container));
+  background-color: var(--m3c-tertiary-container);
+  color: var(--m3c-on-tertiary-container);
 }

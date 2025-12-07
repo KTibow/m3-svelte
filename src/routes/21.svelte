@@ -40,7 +40,7 @@ const relevantLinks: { title: string; link: string }[] = [];
         </div>
       {:else}
         <button
-          class="btn m3-font-label-large"
+          class="btn"
           onclick={() => (affected = true)}
           in:receive={{ key: "container" }}
           out:send={{ key: "container" }}
@@ -61,7 +61,7 @@ const relevantLinks: { title: string; link: string }[] = [];
             leaving: true,
           }}
         >
-          <button class="btn m3-font-label-large" onclick={() => (affected = false)}> Beta </button>
+          <button class="btn" onclick={() => (affected = false)}> Beta </button>
         </div>
       {:else}
         <div
@@ -75,7 +75,7 @@ const relevantLinks: { title: string; link: string }[] = [];
             leaving: true,
           }}
         >
-          <button class="btn m3-font-label-large" onclick={() => (affected = true)}> Alpha </button>
+          <button class="btn" onclick={() => (affected = true)}> Alpha </button>
         </div>
       {/if}
     {:else if affected}
@@ -86,7 +86,7 @@ const relevantLinks: { title: string; link: string }[] = [];
           rightSeam: false,
         }}
       >
-        <button class="btn m3-font-label-large" onclick={() => (affected = false)}> Beta </button>
+        <button class="btn" onclick={() => (affected = false)}> Beta </button>
       </div>
     {:else}
       <div
@@ -96,7 +96,7 @@ const relevantLinks: { title: string; link: string }[] = [];
           rightSeam: true,
         }}
       >
-        <button class="btn m3-font-label-large" onclick={() => (affected = true)}> Alpha </button>
+        <button class="btn" onclick={() => (affected = true)}> Alpha </button>
       </div>
     {/if}
   </article>
@@ -113,16 +113,17 @@ const relevantLinks: { title: string; link: string }[] = [];
   }
   .pane {
     display: grid;
-    background-color: rgb(var(--m3-scheme-background));
+    background-color: var(--m3c-background);
     overflow: hidden;
   }
   .btn {
+    @apply --m3-label-large;
     display: flex;
     align-items: center;
     place-self: center;
 
-    background-color: rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--m3c-primary);
+    color: var(--m3c-on-primary);
     border: none;
     height: 2.5rem;
     border-radius: 1.25rem;
@@ -136,8 +137,8 @@ const relevantLinks: { title: string; link: string }[] = [];
     border-radius: 0.5rem;
     background-image: linear-gradient(
       to bottom right,
-      rgb(var(--m3-scheme-primary-container-subtle)),
-      rgb(var(--m3-scheme-tertiary-container-subtle))
+      var(--m3c-primary-container-subtle),
+      var(--m3c-tertiary-container-subtle)
     );
     > p {
       margin: 0;

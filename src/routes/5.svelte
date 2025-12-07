@@ -8,7 +8,7 @@ import Arrows from "./_arrows.svelte";
 import InternalCard from "./_card.svelte";
 import ListItem from "$lib/containers/ListItem.svelte";
 import Checkbox from "$lib/forms/Checkbox.svelte";
-import Divider from "$lib/utils/Divider.svelte";
+import Divider from "$lib/misc/Divider.svelte";
 const headline = "Hello";
 
 let lines: "1" | "2" | "3" = $state("1");

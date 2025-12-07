@@ -30,7 +30,7 @@
     let style = genCSS(light, dark);
     if (density) {
       style = `:root {
-  --m3-util-density: ${density};
+  --m3v-density: ${density};
 }
 ${style}`;
     }
@@ -57,7 +57,7 @@ ${innerStyles}
 </script>
 
 <div class="content">
-  <h2 class="m3-font-title-large">Your scheme 🎉</h2>
+  <h2>Your scheme 🎉</h2>
   <div class="color-container">
     {#each pairs as [bgName, fgName]}
       <ColorCard
@@ -94,11 +94,12 @@ ${innerStyles}
 
 <style>
   .content {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--m3c-surface-container-low);
     padding: 1rem;
     border-radius: 1rem;
   }
   h2 {
+    @apply --m3-title-large;
     margin: 0 0 1rem 0;
   }
   .color-container {

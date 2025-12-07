@@ -533,24 +533,23 @@ Minimal demo:
 </script>
 
 <Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>Show</Button>
-<NewSnackbar />
+<Snackbar />
 ```
 
 Full demo:
 
 ```use
 Button
-NewSnackbar
+Snackbar
 ```
 
 ```ts
-import { snackbar } from "$lib/containers/NewSnackbar.svelte";
+import { snackbar } from "$lib/containers/Snackbar.svelte";
 ```
 
 ```svelte
 {#snippet demo()}
   <Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>Show</Button>
-  <NewSnackbar />
 {/snippet}
 ```
 
@@ -1245,7 +1244,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
         </div>
       {:else}
         <button
-          class="btn m3-font-label-large"
+          class="btn"
           onclick={() => (affected = true)}
           in:receive={{ key: "container" }}
           out:send={{ key: "container" }}
@@ -1266,7 +1265,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
             leaving: true,
           }}
         >
-          <button class="btn m3-font-label-large" onclick={() => (affected = false)}> Beta </button>
+          <button class="btn" onclick={() => (affected = false)}> Beta </button>
         </div>
       {:else}
         <div
@@ -1280,7 +1279,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
             leaving: true,
           }}
         >
-          <button class="btn m3-font-label-large" onclick={() => (affected = true)}> Alpha </button>
+          <button class="btn" onclick={() => (affected = true)}> Alpha </button>
         </div>
       {/if}
     {:else if affected}
@@ -1291,7 +1290,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
           rightSeam: false,
         }}
       >
-        <button class="btn m3-font-label-large" onclick={() => (affected = false)}> Beta </button>
+        <button class="btn" onclick={() => (affected = false)}> Beta </button>
       </div>
     {:else}
       <div
@@ -1301,7 +1300,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
           rightSeam: true,
         }}
       >
-        <button class="btn m3-font-label-large" onclick={() => (affected = true)}> Alpha </button>
+        <button class="btn" onclick={() => (affected = true)}> Alpha </button>
       </div>
     {/if}
   </article>
@@ -1318,16 +1317,17 @@ const [send, receive] = containerTransform({ duration: 1000 });
   }
   .pane {
     display: grid;
-    background-color: rgb(var(--m3-scheme-background));
+    background-color: var(--m3c-background);
     overflow: hidden;
   }
   .btn {
+    @apply --m3-label-large;
     display: flex;
     align-items: center;
     place-self: center;
 
-    background-color: rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--m3c-primary);
+    color: var(--m3c-on-primary);
     border: none;
     height: 2.5rem;
     border-radius: 1.25rem;
@@ -1341,8 +1341,8 @@ const [send, receive] = containerTransform({ duration: 1000 });
     border-radius: 0.5rem;
     background-image: linear-gradient(
       to bottom right,
-      rgb(var(--m3-scheme-primary-container-subtle)),
-      rgb(var(--m3-scheme-tertiary-container-subtle))
+      var(--m3c-primary-container-subtle),
+      var(--m3c-tertiary-container-subtle)
     );
     > p {
       margin: 0;
@@ -1419,7 +1419,7 @@ import iconGo from "@ktibow/iconset-material-symbols/arrow-forward-rounded";
 import * as _paths from "$lib/misc/shapes";
 import * as _pathsAnimatable from "$lib/misc/shapesAnimatable";
 import * as _pathsAnimatableSmall from "$lib/misc/shapesAnimatableSmall";
-import { snackbar } from "$lib/containers/NewSnackbar.svelte";
+import { snackbar } from "$lib/containers/Snackbar.svelte";
 import ShapeSelector from "./ShapeSelector.svelte";
 
 const paths = _paths as Record<string, string>;
@@ -1430,7 +1430,7 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");
 ```
 
 ```svelte
-<ShapeSelector class="m3-font-body-large" style="background-color:rgb(var(--m3-scheme-surface-container))" bind:shape />
+<ShapeSelector style="background-color:var(--m3c-surface-container)" bind:shape />
 <label>
   <Arrows list={["normal", "animatable", "animatable small"]} bind:value={mode} />
   {mode[0].toUpperCase() + mode.slice(1)} paths
@@ -1438,7 +1438,7 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");
 
 {#snippet demo()}
   <svg width="4rem" height="4rem" style:margin="auto" viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}>
-    <path class="shape" d="{mode == "animatable small" ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")] : mode == "animatable" ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="rgb(var(--m3-scheme-primary))" />
+    <path class="shape" d="{mode == "animatable small" ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")] : mode == "animatable" ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="var(--m3c-primary)" />
   </svg>
 {/snippet}
 

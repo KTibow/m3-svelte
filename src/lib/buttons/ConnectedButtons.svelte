@@ -14,7 +14,7 @@
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
     gap: 0.125rem;
-    border-radius: var(--m3-util-rounding-full);
+    border-radius: var(--m3-shape-full);
     overflow: hidden;
 
     > :global(input) {

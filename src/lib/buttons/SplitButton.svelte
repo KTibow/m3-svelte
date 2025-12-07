@@ -36,7 +36,7 @@
 </script>
 
 <div class="m3-container {variant}">
-  <button type="button" class="split m3-font-label-large" {...extra}>
+  <button type="button" class="split" {...extra}>
     <Layer />
     {@render children()}
   </button>
@@ -53,8 +53,8 @@
   @layer tokens {
     :root {
       --m3-split-button-outer-shape: 1.25rem;
-      --m3-split-button-half-shape: var(--m3-util-rounding-medium);
-      --m3-split-button-inner-shape: var(--m3-util-rounding-extra-small);
+      --m3-split-button-half-shape: var(--m3-shape-medium);
+      --m3-split-button-inner-shape: var(--m3-shape-extra-small);
     }
   }
 
@@ -64,28 +64,28 @@
     gap: 0.125rem;
 
     &.elevated .split {
-      background-color: rgb(var(--m3-scheme-surface-container-low));
-      color: rgb(var(--m3-scheme-primary));
-      box-shadow: var(--m3-util-elevation-1);
+      background-color: var(--m3c-surface-container-low);
+      color: var(--m3c-primary);
+      box-shadow: var(--m3-elevation-1);
       &:hover {
-        box-shadow: var(--m3-util-elevation-2);
+        box-shadow: var(--m3-elevation-2);
       }
     }
 
     &.filled .split {
-      background-color: rgb(var(--m3-scheme-primary));
-      color: rgb(var(--m3-scheme-on-primary));
+      background-color: var(--m3c-primary);
+      color: var(--m3c-on-primary);
     }
 
     &.tonal .split {
-      background-color: rgb(var(--m3-scheme-secondary-container));
-      color: rgb(var(--m3-scheme-on-secondary-container));
+      background-color: var(--m3c-secondary-container);
+      color: var(--m3c-on-secondary-container);
     }
 
     &.outlined .split {
-      outline: 1px solid rgb(var(--m3-scheme-outline-variant));
+      outline: 1px solid var(--m3c-outline-variant);
       outline-offset: -1px;
-      color: rgb(var(--m3-scheme-on-surface-variant));
+      color: var(--m3c-on-surface-variant);
     }
   }
 
@@ -93,7 +93,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: calc(2.5rem + var(--m3-util-density-term));
+    height: --m3-density(2.5rem);
     gap: 0.5rem;
 
     cursor: pointer;
@@ -102,11 +102,12 @@
 
     position: relative;
     transition:
-      box-shadow var(--m3-util-easing-fast),
-      border-radius var(--m3-util-easing-fast);
+      box-shadow var(--m3-easing-fast),
+      border-radius var(--m3-easing-fast);
   }
 
   button {
+    @apply --m3-label-large;
     padding-inline-start: 1rem;
     padding-inline-end: 0.75rem;
     border-start-start-radius: var(--m3-split-button-outer-shape);
@@ -155,11 +156,11 @@
     > :global(svg) {
       /* Push away from the most rounded side */
       --shape-delta: calc(var(--inner-shape) - var(--outer-shape));
-      --correction: calc(var(--m3-util-optical-centering-coefficient) * var(--shape-delta));
+      --correction: calc(var(--m3-optical-centering-coefficient) * var(--shape-delta));
       translate: var(--correction) 0;
       transition:
-        rotate var(--m3-util-easing-fast),
-        translate var(--m3-util-easing-fast);
+        rotate var(--m3-easing-fast),
+        translate var(--m3-easing-fast);
     }
   }
   details > :global(:not(summary)) :global {

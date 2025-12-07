@@ -131,7 +131,7 @@
     display: grid;
     width: 16rem;
     margin-inline-start: 1rem;
-    border-inline-start: solid 1px rgb(var(--m3-scheme-outline));
+    border-inline-start: solid 1px var(--m3c-outline);
 
     position: sticky;
     top: 0;

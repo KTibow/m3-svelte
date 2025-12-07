@@ -55,17 +55,13 @@
 
 <style>
   .m3-container.xs {
-    height: calc(2rem + var(--m3-util-density-term));
+    @apply --m3-label-large;
+    height: --m3-density(2rem);
     padding: 0 0.75rem;
     gap: 0.5rem;
-    --m3-button-shape: 1rem;
-    --m3-button-square-shape: var(--m3-util-rounding-medium);
-    --m3-button-pressed-shape: var(--m3-util-rounding-small);
-    font-family: var(--m3-font-label);
-    font-size: var(--m3-font-label-large-size);
-    line-height: var(--m3-font-label-large-height);
-    letter-spacing: var(--m3-font-label-large-tracking);
-    font-weight: var(--m3-font-label-large-weight);
+    --shape: 1rem;
+    --square-shape: var(--m3-shape-medium);
+    --pressed-shape: var(--m3-shape-small);
 
     &.icon-full {
       width: 2rem;
@@ -74,17 +70,13 @@
   }
 
   .m3-container.s {
-    height: calc(2.5rem + var(--m3-util-density-term));
+    @apply --m3-label-large;
+    height: --m3-density(2.5rem);
     padding: 0 1rem;
     gap: 0.5rem;
-    --m3-button-shape: 1.25rem;
-    --m3-button-square-shape: var(--m3-util-rounding-medium);
-    --m3-button-pressed-shape: var(--m3-util-rounding-small);
-    font-family: var(--m3-font-label);
-    font-size: var(--m3-font-label-large-size);
-    line-height: var(--m3-font-label-large-height);
-    letter-spacing: var(--m3-font-label-large-tracking);
-    font-weight: var(--m3-font-label-large-weight);
+    --shape: 1.25rem;
+    --square-shape: var(--m3-shape-medium);
+    --pressed-shape: var(--m3-shape-small);
 
     &.icon-full {
       width: 2.5rem;
@@ -93,17 +85,13 @@
   }
 
   .m3-container.m {
-    height: calc(3.5rem + var(--m3-util-density-term));
+    @apply --m3-title-medium;
+    height: --m3-density(3.5rem);
     padding: 0 1.5rem;
     gap: 0.5rem;
-    --m3-button-shape: 1.75rem;
-    --m3-button-square-shape: var(--m3-util-rounding-large);
-    --m3-button-pressed-shape: var(--m3-util-rounding-medium);
-    font-family: var(--m3-font-title);
-    font-size: var(--m3-font-title-medium-size);
-    line-height: var(--m3-font-title-medium-height);
-    letter-spacing: var(--m3-font-title-medium-tracking);
-    font-weight: var(--m3-font-title-medium-weight);
+    --shape: 1.75rem;
+    --square-shape: var(--m3-shape-large);
+    --pressed-shape: var(--m3-shape-medium);
 
     &.icon-left > :global(svg) {
       width: 1.5rem;
@@ -120,17 +108,13 @@
   }
 
   .m3-container.l {
-    height: calc(6rem + var(--m3-util-density-term));
+    @apply --m3-headline-small;
+    height: --m3-density(6rem);
     padding: 0 3rem;
     gap: 0.75rem;
-    --m3-button-shape: 3rem;
-    --m3-button-square-shape: var(--m3-util-rounding-extra-large);
-    --m3-button-pressed-shape: var(--m3-util-rounding-large);
-    font-family: var(--m3-font-headline);
-    font-size: var(--m3-font-headline-small-size);
-    line-height: var(--m3-font-headline-small-height);
-    letter-spacing: var(--m3-font-headline-small-tracking);
-    font-weight: var(--m3-font-headline-small-weight);
+    --shape: 3rem;
+    --square-shape: var(--m3-shape-extra-large);
+    --pressed-shape: var(--m3-shape-large);
 
     &.icon-left > :global(svg) {
       width: 2rem;
@@ -147,17 +131,13 @@
   }
 
   .m3-container.xl {
-    height: calc(8.5rem + var(--m3-util-density-term));
+    @apply --m3-headline-large;
+    height: --m3-density(8.5rem);
     padding: 0 4rem;
     gap: 1rem;
-    --m3-button-shape: 4.25rem;
-    --m3-button-square-shape: var(--m3-util-rounding-extra-large);
-    --m3-button-pressed-shape: var(--m3-util-rounding-large);
-    font-family: var(--m3-font-headline);
-    font-size: var(--m3-font-headline-large-size);
-    line-height: var(--m3-font-headline-large-height);
-    letter-spacing: var(--m3-font-headline-large-tracking);
-    font-weight: var(--m3-font-headline-large-weight);
+    --shape: 4.25rem;
+    --square-shape: var(--m3-shape-extra-large);
+    --pressed-shape: var(--m3-shape-large);
 
     &.icon-left > :global(svg) {
       width: 2.5rem;
@@ -176,12 +156,12 @@
   .m3-container {
     display: inline-flex;
     border: none;
-    border-radius: var(--m3-button-shape);
+    border-radius: var(--shape);
     transition:
-      border-radius var(--m3-util-easing-fast-spatial),
-      box-shadow var(--m3-util-easing-fast),
-      background-color var(--m3-util-easing-fast),
-      color var(--m3-util-easing-fast);
+      border-radius var(--m3-easing-fast-spatial),
+      box-shadow var(--m3-easing-fast),
+      background-color var(--m3-easing-fast),
+      color var(--m3-easing-fast);
 
     align-items: center;
     justify-content: center;
@@ -192,43 +172,43 @@
 
     &:disabled,
     &:is(:global(input:disabled) + label) {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
-      color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      background-color: --translucent(var(--m3c-on-surface), 0.12);
+      color: --translucent(var(--m3c-on-surface), 0.38);
       cursor: auto;
     }
 
     &.elevated:not(:disabled, :global(input:disabled) + label) {
-      background-color: rgb(var(--m3-scheme-surface-container-low));
-      color: rgb(var(--m3-scheme-primary));
-      box-shadow: var(--m3-util-elevation-1);
+      background-color: var(--m3c-surface-container-low);
+      color: var(--m3c-primary);
+      box-shadow: var(--m3-elevation-1);
       &:is(:global(input:checked) + .m3-container) {
-        background-color: rgb(var(--m3-scheme-primary));
-        color: rgb(var(--m3-scheme-on-primary));
+        background-color: var(--m3c-primary);
+        color: var(--m3c-on-primary);
       }
       @media (hover: hover) {
         &:hover {
-          box-shadow: var(--m3-util-elevation-2);
+          box-shadow: var(--m3-elevation-2);
         }
       }
     }
     &.filled:not(:disabled, :global(input:disabled) + label) {
-      background-color: rgb(var(--m3-scheme-primary));
-      color: rgb(var(--m3-scheme-on-primary));
+      background-color: var(--m3c-primary);
+      color: var(--m3c-on-primary);
       &:is(:global(input:is([type="checkbox"], [type="radio"]):not(:checked)) + label) {
-        background-color: rgb(var(--m3-scheme-surface-container));
-        color: rgb(var(--m3-scheme-on-surface-variant));
+        background-color: var(--m3c-surface-container);
+        color: var(--m3c-on-surface-variant);
       }
     }
     &.tonal:not(:disabled, :global(input:disabled) + label) {
-      background-color: rgb(var(--m3-scheme-secondary-container));
-      color: rgb(var(--m3-scheme-on-secondary-container));
+      background-color: var(--m3c-secondary-container);
+      color: var(--m3c-on-secondary-container);
       &:is(:global(input:checked) + label) {
-        background-color: rgb(var(--m3-scheme-secondary));
-        color: rgb(var(--m3-scheme-on-secondary));
+        background-color: var(--m3c-secondary);
+        color: var(--m3c-on-secondary);
       }
     }
     &.outlined {
-      outline: 1px solid rgb(var(--m3-scheme-outline-variant));
+      outline: 1px solid var(--m3c-outline-variant);
       outline-offset: -1px;
     }
     &.outlined.l {
@@ -240,33 +220,33 @@
       outline-offset: -3px;
     }
     &.outlined:not(:disabled, :global(input:disabled) + label) {
-      outline-color: rgb(var(--m3-scheme-outline-variant));
-      color: rgb(var(--m3-scheme-on-surface-variant));
+      outline-color: var(--m3c-outline-variant);
+      color: var(--m3c-on-surface-variant);
       &:is(:global(input:checked) + label) {
-        outline-color: rgb(var(--m3-scheme-inverse-surface));
-        background-color: rgb(var(--m3-scheme-inverse-surface));
-        color: rgb(var(--m3-scheme-inverse-on-surface));
+        outline-color: var(--m3c-inverse-surface);
+        background-color: var(--m3c-inverse-surface);
+        color: var(--m3c-inverse-on-surface);
       }
     }
     &.outlined:is(:disabled, :global(input:disabled) + label) {
-      outline-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+      outline-color: --translucent(var(--m3c-on-surface), 0.12);
       background-color: transparent;
     }
     &.text:not(:disabled, :global(input:disabled) + label) {
-      color: rgb(var(--m3-scheme-primary));
+      color: var(--m3c-primary);
     }
     @media (hover: hover) {
       &:is(.filled, .tonal):not(:disabled, label):hover {
-        box-shadow: var(--m3-util-elevation-1);
+        box-shadow: var(--m3-elevation-1);
       }
     }
 
     &.square:not(:is(:global(input:checked) + label, :global(:open) > summary)),
     &:is(:global(input:checked) + label, :global(:open) > summary):not(.square) {
-      border-radius: var(--m3-button-square-shape);
+      border-radius: var(--square-shape);
     }
     &:active:not(:disabled, :global(input:disabled) + label) {
-      border-radius: var(--m3-button-pressed-shape) !important;
+      border-radius: var(--pressed-shape) !important;
     }
   }
 

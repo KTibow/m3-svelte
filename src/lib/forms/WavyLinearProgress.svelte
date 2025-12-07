@@ -36,12 +36,7 @@
 </script>
 
 <svg viewBox="0 0 {width} {height}">
-  <path
-    fill="none"
-    stroke="rgb(var(--m3-scheme-primary))"
-    stroke-width={thickness}
-    stroke-linecap="round"
-  >
+  <path fill="none" stroke="var(--m3c-primary)" stroke-width={thickness} stroke-linecap="round">
     <animate
       attributeName="d"
       dur="1s"
@@ -51,7 +46,7 @@
   </path>
   <line
     fill="none"
-    stroke="rgb(var(--m3-scheme-secondary-container))"
+    stroke="var(--m3c-secondary-container)"
     stroke-width={thickness}
     stroke-linecap="round"
     x1={percentX + thickness + 4}

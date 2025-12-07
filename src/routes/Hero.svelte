@@ -1,20 +1,20 @@
 <script>
-  import iconPlus from "@ktibow/iconset-material-symbols/add-rounded";
   import iconSquoosh from "@ktibow/iconset-material-symbols/fullscreen-exit-rounded";
+  import iconInject from "@ktibow/iconset-material-symbols/vaccines-outline-rounded";
   import Icon from "$lib/misc/Icon.svelte";
   import Branding from "./Branding.svelte";
 </script>
 
 <div class="wrapper">
   <Branding />
-  <div class="pills m3-font-label-large">
-    <div class="pill">
-      <Icon icon={iconPlus} />
-      Now with Material 3 Expressive
-    </div>
+  <div class="pills">
     <div class="pill">
       <Icon icon={iconSquoosh} />
       Tokens are shakeable
+    </div>
+    <div class="pill">
+      <Icon icon={iconInject} />
+      Now using functions and mixins
     </div>
   </div>
 </div>
@@ -28,6 +28,7 @@
     padding: 6rem 0;
   }
   .pills {
+    @apply --m3-label-large;
     display: flex;
     justify-content: center;
 
@@ -35,7 +36,7 @@
     flex-wrap: wrap;
   }
   .pill {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--m3c-surface-container-low);
 
     height: 2rem;
     display: flex;

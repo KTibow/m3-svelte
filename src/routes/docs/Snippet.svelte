@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Snackbar, type SnackbarIn } from "$lib";
+  import { Button, snackbar } from "$lib";
   import Icon from "$lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
   import Highlight from "svelte-highlight";
@@ -9,20 +9,21 @@
 
   let { name, code, lang }: { name?: string; code: string; lang: string } = $props();
 
-  let snackbar: { show: (data: SnackbarIn) => void };
-
-  const languageType = {
-    javascript,
-    css,
-    xml,
-  }[lang];
-  if (!languageType) {
-    throw new Error(`Language "${lang}" not supported`);
-  }
+  let language = $derived.by(() => {
+    const result = {
+      javascript,
+      css,
+      xml,
+    }[lang];
+    if (!result) {
+      throw new Error(`Language "${lang}" not supported`);
+    }
+    return result;
+  });
 
   function copyToClipboard() {
     navigator.clipboard.writeText(code);
-    snackbar.show({ closable: true, message: "Text copied to clipboard", timeout: 2000 });
+    snackbar("Text copied to clipboard", undefined, true, 2000);
   }
 </script>
 
@@ -34,15 +35,14 @@
     <Button variant="text" onclick={copyToClipboard} iconType="full">
       <Icon icon={iconCopy} />
     </Button>
-    <Snackbar bind:this={snackbar} />
   </div>
-  <Highlight language={languageType} {code} />
+  <Highlight {language} {code} />
 </div>
 
 <style>
   .snippet {
-    background-color: rgb(var(--m3-scheme-surface-container-high));
-    border-radius: var(--m3-util-rounding-large);
+    background-color: var(--m3c-surface-container-high);
+    border-radius: var(--m3-shape-large);
     padding: 1rem;
 
     width: 100%;

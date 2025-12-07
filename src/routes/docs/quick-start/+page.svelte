@@ -1,5 +1,6 @@
 <script>
   import iconDownload from "@ktibow/iconset-material-symbols/download";
+  import iconConfig from "@ktibow/iconset-material-symbols/settings";
   import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
 
@@ -39,7 +40,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     </div>
     <div class="text">
       <p>
-        <a href={resolve("/theme")}>Copy a theme snippet</a> and paste it on your site.
+        <a href={resolve("/theme")}>Get a theme snippet</a> and start using it.
       </p>
       <Snippet
         code={`<${""}script>
@@ -55,6 +56,31 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     <div class="header">
       <div class="number">
         3
+        <Icon icon={iconConfig} />
+      </div>
+    </div>
+    <div class="text">
+      <p>
+        Install and enable a functions and mixins polyfill. <code
+          >npm i vite-plugin-functions-mixins</code
+        > (or with your package manager), then:
+      </p>
+      <Snippet
+        code={`import { defineConfig } from "vite";
+import { functionsMixins } from "vite-plugin-functions-mixins";
+
+export default defineConfig({
+  plugins: [functionsMixins()],
+});`}
+        name="vite.config.ts"
+        lang="javascript"
+      />
+    </div>
+  </li>
+  <li>
+    <div class="header">
+      <div class="number">
+        4
         <Icon icon={iconType} />
       </div>
       <ConnectedButtons>
@@ -74,7 +100,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
         />
       {:else}
         <Snippet
-          code={`body {
+          code={`:root {
   --m3-font: [your font], system-ui;
 }`}
           name="app.css"
@@ -84,7 +110,11 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     </div>
   </li>
 </ol>
-<p>Now you can start using components like this. Check the rest of the docs to learn more.</p>
+<p>
+  Now you can start using components like this. <a href="./detailed-walkthrough"
+    >Keep learning: detailed walkthrough</a
+  >
+</p>
 <Snippet code={componentCode} name="Component.svelte" lang="xml" />
 
 <style>
@@ -117,8 +147,8 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     border-radius: 3rem;
     padding: 0 1rem;
     font-size: 1.2rem;
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: var(--m3c-primary-container);
+    color: var(--m3c-on-primary-container);
   }
   .text {
     display: flex;
@@ -130,7 +160,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     border-radius: 1.5rem;
 
     min-height: 3rem;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--m3c-surface-container-low);
   }
 
   p {
@@ -138,12 +168,12 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
   }
   code {
     font-size: 0.9rem;
-    background-color: rgb(var(--m3-scheme-surface-variant));
+    background-color: var(--m3c-surface-variant);
     padding-inline: 2px;
     border-radius: 0.3rem;
   }
   a {
     text-decoration: none;
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
   }
 </style>
