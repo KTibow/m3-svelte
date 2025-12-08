@@ -1,6 +1,6 @@
 import type { Plugin } from "vite";
 import { loadDemos } from "./src/load-demos";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 
 async function generateLlmsTxt(): Promise<string> {
   const todoListDemo = await readFile("scripts/demo-todo-list.svelte", "utf8");
@@ -43,9 +43,13 @@ ${fullDemoSvelte}
 export function llmsTxtPlugin(): Plugin {
   return {
     name: "vite-plugin-llms-txt",
-    async closeBundle() {
+    async generateBundle() {
       const content = await generateLlmsTxt();
-      await writeFile("build/llms.txt", content);
+      this.emitFile({
+        type: "asset",
+        fileName: "llms.txt",
+        source: content,
+      });
     },
   };
 }
