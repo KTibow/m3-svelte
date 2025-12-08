@@ -127,7 +127,6 @@
     block-size: var(--handle-height);
     min-inline-size: 10rem;
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
 
     --functional-width: calc(100% - 2 * (0.25rem + 0.125rem));
     --handle-left: calc(50% + var(--functional-width) * var(--handle) - 0.125rem - 0.375rem);

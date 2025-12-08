@@ -37,14 +37,7 @@
 </script>
 
 <div class="m3-container" class:leading-icon={leadingIcon} class:error use:resize>
-  <textarea
-    class="focus-none"
-    placeholder=" "
-    bind:value
-    {id}
-    {disabled}
-    {required}
-    {...extra}
+  <textarea class="focus-none" placeholder=" " bind:value {id} {disabled} {required} {...extra}
   ></textarea>
   <div class="layer"></div>
   <label for={id}>{label}</label>
@@ -165,6 +158,5 @@
 
   .m3-container {
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
 </style>

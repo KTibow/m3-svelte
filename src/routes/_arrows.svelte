@@ -39,7 +39,6 @@
     display: flex;
     gap: 0.25rem;
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
   button {
     @apply --m3-label-large;

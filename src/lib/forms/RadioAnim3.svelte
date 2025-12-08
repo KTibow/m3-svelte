@@ -85,7 +85,6 @@
 
   .m3-container {
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
 
   @media screen and (forced-colors: active) {
