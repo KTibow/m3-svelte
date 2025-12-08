@@ -69,8 +69,8 @@
     "svelte-highlight": "^7.9.0",
     "tinyglobby": "^0.2.15",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.48.1",
-    "vite": "^7.2.6",
+    "typescript-eslint": "^8.49.0",
+    "vite": "^7.2.7",
     "vite-plugin-functions-mixins": "^0.2.1",
     "vite-plugin-token-shaker": "^0.0.3"
   },
