@@ -380,6 +380,7 @@
 
     opacity: 0;
     pointer-events: none;
+    user-select: none;
     transition: opacity var(--m3-easing);
     z-index: 1;
     @media screen and (forced-colors: active) {
