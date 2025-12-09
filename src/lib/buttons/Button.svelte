@@ -241,8 +241,8 @@
       }
     }
 
-    &.square:not(:is(:global(input:checked) + label, :global(:open) > summary)),
-    &:is(:global(input:checked) + label, :global(:open) > summary):not(.square) {
+    &.square:not(:global(input:checked) + label, :global(:open) > summary),
+    &:not(.square):is(:global(input:checked) + label, :global(:open) > summary) {
       border-radius: var(--square-shape);
     }
     &:active:not(:disabled, :global(input:disabled) + label) {
