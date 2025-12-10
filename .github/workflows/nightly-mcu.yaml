@@ -42,6 +42,118 @@ jobs:
           " > tsconfig.tmp.json
           mv tsconfig.tmp.json tsconfig.json
 
+      - name: Install linting tools
+        working-directory: upstream/typescript
+        run: npm install --save-dev \                      
+              eslint \
+              @eslint/js \
+              typescript-eslint \
+              eslint-plugin-import \
+              eslint-import-resolver-typescript
+
+      - name: Write linter config to filesystem
+        working-directory: upstream/typescript
+        run: |
+          echo 'import js from "@eslint/js";
+            import ts from "typescript-eslint";
+            import pluginImport from "eslint-plugin-import";
+
+            export default [
+              {
+                ignores: [
+                  "**/*.d.ts", // prevent declaration file parsing
+                  "**/*.js", // ignore generated JS files
+                  ".wireit/**", // ignore build cache
+                  "node_modules/**", // ignore dependencies
+                ],
+              },
+
+              js.configs.recommended,
+
+              {
+                files: ["**/*.ts"],
+                ignores: ["**/*test.ts", "**/*.test.ts"],
+                ...Object.assign({}, ...ts.configs.recommended),
+
+                languageOptions: {
+                  parser: ts.parser,
+                  parserOptions: {
+                    project: true,
+                  },
+                },
+
+                plugins: {
+                  import: pluginImport,
+                },
+
+                rules: {
+                  "no-unused-vars": "off",
+                  "no-undef": "off",
+
+                  "no-case-declarations": "off",
+
+                  "import/extensions": [
+                    "error",
+                    "always",
+                    {
+                      ts: "never",
+                    },
+                  ],
+                },
+
+                settings: {
+                  "import/resolver": {
+                    typescript: {
+                      alwaysTryTypes: true,
+                    },
+                  },
+                },
+              },
+
+              {
+                files: ["**/*test.ts", "**/*.test.ts"],
+                ...Object.assign({}, ...ts.configs.recommended),
+
+                languageOptions: {
+                  parser: ts.parser,
+                  parserOptions: {
+                    project: false,
+                  },
+                  globals: {
+                    describe: "readonly",
+                    it: "readonly",
+                    expect: "readonly",
+                    beforeEach: "readonly",
+                    jasmine: "readonly",
+                  },
+                },
+
+                plugins: {
+                  import: pluginImport,
+                },
+
+                rules: {
+                  "no-unused-vars": "off",
+                  "no-undef": "off",
+
+                  "no-case-declarations": "off",
+
+                  "import/extensions": [
+                    "error",
+                    "always",
+                    {
+                      ts: "never",
+                    },
+                  ],
+                },
+              },
+            ];
+          ' > eslint.config.js
+
+      - name: Run linter
+        working-directory: upstream/typescript
+        run: npx eslint . --ext .ts --max-warnings=0 --fix
+
       - name: Build package
         working-directory: upstream/typescript
         run: npm run build
