@@ -12,7 +12,7 @@ jobs:
       - name: Checkout upstream
         uses: actions/checkout@v6
         with:
-          repository: vrolandd/material-color-utilities
+          repository: material-foundation/material-color-utilities
           path: upstream
 
       - name: Setup Node.js
