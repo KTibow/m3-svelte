@@ -44,12 +44,7 @@ jobs:
 
       - name: Install linting tools
         working-directory: upstream/typescript
-        run: npm install --save-dev \                      
-              eslint \
-              @eslint/js \
-              typescript-eslint \
-              eslint-plugin-import \
-              eslint-import-resolver-typescript
+        run: npm install --save-dev eslint @eslint/js typescript-eslint eslint-plugin-import eslint-import-resolver-typescript
 
       - name: Write linter config to filesystem
         working-directory: upstream/typescript
