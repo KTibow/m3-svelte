@@ -46,7 +46,7 @@ jobs:
         working-directory: upstream/typescript
         run: npm install --save-dev eslint @eslint/js typescript-eslint eslint-plugin-import eslint-import-resolver-typescript
 
-      - name: Write linter config to filesystem
+      - name: Writing linter config to filesystem
         working-directory: upstream/typescript
         run: |
           echo 'import js from "@eslint/js";
@@ -152,14 +152,6 @@ jobs:
       - name: Build package
         working-directory: upstream/typescript
         run: npm run build
-
-      - name: Fix import extensions for Node.js compatibility
-        working-directory: upstream/typescript
-        run: |
-          # Add .js extensions to relative imports that don't already have them
-          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s|from '\(\.\.*/[^']*\)';|from '\1.js';|g" {} +
-          # Clean up any double .js.js that resulted
-          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s|\.js\.js';|.js';|g" {} +
 
       - name: Update package.json for nightly
         working-directory: upstream/typescript
