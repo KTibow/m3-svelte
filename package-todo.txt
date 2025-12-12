@@ -5,6 +5,7 @@ general things:
 - gsans flex
 - more css optimization (see discord)
 - bring icons out of html??
+- figure out some way to only enable dynamic density if you need it and otherwise inline it
 
 WHEN anchor positioning:
 use it for date field, tab indicator, split button, etc etc etc
