@@ -1095,6 +1095,51 @@ let enabled = $state(true);
 {/snippet}
 ```
 
+## Date field
+
+Minimal demo:
+
+```svelte
+<DateField label="Date" bind:value />
+<DateFieldOutlined label="Date" bind:value />
+```
+
+Full demo:
+
+```use
+DateField
+DateFieldOutlined
+```
+
+```ts
+let variant: "filled" | "outlined" = $state("filled");
+let enabled = $state(true);
+let errored = $state(false);
+```
+
+```svelte
+<label>
+  <Arrows list={["filled", "outlined"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
+</label>
+<label>
+  <Switch bind:checked={errored} />
+  {errored ? "Errored" : "Not errored"}
+</label>
+<label>
+  <Switch bind:checked={enabled} />
+  {enabled ? "Enabled" : "Disabled"}
+</label>
+
+{#snippet demo()}
+  {#if variant === "filled"}
+    <DateField label="Date" disabled={!enabled} error={errored} />
+  {:else}
+    <DateFieldOutlined label="Date" disabled={!enabled} error={errored} />
+  {/if}
+{/snippet}
+```
+
 ## Tabs
 
 Minimal demo:
@@ -1160,49 +1205,80 @@ let items = $derived(
 {/snippet}
 ```
 
-## Date field
+## Nav for C/M/L/X
 
 Minimal demo:
 
 ```svelte
-<DateField label="Date" bind:value />
-<DateFieldOutlined label="Date" bind:value />
+<NavCMLX variant="auto">
+  <NavCMLXItem
+    variant="auto"
+    icon={iconCircle}
+    text="A"
+    selected={$page.url.pathname == "/a"}
+    href="/a"
+  />
+  <NavCMLXItem
+    variant="auto"
+    icon={iconSquare}
+    text="B"
+    selected={$page.url.pathname == "/b"}
+    href="/b"
+  />
+</NavCMLX>
 ```
 
 Full demo:
 
 ```use
-DateField
-DateFieldOutlined
+NavCMLX
+NavCMLXItem
 ```
 
 ```ts
-let variant: "filled" | "outlined" = $state("filled");
-let enabled = $state(true);
-let errored = $state(false);
+let variant: "compact" | "medium" | "large" | "extra-large" | "auto" = $state("auto");
+let item = $state("a");
 ```
 
 ```svelte
 <label>
-  <Arrows list={["filled", "outlined"]} bind:value={variant} />
-  {variant[0].toUpperCase() + variant.slice(1)}
+  <Arrows list={["compact", "medium", "large", "extra-large", "auto"]} bind:value={variant} initialIndex={4} />
+  {variant[0].toUpperCase() + variant.slice(1).replace("-", " ")}
 </label>
-<label>
-  <Switch bind:checked={errored} />
-  {errored ? "Errored" : "Not errored"}
-</label>
-<label>
-  <Switch bind:checked={enabled} />
-  {enabled ? "Enabled" : "Disabled"}
-</label>
-
 {#snippet demo()}
-  {#if variant === "filled"}
-    <DateField label="Date" disabled={!enabled} error={errored} />
-  {:else}
-    <DateFieldOutlined label="Date" disabled={!enabled} error={errored} />
-  {/if}
+  <div class="nav-demo">
+    <NavCMLX {variant}>
+      <NavCMLXItem
+        {variant}
+        icon={iconCircle}
+        text="Alpha"
+        selected={item == "a"}
+        onclick={() => (item = "a")}
+      />
+      <NavCMLXItem
+        {variant}
+        icon={iconSquare}
+        text="Beta"
+        selected={item == "b"}
+        onclick={() => (item = "b")}
+      />
+      <NavCMLXItem
+        {variant}
+        icon={iconTriangle}
+        text="Charlie"
+        selected={item == "c"}
+        onclick={() => (item = "c")}
+      />
+    </NavCMLX>
+  </div>
 {/snippet}
+
+<style>
+  .nav-demo {
+    display: grid;
+    place-content: center;
+  }
+</style>
 ```
 
 ## UI transitions

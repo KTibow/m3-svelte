@@ -160,33 +160,6 @@ Here's an even more complicated example - a partial clone of the M3 documentatio
 
 ## Components
 
-Okay, now on to the components. Again, if you're unsure about how a component works, you can look at its source code in the [m3-svelte repo](https://github.com/KTibow/m3-svelte).
+Okay, now on to the components. Again, if you're unsure about how a component works, you can look at [its source code](https://github.com/KTibow/m3-svelte).
 
 <!-- COMPONENT_DEMOS -->
-
-## Addendum: more components
-
-### Nav CMLX
-
-This component works across all 4 breakpoints: compact, small, large, and extra-large. Compact is equivalent to the old navigation bar (items vertical but arranged horizontally), Small is new (items horizontal and arranged horizontally), Large is equivalent to the old navigation rail (items vertical and arranged vertically), and Extra Large is an "expanded navigation rail" and equivalent to the old navigation drawer (items horizontal but arranged vertically). It can take an `onclick` if it's a button or an `href` if it's a link.
-
-Minimal demo:
-
-```svelte
-<NavCMLX variant="auto">
-  <NavCMLXItem
-    variant="auto"
-    icon={iconCircle}
-    text="A"
-    selected={item == "a"}
-    onclick={() => (item = "a")}
-  />
-  <NavCMLXItem
-    variant="auto"
-    icon={iconSquare}
-    text="B"
-    selected={item == "b"}
-    onclick={() => (item = "b")}
-  />
-</NavCMLX>
-```

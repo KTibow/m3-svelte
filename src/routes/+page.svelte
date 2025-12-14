@@ -30,6 +30,7 @@
   import Demo20 from "virtual:demo/20";
   import Demo21 from "virtual:demo/21";
   import Demo22 from "virtual:demo/22";
+  import Demo23 from "virtual:demo/23";
   import { afterNavigate } from "$app/navigation";
 
   type DocData = {
@@ -93,8 +94,9 @@
     <Demo20 {showCode} />
     <Demo21 {showCode} />
     <Demo22 {showCode} />
-    {#await import("virtual:demo/23") then { default: Demo23 }}
-      <Demo23 {showCode} />
+    <Demo23 {showCode} />
+    {#await import("virtual:demo/24") then { default: Demo24 }}
+      <Demo24 {showCode} />
     {/await}
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
