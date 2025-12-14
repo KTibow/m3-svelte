@@ -130,6 +130,13 @@
       <Button for="apptype-tailwind" square>Tailwind</Button>
     </ConnectedButtons>
   </div>
+  {#if $appType == "tailwind"}
+    <p style:text-align="center" style:margin-top="0.5rem">
+      ⚠️ Tailwind <a href="https://github.com/tailwindlabs/tailwindcss/pull/19427"
+        >may not support mixins yet</a
+      >. You may need to stay on M3 Svelte v5 for now.
+    </p>
+  {/if}
 {:else}
   <button class="content more" onclick={() => (showMore = true)}>
     <Layer />
