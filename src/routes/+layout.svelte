@@ -37,7 +37,7 @@
     if (path.endsWith("/")) path = path.slice(0, -1);
     return path || "/";
   };
-  // deprecated: in future, will switch to first party --m3-density() definition
+  // deprecated: in future, will switch to first party --m3-density definition
   // so --density instead of --m3v-density
 </script>
 
