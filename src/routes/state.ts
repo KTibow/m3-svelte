@@ -138,3 +138,4 @@ export const styling = writable(`
 `);
 export const appType = writable("vanilla");
 export const sourceColor = writable(0xd0bcff);
+export const density = writable<"variable" | number>(0);

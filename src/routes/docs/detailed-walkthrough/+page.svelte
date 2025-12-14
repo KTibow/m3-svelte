@@ -90,10 +90,7 @@ ${"<"}/style>`;
   <code>--m3-elevation-1</code>. They have a predefined value and live in
   <code>@layer tokens</code>.
 </p>
-<p>
-  M3 Svelte's theme page doesn't encompass all M3 theming - you need to modify the values of tokens
-  to do that.
-</p>
+<p>There's more M3 theming beyond the theme page: you can modify these directly.</p>
 <p>
   We recommend using <a href="https://www.npmjs.com/package/vite-plugin-token-shaker"
     >vite-plugin-token-shaker</a
@@ -103,14 +100,13 @@ ${"<"}/style>`;
 <p>These start with <code>--m3v-</code>, but only a few can be set:</p>
 <ul>
   <li>Set <code>--m3v-bottom-offset</code> to shift up snackbars</li>
-  <li>Set <code>--m3v-density</code> in your theme to make things more or less compressed</li>
   <li>Set <code>--m3v-background</code> to calibrate the color of an outlined text field's box</li>
 </ul>
 <h3>Functions</h3>
 <p>These are shorthands for specific logic. M3 Svelte only has a few:</p>
 <ul>
   <li><code>--translucent([color], [opacity])</code> makes a color semitransparent</li>
-  <li><code>--m3-density([size])</code> adjusts a size based on <code>--m3v-density</code></li>
+  <li><code>--m3-density([size])</code> (theme-defined) adjusts a size</li>
 </ul>
 <h3>Mixins</h3>
 <p>

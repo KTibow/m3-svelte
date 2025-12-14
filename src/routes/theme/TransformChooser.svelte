@@ -6,15 +6,13 @@
     type Variant,
   } from "@ktibow/material-color-utilities-nightly";
   import iconContrast from "@ktibow/iconset-material-symbols/contrast";
-  import iconDensityLarge from "@ktibow/iconset-material-symbols/density-large-rounded";
-  import iconDensitySmall from "@ktibow/iconset-material-symbols/density-small-rounded";
-  import iconDensityMedium from "@ktibow/iconset-material-symbols/density-medium-rounded";
   import { materialColors } from "$lib/misc/colors";
   import Slider from "$lib/forms/Slider.svelte";
+  import Select from "$lib/forms/Select.svelte";
   import Layer from "$lib/misc/Layer.svelte";
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
   import Button from "$lib/buttons/Button.svelte";
-  import { appType } from "../state";
+  import { appType, density } from "../state";
   import variants from "./variants";
 
   let {
@@ -22,19 +20,17 @@
     variant = $bindable(),
     contrast = $bindable(),
     specVersion = $bindable(),
-    density = $bindable(),
   }: {
     schemes: Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
     variant: Variant;
     contrast: number;
     specVersion: "2021" | "2025";
-    density: number;
   } = $props();
 
   const variantColor = (scheme: DynamicScheme, color: DynamicColor) => {
     return hexFromArgb(color.getArgb(scheme));
   };
-  let showMore = $state(contrast != 0 || density != 0 || $appType != "vanilla");
+  let showMore = $state(contrast != 0 || $density != 0 || $appType != "vanilla");
 </script>
 
 <div class="content variants">
@@ -95,18 +91,25 @@
       />
       <Button for="specversion-2025" square>2025</Button>
     </ConnectedButtons>
-    <Slider
-      min={-3}
-      max={3}
-      step={1}
-      size="m"
-      leadingIcon={density > 0
-        ? iconDensityLarge
-        : density < 0
-          ? iconDensitySmall
-          : iconDensityMedium}
-      format={(n) => new Intl.NumberFormat(undefined, { signDisplay: "exceptZero" }).format(n)}
-      bind:value={density}
+    <Select
+      label="Density"
+      width="100%"
+      options={[
+        { text: "0", value: "0" },
+        { text: "Variable", value: "variable" },
+        { text: "-3", value: "-3" },
+        { text: "-2", value: "-2" },
+        { text: "-1", value: "-1" },
+        { text: "+1", value: "1" },
+        { text: "+2", value: "2" },
+        { text: "+3", value: "3" },
+      ]}
+      bind:value={
+        () => String($density),
+        (val) => {
+          $density = val == "variable" ? "variable" : Number(val);
+        }
+      }
     />
     <ConnectedButtons>
       <input

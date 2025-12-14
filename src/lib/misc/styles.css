@@ -1,8 +1,10 @@
 @function --translucent(--color, --opacity) {
   result: oklab(from var(--color) l a b / var(--opacity));
 }
+/* DEPRECATED: This default --m3-density() function will be removed in a future version.
+   For new themes, pick which option you actually want. */
 @function --m3-density(--size) {
-  result: calc(var(--size) + (var(--m3v-density) * 0.25rem));
+  result: calc(var(--size) + (var(--m3v-density, 0) * 0.25rem));
 }
 
 @layer tokens {
@@ -121,11 +123,6 @@
 /* Not tokens because they may be dynamically get/set and aren't generally constant */
 @property --m3v-bottom-offset {
   syntax: "<length>";
-  inherits: true;
-  initial-value: 0;
-}
-@property --m3v-density {
-  syntax: "<number>";
   inherits: true;
   initial-value: 0;
 }

@@ -11,7 +11,6 @@
   let variant: Variant = $state(Variant.TONAL_SPOT);
   let specVersion: "2021" | "2025" = $state("2025");
   let contrast = $state(0);
-  let density = $state(0);
 
   let schemes = $derived.by(() => {
     const commonArgs = {
@@ -40,6 +39,6 @@
 </svelte:head>
 <ColorChooser bind:sourceColor={$sourceColor} />
 <Arrow />
-<TransformChooser {schemes} bind:variant bind:contrast bind:specVersion bind:density />
+<TransformChooser {schemes} bind:variant bind:contrast bind:specVersion />
 <Arrow />
-<SchemeShowcase {light} {dark} {density} />
+<SchemeShowcase {light} {dark} />

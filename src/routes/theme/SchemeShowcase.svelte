@@ -10,31 +10,41 @@
 
   import Button from "$lib/buttons/Button.svelte";
   import ColorCard from "./ColorCard.svelte";
-  import { appType, styling } from "../state";
+  import { appType, styling, density } from "../state";
   import { pairs } from "$lib/misc/colors";
   import { genCSS } from "$lib/misc/utils";
 
   let {
     light,
     dark,
-    density,
   }: {
     light: DynamicScheme;
     dark: DynamicScheme;
-    density: number;
   } = $props();
   let showDark = $state(false);
   let grabbing = $state(false);
 
   $effect(() => {
-    let style = genCSS(light, dark);
-    if (density) {
-      style = `:root {
-  --m3v-density: ${density};
-}
-${style}`;
+    const style = genCSS(light, dark);
+    let fn;
+    if ($density == "variable") {
+      fn = `@function --m3-density(--size) {
+  result: calc(var(--size) + (var(--density) * 0.25rem));
+}`;
+    } else if ($density < 0) {
+      fn = `@function --m3-density(--size) {
+  result: calc(var(--size) - ${$density * -0.25}rem);
+}`;
+    } else if ($density == 0) {
+      fn = `@function --m3-density(--size) {
+  result: var(--size);
+}`;
+    } else {
+      fn = `@function --m3-density(--size) {
+  result: calc(var(--size) + ${$density * 0.25}rem);
+}`;
     }
-    $styling = style;
+    $styling = fn + "\n" + style;
   });
 
   const copyUsage = () => {
