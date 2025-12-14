@@ -16,7 +16,7 @@ ${"<"}style>
 ${"<"}/style>`;
 </script>
 
-<svelte:head><title>Detailed walkthrough</title></svelte:head>
+<svelte:head><title>Walkthrough</title></svelte:head>
 
 <p>
   Welcome to M3 Svelte! If you haven't already, play around with the components on the home page.
@@ -38,6 +38,13 @@ ${"<"}/style>`;
     <Button for="apptype-tailwind" variant="filled" square>Tailwind</Button>
   </ConnectedButtons>
 </h2>
+{#if $appType == "tailwind"}
+  <p>
+    ⚠️ Tailwind <a href="https://github.com/tailwindlabs/tailwindcss/pull/19427"
+      >may not support mixins yet</a
+    >. You may need to stay on M3 Svelte v5 for now.
+  </p>
+{/if}
 <p>
   Chances are M3 doesn't have everything you need. That's where you can make your own components
   while still using Material 3 elements. Here's an example.
@@ -102,8 +109,8 @@ ${"<"}/style>`;
 <h3>Functions</h3>
 <p>These are shorthands for specific logic. M3 Svelte only has a few:</p>
 <ul>
-  <li><code>{"--"}translucent([color], [opacity])</code> makes a color semitransparent</li>
-  <li><code>{"--"}m3-density([size])</code> adjusts a size based on <code>--m3v-density</code></li>
+  <li><code>--translucent([color], [opacity])</code> makes a color semitransparent</li>
+  <li><code>--m3-density([size])</code> adjusts a size based on <code>--m3v-density</code></li>
 </ul>
 <h3>Mixins</h3>
 <p>
