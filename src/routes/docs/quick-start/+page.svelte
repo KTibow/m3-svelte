@@ -10,6 +10,7 @@
   import { resolve } from "$app/paths";
 
   import Snippet from "../Snippet.svelte";
+  import viteConfigCode from "../../../../scripts/demo-vite.config.ts?raw";
 
   let step3Page = $state("roboto");
   const componentCode = `${"<"}script>
@@ -29,13 +30,28 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
       </div>
     </div>
     <div class="text">
-      <p>Install M3 Svelte with <code>npm i m3-svelte</code> (or your package manager).</p>
+      <p>
+        Install packages with <code>npm i m3-svelte vite-plugin-functions-mixins</code> (or your package
+        manager).
+      </p>
     </div>
   </li>
   <li>
     <div class="header">
       <div class="number">
         2
+        <Icon icon={iconConfig} />
+      </div>
+    </div>
+    <div class="text">
+      <p>Enable a functions/mixins polyfill.</p>
+      <Snippet code={viteConfigCode} name="vite.config.ts" lang="javascript" />
+    </div>
+  </li>
+  <li>
+    <div class="header">
+      <div class="number">
+        3
         <Icon icon={iconPalette} />
       </div>
     </div>
@@ -46,36 +62,11 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
       <Snippet
         code={`<${""}script>
   import "../app.css"; // Change this if you're not in SvelteKit
-</svel${""}script>`}
+</${""}script>`}
         name="+layout.svelte, App.svelte, or similar"
         lang="xml"
       />
       <Snippet code="/* Your theme snippet */" name="app.css" lang="css" />
-    </div>
-  </li>
-  <li>
-    <div class="header">
-      <div class="number">
-        3
-        <Icon icon={iconConfig} />
-      </div>
-    </div>
-    <div class="text">
-      <p>
-        Install and enable a functions and mixins polyfill. <code
-          >npm i vite-plugin-functions-mixins</code
-        > (or with your package manager), then:
-      </p>
-      <Snippet
-        code={`import { defineConfig } from "vite";
-import { functionsMixins } from "vite-plugin-functions-mixins";
-
-export default defineConfig({
-  plugins: [functionsMixins({ deps: ["m3-svelte"] })],
-});`}
-        name="vite.config.ts"
-        lang="javascript"
-      />
     </div>
   </li>
   <li>

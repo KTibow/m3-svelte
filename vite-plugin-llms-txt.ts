@@ -1,6 +1,7 @@
 import type { Plugin } from "vite";
 import { loadDemos } from "./src/load-demos";
 import { readFile } from "node:fs/promises";
+import { colors } from "./src/lib/misc/colors";
 
 async function generateLlmsTxt(): Promise<string> {
   const todoListDemo = await readFile("scripts/demo-todo-list.svelte", "utf8");
@@ -8,6 +9,7 @@ async function generateLlmsTxt(): Promise<string> {
   const layoutCssDemo = await readFile("scripts/demo-clone/layout.css", "utf8");
   const layoutSvelteDemo = await readFile("scripts/demo-clone/+layout.svelte", "utf8");
   const pageSvelteDemo = await readFile("scripts/demo-clone/+page.svelte", "utf8");
+  const viteConfigDemo = await readFile("scripts/demo-vite.config.ts", "utf8");
 
   let llmsTxt = await readFile("scripts/llms-txt-template.md", "utf8");
 
@@ -16,6 +18,7 @@ async function generateLlmsTxt(): Promise<string> {
   llmsTxt = llmsTxt.replace("<!-- LAYOUT_CSS_DEMO -->", layoutCssDemo);
   llmsTxt = llmsTxt.replace("<!-- LAYOUT_SVELTE_DEMO -->", layoutSvelteDemo);
   llmsTxt = llmsTxt.replace("<!-- PAGE_SVELTE_DEMO -->", pageSvelteDemo);
+  llmsTxt = llmsTxt.replace("<!-- VITE_CONFIG -->", viteConfigDemo);
 
   const demosList = await loadDemos();
   const componentDemos = demosList
@@ -36,6 +39,11 @@ ${fullDemoSvelte}
     .join("\n\n");
 
   llmsTxt = llmsTxt.replace("<!-- COMPONENT_DEMOS -->", componentDemos);
+
+  const colorList = colors
+    .map((color) => color.name.replaceAll("_", "-"))
+    .join(", ");
+  llmsTxt = llmsTxt.replace("<!-- COLOR_LIST -->", colorList);
 
   return llmsTxt;
 }
