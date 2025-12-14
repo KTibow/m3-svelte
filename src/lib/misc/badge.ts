@@ -2,7 +2,7 @@ import type { IconifyIcon } from "@iconify/types";
 
 export const addBadge = (icon: IconifyIcon, n?: number) => {
   const { width, height } = icon;
-  if (!width || !height) throw new Error("Icon must have icon and height");
+  if (!width || !height) throw new Error("Icon must have width and height");
 
   let badge;
   if (n) {
@@ -23,7 +23,7 @@ export const addBadge = (icon: IconifyIcon, n?: number) => {
         "border-radius:var(--m3-shape-full)",
       ].join(";")}">` +
       text +
-      `</div>`;
+      `</div></foreignObject>`;
   } else {
     badge = `<circle cx="${width - 3}" cy="3" r="3" fill="var(--m3c-error)"/>`;
   }
