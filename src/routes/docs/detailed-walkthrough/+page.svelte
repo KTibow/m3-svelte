@@ -16,6 +16,8 @@ ${"<"}style>
 ${"<"}/style>`;
 </script>
 
+<svelte:head><title>Detailed walkthrough</title></svelte:head>
+
 <p>
   Welcome to M3 Svelte! If you haven't already, play around with the components on the home page.
   It's rather fun. They even adapt to the theme you pick. You should also check out the Discord and

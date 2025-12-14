@@ -19,6 +19,7 @@ ${"<"}/script>
 ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"}/Button>`;
 </script>
 
+<svelte:head><title>Quick start</title></svelte:head>
 <ol>
   <li>
     <div class="header">
@@ -45,7 +46,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
       <Snippet
         code={`<${""}script>
   import "../app.css"; // Change this if you're not in SvelteKit
-</${""}script>`}
+</svel${""}script>`}
         name="+layout.svelte, App.svelte, or similar"
         lang="xml"
       />
