@@ -98,7 +98,7 @@ On the other hand, M3 Svelte doesn't give you a template. There are many things 
 - Slotting in <input>s
 - Rendering icons
 
-If you're ever unsure about something, you might want to check the [m3-svelte repo](https://github.com/KTibow/m3-svelte). The M3 Svelte demo website is built with M3 Svelte and might have implemented what you're trying to do.
+If you're ever unsure about something, you might want to check the [source code](https://github.com/KTibow/m3-svelte). The M3 Svelte demo website is built with M3 Svelte and might have implemented what you're trying to do.
 
 ## Troubleshooting
 
