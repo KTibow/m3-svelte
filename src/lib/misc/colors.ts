@@ -5,7 +5,7 @@ import {
 } from "@ktibow/material-color-utilities-nightly";
 
 export const materialColors = new MaterialDynamicColors();
-// Custom color role used for switch
+// Generates on-on-primary for Switch, read more: https://ktibow.github.io/blog/humanresearch/ononprimary/
 const onOnPrimary = DynamicColor.fromPalette({
   name: "on_on_primary",
   palette: (s) => s.primaryPalette,
