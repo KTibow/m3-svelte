@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { LabelledAria } from "$lib/misc/typing-utils";
+  import type { HTMLAttributes } from "svelte/elements";
 
   let {
     percent,
