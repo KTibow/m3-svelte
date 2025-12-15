@@ -9,8 +9,12 @@
   let {
     date = "",
     clearable,
+    // eslint and svelte disagree
+    // eslint-disable-next-line svelte/no-unused-svelte-ignore
     // svelte-ignore state_referenced_locally
     focusedMonth = $bindable(parseInt(date.slice(5, 7)) - 1 || now.getMonth()),
+    // eslint and svelte disagree
+    // eslint-disable-next-line svelte/no-unused-svelte-ignore
     // svelte-ignore state_referenced_locally
     focusedYear = $bindable(parseInt(date.slice(0, 4)) || now.getFullYear()),
     startYear = now.getFullYear() - 50,
