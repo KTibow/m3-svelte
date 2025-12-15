@@ -9,6 +9,7 @@
     initialIndex?: number;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let index = $state(initialIndex);
   $effect(() => {
     value = list[index];

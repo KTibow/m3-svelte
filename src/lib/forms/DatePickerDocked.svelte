@@ -9,7 +9,9 @@
   let {
     date = "",
     clearable,
+    // svelte-ignore state_referenced_locally
     focusedMonth = $bindable(parseInt(date.slice(5, 7)) - 1 || now.getMonth()),
+    // svelte-ignore state_referenced_locally
     focusedYear = $bindable(parseInt(date.slice(0, 4)) || now.getFullYear()),
     startYear = now.getFullYear() - 50,
     endYear = now.getFullYear() + 10,
@@ -29,6 +31,7 @@
   } = $props();
 
   let currentView: "calendar" | "year" | "month" = $state("calendar");
+  // svelte-ignore state_referenced_locally
   let chosenDate = $state(date);
   $effect(() => {
     chosenDate = date;
