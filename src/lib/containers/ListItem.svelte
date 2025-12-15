@@ -16,7 +16,7 @@
     headline = "",
     supporting = "",
     trailing,
-    lines = overline && supporting ? 3 : overline || supporting ? 2 : 1,
+    lines: _lines,
     ...props
   }: {
     leading?: Snippet;
@@ -26,6 +26,8 @@
     trailing?: Snippet;
     lines?: number;
   } & ActionProps = $props();
+
+  let lines = $derived(_lines ?? (overline && supporting ? 3 : overline || supporting ? 2 : 1));
 </script>
 
 {#snippet content()}
