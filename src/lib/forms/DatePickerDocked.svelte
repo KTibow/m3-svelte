@@ -35,11 +35,7 @@
   } = $props();
 
   let currentView: "calendar" | "year" | "month" = $state("calendar");
-  // svelte-ignore state_referenced_locally
-  let chosenDate = $state(date);
-  $effect(() => {
-    chosenDate = date;
-  });
+  let chosenDate = $derived(date);
 
   const getLongMonth = (month: number) =>
     new Date(0, month).toLocaleDateString(undefined, { month: "long" });
