@@ -55,8 +55,8 @@
     ui = 0;
   }}
 >
-  <p class="m3-font-headline-small">{bg.name.replaceAll("_", " ")}</p>
-  <p class="m3-font-body-large">{fg.name.replaceAll("_", " ")} text</p>
+  <p class="bg">{bg.name.replaceAll("_", " ")}</p>
+  <p class="fg">{fg.name.replaceAll("_", " ")} text</p>
   {#if ui}
     <div
       class="overlay"
@@ -96,5 +96,11 @@
   }
   p {
     margin: 0;
+  }
+  p.bg {
+    @apply --m3-headline-small;
+  }
+  p.fg {
+    @apply --m3-body-large;
   }
 </style>

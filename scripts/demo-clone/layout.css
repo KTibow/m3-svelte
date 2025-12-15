@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+/* snip: theme snippet */
+
+:root {
+  @apply --m3-body-large;
+  background: var(--m3c-background);
+  color: var(--m3c-on-background);
+}
+body {
+  display: flex;
+  height: 100dvh;
+  margin: 0;
+  box-sizing: border-box;
+}
+@media (width < 52.5rem) {
+  body {
+    flex-direction: column-reverse;
+    --m3v-bottom-offset: 5rem;
+  }
+}
+img {
+  max-width: 100%;
+}
+/* not implemented: a comprehensive css reset */

@@ -38,7 +38,7 @@
     </button>
     <button
       type="button"
-      class="chooser m3-font-label-large"
+      class="chooser"
       onclick={monthClick}
       disabled={currentView == "year"}
     >
@@ -69,7 +69,7 @@
     </button>
     <button
       type="button"
-      class="chooser m3-font-label-large"
+      class="chooser"
       onclick={yearClick}
       disabled={currentView == "month"}
     >
@@ -108,7 +108,7 @@
     justify-content: center;
 
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
     border: none;
     padding: 0;
     cursor: pointer;
@@ -116,10 +116,11 @@
   }
   button:disabled {
     cursor: auto;
-    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    color: --translucent(var(--m3c-on-surface-variant), 0.38);
   }
 
   .chooser {
+    @apply --m3-label-large;
     flex-grow: 1;
   }
   .chooser :global(svg) {
@@ -137,7 +138,7 @@
   }
 
   .choosing {
-    border-color: rgb(var(--m3-scheme-outline-variant));
+    border-color: var(--m3c-outline-variant);
   }
   .choosing .arrow {
     opacity: 0;

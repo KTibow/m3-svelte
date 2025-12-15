@@ -6,15 +6,13 @@
     type Variant,
   } from "@ktibow/material-color-utilities-nightly";
   import iconContrast from "@ktibow/iconset-material-symbols/contrast";
-  import iconDensityLarge from "@ktibow/iconset-material-symbols/density-large-rounded";
-  import iconDensitySmall from "@ktibow/iconset-material-symbols/density-small-rounded";
-  import iconDensityMedium from "@ktibow/iconset-material-symbols/density-medium-rounded";
-  import { materialColors } from "$lib";
+  import { materialColors } from "$lib/misc/colors";
   import Slider from "$lib/forms/Slider.svelte";
+  import Select from "$lib/forms/Select.svelte";
   import Layer from "$lib/misc/Layer.svelte";
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
   import Button from "$lib/buttons/Button.svelte";
-  import { appType } from "../state";
+  import { appType, density } from "../state";
   import variants from "./variants";
 
   let {
@@ -22,19 +20,17 @@
     variant = $bindable(),
     contrast = $bindable(),
     specVersion = $bindable(),
-    density = $bindable(),
   }: {
     schemes: Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
     variant: Variant;
     contrast: number;
     specVersion: "2021" | "2025";
-    density: number;
   } = $props();
 
   const variantColor = (scheme: DynamicScheme, color: DynamicColor) => {
     return hexFromArgb(color.getArgb(scheme));
   };
-  let showMore = $state(contrast != 0 || density != 0 || $appType != "vanilla");
+  let showMore = $state(contrast != 0 || $density != 0 || $appType != "vanilla");
 </script>
 
 <div class="content variants">
@@ -54,7 +50,7 @@
         style:--light-background={variantColor(light, materialColors.surfaceContainerLow())}
         style:--dark-background={variantColor(dark, materialColors.surfaceContainerLow())}
       >
-        <p class="m3-font-body-medium">{desc}</p>
+        <p class="desc">{desc}</p>
       </div>
     </label>
   {/each}
@@ -68,7 +64,14 @@
       size="m"
       leadingIcon={iconContrast}
       format={(n) => n.toString()}
-      bind:value={contrast}
+      bind:value={
+        () => contrast,
+        (n) => {
+          if (n <= -0.5) n = -1;
+          else if (n > -0.5 && n < 0) n = 0;
+          contrast = n;
+        }
+      }
     />
     <ConnectedButtons>
       <input
@@ -88,18 +91,25 @@
       />
       <Button for="specversion-2025" square>2025</Button>
     </ConnectedButtons>
-    <Slider
-      min={-3}
-      max={3}
-      step={1}
-      size="m"
-      leadingIcon={density > 0
-        ? iconDensityLarge
-        : density < 0
-          ? iconDensitySmall
-          : iconDensityMedium}
-      format={(n) => new Intl.NumberFormat(undefined, { signDisplay: "exceptZero" }).format(n)}
-      bind:value={density}
+    <Select
+      label="Density"
+      width="100%"
+      options={[
+        { text: "0", value: "0" },
+        { text: "Variable", value: "variable" },
+        { text: "-3", value: "-3" },
+        { text: "-2", value: "-2" },
+        { text: "-1", value: "-1" },
+        { text: "+1", value: "1" },
+        { text: "+2", value: "2" },
+        { text: "+3", value: "3" },
+      ]}
+      bind:value={
+        () => String($density),
+        (val) => {
+          $density = val == "variable" ? "variable" : Number(val);
+        }
+      }
     />
     <ConnectedButtons>
       <input
@@ -120,8 +130,15 @@
       <Button for="apptype-tailwind" square>Tailwind</Button>
     </ConnectedButtons>
   </div>
+  {#if $appType == "tailwind"}
+    <p style:text-align="center" style:margin-top="0.5rem">
+      ⚠️ Tailwind <a href="https://github.com/tailwindlabs/tailwindcss/pull/19427"
+        >may not support mixins yet</a
+      >. You may need to stay on M3 Svelte v5 for now.
+    </p>
+  {/if}
 {:else}
-  <button class="content more m3-font-label-large" onclick={() => (showMore = true)}>
+  <button class="content more" onclick={() => (showMore = true)}>
     <Layer />
     Contrast, version, density, Tailwind
   </button>
@@ -129,7 +146,7 @@
 
 <style>
   .content {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--m3c-surface-container-low);
     padding: 1rem;
     border-radius: 0.5rem;
   }
@@ -159,7 +176,7 @@
     flex-grow: 1;
     cursor: pointer;
     &:is(input:focus-visible + label) {
-      animation: var(--m3-util-refocus);
+      animation: var(--m3-refocus);
     }
     > * {
       display: flex;
@@ -191,13 +208,16 @@
       }
       > :last-child {
         border-radius: 0.25rem 0.25rem 1rem 1rem;
-        background-color: rgb(var(--m3-scheme-primary));
-        color: rgb(var(--m3-scheme-on-primary));
+        background-color: var(--m3c-primary);
+        color: var(--m3c-on-primary);
       }
     }
   }
   p {
     margin: 0;
+  }
+  p.desc {
+    @apply --m3-body-medium;
   }
 
   .content.variants {
@@ -210,6 +230,9 @@
     border: none;
     border-end-start-radius: 1rem;
     border-end-end-radius: 1rem;
+  }
+  button.more {
+    @apply --m3-label-large;
   }
   div.more {
     display: grid;

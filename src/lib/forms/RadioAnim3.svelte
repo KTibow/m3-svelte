@@ -40,8 +40,8 @@
     inset: -0.625rem;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: var(--m3-util-rounding-full);
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    border-radius: var(--m3-shape-full);
+    color: var(--m3c-on-surface-variant);
     cursor: pointer;
   }
 
@@ -50,9 +50,9 @@
     inset: 0.625rem;
     width: 1.25rem;
     height: 1.25rem;
-    border-radius: var(--m3-util-rounding-full);
+    border-radius: var(--m3-shape-full);
     border: solid 0.125rem currentColor;
-    transition: border var(--m3-util-easing-fast);
+    transition: border var(--m3-easing-fast);
   }
 
   .radio-dot {
@@ -60,17 +60,17 @@
     inset: 0.75rem;
     width: 1rem;
     height: 1rem;
-    border-radius: var(--m3-util-rounding-full);
+    border-radius: var(--m3-shape-full);
     outline: solid 0 currentColor;
-    transition: var(--m3-util-easing);
+    transition: var(--m3-easing);
   }
 
   :global(input:focus-visible) + .layer-container {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
   }
 
   :global(input:checked) + .layer-container {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
   }
 
   :global(input:checked) + .layer-container .radio-dot {
@@ -79,13 +79,12 @@
   }
 
   :global(input:disabled) + .layer-container {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--m3c-on-surface), 0.38);
     cursor: not-allowed;
   }
 
   .m3-container {
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
 
   @media screen and (forced-colors: active) {

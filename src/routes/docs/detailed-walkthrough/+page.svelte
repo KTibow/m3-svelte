@@ -8,44 +8,28 @@
   const componentCode2 = `${"<"}button>Click me${"<"}/button>
 ${"<"}style>
   button {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-primary));
-    box-shadow: var(--m3-util-elevation-1);
-    border-radius: var(--m3-util-rounding-full);
+    background-color: var(--m3c-surface-container-low);
+    color: var(--m3c-primary);
+    box-shadow: var(--m3-elevation-1);
+    border-radius: var(--m3-shape-full);
   }
 ${"<"}/style>`;
-  const componentCode3 = `${"<"}script>
-  import { Button } from "m3-svelte";
-${"<"}/script>
-
-${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"}/Button>`;
 </script>
+
+<svelte:head><title>Walkthrough</title></svelte:head>
 
 <p>
   Welcome to M3 Svelte! If you haven't already, play around with the components on the home page.
   It's rather fun. They even adapt to the theme you pick. You should also check out the Discord and
   GitHub if you want to keep track of this project.
 </p>
+
 <p>
-  This page is a detailed walkthrough of how to use M3 Svelte: we'll take you from configuration to
-  advanced usage.
+  The rest of this page covers some finer details of M3 Svelte. It isn't the place to look for
+  component-specific info - the home page is.
 </p>
 
-<h2 class="m3-font-headline-large">Configure your app</h2>
-<p>
-  The first thing to do is to set up your theme and font. If you haven't done that yet, the quick
-  start page will help you.
-</p>
-<p>
-  Beyond that, you can configure some general settings with CSS variables. You might already know
-  that you can change the default font stack with <code>--m3-font</code>, but you can also customize
-  the fonts of certain sizes (eg <code>--m3-font-label</code>) and their configuration (eg
-  <code>--m3-font-label-large-size</code>). You can also tweak rounding by setting variables like
-  <code>--m3-util-rounding-small</code>
-  and <code>--m3-button-shape</code>.
-</p>
-
-<h2 class="m3-font-headline-large">
+<h2>
   Make your own components
   <ConnectedButtons>
     <input type="radio" value="vanilla" id="apptype-vanilla" bind:group={$appType} />
@@ -54,6 +38,13 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     <Button for="apptype-tailwind" variant="filled" square>Tailwind</Button>
   </ConnectedButtons>
 </h2>
+{#if $appType == "tailwind"}
+  <p>
+    ⚠️ Tailwind <a href="https://github.com/tailwindlabs/tailwindcss/pull/19427"
+      >may not support mixins yet</a
+    >. You may need to stay on M3 Svelte v5 for now.
+  </p>
+{/if}
 <p>
   Chances are M3 doesn't have everything you need. That's where you can make your own components
   while still using Material 3 elements. Here's an example.
@@ -63,7 +54,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
 {:else}
   <Snippet code={componentCode2} name="Component.svelte" lang="xml" />
 {/if}
-<p>You might also want to make your app match your theme. Here's what that could look like:</p>
+<h2>Apply your theme</h2>
 {#if $appType == "tailwind"}
   <Snippet
     code={`<body class="m3-font-body-large bg-background text-on-background">`}
@@ -71,29 +62,58 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     lang="xml"
   />
 {:else}
-  <Snippet code={`<body class="m3-font-body-large">`} name="app.html" lang="xml" />
   <Snippet
     code={`body {
-  background-color: rgb(var(--m3-scheme-background));
-  color: rgb(var(--m3-scheme-on-background));
+  ${"@"}apply --m3-body-large;
+  background-color: var(--m3c-background);
+  color: var(--m3c-on-background);
 }`}
     name="app.css"
     lang="css"
   />
 {/if}
-<p>
-  So what's going on here? We're using M3 Svelte globals. All of them can be used in components, and
-  all of them can be overridden (as outlined earlier). Some come from your custom theme, but most
-  are defaults from
-  <a href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/misc/styles.css">styles.css</a>.
-</p>
 
-<h2 class="m3-font-headline-large">Use M3 Svelte components</h2>
+<h2>So what's going on here?</h2>
 <p>
-  It's usually simple to use components. For example, this is what it looks like to use a Button:
+  We're using M3 Svelte globals. All, except colors, were defined in <a
+    href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/misc/styles.css">styles.css</a
+  >. All can be used and overridden in your own app. You can categorize these into...
 </p>
-<Snippet code={componentCode3} name="Component.svelte" lang="xml" />
-<p>For more, the home page has a lot of demos and code examples.</p>
+<h3>Colors</h3>
+<p>
+  These start with <code>--m3c-</code> and are defined in your theme. If you want a list of them, just
+  read your theme's code!
+</p>
+<h3>Tokens</h3>
+<p>
+  The truths of Material 3. These start with <code>--m3-</code> and look like
+  <code>--m3-elevation-1</code>. They have a predefined value and live in
+  <code>@layer tokens</code>.
+</p>
+<p>There's more M3 theming beyond the theme page: you can modify these directly.</p>
+<p>
+  We recommend using <a href="https://www.npmjs.com/package/vite-plugin-token-shaker"
+    >vite-plugin-token-shaker</a
+  > to minify tokens by dropping unused ones, inlining rarely used ones, and mangling commonly used ones.
+</p>
+<h3>Variables</h3>
+<p>These start with <code>--m3v-</code>, but only a few can be set:</p>
+<ul>
+  <li>Set <code>--m3v-bottom-offset</code> to shift up snackbars</li>
+  <li>Set <code>--m3v-background</code> to calibrate the color of an outlined text field's box</li>
+</ul>
+<h3>Functions</h3>
+<p>These are shorthands for specific logic. M3 Svelte only has a few:</p>
+<ul>
+  <li><code>--translucent([color], [opacity])</code> makes a color semitransparent</li>
+  <li><code>--m3-density([size])</code> (theme-defined) adjusts a size</li>
+</ul>
+<h3>Mixins</h3>
+<p>
+  These are shorthands for specific properties, applied with <code>@apply --[name]</code>. M3
+  Svelte's only global mixins are for font styles. You can and could override them to make your own
+  theme.
+</p>
 
 <style>
   p {
@@ -104,17 +124,22 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     margin-top: 1em;
   }
   h2 {
+    @apply --m3-headline-large;
     display: flex;
     justify-content: space-between;
     margin: 0;
   }
+  h3 {
+    @apply --m3-headline-small;
+    margin: 0;
+  }
   code {
     font-size: 0.9rem;
-    background-color: rgb(var(--m3-scheme-surface-variant));
+    background-color: var(--m3c-surface-variant);
     padding-inline: 2px;
     border-radius: 0.25rem;
   }
   a {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
   }
 </style>

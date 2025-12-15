@@ -63,15 +63,15 @@
       circle.appendChild(expand);
 
       const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      svg.style.cssText = `
-        position: absolute;
-        left: ${x - size / 2}px;
-        top: ${y - size / 2}px;
-        width: ${size}px;
-        height: ${size}px;
-        pointer-events: none;
-        overflow: visible;
-      `;
+      svg.style.cssText = [
+        "position: absolute",
+        `left: ${x - size / 2}px`,
+        `top: ${y - size / 2}px`,
+        `width: ${size}px`,
+        `height: ${size}px`,
+        "pointer-events: none",
+        "overflow: visible",
+      ].join(";");
       svg.appendChild(gradient);
       svg.appendChild(circle);
 
@@ -189,21 +189,23 @@
 
     background-color: currentColor;
     opacity: 0;
-    transition: opacity var(--m3-util-easing-fast);
+    transition: opacity var(--m3-easing-fast);
 
     &:not(
-      :global(input:disabled + label) > .tint,
-      :global(input:disabled + .layer-container) > .tint,
-      :global(:disabled) > .tint
+      :global(input:disabled + label) > *,
+      :global(input:disabled + .layer-container) > *,
+      :global(:disabled) > *
     ) {
       @media (hover: hover) {
-        &:is(:global(:hover) > .tint, :global(:active) > .tint) {
+        &:is(:global(:hover) > *, :global(:active) > *) {
           opacity: 0.08;
         }
       }
-      &:is(:global(input:focus-visible + label) > .tint),
-      &:is(:global(:focus-visible) > .tint),
-      &:is(.ripple-container.broken + .tint):is(:global(:active) > .tint) {
+      &:is(
+        :global(input:focus-visible + label) > *,
+        :global(:focus-visible) > *,
+        :global(:active) > .ripple-container.broken + *
+      ) {
         opacity: 0.12;
       }
     }

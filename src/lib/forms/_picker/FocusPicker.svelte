@@ -16,12 +16,7 @@
 
 <div class="m3-container">
   {#each options as { name, selected, activate }}
-    <button
-      type="button"
-      class="m3-font-body-large"
-      onclick={activate}
-      use:conditionalScroll={selected}
-    >
+    <button type="button" onclick={activate} use:conditionalScroll={selected}>
       <Layer />
       {#if selected}
         <Icon icon={iconCheck} />
@@ -40,6 +35,7 @@
     margin-bottom: 1.25rem;
   }
   button {
+    @apply --m3-body-large;
     display: inline-flex;
     align-items: center;
     height: 3rem;
@@ -47,7 +43,7 @@
     flex-shrink: 0;
 
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
     border: none;
     cursor: pointer;
     position: relative;

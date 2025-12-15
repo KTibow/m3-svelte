@@ -10,8 +10,10 @@
 </div>
 
 <style>
-  :root {
-    --m3-menu-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-menu-shape: var(--m3-shape-extra-small);
+    }
   }
   .m3-container {
     display: flex;
@@ -21,8 +23,8 @@
     border-radius: var(--m3-menu-shape);
     min-width: 7rem;
     max-width: 17.5rem;
-    background-color: rgb(var(--m3-scheme-surface-container));
+    background-color: var(--m3c-surface-container);
     z-index: 2;
-    box-shadow: var(--m3-util-elevation-2);
+    box-shadow: var(--m3-elevation-2);
   }
 </style>

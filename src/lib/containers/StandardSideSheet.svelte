@@ -17,7 +17,7 @@
 
 <div class="m3-container">
   <div class="header">
-    <span class="m3-font-title-large">{headline}</span>
+    <span>{headline}</span>
     <Button variant="text" iconType="full" onclick={close}>
       <Icon icon={iconX} />
     </Button>
@@ -37,7 +37,10 @@
 
     padding: 1.5rem;
   }
+  .header > span {
+    @apply --m3-title-large;
+  }
   .header > :global(button.m3-container) {
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
   }
 </style>

@@ -7,27 +7,31 @@
 
   import Doc from "./_doc.svelte";
   import Hero from "./Hero.svelte";
-  import Demo0 from "./0.svelte";
-  import Demo1 from "./1.svelte";
-  import Demo2 from "./2.svelte";
-  import Demo3 from "./3.svelte";
-  import Demo4 from "./4.svelte";
-  import Demo5 from "./5.svelte";
-  import Demo6 from "./6.svelte";
-  import Demo7 from "./7.svelte";
-  import Demo8 from "./8.svelte";
-  import Demo9 from "./9.svelte";
-  import Demo10 from "./10.svelte";
-  import Demo11 from "./11.svelte";
-  import Demo12 from "./12.svelte";
-  import Demo13 from "./13.svelte";
-  import Demo14 from "./14.svelte";
-  import Demo15 from "./15.svelte";
-  import Demo16 from "./16.svelte";
-  import Demo17 from "./17.svelte";
-  import Demo18 from "./18.svelte";
-  import Demo19 from "./19.svelte";
-  import Demo20 from "./20.svelte";
+  import Demo0 from "virtual:demo/0";
+  import Demo1 from "virtual:demo/1";
+  import Demo2 from "virtual:demo/2";
+  import Demo3 from "virtual:demo/3";
+  import Demo4 from "virtual:demo/4";
+  import Demo5 from "virtual:demo/5";
+  import Demo6 from "virtual:demo/6";
+  import Demo7 from "virtual:demo/7";
+  import Demo8 from "virtual:demo/8";
+  import Demo9 from "virtual:demo/9";
+  import Demo10 from "virtual:demo/10";
+  import Demo11 from "virtual:demo/11";
+  import Demo12 from "virtual:demo/12";
+  import Demo13 from "virtual:demo/13";
+  import Demo14 from "virtual:demo/14";
+  import Demo15 from "virtual:demo/15";
+  import Demo16 from "virtual:demo/16";
+  import Demo17 from "virtual:demo/17";
+  import Demo18 from "virtual:demo/18";
+  import Demo19 from "virtual:demo/19";
+  import Demo20 from "virtual:demo/20";
+  import Demo21 from "virtual:demo/21";
+  import Demo22 from "virtual:demo/22";
+  import Demo23 from "virtual:demo/23";
+  import { afterNavigate } from "$app/navigation";
 
   type DocData = {
     name: string;
@@ -42,6 +46,13 @@
   ) => {
     doc = { name, minimalDemo, relevantLinks };
   };
+
+  afterNavigate(() => {
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      el?.scrollIntoView();
+    }
+  });
 </script>
 
 <svelte:head>
@@ -81,6 +92,12 @@
     <Demo18 {showCode} />
     <Demo19 {showCode} />
     <Demo20 {showCode} />
+    <Demo21 {showCode} />
+    <Demo22 {showCode} />
+    <Demo23 {showCode} />
+    {#await import("virtual:demo/24") then { default: Demo24 }}
+      <Demo24 {showCode} />
+    {/await}
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
     <div class="sheet" transition:slide={{ easing: easeEmphasized, duration: 500, axis: "x" }}>
@@ -113,11 +130,10 @@
     grid-column: 1;
   }
   .sheet {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     width: 16rem;
     margin-inline-start: 1rem;
-    border-inline-start: solid 1px rgb(var(--m3-scheme-outline));
+    border-inline-start: solid 1px var(--m3c-outline);
 
     position: sticky;
     top: 0;

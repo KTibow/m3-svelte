@@ -13,7 +13,7 @@
     margin: 0;
     height: 0;
     border: none;
-    border-bottom: solid 1px rgb(var(--m3-scheme-outline-variant));
+    border-bottom: solid 1px var(--m3c-outline-variant);
   }
   .inset {
     margin-left: 1rem;

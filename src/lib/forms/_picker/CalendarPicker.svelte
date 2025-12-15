@@ -49,7 +49,7 @@
   <div style:display="contents" role="row">
     {#each ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] as day}
       <!-- TODO: use a tooltip -->
-      <div class="day m3-font-body-small" role="columnheader" title={day}>{day.at(0)}</div>
+      <div class="day" role="columnheader" title={day}>{day.at(0)}</div>
     {/each}
   </div>
   {#each makeCalendar(focusedYear, focusedMonth) as row}
@@ -82,6 +82,7 @@
     gap: 0.25rem;
   }
   .day {
+    @apply --m3-body-small;
     display: inline-flex;
     width: 2.5rem;
     height: 2.5rem;
@@ -89,6 +90,6 @@
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
   }
 </style>

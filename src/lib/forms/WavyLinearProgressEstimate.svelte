@@ -15,8 +15,6 @@
     thickness?: number;
   } & LabelledAria = $props();
 
-  let top = $derived(thickness * 0.5);
-  let bottom = $derived(height - thickness * 0.5);
   let left = $derived(thickness * 0.5);
   let right = $derived(width - thickness * 0.5);
   let endTime = $derived(sToHalfway * 8);
@@ -28,14 +26,23 @@
       let value = 1 - Math.pow(0.5, time / sToHalfway);
       if (value == 0) value = 0.001;
       const ms = time * 1000;
-      paths.push(linear(top, bottom, left, right, ms, value * (right - left) + left));
+      paths.push(
+        linear(
+          height / 2 - thickness / 2,
+          height / 2,
+          left,
+          right,
+          ms,
+          value * (right - left) + left,
+        ),
+      );
     }
     return paths.join(";");
   });
   const infiniteSMIL = $derived.by(() => {
     let paths: string[] = [];
     for (let time = 0; time <= 1; time += 1 / 30) {
-      paths.push(linear(top, bottom, left, right, time * 1000));
+      paths.push(linear(height / 2 - thickness / 2, height / 2, left, right, time * 1000));
     }
     return paths.join(";");
   });
@@ -59,12 +66,7 @@
 </script>
 
 <svg viewBox="0 0 {width} {height}" role="progressbar" {...extra}>
-  <path
-    fill="none"
-    stroke="rgb(var(--m3-scheme-primary))"
-    stroke-width={thickness}
-    stroke-linecap="round"
-  >
+  <path fill="none" stroke="var(--m3c-primary)" stroke-width={thickness} stroke-linecap="round">
     <animate attributeName="d" dur="{endTime}s" values={expressiveSMIL} />
     <animate
       attributeName="d"
@@ -76,7 +78,7 @@
   </path>
   <line
     fill="none"
-    stroke="rgb(var(--m3-scheme-secondary-container))"
+    stroke="var(--m3c-secondary-container)"
     stroke-width={thickness}
     stroke-linecap="round"
     y1={height / 2}

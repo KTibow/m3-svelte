@@ -15,13 +15,17 @@
     demo: Snippet;
     showCode: () => void;
   } = $props();
+
+  let id = $derived(`${title.toLowerCase().replaceAll(" ", "-")}-demo`);
 </script>
 
 <div class="container">
   {#if children}
-    <h2 class="m3-font-headline-medium">
-      {title}
-    </h2>
+    <a href={`#${id}`}>
+      <h2 {id}>
+        {title}
+      </h2>
+    </a>
     <div class="controls">
       <div>
         {@render children()}
@@ -32,7 +36,7 @@
       </button>
     </div>
   {:else}
-    <button class="name m3-font-headline-medium" onclick={showCode}>
+    <button class="name" onclick={showCode}>
       <Layer />
       {title}
       <Icon icon={iconCode} size={24} />
@@ -47,11 +51,17 @@
     flex-direction: column;
   }
 
+  a {
+    display: contents;
+    color: currentColor;
+  }
+
   h2 {
+    @apply --m3-headline-medium;
     display: flex;
     justify-content: space-between;
 
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--m3c-surface-container-low);
     border-start-start-radius: 1.5rem;
     border-start-end-radius: 1.5rem;
     border-end-start-radius: 0.5rem;
@@ -62,6 +72,9 @@
     margin: 0;
     margin-bottom: 0.5rem;
     flex-grow: 1;
+  }
+  h2:target {
+    color: var(--m3c-primary);
   }
   .controls {
     display: flex;
@@ -74,8 +87,8 @@
     padding: 0.75rem;
     border-radius: 0.5rem;
     border-end-start-radius: 1.5rem;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-on-surface));
+    background-color: var(--m3c-surface-container-low);
+    color: var(--m3c-on-surface);
     flex-grow: 1;
     flex-wrap: wrap;
 
@@ -92,8 +105,8 @@
     justify-content: center;
     border-radius: 0.5rem;
     border-end-end-radius: 1.5rem;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-primary));
+    background-color: var(--m3c-surface-container-low);
+    color: var(--m3c-primary);
 
     min-width: 3rem;
     min-height: 3rem;
@@ -105,13 +118,14 @@
   }
 
   .name {
+    @apply --m3-headline-medium;
     display: flex;
     flex-direction: column;
     text-align: left;
     border-radius: 1.5rem;
     padding: 0.75rem;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    color: rgb(var(--m3-scheme-primary));
+    background-color: var(--m3c-surface-container-low);
+    color: var(--m3c-primary);
 
     flex-grow: 1;
     margin-bottom: 1.5rem;

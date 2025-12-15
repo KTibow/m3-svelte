@@ -28,7 +28,7 @@
   class:enabled={!extra.disabled}
   style:align-self={width == "auto" ? "start" : undefined}
 >
-  <select class="m3-font-body-large" style:--width={width} bind:value {id} {...extra}>
+  <select style:--width={width} bind:value {id} {...extra}>
     {#each options as { icon, text, ...extra }, i (i)}
       <option class="focus-inset" {...extra}>
         <Layer />
@@ -40,7 +40,7 @@
     {/each}
   </select>
   <div class="layer"></div>
-  <label for={id} class="m3-font-body-small">
+  <label for={id}>
     {label}
   </label>
 </div>
@@ -48,27 +48,29 @@
 <style>
   /*
   want to customize the label's background?
-  do this: <SelectOutlined --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
+  do this: <SelectOutlined --m3v-background="var(--m3c-surface-container)" />
   */
-  :root {
-    --m3-menu-shape: var(--m3-util-rounding-extra-small);
-    --m3-field-outlined-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-menu-shape: var(--m3-shape-extra-small);
+      --m3-field-outlined-shape: var(--m3-shape-extra-small);
+    }
   }
 
   .m3-container {
     display: flex;
     flex-direction: column;
     position: relative;
-    --secondary-color: rgb(var(--m3-scheme-on-surface-variant));
-    --outline-color: rgb(var(--m3-scheme-outline));
+    --secondary-color: var(--m3c-on-surface-variant);
+    --outline-color: var(--m3c-outline);
     &.enabled {
       &:hover {
-        --secondary-color: rgb(var(--m3-scheme-on-surface));
-        --outline-color: rgb(var(--m3-scheme-on-surface));
+        --secondary-color: var(--m3c-on-surface);
+        --outline-color: var(--m3c-on-surface);
       }
       &:focus-within {
-        --secondary-color: rgb(var(--m3-scheme-primary));
-        --outline-color: rgb(var(--m3-scheme-primary));
+        --secondary-color: var(--m3c-primary);
+        --outline-color: var(--m3c-primary);
         .layer {
           border-width: 0.125rem;
         }
@@ -84,15 +86,16 @@
     transition: all 100ms;
   }
   label {
+    @apply --m3-body-small;
     position: absolute;
     top: 0;
     inset-inline-start: 0.75rem;
     translate: 0 -50%;
     color: var(--secondary-color);
-    background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
+    background-color: var(--m3v-background);
     padding: 0 0.25rem;
     pointer-events: none;
-    transition: color var(--m3-util-easing-fast);
+    transition: color var(--m3-easing-fast);
   }
 
   select {
@@ -104,14 +107,15 @@
   }
 
   select {
+    @apply --m3-body-large;
     display: flex;
     align-items: center;
-    height: calc(3.5rem + var(--m3-util-density-term));
+    height: --m3-density(3.5rem);
     padding-inline: 1rem;
 
     border-radius: var(--m3-field-outlined-shape);
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
 
     border: none;
     outline: none;
@@ -126,16 +130,16 @@
     scale: 1 0.6;
     color: var(--secondary-color);
     transition:
-      color var(--m3-util-easing-fast),
-      rotate var(--m3-util-easing-fast);
+      color var(--m3-easing-fast),
+      rotate var(--m3-easing-fast);
   }
   select:open::picker-icon {
     rotate: 180deg;
   }
 
   ::picker(select) {
-    background-color: rgb(var(--m3-scheme-surface-container));
-    box-shadow: var(--m3-util-elevation-2);
+    background-color: var(--m3c-surface-container);
+    box-shadow: var(--m3-elevation-2);
     border-radius: var(--m3-menu-shape);
 
     box-sizing: border-box;
@@ -144,10 +148,10 @@
     interpolate-size: allow-keywords;
     overflow: hidden;
     transition:
-      width var(--m3-util-easing-fast),
-      height var(--m3-util-easing-fast),
-      display var(--m3-util-duration-fast) allow-discrete,
-      overlay var(--m3-util-duration-fast) allow-discrete;
+      width var(--m3-easing-fast),
+      height var(--m3-easing-fast),
+      display var(--m3-duration-fast) allow-discrete,
+      overlay var(--m3-duration-fast) allow-discrete;
 
     border: none;
     cursor: auto;
@@ -157,7 +161,7 @@
     height: auto;
     transition:
       width 500ms linear,
-      height 500ms var(--m3-util-timing-function-emphasized-decel),
+      height 500ms var(--m3-timing-function-emphasized-decel),
       display 500ms allow-discrete,
       overlay 500ms allow-discrete;
   }
@@ -172,13 +176,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     padding-inline: 1rem;
-    padding-block: calc(
-      (
-          3rem + var(--m3-util-density-term) -
-            (var(--m3-font-body-large-size, 1rem) * var(--m3-font-body-large-height, 1.5))
-        ) /
-        2
-    );
+    padding-block: calc((--m3-density(3rem) - 1lh) / 2);
     &:first-child {
       margin-top: 0.5rem;
     }
@@ -188,8 +186,8 @@
 
     background-color: transparent;
     &:checked {
-      background-color: rgb(var(--m3-scheme-primary-container));
-      color: rgb(var(--m3-scheme-on-primary-container));
+      background-color: var(--m3c-primary-container);
+      color: var(--m3c-on-primary-container);
     }
 
     > *,
@@ -206,7 +204,7 @@
         margin-right: 0.5rem;
       }
       &:not(:checked) > :global(svg) {
-        color: rgb(var(--m3-scheme-on-surface-variant));
+        color: var(--m3c-on-surface-variant);
       }
       &:checked > :global(svg) {
         opacity: 0.8;
@@ -217,8 +215,8 @@
     }
 
     transition:
-      background-color var(--m3-util-easing-fast),
-      color var(--m3-util-easing-fast);
+      background-color var(--m3-easing-fast),
+      color var(--m3-easing-fast);
 
     position: relative;
     cursor: pointer;

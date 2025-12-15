@@ -37,15 +37,15 @@
   <div class="body">
     {#if overline}
       <!-- Renamed to not conflict with Tailwind -->
-      <p class="overline- m3-font-label-small">{overline}</p>
+      <p class="overline-">{overline}</p>
     {/if}
-    <p class="headline m3-font-body-large">{headline}</p>
+    <p class="headline">{headline}</p>
     {#if supporting}
-      <p class="supporting m3-font-body-medium">{supporting}</p>
+      <p class="supporting">{supporting}</p>
     {/if}
   </div>
   {#if trailing}
-    <div class="trailing m3-font-label-small">
+    <div class="trailing">
       {@render trailing()}
     </div>
   {/if}
@@ -93,13 +93,13 @@
     cursor: pointer;
   }
   .lines-1 {
-    height: calc(3.5rem + var(--m3-util-density-term));
+    height: --m3-density(3.5rem);
   }
   .lines-2 {
-    height: calc(4.5rem + var(--m3-util-density-term));
+    height: --m3-density(4.5rem);
   }
   .lines-3 {
-    height: calc(5.5rem + var(--m3-util-density-term));
+    height: --m3-density(5.5rem);
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     align-items: flex-start;
@@ -110,7 +110,10 @@
   .leading,
   .trailing {
     display: contents;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
+  }
+  .trailing {
+    @apply --m3-label-small;
   }
   .leading > :global(svg),
   .trailing > :global(svg) {
@@ -122,11 +125,16 @@
   p {
     margin: 0;
   }
-  .supporting,
+  .supporting {
+    @apply --m3-body-medium;
+    color: var(--m3c-on-surface-variant);
+  }
   .overline- {
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    @apply --m3-label-small;
+    color: var(--m3c-on-surface-variant);
   }
   .headline {
-    color: rgb(var(--m3-scheme-on-surface));
+    @apply --m3-body-large;
+    color: var(--m3c-on-surface);
   }
 </style>

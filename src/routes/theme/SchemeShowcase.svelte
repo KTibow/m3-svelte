@@ -10,31 +10,41 @@
 
   import Button from "$lib/buttons/Button.svelte";
   import ColorCard from "./ColorCard.svelte";
-  import { appType, styling } from "../state";
+  import { appType, styling, density } from "../state";
   import { pairs } from "$lib/misc/colors";
   import { genCSS } from "$lib/misc/utils";
 
   let {
     light,
     dark,
-    density,
   }: {
     light: DynamicScheme;
     dark: DynamicScheme;
-    density: number;
   } = $props();
   let showDark = $state(false);
   let grabbing = $state(false);
 
   $effect(() => {
-    let style = genCSS(light, dark);
-    if (density) {
-      style = `:root {
-  --m3-util-density: ${density};
-}
-${style}`;
+    const style = genCSS(light, dark);
+    let fn;
+    if ($density == "variable") {
+      fn = `@function --m3-density(--size) {
+  result: calc(var(--size) + (var(--density) * 0.25rem));
+}`;
+    } else if ($density < 0) {
+      fn = `@function --m3-density(--size) {
+  result: calc(var(--size) - ${$density * -0.25}rem);
+}`;
+    } else if ($density == 0) {
+      fn = `@function --m3-density(--size) {
+  result: var(--size);
+}`;
+    } else {
+      fn = `@function --m3-density(--size) {
+  result: calc(var(--size) + ${$density * 0.25}rem);
+}`;
     }
-    $styling = style;
+    $styling = fn + "\n" + style;
   });
 
   const copyUsage = () => {
@@ -57,7 +67,7 @@ ${innerStyles}
 </script>
 
 <div class="content">
-  <h2 class="m3-font-title-large">Your scheme 🎉</h2>
+  <h2>Your scheme 🎉</h2>
   <div class="color-container">
     {#each pairs as [bgName, fgName]}
       <ColorCard
@@ -94,11 +104,12 @@ ${innerStyles}
 
 <style>
   .content {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--m3c-surface-container-low);
     padding: 1rem;
     border-radius: 1rem;
   }
   h2 {
+    @apply --m3-title-large;
     margin: 0 0 1rem 0;
   }
   .color-container {

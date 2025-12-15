@@ -81,8 +81,10 @@
 </div>
 
 <style>
-  :root {
-    --m3-date-picker-shape: var(--m3-util-rounding-large);
+  @layer tokens {
+    :root {
+      --m3-date-picker-shape: var(--m3-shape-large);
+    }
   }
 
   .m3-container {
@@ -90,7 +92,7 @@
     position: relative;
     overflow: hidden;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-surface-container-high));
+    background-color: var(--m3c-surface-container-high);
     width: 20.5rem;
     height: 26.75rem;
     border-radius: var(--m3-date-picker-shape);

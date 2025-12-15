@@ -16,7 +16,6 @@
   width={size || "1em"}
   height={size || "1em"}
   viewBox="0 0 {icon.width} {icon.height}"
-  data-badge={icon.body.includes("<!--badge-->") ? "" : undefined}
   aria-hidden={!extra["aria-label"] && !extra["aria-labelledby"]}
   {...extra}
 >
@@ -24,8 +23,8 @@
 </svg>
 
 <style>
-  /* deprecated: eventually want to just do this for all icons */
-  svg[data-badge] {
+  svg {
+    flex-shrink: 0;
     overflow: visible;
   }
 </style>

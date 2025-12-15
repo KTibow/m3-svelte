@@ -46,8 +46,8 @@
     inset: -0.6875rem;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: var(--m3-util-rounding-full);
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    border-radius: var(--m3-shape-full);
+    color: var(--m3c-on-surface-variant);
     cursor: pointer;
   }
 
@@ -56,16 +56,16 @@
     inset: 0.6875rem;
     border-radius: 0.125rem;
     border: solid 0.125rem currentColor;
-    transition: var(--m3-util-easing-fast);
+    transition: var(--m3-easing-fast);
   }
 
   svg {
     position: absolute;
     inset: 0;
-    color: rgb(var(--m3-scheme-on-primary));
+    color: var(--m3c-on-primary);
     opacity: 0;
     pointer-events: none;
-    transition: var(--m3-util-easing-fast);
+    transition: var(--m3-easing-fast);
     path {
       stroke-dasharray: 20.874 20.874;
       stroke-dashoffset: 20.874;
@@ -74,26 +74,26 @@
   }
 
   :global(input:focus-visible) + .layer-container {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
   }
 
   :global(input:checked) + .layer-container {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
   }
   :global(input:checked) + .layer-container .checkbox-box {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--m3c-primary);
   }
 
   :global(input:checked) ~ svg {
     opacity: 1;
     path {
       stroke-dashoffset: 0;
-      transition: stroke-dashoffset var(--m3-util-easing-slow);
+      transition: stroke-dashoffset var(--m3-easing-slow);
     }
   }
 
   :global(input:disabled) + .layer-container {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--m3c-on-surface), 0.38);
     cursor: not-allowed;
   }
 
@@ -101,16 +101,15 @@
     color: transparent;
   }
   :global(input:disabled:checked) + .layer-container .checkbox-box {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: --translucent(var(--m3c-on-surface), 0.38);
   }
 
   :global(input:disabled) ~ svg {
-    color: rgb(var(--m3-scheme-surface));
+    color: var(--m3c-surface);
   }
 
   .m3-container {
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
   @media screen and (forced-colors: active) {
     :global(input:checked) + .layer-container .checkbox-box {

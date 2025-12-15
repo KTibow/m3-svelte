@@ -15,157 +15,159 @@
 @theme inline {
   --font-mono: var(--m3-font-mono);
 
-  --shadow-1: var(--m3-util-elevation-1);
-  --shadow-2: var(--m3-util-elevation-2);
-  --shadow-3: var(--m3-util-elevation-3);
-  --shadow-4: var(--m3-util-elevation-4);
-  --shadow-5: var(--m3-util-elevation-5);
+  --shadow-1: var(--m3-elevation-1);
+  --shadow-2: var(--m3-elevation-2);
+  --shadow-3: var(--m3-elevation-3);
+  --shadow-4: var(--m3-elevation-4);
+  --shadow-5: var(--m3-elevation-5);
 
-  --radius-xs: var(--m3-util-rounding-extra-small); /* = 4px = rounded-sm */
-  --radius-sm: var(--m3-util-rounding-small); /* = 8px = rounded-lg */
-  --radius-md: var(--m3-util-rounding-medium); /* = 12px = rounded-xl */
-  --radius-lg: var(--m3-util-rounding-large); /* = 16px = rounded-2xl */
-  --radius-xl: var(--m3-util-rounding-extra-large); /* = 28px ≅ rounded-3xl */
+  --radius-xs: var(--m3-shape-extra-small); /* = 4px = rounded-sm */
+  --radius-sm: var(--m3-shape-small); /* = 8px = rounded-lg */
+  --radius-md: var(--m3-shape-medium); /* = 12px = rounded-xl */
+  --radius-lg: var(--m3-shape-large); /* = 16px = rounded-2xl */
+  --radius-xl: var(--m3-shape-extra-large); /* = 28px ≅ rounded-3xl */
 
-  --ease-fast-spatial: var(--m3-util-timing-function-fast-spatial);
-  --ease-spatial: var(--m3-util-timing-function-spatial);
-  --ease-slow-spatial: var(--m3-util-timing-function-slow-spatial);
-  --ease-fast: var(--m3-util-timing-function-fast);
-  --ease: var(--m3-util-timing-function);
-  --ease-slow: var(--m3-util-timing-function-slow);
-  --ease-emphasized: var(--m3-util-timing-function-emphasized);
-  --ease-emphasized-accel: var(--m3-util-timing-function-emphasized-accel);
-  --ease-emphasized-decel: var(--m3-util-timing-function-emphasized-decel);
+  --ease-fast-spatial: var(--m3-timing-function-fast-spatial);
+  --ease-spatial: var(--m3-timing-function-spatial);
+  --ease-slow-spatial: var(--m3-timing-function-slow-spatial);
+  --ease-fast: var(--m3-timing-function-fast);
+  --ease: var(--m3-timing-function);
+  --ease-slow: var(--m3-timing-function-slow);
+  --ease-emphasized: var(--m3-timing-function-emphasized);
+  --ease-emphasized-accel: var(--m3-timing-function-emphasized-accel);
+  --ease-emphasized-decel: var(--m3-timing-function-emphasized-decel);
 
   --default-transition-timing-function: var(--ease);
-  --default-transition-duration: var(--m3-util-duration);
+  --default-transition-duration: var(--m3-duration);
 
-  --color-background: rgb(var(--m3-scheme-background));
-  --color-on-background: rgb(var(--m3-scheme-on-background));
-  --color-surface: rgb(var(--m3-scheme-surface));
-  --color-surface-dim: rgb(var(--m3-scheme-surface-dim));
-  --color-surface-bright: rgb(var(--m3-scheme-surface-bright));
-  --color-surface-container-lowest: rgb(var(--m3-scheme-surface-container-lowest));
-  --color-surface-container-low: rgb(var(--m3-scheme-surface-container-low));
-  --color-surface-container: rgb(var(--m3-scheme-surface-container));
-  --color-surface-container-high: rgb(var(--m3-scheme-surface-container-high));
-  --color-surface-container-highest: rgb(var(--m3-scheme-surface-container-highest));
-  --color-on-surface: rgb(var(--m3-scheme-on-surface));
-  --color-on-surface-variant: rgb(var(--m3-scheme-on-surface-variant));
-  --color-outline: rgb(var(--m3-scheme-outline));
-  --color-outline-variant: rgb(var(--m3-scheme-outline-variant));
-  --color-inverse-surface: rgb(var(--m3-scheme-inverse-surface));
-  --color-inverse-on-surface: rgb(var(--m3-scheme-inverse-on-surface));
-  --color-primary: rgb(var(--m3-scheme-primary));
-  --color-primary-dim: rgb(var(--m3-scheme-primary-dim));
-  --color-on-primary: rgb(var(--m3-scheme-on-primary));
-  --color-primary-container: rgb(var(--m3-scheme-primary-container));
-  --color-on-primary-container: rgb(var(--m3-scheme-on-primary-container));
-  --color-primary-fixed: rgb(var(--m3-scheme-primary-fixed));
-  --color-primary-fixed-dim: rgb(var(--m3-scheme-primary-fixed-dim));
-  --color-on-primary-fixed: rgb(var(--m3-scheme-on-primary-fixed));
-  --color-on-primary-fixed-variant: rgb(var(--m3-scheme-on-primary-fixed-variant));
-  --color-inverse-primary: rgb(var(--m3-scheme-inverse-primary));
-  --color-secondary: rgb(var(--m3-scheme-secondary));
-  --color-secondary-dim: rgb(var(--m3-scheme-secondary-dim));
-  --color-on-secondary: rgb(var(--m3-scheme-on-secondary));
-  --color-secondary-container: rgb(var(--m3-scheme-secondary-container));
-  --color-on-secondary-container: rgb(var(--m3-scheme-on-secondary-container));
-  --color-secondary-fixed: rgb(var(--m3-scheme-secondary-fixed));
-  --color-secondary-fixed-dim: rgb(var(--m3-scheme-secondary-fixed-dim));
-  --color-on-secondary-fixed: rgb(var(--m3-scheme-on-secondary-fixed));
-  --color-on-secondary-fixed-variant: rgb(var(--m3-scheme-on-secondary-fixed-variant));
-  --color-tertiary: rgb(var(--m3-scheme-tertiary));
-  --color-tertiary-dim: rgb(var(--m3-scheme-tertiary-dim));
-  --color-on-tertiary: rgb(var(--m3-scheme-on-tertiary));
-  --color-tertiary-container: rgb(var(--m3-scheme-tertiary-container));
-  --color-on-tertiary-container: rgb(var(--m3-scheme-on-tertiary-container));
-  --color-tertiary-fixed: rgb(var(--m3-scheme-tertiary-fixed));
-  --color-tertiary-fixed-dim: rgb(var(--m3-scheme-tertiary-fixed-dim));
-  --color-on-tertiary-fixed: rgb(var(--m3-scheme-on-tertiary-fixed));
-  --color-on-tertiary-fixed-variant: rgb(var(--m3-scheme-on-tertiary-fixed-variant));
-  --color-error: rgb(var(--m3-scheme-error));
-  --color-error-dim: rgb(var(--m3-scheme-error-dim));
-  --color-on-error: rgb(var(--m3-scheme-on-error));
-  --color-error-container: rgb(var(--m3-scheme-error-container));
-  --color-on-error-container: rgb(var(--m3-scheme-on-error-container));
-  --color-shadow: rgb(var(--m3-scheme-shadow));
-  --color-scrim: rgb(var(--m3-scheme-scrim));
-  --color-on-on-primary: rgb(var(--m3-scheme-on-on-primary));
-  --color-primary-container-subtle: rgb(var(--m3-scheme-primary-container-subtle));
-  --color-on-primary-container-subtle: rgb(var(--m3-scheme-on-primary-container-subtle));
-  --color-tertiary-container-subtle: rgb(var(--m3-scheme-tertiary-container-subtle));
-  --color-on-tertiary-container-subtle: rgb(var(--m3-scheme-on-tertiary-container-subtle));
-  --color-error-container-subtle: rgb(var(--m3-scheme-error-container-subtle));
-  --color-on-error-container-subtle: rgb(var(--m3-scheme-on-error-container-subtle));
-  --color-util-background: var(--m3-util-background);
+  --color-background: var(--m3c-background);
+  --color-on-background: var(--m3c-on-background);
+  --color-surface: var(--m3c-surface);
+  --color-surface-dim: var(--m3c-surface-dim);
+  --color-surface-bright: var(--m3c-surface-bright);
+  --color-surface-container-lowest: var(--m3c-surface-container-lowest);
+  --color-surface-container-low: var(--m3c-surface-container-low);
+  --color-surface-container: var(--m3c-surface-container);
+  --color-surface-container-high: var(--m3c-surface-container-high);
+  --color-surface-container-highest: var(--m3c-surface-container-highest);
+  --color-on-surface: var(--m3c-on-surface);
+  --color-on-surface-variant: var(--m3c-on-surface-variant);
+  --color-outline: var(--m3c-outline);
+  --color-outline-variant: var(--m3c-outline-variant);
+  --color-inverse-surface: var(--m3c-inverse-surface);
+  --color-inverse-on-surface: var(--m3c-inverse-on-surface);
+  --color-primary: var(--m3c-primary);
+  --color-primary-dim: var(--m3c-primary-dim);
+  --color-on-primary: var(--m3c-on-primary);
+  --color-primary-container: var(--m3c-primary-container);
+  --color-on-primary-container: var(--m3c-on-primary-container);
+  --color-primary-fixed: var(--m3c-primary-fixed);
+  --color-primary-fixed-dim: var(--m3c-primary-fixed-dim);
+  --color-on-primary-fixed: var(--m3c-on-primary-fixed);
+  --color-on-primary-fixed-variant: var(--m3c-on-primary-fixed-variant);
+  --color-inverse-primary: var(--m3c-inverse-primary);
+  --color-secondary: var(--m3c-secondary);
+  --color-secondary-dim: var(--m3c-secondary-dim);
+  --color-on-secondary: var(--m3c-on-secondary);
+  --color-secondary-container: var(--m3c-secondary-container);
+  --color-on-secondary-container: var(--m3c-on-secondary-container);
+  --color-secondary-fixed: var(--m3c-secondary-fixed);
+  --color-secondary-fixed-dim: var(--m3c-secondary-fixed-dim);
+  --color-on-secondary-fixed: var(--m3c-on-secondary-fixed);
+  --color-on-secondary-fixed-variant: var(--m3c-on-secondary-fixed-variant);
+  --color-tertiary: var(--m3c-tertiary);
+  --color-tertiary-dim: var(--m3c-tertiary-dim);
+  --color-on-tertiary: var(--m3c-on-tertiary);
+  --color-tertiary-container: var(--m3c-tertiary-container);
+  --color-on-tertiary-container: var(--m3c-on-tertiary-container);
+  --color-tertiary-fixed: var(--m3c-tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--m3c-tertiary-fixed-dim);
+  --color-on-tertiary-fixed: var(--m3c-on-tertiary-fixed);
+  --color-on-tertiary-fixed-variant: var(--m3c-on-tertiary-fixed-variant);
+  --color-error: var(--m3c-error);
+  --color-error-dim: var(--m3c-error-dim);
+  --color-on-error: var(--m3c-on-error);
+  --color-error-container: var(--m3c-error-container);
+  --color-on-error-container: var(--m3c-on-error-container);
+  --color-shadow: var(--m3c-shadow);
+  --color-scrim: var(--m3c-scrim);
+  --color-on-on-primary: var(--m3c-on-on-primary);
+  --color-primary-container-subtle: var(--m3c-primary-container-subtle);
+  --color-on-primary-container-subtle: var(--m3c-on-primary-container-subtle);
+  --color-secondary-container-subtle: var(--m3c-secondary-container-subtle);
+  --color-on-secondary-container-subtle: var(--m3c-on-secondary-container-subtle);
+  --color-tertiary-container-subtle: var(--m3c-tertiary-container-subtle);
+  --color-on-tertiary-container-subtle: var(--m3c-on-tertiary-container-subtle);
+  --color-error-container-subtle: var(--m3c-error-container-subtle);
+  --color-on-error-container-subtle: var(--m3c-on-error-container-subtle);
+  --color-v-background: var(--m3v-background);
 }
 
 @utility transition-fast-spatial {
-  transition-timing-function: var(--m3-util-timing-function-fast-spatial);
-  transition-duration: var(--m3-util-duration-fast-spatial);
+  transition-timing-function: var(--m3-timing-function-fast-spatial);
+  transition-duration: var(--m3-duration-fast-spatial);
 }
 @utility transition-spatial {
-  transition-timing-function: var(--m3-util-timing-function-spatial);
-  transition-duration: var(--m3-util-duration-spatial);
+  transition-timing-function: var(--m3-timing-function-spatial);
+  transition-duration: var(--m3-duration-spatial);
 }
 @utility transition-slow-spatial {
-  transition-timing-function: var(--m3-util-timing-function-slow-spatial);
-  transition-duration: var(--m3-util-duration-slow-spatial);
+  transition-timing-function: var(--m3-timing-function-slow-spatial);
+  transition-duration: var(--m3-duration-slow-spatial);
 }
 @utility transition-fast {
-  transition-timing-function: var(--m3-util-timing-function-fast);
-  transition-duration: var(--m3-util-duration-fast);
+  transition-timing-function: var(--m3-timing-function-fast);
+  transition-duration: var(--m3-duration-fast);
 }
 @utility transition-slow {
-  transition-timing-function: var(--m3-util-timing-function-slow);
-  transition-duration: var(--m3-util-duration-slow);
+  transition-timing-function: var(--m3-timing-function-slow);
+  transition-duration: var(--m3-duration-slow);
 }
 
 @utility m3-font-display-large {
-  --: "";
+  @apply --m3-display-large;
 }
 @utility m3-font-display-medium {
-  --: "";
+  @apply --m3-display-medium;
 }
 @utility m3-font-display-small {
-  --: "";
+  @apply --m3-display-small;
 }
 @utility m3-font-headline-large {
-  --: "";
+  @apply --m3-headline-large;
 }
 @utility m3-font-headline-medium {
-  --: "";
+  @apply --m3-headline-medium;
 }
 @utility m3-font-headline-small {
-  --: "";
+  @apply --m3-headline-small;
 }
 @utility m3-font-title-large {
-  --: "";
+  @apply --m3-title-large;
 }
 @utility m3-font-title-medium {
-  --: "";
+  @apply --m3-title-medium;
 }
 @utility m3-font-title-small {
-  --: "";
+  @apply --m3-title-small;
 }
 @utility m3-font-label-large {
-  --: "";
+  @apply --m3-label-large;
 }
 @utility m3-font-label-medium {
-  --: "";
+  @apply --m3-label-medium;
 }
 @utility m3-font-label-small {
-  --: "";
+  @apply --m3-label-small;
 }
 @utility m3-font-body-large {
-  --: "";
+  @apply --m3-body-large;
 }
 @utility m3-font-body-medium {
-  --: "";
+  @apply --m3-body-medium;
 }
 @utility m3-font-body-small {
-  --: "";
+  @apply --m3-body-small;
 }
 
 @layer base {

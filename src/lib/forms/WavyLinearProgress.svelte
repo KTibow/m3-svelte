@@ -18,8 +18,6 @@
 
   let time = $state(0);
 
-  let top = $derived(thickness * 0.5);
-  let bottom = $derived(height - thickness * 0.5);
   let left = $derived(thickness * 0.5);
   let right = $derived(width - thickness * 0.5);
   let percentX = $derived((percent / 100) * (right - left) + left);
@@ -27,7 +25,7 @@
   const getSMILData = (time: number) => {
     let paths: string[] = [];
     for (let x = 0; x <= 1000; x += 1000 / 30) {
-      paths.push(linear(top, bottom, left, percentX, time + x));
+      paths.push(linear(height / 2 - thickness / 2, height / 2, left, percentX, time + x));
     }
     return paths.join(";");
   };
@@ -45,12 +43,7 @@
 </script>
 
 <svg viewBox="0 0 {width} {height}" role="progressbar" aria-valuenow={percent} {...extra}>
-  <path
-    fill="none"
-    stroke="rgb(var(--m3-scheme-primary))"
-    stroke-width={thickness}
-    stroke-linecap="round"
-  >
+  <path fill="none" stroke="var(--m3c-primary)" stroke-width={thickness} stroke-linecap="round">
     <animate
       attributeName="d"
       dur="1s"
@@ -60,7 +53,7 @@
   </path>
   <line
     fill="none"
-    stroke="rgb(var(--m3-scheme-secondary-container))"
+    stroke="var(--m3c-secondary-container)"
     stroke-width={thickness}
     stroke-linecap="round"
     x1={percentX + thickness + 4}
