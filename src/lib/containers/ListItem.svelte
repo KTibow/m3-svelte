@@ -108,6 +108,7 @@
   }
   .body {
     flex-grow: 1;
+    overflow: hidden;
   }
   .leading,
   .trailing {
@@ -138,5 +139,9 @@
   .headline {
     @apply --m3-body-large;
     color: var(--m3c-on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
   }
 </style>
