@@ -90,6 +90,9 @@
     background: transparent;
     color: inherit;
   }
+  button.m3-container {
+    width: 100%;
+  }
   button.m3-container,
   label.m3-container {
     cursor: pointer;
