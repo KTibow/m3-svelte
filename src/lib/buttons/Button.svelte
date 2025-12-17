@@ -154,8 +154,8 @@
   }
 
   .m3-container {
+    @apply --m3-button-reset;
     display: inline-flex;
-    border: none;
     border-radius: var(--shape);
     transition:
       border-radius var(--m3-easing-fast-spatial),
@@ -165,8 +165,6 @@
 
     align-items: center;
     justify-content: center;
-    background-color: transparent;
-    cursor: pointer;
     user-select: none;
     position: relative;
 

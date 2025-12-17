@@ -245,6 +245,15 @@ or for very small text in the content body, such as captions. */
   letter-spacing: 0.025rem;
   font-weight: 400;
 }
+
+/* Button reset to normalize browser defaults */
+@mixin --m3-button-reset {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
 @layer base {
   /* Reset a few things */
   *,

@@ -66,6 +66,7 @@
     }
   }
   .m3-container {
+    @apply --m3-button-reset;
     display: flex;
     height: 2rem;
     border-radius: var(--m3-chip-shape);
@@ -77,7 +78,6 @@
     color: var(--m3c-on-surface-variant);
     border: solid 1px var(--m3c-outline);
     position: relative;
-    cursor: pointer;
     transition: var(--m3-easing-fast);
   }
 

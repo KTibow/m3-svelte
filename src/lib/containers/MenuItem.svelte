@@ -31,6 +31,7 @@
 
 <style>
   .item {
+    @apply --m3-button-reset;
     @apply --m3-label-large;
     display: flex;
     align-items: center;
@@ -39,12 +40,8 @@
     gap: 0.75rem;
     white-space: nowrap;
 
-    border: none;
     position: relative;
-    background-color: transparent;
     color: var(--m3c-on-surface);
-
-    cursor: pointer;
   }
   .icon {
     width: 1.5rem;

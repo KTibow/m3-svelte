@@ -59,15 +59,14 @@
     }
   }
   button {
+    @apply --m3-button-reset;
     @apply --m3-label-large;
     display: inline-flex;
-    border: none;
     position: relative;
     overflow: hidden;
 
     align-items: center;
     justify-content: center;
-    cursor: pointer;
   }
 
   .elevation-normal {

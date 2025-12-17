@@ -90,15 +90,12 @@
   }
 
   .split {
+    @apply --m3-button-reset;
     display: flex;
     align-items: center;
     justify-content: center;
     height: --m3-density(2.5rem);
     gap: 0.5rem;
-
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
 
     position: relative;
     transition:

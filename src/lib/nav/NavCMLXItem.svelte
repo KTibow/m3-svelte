@@ -131,10 +131,7 @@
     display: flex;
 
     &:is(button) {
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
+      @apply --m3-button-reset;
     }
 
     .content {
