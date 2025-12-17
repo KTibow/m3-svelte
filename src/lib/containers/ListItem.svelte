@@ -53,7 +53,7 @@
   {/if}
 {/snippet}
 
-<li style:display="contents">
+<li style:display="flex">
   {#if "label" in props}
     {@const { label: _, ...extra } = props}
     <label class="m3-container focus-inset lines-{lines}" {...extra}>
@@ -89,9 +89,6 @@
     position: relative;
     background: transparent;
     color: inherit;
-  }
-  button.m3-container {
-    width: 100%;
   }
   button.m3-container,
   label.m3-container {
