@@ -89,6 +89,7 @@
     position: relative;
     background: transparent;
     color: inherit;
+    flex: 1;
   }
   button.m3-container,
   label.m3-container {
