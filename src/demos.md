@@ -359,51 +359,45 @@ let supporting = $derived(
   {"<" + type + ">"}
 </label>
 {#snippet demo()}
-  <div class="demo">
-    {#snippet leading()}
-      {#if type == "label"}
-        <div class="box-wrapper">
-          <Checkbox><input type="checkbox" /></Checkbox>
-        </div>
-      {:else}
-        <Icon icon={iconCircle} />
-      {/if}
-    {/snippet}
-    <ListItem
-      {leading}
-      {headline}
-      {supporting}
-      lines={+lines}
-      {...type == "label"
-        ? { label: true }
-        : type == "button"
-          ? { onclick: () => {} }
-          : type == "a"
-            ? { href: "https://example.com" }
-            : {}}
-    />
-    <Divider />
-    <ListItem
-      {leading}
-      {headline}
-      {supporting}
-      lines={+lines}
-      {...type == "label"
-        ? { label: true }
-        : type == "button"
-          ? { onclick: () => {} }
-          : type == "a"
-            ? { href: "https://example.com" }
-            : {}}
-    />
-  </div>
+  {#snippet leading()}
+    {#if type == "label"}
+      <div class="box-wrapper">
+        <Checkbox><input type="checkbox" /></Checkbox>
+      </div>
+    {:else}
+      <Icon icon={iconCircle} />
+    {/if}
+  {/snippet}
+  <ListItem
+    {leading}
+    {headline}
+    {supporting}
+    lines={+lines}
+    {...type == "label"
+      ? { label: true }
+      : type == "button"
+        ? { onclick: () => {} }
+        : type == "a"
+          ? { href: "https://example.com" }
+          : {}}
+  />
+  <Divider />
+  <ListItem
+    {leading}
+    {headline}
+    {supporting}
+    lines={+lines}
+    {...type == "label"
+      ? { label: true }
+      : type == "button"
+        ? { onclick: () => {} }
+        : type == "a"
+          ? { href: "https://example.com" }
+          : {}}
+  />
 {/snippet}
 
 <style>
-  .demo {
-    display: flex;
-    flex-direction: column;
-  }
   .box-wrapper {
     display: flex;
     align-items: center;

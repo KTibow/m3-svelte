@@ -80,6 +80,7 @@
 <style>
   .m3-container {
     display: flex;
+    justify-self: stretch;
     padding: 0.5rem 1.5rem 0.5rem 1rem;
     align-items: center;
     gap: 1rem;
