@@ -6,9 +6,9 @@
 
   type ActionProps =
     | ButtonAttrs
-    | DivAttrs
     | ({ label: true } & NotButton<HTMLLabelAttributes>)
-    | ({ href: string } & NotButton<HTMLAnchorAttributes>);
+    | ({ href: string } & NotButton<HTMLAnchorAttributes>)
+    | DivAttrs;
 
   let {
     leading,
@@ -54,17 +54,17 @@
 {/snippet}
 
 <li style:display="contents">
-  {#if "label" in props}
+  {#if props.onclick}
+    <button type="button" class="m3-container focus-inset lines-{lines}" {...props}>
+      <Layer />
+      {@render content()}
+    </button>
+  {:else if "label" in props}
     {@const { label: _, ...extra } = props}
     <label class="m3-container focus-inset lines-{lines}" {...extra}>
       <Layer />
       {@render content()}
     </label>
-  {:else if props.onclick}
-    <button type="button" class="m3-container focus-inset lines-{lines}" {...props}>
-      <Layer />
-      {@render content()}
-    </button>
   {:else if "href" in props}
     <a class="m3-container focus-inset lines-{lines}" {...props}>
       <Layer />
