@@ -17,7 +17,9 @@ let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("fil
 let action: "click" | "link" | "toggle" = $state("click");
 let square = $state(false);
 let iconType: "none" | "left" | "full" = $state("none");
-let size: "xs" | "s" | "m" | "l" | "xl" = $state("s");
+const sizes = ["xs", "s", "m", "l", "xl"] as const;
+const sizeLabels = ["Extra small", "Small", "Medium", "Large", "Extra large"] as const;
+let sizeIndex = $state(1);
 let enabled = $state(true);
 ```
 
@@ -42,18 +44,7 @@ let enabled = $state(true);
   <Arrows list={["none", "left", "full"]} bind:value={iconType} />
   {iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}
 </label>
-<label>
-  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} initialIndex={1} />
-  {size == "xs"
-    ? "Extra small"
-    : size == "s"
-      ? "Small"
-      : size == "m"
-        ? "Medium"
-        : size == "l"
-          ? "Large"
-          : "Extra large"}
-</label>
+<Slider bind:value={sizeIndex} min={0} max={4} step={1} stops format={(n) => sizeLabels[n]} />
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
@@ -64,7 +55,7 @@ let enabled = $state(true);
     <Button
       {variant}
       {square}
-      {size}
+      size={sizes[sizeIndex]}
       {...{
         click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
@@ -114,7 +105,9 @@ TogglePrimitive
 ```ts
 let variant: "filled" | "tonal" = $state("filled");
 let multiselect = $state(true);
-let size: "xs" | "s" | "m" | "l" | "xl" = $state("s");
+const sizes = ["xs", "s", "m", "l", "xl"] as const;
+const sizeLabels = ["Extra small", "Small", "Medium", "Large", "Extra large"] as const;
+let sizeIndex = $state(1);
 ```
 
 ```svelte
@@ -126,19 +119,9 @@ let size: "xs" | "s" | "m" | "l" | "xl" = $state("s");
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
-<label>
-  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} initialIndex={1} />
-  {size == "xs"
-    ? "Extra small"
-    : size == "s"
-      ? "Small"
-      : size == "m"
-        ? "Medium"
-        : size == "l"
-          ? "Large"
-          : "Extra large"}
-</label>
+<Slider bind:value={sizeIndex} min={0} max={4} step={1} stops format={(n) => sizeLabels[n]} />
 {#snippet demo()}
+  {@const size = sizes[sizeIndex]}
   <ConnectedButtons>
     {#if multiselect}
       <TogglePrimitive toggle={true} {variant} {size}>Alpha</TogglePrimitive>
@@ -246,7 +229,9 @@ let color:
   | "primary"
   | "secondary"
   | "tertiary" = $state("primary-container");
-let size: "small" | "normal" | "large" | "extended" = $state("normal");
+const sizes = ["small", "normal", "large", "extended"] as const;
+const sizeLabels = ["Small", "Normal", "Large", "Extended"] as const;
+let sizeIndex = $state(1);
 ```
 
 ```svelte
@@ -264,11 +249,9 @@ let size: "small" | "normal" | "large" | "extended" = $state("normal");
   />
   {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
 </label>
-<label>
-  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} initialIndex={1} />
-  {size[0].toUpperCase() + size.slice(1)}
-</label>
+<Slider bind:value={sizeIndex} min={0} max={3} step={1} stops format={(n) => sizeLabels[n]} />
 {#snippet demo()}
+  {@const size = sizes[sizeIndex]}
   <div>
     <FAB
       {color}
@@ -683,13 +666,15 @@ let percent = $state(10);
 </label>
 <label>
   <Switch bind:checked={thick} />
-  {thick ? "Thicker" : "Default"}
+  {thick ? "Thicker" : "Thinner"}
+</label>
+<label>
+  <Switch bind:checked={estimate} />
+  {estimate ? "Estimated" : "Percent"}
 </label>
 {#if !estimate}
-  <Slider bind:value={percent} />
+  <Slider bind:value={percent} endStops={false} format={(n) => `${n.toFixed(0)}%`} />
 {/if}
-<input type="checkbox" id="estimate-toggle" bind:checked={estimate} />
-<Button variant="tonal" for="estimate-toggle">{estimate ? "Estimated" : "Estimate"}</Button>
 
 {#snippet demo()}
   {#if estimate && type == "linear"}
@@ -877,7 +862,9 @@ Slider
 
 ```ts
 let precision = $state<"continuous" | "discrete" | "discrete-stops">("continuous");
-let size = $state<"xs" | "s" | "m" | "l" | "xl">("xs");
+const sizes = ["xs", "s", "m", "l", "xl"] as const;
+const sizeLabels = ["Extra small", "Small", "Medium", "Large", "Extra large"] as const;
+let sizeIndex = $state(0);
 let trailingIcon = $state<boolean>(false);
 let leadingIcon = $state<boolean>(false);
 let endStops = $state<boolean>(true);
@@ -894,18 +881,7 @@ let vertical = $state<boolean>(false);
       ? "Discrete"
       : "Discrete (stops)"}
 </label>
-<label>
-  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} />
-  {size == "xs"
-    ? "Extra small"
-    : size == "s"
-      ? "Small"
-      : size == "m"
-        ? "Medium"
-        : size == "l"
-          ? "Large"
-          : "Extra large"}
-</label>
+<Slider bind:value={sizeIndex} min={0} max={4} step={1} stops format={(n) => sizeLabels[n]} />
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
@@ -914,7 +890,7 @@ let vertical = $state<boolean>(false);
   <Switch bind:checked={vertical} />
   {vertical ? "Vertical" : "Horizontal"}
 </label>
-{#if size != "xs" && size != "s"}
+{#if sizeIndex > 1}
   <label>
     <Switch bind:checked={leadingIcon} />
     {leadingIcon ? "Leading icon" : "No leading icon"}
@@ -936,7 +912,7 @@ let vertical = $state<boolean>(false);
     step={precision == "continuous" ? "any" : 10}
     value={10}
     disabled={!enabled}
-    {size}
+    size={sizes[sizeIndex]}
     {vertical}
     stops={precision == "discrete-stops"}
     {endStops}
