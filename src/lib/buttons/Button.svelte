@@ -43,7 +43,7 @@
   </summary>
 {:else}
   <button
-    type={"onclick" in props ? "button" : "submit"}
+    type={props.onclick ? "button" : "submit"}
     class="m3-container {variant} {size} icon-{iconType}"
     class:square
     {...props}

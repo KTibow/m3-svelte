@@ -5,8 +5,8 @@
   import type { ButtonAttrs, DivAttrs, NotButton } from "$lib/misc/typing-utils";
 
   type ActionProps =
-    | DivAttrs
     | ButtonAttrs
+    | DivAttrs
     | ({ label: true } & NotButton<HTMLLabelAttributes>)
     | ({ href: string } & NotButton<HTMLAnchorAttributes>);
 
@@ -60,7 +60,7 @@
       <Layer />
       {@render content()}
     </label>
-  {:else if "onclick" in props}
+  {:else if props.onclick}
     <button type="button" class="m3-container focus-inset lines-{lines}" {...props}>
       <Layer />
       {@render content()}
