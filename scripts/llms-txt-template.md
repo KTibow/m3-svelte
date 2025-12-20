@@ -71,7 +71,7 @@ There's more M3 theming beyond the theme page: you can modify these tokens direc
 
 These start with `--m3v-`, but only a few can be set:
 - Set `--m3v-bottom-offset` to shift up snackbars
-- Set `--m3v-background` to calibrate the color of an outlined text field's box
+- Set `--m3v-background` to calibrate the color of an outlined field's box
 
 ### Functions
 

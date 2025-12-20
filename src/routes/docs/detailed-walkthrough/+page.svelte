@@ -100,7 +100,7 @@ ${"<"}/style>`;
 <p>These start with <code>--m3v-</code>, but only a few can be set:</p>
 <ul>
   <li>Set <code>--m3v-bottom-offset</code> to shift up snackbars</li>
-  <li>Set <code>--m3v-background</code> to calibrate the color of an outlined text field's box</li>
+  <li>Set <code>--m3v-background</code> to calibrate the color of an outlined field's box</li>
 </ul>
 <h3>Functions</h3>
 <p>These are shorthands for specific logic. M3 Svelte only has a few:</p>
