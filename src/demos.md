@@ -1288,7 +1288,7 @@ Minimal demo:
 Full demo:
 
 ```use
-
+Button
 ```
 
 ```ts
@@ -1335,7 +1335,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
             leaving: true,
           }}
         >
-          <button class="btn" onclick={() => (affected = false)}> Beta </button>
+          <Button onclick={() => (affected = false)}>Beta</Button>
         </div>
       {:else}
         <div
@@ -1349,7 +1349,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
             leaving: true,
           }}
         >
-          <button class="btn" onclick={() => (affected = true)}> Alpha </button>
+          <Button onclick={() => (affected = true)}>Alpha</Button>
         </div>
       {/if}
     {:else if affected}
@@ -1360,7 +1360,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
           rightSeam: false,
         }}
       >
-        <button class="btn" onclick={() => (affected = false)}> Beta </button>
+        <Button onclick={() => (affected = false)}>Beta</Button>
       </div>
     {:else}
       <div
@@ -1370,7 +1370,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
           rightSeam: true,
         }}
       >
-        <button class="btn" onclick={() => (affected = true)}> Alpha </button>
+        <Button onclick={() => (affected = true)}>Alpha</Button>
       </div>
     {/if}
   </article>
@@ -1387,6 +1387,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
   }
   .pane {
     display: grid;
+    place-items: center;
     background-color: var(--m3c-background);
     overflow: hidden;
   }
