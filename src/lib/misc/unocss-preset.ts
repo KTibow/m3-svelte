@@ -1,4 +1,4 @@
-import { definePreset, symbols, type CSSObject, type Preset, type StaticRule } from "unocss";
+import { symbols, type CSSObject, type Preset, type StaticRule } from "unocss";
 import { colors } from "./colors";
 
 const easings = ["-fast-spatial", "-spatial", "-slow-spatial", "-fast", "", "-slow"];
@@ -20,7 +20,7 @@ const fontClasses = [
   "body-small",
 ];
 
-export default definePreset({
+const preset: Preset = {
   name: "m3-svelte",
   theme: {
     breakpoints: {
@@ -89,4 +89,5 @@ export default definePreset({
 }`,
     },
   ],
-} satisfies Preset);
+};
+export default () => preset;
