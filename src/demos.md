@@ -1408,6 +1408,51 @@ const [send, receive] = containerTransform({ duration: 1000 });
 </style>
 ```
 
+## Layer
+
+Minimal demo:
+
+```svelte
+<button>
+  <Layer />
+  Hello
+</button>
+
+<style>
+  button {
+    position: relative;
+  }
+</style>
+```
+
+Full demo:
+
+```use
+Layer
+```
+
+```ts
+
+```
+
+```svelte
+{#snippet demo()}
+  <button class="layer-demo">
+    <Layer />
+  </button>
+  <style>
+    .layer-demo {
+      min-height: 10rem;
+      border-radius: 1rem;
+      position: relative;
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
+    }
+  </style>
+{/snippet}
+```
+
 ## Icons
 
 Minimal demo:
