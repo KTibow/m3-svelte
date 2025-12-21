@@ -165,7 +165,6 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     border-radius: 0.3rem;
   }
   a {
-    text-decoration: none;
     color: var(--m3c-primary);
   }
 </style>
