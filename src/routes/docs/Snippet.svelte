@@ -42,7 +42,7 @@
 
 <style>
   .snippet {
-    background-color: var(--m3c-surface-container-high);
+    background-color: var(--m3c-surface-container);
     border-radius: var(--m3-shape-large);
     padding: 1rem;
 
