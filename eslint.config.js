@@ -62,17 +62,4 @@ export default ts.config(
       ],
     },
   },
-  {
-    files: ["src/lib/**/*.svelte"],
-    rules: {
-      "svelte/no-unused-props": "off",
-      "svelte/prefer-writable-derived": "off",
-    },
-  },
-  {
-    files: ["src/routes/*.svelte"],
-    rules: {
-      "@typescript-eslint/no-unused-vars": "off",
-    },
-  },
 );

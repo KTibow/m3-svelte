@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Button from "$lib/buttons/Button.svelte";
   import Highlight from "svelte-highlight";
   import xml from "svelte-highlight/languages/xml";
 
@@ -24,7 +23,7 @@
 <div class="anchor">
   <Highlight language={xml} code={minimalDemo} />
   <a href={demoURL}>Full demo code ↗</a>
-  {#each relevantLinks as { title, link }, i}
+  {#each relevantLinks as { title, link }}
     <a href={link}>{title} ↗</a>
   {/each}
 </div>
