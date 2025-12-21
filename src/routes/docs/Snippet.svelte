@@ -33,7 +33,7 @@
     <p class="name">{name}</p>
   {/if}
   <div class="button-container">
-    <Button variant="text" onclick={copyToClipboard} iconType="full">
+    <Button variant="text" onclick={copyToClipboard} iconType="full" title="Copy">
       <Icon icon={iconCopy} />
     </Button>
   </div>
