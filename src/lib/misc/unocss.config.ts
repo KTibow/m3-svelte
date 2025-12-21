@@ -1,6 +1,6 @@
-import { definePreset, symbols, type CSSObject, type StaticRule } from "unocss";
+import { definePreset, symbols, type CSSObject, type Preset } from "unocss";
 
-export default definePreset(() => ({
+export default definePreset({
   name: "m3-svelte",
   theme: {
     breakpoints: {
@@ -178,7 +178,7 @@ export default definePreset(() => ({
     ["m3-font-body-large", { [symbols.body]: "@apply --m3-body-large;" } as CSSObject],
     ["m3-font-body-medium", { [symbols.body]: "@apply --m3-body-medium;" } as CSSObject],
     ["m3-font-body-small", { [symbols.body]: "@apply --m3-body-small;" } as CSSObject],
-  ] satisfies StaticRule[],
+  ],
   preflights: [
     {
       getCSS: () => `:root {
@@ -186,4 +186,4 @@ export default definePreset(() => ({
 }`,
     },
   ],
-}));
+} satisfies Preset);
