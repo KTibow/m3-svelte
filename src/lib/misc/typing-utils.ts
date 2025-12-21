@@ -18,4 +18,4 @@ export type DivAttrs = NotButton<HTMLAttributes<HTMLDivElement>>;
 export type OneOf<T, TKey extends keyof T = keyof T> = TKey extends keyof T
   ? { [P in TKey]-?: T[TKey] } & Partial<Record<Exclude<keyof T, TKey>, never>>
   : never;
-export type LabelledAria = OneOf<{ "aria-label": string; "aria-labelledby": string }>;
+export type LabelledAria = OneOf<{ "title": string; "aria-label": string; "aria-labelledby": string }>;
