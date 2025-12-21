@@ -40,9 +40,7 @@ ${fullDemoSvelte}
 
   llmsTxt = llmsTxt.replace("<!-- COMPONENT_DEMOS -->", componentDemos);
 
-  const colorList = colors
-    .map((color) => color.name.replaceAll("_", "-"))
-    .join(", ");
+  const colorList = colors.map((color) => color.name.replaceAll("_", "-")).join(", ");
   llmsTxt = llmsTxt.replace("<!-- COLOR_LIST -->", colorList);
 
   return llmsTxt;

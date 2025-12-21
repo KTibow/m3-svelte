@@ -35,12 +35,7 @@
       <Layer />
       <Icon icon={iconLeft} />
     </button>
-    <button
-      type="button"
-      class="chooser"
-      onclick={monthClick}
-      disabled={currentView == "year"}
-    >
+    <button type="button" class="chooser" onclick={monthClick} disabled={currentView == "year"}>
       <Layer />
       {getShortMonth(focusedMonth)}
       <Icon icon={iconDown} />
@@ -60,12 +55,7 @@
       <Layer />
       <Icon icon={iconLeft} />
     </button>
-    <button
-      type="button"
-      class="chooser"
-      onclick={yearClick}
-      disabled={currentView == "month"}
-    >
+    <button type="button" class="chooser" onclick={yearClick} disabled={currentView == "month"}>
       <Layer />
       {focusedYear}
       <Icon icon={iconDown} />
