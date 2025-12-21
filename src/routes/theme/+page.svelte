@@ -34,7 +34,7 @@
   <title>Theme</title>
   <meta
     name="description"
-    content="Generate a Material 3/You theme for use with the library M3 Svelte."
+    content="Make a Material 3 theme and use it in CSS. Works great with M3 Svelte components."
   />
 </svelte:head>
 <ColorChooser bind:sourceColor={$sourceColor} />

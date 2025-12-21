@@ -60,7 +60,7 @@
   <title>M3 Svelte</title>
   <meta
     name="description"
-    content="The home of Material 3 Svelte, a library for the M3 design system, with components, animations, and theming."
+    content="Implements the Material 3 design system in Svelte, cleanly, robustly, and across components, animations, and theming."
   />
 </svelte:head>
 
