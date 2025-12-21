@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLButtonAttributes } from "svelte/elements";
-  import type { AnchorAttrs } from "$lib/misc/typing-utils";
+  import type { AnchorAttrs, NotLink } from "$lib/misc/typing-utils";
   import Icon from "$lib/misc/Icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
 
-  type ActionProps = AnchorAttrs | HTMLButtonAttributes;
+  type ActionProps = AnchorAttrs | NotLink<HTMLButtonAttributes>;
   let {
     variant,
     icon,
@@ -20,7 +20,7 @@
   } & ActionProps = $props();
 </script>
 
-{#if "href" in props}
+{#if props.href != undefined}
   <a class="m3-container {variant}" {...props}>
     <div class="content" class:selected>
       <Layer />

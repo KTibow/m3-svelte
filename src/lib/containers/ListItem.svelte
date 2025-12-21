@@ -1,14 +1,21 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { HTMLAnchorAttributes, HTMLLabelAttributes } from "svelte/elements";
+  import type { HTMLLabelAttributes } from "svelte/elements";
   import Layer from "$lib/misc/Layer.svelte";
-  import type { ButtonAttrs, DivAttrs, NotButton } from "$lib/misc/typing-utils";
+  import type {
+    ButtonAttrs,
+    AnchorAttrs,
+    DivAttrs,
+    NotButton,
+    NotLink,
+  } from "$lib/misc/typing-utils";
 
+  type NotLabel<T> = T & { label?: false };
   type ActionProps =
-    | ButtonAttrs
-    | ({ label: true } & NotButton<HTMLLabelAttributes>)
-    | ({ href: string } & NotButton<HTMLAnchorAttributes>)
-    | DivAttrs;
+    | NotLabel<ButtonAttrs>
+    | NotLabel<AnchorAttrs>
+    | (NotLink<NotButton<HTMLLabelAttributes>> & { label: true })
+    | NotLabel<DivAttrs>;
 
   let {
     leading,
@@ -59,17 +66,17 @@
       <Layer />
       {@render content()}
     </button>
-  {:else if "label" in props}
+  {:else if props.href != undefined}
+    <a class="m3-container focus-inset lines-{lines}" {...props}>
+      <Layer />
+      {@render content()}
+    </a>
+  {:else if props.label}
     {@const { label: _, ...extra } = props}
     <label class="m3-container focus-inset lines-{lines}" {...extra}>
       <Layer />
       {@render content()}
     </label>
-  {:else if "href" in props}
-    <a class="m3-container focus-inset lines-{lines}" {...props}>
-      <Layer />
-      {@render content()}
-    </a>
   {:else}
     <div class="m3-container lines-{lines}" {...props}>
       {@render content()}
