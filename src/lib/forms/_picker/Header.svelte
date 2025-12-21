@@ -23,6 +23,11 @@
   const monthClick = () => (currentView = currentView == "calendar" ? "month" : "calendar");
   const getShortMonth = (month: number) =>
     new Date(0, month).toLocaleDateString(undefined, { month: "short" });
+
+  let prevMonth = $derived((focusedMonth - 1 + 12) % 12);
+  let nextMonth = $derived((focusedMonth + 1) % 12);
+  let prevYear = $derived(focusedYear - 1);
+  let nextYear = $derived(focusedYear + 1);
 </script>
 
 <div class="m3-container" class:choosing={currentView != "calendar"}>
@@ -30,7 +35,8 @@
     <button
       type="button"
       class="arrow"
-      onclick={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}
+      onclick={() => (focusedMonth = prevMonth)}
+      title={getShortMonth(prevMonth)}
     >
       <Layer />
       <Icon icon={iconLeft} />
@@ -40,7 +46,12 @@
       {getShortMonth(focusedMonth)}
       <Icon icon={iconDown} />
     </button>
-    <button type="button" class="arrow" onclick={() => (focusedMonth = (focusedMonth + 1) % 12)}>
+    <button
+      type="button"
+      class="arrow"
+      onclick={() => (focusedMonth = nextMonth)}
+      title={getShortMonth(nextMonth)}
+    >
       <Layer />
       <Icon icon={iconRight} />
     </button>
@@ -50,7 +61,8 @@
       type="button"
       class="arrow"
       disabled={focusedYear <= startYear}
-      onclick={() => focusedYear--}
+      onclick={() => (focusedYear = prevYear)}
+      title={prevYear.toString()}
     >
       <Layer />
       <Icon icon={iconLeft} />
@@ -64,7 +76,8 @@
       type="button"
       class="arrow"
       disabled={focusedYear >= endYear}
-      onclick={() => focusedYear++}
+      title={nextYear.toString()}
+      onclick={() => (focusedYear = nextYear)}
     >
       <Layer />
       <Icon icon={iconRight} />
