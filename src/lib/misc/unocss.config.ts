@@ -181,11 +181,9 @@ export default definePreset(() => ({
   ] satisfies StaticRule[],
   preflights: [
     {
-      getCSS: () => `
-                :root {
-                    box-sizing: border-box;
-                }
-            `,
+      getCSS: () => `:root {
+  box-sizing: border-box;
+}`,
     },
   ],
 }));
