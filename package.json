@@ -39,6 +39,10 @@
     },
     "./misc/tailwind-styles.css": {
       "style": "./package/misc/tailwind-styles.css"
+    },
+    "./misc/unocss": {
+      "types": "./package/misc/unocss.config.d.ts",
+      "import": "./package/misc/unocss.config.js"
     }
   },
   "dependencies": {
@@ -70,6 +74,7 @@
     "tinyglobby": "^0.2.15",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.50.0",
+    "unocss": "^66.5.10",
     "vite": "^7.3.0",
     "vite-plugin-functions-mixins": "^0.4.0",
     "vite-plugin-token-shaker": "^0.0.3"
