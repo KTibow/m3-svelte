@@ -49,6 +49,17 @@ export default ts.config(
       "svelte/no-at-html-tags": "off",
       "svelte/no-useless-mustaches": "off",
       "svelte/no-navigation-without-resolve": "off",
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "$lib",
+              message: "Use specific imports from $lib/* to preserve CSS tree shaking",
+            },
+          ],
+        },
+      ],
     },
   },
   {

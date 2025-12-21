@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { Button, snackbar } from "$lib";
+  import Button from "$lib/buttons/Button.svelte";
+  import { snackbar } from "$lib/containers/Snackbar.svelte";
   import Icon from "$lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
   import Highlight from "svelte-highlight";
