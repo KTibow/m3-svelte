@@ -1,4 +1,23 @@
-import { definePreset, symbols, type CSSObject, type Preset } from "unocss";
+import { definePreset, symbols, type CSSObject, type Preset, type StaticRule } from "unocss";
+
+const easings = ["-fast-spatial", "-spatial", "-slow-spatial", "-fast", "", "-slow"];
+const fontClasses = [
+  "display-large",
+  "display-medium",
+  "display-small",
+  "headline-large",
+  "headline-medium",
+  "headline-small",
+  "title-large",
+  "title-medium",
+  "title-small",
+  "label-large",
+  "label-medium",
+  "label-small",
+  "body-large",
+  "body-medium",
+  "body-small",
+];
 
 export default definePreset({
   name: "m3-svelte",
@@ -127,57 +146,18 @@ export default definePreset({
     },
   },
   rules: [
-    [
-      "transition-fast-spatial",
-      {
-        "transition-timing-function": "var(--m3-timing-function-fast-spatial)",
-        "transition-duration": "var(--m3-duration-fast-spatial)",
-      },
-    ],
-    [
-      "transition-spatial",
-      {
-        "transition-timing-function": "var(--m3-timing-function-spatial)",
-        "transition-duration": "var(--m3-duration-spatial)",
-      },
-    ],
-    [
-      "transition-slow-spatial",
-      {
-        "transition-timing-function": "var(--m3-timing-function-slow-spatial)",
-        "transition-duration": "var(--m3-duration-slow-spatial)",
-      },
-    ],
-    [
-      "transition-fast",
-      {
-        "transition-timing-function": "var(--m3-timing-function-fast)",
-        "transition-duration": "var(--m3-duration-fast)",
-      },
-    ],
-    [
-      "transition-slow",
-      {
-        "transition-timing-function": "var(--m3-timing-function-slow)",
-        "transition-duration": "var(--m3-duration-slow)",
-      },
-    ],
-
-    ["m3-font-display-large", { [symbols.body]: "@apply --m3-display-large;" } as CSSObject],
-    ["m3-font-display-medium", { [symbols.body]: "@apply --m3-display-medium;" } as CSSObject],
-    ["m3-font-display-small", { [symbols.body]: "@apply --m3-display-small;" } as CSSObject],
-    ["m3-font-headline-large", { [symbols.body]: "@apply --m3-headline-large;" } as CSSObject],
-    ["m3-font-headline-medium", { [symbols.body]: "@apply --m3-headline-medium;" } as CSSObject],
-    ["m3-font-headline-small", { [symbols.body]: "@apply --m3-headline-small;" } as CSSObject],
-    ["m3-font-title-large", { [symbols.body]: "@apply --m3-title-large;" } as CSSObject],
-    ["m3-font-title-medium", { [symbols.body]: "@apply --m3-title-medium;" } as CSSObject],
-    ["m3-font-title-small", { [symbols.body]: "@apply --m3-title-small;" } as CSSObject],
-    ["m3-font-label-large", { [symbols.body]: "@apply --m3-label-large;" } as CSSObject],
-    ["m3-font-label-medium", { [symbols.body]: "@apply --m3-label-medium;" } as CSSObject],
-    ["m3-font-label-small", { [symbols.body]: "@apply --m3-label-small;" } as CSSObject],
-    ["m3-font-body-large", { [symbols.body]: "@apply --m3-body-large;" } as CSSObject],
-    ["m3-font-body-medium", { [symbols.body]: "@apply --m3-body-medium;" } as CSSObject],
-    ["m3-font-body-small", { [symbols.body]: "@apply --m3-body-small;" } as CSSObject],
+    ...easings.map(
+      (e): StaticRule => [
+        `transition${e}`,
+        {
+          "transition-timing-function": `var(--m3-timing-function${e})`,
+          "transition-duration": `var(--m3-duration${e})`,
+        },
+      ],
+    ),
+    ...fontClasses.map(
+      (c): StaticRule => [`m3-font-${c}`, { [symbols.body]: `@apply --m3-${c}` } as CSSObject],
+    ),
   ],
   preflights: [
     {
