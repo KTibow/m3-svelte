@@ -49,19 +49,17 @@ export default ts.config(
       "svelte/no-at-html-tags": "off",
       "svelte/no-useless-mustaches": "off",
       "svelte/no-navigation-without-resolve": "off",
-    },
-  },
-  {
-    files: ["src/lib/**/*.svelte"],
-    rules: {
-      "svelte/no-unused-props": "off",
-      "svelte/prefer-writable-derived": "off",
-    },
-  },
-  {
-    files: ["src/routes/*.svelte"],
-    rules: {
-      "@typescript-eslint/no-unused-vars": "off",
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "$lib",
+              message: "Use specific imports from $lib/* to preserve CSS tree shaking",
+            },
+          ],
+        },
+      ],
     },
   },
 );

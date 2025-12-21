@@ -367,7 +367,7 @@
 
     background-color: var(--m3c-inverse-surface);
     color: var(--m3c-inverse-on-surface);
-    width: 3rem;
+    min-width: 3rem;
     padding: 0.75rem 1rem;
     border-radius: var(--m3-slider-handle-shape);
 

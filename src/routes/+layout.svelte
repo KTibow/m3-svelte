@@ -6,7 +6,7 @@
   import iconPaletteS from "@ktibow/iconset-material-symbols/palette";
   import iconBook from "@ktibow/iconset-material-symbols/book-2-outline";
   import iconBookS from "@ktibow/iconset-material-symbols/book-2";
-  import { base, resolve } from "$app/paths";
+  import { asset, resolve } from "$app/paths";
   import { page } from "$app/state";
   import NavCMLX from "$lib/nav/NavCMLX.svelte";
   import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
@@ -58,7 +58,7 @@
         />
       {/each}
       {#if page.url.pathname.startsWith(resolve("/docs")) || innerWidth >= 840}
-        {#each [["Quick start", `${resolve("/docs/quick-start")}`], ["Walkthrough", `${resolve("/docs/detailed-walkthrough")}`], ["llms.txt", `${base}/llms.txt`]] as [text, href]}
+        {#each [["Quick start", `${resolve("/docs/quick-start")}`], ["Walkthrough", `${resolve("/docs/detailed-walkthrough")}`], ["llms.txt", asset("/llms.txt")]] as [text, href]}
           <NavCMLXItem
             variant="auto"
             {href}

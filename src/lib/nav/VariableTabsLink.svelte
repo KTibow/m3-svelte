@@ -20,6 +20,7 @@
     }[];
   } & HTMLAnchorAttributes = $props();
 
+  // svelte-ignore state_referenced_locally
   let prevTab = $state(tab);
   let wrapper: HTMLElement | undefined = $state();
   $effect(() => {

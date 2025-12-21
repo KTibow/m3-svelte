@@ -17,7 +17,9 @@ let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("fil
 let action: "click" | "link" | "toggle" = $state("click");
 let square = $state(false);
 let iconType: "none" | "left" | "full" = $state("none");
-let size: "xs" | "s" | "m" | "l" | "xl" = $state("s");
+const sizes = ["xs", "s", "m", "l", "xl"] as const;
+const sizeLabels = ["Extra small", "Small", "Medium", "Large", "Extra large"] as const;
+let sizeIndex = $state(1);
 let enabled = $state(true);
 ```
 
@@ -42,18 +44,7 @@ let enabled = $state(true);
   <Arrows list={["none", "left", "full"]} bind:value={iconType} />
   {iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}
 </label>
-<label>
-  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} initialIndex={1} />
-  {size == "xs"
-    ? "Extra small"
-    : size == "s"
-      ? "Small"
-      : size == "m"
-        ? "Medium"
-        : size == "l"
-          ? "Large"
-          : "Extra large"}
-</label>
+<Slider bind:value={sizeIndex} min={0} max={4} step={1} stops format={(n) => sizeLabels[n]} />
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
@@ -64,7 +55,7 @@ let enabled = $state(true);
     <Button
       {variant}
       {square}
-      {size}
+      size={sizes[sizeIndex]}
       {...{
         click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
@@ -114,7 +105,9 @@ TogglePrimitive
 ```ts
 let variant: "filled" | "tonal" = $state("filled");
 let multiselect = $state(true);
-let size: "xs" | "s" | "m" | "l" | "xl" = $state("s");
+const sizes = ["xs", "s", "m", "l", "xl"] as const;
+const sizeLabels = ["Extra small", "Small", "Medium", "Large", "Extra large"] as const;
+let sizeIndex = $state(1);
 ```
 
 ```svelte
@@ -126,19 +119,9 @@ let size: "xs" | "s" | "m" | "l" | "xl" = $state("s");
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
-<label>
-  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} initialIndex={1} />
-  {size == "xs"
-    ? "Extra small"
-    : size == "s"
-      ? "Small"
-      : size == "m"
-        ? "Medium"
-        : size == "l"
-          ? "Large"
-          : "Extra large"}
-</label>
+<Slider bind:value={sizeIndex} min={0} max={4} step={1} stops format={(n) => sizeLabels[n]} />
 {#snippet demo()}
+  {@const size = sizes[sizeIndex]}
   <ConnectedButtons>
     {#if multiselect}
       <TogglePrimitive toggle={true} {variant} {size}>Alpha</TogglePrimitive>
@@ -185,7 +168,11 @@ let iconType: "none" | "left" | "full" = $state("none");
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined"]} bind:value={variant} initialIndex={1} />
+  <Arrows
+    list={["elevated", "filled", "tonal", "outlined"]}
+    bind:value={variant}
+    initialIndex={1}
+  />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
@@ -247,7 +234,9 @@ let color:
   | "primary"
   | "secondary"
   | "tertiary" = $state("primary-container");
-let size: "small" | "normal" | "large" | "extended" = $state("normal");
+const sizes = ["small", "normal", "large", "extended"] as const;
+const sizeLabels = ["Small", "Normal", "Large", "Extended"] as const;
+let sizeIndex = $state(1);
 ```
 
 ```svelte
@@ -265,11 +254,9 @@ let size: "small" | "normal" | "large" | "extended" = $state("normal");
   />
   {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
 </label>
-<label>
-  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} initialIndex={1} />
-  {size[0].toUpperCase() + size.slice(1)}
-</label>
+<Slider bind:value={sizeIndex} min={0} max={3} step={1} stops format={(n) => sizeLabels[n]} />
 {#snippet demo()}
+  {@const size = sizes[sizeIndex]}
   <div>
     <FAB
       {color}
@@ -360,7 +347,7 @@ let supporting = $derived(
   {"<" + type + ">"}
 </label>
 {#snippet demo()}
-  <div class="demo" role="list">
+  <div style="display: flex; flex-direction: column" role="list">
     {#snippet leading()}
       {#if type == "label"}
         <div class="box-wrapper">
@@ -401,10 +388,6 @@ let supporting = $derived(
 {/snippet}
 
 <style>
-  .demo {
-    display: flex;
-    flex-direction: column;
-  }
   .box-wrapper {
     display: flex;
     align-items: center;
@@ -690,13 +673,15 @@ let percent = $state(10);
 </label>
 <label>
   <Switch bind:checked={thick} />
-  {thick ? "Thicker" : "Default"}
+  {thick ? "Thicker" : "Thinner"}
+</label>
+<label>
+  <Switch bind:checked={estimate} />
+  {estimate ? "Estimated" : "Percent"}
 </label>
 {#if !estimate}
-  <Slider bind:value={percent} />
+  <Slider bind:value={percent} endStops={false} format={(n) => `${n.toFixed(0)}%`} />
 {/if}
-<input type="checkbox" id="estimate-toggle" bind:checked={estimate} />
-<Button variant="tonal" for="estimate-toggle">{estimate ? "Estimated" : "Estimate"}</Button>
 
 {#snippet demo()}
   {#if estimate && type == "linear"}
@@ -901,7 +886,9 @@ Slider
 
 ```ts
 let precision = $state<"continuous" | "discrete" | "discrete-stops">("continuous");
-let size = $state<"xs" | "s" | "m" | "l" | "xl">("xs");
+const sizes = ["xs", "s", "m", "l", "xl"] as const;
+const sizeLabels = ["Extra small", "Small", "Medium", "Large", "Extra large"] as const;
+let sizeIndex = $state(0);
 let trailingIcon = $state<boolean>(false);
 let leadingIcon = $state<boolean>(false);
 let endStops = $state<boolean>(true);
@@ -918,18 +905,7 @@ let vertical = $state<boolean>(false);
       ? "Discrete"
       : "Discrete (stops)"}
 </label>
-<label>
-  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} />
-  {size == "xs"
-    ? "Extra small"
-    : size == "s"
-      ? "Small"
-      : size == "m"
-        ? "Medium"
-        : size == "l"
-          ? "Large"
-          : "Extra large"}
-</label>
+<Slider bind:value={sizeIndex} min={0} max={4} step={1} stops format={(n) => sizeLabels[n]} />
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
@@ -938,7 +914,7 @@ let vertical = $state<boolean>(false);
   <Switch bind:checked={vertical} />
   {vertical ? "Vertical" : "Horizontal"}
 </label>
-{#if size != "xs" && size != "s"}
+{#if sizeIndex > 1}
   <label>
     <Switch bind:checked={leadingIcon} />
     {leadingIcon ? "Leading icon" : "No leading icon"}
@@ -960,7 +936,7 @@ let vertical = $state<boolean>(false);
     step={precision == "continuous" ? "any" : 10}
     value={10}
     disabled={!enabled}
-    {size}
+    size={sizes[sizeIndex]}
     {vertical}
     stops={precision == "discrete-stops"}
     {endStops}
@@ -1260,7 +1236,11 @@ let item = $state("a");
 
 ```svelte
 <label>
-  <Arrows list={["compact", "medium", "large", "extra-large", "auto"]} bind:value={variant} initialIndex={4} />
+  <Arrows
+    list={["compact", "medium", "large", "extra-large", "auto"]}
+    bind:value={variant}
+    initialIndex={4}
+  />
   {variant[0].toUpperCase() + variant.slice(1).replace("-", " ")}
 </label>
 {#snippet demo()}
@@ -1312,7 +1292,7 @@ Minimal demo:
 Full demo:
 
 ```use
-
+Button
 ```
 
 ```ts
@@ -1359,7 +1339,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
             leaving: true,
           }}
         >
-          <button class="btn" onclick={() => (affected = false)}> Beta </button>
+          <Button onclick={() => (affected = false)}>Beta</Button>
         </div>
       {:else}
         <div
@@ -1373,7 +1353,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
             leaving: true,
           }}
         >
-          <button class="btn" onclick={() => (affected = true)}> Alpha </button>
+          <Button onclick={() => (affected = true)}>Alpha</Button>
         </div>
       {/if}
     {:else if affected}
@@ -1384,7 +1364,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
           rightSeam: false,
         }}
       >
-        <button class="btn" onclick={() => (affected = false)}> Beta </button>
+        <Button onclick={() => (affected = false)}>Beta</Button>
       </div>
     {:else}
       <div
@@ -1394,7 +1374,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
           rightSeam: true,
         }}
       >
-        <button class="btn" onclick={() => (affected = true)}> Alpha </button>
+        <Button onclick={() => (affected = true)}>Alpha</Button>
       </div>
     {/if}
   </article>
@@ -1411,6 +1391,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
   }
   .pane {
     display: grid;
+    place-items: center;
     background-color: var(--m3c-background);
     overflow: hidden;
   }
@@ -1455,6 +1436,51 @@ const [send, receive] = containerTransform({ duration: 1000 });
 </style>
 ```
 
+## Layer
+
+Minimal demo:
+
+```svelte
+<button>
+  <Layer />
+  Hello
+</button>
+
+<style>
+  button {
+    position: relative;
+  }
+</style>
+```
+
+Full demo:
+
+```use
+Layer
+```
+
+```ts
+
+```
+
+```svelte
+{#snippet demo()}
+  <button class="layer-demo">
+    <Layer />
+  </button>
+  <style>
+    .layer-demo {
+      min-height: 10rem;
+      border-radius: 1rem;
+      position: relative;
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
+    }
+  </style>
+{/snippet}
+```
+
 ## Icons
 
 Minimal demo:
@@ -1482,7 +1508,12 @@ let size = $state(24);
 <Slider bind:value={size} min={16} max={96} format={(n) => n.toFixed(0) + "px"} />
 
 {#snippet demo()}
-  <div style:display="flex" style:gap="1rem" style:align-items="center" style:justify-content="center">
+  <div
+    style:display="flex"
+    style:gap="1rem"
+    style:align-items="center"
+    style:justify-content="center"
+  >
     <Icon icon={iconCircle} {size} />
     <Icon icon={iconSquare} {size} />
     <Icon icon={iconTriangle} {size} />
@@ -1531,8 +1562,21 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");
 </label>
 
 {#snippet demo()}
-  <svg width="4rem" height="4rem" style:margin="auto" viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}>
-    <path class="shape" d="{mode == "animatable small" ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")] : mode == "animatable" ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="var(--m3c-primary)" />
+  <svg
+    width="4rem"
+    height="4rem"
+    style:margin="auto"
+    viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}
+  >
+    <path
+      class="shape"
+      d={mode == "animatable small"
+        ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")]
+        : mode == "animatable"
+          ? pathsAnimatable[shape.replace("path", "pathAnimatable")]
+          : paths[shape]}
+      fill="var(--m3c-primary)"
+    />
   </svg>
 {/snippet}
 

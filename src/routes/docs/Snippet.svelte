@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { Button, snackbar } from "$lib";
+  import Button from "$lib/buttons/Button.svelte";
+  import { snackbar } from "$lib/containers/Snackbar.svelte";
   import Icon from "$lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
   import Highlight from "svelte-highlight";
@@ -32,7 +33,7 @@
     <p class="name">{name}</p>
   {/if}
   <div class="button-container">
-    <Button variant="text" onclick={copyToClipboard} iconType="full">
+    <Button variant="text" onclick={copyToClipboard} iconType="full" title="Copy">
       <Icon icon={iconCopy} />
     </Button>
   </div>
@@ -41,7 +42,7 @@
 
 <style>
   .snippet {
-    background-color: var(--m3c-surface-container-high);
+    background-color: var(--m3c-surface-container);
     border-radius: var(--m3-shape-large);
     padding: 1rem;
 

@@ -16,7 +16,7 @@
     headline = "",
     supporting = "",
     trailing,
-    lines = overline && supporting ? 3 : overline || supporting ? 2 : 1,
+    lines: _lines,
     ...props
   }: {
     leading?: Snippet;
@@ -26,6 +26,8 @@
     trailing?: Snippet;
     lines?: number;
   } & ActionProps = $props();
+
+  let lines = $derived(_lines ?? (overline && supporting ? 3 : overline || supporting ? 2 : 1));
 </script>
 
 {#snippet content()}
@@ -78,6 +80,7 @@
 <style>
   .m3-container {
     display: flex;
+    justify-self: stretch;
     padding: 0.5rem 1.5rem 0.5rem 1rem;
     align-items: center;
     gap: 1rem;

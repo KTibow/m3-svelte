@@ -38,7 +38,7 @@ export function demosPlugin(): Plugin {
       const demoComponents = componentsStr.split("\n").filter(Boolean);
 
       const imports = demoComponents
-        .filter((c) => !["Switch", "Icon"].includes(c))
+        .filter((c) => !["Switch", "Icon", "Slider"].includes(c))
         .map((c) => `import ${c} from "${getFile(c).replace("src/lib", "$lib")}";`)
         .join("\n");
 
@@ -72,6 +72,7 @@ import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
 import Switch from "$lib/forms/Switch.svelte";
 import Icon from "$lib/misc/Icon.svelte";
+import Slider from "$lib/forms/Slider.svelte";
 import Arrows from "/src/routes/_arrows.svelte";
 import InternalCard from "/src/routes/_card.svelte";
 ${imports}

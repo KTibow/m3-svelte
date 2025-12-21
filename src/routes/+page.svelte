@@ -31,6 +31,7 @@
   import Demo21 from "virtual:demo/21";
   import Demo22 from "virtual:demo/22";
   import Demo23 from "virtual:demo/23";
+  import Demo24 from "virtual:demo/24";
   import { afterNavigate } from "$app/navigation";
 
   type DocData = {
@@ -59,7 +60,7 @@
   <title>M3 Svelte</title>
   <meta
     name="description"
-    content="The home of Material 3 Svelte, a library for the M3 design system, with components, animations, and theming."
+    content="Implements the Material 3 design system in Svelte, cleanly, robustly, and across components, animations, and theming."
   />
 </svelte:head>
 
@@ -95,8 +96,9 @@
     <Demo21 {showCode} />
     <Demo22 {showCode} />
     <Demo23 {showCode} />
-    {#await import("virtual:demo/24") then { default: Demo24 }}
-      <Demo24 {showCode} />
+    <Demo24 {showCode} />
+    {#await import("virtual:demo/25") then { default: LastDemo }}
+      <LastDemo {showCode} />
     {/await}
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}

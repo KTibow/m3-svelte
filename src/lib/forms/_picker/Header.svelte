@@ -23,6 +23,11 @@
   const monthClick = () => (currentView = currentView == "calendar" ? "month" : "calendar");
   const getShortMonth = (month: number) =>
     new Date(0, month).toLocaleDateString(undefined, { month: "short" });
+
+  let prevMonth = $derived((focusedMonth - 1 + 12) % 12);
+  let nextMonth = $derived((focusedMonth + 1) % 12);
+  let prevYear = $derived(focusedYear - 1);
+  let nextYear = $derived(focusedYear + 1);
 </script>
 
 <div class="m3-container" class:choosing={currentView != "calendar"}>
@@ -30,18 +35,13 @@
     <button
       type="button"
       class="arrow"
-      onclick={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}
-      aria-label={getShortMonth((focusedMonth - 1 + 12) % 12)}
+      onclick={() => (focusedMonth = prevMonth)}
+      title={getShortMonth(prevMonth)}
     >
       <Layer />
       <Icon icon={iconLeft} />
     </button>
-    <button
-      type="button"
-      class="chooser"
-      onclick={monthClick}
-      disabled={currentView == "year"}
-    >
+    <button type="button" class="chooser" onclick={monthClick} disabled={currentView == "year"}>
       <Layer />
       {getShortMonth(focusedMonth)}
       <Icon icon={iconDown} />
@@ -49,8 +49,8 @@
     <button
       type="button"
       class="arrow"
-      onclick={() => (focusedMonth = (focusedMonth + 1) % 12)}
-      aria-label={getShortMonth((focusedMonth + 1) % 12)}
+      onclick={() => (focusedMonth = nextMonth)}
+      title={getShortMonth(nextMonth)}
     >
       <Layer />
       <Icon icon={iconRight} />
@@ -61,18 +61,13 @@
       type="button"
       class="arrow"
       disabled={focusedYear <= startYear}
-      onclick={() => focusedYear--}
-      aria-label={(focusedYear - 1).toString()}
+      onclick={() => (focusedYear = prevYear)}
+      title={prevYear.toString()}
     >
       <Layer />
       <Icon icon={iconLeft} />
     </button>
-    <button
-      type="button"
-      class="chooser"
-      onclick={yearClick}
-      disabled={currentView == "month"}
-    >
+    <button type="button" class="chooser" onclick={yearClick} disabled={currentView == "month"}>
       <Layer />
       {focusedYear}
       <Icon icon={iconDown} />
@@ -81,8 +76,8 @@
       type="button"
       class="arrow"
       disabled={focusedYear >= endYear}
-      onclick={() => focusedYear++}
-      aria-label={(focusedYear + 1).toString()}
+      title={nextYear.toString()}
+      onclick={() => (focusedYear = nextYear)}
     >
       <Layer />
       <Icon icon={iconRight} />
