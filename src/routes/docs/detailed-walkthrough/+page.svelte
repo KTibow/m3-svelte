@@ -57,13 +57,13 @@ ${"<"}/style>`;
 <h2>Apply your theme</h2>
 {#if $appType == "tailwind"}
   <Snippet
-    code={`<body class="m3-font-body-large bg-background text-on-background">`}
+    code={`<html class="m3-font-body-large bg-background text-on-background" lang="en">`}
     name="app.html"
     lang="xml"
   />
 {:else}
   <Snippet
-    code={`body {
+    code={`:root {
   ${"@"}apply --m3-body-large;
   background-color: var(--m3c-background);
   color: var(--m3c-on-background);

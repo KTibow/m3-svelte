@@ -1,11 +1,14 @@
 @import "$lib/misc/styles.css";
 @import "$lib/misc/recommended-styles.css";
 
-body {
-  margin: 0;
+:root {
+  @apply --m3-body-large;
   background-color: var(--m3c-background);
   color: var(--m3c-on-background);
-  @apply --m3-body-large;
+}
+
+body {
+  margin: 0;
 }
 
 pre code.hljs {
