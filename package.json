@@ -40,9 +40,9 @@
     "./misc/tailwind-styles.css": {
       "style": "./package/misc/tailwind-styles.css"
     },
-    "./misc/unocss": {
-      "types": "./package/misc/unocss.config.d.ts",
-      "import": "./package/misc/unocss.config.js"
+    "./misc/unocss-preset": {
+      "types": "./package/misc/unocss-preset.d.ts",
+      "import": "./package/misc/unocss-preset.js"
     }
   },
   "dependencies": {
