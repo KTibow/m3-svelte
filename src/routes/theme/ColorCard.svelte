@@ -11,38 +11,50 @@
   let {
     bg,
     fg,
-    scheme,
+    light,
+    dark,
     grabbing,
     grabbed,
   }: {
     bg: DynamicColor;
     fg: DynamicColor;
-    scheme: DynamicScheme;
+    light: DynamicScheme;
+    dark: DynamicScheme;
     grabbing: boolean;
     grabbed: () => void;
   } = $props();
 
   let ui = $state(0);
-  let bgColor = $derived(hexFromArgb(bg.getArgb(scheme)));
-  let fgColor = $derived(hexFromArgb(fg.getArgb(scheme)));
+  let bgColorLight = $derived(hexFromArgb(bg.getArgb(light)));
+  let fgColorLight = $derived(hexFromArgb(fg.getArgb(light)));
+  let bgColorDark = $derived(hexFromArgb(bg.getArgb(dark)));
+  let fgColorDark = $derived(hexFromArgb(fg.getArgb(dark)));
   $effect(() => {
     if (!grabbing) ui = 0;
   });
+
+  const rgbToHex = (rgb: string) => {
+    const match = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    if (!match) return rgb;
+    const [, r, g, b] = match;
+    return "#" + [r, g, b].map((x) => parseInt(x).toString(16).padStart(2, "0")).join("");
+  };
 </script>
 
 <div
   class="card"
-  style="background-color: {bgColor}; color: {fgColor};"
+  style:background-color="light-dark({bgColorLight}, {bgColorDark})"
+  style:color="light-dark({fgColorLight}, {fgColorDark})"
   role={grabbing ? "button" : undefined}
-  onclick={() => {
-    if (ui) {
-      if (ui == 2) {
-        navigator.clipboard.writeText(bgColor);
-      } else {
-        navigator.clipboard.writeText(fgColor);
-      }
-      grabbed();
+  onclick={(e) => {
+    if (!ui) return;
+    const styles = getComputedStyle(e.currentTarget);
+    if (ui == 2) {
+      navigator.clipboard.writeText(rgbToHex(styles.backgroundColor));
+    } else {
+      navigator.clipboard.writeText(rgbToHex(styles.color));
     }
+    grabbed();
   }}
   onmousemove={(e) => {
     if (grabbing) {
@@ -61,7 +73,7 @@
     <div
       class="overlay"
       class:invert={ui == 1}
-      style:background-color={ui == 2 ? bgColor : fgColor}
+      style:background-color={ui == 2 ? "inherit" : "currentColor"}
     >
       <Icon size={24} icon={iconCopy} />
     </div>

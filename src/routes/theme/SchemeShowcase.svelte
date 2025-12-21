@@ -2,11 +2,9 @@
   import type { DynamicScheme } from "@ktibow/material-color-utilities-nightly";
   import Icon from "$lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
-  import iconLight from "@ktibow/iconset-material-symbols/light-mode-outline";
-  import iconDark from "@ktibow/iconset-material-symbols/dark-mode-outline";
+  import iconInvert from "@ktibow/iconset-material-symbols/invert-colors-outline";
   import iconX from "@ktibow/iconset-material-symbols/close";
   import iconGrab from "@ktibow/iconset-material-symbols/unarchive-outline";
-  import { onMount } from "svelte";
 
   import Button from "$lib/buttons/Button.svelte";
   import ColorCard from "./ColorCard.svelte";
@@ -21,7 +19,7 @@
     light: DynamicScheme;
     dark: DynamicScheme;
   } = $props();
-  let showDark = $state(false);
+  let inverted = $state(false);
   let grabbing = $state(false);
 
   $effect(() => {
@@ -60,18 +58,15 @@ ${innerStyles}
         $styling,
     );
   };
-
-  onMount(() => {
-    showDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
 </script>
 
 <div class="content">
   <h2>Your scheme 🎉</h2>
-  <div class="color-container">
+  <div class="color-container" class:inverted>
     {#each pairs as [bgName, fgName]}
       <ColorCard
-        scheme={showDark ? dark : light}
+        {light}
+        {dark}
         fg={fgName}
         bg={bgName}
         {grabbing}
@@ -96,18 +91,19 @@ ${innerStyles}
       </Button>
     {/if}
     <div class="spacer"></div>
-    <Button
-      variant="tonal"
-      iconType="full"
-      title={showDark ? "See in light mode" : "See in dark mode"}
-      onclick={() => (showDark = !showDark)}
-    >
-      <Icon icon={showDark ? iconLight : iconDark} />
+    <input type="checkbox" id="invert-toggle" bind:checked={inverted} />
+    <Button variant="tonal" iconType="full" title="Invert colors" for="invert-toggle">
+      <Icon icon={iconInvert} />
     </Button>
   </div>
 </div>
 
 <style>
+  #invert-toggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
   .content {
     background-color: var(--m3c-surface-container-low);
     padding: 1rem;
@@ -121,6 +117,17 @@ ${innerStyles}
     display: grid;
     border-radius: 1rem;
     overflow: hidden;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: light) {
+    .color-container.inverted {
+      color-scheme: dark;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    .color-container.inverted {
+      color-scheme: light;
+    }
   }
   @media (min-width: 30rem) {
     .color-container {
