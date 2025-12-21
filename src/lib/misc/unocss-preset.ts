@@ -1,4 +1,5 @@
 import { definePreset, symbols, type CSSObject, type Preset, type StaticRule } from "unocss";
+import { colors } from "./colors";
 
 const easings = ["-fast-spatial", "-spatial", "-slow-spatial", "-fast", "", "-slow"];
 const fontClasses = [
@@ -58,90 +59,12 @@ export default definePreset({
       xl: "var(--m3-shape-extra-large)", // 28px
     },
     colors: {
-      background: "var(--m3c-background)",
-      "on-background": "var(--m3c-on-background)",
-      surface: {
-        DEFAULT: "var(--m3c-surface)",
-        dim: "var(--m3c-surface-dim)",
-        bright: "var(--m3c-surface-bright)",
-        "container-lowest": "var(--m3c-surface-container-lowest)",
-        "container-low": "var(--m3c-surface-container-low)",
-        container: "var(--m3c-surface-container)",
-        "container-high": "var(--m3c-surface-container-high)",
-        "container-highest": "var(--m3c-surface-container-highest)",
-      },
-      "on-surface": {
-        DEFAULT: "var(--m3c-on-surface)",
-        variant: "var(--m3c-on-surface-variant)",
-      },
-      outline: {
-        DEFAULT: "var(--m3c-outline)",
-        variant: "var(--m3c-outline-variant)",
-      },
-      inverse: {
-        surface: "var(--m3c-inverse-surface)",
-        "on-surface": "var(--m3c-inverse-on-surface)",
-        primary: "var(--m3c-inverse-primary)",
-      },
-      primary: {
-        DEFAULT: "var(--m3c-primary)",
-        dim: "var(--m3c-primary-dim)",
-        container: "var(--m3c-primary-container)",
-        "container-subtle": "var(--m3c-primary-container-subtle)",
-        fixed: "var(--m3c-primary-fixed)",
-        "fixed-dim": "var(--m3c-primary-fixed-dim)",
-      },
-      "on-primary": {
-        DEFAULT: "var(--m3c-on-primary)",
-        container: "var(--m3c-on-primary-container)",
-        "container-subtle": "var(--m3c-on-primary-container-subtle)",
-        fixed: "var(--m3c-on-primary-fixed)",
-        "fixed-variant": "var(--m3c-on-primary-fixed-variant)",
-      },
-      "on-on-primary": "var(--m3c-on-on-primary)",
-      secondary: {
-        DEFAULT: "var(--m3c-secondary)",
-        dim: "var(--m3c-secondary-dim)",
-        container: "var(--m3c-secondary-container)",
-        "container-subtle": "var(--m3c-secondary-container-subtle)",
-        fixed: "var(--m3c-secondary-fixed)",
-        "fixed-dim": "var(--m3c-secondary-fixed-dim)",
-      },
-      "on-secondary": {
-        DEFAULT: "var(--m3c-on-secondary)",
-        container: "var(--m3c-on-secondary-container)",
-        "container-subtle": "var(--m3c-on-secondary-container-subtle)",
-        fixed: "var(--m3c-on-secondary-fixed)",
-        "fixed-variant": "var(--m3c-on-secondary-fixed-variant)",
-      },
-      tertiary: {
-        DEFAULT: "var(--m3c-tertiary)",
-        dim: "var(--m3c-tertiary-dim)",
-        container: "var(--m3c-tertiary-container)",
-        "container-subtle": "var(--m3c-tertiary-container-subtle)",
-        fixed: "var(--m3c-tertiary-fixed)",
-        "fixed-dim": "var(--m3c-tertiary-fixed-dim)",
-      },
-      "on-tertiary": {
-        DEFAULT: "var(--m3c-on-tertiary)",
-        container: "var(--m3c-on-tertiary-container)",
-        "container-subtle": "var(--m3c-on-tertiary-container-subtle)",
-        fixed: "var(--m3c-on-tertiary-fixed)",
-        "fixed-variant": "var(--m3c-on-tertiary-fixed-variant)",
-      },
-      error: {
-        DEFAULT: "var(--m3c-error)",
-        dim: "var(--m3c-error-dim)",
-        container: "var(--m3c-error-container)",
-        "container-subtle": "var(--m3c-error-container-subtle)",
-      },
-      "on-error": {
-        DEFAULT: "var(--m3c-on-error)",
-        container: "var(--m3c-on-error-container)",
-        "container-subtle": "var(--m3c-on-error-container-subtle)",
-      },
-      shadow: "var(--m3c-shadow)",
-      scrim: "var(--m3c-scrim)",
+      ...Object.fromEntries(
+        colors.map((c) => [
+          c.name.replaceAll("_", "-"),
+          `var(--m3c-${c.name.replaceAll("_", "-")})`,
+        ]),
+      ),
       "v-background": "var(--m3v-background)",
     },
   },
