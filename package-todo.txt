@@ -7,6 +7,7 @@ general things:
 - more css optimization (see discord)
 - bring icons out of html??
 - merge #220
+- move input controls into Button/into Chip instead of using `for`
 - all deprecated items
   - ONLY user defined --m3-density
 
