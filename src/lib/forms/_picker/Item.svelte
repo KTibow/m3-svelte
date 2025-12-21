@@ -16,14 +16,7 @@
   } = $props();
 </script>
 
-<button
-  type="button"
-  class="item"
-  {disabled}
-  class:today
-  class:selected
-  {onclick}
->
+<button type="button" class="item" {disabled} class:today class:selected {onclick}>
   <Layer />
   {label}
 </button>

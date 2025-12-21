@@ -168,7 +168,11 @@ let iconType: "none" | "left" | "full" = $state("none");
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined"]} bind:value={variant} initialIndex={1} />
+  <Arrows
+    list={["elevated", "filled", "tonal", "outlined"]}
+    bind:value={variant}
+    initialIndex={1}
+  />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
@@ -1212,7 +1216,11 @@ let item = $state("a");
 
 ```svelte
 <label>
-  <Arrows list={["compact", "medium", "large", "extra-large", "auto"]} bind:value={variant} initialIndex={4} />
+  <Arrows
+    list={["compact", "medium", "large", "extra-large", "auto"]}
+    bind:value={variant}
+    initialIndex={4}
+  />
   {variant[0].toUpperCase() + variant.slice(1).replace("-", " ")}
 </label>
 {#snippet demo()}
@@ -1480,7 +1488,12 @@ let size = $state(24);
 <Slider bind:value={size} min={16} max={96} format={(n) => n.toFixed(0) + "px"} />
 
 {#snippet demo()}
-  <div style:display="flex" style:gap="1rem" style:align-items="center" style:justify-content="center">
+  <div
+    style:display="flex"
+    style:gap="1rem"
+    style:align-items="center"
+    style:justify-content="center"
+  >
     <Icon icon={iconCircle} {size} />
     <Icon icon={iconSquare} {size} />
     <Icon icon={iconTriangle} {size} />
@@ -1529,8 +1542,21 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");
 </label>
 
 {#snippet demo()}
-  <svg width="4rem" height="4rem" style:margin="auto" viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}>
-    <path class="shape" d="{mode == "animatable small" ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")] : mode == "animatable" ? pathsAnimatable[shape.replace("path", "pathAnimatable")] : paths[shape]}" fill="var(--m3c-primary)" />
+  <svg
+    width="4rem"
+    height="4rem"
+    style:margin="auto"
+    viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}
+  >
+    <path
+      class="shape"
+      d={mode == "animatable small"
+        ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")]
+        : mode == "animatable"
+          ? pathsAnimatable[shape.replace("path", "pathAnimatable")]
+          : paths[shape]}
+      fill="var(--m3c-primary)"
+    />
   </svg>
 {/snippet}
 

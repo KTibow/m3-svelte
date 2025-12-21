@@ -66,15 +66,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   use:clickOutside
   style:--anchor-name="--{id}"
 >
-  <input
-    type="date"
-    class="focus-none"
-    {disabled}
-    {required}
-    {id}
-    bind:value
-    {...extra}
-  />
+  <input type="date" class="focus-none" {disabled} {required} {id} bind:value {...extra} />
   <label for={id}>{label}</label>
   <button type="button" {disabled} title={datePickerTitle} onclick={() => (picker = !picker)}>
     <Layer />

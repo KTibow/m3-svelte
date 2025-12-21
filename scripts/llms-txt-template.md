@@ -10,16 +10,19 @@ Follow these steps:
 (use an existing project, create a plain Svelte project with `npm create vite`, or create a SvelteKit project with `npx sv create`)
 
 **Install dependencies**
+
 ```bash
 npm i m3-svelte vite-plugin-functions-mixins
 ```
 
 **Configure Vite**
+
 ```ts (vite.config.ts)
 <!-- VITE_CONFIG -->
 ```
 
 **Set a theme**
+
 ```css (somewhere always loaded)
 /* The style snippet you copied from https://ktibow.github.io/m3-svelte/theme goes here */
 
@@ -29,6 +32,7 @@ npm i m3-svelte vite-plugin-functions-mixins
 ```
 
 **Load Roboto**
+
 ```html (your template)
 <head>
   [...]
@@ -60,7 +64,7 @@ The truths of Material 3. These start with `--m3-` and look like `--m3-elevation
 
 ```css
 --m3-elevation-[0-5]: [box shadow]; /* Elevation levels */
---m3-shape-[size]: [size];          /* Border radius sizes */
+--m3-shape-[size]: [size]; /* Border radius sizes */
 ```
 
 Rounding sizes: none, extra-small, small, medium, large, extra-large, full
@@ -70,12 +74,14 @@ There's more M3 theming beyond the theme page: you can modify these tokens direc
 ### Variables
 
 These start with `--m3v-`, but only a few can be set:
+
 - Set `--m3v-bottom-offset` to shift up snackbars
 - Set `--m3v-background` to calibrate the color of an outlined field's box
 
 ### Functions
 
 These are shorthands for specific logic. M3 Svelte only has a few:
+
 - `--translucent([color], [opacity])` makes a color semitransparent
 - `--m3-density([size])` (theme-defined) adjusts a size
 
