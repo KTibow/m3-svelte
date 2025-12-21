@@ -96,7 +96,12 @@ ${innerStyles}
       </Button>
     {/if}
     <div class="spacer"></div>
-    <Button variant="tonal" iconType="full" onclick={() => (showDark = !showDark)}>
+    <Button
+      variant="tonal"
+      iconType="full"
+      title={showDark ? "See in light mode" : "See in dark mode"}
+      onclick={() => (showDark = !showDark)}
+    >
       <Icon icon={showDark ? iconLight : iconDark} />
     </Button>
   </div>

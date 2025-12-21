@@ -9,9 +9,6 @@
   import Icon from "$lib/misc/Icon.svelte";
   import Button from "$lib/buttons/Button.svelte";
 
-  let sourceColorInput: HTMLInputElement | undefined = $state(),
-    sourceFileInput: HTMLInputElement | undefined = $state();
-
   let {
     sourceColor = $bindable(),
   }: {
@@ -22,24 +19,24 @@
 <div style:background-color={hexFromArgb(sourceColor)} class="color-disc">
   <div class="color-text">Color</div>
   <div>
-    <Button variant="text" iconType="full" onclick={() => sourceColorInput!.click()}>
+    <Button variant="text" iconType="full" title="Pick a color" for="color-input">
       <Icon icon={iconColorLens} />
     </Button>
-    <Button variant="text" iconType="full" onclick={() => sourceFileInput!.click()}>
+    <Button variant="text" iconType="full" title="Pick from an image" for="file-input">
       <Icon icon={iconImage} />
     </Button>
   </div>
 </div>
 <input
   type="color"
+  id="color-input"
   value="#000"
-  bind:this={sourceColorInput}
   oninput={(e) => (sourceColor = argbFromHex(e.currentTarget.value))}
 />
 <input
   type="file"
+  id="file-input"
   accept="image/*"
-  bind:this={sourceFileInput}
   onchange={(e) => {
     if (!e.currentTarget.files) return;
     const reader = new FileReader();
