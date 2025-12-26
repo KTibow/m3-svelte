@@ -51,7 +51,9 @@ let enabled = $state(true);
 </label>
 {#snippet demo()}
   <div>
-    <input type="checkbox" id="random-input" disabled={!enabled} />
+    {#if action == "toggle"}
+      <input type="checkbox" id="button-input" disabled={!enabled} />
+    {/if}
     <Button
       {variant}
       {square}
@@ -59,7 +61,7 @@ let enabled = $state(true);
       {...{
         click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
-        toggle: { for: "random-input" },
+        toggle: { for: "button-input" },
       }[action]}
       {iconType}
     >
@@ -75,7 +77,7 @@ let enabled = $state(true);
 {/snippet}
 
 <style>
-  #random-input {
+  #button-input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
