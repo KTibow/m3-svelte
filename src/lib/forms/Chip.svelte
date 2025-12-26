@@ -3,9 +3,9 @@
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/Icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  import type { LabelAttrs, AnchorAttrs, ButtonAttrs } from "$lib/misc/typing-utils";
+  import type { AnchorAttrs, LabelAttrs, ButtonAttrs } from "$lib/misc/typing-utils";
 
-  type ActionProps = LabelAttrs | AnchorAttrs | ButtonAttrs;
+  type ActionProps = AnchorAttrs | LabelAttrs | ButtonAttrs;
 
   let {
     variant,
@@ -45,14 +45,14 @@
   {/if}
 {/snippet}
 
-{#if "for" in extra}
-  <label class="m3-container {variant}" class:elevated class:selected {...extra}>
-    {@render content()}
-  </label>
-{:else if "href" in extra}
+{#if extra.href != undefined}
   <a class="m3-container {variant}" class:elevated class:selected {...extra}>
     {@render content()}
   </a>
+{:else if "for" in extra}
+  <label class="m3-container {variant}" class:elevated class:selected {...extra}>
+    {@render content()}
+  </label>
 {:else}
   <button class="m3-container {variant}" class:elevated class:selected {...extra} type="button">
     {@render content()}

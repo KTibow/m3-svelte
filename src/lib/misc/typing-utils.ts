@@ -5,11 +5,14 @@ import type {
   HTMLAttributes,
 } from "svelte/elements";
 
-export type LabelAttrs = HTMLLabelAttributes & Required<Pick<HTMLLabelAttributes, "for">>;
+type MakeRequired<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 
-export type AnchorAttrs = HTMLAnchorAttributes & Required<Pick<HTMLAnchorAttributes, "href">>;
+export type NotButton<T> = Omit<T, "onclick"> & { onclick?: undefined };
+export type NotLink<T> = T & { href?: undefined };
+export type ButtonAttrs = MakeRequired<NotLink<HTMLButtonAttributes>, "onclick">;
 
-export type NotButton<T> = Omit<T, "onclick">;
-export type ButtonAttrs = HTMLButtonAttributes & Required<Pick<HTMLButtonAttributes, "onclick">>;
+export type LabelAttrs = MakeRequired<NotLink<NotButton<HTMLLabelAttributes>>, "for">;
 
-export type DivAttrs = NotButton<HTMLAttributes<HTMLDivElement>>;
+export type AnchorAttrs = MakeRequired<NotButton<HTMLAnchorAttributes>, "href">;
+
+export type DivAttrs = NotLink<NotButton<HTMLAttributes<HTMLDivElement>>>;
