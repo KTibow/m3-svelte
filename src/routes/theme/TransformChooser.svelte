@@ -40,19 +40,25 @@
 <div class="content variants">
   {#each variants as { id, name, desc }}
     {@const { light, dark } = schemes[id]}
-    <input type="radio" bind:group={variant} name="variants" value={id} id="variants-{id}" />
     <label for="variants-{id}">
+      <input type="radio" bind:group={variant} name="variants" value={id} id="variants-{id}" />
       <div
-        style:--light-background={variantColor(light, materialColors.primaryContainer())}
-        style:--dark-background={variantColor(dark, materialColors.primaryContainer())}
-        style:--light-foreground={variantColor(light, materialColors.onPrimaryContainer())}
-        style:--dark-foreground={variantColor(dark, materialColors.onPrimaryContainer())}
+        style:background-color="light-dark({variantColor(light, materialColors.primaryContainer())}, {variantColor(
+          dark,
+          materialColors.primaryContainer(),
+        )})"
+        style:color="light-dark({variantColor(light, materialColors.onPrimaryContainer())}, {variantColor(
+          dark,
+          materialColors.onPrimaryContainer(),
+        )})"
       >
         <p>{name}</p>
       </div>
       <div
-        style:--light-background={variantColor(light, materialColors.surfaceContainerLow())}
-        style:--dark-background={variantColor(dark, materialColors.surfaceContainerLow())}
+        style:background-color="light-dark({variantColor(
+          light,
+          materialColors.surfaceContainerLow(),
+        )}, {variantColor(dark, materialColors.surfaceContainerLow())})"
       >
         <p class="desc">{desc}</p>
       </div>
@@ -155,11 +161,6 @@
     @media (min-width: 100rem) {
       flex-wrap: nowrap;
     }
-    input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
   }
   label {
     display: flex;
@@ -168,7 +169,12 @@
     border-radius: 0.5rem;
     flex-grow: 1;
     cursor: pointer;
-    &:is(input:focus-visible + label) {
+    > input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    &:has(> input:focus-visible) {
       animation: var(--m3-refocus);
     }
     > * {
@@ -177,32 +183,24 @@
       padding: 0.5rem 1rem;
       flex-grow: 1;
       transition: border-radius cubic-bezier(0.42, 5, 0.21, 0.9) 350ms;
-      &:first-child {
+      &:first-of-type {
         border-radius: 0.5rem 0.5rem 0.25rem 0.25rem;
         padding-top: 0.75rem;
       }
-      &:last-child {
+      &:last-of-type {
         border-radius: 0.25rem 0.25rem 0.5rem 0.5rem;
         padding-bottom: 0.75rem;
       }
-      @media (prefers-color-scheme: light) {
-        background-color: var(--light-background);
-        color: var(--light-foreground);
-      }
-      @media (prefers-color-scheme: dark) {
-        background-color: var(--dark-background);
-        color: var(--dark-foreground);
-      }
     }
-    &:is(input:checked + label) {
+    &:has(> input:checked) {
       border-radius: 1rem;
-      > :first-child {
+      > :first-of-type {
         border-radius: 1rem 1rem 0.25rem 0.25rem;
       }
-      > :last-child {
+      > :last-of-type {
         border-radius: 0.25rem 0.25rem 1rem 1rem;
-        background-color: var(--m3c-primary);
-        color: var(--m3c-on-primary);
+        background-color: var(--m3c-primary) !important;
+        color: var(--m3c-on-primary) !important;
       }
     }
   }
