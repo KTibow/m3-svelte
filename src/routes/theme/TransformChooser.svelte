@@ -20,11 +20,15 @@
     variant = $bindable(),
     contrast = $bindable(),
     specVersion = $bindable(),
+    includeDimBright = $bindable(),
+    includeFixed = $bindable(),
   }: {
     schemes: Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
     variant: Variant;
     contrast: number;
     specVersion: "2021" | "2025";
+    includeDimBright: boolean;
+    includeFixed: boolean;
   } = $props();
 
   const variantColor = (scheme: DynamicScheme, color: DynamicColor) => {
@@ -57,78 +61,67 @@
 </div>
 {#if showMore}
   <div class="content more">
-    <Slider
-      min={-1}
-      max={1}
-      step={0.05}
-      size="m"
-      leadingIcon={iconContrast}
-      format={(n) => n.toString()}
-      bind:value={
-        () => contrast,
-        (n) => {
-          if (n <= -0.5) n = -1;
-          else if (n > -0.5 && n < 0) n = 0;
-          contrast = n;
+    <div>
+      <Slider
+        min={-1}
+        max={1}
+        step={0.05}
+        size="m"
+        leadingIcon={iconContrast}
+        format={(n) => n.toString()}
+        bind:value={
+          () => contrast,
+          (n) => {
+            if (n <= -0.5) n = -1;
+            else if (n > -0.5 && n < 0) n = 0;
+            contrast = n;
+          }
         }
-      }
-    />
-    <ConnectedButtons>
-      <input
-        type="radio"
-        name="specversion"
-        value="2021"
-        id="specversion-2021"
-        bind:group={specVersion}
       />
-      <Button for="specversion-2021" square>2021</Button>
-      <input
-        type="radio"
-        name="specversion"
-        value="2025"
-        id="specversion-2025"
-        bind:group={specVersion}
-      />
-      <Button for="specversion-2025" square>2025</Button>
-    </ConnectedButtons>
-    <Select
-      label="Density"
-      width="100%"
-      options={[
-        { text: "0", value: "0" },
-        { text: "Variable", value: "variable" },
-        { text: "-3", value: "-3" },
-        { text: "-2", value: "-2" },
-        { text: "-1", value: "-1" },
-        { text: "+1", value: "1" },
-        { text: "+2", value: "2" },
-        { text: "+3", value: "3" },
-      ]}
-      bind:value={
-        () => String($density),
-        (val) => {
-          $density = val == "variable" ? "variable" : Number(val);
+      <ConnectedButtons>
+        <input type="radio" value="2021" id="specversion-2021" bind:group={specVersion} />
+        <Button for="specversion-2021" square size="m">2021</Button>
+        <input type="radio" value="2025" id="specversion-2025" bind:group={specVersion} />
+        <Button for="specversion-2025" square size="m">2025</Button>
+      </ConnectedButtons>
+      <ConnectedButtons>
+        <input type="checkbox" id="enable-dimbright" bind:checked={includeDimBright} />
+        <Button for="enable-dimbright" square size="m">Include Dim/Bright</Button>
+        <input type="checkbox" id="enable-fixed" bind:checked={includeFixed} />
+        <Button for="enable-fixed" square size="m">Include Fixed</Button>
+      </ConnectedButtons>
+    </div>
+    <div>
+      <Select
+        label="Density"
+        width="100%"
+        options={[
+          { text: "0", value: "0" },
+          { text: "Variable", value: "variable" },
+          { text: "-3", value: "-3" },
+          { text: "-2", value: "-2" },
+          { text: "-1", value: "-1" },
+          { text: "+1", value: "1" },
+          { text: "+2", value: "2" },
+          { text: "+3", value: "3" },
+        ]}
+        bind:value={
+          () => String($density),
+          (val) => {
+            $density = val == "variable" ? "variable" : Number(val);
+          }
         }
-      }
-    />
-    <ConnectedButtons>
-      <input
-        type="radio"
-        name="apptype"
-        value="vanilla"
-        id="apptype-vanilla"
-        bind:group={$appType}
       />
-      <Button for="apptype-vanilla" square>Vanilla</Button>
-      <input
-        type="radio"
-        name="apptype"
-        value="tailwind"
-        id="apptype-tailwind"
-        bind:group={$appType}
+      <Select
+        label="App Type"
+        width="100%"
+        options={[
+          { text: "Vanilla", value: "vanilla" },
+          { text: "Tailwind", value: "tailwind" },
+        ]}
+        bind:value={$appType}
       />
-      <Button for="apptype-tailwind" square>Tailwind</Button>
-    </ConnectedButtons>
+    </div>
   </div>
   {#if $appType == "tailwind"}
     <p style:text-align="center" style:margin-top="0.5rem">
@@ -140,7 +133,7 @@
 {:else}
   <button class="content more" onclick={() => (showMore = true)}>
     <Layer />
-    Contrast, version, density, Tailwind
+    Configure theme and more
   </button>
 {/if}
 
@@ -235,10 +228,14 @@
     @apply --m3-label-large;
   }
   div.more {
-    display: grid;
-    align-items: center;
-    gap: 0.5rem;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    > * {
+      display: grid;
+      gap: 0.5rem;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+    }
   }
 </style>

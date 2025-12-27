@@ -10,6 +10,7 @@
   import ColorCard from "./ColorCard.svelte";
   import { appType, styling, density } from "../state";
   import {
+    colors,
     errorContainerSubtle,
     materialColors,
     onErrorContainerSubtle,
@@ -26,15 +27,26 @@
   let {
     light,
     dark,
+    includeDimBright,
+    includeFixed,
   }: {
     light: DynamicScheme;
     dark: DynamicScheme;
+    includeDimBright: boolean;
+    includeFixed: boolean;
   } = $props();
   let inverted = $state(false);
   let grabbing = $state(false);
 
   $effect(() => {
-    const style = genCSS(light, dark);
+    let cs = colors.filter((c) => c.name != "background" && c.name != "on_background");
+    if (!includeDimBright) {
+      cs = cs.filter((c) => !c.name.includes("dim") && !c.name.includes("bright"));
+    }
+    if (!includeFixed) {
+      cs = cs.filter((c) => !c.name.includes("fixed"));
+    }
+    const style = genCSS(light, dark, cs);
     let fn;
     if ($density == "variable") {
       fn = `@function --m3-density(--size) {

@@ -4,18 +4,16 @@ import { colors } from "./colors";
 /**
  * @returns A string of CSS code with custom properties representing the color scheme values.
  * */
-export const genCSS = (light: DynamicScheme, dark: DynamicScheme) => {
+export const genCSS = (light: DynamicScheme, dark: DynamicScheme, cs = colors) => {
   const genColorVariable = (name: string, argb: number) => {
     const kebabCase = name.replaceAll("_", "-");
     const hex = argb.toString(16).slice(-6);
     return `    --m3c-${kebabCase}: #${hex};`;
   };
-  const lightColors = colors
-    .filter((c) => c.name != "background" && c.name != "on_background")
+  const lightColors = cs
     .map((color) => genColorVariable(color.name, color.getArgb(light)))
     .join("\n");
-  const darkColors = colors
-    .filter((c) => c.name != "background" && c.name != "on_background")
+  const darkColors = cs
     .map((color) => genColorVariable(color.name, color.getArgb(dark)))
     .join("\n");
   return `@media (prefers-color-scheme: light) {
