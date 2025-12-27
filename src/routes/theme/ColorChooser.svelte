@@ -30,7 +30,7 @@
 <input
   type="color"
   id="color-input"
-  value="#000"
+  value="#000000"
   oninput={(e) => (sourceColor = argbFromHex(e.currentTarget.value))}
 />
 <input

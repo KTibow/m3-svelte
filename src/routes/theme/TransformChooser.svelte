@@ -61,7 +61,7 @@
 </div>
 {#if showMore}
   <div class="content more">
-    <div>
+    <div class="long">
       <Slider
         min={-1}
         max={1}
@@ -94,7 +94,7 @@
     <div>
       <Select
         label="Density"
-        width="100%"
+        width="50%"
         options={[
           { text: "0", value: "0" },
           { text: "Variable", value: "variable" },
@@ -114,7 +114,7 @@
       />
       <Select
         label="App Type"
-        width="100%"
+        width="50%"
         options={[
           { text: "Vanilla", value: "vanilla" },
           { text: "Tailwind", value: "tailwind" },
@@ -236,6 +236,11 @@
       gap: 0.5rem;
       grid-auto-flow: column;
       grid-auto-columns: 1fr;
+      &.long {
+        @media (width < 52.5rem) {
+          grid-auto-flow: row;
+        }
+      }
     }
   }
 </style>
