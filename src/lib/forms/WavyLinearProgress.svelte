@@ -1,13 +1,20 @@
 <script lang="ts">
   import { onMount, untrack } from "svelte";
   import { linear, trackOpacity } from "./_wavy";
+  import type { LabelledAria } from "$lib/misc/typing-utils";
 
   let {
     width = 600,
     height = 10,
     thickness = 4,
     percent,
-  }: { width?: number; height?: number; thickness?: number; percent: number } = $props();
+    ...extra
+  }: {
+    width?: number;
+    height?: number;
+    thickness?: number;
+    percent: number;
+  } & LabelledAria = $props();
 
   let time = $state(0);
 
@@ -35,7 +42,7 @@
   });
 </script>
 
-<svg viewBox="0 0 {width} {height}">
+<svg viewBox="0 0 {width} {height}" role="progressbar" aria-valuenow={percent} {...extra}>
   <path fill="none" stroke="var(--m3c-primary)" stroke-width={thickness} stroke-linecap="round">
     <animate
       attributeName="d"

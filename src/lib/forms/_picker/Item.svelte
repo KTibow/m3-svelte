@@ -2,21 +2,21 @@
   import Layer from "$lib/misc/Layer.svelte";
 
   let {
-    disabled,
     today,
     selected,
     label,
-    onclick,
+    ...extra
   }: {
     disabled: boolean;
     today: boolean;
     selected: boolean;
     label: string;
     onclick: () => void;
+    "aria-label": string;
   } = $props();
 </script>
 
-<button type="button" class="item" {disabled} class:today class:selected {onclick}>
+<button type="button" class="item" class:today class:selected {...extra}>
   <Layer />
   {label}
 </button>

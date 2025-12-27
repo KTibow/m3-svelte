@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { LabelledAria } from "$lib/misc/typing-utils";
   import type { HTMLAttributes } from "svelte/elements";
 
   let {
@@ -19,6 +20,7 @@
   xmlns="http://www.w3.org/2000/svg"
   class="m3-container"
   role="progressbar"
+  aria-valuenow={percent}
   {...extra}
 >
   <circle

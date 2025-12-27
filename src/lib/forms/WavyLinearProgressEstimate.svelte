@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { LabelledAria } from "$lib/misc/typing-utils";
   import { linear, trackOpacity } from "./_wavy";
 
   let {
@@ -6,7 +7,13 @@
     width = 600,
     height = 10,
     thickness = 4,
-  }: { sToHalfway?: number; width?: number; height?: number; thickness?: number } = $props();
+    ...extra
+  }: {
+    sToHalfway?: number;
+    width?: number;
+    height?: number;
+    thickness?: number;
+  } & LabelledAria = $props();
 
   let left = $derived(thickness * 0.5);
   let right = $derived(width - thickness * 0.5);
@@ -58,7 +65,7 @@
   });
 </script>
 
-<svg viewBox="0 0 {width} {height}">
+<svg viewBox="0 0 {width} {height}" role="progressbar" {...extra}>
   <path fill="none" stroke="var(--m3c-primary)" stroke-width={thickness} stroke-linecap="round">
     <animate attributeName="d" dur="{endTime}s" values={expressiveSMIL} />
     <animate
