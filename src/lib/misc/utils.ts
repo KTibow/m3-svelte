@@ -1,9 +1,7 @@
 import { type DynamicScheme } from "@ktibow/material-color-utilities-nightly";
 import { colors } from "./colors";
 
-/**
- * @returns A string of CSS code with custom properties representing the color scheme values.
- * */
+// default cs value is deprecated
 export const genCSS = (light: DynamicScheme, dark: DynamicScheme, cs = colors) => {
   const genColorVariable = (name: string, argb: number) => {
     const kebabCase = name.replaceAll("_", "-");
