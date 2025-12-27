@@ -10,6 +10,7 @@ general things:
 - move input controls into Button/into Chip instead of using `for`
 - move `parseSize` to animation as cleanup
 - rewrite Layer to take up less space and maybe be @attached
+- refactor focus classes into mixins
 - all deprecated items
   - NO background support at all
   - NO default colors for genCSS
