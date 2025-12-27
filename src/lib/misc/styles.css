@@ -121,6 +121,7 @@
   }
 }
 /* Not tokens because they may be dynamically get/set and aren't generally constant */
+/* deprecated: need to replace with simple INLINE default value */
 @property --m3v-bottom-offset {
   syntax: "<length>";
   inherits: true;
