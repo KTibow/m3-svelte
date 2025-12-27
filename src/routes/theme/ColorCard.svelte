@@ -81,8 +81,10 @@
   .card {
     display: flex;
 
-    padding: 0.5rem;
-    border-radius: var(--m3-shape-large);
+    height: 3rem;
+    align-items: center;
+    padding-inline: 0.75rem;
+    border-radius: var(--m3-shape-full);
     position: relative;
   }
   .card[role="button"] {

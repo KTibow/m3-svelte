@@ -200,7 +200,7 @@ ${innerStyles}
         align-items: end;
       }
     }
-    gap: 1rem;
+    gap: 0.5rem;
     > .color-pane {
       display: flex;
       flex-direction: column;
@@ -209,7 +209,7 @@ ${innerStyles}
     }
   }
   h3 {
-    @apply --m3-title-large;
+    @apply --m3-title-medium;
     display: flex;
     align-items: center;
     gap: 0.25rem;
