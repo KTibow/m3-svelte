@@ -2,9 +2,15 @@ import type { Plugin } from "vite";
 import { loadDemos } from "./src/load-demos";
 import { glob } from "tinyglobby";
 import { resolve } from "node:path";
+import { createHighlighter } from "shiki";
 
 const VIRTUAL_PREFIX = "virtual:demo/";
 const RESOLVED_PREFIX = resolve("src/virtual-demos") + "/";
+
+const highlighterPromise = createHighlighter({
+  themes: ["github-light", "github-dark"],
+  langs: ["svelte"],
+});
 
 export function demosPlugin(): Plugin {
   return {
@@ -56,8 +62,20 @@ export function demosPlugin(): Plugin {
           ),
         }));
 
-      // Escape for template literal - prevent </script> from appearing
-      const escapedMinimalDemo = minimalDemo
+      const highlighter = await highlighterPromise;
+      let minimalDemoHtml = highlighter.codeToHtml(minimalDemo, {
+        lang: "svelte",
+        themes: { light: "github-light", dark: "github-dark" },
+        defaultColor: "light-dark()",
+      });
+
+      // Clean up Shiki output
+      minimalDemoHtml = minimalDemoHtml.replace(/<pre [^>]*>/, "<pre>");
+      minimalDemoHtml = minimalDemoHtml.replace(/;--shiki-light:#[^;]+;--shiki-dark:#[^"]+/g, "");
+      minimalDemoHtml = minimalDemoHtml.replace(/light-dark\(([^,]+), /g, "light-dark($1,");
+
+      // Escape for template literal
+      const escapedMinimalDemoHtml = minimalDemoHtml
         .replaceAll("\\", "\\\\")
         .replaceAll("`", "\\`")
         .replaceAll("$", "\\$")
@@ -80,15 +98,15 @@ ${fullDemoTs}
 
 let { showCode }: { showCode: (
 		name: string,
-		minimalDemo: string,
+		minimalDemoHtml: string,
 		relevantLinks: { title: string; link: string }[],
 ) => void } = $props();
 
-const minimalDemo = \`${escapedMinimalDemo}\`;
+const minimalDemoHtml = \`${escapedMinimalDemoHtml}\`;
 const relevantLinks: { title: string; link: string }[] = ${relevantLinksJson};
 </script>
 
-<InternalCard title="${friendlyName}" showCode={() => showCode(${friendlyNameJson}, minimalDemo, relevantLinks)}>
+<InternalCard title="${friendlyName}" showCode={() => showCode(${friendlyNameJson}, minimalDemoHtml, relevantLinks)}>
 ${fullDemoSvelte}
 </InternalCard>
 `;

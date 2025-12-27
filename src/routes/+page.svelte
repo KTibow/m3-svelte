@@ -36,16 +36,16 @@
 
   type DocData = {
     name: string;
-    minimalDemo: string;
+    minimalDemoHtml: string;
     relevantLinks: { title: string; link: string }[];
   };
   let doc: DocData | undefined = $state();
   const showCode = (
     name: string,
-    minimalDemo: string,
+    minimalDemoHtml: string,
     relevantLinks: { title: string; link: string }[],
   ) => {
-    doc = { name, minimalDemo, relevantLinks };
+    doc = { name, minimalDemoHtml, relevantLinks };
   };
 
   afterNavigate(() => {

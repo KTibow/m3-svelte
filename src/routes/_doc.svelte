@@ -1,14 +1,11 @@
 <script lang="ts">
-  import Highlight from "svelte-highlight";
-  import xml from "svelte-highlight/languages/xml";
-
   let {
     name,
-    minimalDemo,
+    minimalDemoHtml,
     relevantLinks,
   }: {
     name: string;
-    minimalDemo: string;
+    minimalDemoHtml: string;
     relevantLinks: { title: string; link: string }[];
   } = $props();
 
@@ -21,7 +18,7 @@
 </script>
 
 <div class="anchor">
-  <Highlight language={xml} code={minimalDemo} />
+  {@html minimalDemoHtml}
   <a href={demoURL}>Full demo code ↗</a>
   {#each relevantLinks as { title, link }}
     <a href={link}>{title} ↗</a>
