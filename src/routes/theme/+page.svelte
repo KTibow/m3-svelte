@@ -41,6 +41,13 @@
 </svelte:head>
 <ColorChooser bind:sourceColor={$sourceColor} />
 <Arrow />
-<TransformChooser {schemes} bind:variant bind:contrast bind:specVersion bind:includeDimBright bind:includeFixed />
+<TransformChooser
+  {schemes}
+  bind:variant
+  bind:contrast
+  bind:specVersion
+  bind:includeDimBright
+  bind:includeFixed
+/>
 <Arrow />
 <SchemeShowcase {light} {dark} {includeDimBright} {includeFixed} />
