@@ -65,8 +65,8 @@ ${"<"}/style>`;
   <Snippet
     code={`:root {
   ${"@"}apply --m3-body-large;
-  background-color: var(--m3c-background);
-  color: var(--m3c-on-background);
+  background-color: var(--m3c-surface);
+  color: var(--m3c-on-surface);
 }`}
     name="app.css"
     lang="css"

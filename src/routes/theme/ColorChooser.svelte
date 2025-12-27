@@ -66,7 +66,7 @@
     align-items: center;
     padding: 0 0.5rem;
     border-radius: 2.5rem;
-    background-color: --translucent(var(--m3c-background), 0.5);
+    background-color: --translucent(var(--m3c-surface), 0.5);
   }
   .color-text {
     height: 100%;

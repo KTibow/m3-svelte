@@ -11,9 +11,11 @@ export const genCSS = (light: DynamicScheme, dark: DynamicScheme) => {
     return `    --m3c-${kebabCase}: #${hex};`;
   };
   const lightColors = colors
+    .filter((c) => c.name != "background" && c.name != "on_background")
     .map((color) => genColorVariable(color.name, color.getArgb(light)))
     .join("\n");
   const darkColors = colors
+    .filter((c) => c.name != "background" && c.name != "on_background")
     .map((color) => genColorVariable(color.name, color.getArgb(dark)))
     .join("\n");
   return `@media (prefers-color-scheme: light) {

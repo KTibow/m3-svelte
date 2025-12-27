@@ -1374,7 +1374,7 @@ const [send, receive] = containerTransform({ duration: 1000 });
   .pane {
     display: grid;
     place-items: center;
-    background-color: var(--m3c-background);
+    background-color: var(--m3c-surface);
     overflow: hidden;
   }
   .btn {

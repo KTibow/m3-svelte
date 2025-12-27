@@ -13,53 +13,53 @@ const onOnPrimary = DynamicColor.fromPalette({
   contrastCurve: () => new ContrastCurve(6, 6, 7, 11),
 });
 // Custom colors for you to use
-const primaryContainerSubtle = DynamicColor.fromPalette({
+export const primaryContainerSubtle = DynamicColor.fromPalette({
   name: "primary_container_subtle",
   palette: (s) => s.primaryPalette,
   isBackground: true,
   background: (s) => materialColors.highestSurface(s),
   contrastCurve: () => undefined,
 });
-const onPrimaryContainerSubtle = DynamicColor.fromPalette({
+export const onPrimaryContainerSubtle = DynamicColor.fromPalette({
   name: "on_primary_container_subtle",
   palette: (s) => s.primaryPalette,
   background: () => primaryContainerSubtle,
   contrastCurve: () => new ContrastCurve(6, 6, 7, 11),
 });
-const secondaryContainerSubtle = DynamicColor.fromPalette({
+export const secondaryContainerSubtle = DynamicColor.fromPalette({
   name: "secondary_container_subtle",
   palette: (s) => s.secondaryPalette,
   isBackground: true,
   background: (s) => materialColors.highestSurface(s),
   contrastCurve: () => undefined,
 });
-const onSecondaryContainerSubtle = DynamicColor.fromPalette({
+export const onSecondaryContainerSubtle = DynamicColor.fromPalette({
   name: "on_secondary_container_subtle",
   palette: (s) => s.secondaryPalette,
   background: () => secondaryContainerSubtle,
   contrastCurve: () => new ContrastCurve(6, 6, 7, 11),
 });
-const tertiaryContainerSubtle = DynamicColor.fromPalette({
+export const tertiaryContainerSubtle = DynamicColor.fromPalette({
   name: "tertiary_container_subtle",
   palette: (s) => s.tertiaryPalette,
   isBackground: true,
   background: (s) => materialColors.highestSurface(s),
   contrastCurve: () => undefined,
 });
-const onTertiaryContainerSubtle = DynamicColor.fromPalette({
+export const onTertiaryContainerSubtle = DynamicColor.fromPalette({
   name: "on_tertiary_container_subtle",
   palette: (s) => s.tertiaryPalette,
   background: () => tertiaryContainerSubtle,
   contrastCurve: () => new ContrastCurve(6, 6, 7, 11),
 });
-const errorContainerSubtle = DynamicColor.fromPalette({
+export const errorContainerSubtle = DynamicColor.fromPalette({
   name: "error_container_subtle",
   palette: (s) => s.errorPalette,
   isBackground: true,
   background: (s) => materialColors.highestSurface(s),
   contrastCurve: () => undefined,
 });
-const onErrorContainerSubtle = DynamicColor.fromPalette({
+export const onErrorContainerSubtle = DynamicColor.fromPalette({
   name: "on_error_container_subtle",
   palette: (s) => s.errorPalette,
   background: () => errorContainerSubtle,
@@ -67,6 +67,7 @@ const onErrorContainerSubtle = DynamicColor.fromPalette({
 });
 
 export const colors = [
+  // background is deprecated, need to move filtering it out from utils.ts to here
   ...materialColors.allColors,
   materialColors.shadow(),
   materialColors.scrim(),
@@ -81,6 +82,7 @@ export const colors = [
   onErrorContainerSubtle,
 ];
 
+/** @deprecated */
 export const pairs = [
   [materialColors.primary(), materialColors.onPrimary()],
   [materialColors.primaryContainer(), materialColors.onPrimaryContainer()],

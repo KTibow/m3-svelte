@@ -6,8 +6,6 @@ export const styling = writable(`
     color-scheme: light;
   }
   :root, ::backdrop {
-    --m3c-background: #fdf7fe;
-    --m3c-on-background: #34313a;
     --m3c-surface: #fdf7fe;
     --m3c-surface-dim: #ded7e4;
     --m3c-surface-bright: #fdf7fe;
@@ -73,8 +71,6 @@ export const styling = writable(`
     color-scheme: dark;
   }
   :root, ::backdrop {
-    --m3c-background: #0f0d12;
-    --m3c-on-background: #eae3ef;
     --m3c-surface: #0f0d12;
     --m3c-surface-dim: #0f0d12;
     --m3c-surface-bright: #2e2b34;

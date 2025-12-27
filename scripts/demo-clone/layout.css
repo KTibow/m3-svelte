@@ -4,8 +4,8 @@
 
 :root {
   @apply --m3-body-large;
-  background: var(--m3c-background);
-  color: var(--m3c-on-background);
+  background: var(--m3c-surface);
+  color: var(--m3c-on-surface);
 }
 body {
   display: flex;

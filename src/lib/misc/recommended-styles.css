@@ -32,7 +32,7 @@
 }
 
 [placeholder]::placeholder {
-  color: --translucent(var(--m3c-on-background), 0.5);
+  color: --translucent(var(--m3c-on-surface), 0.5);
   opacity: 1;
 }
 ::selection {

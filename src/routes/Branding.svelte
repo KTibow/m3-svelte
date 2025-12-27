@@ -64,7 +64,7 @@
         width: 3rem;
         height: 3rem;
         border-radius: 3rem;
-        background-color: var(--m3c-background);
+        background-color: var(--m3c-surface);
         transition: var(--transition);
       }
       h1 {

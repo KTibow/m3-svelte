@@ -9,26 +9,23 @@
   import Icon from "$lib/misc/Icon.svelte";
 
   let {
-    bg,
-    fg,
     light,
     dark,
+    bg,
     grabbing = $bindable(),
   }: {
-    bg: DynamicColor;
-    fg: DynamicColor;
     light: DynamicScheme;
     dark: DynamicScheme;
+    bg: DynamicColor;
     grabbing: boolean;
   } = $props();
 
-  let ui = $state(0);
+  let showCopy = $state(false);
   let bgColorLight = $derived(hexFromArgb(bg.getArgb(light)));
-  let fgColorLight = $derived(hexFromArgb(fg.getArgb(light)));
   let bgColorDark = $derived(hexFromArgb(bg.getArgb(dark)));
-  let fgColorDark = $derived(hexFromArgb(fg.getArgb(dark)));
+
   $effect(() => {
-    if (!grabbing) ui = 0;
+    if (!grabbing) showCopy = false;
   });
 
   const rgbToHex = (rgb: string) => {
@@ -40,52 +37,38 @@
 </script>
 
 <div
-  class="card"
+  class="dot"
   style:background-color="light-dark({bgColorLight}, {bgColorDark})"
-  style:color="light-dark({fgColorLight}, {fgColorDark})"
   role={grabbing ? "button" : undefined}
   onclick={(e) => {
-    if (!ui) return;
+    if (!showCopy) return;
     const styles = getComputedStyle(e.currentTarget);
-    if (ui == 2) {
-      navigator.clipboard.writeText(rgbToHex(styles.backgroundColor));
-    } else {
-      navigator.clipboard.writeText(rgbToHex(styles.color));
-    }
+    navigator.clipboard.writeText(rgbToHex(styles.backgroundColor));
     grabbing = false;
   }}
-  onmousemove={(e) => {
-    if (grabbing) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const y = Math.min(Math.max(e.clientY - rect.top, 0), rect.height) / rect.height;
-      ui = y < 0.3 ? 1 : 2;
-    }
+  onmouseenter={() => {
+    if (grabbing) showCopy = true;
   }}
   onmouseleave={() => {
-    ui = 0;
+    showCopy = false;
   }}
 >
-  <p>{bg.name.replaceAll("_", " ")}</p>
-  {#if ui}
-    <div
-      class="overlay"
-      class:invert={ui == 1}
-      style:background-color={ui == 2 ? "inherit" : "currentColor"}
-    >
-      <Icon size={24} icon={iconCopy} />
+  {#if showCopy}
+    <div class="overlay">
+      <Icon size={16} icon={iconCopy} />
     </div>
   {/if}
 </div>
 
 <style>
-  .card {
-    display: flex;
-
-    padding: 0.5rem;
-    border-radius: var(--m3-shape-large);
+  .dot {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100%;
     position: relative;
+    flex-shrink: 0;
   }
-  .card[role="button"] {
+  .dot[role="button"] {
     cursor: pointer;
   }
   .overlay {
@@ -96,13 +79,11 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
+    background-color: rgba(0, 0, 0, 0.5);
 
     pointer-events: none;
   }
-  .overlay.invert :global(svg) {
-    mix-blend-mode: difference;
-  }
-  p {
-    margin: 0;
+  .overlay :global(svg) {
+    color: white;
   }
 </style>
