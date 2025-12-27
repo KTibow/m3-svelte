@@ -5,11 +5,11 @@ general things:
 - maybe have a folder for entry points? etc/{styles, recommended styles, tailwind styles, unocss preset, colors}
 - gsans flex
 - more css optimization (see discord)
-- switch from background to surface
 - bring icons out of html??
 - merge #220
 - move input controls into Button/into Chip instead of using `for`
 - all deprecated items
+  - NO background support at all
   - ONLY user defined --m3-density
 
 WHEN anchor positioning:
