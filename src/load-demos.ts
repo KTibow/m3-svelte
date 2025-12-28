@@ -9,7 +9,7 @@ export type Demo = {
 };
 
 export async function loadDemos(): Promise<Demo[]> {
-  const demos = await readFile("src/demos.md", "utf8");
+  const demos = (await readFile("src/demos.md", "utf8")).replaceAll("\r\n", "\n");
   const demosList = [
     ...demos.matchAll(
       /## (.+)\n\nMinimal demo:\n\n```svelte\n([^]+?)\n```\n\nFull demo:\n\n```use\n([^]*?)\n```\n\n```ts\n([^]*?)\n```\n\n```svelte\n([^]+?)\n```/g,

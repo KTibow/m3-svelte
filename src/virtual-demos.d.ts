@@ -1,11 +1,12 @@
-declare module "virtual:demo/*" {
+declare module "virtual:demo" {
   import type { Component } from "svelte";
-  const component: Component<{
+  type Demo = Component<{
     showCode: (
       name: string,
       minimalDemo: string,
       relevantLinks: { title: string; link: string }[],
     ) => void;
   }>;
-  export default component;
+  const components: Demo[];
+  export default components;
 }
