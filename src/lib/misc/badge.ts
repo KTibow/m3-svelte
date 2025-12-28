@@ -14,7 +14,7 @@ export const addBadge = (icon: IconifyIcon, n?: number) => {
       `<!--badge--><foreignObject x="${x}" y="${y}" width="40" height="16">` +
       `<div style="${[
         "font-size:0.688rem",
-        "letter-spacing:0.031rem",
+        // "letter-spacing:0.031rem",
         "font-weight:500",
         "background-color:var(--m3c-error)",
         "color:var(--m3c-on-error)",

@@ -39,7 +39,7 @@
     --m3-optical-centering-coefficient: 0.11;
 
     /* Typography */
-    --m3-font: Roboto, system-ui;
+    --m3-font: "Google Sans Flex", Roboto, system-ui;
     --m3-font-mono: "Google Sans Code", "Roboto Mono", monospace;
 
     /* Expressive easing */
@@ -136,21 +136,21 @@
   font-family: var(--m3-font);
   font-size: 3.563rem;
   line-height: 1.123;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-display-medium {
   font-family: var(--m3-font);
   font-size: 2.813rem;
   line-height: 1.156;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-display-small {
   font-family: var(--m3-font);
   font-size: 2.25rem;
   line-height: 1.222;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 
@@ -159,21 +159,21 @@
   font-family: var(--m3-font);
   font-size: 2rem;
   line-height: 1.25;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-headline-medium {
   font-family: var(--m3-font);
   font-size: 1.75rem;
   line-height: 1.286;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-headline-small {
   font-family: var(--m3-font);
   font-size: 1.5rem;
   line-height: 1.333;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 
@@ -182,21 +182,21 @@
   font-family: var(--m3-font);
   font-size: 1.375rem;
   line-height: 1.273;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-title-medium {
   font-family: var(--m3-font);
   font-size: 1rem;
   line-height: 1.5;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 500;
 }
 @mixin --m3-title-small {
   font-family: var(--m3-font);
   font-size: 0.875rem;
   line-height: 1.429;
-  letter-spacing: 0.006rem;
+  /*letter-spacing: 0.006rem;*/
   font-weight: 500;
 }
 
@@ -206,21 +206,21 @@ or for very small text in the content body, such as captions. */
   font-family: var(--m3-font);
   font-size: 0.875rem;
   line-height: 1.429;
-  letter-spacing: 0.006rem;
+  /*letter-spacing: 0.006rem;*/
   font-weight: 500;
 }
 @mixin --m3-label-medium {
   font-family: var(--m3-font);
   font-size: 0.75rem;
   line-height: 1.333;
-  letter-spacing: 0.031rem;
+  /*letter-spacing: 0.031rem;*/
   font-weight: 500;
 }
 @mixin --m3-label-small {
   font-family: var(--m3-font);
   font-size: 0.688rem;
   line-height: 1.455;
-  letter-spacing: 0.031rem;
+  /*letter-spacing: 0.031rem;*/
   font-weight: 500;
 }
 
@@ -229,21 +229,21 @@ or for very small text in the content body, such as captions. */
   font-family: var(--m3-font);
   font-size: 1rem;
   line-height: 1.5;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-body-medium {
   font-family: var(--m3-font);
   font-size: 0.875rem;
   line-height: 1.429;
-  letter-spacing: 0.016rem;
+  /*letter-spacing: 0.016rem;*/
   font-weight: 400;
 }
 @mixin --m3-body-small {
   font-family: var(--m3-font);
   font-size: 0.75rem;
   line-height: 1.333;
-  letter-spacing: 0.025rem;
+  /*letter-spacing: 0.025rem;*/
   font-weight: 400;
 }
 @layer base {

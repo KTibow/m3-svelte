@@ -16,7 +16,9 @@ const ySpacing = height / (schemeColors.length + 1);
 let svg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&amp;display=swap");
+      <![CDATA[
+        @import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,700&display=swap");
+      ]]>
     </style>
   </defs>
   <rect width="100%" height="100%" fill="#1c1b1f"/>
@@ -26,6 +28,7 @@ let svg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/200
 sourceColors.forEach((sourceColor, x) => {
   const scheme = new SchemeTonalSpot(Hct.fromInt(sourceColor), true, 0);
   schemeColors.forEach((color, y) => {
+    if (x >= 3 && x <= 8 && y === 1) return;
     const colorValue = scheme[color];
     svg += `
     <circle
@@ -42,7 +45,7 @@ svg += `
   <text
     x="50%"
     y="50%"
-    font-family="Roboto"
+    font-family="Google Sans Flex"
     font-size="120"
     font-weight="700"
     fill="white"
