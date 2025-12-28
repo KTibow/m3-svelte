@@ -2,15 +2,10 @@ import type { Plugin } from "vite";
 import { loadDemos } from "./src/load-demos";
 import { glob } from "tinyglobby";
 import { resolve } from "node:path";
-import { createHighlighter } from "shiki";
+import shiki from "./shiki";
 
 const VIRTUAL_PREFIX = "virtual:demo/";
 const RESOLVED_PREFIX = resolve("src/virtual-demos") + "/";
-
-const highlighterPromise = createHighlighter({
-  themes: ["github-light", "github-dark"],
-  langs: ["svelte"],
-});
 
 export function demosPlugin(): Plugin {
   return {
@@ -62,20 +57,8 @@ export function demosPlugin(): Plugin {
           ),
         }));
 
-      const highlighter = await highlighterPromise;
-      let minimalDemoHtml = highlighter.codeToHtml(minimalDemo, {
-        lang: "svelte",
-        themes: { light: "github-light", dark: "github-dark" },
-        defaultColor: "light-dark()",
-      });
-
-      // Clean up Shiki output
-      minimalDemoHtml = minimalDemoHtml.replace(/<pre [^>]*>/, "<pre>");
-      minimalDemoHtml = minimalDemoHtml.replace(/;--shiki-light:#[^;]+;--shiki-dark:#[^"]+/g, "");
-      minimalDemoHtml = minimalDemoHtml.replace(/light-dark\(([^,]+), /g, "light-dark($1,");
-
       // Escape for template literal
-      const escapedMinimalDemoHtml = minimalDemoHtml
+      const escapedMinimalDemoHtml = (await shiki(minimalDemo, "svelte"))
         .replaceAll("\\", "\\\\")
         .replaceAll("`", "\\`")
         .replaceAll("$", "\\$")

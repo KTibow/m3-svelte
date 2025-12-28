@@ -9,7 +9,9 @@ async function generateLlmsTxt(): Promise<string> {
   const layoutCssDemo = await readFile("scripts/demo-clone/layout.css", "utf8");
   const layoutSvelteDemo = await readFile("scripts/demo-clone/+layout.svelte", "utf8");
   const pageSvelteDemo = await readFile("scripts/demo-clone/+page.svelte", "utf8");
-  const viteConfigDemo = await readFile("scripts/demo-vite.config.ts", "utf8");
+
+  const quickStartDoc = await readFile("src/routes/docs/quick-start/+page.svelte", "utf8");
+  const walkthroughDoc = await readFile("src/routes/docs/detailed-walkthrough/+page.svelte", "utf8");
 
   let llmsTxt = await readFile("scripts/llms-txt-template.md", "utf8");
 
@@ -18,7 +20,8 @@ async function generateLlmsTxt(): Promise<string> {
   llmsTxt = llmsTxt.replace("<!-- LAYOUT_CSS_DEMO -->", layoutCssDemo);
   llmsTxt = llmsTxt.replace("<!-- LAYOUT_SVELTE_DEMO -->", layoutSvelteDemo);
   llmsTxt = llmsTxt.replace("<!-- PAGE_SVELTE_DEMO -->", pageSvelteDemo);
-  llmsTxt = llmsTxt.replace("<!-- VITE_CONFIG -->", viteConfigDemo);
+  llmsTxt = llmsTxt.replace("<!-- QUICK_START_DOC -->", quickStartDoc);
+  llmsTxt = llmsTxt.replace("<!-- WALKTHROUGH_DOC -->", walkthroughDoc);
 
   const demosList = await loadDemos();
   const componentDemos = demosList

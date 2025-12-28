@@ -10,14 +10,8 @@
   import { resolve } from "$app/paths";
 
   import Snippet from "../Snippet.svelte";
-  import viteConfigCode from "../../../../scripts/demo-vite.config.ts?raw";
 
   let step3Page = $state("roboto");
-  const componentCode = `${"<"}script>
-  import { Button } from "m3-svelte";
-${"<"}/script>
-
-${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"}/Button>`;
 </script>
 
 <svelte:head><title>Quick start</title></svelte:head>
@@ -45,7 +39,15 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     </div>
     <div class="text">
       <p>Enable a functions/mixins polyfill.</p>
-      <Snippet code={viteConfigCode} name="vite.config.ts" lang="javascript" />
+      <Snippet
+        name="vite.config.ts"
+        html={/* typescript */ `import { defineConfig } from "vite";
+import { functionsMixins } from "vite-plugin-functions-mixins";
+
+export default defineConfig({
+  plugins: [/* your existing plugins */ functionsMixins({ deps: ["m3-svelte"] })],
+});`}
+      />
     </div>
   </li>
   <li>
@@ -60,13 +62,12 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
         <a href={resolve("/theme")}>Get a theme snippet</a> and start using it.
       </p>
       <Snippet
-        code={`<${""}script>
+        name="+layout.svelte, App.svelte, or similar"
+        html={/* svelte */ `<${""}script>
   import "../app.css"; // Change this if you're not in SvelteKit
 </${""}script>`}
-        name="+layout.svelte, App.svelte, or similar"
-        lang="xml"
       />
-      <Snippet code="/* Your theme snippet */" name="app.css" lang="css" />
+      <Snippet name="app.css" html={/* css */ `/* Your theme snippet */`} />
     </div>
   </li>
   <li>
@@ -86,17 +87,15 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
       <p>Get a font for M3 Svelte to use.</p>
       {#if step3Page == "roboto"}
         <Snippet
-          code={`<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />`}
           name="app.html"
-          lang="xml"
+          html={/* html */ `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />`}
         />
       {:else}
         <Snippet
-          code={`:root {
+          name="app.css"
+          html={/* css */ `:root {
   --m3-font: [your font], system-ui;
 }`}
-          name="app.css"
-          lang="css"
         />
       {/if}
     </div>
@@ -107,7 +106,14 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     >Keep learning: detailed walkthrough</a
   >
 </p>
-<Snippet code={componentCode} name="Component.svelte" lang="xml" />
+<Snippet
+  name="Component.svelte"
+  html={/* svelte */ `<${""}script>
+  import { Button } from "m3-svelte";
+</${""}script>
+
+<${""}Button variant="filled" onclick={() => alert("Hello world")}>Click me</${""}Button>`}
+/>
 
 <style>
   ol {

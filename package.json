@@ -69,7 +69,6 @@
     "shiki": "^3.20.0",
     "svelte": "^5.46.0",
     "svelte-check": "^4.3.5",
-    "svelte-highlight": "^7.9.0",
     "tinyglobby": "^0.2.15",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.50.1",

@@ -3,17 +3,6 @@
   import Button from "$lib/buttons/Button.svelte";
   import Snippet from "../Snippet.svelte";
   import { appType } from "../../state";
-
-  const componentCode1 = `${"<"}button class="rounded-full bg-surface-container-low text-primary shadow-1">Click me${"<"}/button>`;
-  const componentCode2 = `${"<"}button>Click me${"<"}/button>
-${"<"}style>
-  button {
-    background-color: var(--m3c-surface-container-low);
-    color: var(--m3c-primary);
-    box-shadow: var(--m3-elevation-1);
-    border-radius: var(--m3-shape-full);
-  }
-${"<"}/style>`;
 </script>
 
 <svelte:head><title>Walkthrough</title></svelte:head>
@@ -50,26 +39,38 @@ ${"<"}/style>`;
   while still using Material 3 elements. Here's an example.
 </p>
 {#if $appType == "tailwind"}
-  <Snippet code={componentCode1} name="Component.svelte" lang="xml" />
+  <Snippet
+    name="Component.svelte"
+    html={/* svelte */ `<${""}button class="rounded-full bg-surface-container-low text-primary shadow-1">Click me</${""}button>`}
+  />
 {:else}
-  <Snippet code={componentCode2} name="Component.svelte" lang="xml" />
+  <Snippet
+    name="Component.svelte"
+    html={/* svelte */ `<${""}button>Click me</${""}button>
+<${""}style>
+  button {
+    background-color: var(--m3c-surface-container-low);
+    color: var(--m3c-primary);
+    box-shadow: var(--m3-elevation-1);
+    border-radius: var(--m3-shape-full);
+  }
+</${""}style>`}
+  />
 {/if}
 <h2>Apply your theme</h2>
 {#if $appType == "tailwind"}
   <Snippet
-    code={`<html class="m3-font-body-large bg-background text-on-background" lang="en">`}
     name="app.html"
-    lang="xml"
+    html={/* html */ `<html class="m3-font-body-large bg-background text-on-background" lang="en">`}
   />
 {:else}
   <Snippet
-    code={`:root {
-  ${"@"}apply --m3-body-large;
+    name="app.css"
+    html={/* css */ `:root {
+  @apply --m3-body-large;
   background-color: var(--m3c-surface);
   color: var(--m3c-on-surface);
 }`}
-    name="app.css"
-    lang="css"
   />
 {/if}
 
@@ -86,11 +87,17 @@ ${"<"}/style>`;
 </p>
 <h3>Tokens</h3>
 <p>
-  The truths of Material 3. These start with <code>--m3-</code> and look like
-  <code>--m3-elevation-1</code>. They have a predefined value and live in
-  <code>@layer tokens</code>.
+  The truths of Material 3. They have a predefined value and live in
+  <code>@layer tokens</code>. Some examples:
 </p>
-<p>There's more M3 theming beyond the theme page: you can modify these directly.</p>
+<p>
+  Elevations: <code>--m3-elevation-0</code> through <code>--m3-elevation-5</code>
+</p>
+<p>
+  Shapes: <code>--m3-shape-[size]</code> where size is none, extra-small, small, medium, large, extra-large,
+  or full.
+</p>
+<p>M3 theming beyond the theme page is possible - you can modify these directly.</p>
 <p>
   We recommend using <a href="https://www.npmjs.com/package/vite-plugin-token-shaker"
     >vite-plugin-token-shaker</a
@@ -111,9 +118,10 @@ ${"<"}/style>`;
 <h3>Mixins</h3>
 <p>
   These are shorthands for specific properties, applied with <code>@apply --[name]</code>. M3
-  Svelte's only global mixins are for font styles. You can and could override them to make your own
-  theme.
+  Svelte's only global mixins are for font styles: <code>@apply --m3-[scale]-[size]</code>.
 </p>
+<p>Scales: display, headline, title, body, label. Sizes: large, medium, small.</p>
+<p>You can override these to make your own theme.</p>
 
 <style>
   p {
