@@ -82,7 +82,6 @@ export const colors = [
   onErrorContainerSubtle,
 ];
 
-// default cs value is deprecated
 export const genCSS = (light: DynamicScheme, dark: DynamicScheme, cs: DynamicColor[]) => {
   const genColorVariable = (name: string, argb: number) => {
     const kebabCase = name.replaceAll("_", "-");
