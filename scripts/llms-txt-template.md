@@ -62,7 +62,9 @@ While in other cases, you render them yourselves:
 </script>
 
 <ListItem headline="User">
-  <Icon icon={iconPlus} slot="leading" />
+  {#snippet leading()}
+    <Icon icon={iconPlus} />
+  {/snippet}
 </ListItem>
 ```
 

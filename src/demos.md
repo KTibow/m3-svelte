@@ -743,9 +743,7 @@ let container = $state(false);
 Minimal demo:
 
 ```svelte
-<RadioAnim1><input type="radio" name="stuff" value="one" bind:group={stuff} /></RadioAnim1>
-<RadioAnim1><input type="radio" name="stuff" value="two" bind:group={stuff} /></RadioAnim1>
-<RadioAnim1><input type="radio" name="stuff" value="three" bind:group={stuff} /></RadioAnim1>
+<label><RadioAnim1><input type="radio" name="stuff" value="one" bind:group={stuff} /></RadioAnim1></label>
 ```
 
 Full demo:
