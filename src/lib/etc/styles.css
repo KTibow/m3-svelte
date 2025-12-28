@@ -1,11 +1,6 @@
 @function --translucent(--color, --opacity) {
   result: oklab(from var(--color) l a b / var(--opacity));
 }
-/* DEPRECATED: This default --m3-density function will be removed in a future version.
-   For new themes, pick which option you actually want. */
-@function --m3-density(--size) {
-  result: calc(var(--size) + (var(--m3v-density, 0) * 0.25rem));
-}
 
 @layer tokens {
   :root {

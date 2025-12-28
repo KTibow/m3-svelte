@@ -1,6 +1,10 @@
 @import "$lib/etc/styles.css";
 @import "$lib/etc/recommended-styles.css";
 
+@function --m3-density(--size) {
+  result: calc(var(--size) + (var(--density) * 0.25rem));
+}
+
 :root {
   @apply --m3-body-large;
   background-color: var(--m3c-surface);
@@ -9,14 +13,4 @@
 
 body {
   margin: 0;
-}
-
-pre code.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 1em;
-}
-
-code.hljs {
-  padding: 3px 5px;
 }
