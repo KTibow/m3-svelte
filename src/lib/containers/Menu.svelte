@@ -1,10 +1,11 @@
 <script lang="ts">
+  import type { LabelledAria } from "$lib/misc/typing-utils";
   import type { Snippet } from "svelte";
 
-  let { children }: { children: Snippet } = $props();
+  let { children, ...extra }: { children: Snippet } & LabelledAria = $props();
 </script>
 
-<div class="m3-container">
+<div class="m3-container" role="menu" {...extra}>
   {@render children()}
 </div>
 

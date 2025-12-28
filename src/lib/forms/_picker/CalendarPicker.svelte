@@ -15,38 +15,62 @@
 
   const makeCalendar = (year: number, month: number) => {
     const firstDay = new Date(year, month, 1);
-    return Array.from({ length: 42 }, (_, i: number) => {
+    const days = Array.from({ length: 42 }, (_, i: number) => {
       const date = new Date(year, month, i - firstDay.getDay() + 1);
       const day = date.getDate();
       const iso =
-        year.toString().padStart(4, "0") +
+        date.getFullYear().toString().padStart(4, "0") +
         "-" +
-        (month + 1).toString().padStart(2, "0") +
+        (date.getMonth() + 1).toString().padStart(2, "0") +
         "-" +
-        date.getDate().toString().padStart(2, "0");
-      return { disabled: date.getMonth() != month, day, iso };
+        day.toString().padStart(2, "0");
+      const label = date.toLocaleDateString(undefined, {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      return { disabled: date.getMonth() != month, day, iso, label };
     });
+
+    const rows = [];
+    for (let r = 0; r < 6; r++) {
+      rows.push(days.slice(r * 7, (r + 1) * 7));
+    }
+
+    return rows;
   };
 
   let today = $state(new Date());
   setInterval(() => (today = new Date()), 1000 * 60);
 </script>
 
-<div class="m3-container">
-  {#each "SMTWTFS" as day}
-    <div class="day">{day}</div>
-  {/each}
-  {#each makeCalendar(focusedYear, focusedMonth) as day (day.iso + (day.disabled ? "-disabled" : ""))}
-    <Item
-      disabled={day.disabled || !dateValidator(day.iso)}
-      today={!day.disabled &&
-        focusedYear == today.getFullYear() &&
-        focusedMonth == today.getMonth() &&
-        day.day == today.getDate()}
-      selected={!day.disabled && day.iso == chosenDate}
-      label={day.day.toString()}
-      onclick={() => (chosenDate = day.iso)}
-    />
+<div class="m3-container" role="grid">
+  <div style:display="contents" role="row">
+    {#each ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] as day}
+      <!-- TODO: use a tooltip -->
+      <div class="day" role="columnheader" title={day}>{day.at(0)}</div>
+    {/each}
+  </div>
+  {#each makeCalendar(focusedYear, focusedMonth) as row}
+    <div style:display="contents" role="row">
+      {#each row as day (day.iso + (day.disabled ? "-disabled" : ""))}
+        {@const disabled = day.disabled || !dateValidator(day.iso)}
+        <div style:display="contents" role={disabled ? undefined : "gridcell"}>
+          <Item
+            {disabled}
+            today={!day.disabled &&
+              focusedYear == today.getFullYear() &&
+              focusedMonth == today.getMonth() &&
+              day.day == today.getDate()}
+            selected={!day.disabled && day.iso == chosenDate}
+            label={day.day.toString()}
+            onclick={() => (chosenDate = day.iso)}
+            aria-label={day.label}
+          />
+        </div>
+      {/each}
+    </div>
   {/each}
 </div>
 

@@ -20,7 +20,7 @@
   } & HTMLInputAttributes = $props();
 
   const name = $props.id();
-  let wrapper: HTMLDivElement | undefined = $state();
+  let wrapper: HTMLElement | undefined = $state();
   const handleInput = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
     const before = tab;
     const after = e.currentTarget.value;
@@ -72,8 +72,9 @@
   class:primary={!secondary}
   style:--items={items.length}
   bind:this={wrapper}
+  role="tablist"
 >
-  <div class="divider"></div>
+  <div class="divider" aria-hidden="true"></div>
   {#each items as item}
     {@const id = name + item.value}
     <input
@@ -83,6 +84,8 @@
       value={item.value}
       bind:group={tab}
       oninput={handleInput}
+      role="tab"
+      aria-selected={item.value === tab}
       {...extra}
     />
     <label for={id} class:tall={item.icon}>
@@ -93,7 +96,7 @@
       <span>{item.name}</span>
     </label>
   {/each}
-  <div class="bar"></div>
+  <div class="bar" aria-hidden="true"></div>
 </div>
 
 <style>

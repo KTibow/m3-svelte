@@ -17,7 +17,7 @@
   } = $props();
 </script>
 
-<button type="button" class="item focus-inset" {disabled} {onclick}>
+<button type="button" class="item focus-inset" role="menuitem" {disabled} {onclick}>
   <Layer />
   {#if icon == "space"}
     <span class="icon"></span>
