@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { HTMLLabelAttributes } from "svelte/elements";
-  import Layer from "$lib/misc/Layer.svelte";
+
   import type {
     ButtonAttrs,
     AnchorAttrs,
@@ -62,19 +62,16 @@
 
 <li style:display="contents">
   {#if props.onclick}
-    <button type="button" class="m3-container lines-{lines}" {...props}>
-      <Layer />
+    <button type="button" class="m3-container m3-layer lines-{lines}" {...props}>
       {@render content()}
     </button>
   {:else if props.href != undefined}
-    <a class="m3-container lines-{lines}" {...props}>
-      <Layer />
+    <a class="m3-container m3-layer lines-{lines}" {...props}>
       {@render content()}
     </a>
   {:else if props.label}
     {@const { label: _, ...extra } = props}
-    <label class="m3-container lines-{lines}" {...extra}>
-      <Layer />
+    <label class="m3-container m3-layer lines-{lines}" {...extra}>
       {@render content()}
     </label>
   {:else}
@@ -95,7 +92,7 @@
 
     text-align: inherit;
     border: none;
-    position: relative;
+
     background: transparent;
     color: inherit;
   }

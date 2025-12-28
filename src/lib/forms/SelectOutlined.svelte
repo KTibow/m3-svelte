@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLOptionAttributes, HTMLSelectAttributes } from "svelte/elements";
-  import Layer from "$lib/misc/Layer.svelte";
   import Icon from "$lib/misc/Icon.svelte";
 
   type Option = { icon?: IconifyIcon; text: string; value: string } & HTMLOptionAttributes;
@@ -30,8 +29,7 @@
 >
   <select style:--width={width} bind:value {id} {...extra}>
     {#each options as { icon, text, ...extra }, i (i)}
-      <option {...extra}>
-        <Layer />
+      <option {...extra} class="m3-layer">
         {#if icon}
           <Icon {icon} size={24} />
         {/if}
@@ -118,7 +116,6 @@
     color: var(--m3c-on-surface);
 
     border: none;
-    position: relative;
 
     &:enabled {
       cursor: pointer;

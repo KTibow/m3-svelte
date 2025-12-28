@@ -1,10 +1,12 @@
+import "./misc/layer.css";
+import "./misc/layer.js";
+
 export * from "./misc/animation.js";
 export * from "./misc/badge.js";
 export { default as ChipChooser } from "./misc/ChipChooser.svelte";
 export { default as Divider } from "./misc/Divider.svelte";
 export * from "./misc/easing.js";
 export { default as Icon } from "./misc/Icon.svelte";
-export { default as Layer } from "./misc/Layer.svelte";
 export * from "./misc/shapes.js";
 export * from "./misc/shapesAnimatable.js";
 

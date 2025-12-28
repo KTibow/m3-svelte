@@ -21,7 +21,6 @@
   import iconX from "@ktibow/iconset-material-symbols/close";
   import Icon from "$lib/misc/Icon.svelte";
   import SnackbarItem from "./SnackbarItem.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
 
   let { closeTitle = "Close" }: { closeTitle?: string } = $props();
   let shown:
@@ -61,13 +60,12 @@
         {#if shown.closable}
           <button
             type="button"
-            class="close"
+            class="close m3-layer"
             title={closeTitle}
             onclick={() => {
               shown = undefined;
             }}
           >
-            <Layer />
             <Icon icon={iconX} />
           </button>
         {/if}
@@ -100,7 +98,6 @@
     background-color: transparent;
     color: unset;
     cursor: pointer;
-    position: relative;
   }
   button :global(svg) {
     width: 1.5rem;

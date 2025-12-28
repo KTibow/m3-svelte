@@ -2,7 +2,6 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLInputAttributes } from "svelte/elements";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
   import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   let {
@@ -50,8 +49,7 @@
   {/if}
   {#if trailing}
     {@const { icon, ...extra } = trailing}
-    <button type="button" class="trailing" {...extra}>
-      <Layer />
+    <button type="button" class="trailing m3-layer" {...extra}>
       <Icon {icon} />
     </button>
   {/if}

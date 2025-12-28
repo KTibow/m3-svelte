@@ -9,7 +9,7 @@
   import { materialColors } from "$lib/etc/colors";
   import Slider from "$lib/forms/Slider.svelte";
   import Select from "$lib/forms/Select.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
+
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import { appType, density } from "../state";
@@ -141,8 +141,7 @@
     </p>
   {/if}
 {:else}
-  <button class="content more" onclick={() => (showMore = true)}>
-    <Layer />
+  <button class="content more m3-layer" onclick={() => (showMore = true)}>
     Configure theme and more
   </button>
 {/if}
@@ -221,7 +220,6 @@
   }
   .more {
     margin-top: 0.5rem;
-    position: relative;
     border: none;
     border-end-start-radius: 1rem;
     border-end-end-radius: 1rem;

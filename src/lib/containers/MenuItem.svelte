@@ -2,7 +2,6 @@
   import type { Snippet } from "svelte";
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
 
   let {
     icon,
@@ -17,8 +16,7 @@
   } = $props();
 </script>
 
-<button type="button" class="item" {disabled} {onclick}>
-  <Layer />
+<button type="button" class="item m3-layer" {disabled} {onclick}>
   {#if icon == "space"}
     <span class="icon"></span>
   {:else if icon}
@@ -41,7 +39,7 @@
     white-space: nowrap;
 
     border: none;
-    position: relative;
+
     background-color: transparent;
     color: var(--m3c-on-surface);
 

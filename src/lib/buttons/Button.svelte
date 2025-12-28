@@ -2,7 +2,6 @@
   import type { HTMLButtonAttributes, HTMLAttributes, HTMLLabelAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
   import type { AnchorAttrs, NotLink } from "$lib/misc/typing-utils";
-  import Layer from "$lib/misc/Layer.svelte";
 
   // If you want a toggle button, use `for` with a checkbox input.
   type ActionProps =
@@ -29,30 +28,26 @@
 </script>
 
 {#if props.href != undefined}
-  <a class="m3-container {variant} {size} icon-{iconType}" class:square {...props}>
-    <Layer />
+  <a class="m3-container m3-layer {variant} {size} icon-{iconType}" class:square {...props}>
     {@render children()}
   </a>
 {:else if "label" in props}
   {@const { label: _, ...extra } = props}
-  <label class="m3-container {variant} {size} icon-{iconType}" class:square {...extra}>
-    <Layer />
+  <label class="m3-container m3-layer {variant} {size} icon-{iconType}" class:square {...extra}>
     {@render children()}
   </label>
 {:else if "summary" in props}
   {@const { summary: _, ...extra } = props}
-  <summary class="m3-container {variant} {size} icon-{iconType}" class:square {...extra}>
-    <Layer />
+  <summary class="m3-container m3-layer {variant} {size} icon-{iconType}" class:square {...extra}>
     {@render children()}
   </summary>
 {:else}
   <button
     type={props.onclick ? "button" : "submit"}
-    class="m3-container {variant} {size} icon-{iconType}"
+    class="m3-container m3-layer {variant} {size} icon-{iconType}"
     class:square
     {...props}
   >
-    <Layer />
     {@render children()}
   </button>
 {/if}
@@ -172,7 +167,6 @@
     background-color: transparent;
     cursor: pointer;
     user-select: none;
-    position: relative;
 
     &:disabled,
     &:has(> :global(input:disabled)) {

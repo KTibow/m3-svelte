@@ -12,6 +12,8 @@
   import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
   import { styling, density } from "./state";
   import "../app.css";
+  import "$lib/misc/layer.css";
+  import "$lib/misc/layer";
   import Snackbar from "$lib/containers/Snackbar.svelte";
 
   let { children }: { children: Snippet } = $props();

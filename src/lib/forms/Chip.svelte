@@ -2,7 +2,6 @@
   import type { Snippet } from "svelte";
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
   import type { AnchorAttrs, ButtonAttrs, NotLink } from "$lib/misc/typing-utils";
   import type { HTMLLabelAttributes } from "svelte/elements";
 
@@ -36,7 +35,6 @@
 </script>
 
 {#snippet content()}
-  <Layer />
   {#if icon}
     <Icon {icon} class="leading" />
   {/if}
@@ -47,15 +45,21 @@
 {/snippet}
 
 {#if extra.href != undefined}
-  <a class="m3-container {variant}" class:elevated class:selected {...extra}>
+  <a class="m3-container {variant} m3-layer" class:elevated class:selected {...extra}>
     {@render content()}
   </a>
 {:else if "label" in extra}
-  <label class="m3-container {variant}" class:elevated class:selected {...extra}>
+  <label class="m3-container {variant} m3-layer" class:elevated class:selected {...extra}>
     {@render content()}
   </label>
 {:else}
-  <button class="m3-container {variant}" class:elevated class:selected {...extra} type="button">
+  <button
+    class="m3-container {variant} m3-layer"
+    class:elevated
+    class:selected
+    {...extra}
+    type="button"
+  >
     {@render content()}
   </button>
 {/if}
@@ -77,13 +81,16 @@
     background-color: var(--m3c-surface);
     color: var(--m3c-on-surface-variant);
     border: solid 1px var(--m3c-outline);
-    position: relative;
     cursor: pointer;
     transition: var(--m3-easing-fast);
   }
 
-  .m3-container > :global(:is(.ripple-container, .tint)) {
-    inset: -1px;
+  .m3-container::before,
+  .m3-container::after,
+  .m3-container > :global(.active-ripple) {
+    inset: -1px !important;
+    width: calc(100% + 2px) !important;
+    height: calc(100% + 2px) !important;
   }
   .m3-container > :global(svg) {
     width: 1.125rem;

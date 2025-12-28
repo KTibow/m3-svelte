@@ -1411,22 +1411,18 @@ const [send, receive] = containerTransform({ duration: 1000 });
 Minimal demo:
 
 ```svelte
-<button>
-  <Layer />
+<script>
+  import "m3-svelte/etc/layer";
+</script>
+<button class="m3-layer">
   Hello
 </button>
-
-<style>
-  button {
-    position: relative;
-  }
-</style>
 ```
 
 Full demo:
 
 ```use
-Layer
+
 ```
 
 ```ts
@@ -1435,8 +1431,7 @@ Layer
 
 ```svelte
 {#snippet demo()}
-  <button class="layer-demo">
-    <Layer />
+  <button class="m3-layer layer-demo">
   </button>
   <style>
     .layer-demo {

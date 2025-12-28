@@ -4,7 +4,6 @@
   import type { TransitionConfig } from "svelte/transition";
   import iconCalendar from "@ktibow/iconset-material-symbols/calendar-today-outline";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
 
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import { easeEmphasized } from "$lib/misc/easing";
@@ -68,8 +67,13 @@ opacity: ${Math.min(t * 3, 1)};`,
 >
   <input type="date" {disabled} {required} {id} bind:value {...extra} />
   <label for={id}>{label}</label>
-  <button type="button" {disabled} title={datePickerTitle} onclick={() => (picker = !picker)}>
-    <Layer />
+  <button
+    type="button"
+    class="m3-layer"
+    {disabled}
+    title={datePickerTitle}
+    onclick={() => (picker = !picker)}
+  >
     <Icon icon={iconCalendar} size={24} />
   </button>
   {#if picker}

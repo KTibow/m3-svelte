@@ -3,7 +3,6 @@
   import iconLeft from "@ktibow/iconset-material-symbols/chevron-left";
   import iconRight from "@ktibow/iconset-material-symbols/chevron-right";
   import iconDown from "@ktibow/iconset-material-symbols/arrow-drop-down";
-  import Layer from "$lib/misc/Layer.svelte";
 
   let {
     currentView = $bindable(),
@@ -34,53 +33,57 @@
   <div>
     <button
       type="button"
-      class="arrow"
+      class="arrow m3-layer"
       onclick={() => (focusedMonth = prevMonth)}
       title={getShortMonth(prevMonth)}
     >
-      <Layer />
-      <Icon icon={iconLeft} />
-    </button>
-    <button type="button" class="chooser" onclick={monthClick} disabled={currentView == "year"}>
-      <Layer />
-      {getShortMonth(focusedMonth)}
-      <Icon icon={iconDown} />
+      <Icon icon={iconLeft} size={24} />
     </button>
     <button
       type="button"
-      class="arrow"
+      class="chooser m3-layer"
+      onclick={monthClick}
+      disabled={currentView == "year"}
+    >
+      {getShortMonth(focusedMonth)}
+      <Icon icon={iconDown} size={18} style="margin-inline: 0.5rem -0.25rem" />
+    </button>
+    <button
+      type="button"
+      class="arrow m3-layer"
       onclick={() => (focusedMonth = nextMonth)}
       title={getShortMonth(nextMonth)}
     >
-      <Layer />
-      <Icon icon={iconRight} />
+      <Icon icon={iconRight} size={24} />
     </button>
   </div>
   <div>
     <button
       type="button"
-      class="arrow"
+      class="arrow m3-layer"
       disabled={focusedYear <= startYear}
       onclick={() => (focusedYear = prevYear)}
       title={prevYear.toString()}
     >
-      <Layer />
-      <Icon icon={iconLeft} />
-    </button>
-    <button type="button" class="chooser" onclick={yearClick} disabled={currentView == "month"}>
-      <Layer />
-      {focusedYear}
-      <Icon icon={iconDown} />
+      <Icon icon={iconLeft} size={24} />
     </button>
     <button
       type="button"
-      class="arrow"
+      class="chooser m3-layer"
+      onclick={yearClick}
+      disabled={currentView == "month"}
+    >
+      {focusedYear}
+      <Icon icon={iconDown} size={18} style="margin-inline: 0.5rem -0.25rem" />
+    </button>
+    <button
+      type="button"
+      class="arrow m3-layer"
       disabled={focusedYear >= endYear}
       title={nextYear.toString()}
       onclick={() => (focusedYear = nextYear)}
     >
-      <Layer />
-      <Icon icon={iconRight} />
+      <Icon icon={iconRight} size={24} />
     </button>
   </div>
 </div>
@@ -107,7 +110,6 @@
     border: none;
     padding: 0;
     cursor: pointer;
-    position: relative;
   }
   button:disabled {
     cursor: auto;
@@ -118,18 +120,8 @@
     @apply --m3-label-large;
     flex-grow: 1;
   }
-  .chooser :global(svg) {
-    width: 1.125rem;
-    height: 1.125rem;
-    margin-right: -0.25rem;
-    margin-left: 0.5rem;
-  }
   .arrow {
     width: 3rem;
-  }
-  .arrow :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
   }
 
   .choosing {
