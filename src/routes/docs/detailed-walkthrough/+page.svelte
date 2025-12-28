@@ -85,6 +85,12 @@
   These start with <code>--m3c-</code> and are defined in your theme. If you want a list of them, just
   read your theme's code!
 </p>
+<p>
+  <em>
+    For new themes, background, dim, bright, and fixed colors aren't included by default. There's an
+    option on the theme page to include dim/bright and to include fixed colors.
+  </em>
+</p>
 <h3>Tokens</h3>
 <p>
   The truths of Material 3. They have a predefined value and live in

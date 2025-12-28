@@ -18,14 +18,6 @@ These are the actual Svelte files from the docs site. They're authoritative for 
 <!-- WALKTHROUGH_DOC -->
 ```
 
-## Addenda
-
-### Available colors
-
-These start with `--m3c-` and are defined in your theme:
-
-<!-- COLOR_LIST -->
-
 ## Tips
 
 M3 Svelte is more and less than the typical component framework.
