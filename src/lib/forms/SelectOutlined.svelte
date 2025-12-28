@@ -30,7 +30,7 @@
 >
   <select style:--width={width} bind:value {id} {...extra}>
     {#each options as { icon, text, ...extra }, i (i)}
-      <option class="focus-inset" {...extra}>
+      <option {...extra}>
         <Layer />
         {#if icon}
           <Icon {icon} size={24} />
@@ -118,7 +118,6 @@
     color: var(--m3c-on-surface);
 
     border: none;
-    outline: none;
     position: relative;
 
     &:enabled {
@@ -173,6 +172,7 @@
   }
 
   option {
+    @apply --m3-focus-inset;
     display: grid;
     grid-template-columns: auto 1fr;
     padding-inline: 1rem;

@@ -66,7 +66,7 @@ opacity: ${Math.min(t * 3, 1)};`,
   use:clickOutside
   style:--anchor-name="--{id}"
 >
-  <input type="date" class="focus-none" {disabled} {required} {id} bind:value {...extra} />
+  <input type="date" {disabled} {required} {id} bind:value {...extra} />
   <label for={id}>{label}</label>
   <button type="button" {disabled} title={datePickerTitle} onclick={() => (picker = !picker)}>
     <Layer />
@@ -117,12 +117,12 @@ opacity: ${Math.min(t * 3, 1)};`,
   }
   input {
     @apply --m3-body-large;
+    @apply --m3-focus-none;
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: none;
-    outline: none;
 
     padding: 1rem 1rem 0rem 1rem;
     padding-inline-start: 0.875rem;

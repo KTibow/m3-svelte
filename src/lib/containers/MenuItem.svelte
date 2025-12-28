@@ -17,7 +17,7 @@
   } = $props();
 </script>
 
-<button type="button" class="item focus-inset" {disabled} {onclick}>
+<button type="button" class="item" {disabled} {onclick}>
   <Layer />
   {#if icon == "space"}
     <span class="icon"></span>
@@ -32,6 +32,7 @@
 <style>
   .item {
     @apply --m3-label-large;
+    @apply --m3-focus-inset;
     display: flex;
     align-items: center;
     height: --m3-density(3rem);

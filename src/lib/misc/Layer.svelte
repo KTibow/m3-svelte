@@ -190,24 +190,21 @@
     background-color: currentColor;
     opacity: 0;
     transition: opacity var(--m3-easing-fast);
-
-    &:not(
-      :global(input:disabled + label) > *,
-      :global(input:disabled + .layer-container) > *,
-      :global(:disabled) > *
-    ) {
-      @media (hover: hover) {
-        &:is(:global(:hover) > *, :global(:active) > *) {
-          opacity: 0.08;
-        }
-      }
-      &:is(
-        :global(input:focus-visible + label) > *,
-        :global(:focus-visible) > *,
-        :global(:active) > .ripple-container.broken + *
-      ) {
-        opacity: 0.12;
-      }
+  }
+  :global(:has(> input:disabled)) > .tint,
+  :global(input:disabled + .layer-container) > .tint,
+  :global(:disabled) > .tint {
+    display: none;
+  }
+  @media (hover: hover) {
+    :global(:hover) > .tint,
+    :global(:active) > .tint {
+      opacity: 0.08;
     }
+  }
+  :global(label:has(> input:focus-visible)) > .tint,
+  :global(:focus-visible) > .tint,
+  :global(:active) > .ripple-container.broken + .tint {
+    opacity: 0.12;
   }
 </style>

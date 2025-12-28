@@ -264,6 +264,8 @@
   .m3-container > :global(input) {
     position: absolute;
     opacity: 0;
+    width: 0;
+    height: 0;
     pointer-events: none;
   }
 

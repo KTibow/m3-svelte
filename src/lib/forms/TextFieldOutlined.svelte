@@ -35,7 +35,6 @@
   class:error
 >
   <input
-    class="focus-none"
     placeholder=" "
     bind:value
     onkeydown={(e) => e.key == "Enter" && enter?.()}
@@ -77,12 +76,12 @@
   }
   input {
     @apply --m3-body-large;
+    @apply --m3-focus-none;
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: none;
-    outline: none;
     padding: 1rem;
     border-radius: var(--m3-field-outlined-shape);
     background-color: transparent;

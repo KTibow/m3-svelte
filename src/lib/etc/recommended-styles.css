@@ -1,18 +1,22 @@
 @layer tokens {
   :root {
-    --m3-refocus: refocus-outward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
+    --m3-refocus-outward: refocus-outward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
+    --m3-refocus-inward: refocus-inward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
   }
 }
-:focus-visible:not(.focus-inset, .focus-none) {
-  animation: var(--m3-refocus);
+:focus-visible {
+  animation: var(--m3-refocus-outward);
   outline: none;
 }
-:focus-visible:is(.focus-inset):not(.focus-none) {
-  animation: refocus-inward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
-  outline: none;
+@mixin --m3-focus-inset {
+  &:focus-visible {
+    animation: var(--m3-refocus-inward);
+  }
 }
-:focus-visible.focus-none {
-  outline: none;
+@mixin --m3-focus-none {
+  &:focus-visible {
+    animation: none;
+  }
 }
 @keyframes refocus-outward {
   0% {

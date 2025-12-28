@@ -62,18 +62,18 @@
 
 <li style:display="contents">
   {#if props.onclick}
-    <button type="button" class="m3-container focus-inset lines-{lines}" {...props}>
+    <button type="button" class="m3-container lines-{lines}" {...props}>
       <Layer />
       {@render content()}
     </button>
   {:else if props.href != undefined}
-    <a class="m3-container focus-inset lines-{lines}" {...props}>
+    <a class="m3-container lines-{lines}" {...props}>
       <Layer />
       {@render content()}
     </a>
   {:else if props.label}
     {@const { label: _, ...extra } = props}
-    <label class="m3-container focus-inset lines-{lines}" {...extra}>
+    <label class="m3-container lines-{lines}" {...extra}>
       <Layer />
       {@render content()}
     </label>
@@ -86,6 +86,7 @@
 
 <style>
   .m3-container {
+    @apply --m3-focus-inset;
     display: flex;
     justify-self: stretch;
     padding: 0.5rem 1.5rem 0.5rem 1rem;
