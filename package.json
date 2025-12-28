@@ -1,6 +1,6 @@
 {
   "name": "m3-svelte",
-  "version": "5.12.2",
+  "version": "6.0.4",
   "license": "Apache-2.0 OR GPL-3.0-only",
   "repository": "KTibow/m3-svelte",
   "author": {
@@ -32,43 +32,53 @@
       "svelte": "./package/index.js"
     },
     "./misc/styles.css": {
-      "import": "./package/misc/styles.css",
       "style": "./package/misc/styles.css"
     },
     "./misc/recommended-styles.css": {
-      "import": "./package/misc/recommended-styles.css",
       "style": "./package/misc/recommended-styles.css"
     },
     "./misc/tailwind-styles.css": {
       "style": "./package/misc/tailwind-styles.css"
+    },
+    "./misc/unocss-preset": {
+      "types": "./package/misc/unocss-preset.d.ts",
+      "import": "./package/misc/unocss-preset.js"
     }
   },
   "dependencies": {
     "@iconify/types": "^2.0.0",
-    "@ktibow/iconset-material-symbols": "~0.0.1761892960",
-    "@ktibow/material-color-utilities-nightly": "^0.3.11761929426000",
-    "svelte": "^5.43.2"
+    "@ktibow/iconset-material-symbols": "~0.0.1764827375",
+    "@ktibow/material-color-utilities-nightly": "^0.3.11763580498000"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.4.1",
-    "@eslint/js": "^9.39.0",
+    "@eslint/compat": "^2.0.0",
+    "@eslint/js": "^9.39.2",
     "@sveltejs/adapter-static": "^3.0.10",
-    "@sveltejs/kit": "^2.47.1",
-    "@sveltejs/package": "^2.5.4",
+    "@sveltejs/kit": "^2.49.1",
+    "@sveltejs/package": "^2.5.7",
     "@sveltejs/vite-plugin-svelte": "^6.2.1",
-    "eslint": "^9.38.0",
+    "@types/node": "^25.0.3",
+    "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-svelte": "^3.12.4",
-    "fast-glob": "^3.3.3",
+    "eslint-plugin-svelte": "^3.13.1",
     "globals": "^16.5.0",
-    "prettier": "^3.6.2",
-    "prettier-plugin-svelte": "^3.4.0",
-    "publint": "^0.3.15",
-    "svelte-check": "^4.3.3",
-    "svelte-highlight": "^7.9.0",
+    "m3-svelte": "link:",
+    "prettier": "^3.7.4",
+    "prettier-plugin-svelte": "^3.4.1",
+    "publint": "^0.3.16",
+    "shiki": "^3.20.0",
+    "svelte": "^5.46.0",
+    "svelte-check": "^4.3.5",
+    "tinyglobby": "^0.2.15",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.3",
-    "vite": "^7.1.12"
+    "typescript-eslint": "^8.50.1",
+    "unocss": "^66.5.10",
+    "vite": "^7.3.0",
+    "vite-plugin-functions-mixins": "^0.4.0",
+    "vite-plugin-token-shaker": "^0.0.3"
+  },
+  "peerDependencies": {
+    "svelte": "^5.40.0"
   },
   "keywords": [
     "svelte",

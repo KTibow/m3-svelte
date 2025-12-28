@@ -40,7 +40,7 @@
 
 <button
   type="button"
-  class="m3-container m3-font-label-large color-{color} size-{size} elevation-{elevation}"
+  class="m3-container color-{color} size-{size} elevation-{elevation}"
   class:label={showLabel === null ? !!text : showLabel}
   {...extra}
 >
@@ -54,12 +54,15 @@
 </button>
 
 <style>
-  :root {
-    --m3-fab-small-shape: var(--m3-util-rounding-small);
-    --m3-fab-normal-shape: var(--m3-util-rounding-large);
-    --m3-fab-large-shape: var(--m3-util-rounding-extra-large);
+  @layer tokens {
+    :root {
+      --m3-fab-small-shape: var(--m3-shape-small);
+      --m3-fab-normal-shape: var(--m3-shape-large);
+      --m3-fab-large-shape: var(--m3-shape-extra-large);
+    }
   }
   button {
+    @apply --m3-label-large;
     display: inline-flex;
     border: none;
     position: relative;
@@ -92,10 +95,10 @@
   }
 
   .elevation-normal {
-    box-shadow: var(--m3-util-elevation-3);
+    box-shadow: var(--m3-elevation-3);
   }
   .elevation-lowered {
-    box-shadow: var(--m3-util-elevation-1);
+    box-shadow: var(--m3-elevation-1);
   }
 
   .size-small {
@@ -136,42 +139,41 @@
   }
 
   .color-primary {
-    background-color: rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--m3c-primary);
+    color: var(--m3c-on-primary);
   }
   .color-secondary {
-    background-color: rgb(var(--m3-scheme-secondary));
-    color: rgb(var(--m3-scheme-on-secondary));
+    background-color: var(--m3c-secondary);
+    color: var(--m3c-on-secondary);
   }
   .color-tertiary {
-    background-color: rgb(var(--m3-scheme-tertiary));
-    color: rgb(var(--m3-scheme-on-tertiary));
+    background-color: var(--m3c-tertiary);
+    color: var(--m3c-on-tertiary);
   }
   .color-primary-container {
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: var(--m3c-primary-container);
+    color: var(--m3c-on-primary-container);
   }
   .color-secondary-container {
-    background-color: rgb(var(--m3-scheme-secondary-container));
-    color: rgb(var(--m3-scheme-on-secondary-container));
+    background-color: var(--m3c-secondary-container);
+    color: var(--m3c-on-secondary-container);
   }
   .color-tertiary-container {
-    background-color: rgb(var(--m3-scheme-tertiary-container));
-    color: rgb(var(--m3-scheme-on-tertiary-container));
+    background-color: var(--m3c-tertiary-container);
+    color: var(--m3c-on-tertiary-container);
   }
 
   @media (hover: hover) {
     .elevation-normal:hover {
-      box-shadow: var(--m3-util-elevation-4);
+      box-shadow: var(--m3-elevation-4);
     }
     .elevation-lowered:hover {
-      box-shadow: var(--m3-util-elevation-2);
+      box-shadow: var(--m3-elevation-2);
     }
   }
 
   .m3-container {
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
   @media screen and (forced-colors: active) {
     button {

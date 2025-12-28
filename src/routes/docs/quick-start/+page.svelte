@@ -1,5 +1,6 @@
 <script>
   import iconDownload from "@ktibow/iconset-material-symbols/download";
+  import iconConfig from "@ktibow/iconset-material-symbols/settings";
   import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
 
@@ -11,13 +12,9 @@
   import Snippet from "../Snippet.svelte";
 
   let step3Page = $state("roboto");
-  const componentCode = `${"<"}script>
-  import { Button } from "m3-svelte";
-${"<"}/script>
-
-${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"}/Button>`;
 </script>
 
+<svelte:head><title>Quick start</title></svelte:head>
 <ol>
   <li>
     <div class="header">
@@ -27,34 +24,56 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
       </div>
     </div>
     <div class="text">
-      <p>Install M3 Svelte with <code>npm i m3-svelte</code> (or your package manager).</p>
+      <p>
+        Install packages with <code>npm i m3-svelte vite-plugin-functions-mixins</code> (or your package
+        manager).
+      </p>
     </div>
   </li>
   <li>
     <div class="header">
       <div class="number">
         2
-        <Icon icon={iconPalette} />
+        <Icon icon={iconConfig} />
       </div>
     </div>
     <div class="text">
-      <p>
-        <a href={resolve("/theme")}>Copy a theme snippet</a> and paste it on your site.
-      </p>
+      <p>Enable a functions/mixins polyfill.</p>
       <Snippet
-        code={`<${""}script>
-  import "../app.css"; // Change this if you're not in SvelteKit
-</${""}script>`}
-        name="+layout.svelte, App.svelte, or similar"
-        lang="xml"
+        name="vite.config.ts"
+        html={/* typescript */ `import { defineConfig } from "vite";
+import { functionsMixins } from "vite-plugin-functions-mixins";
+
+export default defineConfig({
+  plugins: [/* your existing plugins */ functionsMixins({ deps: ["m3-svelte"] })],
+});`}
       />
-      <Snippet code="/* Your theme snippet */" name="app.css" lang="css" />
     </div>
   </li>
   <li>
     <div class="header">
       <div class="number">
         3
+        <Icon icon={iconPalette} />
+      </div>
+    </div>
+    <div class="text">
+      <p>
+        <a href={resolve("/theme")}>Get a theme snippet</a> and start using it.
+      </p>
+      <Snippet
+        name="+layout.svelte, App.svelte, or similar"
+        html={/* svelte */ `<${""}script>
+  import "../app.css"; // Change this if you're not in SvelteKit
+</${""}script>`}
+      />
+      <Snippet name="app.css" html={/* css */ `/* Your theme snippet */`} />
+    </div>
+  </li>
+  <li>
+    <div class="header">
+      <div class="number">
+        4
         <Icon icon={iconType} />
       </div>
       <ConnectedButtons>
@@ -68,24 +87,33 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
       <p>Get a font for M3 Svelte to use.</p>
       {#if step3Page == "roboto"}
         <Snippet
-          code={`<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />`}
           name="app.html"
-          lang="xml"
+          html={/* html */ `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />`}
         />
       {:else}
         <Snippet
-          code={`body {
+          name="app.css"
+          html={/* css */ `:root {
   --m3-font: [your font], system-ui;
 }`}
-          name="app.css"
-          lang="css"
         />
       {/if}
     </div>
   </li>
 </ol>
-<p>Now you can start using components like this. Check the rest of the docs to learn more.</p>
-<Snippet code={componentCode} name="Component.svelte" lang="xml" />
+<p>
+  Now you can start using components like this. <a href="./detailed-walkthrough"
+    >Keep learning: detailed walkthrough</a
+  >
+</p>
+<Snippet
+  name="Component.svelte"
+  html={/* svelte */ `<${""}script>
+  import { Button } from "m3-svelte";
+</${""}script>
+
+<${""}Button variant="filled" onclick={() => alert("Hello world")}>Click me</${""}Button>`}
+/>
 
 <style>
   ol {
@@ -117,8 +145,8 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     border-radius: 3rem;
     padding: 0 1rem;
     font-size: 1.2rem;
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: var(--m3c-primary-container);
+    color: var(--m3c-on-primary-container);
   }
   .text {
     display: flex;
@@ -130,7 +158,7 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     border-radius: 1.5rem;
 
     min-height: 3rem;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--m3c-surface-container-low);
   }
 
   p {
@@ -138,12 +166,11 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
   }
   code {
     font-size: 0.9rem;
-    background-color: rgb(var(--m3-scheme-surface-variant));
+    background-color: var(--m3c-surface-variant);
     padding-inline: 2px;
     border-radius: 0.3rem;
   }
   a {
-    text-decoration: none;
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
   }
 </style>

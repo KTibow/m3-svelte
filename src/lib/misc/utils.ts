@@ -1,21 +1,17 @@
 import { type DynamicScheme } from "@ktibow/material-color-utilities-nightly";
 import { colors } from "./colors";
 
-/**
- * @returns A string of CSS code with custom properties representing the color scheme values.
- * */
-export const genCSS = (light: DynamicScheme, dark: DynamicScheme) => {
+// default cs value is deprecated
+export const genCSS = (light: DynamicScheme, dark: DynamicScheme, cs = colors) => {
   const genColorVariable = (name: string, argb: number) => {
     const kebabCase = name.replaceAll("_", "-");
-    const red = (argb >> 16) & 255;
-    const green = (argb >> 8) & 255;
-    const blue = argb & 255;
-    return `    --m3-scheme-${kebabCase}: ${red} ${green} ${blue};`;
+    const hex = argb.toString(16).slice(-6);
+    return `    --m3c-${kebabCase}: #${hex};`;
   };
-  const lightColors = colors
+  const lightColors = cs
     .map((color) => genColorVariable(color.name, color.getArgb(light)))
     .join("\n");
-  const darkColors = colors
+  const darkColors = cs
     .map((color) => genColorVariable(color.name, color.getArgb(dark)))
     .join("\n");
   return `@media (prefers-color-scheme: light) {

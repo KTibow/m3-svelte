@@ -1,28 +1,16 @@
 <script lang="ts">
-  import { Button, Snackbar, type SnackbarIn } from "$lib";
+  import Button from "$lib/buttons/Button.svelte";
+  import { snackbar } from "$lib/containers/Snackbar.svelte";
   import Icon from "$lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
-  import Highlight from "svelte-highlight";
-  import javascript from "svelte-highlight/languages/javascript";
-  import css from "svelte-highlight/languages/css";
-  import xml from "svelte-highlight/languages/xml";
 
-  let { name, code, lang }: { name?: string; code: string; lang: string } = $props();
+  let { name, html }: { name?: string; html: string } = $props();
 
-  let snackbar: { show: (data: SnackbarIn) => void };
-
-  const languageType = {
-    javascript,
-    css,
-    xml,
-  }[lang];
-  if (!languageType) {
-    throw new Error(`Language "${lang}" not supported`);
-  }
-
-  function copyToClipboard() {
+  function copyToClipboard(e: Event) {
+    const code =
+      (e.currentTarget as HTMLElement).closest(".snippet")?.querySelector("pre")?.innerText ?? "";
     navigator.clipboard.writeText(code);
-    snackbar.show({ closable: true, message: "Text copied to clipboard", timeout: 2000 });
+    snackbar("Text copied to clipboard", undefined, true, 2000);
   }
 </script>
 
@@ -31,18 +19,17 @@
     <p class="name">{name}</p>
   {/if}
   <div class="button-container">
-    <Button variant="text" onclick={copyToClipboard} iconType="full">
+    <Button variant="text" onclick={copyToClipboard} iconType="full" title="Copy">
       <Icon icon={iconCopy} />
     </Button>
-    <Snackbar bind:this={snackbar} />
   </div>
-  <Highlight language={languageType} {code} />
+  {@html html}
 </div>
 
 <style>
   .snippet {
-    background-color: rgb(var(--m3-scheme-surface-container-high));
-    border-radius: var(--m3-util-rounding-large);
+    background-color: var(--m3c-surface-container);
+    border-radius: var(--m3-shape-large);
     padding: 1rem;
 
     width: 100%;
@@ -69,7 +56,6 @@
     }
     code {
       padding: 0;
-      background: transparent;
       white-space: pre-wrap;
     }
   }

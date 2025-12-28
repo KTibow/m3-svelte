@@ -6,16 +6,17 @@
   import TransformChooser from "./TransformChooser.svelte";
   import SchemeShowcase from "./SchemeShowcase.svelte";
   import variants from "./variants";
+  import { sourceColor } from "../state";
 
-  let sourceColor = $state(13679871);
   let variant: Variant = $state(Variant.TONAL_SPOT);
   let specVersion: "2021" | "2025" = $state("2025");
   let contrast = $state(0);
-  let density = $state(0);
+  let includeDimBright = $state(false);
+  let includeFixed = $state(false);
 
   let schemes = $derived.by(() => {
     const commonArgs = {
-      sourceColorHct: Hct.fromInt(sourceColor),
+      sourceColorHct: Hct.fromInt($sourceColor),
       contrastLevel: contrast,
       specVersion,
     } as const;
@@ -32,14 +33,21 @@
 </script>
 
 <svelte:head>
-  <title>M3 Svelte: Theme</title>
+  <title>Theme</title>
   <meta
     name="description"
-    content="Generate a Material 3/You theme for use with the library M3 Svelte."
+    content="Make a Material 3 theme and use it in CSS. Works great with M3 Svelte components."
   />
 </svelte:head>
-<ColorChooser bind:sourceColor />
+<ColorChooser bind:sourceColor={$sourceColor} />
 <Arrow />
-<TransformChooser {schemes} bind:variant bind:contrast bind:specVersion bind:density />
+<TransformChooser
+  {schemes}
+  bind:variant
+  bind:contrast
+  bind:specVersion
+  bind:includeDimBright
+  bind:includeFixed
+/>
 <Arrow />
-<SchemeShowcase {light} {dark} {density} />
+<SchemeShowcase {light} {dark} {includeDimBright} {includeFixed} />

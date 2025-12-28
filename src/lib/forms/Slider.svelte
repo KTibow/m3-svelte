@@ -14,8 +14,9 @@
     size = "xs",
     leadingIcon,
     trailingIcon,
-    stops: _stops = false,
+    stops = false,
     endStops = true,
+    vertical = false,
     format = (n: number) => {
       return n.toFixed(0);
     },
@@ -32,19 +33,20 @@
     trailingIcon?: IconifyIcon;
     stops?: boolean;
     endStops?: boolean;
+    vertical?: boolean;
     format?: (n: number) => string;
   } & Omit<HTMLInputAttributes, "size"> = $props();
-  // @ts-expect-error deprecated backwards compatibility with ticks
-  let stops = $derived(extra.ticks ? true : _stops);
-  let containerWidth = $state(600);
+  let offsetWidth = $state(600);
+  let offsetHeight = $state(600);
+  let inlineSize = $derived(vertical ? offsetHeight : offsetWidth);
 
   const valueDisplayed = new Spring(value, { stiffness: 0.3, damping: 1 });
   const updateValue = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
     const newValue = Number(e.currentTarget.value);
     e.preventDefault();
     value = newValue;
-    valueDisplayed.target = newValue;
   };
+  $effect(() => (valueDisplayed.target = value));
 
   const range = $derived(max - min);
   const handle = $derived((valueDisplayed.current - min) / range);
@@ -67,7 +69,12 @@
   });
 </script>
 
-<div class="m3-container {size}" style:--handle={handle - 0.5} bind:offsetWidth={containerWidth}>
+<div
+  class="m3-container {size} {vertical ? 'vertical' : ''}"
+  style:--handle={handle - 0.5}
+  bind:offsetWidth
+  bind:offsetHeight
+>
   <input
     type="range"
     oninput={updateValue}
@@ -91,34 +98,35 @@
   {#if leadingIcon}
     <Icon
       icon={leadingIcon}
-      class={"leading" + (containerWidth * handle < (size == "xl" ? 48 : 40) ? " pop" : "")}
+      class={"leading" + (inlineSize * handle < (size == "xl" ? 48 : 40) ? " pop" : "")}
     />
   {/if}
   {#if trailingIcon}
     <Icon
       icon={trailingIcon}
-      class={"trailing" + (containerWidth * (1 - handle) < (size == "xl" ? 48 : 40) ? " pop" : "")}
+      class={"trailing" + (inlineSize * (1 - handle) < (size == "xl" ? 48 : 40) ? " pop" : "")}
     />
   {/if}
   <div class="handle"></div>
   {#if showValue}
-    <div class="value m3-font-label-large">{format(value)}</div>
+    <div class="value">{format(value)}</div>
   {/if}
 </div>
 
 <style>
-  :root {
-    --m3-slider-track-out-shape: 0.5rem;
-    --m3-slider-track-in-shape: 0.125rem;
-    --m3-slider-handle-shape: var(--m3-util-rounding-full);
+  @layer tokens {
+    :root {
+      --m3-slider-track-out-shape: 0.5rem;
+      --m3-slider-track-in-shape: 0.125rem;
+      --m3-slider-handle-shape: var(--m3-shape-full);
+    }
   }
 
   .m3-container {
     position: relative;
-    height: var(--handle-height);
-    min-width: 10rem;
+    block-size: var(--handle-height);
+    min-inline-size: 10rem;
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
 
     --functional-width: calc(100% - 2 * (0.25rem + 0.125rem));
     --handle-left: calc(50% + var(--functional-width) * var(--handle) - 0.125rem - 0.375rem);
@@ -126,38 +134,42 @@
     --handle-right: calc(50% + var(--functional-width) * var(--handle) + 0.125rem + 0.375rem);
   }
 
+  .m3-container.vertical {
+    writing-mode: sideways-lr;
+  }
+
   .m3-container.xs {
     --track-height: 1rem;
     --handle-height: 2.75rem;
-    --track-radius: var(--m3-util-rounding-small);
+    --track-radius: var(--m3-shape-small);
     --icon-size: 0;
   }
 
   .m3-container.s {
     --track-height: 1.5rem;
     --handle-height: 2.75rem;
-    --track-radius: var(--m3-util-rounding-small);
+    --track-radius: var(--m3-shape-small);
     --icon-size: 0;
   }
 
   .m3-container.m {
     --track-height: 2.5rem;
     --handle-height: 3.25rem;
-    --track-radius: var(--m3-util-rounding-medium);
+    --track-radius: var(--m3-shape-medium);
     --icon-size: 1.5rem;
   }
 
   .m3-container.l {
     --track-height: 3.5rem;
     --handle-height: 4.25rem;
-    --track-radius: var(--m3-util-rounding-large);
+    --track-radius: var(--m3-shape-large);
     --icon-size: 1.5rem;
   }
 
   .m3-container.xl {
     --track-height: 6rem;
     --handle-height: 6.75rem;
-    --track-radius: var(--m3-util-rounding-extra-large);
+    --track-radius: var(--m3-shape-extra-large);
     --icon-size: 2rem;
   }
 
@@ -165,42 +177,50 @@
     position: absolute;
     width: var(--icon-size);
     height: var(--icon-size);
-    top: 50%;
+    inset-block-start: 50%;
     inset-inline-start: 0;
     margin-inline-start: 0.25rem;
     translate: 0 -50%;
     pointer-events: none;
-    color: rgb(var(--m3-scheme-secondary-container));
+    color: var(--m3c-secondary-container);
+
+    &:is(.vertical :global(.leading)) {
+      translate: -50% 0;
+    }
   }
 
   .m3-container :global(.leading.pop) {
     inset-inline-start: var(--handle-right);
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
   }
 
   .m3-container :global(.trailing) {
     position: absolute;
     width: var(--icon-size);
     height: var(--icon-size);
-    top: 50%;
+    inset-block-start: 50%;
     inset-inline-end: 0;
     margin-inline-end: 0.25rem;
     translate: 0 -50%;
     pointer-events: none;
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
+
+    &:is(.vertical :global(.trailing)) {
+      translate: -50% 0;
+    }
   }
 
   .m3-container :global(.trailing.pop) {
     inset-inline-end: calc(100% - var(--handle-left));
-    color: rgb(var(--m3-scheme-secondary-container));
+    color: var(--m3c-secondary-container);
   }
 
   input {
     position: absolute;
-    width: calc(var(--functional-width) + 1rem);
-    left: 50%;
+    inline-size: calc(var(--functional-width) + 1rem);
+    inset-inline-start: 50%;
     translate: -50% 0;
-    height: 100%;
+    block-size: 100%;
 
     opacity: 0;
     appearance: none;
@@ -209,19 +229,21 @@
     &:enabled {
       cursor: pointer;
     }
+
+    &:is(.vertical > input) {
+      translate: 0 50%;
+    }
   }
 
   .track-1,
   .track-2 {
     position: absolute;
     inset-inline: 0;
-    top: 50%;
-    translate: 0 -50%;
-    height: var(--track-height);
+    inset-block: calc((var(--handle-height) - var(--track-height)) / 2);
     pointer-events: none;
   }
   .track-1 {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--m3c-primary);
     clip-path: inset(
       0 calc(100% - var(--handle-left)) 0 0 round var(--track-radius)
         var(--m3-slider-track-in-shape) var(--m3-slider-track-in-shape) var(--track-radius)
@@ -232,19 +254,25 @@
           var(--track-radius) var(--track-radius) var(--m3-slider-track-in-shape)
       );
     }
+    &:is(.vertical > .track-1) {
+      clip-path: inset(
+        calc(100% - var(--handle-left)) 0 0 0 round var(--m3-slider-track-in-shape)
+          var(--m3-slider-track-in-shape) var(--track-radius) var(--track-radius)
+      );
+    }
 
     @media screen and (forced-colors: active) {
       background-color: selecteditem;
     }
     &:is(input:disabled ~ .track-1) {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      background-color: --translucent(var(--m3c-on-surface), 0.38);
       @media screen and (forced-colors: active) {
         background-color: canvastext;
       }
     }
   }
   .track-2 {
-    background-color: rgb(var(--m3-scheme-secondary-container));
+    background-color: var(--m3c-secondary-container);
     clip-path: inset(
       0 0 0 var(--handle-right) round var(--m3-slider-track-in-shape) var(--track-radius)
         var(--track-radius) var(--m3-slider-track-in-shape)
@@ -255,12 +283,18 @@
           var(--m3-slider-track-in-shape) var(--track-radius)
       );
     }
+    &:is(.vertical > .track-2) {
+      clip-path: inset(
+        0 0 var(--handle-right) 0 round var(--track-radius) var(--track-radius)
+          var(--m3-slider-track-in-shape) var(--m3-slider-track-in-shape)
+      );
+    }
 
     @media screen and (forced-colors: active) {
       background-color: canvastext;
     }
     &:is(input:disabled ~ .track-2) {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+      background-color: --translucent(var(--m3c-on-surface), 0.12);
       @media screen and (forced-colors: active) {
         background-color: graytext;
       }
@@ -270,23 +304,26 @@
     position: absolute;
     width: 4px;
     height: 4px;
-    border-radius: var(--m3-util-rounding-full);
-    top: 50%;
+    border-radius: var(--m3-shape-full);
+    inset-block-start: 50%;
     inset-inline-start: calc(50% + (100% - 0.5rem - 0.25rem) * var(--x));
     translate: -50% -50%;
     &:dir(rtl) {
       translate: 50% -50%;
     }
+    &:is(.vertical .stop) {
+      translate: -50% 50%;
+    }
     &:is(.track-1 > .stop) {
-      background-color: rgb(var(--m3-scheme-on-primary));
+      background-color: var(--m3c-on-primary);
       &:is(input:disabled ~ .track-1 > .stop) {
-        background-color: rgb(var(--m3-scheme-inverse-on-surface));
+        background-color: var(--m3c-inverse-on-surface);
       }
     }
     &:is(.track-2 > .stop) {
-      background-color: rgb(var(--m3-scheme-primary));
+      background-color: var(--m3c-primary);
       &:is(input:disabled ~ .track-2 > .stop) {
-        background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+        background-color: --translucent(var(--m3c-on-surface), 0.38);
       }
     }
     pointer-events: none;
@@ -295,23 +332,26 @@
   .handle {
     position: absolute;
     inset-inline-start: var(--handle-center);
+    inset-block: 0;
+    inline-size: 0.25rem;
     translate: -50% 0;
     &:dir(rtl) {
       translate: 50% 0;
     }
-    width: 0.25rem;
-    height: var(--handle-height);
+    &:is(.vertical > .handle) {
+      translate: 0 50%;
+    }
     border-radius: 1.25rem;
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--m3c-primary);
 
     pointer-events: none;
-    transition: width var(--m3-util-easing);
+    transition: inline-size var(--m3-easing);
 
     @media screen and (forced-colors: active) {
       background-color: selecteditem;
     }
     &:is(input:disabled ~ .handle) {
-      background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+      background-color: --translucent(var(--m3c-on-surface), 0.38);
       @media screen and (forced-colors: active) {
         background-color: graytext;
       }
@@ -319,19 +359,20 @@
   }
 
   .value {
+    @apply --m3-label-large;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
 
-    background-color: rgb(var(--m3-scheme-inverse-surface));
-    color: rgb(var(--m3-scheme-inverse-on-surface));
-    width: 3rem;
+    background-color: var(--m3c-inverse-surface);
+    color: var(--m3c-inverse-on-surface);
+    min-width: 3rem;
     padding: 0.75rem 1rem;
     border-radius: var(--m3-slider-handle-shape);
 
     inset-inline-start: var(--handle-center);
-    bottom: calc(var(--handle-height) + 4px);
+    inset-block-end: calc(var(--handle-height) + 4px);
     translate: -50% 0;
     &:dir(rtl) {
       translate: 50% 0;
@@ -339,24 +380,30 @@
 
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--m3-util-easing);
+    user-select: none;
+    transition: opacity var(--m3-easing);
     z-index: 1;
     @media screen and (forced-colors: active) {
       border: 2px solid selecteditem;
       overflow: hidden;
     }
+
+    &:is(.vertical > .value) {
+      translate: 0 50%;
+      rotate: 90deg;
+    }
   }
 
   input:focus-visible ~ .handle {
     outline: solid;
-    outline-color: rgb(var(--m3-scheme-on-secondary-container));
+    outline-color: var(--m3c-on-secondary-container);
     outline-width: 4px;
     outline-offset: 5px;
     z-index: 2;
   }
   input:focus-visible ~ .handle,
   input:enabled:active ~ .handle {
-    width: 0.125rem;
+    inline-size: 0.125rem;
   }
   input:enabled:hover ~ .value,
   input:enabled:focus-visible ~ .value,

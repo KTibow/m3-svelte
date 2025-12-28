@@ -1,219 +1,254 @@
-/* Needed for elevation to work */
-:root {
-  interpolate-size: allow-keywords;
-  --m3-util-elevation-0: none;
-  --m3-util-elevation-1:
+
+@function --translucent(--color, --opacity) {
+  result: oklab(from var(--color) l a b / var(--opacity));
+}
+/* DEPRECATED: This default --m3-density function will be removed in a future version.
+   For new themes, pick which option you actually want. */
+@function --m3-density(--size) {
+  result: calc(var(--size) + (var(--m3v-density, 0) * 0.25rem));
+}
+
+@layer tokens {
+  :root {
+    /* Needed for elevation to work */
+    --m3-elevation-0: none;
+    --m3-elevation-1:
     /* Spot */
-    0px 1px 2px 0px rgb(var(--m3-scheme-shadow) / 0.3),
-    /* Ambient */ 0px 1px 3px 1px rgb(var(--m3-scheme-shadow) / 0.15);
-  --m3-util-elevation-2:
-    0px 1px 2px 0px rgb(var(--m3-scheme-shadow) / 0.3),
-    0px 2px 6px 2px rgb(var(--m3-scheme-shadow) / 0.15);
-  --m3-util-elevation-3:
-    0px 1px 3px 0px rgb(var(--m3-scheme-shadow) / 0.3),
-    0px 4px 8px 3px rgb(var(--m3-scheme-shadow) / 0.15);
-  --m3-util-elevation-4:
-    0px 2px 3px 0px rgb(var(--m3-scheme-shadow) / 0.3),
-    0px 6px 10px 4px rgb(var(--m3-scheme-shadow) / 0.15);
-  --m3-util-elevation-5:
-    0px 4px 4px 0px rgb(var(--m3-scheme-shadow) / 0.3),
-    0px 8px 12px 6px rgb(var(--m3-scheme-shadow) / 0.15);
+      0px 1px 2px 0px --translucent(var(--m3c-shadow), 0.3),
+      /* Ambient */ 0px 1px 3px 1px --translucent(var(--m3c-shadow), 0.15);
+    --m3-elevation-2:
+      0px 1px 2px 0px --translucent(var(--m3c-shadow), 0.3),
+      0px 2px 6px 2px --translucent(var(--m3c-shadow), 0.15);
+    --m3-elevation-3:
+      0px 1px 3px 0px --translucent(var(--m3c-shadow), 0.3),
+      0px 4px 8px 3px --translucent(var(--m3c-shadow), 0.15);
+    --m3-elevation-4:
+      0px 2px 3px 0px --translucent(var(--m3c-shadow), 0.3),
+      0px 6px 10px 4px --translucent(var(--m3c-shadow), 0.15);
+    --m3-elevation-5:
+      0px 4px 4px 0px --translucent(var(--m3c-shadow), 0.3),
+      0px 8px 12px 6px --translucent(var(--m3c-shadow), 0.15);
 
-  /* Sizing */
-  --m3-util-bottom-offset: 0;
-  --m3-util-density: 0;
-  --m3-util-density-term: calc(var(--m3-util-density) * 0.25rem);
+    /* Shapes */
+    --m3-shape-none: 0;
+    --m3-shape-extra-small: 4px;
+    --m3-shape-small: 8px;
+    --m3-shape-medium: 12px;
+    --m3-shape-large: 16px;
+    --m3-shape-extra-large: 28px;
+    --m3-shape-full: calc(infinity * 1px);
+    --m3-optical-centering-coefficient: 0.11;
 
-  /* Shapes */
-  --m3-util-rounding-none: 0;
-  --m3-util-rounding-extra-small: 4px;
-  --m3-util-rounding-small: 8px;
-  --m3-util-rounding-medium: 12px;
-  --m3-util-rounding-large: 16px;
-  --m3-util-rounding-extra-large: 28px;
-  --m3-util-rounding-full: calc(infinity * 1px);
-  --m3-util-optical-centering-coefficient: 0.11;
+    /* Typography */
+    --m3-font: Roboto, system-ui;
+    --m3-font-mono: "Google Sans Code", "Roboto Mono", monospace;
 
-  --m3-font: Roboto, system-ui;
-  --m3-font-mono: "Google Sans Code", "Roboto Mono", monospace;
+    /* Expressive easing */
+    --m3-timing-function-fast-spatial: cubic-bezier(0.42, 1.67, 0.21, 0.9);
+    --m3-duration-fast-spatial: 350ms;
+    --m3-easing-fast-spatial: var(--m3-timing-function-fast-spatial) var(--m3-duration-fast-spatial);
 
-  /* Expressive easing */
-  --m3-util-timing-function-fast-spatial: cubic-bezier(0.42, 1.67, 0.21, 0.9);
-  --m3-util-duration-fast-spatial: 350ms;
-  --m3-util-easing-fast-spatial: var(--m3-util-timing-function-fast-spatial)
-    var(--m3-util-duration-fast-spatial);
+    --m3-timing-function-spatial: cubic-bezier(0.38, 1.21, 0.22, 1);
+    --m3-duration-spatial: 500ms;
+    --m3-easing-spatial: var(--m3-timing-function-spatial) var(--m3-duration-spatial);
 
-  --m3-util-timing-function-spatial: cubic-bezier(0.38, 1.21, 0.22, 1);
-  --m3-util-duration-spatial: 500ms;
-  --m3-util-easing-spatial: var(--m3-util-timing-function-spatial) var(--m3-util-duration-spatial);
+    --m3-timing-function-slow-spatial: cubic-bezier(0.39, 1.29, 0.35, 0.98);
+    --m3-duration-slow-spatial: 650ms;
+    --m3-easing-slow-spatial: var(--m3-timing-function-slow-spatial) var(--m3-duration-slow-spatial);
 
-  --m3-util-timing-function-slow-spatial: cubic-bezier(0.39, 1.29, 0.35, 0.98);
-  --m3-util-duration-slow-spatial: 650ms;
-  --m3-util-easing-slow-spatial: var(--m3-util-timing-function-slow-spatial)
-    var(--m3-util-duration-slow-spatial);
+    --m3-timing-function-fast: cubic-bezier(0.31, 0.94, 0.34, 1);
+    --m3-duration-fast: 150ms;
+    --m3-easing-fast: var(--m3-timing-function-fast) var(--m3-duration-fast);
 
-  --m3-util-timing-function-fast: cubic-bezier(0.31, 0.94, 0.34, 1);
-  --m3-util-duration-fast: 150ms;
-  --m3-util-easing-fast: var(--m3-util-timing-function-fast) var(--m3-util-duration-fast);
+    --m3-timing-function: cubic-bezier(0.34, 0.8, 0.34, 1);
+    --m3-duration: 200ms;
+    --m3-easing: var(--m3-timing-function) var(--m3-duration);
 
-  --m3-util-timing-function: cubic-bezier(0.34, 0.8, 0.34, 1);
-  --m3-util-duration: 200ms;
-  --m3-util-easing: var(--m3-util-timing-function) var(--m3-util-duration);
+    --m3-timing-function-slow: cubic-bezier(0.34, 0.88, 0.34, 1);
+    --m3-duration-slow: 300ms;
+    --m3-easing-slow: var(--m3-timing-function-slow) var(--m3-duration-slow);
 
-  --m3-util-timing-function-slow: cubic-bezier(0.34, 0.88, 0.34, 1);
-  --m3-util-duration-slow: 300ms;
-  --m3-util-easing-slow: var(--m3-util-timing-function-slow) var(--m3-util-duration-slow);
+    --m3-timing-function-emphasized: linear(
+      0,
+      0.034 6%,
+      0.073 9%,
+      0.126 11%,
+      0.194 13%,
+      0.273 15%,
+      0.351 16%,
+      0.541 18%,
+      0.652 20%,
+      0.755 24%,
+      0.839 30%,
+      0.91 39%,
+      0.959 53%,
+      0.989 72%,
+      1
+    );
+    --m3-timing-function-emphasized-accel: cubic-bezier(0.3, 0, 0.8, 0.15);
+    --m3-timing-function-emphasized-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
 
-  --m3-util-timing-function-emphasized: linear(
-    0,
-    0.034 6%,
-    0.073 9%,
-    0.126 11%,
-    0.194 13%,
-    0.273 15%,
-    0.351 16%,
-    0.541 18%,
-    0.652 20%,
-    0.755 24%,
-    0.839 30%,
-    0.91 39%,
-    0.959 53%,
-    0.989 72%,
-    1
-  );
-  --m3-util-timing-function-emphasized-accel: cubic-bezier(0.3, 0, 0.8, 0.15);
-  --m3-util-timing-function-emphasized-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
-
-  /* deprecated */
-  --m3-util-curve: var(--m3-util-timing-function-emphasized);
-  --m3-util-curve-accel: var(--m3-util-timing-function-emphasized-accel);
-  --m3-util-curve-decel: var(--m3-util-timing-function-emphasized-decel);
-
-  accent-color: rgb(var(--m3-scheme-primary));
+    --m3-timing-function-zeno: linear(
+      0,
+      0.08 1.5%,
+      0.15 2.93%,
+      0.22 4.48%,
+      0.29 6.18%,
+      0.35 7.77%,
+      0.41 9.52%,
+      0.47 11.45%,
+      0.52 13.24%,
+      0.57 15.22%,
+      0.61 16.98%,
+      0.65 18.93%,
+      0.69 21.12%,
+      0.73 23.61%,
+      0.76 25.74%,
+      0.79 28.14%,
+      0.82 30.92%,
+      0.84 33.05%,
+      0.86 35.46%,
+      0.88 38.24%,
+      0.9 41.52%,
+      0.92 45.55%,
+      0.93 47.96%,
+      0.95 54.02%,
+      0.96 58.05%,
+      0.97 63.24%,
+      0.98 70.55%,
+      0.99 83.05%,
+      1
+    );
+  }
 }
-.m3-font-display-large,
-.m3-font-display-medium,
-.m3-font-display-small {
-  font-family: var(--m3-font-display, var(--m3-font));
+/* Not tokens because they may be dynamically get/set and aren't generally constant */
+/* deprecated: need to replace with simple INLINE default value */
+@property --m3v-bottom-offset {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0;
 }
-.m3-font-headline-large,
-.m3-font-headline-medium,
-.m3-font-headline-small {
-  font-family: var(--m3-font-headline, var(--m3-font));
+:root {
+  --m3v-background: var(--m3c-surface);
 }
-.m3-font-title-large,
-.m3-font-title-medium,
-.m3-font-title-small {
-  font-family: var(--m3-font-title, var(--m3-font));
-}
-.m3-font-label-large,
-.m3-font-label-medium,
-.m3-font-label-small {
-  font-family: var(--m3-font-label, var(--m3-font));
-}
-.m3-font-body-large,
-.m3-font-body-medium,
-.m3-font-body-small {
-  font-family: var(--m3-font-body, var(--m3-font));
-}
+
 /* As the largest text on the screen, display styles are reserved for short, important text or numerals. */
-.m3-font-display-large {
-  font-size: var(--m3-font-display-large-size, 3.563rem);
-  line-height: var(--m3-font-display-large-height, 1.123);
-  letter-spacing: var(--m3-font-display-large-tracking, 0);
-  font-weight: var(--m3-font-display-large-weight, 400);
+@mixin --m3-display-large {
+  font-family: var(--m3-font);
+  font-size: 3.563rem;
+  line-height: 1.123;
+  letter-spacing: 0;
+  font-weight: 400;
 }
-.m3-font-display-medium {
-  font-size: var(--m3-font-display-medium-size, 2.813rem);
-  line-height: var(--m3-font-display-medium-height, 1.156);
-  letter-spacing: var(--m3-font-display-medium-tracking, 0);
-  font-weight: var(--m3-font-display-medium-weight, 400);
+@mixin --m3-display-medium {
+  font-family: var(--m3-font);
+  font-size: 2.813rem;
+  line-height: 1.156;
+  letter-spacing: 0;
+  font-weight: 400;
 }
-.m3-font-display-small {
-  font-size: var(--m3-font-display-small-size, 2.25rem);
-  line-height: var(--m3-font-display-small-height, 1.222);
-  letter-spacing: var(--m3-font-display-small-tracking, 0);
-  font-weight: var(--m3-font-display-small-weight, 400);
+@mixin --m3-display-small {
+  font-family: var(--m3-font);
+  font-size: 2.25rem;
+  line-height: 1.222;
+  letter-spacing: 0;
+  font-weight: 400;
 }
+
 /* Headlines are best-suited for short, high-emphasis text on smaller screens. */
-.m3-font-headline-large {
-  font-size: var(--m3-font-headline-large-size, 2rem);
-  line-height: var(--m3-font-headline-large-height, 1.25);
-  letter-spacing: var(--m3-font-headline-large-tracking, 0);
-  font-weight: var(--m3-font-headline-large-weight, 400);
+@mixin --m3-headline-large {
+  font-family: var(--m3-font);
+  font-size: 2rem;
+  line-height: 1.25;
+  letter-spacing: 0;
+  font-weight: 400;
 }
-.m3-font-headline-medium {
-  font-size: var(--m3-font-headline-medium-size, 1.75rem);
-  line-height: var(--m3-font-headline-medium-height, 1.286);
-  letter-spacing: var(--m3-font-headline-medium-tracking, 0);
-  font-weight: var(--m3-font-headline-medium-weight, 400);
+@mixin --m3-headline-medium {
+  font-family: var(--m3-font);
+  font-size: 1.75rem;
+  line-height: 1.286;
+  letter-spacing: 0;
+  font-weight: 400;
 }
-.m3-font-headline-small {
-  font-size: var(--m3-font-headline-small-size, 1.5rem);
-  line-height: var(--m3-font-headline-small-height, 1.333);
-  letter-spacing: var(--m3-font-headline-small-tracking, 0);
-  font-weight: var(--m3-font-headline-small-weight, 400);
+@mixin --m3-headline-small {
+  font-family: var(--m3-font);
+  font-size: 1.5rem;
+  line-height: 1.333;
+  letter-spacing: 0;
+  font-weight: 400;
 }
+
 /* Titles are smaller than headline styles, and should be used for medium-emphasis text that remains relatively short. */
-.m3-font-title-large {
-  font-size: var(--m3-font-title-large-size, 1.375rem);
-  line-height: var(--m3-font-title-large-height, 1.273);
-  letter-spacing: var(--m3-font-title-large-tracking, 0);
-  font-weight: var(--m3-font-title-large-weight, 400);
+@mixin --m3-title-large {
+  font-family: var(--m3-font);
+  font-size: 1.375rem;
+  line-height: 1.273;
+  letter-spacing: 0;
+  font-weight: 400;
 }
-.m3-font-title-medium {
-  font-size: var(--m3-font-title-medium-size, 1rem);
-  line-height: var(--m3-font-title-medium-height, 1.5);
-  letter-spacing: var(--m3-font-title-medium-tracking, 0);
-  font-weight: var(--m3-font-title-medium-weight, 500);
+@mixin --m3-title-medium {
+  font-family: var(--m3-font);
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 500;
 }
-.m3-font-title-small {
-  font-size: var(--m3-font-title-small-size, 0.875rem);
-  line-height: var(--m3-font-title-small-height, 1.429);
-  letter-spacing: var(--m3-font-title-small-tracking, 0.006rem);
-  font-weight: var(--m3-font-title-small-weight, 500);
+@mixin --m3-title-small {
+  font-family: var(--m3-font);
+  font-size: 0.875rem;
+  line-height: 1.429;
+  letter-spacing: 0.006rem;
+  font-weight: 500;
 }
+
 /* Label styles are smaller, utilitarian styles, used for things like the text inside components
 or for very small text in the content body, such as captions. */
-.m3-font-label-large {
-  font-size: var(--m3-font-label-large-size, 0.875rem);
-  line-height: var(--m3-font-label-large-height, 1.429);
-  letter-spacing: var(--m3-font-label-large-tracking, 0.006rem);
-  font-weight: var(--m3-font-label-large-weight, 500);
+@mixin --m3-label-large {
+  font-family: var(--m3-font);
+  font-size: 0.875rem;
+  line-height: 1.429;
+  letter-spacing: 0.006rem;
+  font-weight: 500;
 }
-.m3-font-label-medium {
-  font-size: var(--m3-font-label-medium-size, 0.75rem);
-  line-height: var(--m3-font-label-medium-height, 1.333);
-  letter-spacing: var(--m3-font-label-medium-tracking, 0.031rem);
-  font-weight: var(--m3-font-label-medium-weight, 500);
+@mixin --m3-label-medium {
+  font-family: var(--m3-font);
+  font-size: 0.75rem;
+  line-height: 1.333;
+  letter-spacing: 0.031rem;
+  font-weight: 500;
 }
-.m3-font-label-small {
-  font-size: var(--m3-font-label-small-size, 0.688rem);
-  line-height: var(--m3-font-label-small-height, 1.455);
-  letter-spacing: var(--m3-font-label-small-tracking, 0.031rem);
-  font-weight: var(--m3-font-label-small-weight, 500);
+@mixin --m3-label-small {
+  font-family: var(--m3-font);
+  font-size: 0.688rem;
+  line-height: 1.455;
+  letter-spacing: 0.031rem;
+  font-weight: 500;
 }
+
 /* Body styles are used for longer passages of text in your app. */
-.m3-font-body-large {
-  font-size: var(--m3-font-body-large-size, 1rem);
-  line-height: var(--m3-font-body-large-height, 1.5);
-  letter-spacing: var(--m3-font-body-large-tracking, 0);
-  font-weight: var(--m3-font-body-large-weight, 400);
+@mixin --m3-body-large {
+  font-family: var(--m3-font);
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 400;
 }
-.m3-font-body-medium {
-  font-size: var(--m3-font-body-medium-size, 0.875rem);
-  line-height: var(--m3-font-body-medium-height, 1.429);
-  letter-spacing: var(--m3-font-body-medium-tracking, 0.016rem);
-  font-weight: var(--m3-font-body-medium-weight, 400);
+@mixin --m3-body-medium {
+  font-family: var(--m3-font);
+  font-size: 0.875rem;
+  line-height: 1.429;
+  letter-spacing: 0.016rem;
+  font-weight: 400;
 }
-.m3-font-body-small {
-  font-size: var(--m3-font-body-small-size, 0.75rem);
-  line-height: var(--m3-font-body-small-height, 1.333);
-  letter-spacing: var(--m3-font-body-small-tracking, 0.025rem);
-  font-weight: var(--m3-font-body-small-weight, 400);
+@mixin --m3-body-small {
+  font-family: var(--m3-font);
+  font-size: 0.75rem;
+  line-height: 1.333;
+  letter-spacing: 0.025rem;
+  font-weight: 400;
 }
-/* Reset a few things */
 @layer base {
+  /* Reset a few things */
   *,
   *::before,
   *::after {
@@ -230,6 +265,10 @@ or for very small text in the content body, such as captions. */
   .m3-container dialog,
   dialog.m3-container {
     margin: auto;
+  }
+
+  :root {
+    accent-color: var(--m3c-primary);
   }
 }
 
@@ -337,4 +376,68 @@ const testInput = [
 const optimizedSmallResult = createCSSEaseOptimized(testInput, 0.01);
 console.log("Optimized result (relaxed threshold 0.01):");
 console.log(optimizedSmallResult);
+*/
+/* Zeno timing function derived from this code:
+// 1) define the original mapping f(y)=time-%, capped at 100% for y=1
+const whenReached = (y) => Math.log(1 - y) / Math.log(0.5);
+const makePoints = () => {
+  const pts = [];
+  for (let i = 0; i < 100; i++) {
+    const v = i / 100;
+    const t = (whenReached(v) * 100) / 8;
+    pts.push([v, t]);
+  }
+  // add the final point (1, 100)
+  pts.push([1, 100]);
+  return pts;
+};
+
+// 2) helper: compute perpendicular distance from pt to line (p0→p1)
+const perpDist = (pt, p0, p1) => {
+  const [x, y] = pt;
+  const [x1, y1] = p0;
+  const [x2, y2] = p1;
+  const num = Math.abs((y2 - y1) * x - (x2 - x1) * y + x2 * y1 - y2 * x1);
+  const den = Math.hypot(y2 - y1, x2 - x1);
+  return den === 0 ? 0 : num / den;
+};
+
+// 3) RDP (recursive)
+function rdp(points, eps) {
+  if (points.length < 3) return points;
+  let maxD = 0,
+    idx = 0;
+  for (let i = 1; i < points.length - 1; i++) {
+    const d = perpDist(points[i], points[0], points[points.length - 1]);
+    if (d > maxD) {
+      maxD = d;
+      idx = i;
+    }
+  }
+  if (maxD > eps) {
+    const left = rdp(points.slice(0, idx + 1), eps);
+    const right = rdp(points.slice(idx), eps);
+    return left.slice(0, -1).concat(right);
+  }
+  return [points[0], points[points.length - 1]];
+}
+
+// 4) round x to 2 decimals (keep trailing zeros); round y to 2 decimals (cap tiny negatives to 0)
+const fmt = (v, t) => {
+  const xv = v.toFixed(2);
+  let tv = Math.round(t * 100) / 100; // round to 2 decimals
+  if (Math.abs(tv) < 1e-8) tv = 0; // avoid "-0.00"
+  return `${xv} ${tv.toFixed(2)}%`;
+};
+
+// 5) put it all together
+function buildCompressedLinear(tolerance) {
+  const raw = makePoints();
+  const reduced = rdp(raw, tolerance);
+  return `linear(${reduced.map(([v, t]) => fmt(v, t)).join(", ")})`;
+}
+
+// 6) example result
+const compressed = buildCompressedLinear(0.001);
+console.log(compressed);
 */

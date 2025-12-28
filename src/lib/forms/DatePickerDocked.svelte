@@ -9,7 +9,13 @@
   let {
     date = "",
     clearable,
+    // eslint and svelte disagree
+    // eslint-disable-next-line svelte/no-unused-svelte-ignore
+    // svelte-ignore state_referenced_locally
     focusedMonth = $bindable(parseInt(date.slice(5, 7)) - 1 || now.getMonth()),
+    // eslint and svelte disagree
+    // eslint-disable-next-line svelte/no-unused-svelte-ignore
+    // svelte-ignore state_referenced_locally
     focusedYear = $bindable(parseInt(date.slice(0, 4)) || now.getFullYear()),
     startYear = now.getFullYear() - 50,
     endYear = now.getFullYear() + 10,
@@ -29,10 +35,7 @@
   } = $props();
 
   let currentView: "calendar" | "year" | "month" = $state("calendar");
-  let chosenDate = $state(date);
-  $effect(() => {
-    chosenDate = date;
-  });
+  let chosenDate = $derived(date);
 
   const getLongMonth = (month: number) =>
     new Date(0, month).toLocaleDateString(undefined, { month: "long" });
@@ -81,8 +84,10 @@
 </div>
 
 <style>
-  :root {
-    --m3-date-picker-shape: var(--m3-util-rounding-large);
+  @layer tokens {
+    :root {
+      --m3-date-picker-shape: var(--m3-shape-large);
+    }
   }
 
   .m3-container {
@@ -90,7 +95,7 @@
     position: relative;
     overflow: hidden;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-surface-container-high));
+    background-color: var(--m3c-surface-container-high);
     width: 20.5rem;
     height: 26.75rem;
     border-radius: var(--m3-date-picker-shape);

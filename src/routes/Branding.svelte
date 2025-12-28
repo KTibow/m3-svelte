@@ -18,14 +18,14 @@
 
 <style>
   .branding {
-    --transition: all var(--m3-util-curve) 500ms;
+    --transition: all var(--m3-timing-function-emphasized) 500ms;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-inline: 1.5rem;
     border-radius: 1.75rem;
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: var(--m3c-primary-container);
+    color: var(--m3c-on-primary-container);
     transition: var(--transition);
     overflow: hidden;
 
@@ -64,7 +64,7 @@
         width: 3rem;
         height: 3rem;
         border-radius: 3rem;
-        background-color: rgb(var(--m3-scheme-background));
+        background-color: var(--m3c-surface);
         transition: var(--transition);
       }
       h1 {
@@ -80,8 +80,8 @@
         margin-left: 0.5rem;
         border-radius: 1.5rem;
         overflow: hidden;
-        background-color: rgb(var(--m3-scheme-primary));
-        color: rgb(var(--m3-scheme-on-primary)) !important;
+        background-color: var(--m3c-primary);
+        color: var(--m3c-on-primary) !important;
         text-decoration: none !important;
         transition: var(--transition);
       }

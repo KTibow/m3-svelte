@@ -8,7 +8,7 @@ export const linear = (
   from: number,
   to: number,
   time: number,
-  cutoffTo?: number,
+  softTo?: number, // for consistent length
 ) => {
   time = time * frequencyT;
   time %= Math.PI * 2;
@@ -17,7 +17,7 @@ export const linear = (
 
   let path = "";
   for (let xIterator = from; xIterator <= to; xIterator += 0.5) {
-    const x = cutoffTo ? Math.min(cutoffTo, xIterator) : xIterator;
+    const x = softTo ? Math.min(softTo, xIterator) : xIterator;
     const sinV = Math.sin(x * frequencyX + time);
     const y = sinV * amp + center;
 

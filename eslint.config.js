@@ -11,6 +11,9 @@ const gitignorePath = fileURLToPath(new URL("./.gitignore", import.meta.url));
 
 export default ts.config(
   includeIgnoreFile(gitignorePath),
+  {
+    ignores: ["scripts/**"],
+  },
   js.configs.recommended,
   ...ts.configs.recommended,
   ...svelte.configs.recommended,
@@ -65,6 +68,17 @@ export default ts.config(
     files: ["src/routes/*.svelte"],
     rules: {
       "@typescript-eslint/no-unused-vars": "off",
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "$lib",
+              message: "Use specific imports from $lib/* to preserve CSS tree shaking",
+            },
+          ],
+        },
+      ],
     },
   },
 );

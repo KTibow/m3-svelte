@@ -34,7 +34,7 @@
 
 <div class="m3-container">
   {#each "SMTWTFS" as day}
-    <div class="day m3-font-body-small">{day}</div>
+    <div class="day">{day}</div>
   {/each}
   {#each makeCalendar(focusedYear, focusedMonth) as day (day.iso + (day.disabled ? "-disabled" : ""))}
     <Item
@@ -58,6 +58,7 @@
     gap: 0.25rem;
   }
   .day {
+    @apply --m3-body-small;
     display: inline-flex;
     width: 2.5rem;
     height: 2.5rem;
@@ -65,6 +66,6 @@
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
   }
 </style>

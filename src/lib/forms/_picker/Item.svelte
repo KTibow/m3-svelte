@@ -16,20 +16,14 @@
   } = $props();
 </script>
 
-<button
-  type="button"
-  class="item m3-font-body-small"
-  {disabled}
-  class:today
-  class:selected
-  {onclick}
->
+<button type="button" class="item" {disabled} class:today class:selected {onclick}>
   <Layer />
   {label}
 </button>
 
 <style>
   .item {
+    @apply --m3-body-small;
     display: inline-flex;
     width: 2.5rem;
     height: 2.5rem;
@@ -38,22 +32,22 @@
     justify-content: center;
 
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
     border: none;
     cursor: pointer;
-    transition: var(--m3-util-easing-fast);
+    transition: var(--m3-easing-fast);
     position: relative;
   }
   button:disabled {
     cursor: auto;
-    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    color: --translucent(var(--m3c-on-surface-variant), 0.38);
   }
   .today {
-    border: solid 1px rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-primary));
+    border: solid 1px var(--m3c-primary);
+    color: var(--m3c-primary);
   }
   .selected {
-    background-color: rgb(var(--m3-scheme-primary)) !important;
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--m3c-primary) !important;
+    color: var(--m3c-on-primary);
   }
 </style>

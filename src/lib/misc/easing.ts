@@ -1,7 +1,8 @@
 // TODO: update for Expressive
 const createBezierLUT = (points: [number, number][], pointCount = 100) => {
   const lut = [];
-  for (let t = 0; t < 1; t += 1 / pointCount) {
+  for (let n = 0; n <= pointCount; n++) {
+    const t = n / pointCount;
     const a = (1 - t) * (1 - t) * (1 - t);
     const b = (1 - t) * (1 - t) * t;
     const c = (1 - t) * t * t;
@@ -15,9 +16,9 @@ const createBezierLUT = (points: [number, number][], pointCount = 100) => {
 const createEase = (lutOptions: [number, number][][]) => {
   let lut: ReturnType<typeof createBezierLUT>;
   return (t: number) => {
-    if (!lut) lut = lutOptions.map((args) => createBezierLUT(args)).flat();
-    const closestPoint = lut.find((p) => p[0] >= t);
-    const closestY = closestPoint ? closestPoint[1] : 1;
+    if (!lut) lut = lutOptions.flatMap((args) => createBezierLUT(args));
+    const closestPoint = lut.find((p) => p[0] >= t)!;
+    const closestY = closestPoint[1];
     return closestY;
   };
 };

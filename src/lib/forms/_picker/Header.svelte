@@ -23,6 +23,11 @@
   const monthClick = () => (currentView = currentView == "calendar" ? "month" : "calendar");
   const getShortMonth = (month: number) =>
     new Date(0, month).toLocaleDateString(undefined, { month: "short" });
+
+  let prevMonth = $derived((focusedMonth - 1 + 12) % 12);
+  let nextMonth = $derived((focusedMonth + 1) % 12);
+  let prevYear = $derived(focusedYear - 1);
+  let nextYear = $derived(focusedYear + 1);
 </script>
 
 <div class="m3-container" class:choosing={currentView != "calendar"}>
@@ -30,22 +35,23 @@
     <button
       type="button"
       class="arrow"
-      onclick={() => (focusedMonth = (focusedMonth - 1 + 12) % 12)}
+      onclick={() => (focusedMonth = prevMonth)}
+      title={getShortMonth(prevMonth)}
     >
       <Layer />
       <Icon icon={iconLeft} />
     </button>
-    <button
-      type="button"
-      class="chooser m3-font-label-large"
-      onclick={monthClick}
-      disabled={currentView == "year"}
-    >
+    <button type="button" class="chooser" onclick={monthClick} disabled={currentView == "year"}>
       <Layer />
       {getShortMonth(focusedMonth)}
       <Icon icon={iconDown} />
     </button>
-    <button type="button" class="arrow" onclick={() => (focusedMonth = (focusedMonth + 1) % 12)}>
+    <button
+      type="button"
+      class="arrow"
+      onclick={() => (focusedMonth = nextMonth)}
+      title={getShortMonth(nextMonth)}
+    >
       <Layer />
       <Icon icon={iconRight} />
     </button>
@@ -55,17 +61,13 @@
       type="button"
       class="arrow"
       disabled={focusedYear <= startYear}
-      onclick={() => focusedYear--}
+      onclick={() => (focusedYear = prevYear)}
+      title={prevYear.toString()}
     >
       <Layer />
       <Icon icon={iconLeft} />
     </button>
-    <button
-      type="button"
-      class="chooser m3-font-label-large"
-      onclick={yearClick}
-      disabled={currentView == "month"}
-    >
+    <button type="button" class="chooser" onclick={yearClick} disabled={currentView == "month"}>
       <Layer />
       {focusedYear}
       <Icon icon={iconDown} />
@@ -74,7 +76,8 @@
       type="button"
       class="arrow"
       disabled={focusedYear >= endYear}
-      onclick={() => focusedYear++}
+      title={nextYear.toString()}
+      onclick={() => (focusedYear = nextYear)}
     >
       <Layer />
       <Icon icon={iconRight} />
@@ -100,7 +103,7 @@
     justify-content: center;
 
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
     border: none;
     padding: 0;
     cursor: pointer;
@@ -108,10 +111,11 @@
   }
   button:disabled {
     cursor: auto;
-    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    color: --translucent(var(--m3c-on-surface-variant), 0.38);
   }
 
   .chooser {
+    @apply --m3-label-large;
     flex-grow: 1;
   }
   .chooser :global(svg) {
@@ -129,7 +133,7 @@
   }
 
   .choosing {
-    border-color: rgb(var(--m3-scheme-outline-variant));
+    border-color: var(--m3c-outline-variant);
   }
   .choosing .arrow {
     opacity: 0;
