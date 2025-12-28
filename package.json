@@ -31,28 +31,32 @@
       "types": "./package/index.d.ts",
       "svelte": "./package/index.js"
     },
-    "./misc/styles.css": {
-      "style": "./package/misc/styles.css"
+    "./etc/styles.css": {
+      "style": "./package/etc/styles.css"
     },
-    "./misc/recommended-styles.css": {
-      "style": "./package/misc/recommended-styles.css"
+    "./etc/recommended-styles.css": {
+      "style": "./package/etc/recommended-styles.css"
     },
-    "./misc/tailwind-styles.css": {
-      "style": "./package/misc/tailwind-styles.css"
+    "./etc/tailwind-styles.css": {
+      "style": "./package/etc/tailwind-styles.css"
     },
-    "./misc/unocss-preset": {
-      "types": "./package/misc/unocss-preset.d.ts",
-      "import": "./package/misc/unocss-preset.js"
+    "./etc/unocss-preset": {
+      "types": "./package/etc/unocss-preset.d.ts",
+      "import": "./package/etc/unocss-preset.js"
+    },
+    "./etc/colors": {
+      "types": "./package/etc/colors.d.ts",
+      "import": "./package/etc/colors.js"
     }
   },
   "dependencies": {
     "@iconify/types": "^2.0.0",
-    "@ktibow/iconset-material-symbols": "~0.0.1764827375",
-    "@ktibow/material-color-utilities-nightly": "^0.3.11763580498000"
+    "@ktibow/iconset-material-symbols": "~0.0.1764827375"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.0",
     "@eslint/js": "^9.39.2",
+    "@ktibow/material-color-utilities-nightly": "^0.3.11763580498000",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.49.1",
     "@sveltejs/package": "^2.5.7",

@@ -77,7 +77,7 @@
 <h2>So what's going on here?</h2>
 <p>
   We're using M3 Svelte globals. All, except colors, were defined in <a
-    href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/misc/styles.css">styles.css</a
+    href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/etc/styles.css">styles.css</a
   >. All can be used and overridden in your own app. You can categorize these into...
 </p>
 <h3>Colors</h3>

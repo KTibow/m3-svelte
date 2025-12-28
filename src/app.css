@@ -1,5 +1,5 @@
-@import "$lib/misc/styles.css";
-@import "$lib/misc/recommended-styles.css";
+@import "$lib/etc/styles.css";
+@import "$lib/etc/recommended-styles.css";
 
 :root {
   @apply --m3-body-large;

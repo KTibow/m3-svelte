@@ -20,8 +20,8 @@
     primaryContainerSubtle,
     secondaryContainerSubtle,
     tertiaryContainerSubtle,
-  } from "$lib/misc/colors";
-  import { genCSS } from "$lib/misc/utils";
+    genCSS,
+  } from "$lib/etc/colors";
   import ColorDot from "./ColorDot.svelte";
 
   let {
@@ -39,7 +39,7 @@
   let grabbing = $state(false);
 
   $effect(() => {
-    let cs = colors.filter((c) => c.name != "background" && c.name != "on_background");
+    let cs = colors;
     if (!includeDimBright) {
       cs = cs.filter((c) => !c.name.includes("dim") && !c.name.includes("bright"));
     }
@@ -69,13 +69,13 @@
   });
 
   const copyUsage = () => {
-    const innerStyles = `@import "m3-svelte/misc/styles.css";
-@import "m3-svelte/misc/recommended-styles.css";`;
+    const innerStyles = `@import "m3-svelte/etc/styles.css";
+@import "m3-svelte/etc/recommended-styles.css";`;
     navigator.clipboard.writeText(
       ($appType == "tailwind"
         ? `@import "tailwindcss";
 ${innerStyles}
-@import "m3-svelte/misc/tailwind-styles.css";`
+@import "m3-svelte/etc/tailwind-styles.css";`
         : innerStyles) +
         "\n" +
         $styling,

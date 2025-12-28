@@ -6,7 +6,7 @@
     type Variant,
   } from "@ktibow/material-color-utilities-nightly";
   import iconContrast from "@ktibow/iconset-material-symbols/contrast";
-  import { materialColors } from "$lib/misc/colors";
+  import { materialColors } from "$lib/etc/colors";
   import Slider from "$lib/forms/Slider.svelte";
   import Select from "$lib/forms/Select.svelte";
   import Layer from "$lib/misc/Layer.svelte";

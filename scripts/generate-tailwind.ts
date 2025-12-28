@@ -1,5 +1,5 @@
 import { writeFile } from "node:fs/promises";
-import { colors } from "../src/lib/misc/colors.ts";
+import { colors } from "../src/lib/etc/colors.ts";
 
 const easings = ["-fast-spatial", "-spatial", "-slow-spatial", "-fast", "", "-slow"];
 const easingsTF = ["-emphasized", "-emphasized-accel", "-emphasized-decel"];
@@ -86,4 +86,4 @@ ${fontClasses
   }
 }
 `;
-await writeFile("src/lib/misc/tailwind-styles.css", style);
+await writeFile("src/lib/etc/tailwind-styles.css", style);

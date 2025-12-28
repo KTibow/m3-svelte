@@ -3,6 +3,7 @@ import {
   DynamicColor,
   ContrastCurve,
 } from "@ktibow/material-color-utilities-nightly";
+import type { DynamicScheme } from "@ktibow/material-color-utilities-nightly";
 
 export const materialColors = new MaterialDynamicColors();
 // Generates on-on-primary for Switch, read more: https://ktibow.github.io/blog/humanresearch/ononprimary/
@@ -67,8 +68,7 @@ export const onErrorContainerSubtle = DynamicColor.fromPalette({
 });
 
 export const colors = [
-  // background is deprecated, need to move filtering it out from utils.ts to here
-  ...materialColors.allColors,
+  ...materialColors.allColors.filter((c) => c.name != "background" && c.name != "on_background"),
   materialColors.shadow(),
   materialColors.scrim(),
   onOnPrimary,
@@ -82,18 +82,33 @@ export const colors = [
   onErrorContainerSubtle,
 ];
 
-/** @deprecated */
-export const pairs = [
-  [materialColors.primary(), materialColors.onPrimary()],
-  [materialColors.primaryContainer(), materialColors.onPrimaryContainer()],
-  [materialColors.secondary(), materialColors.onSecondary()],
-  [materialColors.secondaryContainer(), materialColors.onSecondaryContainer()],
-  [materialColors.tertiary(), materialColors.onTertiary()],
-  [materialColors.tertiaryContainer(), materialColors.onTertiaryContainer()],
-  [materialColors.background(), materialColors.onBackground()],
-  [materialColors.surface(), materialColors.onSurface()],
-  [materialColors.inverseSurface(), materialColors.inverseOnSurface()],
-  [materialColors.surfaceVariant(), materialColors.onSurfaceVariant()],
-  [materialColors.error(), materialColors.onError()],
-  [materialColors.errorContainer(), materialColors.onErrorContainer()],
-];
+// default cs value is deprecated
+export const genCSS = (light: DynamicScheme, dark: DynamicScheme, cs: DynamicColor[]) => {
+  const genColorVariable = (name: string, argb: number) => {
+    const kebabCase = name.replaceAll("_", "-");
+    const hex = argb.toString(16).slice(-6);
+    return `    --m3c-${kebabCase}: #${hex};`;
+  };
+  const lightColors = cs
+    .map((color) => genColorVariable(color.name, color.getArgb(light)))
+    .join("\n");
+  const darkColors = cs
+    .map((color) => genColorVariable(color.name, color.getArgb(dark)))
+    .join("\n");
+  return `@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+  }
+  :root, ::backdrop {
+${lightColors}
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+  :root, ::backdrop {
+${darkColors}
+  }
+}`;
+};

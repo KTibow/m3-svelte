@@ -1,14 +1,12 @@
+export * from "./misc/animation.js";
+export * from "./misc/badge.js";
 export { default as ChipChooser } from "./misc/ChipChooser.svelte";
 export { default as Divider } from "./misc/Divider.svelte";
+export * from "./misc/easing.js";
 export { default as Icon } from "./misc/Icon.svelte";
 export { default as Layer } from "./misc/Layer.svelte";
-export * from "./misc/animation.js";
-export * from "./misc/colors.js";
 export * from "./misc/shapes.js";
 export * from "./misc/shapesAnimatable.js";
-export * from "./misc/utils.js";
-export * from "./misc/easing.js";
-export * from "./misc/badge.js";
 
 export { default as Button } from "./buttons/Button.svelte";
 export { default as ConnectedButtons } from "./buttons/ConnectedButtons.svelte";
