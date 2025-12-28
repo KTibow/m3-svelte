@@ -13,7 +13,7 @@ export function demosPlugin(): Plugin {
       if (id === VIRTUAL_PREFIX) {
         return RESOLVED_PREFIX + "index.js";
       } else if (id.startsWith(VIRTUAL_PREFIX)) {
-        return RESOLVED_PREFIX + id.slice(VIRTUAL_PREFIX.length + '/'.length) + ".svelte";
+        return RESOLVED_PREFIX + id.slice(VIRTUAL_PREFIX.length + "/".length) + ".svelte";
       }
     },
     async load(id) {
@@ -21,7 +21,20 @@ export function demosPlugin(): Plugin {
       const demos = await loadDemos();
 
       if (id === RESOLVED_PREFIX + "index.js") {
-        return `export default await Promise.all([ ${demos.map((_, index) => `import("${VIRTUAL_PREFIX + "/" + index}").then(m => m.default)`).join(", ")} ])`;
+        const imports: string[] = [];
+        const exports: string[] = [];
+
+        demos.forEach(({ friendlyName }, index) => {
+          if (friendlyName === "Shapes") {
+            exports.push(`import("${VIRTUAL_PREFIX + "/" + index}").then(m => m.default)`);
+          } else {
+            const name = "Demo" + index;
+            imports.push(`import ${name} from "${VIRTUAL_PREFIX + "/" + index}"`);
+            exports.push(name);
+          }
+        });
+
+        return `${imports.join("\n")}\nexport default [ ${exports.join(",")} ]`;
       }
       if (!id.endsWith(".svelte")) return;
 

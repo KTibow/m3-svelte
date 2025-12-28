@@ -48,8 +48,10 @@
 <div class="side-wrapper">
   <Hero />
   <div class="cards">
-    {#each Demos as Demo}
-      <Demo {showCode} />
+    {#each Demos as DemoPromise}
+      {#await DemoPromise then Demo}
+        <Demo {showCode} />
+      {/await}
     {/each}
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}

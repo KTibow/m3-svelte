@@ -7,6 +7,6 @@ declare module "virtual:demo" {
       relevantLinks: { title: string; link: string }[],
     ) => void;
   }>;
-  const components: Demo[];
+  const components: (Demo | Promise<Demo>)[];
   export default components;
 }
