@@ -15,7 +15,7 @@
   } & ActionProps = $props();
 </script>
 
-{#if "onclick" in extra}
+{#if extra.onclick}
   <button type="button" class="m3-container {variant}" {...extra}>
     <Layer />
     {@render children()}
