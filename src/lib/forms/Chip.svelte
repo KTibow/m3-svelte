@@ -3,9 +3,10 @@
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/Icon.svelte";
   import Layer from "$lib/misc/Layer.svelte";
-  import type { AnchorAttrs, LabelAttrs, ButtonAttrs } from "$lib/misc/typing-utils";
+  import type { AnchorAttrs, ButtonAttrs, NotLink } from "$lib/misc/typing-utils";
+  import type { HTMLLabelAttributes } from "svelte/elements";
 
-  type ActionProps = AnchorAttrs | LabelAttrs | ButtonAttrs;
+  type ActionProps = AnchorAttrs | (NotLink<HTMLLabelAttributes> & { label: true }) | ButtonAttrs;
 
   let {
     variant,
@@ -49,7 +50,7 @@
   <a class="m3-container {variant}" class:elevated class:selected {...extra}>
     {@render content()}
   </a>
-{:else if "for" in extra}
+{:else if "label" in extra}
   <label class="m3-container {variant}" class:elevated class:selected {...extra}>
     {@render content()}
   </label>

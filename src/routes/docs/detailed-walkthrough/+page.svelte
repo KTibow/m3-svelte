@@ -21,10 +21,11 @@
 <h2>
   Make your own components
   <ConnectedButtons>
-    <input type="radio" value="vanilla" id="apptype-vanilla" bind:group={$appType} />
-    <Button for="apptype-vanilla" variant="filled" square>Vanilla</Button>
-    <input type="radio" value="tailwind" id="apptype-tailwind" bind:group={$appType} />
-    <Button for="apptype-tailwind" variant="filled" square>Tailwind</Button>
+    <Button square label><input type="radio" value="vanilla" bind:group={$appType} />Vanilla</Button
+    >
+    <Button square label
+      ><input type="radio" value="tailwind" bind:group={$appType} />Tailwind</Button
+    >
   </ConnectedButtons>
 </h2>
 {#if $appType == "tailwind"}

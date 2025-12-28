@@ -51,9 +51,6 @@ let enabled = $state(true);
 </label>
 {#snippet demo()}
   <div>
-    {#if action == "toggle"}
-      <input type="checkbox" id="button-input" disabled={!enabled} />
-    {/if}
     <Button
       {variant}
       {square}
@@ -61,10 +58,13 @@ let enabled = $state(true);
       {...{
         click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
-        toggle: { for: "button-input" },
+        toggle: { label: true },
       }[action]}
       {iconType}
     >
+      {#if action == "toggle"}
+        <input type="checkbox" disabled={!enabled} />
+      {/if}
       {#if iconType == "none"}
         Hello
       {:else if iconType == "left"}
@@ -91,8 +91,8 @@ Minimal demo:
 
 ```svelte
 <ConnectedButtons>
-  <TogglePrimitive bind:toggle={itemA}>A</TogglePrimitive>
-  <TogglePrimitive bind:toggle={itemB}>B</TogglePrimitive>
+  <Button><input type="checkbox" bind:checked={itemA}/>A</Button>
+  <Button><input type="checkbox" bind:checked={itemB}/>B</Button>
 </ConnectedButtons>
 ```
 
@@ -101,7 +101,6 @@ Full demo:
 ```use
 ConnectedButtons
 Button
-TogglePrimitive
 ```
 
 ```ts
@@ -125,18 +124,9 @@ let sizeIndex = $state(1);
 {#snippet demo()}
   {@const size = sizes[sizeIndex]}
   <ConnectedButtons>
-    {#if multiselect}
-      <TogglePrimitive toggle={true} {variant} {size}>Alpha</TogglePrimitive>
-      <TogglePrimitive toggle={false} {variant} {size}>Beta</TogglePrimitive>
-      <TogglePrimitive toggle={false} {variant} {size}>Charlie</TogglePrimitive>
-    {:else}
-      <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-      <Button for="segmented-b-0" {variant} {size} square>Alpha</Button>
-      <input type="radio" name="segmented-b" id="segmented-b-1" />
-      <Button for="segmented-b-1" {variant} {size} square>Beta</Button>
-      <input type="radio" name="segmented-b" id="segmented-b-2" />
-      <Button for="segmented-b-2" {variant} {size} square>Charlie</Button>
-    {/if}
+    <Button {variant} {size} square label><input type={multiselect ? "checkbox" : "radio"} checked name="connectedbuttons"/>Alpha</Button>
+    <Button {variant} {size} square label><input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons"/>Beta</Button>
+    <Button {variant} {size} square label><input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons"/>Charlie</Button>
   </ConnectedButtons>
 {/snippet}
 ```

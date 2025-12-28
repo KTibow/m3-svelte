@@ -40,8 +40,8 @@
 <div class="content variants">
   {#each variants as { id, name, desc }}
     {@const { light, dark } = schemes[id]}
-    <label for="variants-{id}">
-      <input type="radio" bind:group={variant} name="variants" value={id} id="variants-{id}" />
+    <label>
+      <input type="radio" bind:group={variant} name="variants" value={id} />
       <div
         style:background-color="light-dark({variantColor(light, materialColors.primaryContainer())}, {variantColor(
           dark,
@@ -85,16 +85,20 @@
         }
       />
       <ConnectedButtons>
-        <input type="radio" value="2021" id="specversion-2021" bind:group={specVersion} />
-        <Button for="specversion-2021" square size="m">2021</Button>
-        <input type="radio" value="2025" id="specversion-2025" bind:group={specVersion} />
-        <Button for="specversion-2025" square size="m">2025</Button>
+        <Button square label size="m"
+          ><input type="radio" value="2021" bind:group={specVersion} />2021</Button
+        >
+        <Button square label size="m"
+          ><input type="radio" value="2025" bind:group={specVersion} />2025</Button
+        >
       </ConnectedButtons>
       <ConnectedButtons>
-        <input type="checkbox" id="enable-dimbright" bind:checked={includeDimBright} />
-        <Button for="enable-dimbright" square size="m">Include Dim/Bright</Button>
-        <input type="checkbox" id="enable-fixed" bind:checked={includeFixed} />
-        <Button for="enable-fixed" square size="m">Include Fixed</Button>
+        <Button square label size="m"
+          ><input type="checkbox" bind:checked={includeDimBright} />Include Dim/Bright</Button
+        >
+        <Button square label size="m"
+          ><input type="checkbox" bind:checked={includeFixed} />Include Fixed</Button
+        >
       </ConnectedButtons>
     </div>
     <div>

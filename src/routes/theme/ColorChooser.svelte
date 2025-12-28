@@ -19,35 +19,33 @@
 <div style:background-color={hexFromArgb(sourceColor)} class="color-disc">
   <div class="color-text">Color</div>
   <div>
-    <Button variant="text" iconType="full" title="Pick a color" for="color-input">
+    <Button variant="text" iconType="full" title="Pick a color" label>
+      <input
+        type="color"
+        value="#000000"
+        oninput={(e) => (sourceColor = argbFromHex(e.currentTarget.value))}
+      />
       <Icon icon={iconColorLens} />
     </Button>
-    <Button variant="text" iconType="full" title="Pick from an image" for="file-input">
+    <Button variant="text" iconType="full" title="Pick from an image" label>
+      <input
+        type="file"
+        accept="image/*"
+        onchange={(e) => {
+          if (!e.currentTarget.files) return;
+          const reader = new FileReader();
+          reader.onload = async () => {
+            const image = new Image();
+            image.src = String(reader.result);
+            sourceColor = await sourceColorFromImage(image);
+          };
+          reader.readAsDataURL(e.currentTarget.files[0]);
+        }}
+      />
       <Icon icon={iconImage} />
     </Button>
   </div>
 </div>
-<input
-  type="color"
-  id="color-input"
-  value="#000000"
-  oninput={(e) => (sourceColor = argbFromHex(e.currentTarget.value))}
-/>
-<input
-  type="file"
-  id="file-input"
-  accept="image/*"
-  onchange={(e) => {
-    if (!e.currentTarget.files) return;
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const image = new Image();
-      image.src = String(reader.result);
-      sourceColor = await sourceColorFromImage(image);
-    };
-    reader.readAsDataURL(e.currentTarget.files[0]);
-  }}
-/>
 
 <style>
   input {

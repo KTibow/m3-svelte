@@ -157,8 +157,8 @@ ${innerStyles}
       </Button>
     {/if}
     <div class="spacer"></div>
-    <input type="checkbox" id="invert-toggle" bind:checked={inverted} />
-    <Button variant="tonal" iconType="full" title="Invert colors" for="invert-toggle">
+    <Button variant="tonal" iconType="full" title="Invert colors" label>
+      <input type="checkbox" bind:checked={inverted} />
       <Icon icon={iconInvert} />
     </Button>
   </div>
