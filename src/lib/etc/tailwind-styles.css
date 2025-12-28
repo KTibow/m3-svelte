@@ -40,8 +40,6 @@
   --default-transition-timing-function: var(--ease);
   --default-transition-duration: var(--m3-duration);
 
-  --color-background: var(--m3c-background);
-  --color-on-background: var(--m3c-on-background);
   --color-surface: var(--m3c-surface);
   --color-surface-dim: var(--m3c-surface-dim);
   --color-surface-bright: var(--m3c-surface-bright);

@@ -61,7 +61,7 @@
 {#if $appType == "tailwind"}
   <Snippet
     name="app.html"
-    html={/* html */ `<html class="m3-font-body-large bg-background text-on-background" lang="en">`}
+    html={/* html */ `<html class="m3-font-body-large bg-surface text-on-surface" lang="en">`}
   />
 {:else}
   <Snippet
