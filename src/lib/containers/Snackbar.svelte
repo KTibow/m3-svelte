@@ -80,7 +80,7 @@
   .holder {
     position: fixed;
     padding-bottom: 1rem;
-    bottom: var(--m3v-bottom-offset);
+    bottom: var(--m3v-bottom-offset, 0);
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 3;
