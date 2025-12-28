@@ -3,7 +3,7 @@
   import type { IconifyIcon } from "@iconify/types";
 
   import Layer from "$lib/misc/Layer.svelte";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   let {
     label,
@@ -52,11 +52,11 @@
   .m3-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     cursor: pointer;
     gap: 4px;
     user-select: none;
-    width: fit-content;
+    width: max-content;
     position: relative;
     font-family: var(--m3-font-body, var(--m3-font));
     animation: none !important;
@@ -84,11 +84,17 @@
 
   .m3-container > span {
     z-index: 1;
+    width: 100%;
+    text-align: center;
   }
   
   .m3-container > :global(.ripple-container),
   .m3-container > :global(.tint) {
     border-radius: var(--m3-util-rounding-full);
+  }
+  
+  :global(.rail.open > .items) .m3-container {
+    animation: 3s open;
   }
 
   :global(.rail:not(.open) > .items) .m3-container {
@@ -99,7 +105,7 @@
     border-radius: var(--m3-util-rounding-full);
     margin: auto;
     margin-inline-start: 20px;
-    width: 56px;
+    width: calc(100% - 40px);
     text-align: center;
   }
 
@@ -169,16 +175,6 @@
     border-radius: var(--m3-util-rounding-full);
   }
 
-  :global(.rail.open > .items) .m3-container.active::before {
-    background: rgb(var(--m3-scheme-secondary-container));
-  }
-
-  :global(.rail.open > .items) .m3-container.active {
-    color: rgb(var(--m3-scheme-on-secondary-container));
-    width: max-content;
-    overflow: hidden;
-  }
-
   :global(.rail.open > .items) .m3-container:not(.active):hover::before {
     background: color-mix(in oklab, currentColor 8%, transparent);
   }
@@ -199,5 +195,21 @@
   :global(.rail.open > .items) .icon {
     width: 24px;
     height: 24px;
+  }
+  
+  @keyframes open {
+    0% {
+      width: max-content;
+      
+      &::before {
+        background-color: rgb(var(--m3-scheme-secondary-container));
+        color: rgb(var(--m3-scheme-on-secondary-container));
+        overflow: hidden;
+      }
+    }
+    
+    100% {
+      display: none;
+    }
   }
 </style>

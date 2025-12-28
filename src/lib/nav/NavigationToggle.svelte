@@ -3,7 +3,7 @@
   import iconMenu from "@ktibow/iconset-material-symbols/menu";
   import { onMount } from "svelte";
   
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   
   let noAnimations = $state<boolean>(true);
   let {
@@ -19,7 +19,7 @@
 </script>
 
 <button class="toggle" class:active class:noAnimations type="button" id={(mode === 'detached' ? !active : (mode === 'inline-detached' ? active : true)) ? "m3-navigationtoggle" : undefined} aria-haspopup="true" aria-controls="menu" onclick={() => (active = !active)}>
-    <Icon icon={active ? iconMenuOpen : iconMenu} />
+  <Icon icon={active ? iconMenuOpen : iconMenu} />
 </button>
 
 <style>
