@@ -1,5 +1,30 @@
-@function --translucent(--color, --opacity) {
-  result: oklab(from var(--color) l a b / var(--opacity));
+@layer base {
+  /* Reset a few things */
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+  .m3-container {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .m3-container a,
+  a.m3-container {
+    text-decoration: none;
+  }
+  .m3-container dialog,
+  dialog.m3-container {
+    margin: auto;
+  }
+
+  :root {
+    accent-color: var(--m3c-primary);
+  }
+  :focus-visible {
+    outline: none;
+    @apply --m3-focused-outward;
+  }
 }
 
 @layer tokens {
@@ -235,29 +260,40 @@ or for very small text in the content body, such as captions. */
   /*letter-spacing: 0.025rem;*/
   font-weight: 400;
 }
-@layer base {
-  /* Reset a few things */
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-  }
-  .m3-container {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .m3-container a,
-  a.m3-container {
-    text-decoration: none;
-  }
-  .m3-container dialog,
-  dialog.m3-container {
-    margin: auto;
-  }
 
-  :root {
-    accent-color: var(--m3c-primary);
+@keyframes focus-outward {
+  0% {
+    box-shadow: 0 0 0 0px var(--m3c-secondary);
   }
+  100% {
+    box-shadow: 0 0 0 3px var(--m3c-secondary);
+  }
+}
+@keyframes focus-inward {
+  0% {
+    box-shadow: inset 0 0 0 0px var(--m3c-secondary);
+  }
+  100% {
+    box-shadow: inset 0 0 0 3px var(--m3c-secondary);
+  }
+}
+@mixin --m3-focused-outward {
+  animation: focus-outward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
+}
+@mixin --m3-focused-inward {
+  animation: focus-inward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
+}
+@mixin --m3-focus-inward {
+  &:focus-visible {
+    @apply --m3-focused-inward;
+  }
+}
+@mixin --m3-focus-none {
+  animation: none;
+}
+
+@function --translucent(--color, --opacity) {
+  result: oklab(from var(--color) l a b / var(--opacity));
 }
 
 /* Emphasized easing timing function derived from this code:

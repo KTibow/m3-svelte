@@ -179,7 +179,7 @@
       pointer-events: none;
     }
     &:has(> input:focus-visible) {
-      animation: var(--m3-refocus-outward);
+      @apply --m3-focused-outward;
     }
     > * {
       display: flex;

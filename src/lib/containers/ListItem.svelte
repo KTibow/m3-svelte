@@ -86,7 +86,7 @@
 
 <style>
   .m3-container {
-    @apply --m3-focus-inset;
+    @apply --m3-focus-inward;
     display: flex;
     justify-self: stretch;
     padding: 0.5rem 1.5rem 0.5rem 1rem;

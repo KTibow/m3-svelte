@@ -32,7 +32,7 @@
 <style>
   .item {
     @apply --m3-label-large;
-    @apply --m3-focus-inset;
+    @apply --m3-focus-inward;
     display: flex;
     align-items: center;
     height: --m3-density(3rem);

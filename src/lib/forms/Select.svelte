@@ -166,7 +166,7 @@
   }
 
   option {
-    @apply --m3-focus-inset;
+    @apply --m3-focus-inward;
     display: grid;
     grid-template-columns: auto 1fr;
     padding-inline: 1rem;
