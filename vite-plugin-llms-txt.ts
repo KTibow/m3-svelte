@@ -10,8 +10,12 @@ async function generateLlmsTxt(): Promise<string> {
   const layoutSvelteDemo = await readFile("scripts/demo-clone/+layout.svelte", "utf8");
   const pageSvelteDemo = await readFile("scripts/demo-clone/+page.svelte", "utf8");
 
-  const quickStartDoc = await readFile("src/routes/docs/quick-start/+page.svelte", "utf8");
-  const walkthroughDoc = await readFile("src/routes/docs/detailed-walkthrough/+page.svelte", "utf8");
+  const quickStartDoc = (await readFile("src/routes/docs/quick-start/+page.svelte", "utf8")).split(
+    "</script>\n\n",
+  )[1];
+  const walkthroughDoc = (
+    await readFile("src/routes/docs/detailed-walkthrough/+page.svelte", "utf8")
+  ).split("</script>\n\n")[1];
 
   let llmsTxt = await readFile("scripts/llms-txt-template.md", "utf8");
 
