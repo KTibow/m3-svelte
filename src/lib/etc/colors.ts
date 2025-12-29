@@ -83,27 +83,20 @@ export const colors = [
 ];
 
 export const genCSS = (light: DynamicScheme, dark: DynamicScheme, cs: DynamicColor[]) => {
-  const genColorVariable = (name: string, argb: number) => {
+  const genColorVariable = (name: string, lightArgb: number, darkArgb: number) => {
     const kebabCase = name.replaceAll("_", "-");
-    const hex = argb.toString(16).slice(-6);
-    return `    --m3c-${kebabCase}: #${hex};`;
+    const lightHex = lightArgb.toString(16).slice(-6);
+    const darkHex = darkArgb.toString(16).slice(-6);
+    const value = lightHex == darkHex ? `#${lightHex}` : `light-dark(#${lightHex}, #${darkHex})`;
+    return `    --m3c-${kebabCase}: ${value};`;
   };
-  const lightColors = cs
-    .map((color) => genColorVariable(color.name, color.getArgb(light)))
+  const colors = cs
+    .map((color) => genColorVariable(color.name, color.getArgb(light), color.getArgb(dark)))
     .join("\n");
-  const darkColors = cs
-    .map((color) => genColorVariable(color.name, color.getArgb(dark)))
-    .join("\n");
-  return `@media (prefers-color-scheme: light) {
+  return `@layer tokens {
   :root {
-    color-scheme: light;
-${lightColors}
-  }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-${darkColors}
+    color-scheme: light dark;
+${colors}
   }
 }`;
 };

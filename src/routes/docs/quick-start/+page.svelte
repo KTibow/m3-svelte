@@ -173,7 +173,7 @@ export default defineConfig({
   }
   code {
     font-size: 0.9rem;
-    background-color: var(--m3c-surface-variant);
+    background-color: var(--m3c-surface-container-highest);
     padding-inline: 2px;
     border-radius: 0.3rem;
   }

@@ -82,42 +82,32 @@
 {/if}
 
 <h2>So what's going on here?</h2>
-<p>
-  We're using M3 Svelte globals. All, except colors, were defined in <a
+<p>We're using M3 Svelte globals.</p>
+<p class="styles-defined">
+  Some globals are defined in <a
     href="https://github.com/KTibow/m3-svelte/blob/main/src/lib/etc/styles.css">styles.css</a
-  >. All can be used and overridden in your own app. You can categorize these into...
+  >. If you want to change them, nothing's stopping you from overriding them in your own theme.
 </p>
-<h3>Colors</h3>
-<p>
-  These start with <code>--m3c-</code> and are defined in your theme. If you want a list of them, just
-  read your theme's code!
-</p>
-<p>
-  <em>
-    For new themes, background, dim, bright, and fixed colors aren't included by default. There's an
-    option on the theme page to include dim/bright and to include fixed colors.
-  </em>
+<p class="theme-defined">
+  Other globals are defined directly in your theme - you can read and write them there.
 </p>
 <h3>Tokens</h3>
 <p>
-  The truths of Material 3. They have a predefined value and live in
-  <code>@layer tokens</code>. Some examples:
+  These live in <code>@layer tokens</code>. M3 Svelte defines many, like
+  <span class="styles-defined">elevations</span>
+  (<code>--m3-elevation-0</code> through <code>--m3-elevation-5</code>) and
+  <span class="styles-defined">shapes</span> (<code>--m3-shape-[size]</code> where size is none,
+  extra-small, small, medium, large, extra-large, or full).
+  <span class="theme-defined">Colors</span>, the
+  <code>--m3c-</code> variables, are also tokens.
 </p>
-<p>
-  Elevations: <code>--m3-elevation-0</code> through <code>--m3-elevation-5</code>
-</p>
-<p>
-  Shapes: <code>--m3-shape-[size]</code> where size is none, extra-small, small, medium, large, extra-large,
-  or full.
-</p>
-<p>M3 theming beyond the theme page is possible - you can modify these directly.</p>
 <p>
   We recommend using <a href="https://www.npmjs.com/package/vite-plugin-token-shaker"
     >vite-plugin-token-shaker</a
   > to minify tokens by dropping unused ones, inlining rarely used ones, and mangling commonly used ones.
 </p>
 <h3>Variables</h3>
-<p>These start with <code>--m3v-</code>, but only a few can be set:</p>
+<p>These start with <code>--m3v-</code>, and let you send information to M3 Svelte.</p>
 <ul>
   <li>Set <code>--m3v-bottom-offset</code> to shift up snackbars</li>
   <li>Set <code>--m3v-background</code> to calibrate the color of an outlined field's box</li>
@@ -125,16 +115,21 @@
 <h3>Functions</h3>
 <p>These are shorthands for specific logic. M3 Svelte only has a few:</p>
 <ul>
-  <li><code>--translucent([color], [opacity])</code> makes a color semitransparent</li>
-  <li><code>--m3-density([size])</code> (theme-defined) adjusts a size</li>
+  <li>
+    <code class="styles-defined">--translucent([color], [opacity])</code> makes a color semitransparent
+  </li>
+  <li><code class="theme-defined">--m3-density([size])</code> adjusts a size</li>
 </ul>
 <h3>Mixins</h3>
 <p>
-  These are shorthands for specific properties, applied with <code>@apply --[name]</code>. M3
-  Svelte's only global mixins are for font styles: <code>@apply --m3-[scale]-[size]</code>.
+  These are shorthands for specific properties, applied with <code>@apply --[name]</code>.
 </p>
-<p>Scales: display, headline, title, body, label. Sizes: large, medium, small.</p>
-<p>You can override these to make your own theme.</p>
+<p>
+  M3 Svelte's built in mixins: <span class="styles-defined">font styles</span>
+  (<code>@apply --m3-[scale]-[size]</code>. scales: display, headline, title, body, label. sizes:
+  large, medium, small) and <span class="styles-defined">focus styles</span>
+  (<code>@apply --m3-focus-inward</code> and <code>@apply --m3-focus-none</code>).
+</p>
 
 <style>
   p {
@@ -156,11 +151,26 @@
   }
   code {
     font-size: 0.9rem;
-    background-color: var(--m3c-surface-variant);
+    background-color: var(--m3c-surface-container-highest);
     padding-inline: 2px;
     border-radius: 0.25rem;
   }
   a {
     color: var(--m3c-primary);
+  }
+  .styles-defined {
+    background-color: var(--m3c-primary-container-subtle);
+    color: var(--m3c-on-primary-container-subtle);
+  }
+  .theme-defined {
+    background-color: var(--m3c-tertiary-container-subtle);
+    color: var(--m3c-on-tertiary-container-subtle);
+  }
+  p.styles-defined,
+  p.theme-defined {
+    padding-inline: 0.25rem;
+    margin-inline: -0.25rem;
+    border-radius: var(--m3-shape-small);
+    align-self: start;
   }
 </style>
