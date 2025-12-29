@@ -42,12 +42,12 @@
 {#if $appType == "tailwind"}
   <Snippet
     name="Component.svelte"
-    html={/* svelte */ `<${""}button class="rounded-full bg-surface-container-low text-primary shadow-1">Click me</${""}button>`}
+    html={/* svelte */ `<${""}button class="rounded-full bg-surface-container-low text-primary shadow-1 m3-layer">Click me</${""}button>`}
   />
 {:else}
   <Snippet
     name="Component.svelte"
-    html={/* svelte */ `<${""}button>Click me</${""}button>
+    html={/* svelte */ `<${""}button class="m3-layer">Click me</${""}button>
 <${""}style>
   button {
     background-color: var(--m3c-surface-container-low);
@@ -58,6 +58,12 @@
 </${""}style>`}
   />
 {/if}
+<p>
+  If layers don't work on your own components, or even in M3 Svelte's, you may need to <code
+    >import "m3-svelte/etc/layer"</code
+  >.
+</p>
+
 <h2>Apply your theme</h2>
 {#if $appType == "tailwind"}
   <Snippet

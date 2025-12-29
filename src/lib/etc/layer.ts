@@ -1,3 +1,5 @@
+import "./layer.css";
+
 const activePointerRipples: (() => void)[] = [];
 const activeKeyboardRipples: (() => void)[] = [];
 

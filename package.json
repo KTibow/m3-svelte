@@ -96,7 +96,9 @@
     "ui-library",
     "theming"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "./package/etc/layer.js"
+  ],
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"

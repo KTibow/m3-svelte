@@ -1412,7 +1412,7 @@ Minimal demo:
 
 ```svelte
 <script>
-  import "m3-svelte/etc/layer";
+  // you may need to import "m3-svelte/etc/layer"
 </script>
 <button class="m3-layer">
   Hello

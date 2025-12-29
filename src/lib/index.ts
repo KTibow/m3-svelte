@@ -1,6 +1,3 @@
-import "./misc/layer.css";
-import "./misc/layer.js";
-
 export * from "./misc/animation.js";
 export * from "./misc/badge.js";
 export { default as ChipChooser } from "./misc/ChipChooser.svelte";
