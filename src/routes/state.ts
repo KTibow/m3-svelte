@@ -4,8 +4,6 @@ export const styling = writable(`
 @media (prefers-color-scheme: light) {
   :root {
     color-scheme: light;
-  }
-  :root, ::backdrop {
     --m3c-surface: #fdf7fe;
     --m3c-surface-container-lowest: #ffffff;
     --m3c-surface-container-low: #f8f1fa;
@@ -51,8 +49,6 @@ export const styling = writable(`
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-  }
-  :root, ::backdrop {
     --m3c-surface: #0f0d12;
     --m3c-surface-container-lowest: #000000;
     --m3c-surface-container-low: #141218;

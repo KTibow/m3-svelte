@@ -97,16 +97,12 @@ export const genCSS = (light: DynamicScheme, dark: DynamicScheme, cs: DynamicCol
   return `@media (prefers-color-scheme: light) {
   :root {
     color-scheme: light;
-  }
-  :root, ::backdrop {
 ${lightColors}
   }
 }
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-  }
-  :root, ::backdrop {
 ${darkColors}
   }
 }`;
