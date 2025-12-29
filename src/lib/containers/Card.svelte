@@ -50,12 +50,13 @@
     font: inherit;
     letter-spacing: inherit;
     cursor: pointer;
+    transition: box-shadow var(--m3-easing-fast);
   }
   @media (hover: hover) {
     button:hover {
       box-shadow: var(--m3-elevation-1);
     }
-    button.type-elevated:hover {
+    button.elevated:hover {
       box-shadow: var(--m3-elevation-2);
     }
   }
