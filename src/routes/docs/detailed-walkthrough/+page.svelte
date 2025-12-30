@@ -114,7 +114,7 @@
   <li>Set <code>--m3v-background</code> to calibrate the color of an outlined field's box</li>
 </ul>
 <h3>Functions</h3>
-<p>These are shorthands for specific logic. M3 Svelte only has a few:</p>
+<p>These are shorthands for specific logic, like:</p>
 <ul>
   <li>
     <code class="styles-defined">--translucent([color], [opacity])</code> makes a color semitransparent
