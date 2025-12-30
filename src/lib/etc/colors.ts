@@ -102,9 +102,11 @@ export const genCSS = (light: DynamicScheme, dark: DynamicScheme, cs: DynamicCol
   const colors = cs
     .map((color) => genColorVariable(color.name, color.getArgb(light), color.getArgb(dark)))
     .join("\n");
-  return `@layer tokens {
+  return `:root {
+  color-scheme: light dark;
+}
+@layer tokens {
   :root {
-    color-scheme: light dark;
 ${colors}
   }
 }`;
