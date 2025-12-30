@@ -89,7 +89,7 @@ const createRippleSvg = (
 
     const blur = document.createElementNS("http://www.w3.org/2000/svg", "feDisplacementMap");
     blur.setAttribute("in", "SourceGraphic");
-    blur.setAttribute("in2", "turbulence");
+    // implicitly uses result of previous filter primitive as in2
     blur.setAttribute("scale", `${size ** 2 * 0.0002}`);
     blur.setAttribute("xChannelSelector", "R");
     blur.setAttribute("yChannelSelector", "B");
