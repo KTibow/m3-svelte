@@ -51,9 +51,6 @@ let enabled = $state(true);
 </label>
 {#snippet demo()}
   <div>
-    {#if action == "toggle"}
-      <input type="checkbox" id="button-input" disabled={!enabled} />
-    {/if}
     <Button
       {variant}
       {square}
@@ -61,10 +58,13 @@ let enabled = $state(true);
       {...{
         click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
-        toggle: { for: "button-input" },
+        toggle: { label: true },
       }[action]}
       {iconType}
     >
+      {#if action == "toggle"}
+        <input type="checkbox" disabled={!enabled} />
+      {/if}
       {#if iconType == "none"}
         Hello
       {:else if iconType == "left"}
@@ -91,8 +91,8 @@ Minimal demo:
 
 ```svelte
 <ConnectedButtons>
-  <TogglePrimitive bind:toggle={itemA}>A</TogglePrimitive>
-  <TogglePrimitive bind:toggle={itemB}>B</TogglePrimitive>
+  <Button><input type="checkbox" bind:checked={itemA}/>A</Button>
+  <Button><input type="checkbox" bind:checked={itemB}/>B</Button>
 </ConnectedButtons>
 ```
 
@@ -101,7 +101,6 @@ Full demo:
 ```use
 ConnectedButtons
 Button
-TogglePrimitive
 ```
 
 ```ts
@@ -125,18 +124,9 @@ let sizeIndex = $state(1);
 {#snippet demo()}
   {@const size = sizes[sizeIndex]}
   <ConnectedButtons>
-    {#if multiselect}
-      <TogglePrimitive toggle={true} {variant} {size}>Alpha</TogglePrimitive>
-      <TogglePrimitive toggle={false} {variant} {size}>Beta</TogglePrimitive>
-      <TogglePrimitive toggle={false} {variant} {size}>Charlie</TogglePrimitive>
-    {:else}
-      <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-      <Button for="segmented-b-0" {variant} {size} square>Alpha</Button>
-      <input type="radio" name="segmented-b" id="segmented-b-1" />
-      <Button for="segmented-b-1" {variant} {size} square>Beta</Button>
-      <input type="radio" name="segmented-b" id="segmented-b-2" />
-      <Button for="segmented-b-2" {variant} {size} square>Charlie</Button>
-    {/if}
+    <Button {variant} {size} square label><input type={multiselect ? "checkbox" : "radio"} checked name="connectedbuttons"/>Alpha</Button>
+    <Button {variant} {size} square label><input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons"/>Beta</Button>
+    <Button {variant} {size} square label><input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons"/>Charlie</Button>
   </ConnectedButtons>
 {/snippet}
 ```
@@ -1359,6 +1349,207 @@ const [send, receive] = containerTransform({ duration: 1000 });
     {/if}
   </article>
 {/snippet}
+
+<style>
+  article {
+    display: grid;
+    height: 4rem;
+    > * {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+  .pane {
+    display: grid;
+    place-items: center;
+    background-color: var(--m3c-surface);
+    overflow: hidden;
+  }
+  .btn {
+    @apply --m3-label-large;
+    display: flex;
+    align-items: center;
+    place-self: center;
+
+    background-color: var(--m3c-primary);
+    color: var(--m3c-on-primary);
+    border: none;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    padding: 0 1rem;
+    cursor: pointer;
+  }
+  .expanded {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-image: linear-gradient(
+      to bottom right,
+      var(--m3c-primary-container-subtle),
+      var(--m3c-tertiary-container-subtle)
+    );
+    > p {
+      margin: 0;
+    }
+    > button {
+      background-color: unset;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font: unset;
+      font-weight: bold;
+      text-align: start;
+      cursor: pointer;
+    }
+  }
+</style>
+```
+
+## Layer
+
+Minimal demo:
+
+```svelte
+<script>
+  // you may need to import "m3-svelte/etc/layer"
+</script>
+<button class="m3-layer">
+  Hello
+</button>
+```
+
+Full demo:
+
+```use
+
+```
+
+```ts
+
+```
+
+```svelte
+{#snippet demo()}
+  <button class="m3-layer layer-demo">
+  </button>
+  <style>
+    .layer-demo {
+      min-height: 10rem;
+      border-radius: 1rem;
+      position: relative;
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
+    }
+  </style>
+{/snippet}
+```
+
+## Icons
+
+Minimal demo:
+
+```svelte
+<script>
+  import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
+</script>
+
+<Icon icon={iconCircle} />
+```
+
+Full demo:
+
+```use
+Icon
+Slider
+```
+
+```ts
+let size = $state(24);
+```
+
+```svelte
+<Slider bind:value={size} min={16} max={96} format={(n) => n.toFixed(0) + "px"} />
+
+{#snippet demo()}
+  <div
+    style:display="flex"
+    style:gap="1rem"
+    style:align-items="center"
+    style:justify-content="center"
+  >
+    <Icon icon={iconCircle} {size} />
+    <Icon icon={iconSquare} {size} />
+    <Icon icon={iconTriangle} {size} />
+  </div>
+{/snippet}
+```
+
+## Shapes
+
+Minimal demo:
+
+```svelte
+<script>
+  import { squarePath } from "m3-svelte";
+</script>
+
+<!-- go use it in an svg -->
+```
+
+Full demo:
+
+```use
+Button
+```
+
+```ts
+import iconGo from "@ktibow/iconset-material-symbols/arrow-forward-rounded";
+import * as _paths from "$lib/misc/shapes";
+import * as _pathsAnimatable from "$lib/misc/shapesAnimatable";
+import * as _pathsAnimatableSmall from "$lib/misc/shapesAnimatableSmall";
+import { snackbar } from "$lib/containers/Snackbar.svelte";
+import ShapeSelector from "/src/routes/ShapeSelector.svelte";
+
+const paths = _paths as Record<string, string>;
+const pathsAnimatable = _pathsAnimatable as Record<string, string>;
+const pathsAnimatableSmall = _pathsAnimatableSmall as Record<string, string>;
+let shape = $state("pathArch");
+let mode: "normal" | "animatable" | "animatable small" = $state("normal");
+```
+
+```svelte
+<ShapeSelector style="background-color:var(--m3c-surface-container)" bind:shape />
+<label>
+  <Arrows list={["normal", "animatable", "animatable small"]} bind:value={mode} />
+  {mode[0].toUpperCase() + mode.slice(1)} paths
+</label>
+
+{#snippet demo()}
+  <svg
+    width="4rem"
+    height="4rem"
+    style:margin="auto"
+    viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}
+  >
+    <path
+      class="shape"
+      d={mode == "animatable small"
+        ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")]
+        : mode == "animatable"
+          ? pathsAnimatable[shape.replace("path", "pathAnimatable")]
+          : paths[shape]}
+      fill="var(--m3c-primary)"
+    />
+  </svg>
+{/snippet}
+
+<style>
+  path.shape {
+    transition: d 200ms;
+  }
+</style>
 ```
 
 ## Navigation Rail

@@ -2,7 +2,6 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAnchorAttributes } from "svelte/elements";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
 
   let {
     secondary = false,
@@ -87,10 +86,10 @@
       href={item.href}
       class:tall={item.icon}
       class:selected={item.value == tab}
+      class="m3-layer"
       style:grid-column={i + 1}
       {...extra}
     >
-      <Layer />
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
@@ -121,7 +120,6 @@
     white-space: nowrap;
     padding: 0 1rem;
 
-    position: relative;
     display: flex;
     gap: 0.5rem;
     align-items: center;

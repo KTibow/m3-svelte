@@ -37,8 +37,7 @@
 </script>
 
 <div class="m3-container" class:leading-icon={leadingIcon} class:error use:resize>
-  <textarea class="focus-none" placeholder=" " bind:value {id} {disabled} {required} {...extra}
-  ></textarea>
+  <textarea placeholder=" " bind:value {id} {disabled} {required} {...extra}></textarea>
   <div class="layer"></div>
   <label for={id}>{label}</label>
   {#if leadingIcon}
@@ -65,12 +64,12 @@
   }
   textarea {
     @apply --m3-body-large;
+    @apply --m3-focus-none;
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: none;
-    outline: none;
     padding: 1rem;
     border-radius: var(--m3-field-outlined-shape);
     background-color: transparent;

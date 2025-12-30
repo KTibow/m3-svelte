@@ -12,6 +12,7 @@
   import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
   import { styling, density } from "./state";
   import "../app.css";
+  import "$lib/etc/layer";
   import Snackbar from "$lib/containers/Snackbar.svelte";
 
   let { children }: { children: Snippet } = $props();
@@ -37,11 +38,9 @@
     if (path.endsWith("/")) path = path.slice(0, -1);
     return path || "/";
   };
-  // deprecated: in future, will switch to first party --m3-density definition
-  // so --density instead of --m3v-density
 </script>
 
-{@html `<style>${$styling}:root { --m3v-density: ${$density == "variable" ? 0 : $density}; }</style>`}
+{@html `<style>${$styling}:root{--density:${$density == "variable" ? 0 : $density};}</style>`}
 <svelte:window bind:innerWidth />
 <Snackbar />
 <div class="container">

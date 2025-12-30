@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLOptionAttributes, HTMLSelectAttributes } from "svelte/elements";
-  import Layer from "$lib/misc/Layer.svelte";
   import Icon from "$lib/misc/Icon.svelte";
 
   type Option = { icon?: IconifyIcon; text: string; value: string } & HTMLOptionAttributes;
@@ -30,10 +29,9 @@
 >
   <select style:--width={width} bind:value {id} {...extra}>
     {#each options as { icon, text, ...extra }, i (i)}
-      <option class="focus-inset" {...extra}>
-        <Layer />
+      <option {...extra} class="m3-layer">
         {#if icon}
-          <Icon {icon} size={24} />
+          <Icon {icon} size={24} style="grid-row: 1" />
         {/if}
         {@render render(text)}
       </option>
@@ -102,7 +100,6 @@
       box-shadow var(--m3-easing-fast);
 
     border: none;
-    position: relative;
 
     &:enabled {
       cursor: pointer;
@@ -166,6 +163,7 @@
   }
 
   option {
+    @apply --m3-focus-inward;
     display: grid;
     grid-template-columns: auto 1fr;
     padding-inline: 1rem;
@@ -183,8 +181,7 @@
       color: var(--m3c-on-primary-container);
     }
 
-    > *,
-    > :global(svg) {
+    > * {
       grid-row: 1;
     }
     &::checkmark {

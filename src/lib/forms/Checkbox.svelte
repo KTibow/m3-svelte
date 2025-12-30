@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import Layer from "$lib/misc/Layer.svelte";
   import type { DivAttrs } from "$lib/misc/typing-utils";
 
   // MUST BE WRAPPED IN A <label>
@@ -14,8 +13,7 @@
 
 <div class="m3-container" {...extra}>
   {@render children()}
-  <div class="layer-container">
-    <Layer />
+  <div class="layer-container m3-layer">
     <div class="checkbox-box"></div>
   </div>
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

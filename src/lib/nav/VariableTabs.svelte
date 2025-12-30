@@ -2,7 +2,6 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLInputAttributes } from "svelte/elements";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
 
   let {
     secondary = false,
@@ -85,8 +84,7 @@
       oninput={handleInput}
       {...extra}
     />
-    <label for={id} class:tall={item.icon}>
-      <Layer />
+    <label for={id} class:tall={item.icon} class="m3-layer">
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
@@ -122,7 +120,6 @@
     white-space: nowrap;
     padding: 0 1rem;
 
-    position: relative;
     display: flex;
     gap: 0.5rem;
     align-items: center;

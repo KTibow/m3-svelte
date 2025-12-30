@@ -1,7 +1,6 @@
 <script lang="ts">
   import iconExpand from "@ktibow/iconset-material-symbols/keyboard-arrow-down";
   import type { Snippet } from "svelte";
-  import Layer from "$lib/misc/Layer.svelte";
   import Icon from "$lib/misc/Icon.svelte";
   import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
@@ -36,13 +35,11 @@
 </script>
 
 <div class="m3-container {variant}">
-  <button type="button" class="split" {...extra}>
-    <Layer />
+  <button type="button" class="split m3-layer" {...extra}>
     {@render children()}
   </button>
   <details class="align-{x} align-{y}" use:autoclose>
-    <summary class="split">
-      <Layer />
+    <summary class="split m3-layer">
       <Icon icon={iconExpand} size={22} />
     </summary>
     {@render menu()}
@@ -146,7 +143,7 @@
     }
     &:is(details[open] summary) {
       --inner-shape: var(--m3-split-button-outer-shape);
-      > :global(.tint) {
+      &::after {
         opacity: 0.08;
       }
       > :global(svg) {
