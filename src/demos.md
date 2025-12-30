@@ -1368,7 +1368,7 @@ Minimal demo:
 ```svelte
 <NavigationRail>
   {#snippet fab(open)}
-    <FAB color="primary-container" icon={iconEdit} text={open ? "Label" : ""} onclick={() => alert("!")} />
+    <FAB color="primary-container" text="Label" showLabel={open} elevation="none" onclick={() => alert("!")} />
   {/snippet}
 
   <NavigationRailItem label="Label" icon={iconStars} active />
@@ -1422,10 +1422,10 @@ let modal = $state<boolean>(false);
 </label>
 
 {#snippet demo()}
-  <div class="container">
+  <div id="navrail-container">
     <NavigationRail {collapse} {alignment} {modal}>
       {#snippet fab(open)}
-        <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} onclick={() => {}} />
+        <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} elevation="none" onclick={() => {}} />
       {/snippet}
 
       <NavigationRailItem label="Label" icon={iconStars} active />
@@ -1438,4 +1438,15 @@ let modal = $state<boolean>(false);
     </NavigationRail>
   </div>
 {/snippet}
+
+<style>
+  .container:has(#navrail-container) {
+    overflow: hidden;
+  }
+  
+  #navrail-container {
+    overflow: hidden;
+    height: 550px;
+  }
+</style>
 ```

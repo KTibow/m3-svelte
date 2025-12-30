@@ -5,42 +5,51 @@
 
   let {
     open = $bindable(false),
-    collapse = 'normal',
+    collapse = "normal",
     modal = false,
-    alignment = 'top',
+    alignment = "top",
+    iconType = "left",
     fab,
     children,
   } = $props<{
     open?: boolean;
-    collapse?: 'normal' | 'full' | 'no' | boolean;
+    collapse?: "normal" | "full" | "no" | boolean;
     modal?: boolean;
-    alignment?: 'top' | 'center';
+    alignment?: "top" | "center";
+    iconType?: "left" | "full";
     fab?: Snippet<[open: boolean]>;
     children: Snippet;
   }>();
-  
+
   const onkeydown = (e: KeyboardEvent) => {
-    if (modal && open && e.key === 'Escape') {
+    if (modal && open && e.key === "Escape") {
       e.preventDefault();
-      
+
       open = false;
     }
-  }
+  };
 </script>
 
 <svelte:window {onkeydown} />
 
 <div class="m3-container">
-  <div class="rail" class:open={open && (collapse !== 'no' && collapse !== false)} class:centered={alignment === 'center'} class:fullyCollapse={collapse === 'full'} class:modal>
-    {#if (collapse !== 'no' && collapse !== false) || fab}
+  <div
+    class="rail"
+    class:open
+    class:centered={alignment === "center"}
+    class:collapse={collapse === "full"}
+    class:icon={iconType === "full"}
+    class:modal
+  >
+    {#if (collapse !== "no" && collapse !== false) || fab}
       <div class="top">
-        {#if collapse !== 'no' && collapse !== false}
-          <NavigationToggle mode={collapse === 'full' ? 'inline-detached' : 'inline'} bind:open={open} />
+        {#if collapse !== "no" && collapse !== false}
+          <NavigationToggle mode={collapse === "full" ? "inline-detached" : "inline"} bind:open />
         {/if}
 
         {#if fab}
           <div>
-            {@render fab(open && (collapse !== 'no' && collapse !== false))}
+            {@render fab(open)}
           </div>
         {/if}
       </div>
@@ -50,10 +59,10 @@
       {@render children()}
     </div>
   </div>
-  
+
   {#if modal}
     <!--svelte-ignore a11y_no_static_element_interactions--><!--svelte-ignore a11y_click_events_have_key_events-->
-    <div class="shadow" onclick={() => open = false}></div>
+    <div class="shadow" onclick={() => (open = false)}></div>
   {/if}
 </div>
 
@@ -64,16 +73,16 @@
     transition: width var(--m3-easing-spatial);
   }
 
-  .m3-container:has(>.rail.fullyCollapse) {
+  .m3-container:has(> .rail.collapse) {
     width: 0;
   }
-  
+
   .rail.open,
-  .m3-container:has(>.rail.open:not(.modal)),
-  .rail.fullyCollapse {
+  .m3-container:has(> .rail.open:not(.modal)),
+  .rail.collapse {
     width: 220px;
   }
-  
+
   .rail {
     display: flex;
     flex-direction: column;
@@ -84,15 +93,16 @@
     transition: all var(--m3-easing-spatial);
     overflow: hidden;
     overflow-y: auto;
+    scrollbar-width: thin;
   }
 
-  .rail:not(.open).fullyCollapse {
+  .rail:not(.open).collapse {
     pointer-events: none;
     width: 0px;
   }
-  
-  .rail:not(.open).fullyCollapse > .top > :not(:global(.toggle)),
-  .rail:not(.open).fullyCollapse > .items {
+
+  .rail:not(.open).collapse > .top > :not(:global(.toggle)),
+  .rail:not(.open).collapse > .items {
     opacity: 0;
   }
 
@@ -112,28 +122,30 @@
     flex-direction: column;
     z-index: 1;
   }
-  
+
   .items {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     width: 96px;
     height: 100%;
     align-self: stretch;
-    transition: gap var(--m3-easing-fast), width 0.2s;
+    transition:
+      gap var(--m3-easing-fast),
+      width 0.2s;
     height: 100%;
   }
 
   .rail.open > .items,
-  .rail.fullyCollapse > .items {
+  .rail.collapse > .items {
     gap: 0px;
     width: 220px;
   }
-  
+
   .rail.centered > .items {
     justify-content: center;
   }
-  
+
   .shadow {
     position: fixed;
     inset: 0;
@@ -141,7 +153,7 @@
     background: --translucent(var(--m3c-scrim), 0.5);
     transition: opacity var(--m3-easing);
   }
-  
+
   .rail:not(.open) + .shadow {
     opacity: 0;
     pointer-events: none;

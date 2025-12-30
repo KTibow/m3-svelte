@@ -31,6 +31,7 @@
     width: 24px;
     height: 24px;
     margin: 1rem;
+    color: var(--m3c-on-surface-container);
     border-radius: var(--m3-shape-extra-small);
   }
   
