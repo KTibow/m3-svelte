@@ -83,12 +83,21 @@ export const colors = [
 ];
 
 export const genCSS = (light: DynamicScheme, dark: DynamicScheme, cs: DynamicColor[]) => {
+  const argbToHex = (argb: number): string => {
+    const rgb = argb & 0xffffff;
+    const hex = rgb.toString(16).padStart(6, "0");
+
+    if (hex[0] == hex[1] && hex[2] == hex[3] && hex[4] == hex[5]) {
+      return `#${hex[0]}${hex[2]}${hex[4]}`;
+    }
+
+    return `#${hex}`;
+  };
   const genColorVariable = (name: string, lightArgb: number, darkArgb: number) => {
     const kebabCase = name.replaceAll("_", "-");
-    const lightHex = lightArgb.toString(16).slice(-6);
-    const darkHex = darkArgb.toString(16).slice(-6);
-    const value = lightHex == darkHex ? `#${lightHex}` : `light-dark(#${lightHex}, #${darkHex})`;
-    return `    --m3c-${kebabCase}: ${value};`;
+    const lightHex = argbToHex(lightArgb);
+    const darkHex = argbToHex(darkArgb);
+    return `    --m3c-${kebabCase}: ${lightHex == darkHex ? lightHex : `light-dark(${lightHex}, ${darkHex})`};`;
   };
   const colors = cs
     .map((color) => genColorVariable(color.name, color.getArgb(light), color.getArgb(dark)))

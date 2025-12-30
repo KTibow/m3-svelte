@@ -165,11 +165,6 @@ ${innerStyles}
 </div>
 
 <style>
-  #invert-toggle {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
   .content {
     background-color: var(--m3c-surface-container-low);
     padding: 1rem;
