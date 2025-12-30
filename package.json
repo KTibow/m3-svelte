@@ -83,7 +83,7 @@
     "unocss": "^66.5.12",
     "vite": "^7.3.0",
     "vite-plugin-functions-mixins": "^0.4.0",
-    "vite-plugin-token-shaker": "^0.0.3"
+    "vite-plugin-token-shaker": "^0.0.6"
   },
   "peerDependencies": {
     "@ktibow/material-color-utilities-nightly": "^0.3.11763580498000",
