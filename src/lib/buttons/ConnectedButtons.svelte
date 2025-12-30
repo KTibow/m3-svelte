@@ -16,11 +16,5 @@
     gap: 0.125rem;
     border-radius: var(--m3-shape-full);
     overflow: hidden;
-
-    > :global(input) {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
   }
 </style>

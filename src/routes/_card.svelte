@@ -2,7 +2,6 @@
   import type { Snippet } from "svelte";
   import iconCode from "@ktibow/iconset-material-symbols/code";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
 
   let {
     title,
@@ -30,14 +29,12 @@
       <div>
         {@render children()}
       </div>
-      <button onclick={showCode}>
-        <Layer />
+      <button class="m3-layer" onclick={showCode}>
         <Icon icon={iconCode} size={24} />
       </button>
     </div>
   {:else}
-    <button class="name" onclick={showCode}>
-      <Layer />
+    <button class="name m3-layer" onclick={showCode}>
       {title}
       <Icon icon={iconCode} size={24} />
     </button>
@@ -111,7 +108,6 @@
     min-width: 3rem;
     min-height: 3rem;
     flex-grow: 0;
-    position: relative;
     padding: 0;
     border: none;
     cursor: pointer;
@@ -130,7 +126,6 @@
     flex-grow: 1;
     margin-bottom: 1.5rem;
 
-    position: relative;
     border: none;
     cursor: pointer;
   }

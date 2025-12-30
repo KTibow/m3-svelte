@@ -1,6 +1,4 @@
 <script lang="ts">
-  import Layer from "$lib/misc/Layer.svelte";
-
   let {
     disabled,
     today,
@@ -16,8 +14,7 @@
   } = $props();
 </script>
 
-<button type="button" class="item" {disabled} class:today class:selected {onclick}>
-  <Layer />
+<button type="button" class="item m3-layer" {disabled} class:today class:selected {onclick}>
   {label}
 </button>
 
@@ -36,7 +33,6 @@
     border: none;
     cursor: pointer;
     transition: var(--m3-easing-fast);
-    position: relative;
   }
   button:disabled {
     cursor: auto;

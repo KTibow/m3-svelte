@@ -11,7 +11,7 @@
 
   import Snippet from "../Snippet.svelte";
 
-  let step3Page = $state("roboto");
+  let fontSelection = $state("gsans");
 </script>
 
 <svelte:head><title>Quick start</title></svelte:head>
@@ -77,18 +77,25 @@ export default defineConfig({
         <Icon icon={iconType} />
       </div>
       <ConnectedButtons>
-        <input type="radio" id="step3-roboto" value="roboto" name="step3" bind:group={step3Page} />
-        <Button for="step3-roboto" variant="filled" square>Roboto</Button>
-        <input type="radio" id="step3-manual" value="manual" name="step3" bind:group={step3Page} />
-        <Button for="step3-manual" variant="filled" square>Manual</Button>
+        <Button square label
+          ><input type="radio" value="gsans" name="font" bind:group={fontSelection} />Google Sans</Button
+        >
+        <Button square label
+          ><input
+            type="radio"
+            value="manual"
+            name="font"
+            bind:group={fontSelection}
+          />Manual</Button
+        >
       </ConnectedButtons>
     </div>
     <div class="text">
       <p>Get a font for M3 Svelte to use.</p>
-      {#if step3Page == "roboto"}
+      {#if fontSelection == "gsans"}
         <Snippet
           name="app.html"
-          html={/* html */ `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />`}
+          html={/* html */ `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap" />`}
         />
       {:else}
         <Snippet
@@ -166,7 +173,7 @@ export default defineConfig({
   }
   code {
     font-size: 0.9rem;
-    background-color: var(--m3c-surface-variant);
+    background-color: var(--m3c-surface-container-highest);
     padding-inline: 2px;
     border-radius: 0.3rem;
   }

@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
   import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   type ContentProps =
@@ -38,10 +37,9 @@
 
 <button
   type="button"
-  class="m3-container color-{color} size-{size} elevation-{elevation}"
+  class="m3-container color-{color} size-{size} elevation-{elevation} m3-layer"
   {...extra}
 >
-  <Layer />
   {#if icon}
     <Icon {icon} />
   {/if}
@@ -62,7 +60,6 @@
     @apply --m3-label-large;
     display: inline-flex;
     border: none;
-    position: relative;
     overflow: hidden;
 
     align-items: center;

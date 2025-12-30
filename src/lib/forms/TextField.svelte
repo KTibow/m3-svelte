@@ -2,7 +2,6 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLInputAttributes } from "svelte/elements";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
   import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   let {
@@ -35,7 +34,6 @@
   class:error
 >
   <input
-    class="focus-none"
     placeholder=" "
     bind:value
     onkeydown={(e) => e.key == "Enter" && enter?.()}
@@ -51,8 +49,7 @@
   {/if}
   {#if trailing}
     {@const { icon, ...extra } = trailing}
-    <button type="button" class="trailing" {...extra}>
-      <Layer />
+    <button type="button" class="trailing m3-layer" {...extra}>
       <Icon {icon} />
     </button>
   {/if}
@@ -74,12 +71,12 @@
   }
   input {
     @apply --m3-body-large;
+    @apply --m3-focus-none;
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: none;
-    outline: none;
     padding: 1.5rem 1rem 0.5rem 1rem;
     border-radius: var(--m3-field-filled-shape) var(--m3-field-filled-shape) 0 0;
     background-color: var(--m3c-surface-container-highest);
