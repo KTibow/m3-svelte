@@ -21,10 +21,8 @@
   :root {
     accent-color: var(--m3c-primary);
   }
-  * {
-    outline: none;
-  }
   :focus-visible {
+    outline: none;
     @apply --m3-focused-outward;
   }
 }
