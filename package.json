@@ -47,6 +47,10 @@
     "./etc/colors": {
       "types": "./package/etc/colors.d.ts",
       "import": "./package/etc/colors.js"
+    },
+    "./etc/layer": {
+      "types": "./package/etc/layer.d.ts",
+      "import": "./package/etc/layer.js"
     }
   },
   "dependencies": {
@@ -82,7 +86,13 @@
     "vite-plugin-token-shaker": "^0.0.3"
   },
   "peerDependencies": {
+    "@ktibow/material-color-utilities-nightly": "^0.3.11763580498000",
     "svelte": "^5.40.0"
+  },
+  "peerDependenciesMeta": {
+    "@ktibow/material-color-utilities-nightly": {
+      "optional": true
+    }
   },
   "keywords": [
     "svelte",
