@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { HTMLButtonAttributes, HTMLAnchorAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
-
-  import Layer from "$lib/misc/Layer.svelte";
+  
   import Icon from "$lib/misc/Icon.svelte";
 
   let {
@@ -28,7 +27,7 @@
 {/if}
 
 {#snippet item()}
-  <Layer />
+  <div class="m3-layer"></div>
 
   <div class="icon">
     <Icon {icon} />
@@ -88,11 +87,6 @@
       width: 100%;
       text-align: center;
     }
-    
-    > :global(:is(.ripple-container, .tint, .hitbox)) {
-      z-index: 1;
-      border-radius: var(--m3-shape-full);
-    }
   }
 
   .icon {
@@ -104,6 +98,13 @@
       color: var(--m3c-on-secondary-container);
       position: relative;
     }
+  }
+  
+  .m3-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 9;
+    border-radius: var(--m3-shape-full);
   }
   
   :global(.rail.open > .items) {
@@ -183,9 +184,11 @@
         }
       }
       
-      > :global(:is(.ripple-container, .tint, .hitbox)) {
-        width: 56px;
-        height: 32px;
+      .m3-layer::before,
+      .m3-layer::after,
+      .m3-layer :global(svg) {
+        width: 56px !important;
+        height: 32px !important;
       }
     }
     
