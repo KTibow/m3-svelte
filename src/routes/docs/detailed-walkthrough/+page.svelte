@@ -95,11 +95,12 @@
 <p>
   These live in <code>@layer tokens</code>. M3 Svelte defines many, like
   <span class="styles-defined">elevations</span>
-  (<code>--m3-elevation-0</code> through <code>--m3-elevation-5</code>) and
-  <span class="styles-defined">shapes</span> (<code>--m3-shape-[size]</code> where size is none,
-  extra-small, small, medium, large, extra-large, or full).
+  (<code class="styles-defined">--m3-elevation-0</code> through
+  <code class="styles-defined">--m3-elevation-5</code>) and
+  <span class="styles-defined">shapes</span> (<code class="styles-defined">--m3-shape-[size]</code>
+  where size is none, extra-small, small, medium, large, extra-large, or full).
   <span class="theme-defined">Colors</span>, the
-  <code>--m3c-</code> variables, are also tokens.
+  <code class="theme-defined">--m3c-</code> variables, are also tokens.
 </p>
 <p>
   We recommend using <a href="https://www.npmjs.com/package/vite-plugin-token-shaker"
@@ -126,9 +127,10 @@
 </p>
 <p>
   M3 Svelte's built in mixins: <span class="styles-defined">font styles</span>
-  (<code>@apply --m3-[scale]-[size]</code>. scales: display, headline, title, body, label. sizes:
-  large, medium, small) and <span class="styles-defined">focus styles</span>
-  (<code>@apply --m3-focus-inward</code> and <code>@apply --m3-focus-none</code>).
+  (<code class="styles-defined">@apply --m3-[scale]-[size]</code>. scales: display, headline, title,
+  body, label. sizes: large, medium, small) and <span class="styles-defined">focus styles</span>
+  (<code class="styles-defined">@apply --m3-focus-inward</code> and
+  <code class="styles-defined">@apply --m3-focus-none</code>).
 </p>
 
 <style>
