@@ -60,41 +60,56 @@
     position: relative;
     font-family: var(--m3-font-body, var(--m3-font));
     animation: none !important;
-    color: rgb(var(--m3-scheme-on-surface-variant));
-    transition: width var(--m3-util-easing-fast), border var(--m3-util-easing-slow);
-  }
+    color: var(--m3c-on-surface-variant);
+    interpolate-size: allow-keywords;
+    transition: width var(--m3-easing-fast), border var(--m3-easing-slow);
+    max-width: fit-content;
 
-  .m3-container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transition: all var(--m3-util-easing);
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 56px;
+      height: 32px;
+      border-radius: var(--m3-shape-full);
+      transition: all var(--m3-easing-slow);
+      interpolate-size: allow-keywords;
+    }
+    
+    &.active::before {
+      background: var(--m3c-secondary-container);
+    }
+    
+    > span {
+      z-index: 1;
+      text-align: center;
+    }
+    
+    > :global(.ripple-container),
+    > :global(.tint) {
+      border-radius: var(--m3-shape-full);
+    }
   }
 
   .icon {
     position: relative;
-  }
-
-  .icon > :global(svg) {
-    width: 24px;
-    height: 24px;
-    color: rgb(var(--m3-scheme-on-secondary-container));
-    position: relative;
-  }
-
-  .m3-container > span {
-    z-index: 1;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .m3-container > :global(.ripple-container),
-  .m3-container > :global(.tint) {
-    border-radius: var(--m3-util-rounding-full);
+    
+    > :global(svg) {
+      width: 24px;
+      height: 24px;
+      color: var(--m3c-on-secondary-container);
+      position: relative;
+    }
   }
   
   :global(.rail.open > .items) .m3-container {
     animation: 3s open;
+    
+    &::before {
+      width: 100%;
+      height: 56px;
+    }
   }
 
   :global(.rail:not(.open) > .items) .m3-container {
@@ -102,25 +117,15 @@
     line-height: var(--m3-font-label-medium-height, 1.333);
     letter-spacing: var(--m3-font-label-medium-tracking, 0.031rem);
     font-weight: var(--m3-font-label-medium-weight, 500);
-    border-radius: var(--m3-util-rounding-full);
+    border-radius: var(--m3-shape-full);
     margin: auto;
     margin-inline-start: 20px;
     width: calc(100% - 40px);
     text-align: center;
   }
 
-  :global(.rail:not(.open) > .items) .m3-container::before {
-    border-radius: var(--m3-util-rounding-full);
-    width: 56px;
-    height: 32px;
-  }
-
-  :global(.rail:not(.open) > .items) .m3-container.active::before {
-    background: rgb(var(--m3-scheme-secondary-container));
-  }
-
   :global(.rail:not(.open) > .items) .m3-container.active > .icon {
-    color: rgb(var(--m3-scheme-secondary));
+    color: var(--m3c-secondary);
   }
 
   :global(.rail:not(.open) > .items) .m3-container:not(.active):hover::before {
@@ -134,13 +139,13 @@
 
   :global(.rail:not(.open) > .items) :is(button, a):focus-visible .icon {
     outline: solid;
-    outline-color: rgb(var(--m3-scheme-on-secondary-container));
+    outline-color: var(--m3c-on-secondary-container);
     outline-width: 3px;
     outline-offset: 2px;
   }
 
   :global(.rail:not(.open) > .items) .icon {
-    border-radius: var(--m3-util-rounding-full);
+    border-radius: var(--m3-shape-full);
     padding: 0px 16px;
     height: 32px;
   }
@@ -168,11 +173,11 @@
     line-height: var(--m3-font-label-large-height, 1.429);
     letter-spacing: var(--m3-font-label-large-tracking, 0.006rem);
     font-weight: var(--m3-font-label-large-weight, 500);
-    transition: width var(--m3-util-easing-spatial), opacity var(--m3-util-easing-fast);
+    transition: width var(--m3-easing-spatial), opacity var(--m3-easing-fast);
   }
 
   :global(.rail.open > .items) .m3-container::before {
-    border-radius: var(--m3-util-rounding-full);
+    border-radius: var(--m3-shape-full);
   }
 
   :global(.rail.open > .items) .m3-container:not(.active):hover::before {
@@ -185,9 +190,9 @@
   }
 
   :global(.rail.open > .items) :is(button, a):focus-visible > .m3-container {
-    border-radius: var(--m3-util-rounding-full);
+    border-radius: var(--m3-shape-full);
     outline: solid;
-    outline-color: rgb(var(--m3-scheme-on-secondary-container));
+    outline-color: var(--m3c-on-secondary-container);
     outline-width: 3px;
     outline-offset: 2px;
   }
@@ -202,8 +207,8 @@
       width: max-content;
       
       &::before {
-        background-color: rgb(var(--m3-scheme-secondary-container));
-        color: rgb(var(--m3-scheme-on-secondary-container));
+        background-color: var(--m3c-secondary-container);
+        color: var(--m3c-on-secondary-container);
         overflow: hidden;
       }
     }

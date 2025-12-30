@@ -68,18 +68,19 @@
     position: relative;
     overflow: hidden;
     flex-direction: row;
+    interpolate-size: allow-keywords;
 
     align-items: center;
     cursor: pointer;
-    transition: width var(--m3-util-easing);
+    transition: width var(--m3-easing);
   }
   
   .m3-container > span {
-    transition: opacity var(--m3-util-easing-fast);
+    transition: opacity var(--m3-easing-fast);
   }
   
   .m3-container.label {
-    width: max-content;
+    width: auto;
   }
   
   .m3-container:has(span:empty) {

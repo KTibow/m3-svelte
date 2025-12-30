@@ -114,8 +114,8 @@
     {/await}
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
-    <div class="sheet" transition:fly={{ easing: easeEmphasized, duration: 500, x: 320 }}>
-      <StandardSideSheet headline={doc.name} close={() => doc = undefined}>
+    <div class="sheet" transition:fly={{ easing: easeEmphasized, duration: 500, x: 320, opacity: .5 }}>
+      <StandardSideSheet headline={doc.name} close={() => (doc = undefined)}>
         {@render docs()}
       </StandardSideSheet>
     </div>
@@ -154,16 +154,16 @@
     display: flex;
     flex-direction: column;
     width: 20rem;
-    background: rgb(var(--m3-scheme-surface-container));
-    border-top-left-radius: var(--m3-util-rounding-large);
-    border-bottom-left-radius: var(--m3-util-rounding-large);
+    background: var(--m3c-surface-container-low);
+    border-top-left-radius: var(--m3-shape-large);
+    border-bottom-left-radius: var(--m3-shape-large);
   }
   
   .shadow {
     position: fixed;
     z-index: 2;
     inset: 0;
-    background: rgb(var(--m3-scheme-scrim) / 0.5);
+    background: --translucent(var(--m3c-scrim), 0.5);
     transition: all 200ms;
   }
 

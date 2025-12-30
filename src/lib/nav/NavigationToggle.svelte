@@ -7,10 +7,10 @@
   
   let noAnimations = $state<boolean>(true);
   let {
-    active = $bindable(),
+    open = $bindable(),
     mode = 'detached'
   } = $props<{
-    active: boolean;
+    open: boolean;
     mode?: 'detached' | 'inline' | 'inline-detached';
   }>();
   
@@ -18,8 +18,8 @@
   onMount(() => setTimeout(() => noAnimations = false));
 </script>
 
-<button class="toggle" class:active class:noAnimations type="button" id={(mode === 'detached' ? !active : (mode === 'inline-detached' ? active : true)) ? "m3-navigationtoggle" : undefined} aria-haspopup="true" aria-controls="menu" onclick={() => (active = !active)}>
-  <Icon icon={active ? iconMenuOpen : iconMenu} />
+<button class="toggle" class:open class:noAnimations type="button" id={(mode === 'detached' ? !open : (mode === 'inline-detached' ? open : true)) ? "m3-navigationtoggle" : undefined} aria-haspopup="true" aria-controls="menu" onclick={() => (open = !open)}>
+  <Icon icon={open ? iconMenuOpen : iconMenu} />
 </button>
 
 <style>
@@ -31,13 +31,13 @@
     width: 24px;
     height: 24px;
     margin: 1rem;
-    border-radius: var(--m3-util-rounding-extra-small);
+    border-radius: var(--m3-shape-extra-small);
   }
   
   .toggle:focus-visible {
     animation: none;
     outline: solid;
-    outline-color: rgb(var(--m3-scheme-on-secondary-container));
+    outline-color: var(--m3c-on-secondary-container);
     outline-width: 3px;
     outline-offset: 3px;
   }
@@ -48,15 +48,15 @@
   }
   
   .toggle.noAnimations {
-    --m3-util-easing: 0s;
+    --m3-easing: 0s;
   }
   
-  .toggle:not(.noAnimations).active > :global(svg) {
-    animation: in_spin var(--m3-util-easing);
+  .toggle:not(.noAnimations).open > :global(svg) {
+    animation: in_spin var(--m3-easing);
   }
   
-  .toggle:not(.active) > :global(svg) {
-    animation: out_spin var(--m3-util-easing);
+  .toggle:not(.open) > :global(svg) {
+    animation: out_spin var(--m3-easing);
   }
   
   @keyframes in_spin {

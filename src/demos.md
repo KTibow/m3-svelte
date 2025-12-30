@@ -1384,11 +1384,18 @@ Minimal demo:
 Full demo:
 
 ```use
-DateField
-DateFieldOutlined
+FAB
+NavigationRail
+NavigationRailItem
+NavigationToggle
 ```
 
 ```ts
+import iconStarsOutline from "@ktibow/iconset-material-symbols/stars-outline";
+import iconStars from "@ktibow/iconset-material-symbols/stars";
+import iconEdit from "@ktibow/iconset-material-symbols/edit";
+import { addBadge } from "$lib/misc/badge";
+
 let collapse = $state<'full' | 'normal' | 'no'>('normal');
 let alignment = $state<'top' | 'center'>('center');
 let modal = $state<boolean>(false);
@@ -1415,18 +1422,20 @@ let modal = $state<boolean>(false);
 </label>
 
 {#snippet demo()}
-  <NavigationRail {collapse} {alignment} {modal}>
-    {#snippet fab(open)}
-      <FAB color="primary-container" icon={iconEdit} text={open ? "Label" : ""} onclick={() => {}} />
-    {/snippet}
+  <div class="container">
+    <NavigationRail {collapse} {alignment} {modal}>
+      {#snippet fab(open)}
+        <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} onclick={() => {}} />
+      {/snippet}
 
-    <NavigationRailItem label="Label" icon={iconStar} active />
+      <NavigationRailItem label="Label" icon={iconStars} active />
 
-    <NavigationRailItem label="Label" icon={iconStarsOutline} />
+      <NavigationRailItem label="Label" icon={iconStarsOutline} />
 
-    <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
+      <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
 
-    <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
-  </NavigationRail>
+      <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
+    </NavigationRail>
+  </div>
 {/snippet}
 ```

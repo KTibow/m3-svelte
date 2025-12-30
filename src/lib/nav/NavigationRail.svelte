@@ -35,7 +35,7 @@
     {#if (collapse !== 'no' && collapse !== false) || fab}
       <div class="top">
         {#if collapse !== 'no' && collapse !== false}
-          <NavigationToggle mode={collapse === 'full' ? 'inline-detached' : 'inline'} bind:active={open} />
+          <NavigationToggle mode={collapse === 'full' ? 'inline-detached' : 'inline'} bind:open={open} />
         {/if}
 
         {#if fab}
@@ -61,7 +61,7 @@
   .m3-container {
     width: 96px;
     height: 100%;
-    transition: width var(--m3-util-easing-spatial);
+    transition: width var(--m3-easing-spatial);
   }
 
   .m3-container:has(>.rail.fullyCollapse) {
@@ -81,7 +81,7 @@
     width: 96px;
     height: 100%;
     padding: 44px 0px 56px 0px;
-    transition: all var(--m3-util-easing-spatial);
+    transition: all var(--m3-easing-spatial);
     overflow: hidden;
     overflow-y: auto;
   }
@@ -97,13 +97,13 @@
   }
 
   .rail.modal {
-    border-start-end-radius: var(--m3-util-rounding-large);
-    border-end-end-radius: var(--m3-util-rounding-large);
+    border-start-end-radius: var(--m3-shape-large);
+    border-end-end-radius: var(--m3-shape-large);
   }
 
   .rail.modal.open,
   .rail:not(.modal) {
-    background: rgb(var(--m3-scheme-surface-container));
+    background: var(--m3c-surface-container);
   }
 
   .top {
@@ -120,7 +120,7 @@
     width: 96px;
     height: 100%;
     align-self: stretch;
-    transition: gap var(--m3-util-easing-fast), width 0.2s;
+    transition: gap var(--m3-easing-fast), width 0.2s;
     height: 100%;
   }
 
@@ -138,8 +138,8 @@
     position: fixed;
     inset: 0;
     z-index: -1;
-    background: rgb(var(--m3-scheme-scrim) / 0.5);
-    transition: opacity var(--m3-util-easing);
+    background: --translucent(var(--m3c-scrim), 0.5);
+    transition: opacity var(--m3-easing);
   }
   
   .rail:not(.open) + .shadow {
