@@ -31,7 +31,7 @@
 
 <style>
   .item {
-    @apply --m3-button-reset-container;
+    @apply --m3-button-reset;
     @apply --m3-label-large;
     display: flex;
     align-items: center;

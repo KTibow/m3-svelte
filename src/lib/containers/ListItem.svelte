@@ -85,9 +85,7 @@
     gap: 1rem;
 
     text-align: inherit;
-    border: none;
     position: relative;
-    background: transparent;
     color: inherit;
   }
   button.m3-container,
