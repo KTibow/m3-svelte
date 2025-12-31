@@ -40,7 +40,7 @@
 <button
   type="button"
   class="m3-container color-{color} size-{size} elevation-{elevation} m3-layer"
-  class:label={showLabel === null ? !!text : showLabel}
+  class:label={showLabel == null ? !!text : showLabel}
   {...extra}
 >
   {#if icon}
@@ -72,23 +72,23 @@
     cursor: pointer;
     transition: width var(--m3-easing);
   }
-  
+
   .m3-container > span {
     transition: opacity var(--m3-easing-fast);
   }
-  
+
   .m3-container.label {
     width: auto;
   }
-  
+
   .m3-container:has(span:empty) {
     gap: 0;
   }
-  
+
   .m3-container.label > span {
     opacity: 1;
   }
-  
+
   .m3-container:not(.label) > span {
     opacity: 0;
   }
@@ -107,7 +107,7 @@
     gap: 0.5rem;
     border-radius: var(--m3-fab-small-shape);
   }
-  
+
   .size-normal {
     height: 3.5rem;
     width: 3.5rem;
@@ -115,7 +115,7 @@
     gap: 0.75rem;
     border-radius: var(--m3-fab-normal-shape);
   }
-  
+
   .size-large {
     height: 6rem;
     width: 6rem;
@@ -123,7 +123,7 @@
     gap: 1.875rem;
     border-radius: var(--m3-fab-large-shape);
   }
-  
+
   .size-small > .icon > :global(svg),
   .size-normal > .icon > :global(svg),
   .size-small > .icon,

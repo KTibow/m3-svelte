@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { HTMLButtonAttributes, HTMLAnchorAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
-  
+
   import Icon from "$lib/misc/Icon.svelte";
 
   let {
@@ -32,9 +32,9 @@
   <div class="icon">
     <Icon {icon} />
   </div>
-  
+
   <span>{label}</span>
-  <span>{label}</span> 
+  <span>{label}</span>
 {/snippet}
 
 <style>
@@ -93,7 +93,7 @@
       z-index: 1;
       transition: opacity var(--m3-easing);
     }
-    
+
     span:last-of-type {
       @apply --m3-label-medium;
       position: absolute;
@@ -108,7 +108,7 @@
     height: 32px;
     z-index: 1;
     transition: padding-inline-end 0s 300ms;
-    
+
     > :global(svg) {
       transition: margin var(--m3-easing);
       width: 24px;
@@ -117,25 +117,25 @@
       position: relative;
     }
   }
-  
+
   .m3-layer {
     position: absolute;
     inset: 0;
     z-index: 9;
     border-radius: var(--m3-shape-full);
-    
+
     &::before,
     &::after {
       transition: all var(--m3-easing-spatial);
     }
   }
-  
+
   :global(.rail.open > .items),
   :global(.rail.icon > .items) {
     .m3-container {
       margin-inline: 20px;
       padding: 16px 16px;
-      
+
       &:focus-visible {
         border-radius: var(--m3-shape-full);
         outline: solid;
@@ -143,18 +143,18 @@
         outline-width: 3px;
         outline-offset: 2px;
       }
-      
+
       &::before {
         border-radius: var(--m3-shape-full);
         width: 100%;
         height: 56px;
       }
-      
+
       &:not(.active) {
         &:hover::before {
           background: color-mix(in oklab, currentColor 8%, transparent);
         }
-        
+
         &:focus-visible,
         &:active {
           &::before {
@@ -163,15 +163,15 @@
         }
       }
     }
-    
+
     span:first-of-type {
       opacity: 1;
     }
-    
+
     span:last-of-type {
       opacity: 0;
     }
-    
+
     .icon {
       width: 24px;
       height: 24px;
@@ -183,19 +183,19 @@
       margin-inline-end: auto;
       margin-inline-start: 20px;
       width: calc(100% - 40px);
-      
+
       &:focus-visible .icon {
         outline: solid;
         outline-color: var(--m3c-on-secondary-container);
         outline-width: 3px;
         outline-offset: 2px;
       }
-      
+
       &:not(.active) {
         &:hover::before {
           background: color-mix(in oklab, currentColor 8%, transparent);
         }
-        
+
         &:focus-visible,
         &:active {
           .icon {
@@ -204,33 +204,33 @@
         }
       }
     }
-    
+
     .m3-layer::before,
     .m3-layer::after,
     .m3-layer :global(svg) {
       width: 56px !important;
       height: 32px !important;
     }
-    
+
     .icon {
       border-radius: var(--m3-shape-full);
       padding: 0px 16px;
-      
+
       > :global(svg) {
         margin: 4px 0px;
       }
     }
-    
+
     .active > .icon {
       color: var(--m3c-secondary);
     }
   }
-  
+
   :global(.rail.icon:not(.open) > .items) {
     .m3-container {
       width: 56px;
     }
-    
+
     span:first-of-type {
       opacity: 0;
     }

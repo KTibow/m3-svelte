@@ -1264,7 +1264,13 @@ Minimal demo:
 ```svelte
 <NavigationRail>
   {#snippet fab(open)}
-    <FAB color="primary-container" text="Label" showLabel={open} elevation="none" onclick={() => alert("!")} />
+    <FAB
+      color="primary-container"
+      text="Label"
+      showLabel={open}
+      elevation="none"
+      onclick={() => alert("!")}
+    />
   {/snippet}
 
   <NavigationRailItem label="Label" icon={iconStars} active />
@@ -1309,23 +1315,24 @@ let open = $state(false);
 </label>
 <label>
   <Arrows list={["top", "center"]} bind:value={alignment} />
-  {alignment == "top"
-  ? "Top"
-  : "Center"}
+  {alignment == "top" ? "Top" : "Center"}
 </label>
 <label>
   <Arrows list={["normal", "full", "no"]} bind:value={collapse} />
-  {collapse == "normal"
-  ? "Collapse"
-  : collapse == "full"
-    ? "Fully collapse"
-    : "Don't collapse"}
+  {collapse == "normal" ? "Collapse" : collapse == "full" ? "Fully collapse" : "Don't collapse"}
 </label>
 
 {#snippet demo()}
   <NavigationRail {collapse} {alignment} {iconType} {modal} {open}>
     {#snippet fab(open)}
-      <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} elevation="none" onclick={() => {}} />
+      <FAB
+        color="primary-container"
+        icon={iconEdit}
+        text="Label"
+        showLabel={open}
+        elevation="none"
+        onclick={() => {}}
+      />
     {/snippet}
     <NavigationRailItem label="Label" icon={iconCircleFilled} active />
     <NavigationRailItem label="Label" icon={addBadge(iconTriangle, 3)} />

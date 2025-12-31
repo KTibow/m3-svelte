@@ -22,7 +22,7 @@
   } = $props();
 
   const onkeydown = (e: KeyboardEvent) => {
-    if (modal && open && e.key === "Escape") {
+    if (modal && open && e.key == "Escape") {
       e.preventDefault();
 
       open = false;
@@ -36,15 +36,15 @@
   <div
     class:rail={true}
     class:open
-    class:centered={alignment === "center"}
-    class:collapse={collapse === "full"}
-    class:icon={iconType === "full"}
+    class:centered={alignment == "center"}
+    class:collapse={collapse == "full"}
+    class:icon={iconType == "full"}
     class:modal
   >
-    {#if (collapse !== "no" && collapse !== false) || fab}
+    {#if (collapse != "no" && collapse != false) || fab}
       <div class="top">
-        {#if collapse !== "no" && collapse !== false}
-          <NavigationToggle mode={collapse === "full" ? "inline-detached" : "inline"} bind:open />
+        {#if collapse != "no" && collapse != false}
+          <NavigationToggle mode={collapse == "full" ? "inline-detached" : "inline"} bind:open />
         {/if}
 
         {#if fab}
@@ -95,7 +95,7 @@
     overflow-y: auto;
     scrollbar-width: thin;
   }
-  
+
   .rail.open,
   .rail.icon {
     gap: 32px;
@@ -104,7 +104,7 @@
   .rail:not(.open).collapse {
     width: 0px;
   }
-  
+
   .rail:not(.open).collapse > :global(*:not(.top)),
   .rail:not(.open).collapse .top > :global(*:not(.toggle)) {
     pointer-events: none;
@@ -124,7 +124,7 @@
   .rail:not(.modal) {
     background: var(--m3c-surface-container);
   }
-  
+
   .rail.collapse > .top {
     margin-top: 56px;
   }
@@ -154,7 +154,7 @@
     gap: 0px;
     width: 220px;
   }
-  
+
   .rail.icon > .items {
     gap: 0px;
   }

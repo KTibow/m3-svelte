@@ -48,14 +48,14 @@
   ) => {
     doc = { name, minimalDemoHtml, relevantLinks };
   };
-  
+
   const onkeydown = (e: KeyboardEvent) => {
-    if (doc && e.key === 'Escape') {
+    if (doc && e.key == "Escape") {
       e.preventDefault();
-      
+
       doc = undefined;
     }
-  }
+  };
 
   afterNavigate(() => {
     if (location.hash) {
@@ -114,16 +114,19 @@
     {/await}
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
-    <div class="sheet" transition:fly={{ easing: easeEmphasized, duration: 500, x: 320, opacity: .5 }}>
+    <div
+      class="sheet"
+      transition:fly={{ easing: easeEmphasized, duration: 500, x: 320, opacity: 0.5 }}
+    >
       <StandardSideSheet headline={doc.name} close={() => (doc = undefined)}>
         {@render docs()}
       </StandardSideSheet>
     </div>
-    
+
     <!--svelte-ignore a11y_no_static_element_interactions--><!--svelte-ignore a11y_click_events_have_key_events-->
-    <div class="shadow" transition:fade={{ duration: 200 }} onclick={() => doc = undefined}></div>
+    <div class="shadow" transition:fade={{ duration: 200 }} onclick={() => (doc = undefined)}></div>
   {:else if doc}
-    <BottomSheet close={() => doc = undefined}>
+    <BottomSheet close={() => (doc = undefined)}>
       {@render docs()}
     </BottomSheet>
   {/if}
@@ -158,7 +161,7 @@
     border-top-left-radius: var(--m3-shape-large);
     border-bottom-left-radius: var(--m3-shape-large);
   }
-  
+
   .shadow {
     position: fixed;
     z-index: 2;
