@@ -91,8 +91,8 @@ Minimal demo:
 
 ```svelte
 <ConnectedButtons>
-  <Button><input type="checkbox" bind:checked={itemA}/>A</Button>
-  <Button><input type="checkbox" bind:checked={itemB}/>B</Button>
+  <Button><input type="checkbox" bind:checked={itemA} />A</Button>
+  <Button><input type="checkbox" bind:checked={itemB} />B</Button>
 </ConnectedButtons>
 ```
 
@@ -124,9 +124,15 @@ let sizeIndex = $state(1);
 {#snippet demo()}
   {@const size = sizes[sizeIndex]}
   <ConnectedButtons>
-    <Button {variant} {size} square label><input type={multiselect ? "checkbox" : "radio"} checked name="connectedbuttons"/>Alpha</Button>
-    <Button {variant} {size} square label><input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons"/>Beta</Button>
-    <Button {variant} {size} square label><input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons"/>Charlie</Button>
+    <Button {variant} {size} square label>
+      <input type={multiselect ? "checkbox" : "radio"} checked name="connectedbuttons" />Alpha
+    </Button>
+    <Button {variant} {size} square label>
+      <input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons" />Beta
+    </Button>
+    <Button {variant} {size} square label>
+      <input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons" />Charlie
+    </Button>
   </ConnectedButtons>
 {/snippet}
 ```
@@ -733,7 +739,9 @@ let container = $state(false);
 Minimal demo:
 
 ```svelte
-<label><RadioAnim1><input type="radio" name="stuff" value="one" bind:group={stuff} /></RadioAnim1></label>
+<label>
+  <RadioAnim1><input type="radio" name="stuff" value="one" bind:group={stuff} /></RadioAnim1>
+</label>
 ```
 
 Full demo:
@@ -1490,9 +1498,8 @@ Minimal demo:
 <script>
   // you may need to import "m3-svelte/etc/layer"
 </script>
-<button class="m3-layer">
-  Hello
-</button>
+
+<button class="m3-layer">Hello</button>
 ```
 
 Full demo:
@@ -1507,8 +1514,7 @@ Full demo:
 
 ```svelte
 {#snippet demo()}
-  <button class="m3-layer layer-demo">
-  </button>
+  <button class="m3-layer layer-demo"></button>
   <style>
     .layer-demo {
       min-height: 10rem;
