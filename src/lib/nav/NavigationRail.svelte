@@ -17,7 +17,6 @@
     modal?: boolean;
     alignment?: "top" | "center";
     iconType?: "left" | "full";
-    divider?: boolean;
     fab?: Snippet<[open: boolean]>;
     children: Snippet;
   } = $props();
