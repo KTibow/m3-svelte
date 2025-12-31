@@ -1587,9 +1587,11 @@ import iconStars from "@ktibow/iconset-material-symbols/stars";
 import iconEdit from "@ktibow/iconset-material-symbols/edit";
 import { addBadge } from "$lib/misc/badge";
 
-let collapse = $state<'full' | 'normal' | 'no'>('normal');
-let alignment = $state<'top' | 'center'>('center');
+let collapse = $state<"full" | "normal" | "no">("normal");
+let alignment = $state<"top" | "center">("center");
+let iconType = $state<"full" | "left">("left");
 let modal = $state<boolean>(false);
+let open = $state<boolean>(false);
 ```
 
 ```svelte
@@ -1598,13 +1600,17 @@ let modal = $state<boolean>(false);
   {modal ? "Modal" : "Normal"}
 </label>
 <label>
-  <Arrows list={['top', 'center']} bind:value={alignment} />
+  <Arrows list={["left", "full"]} bind:value={iconType} />
+  {iconType === "left" ? "Icon Left" : "Icon Full"}
+</label>
+<label>
+  <Arrows list={["top", "center"]} bind:value={alignment} />
   {alignment == "top"
   ? "Top"
   : "Center"}
 </label>
 <label>
-  <Arrows list={['normal', 'full', 'no']} bind:value={collapse} />
+  <Arrows list={["normal", "full", "no"]} bind:value={collapse} />
   {collapse == "normal"
   ? "Collapse"
   : collapse == "full"
@@ -1614,29 +1620,28 @@ let modal = $state<boolean>(false);
 
 {#snippet demo()}
   <div id="navrail-container">
-    <NavigationRail {collapse} {alignment} {modal}>
-      {#snippet fab(open)}
-        <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} elevation="none" onclick={() => {}} />
-      {/snippet}
+    <div>
+      <NavigationRail {collapse} {alignment} {iconType} {modal} {open}>
+        {#snippet fab(open)}
+          <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} elevation="none" onclick={() => {}} />
+        {/snippet}
 
-      <NavigationRailItem label="Label" icon={iconStars} active />
+        <NavigationRailItem label="Label" icon={iconStars} active />
 
-      <NavigationRailItem label="Label" icon={iconStarsOutline} />
+        <NavigationRailItem label="Label" icon={iconStarsOutline} />
 
-      <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
+        <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
 
-      <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
-    </NavigationRail>
+        <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
+      </NavigationRail>
+    </div>
   </div>
 {/snippet}
 
 <style>
-  .container:has(#navrail-container) {
-    overflow: hidden;
-  }
-  
+  /* Hotfixes required to make the navrail work within the demo, ignore these */
   #navrail-container {
-    overflow: hidden;
+    position: relative;
     height: 550px;
   }
 </style>

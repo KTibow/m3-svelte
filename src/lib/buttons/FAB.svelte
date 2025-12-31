@@ -66,6 +66,7 @@
     overflow: hidden;
     flex-direction: row;
     interpolate-size: allow-keywords;
+    user-select: none;
 
     align-items: center;
     cursor: pointer;

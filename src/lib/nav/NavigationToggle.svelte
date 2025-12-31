@@ -9,16 +9,16 @@
   let {
     open = $bindable(),
     mode = 'detached'
-  } = $props<{
+  }: {
     open: boolean;
     mode?: 'detached' | 'inline' | 'inline-detached';
-  }>();
+  } = $props();
   
   // Prevent the animation on page load
   onMount(() => setTimeout(() => noAnimations = false));
 </script>
 
-<button class="toggle" class:open class:noAnimations type="button" id={(mode === 'detached' ? !open : (mode === 'inline-detached' ? open : true)) ? "m3-navigationtoggle" : undefined} aria-haspopup="true" aria-controls="menu" onclick={() => (open = !open)}>
+<button class="toggle" class:noAnimations class:detached={mode !== 'inline'} class:inline={mode === 'inline-detached'} class:open type="button" id={(mode === 'detached' ? !open : (mode === 'inline-detached' ? open : true)) ? "m3-navigationtoggle" : undefined} aria-haspopup="true" aria-controls="menu" onclick={() => (open = !open)}>
   <Icon icon={open ? iconMenuOpen : iconMenu} />
 </button>
 
@@ -33,6 +33,17 @@
     margin: 1rem;
     color: var(--m3c-on-surface-container);
     border-radius: var(--m3-shape-extra-small);
+  }
+  
+  .toggle.detached {
+    position: fixed;
+    z-index: 9;
+    top: 44px;
+    left: 20px;
+  }
+  
+  .toggle.detached.inline {
+    position: absolute;
   }
   
   .toggle:focus-visible {

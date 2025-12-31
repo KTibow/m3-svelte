@@ -11,15 +11,16 @@
     iconType = "left",
     fab,
     children,
-  } = $props<{
+  }: {
     open?: boolean;
     collapse?: "normal" | "full" | "no" | boolean;
     modal?: boolean;
     alignment?: "top" | "center";
     iconType?: "left" | "full";
+    divider?: boolean;
     fab?: Snippet<[open: boolean]>;
     children: Snippet;
-  }>();
+  } = $props();
 
   const onkeydown = (e: KeyboardEvent) => {
     if (modal && open && e.key === "Escape") {
@@ -34,7 +35,7 @@
 
 <div class="m3-container">
   <div
-    class="rail"
+    class:rail={true}
     class:open
     class:centered={alignment === "center"}
     class:collapse={collapse === "full"}
@@ -95,10 +96,19 @@
     overflow-y: auto;
     scrollbar-width: thin;
   }
+  
+  .rail.open,
+  .rail.icon {
+    gap: 32px;
+  }
 
   .rail:not(.open).collapse {
-    pointer-events: none;
     width: 0px;
+  }
+  
+  .rail:not(.open).collapse > :global(*:not(.top)),
+  .rail:not(.open).collapse .top > :global(*:not(.toggle)) {
+    pointer-events: none;
   }
 
   .rail:not(.open).collapse > .top > :not(:global(.toggle)),
@@ -114,6 +124,10 @@
   .rail.modal.open,
   .rail:not(.modal) {
     background: var(--m3c-surface-container);
+  }
+  
+  .rail.collapse > .top {
+    margin-top: 56px;
   }
 
   .top {
@@ -131,7 +145,7 @@
     height: 100%;
     align-self: stretch;
     transition:
-      gap var(--m3-easing-fast),
+      gap var(--m3-easing),
       width 0.2s;
     height: 100%;
   }
@@ -140,6 +154,10 @@
   .rail.collapse > .items {
     gap: 0px;
     width: 220px;
+  }
+  
+  .rail.icon > .items {
+    gap: 0px;
   }
 
   .rail.centered > .items {
