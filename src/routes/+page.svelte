@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade, fly } from "svelte/transition";
+  import { slide } from "svelte/transition";
   import { innerWidth } from "svelte/reactivity/window";
   import { easeEmphasized } from "$lib/misc/easing";
   import StandardSideSheet from "$lib/containers/StandardSideSheet.svelte";
@@ -40,21 +40,13 @@
     minimalDemoHtml: string;
     relevantLinks: { title: string; link: string }[];
   };
-  let doc = $state<DocData | undefined>();
+  let doc: DocData | undefined = $state();
   const showCode = (
     name: string,
     minimalDemoHtml: string,
     relevantLinks: { title: string; link: string }[],
   ) => {
     doc = { name, minimalDemoHtml, relevantLinks };
-  };
-
-  const onkeydown = (e: KeyboardEvent) => {
-    if (doc && e.key == "Escape") {
-      e.preventDefault();
-
-      doc = undefined;
-    }
   };
 
   afterNavigate(() => {
@@ -65,7 +57,9 @@
   });
 </script>
 
-<svelte:window {onkeydown} />
+<svelte:window
+  onkeydown={doc ? (e) => e.key == "Escape" && (e.preventDefault(), (doc = undefined)) : undefined}
+/>
 
 <svelte:head>
   <title>M3 Svelte</title>
@@ -114,17 +108,11 @@
     {/await}
   </div>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
-    <div
-      class="sheet"
-      transition:fly={{ easing: easeEmphasized, duration: 500, x: 320, opacity: 0.5 }}
-    >
+    <div class="sheet" transition:slide={{ easing: easeEmphasized, duration: 500, axis: "x" }}>
       <StandardSideSheet headline={doc.name} close={() => (doc = undefined)}>
         {@render docs()}
       </StandardSideSheet>
     </div>
-
-    <!--svelte-ignore a11y_no_static_element_interactions--><!--svelte-ignore a11y_click_events_have_key_events-->
-    <div class="shadow" transition:fade={{ duration: 200 }} onclick={() => (doc = undefined)}></div>
   {:else if doc}
     <BottomSheet close={() => (doc = undefined)}>
       {@render docs()}
@@ -150,24 +138,17 @@
     grid-column: 1;
   }
   .sheet {
-    position: fixed;
-    z-index: 3;
-    inset: 0;
-    left: auto;
-    display: flex;
-    flex-direction: column;
-    width: 20rem;
-    background: var(--m3c-surface-container-low);
-    border-top-left-radius: var(--m3-shape-large);
-    border-bottom-left-radius: var(--m3-shape-large);
-  }
+    display: grid;
+    width: 16rem;
+    margin-inline-start: 1rem;
+    border-inline-start: solid 1px var(--m3c-outline);
 
-  .shadow {
-    position: fixed;
-    z-index: 2;
-    inset: 0;
-    background: --translucent(var(--m3c-scrim), 0.5);
-    transition: all 200ms;
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    overflow: auto;
+    grid-row: 1 / span 3;
+    grid-column: 2;
   }
 
   @media (width >= 52.5rem) {
