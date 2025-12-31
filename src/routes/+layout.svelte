@@ -47,7 +47,7 @@
   <div class="sidebar">
     <NavCMLX variant="auto">
       {#each paths as { path, icon, iconS, label }}
-        {@const selected = normalizePath(path) === normalizePath(page.url.pathname)}
+        {@const selected = normalizePath(path) == normalizePath(page.url.pathname)}
         <NavCMLXItem
           variant="auto"
           href={normalizePath(path)}
