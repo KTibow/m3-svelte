@@ -1249,6 +1249,96 @@ let item = $state("a");
 </style>
 ```
 
+## Navigation Rail
+
+Minimal demo:
+
+```svelte
+<NavigationRail>
+  {#snippet fab(open)}
+    <FAB color="primary-container" text="Label" showLabel={open} elevation="none" onclick={() => alert("!")} />
+  {/snippet}
+
+  <NavigationRailItem label="Label" icon={iconStars} active />
+
+  <NavigationRailItem label="Label" icon={iconStarsOutline} />
+
+  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
+
+  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
+</NavigationRail>
+```
+
+Full demo:
+
+```use
+FAB
+NavigationRail
+NavigationRailItem
+NavigationToggle
+```
+
+```ts
+import iconCircleFilled from "@ktibow/iconset-material-symbols/circle";
+import iconEdit from "@ktibow/iconset-material-symbols/edit";
+import { addBadge } from "$lib/misc/badge";
+
+let collapse = $state<"full" | "normal" | "no">("normal");
+let alignment = $state<"top" | "center">("center");
+let iconType = $state<"full" | "left">("left");
+let modal = $state<boolean>(false);
+let open = $state<boolean>(false);
+```
+
+```svelte
+<label>
+  <Switch bind:checked={modal} />
+  {modal ? "Modal" : "Normal"}
+</label>
+<label>
+  <Arrows list={["left", "full"]} bind:value={iconType} />
+  {iconType === "left" ? "Icon Left" : "Icon Full"}
+</label>
+<label>
+  <Arrows list={["top", "center"]} bind:value={alignment} />
+  {alignment == "top"
+  ? "Top"
+  : "Center"}
+</label>
+<label>
+  <Arrows list={["normal", "full", "no"]} bind:value={collapse} />
+  {collapse == "normal"
+  ? "Collapse"
+  : collapse == "full"
+    ? "Fully Collapse"
+    : "Don't Collapse"}
+</label>
+
+{#snippet demo()}
+  <div id="navrail-container">
+    <div>
+      <NavigationRail {collapse} {alignment} {iconType} {modal} {open}>
+        {#snippet fab(open)}
+          <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} elevation="none" onclick={() => {}} />
+        {/snippet}
+
+        <NavigationRailItem label="Label" icon={iconCircleFilled} active />
+
+        <NavigationRailItem label="Label" icon={addBadge(iconTriangle, 3)} />
+      </NavigationRail>
+    </div>
+  </div>
+{/snippet}
+
+<style>
+  /* Hotfixes required to make the navrail work within the demo, ignore these */
+  #navrail-container {
+    position: relative;
+    height: 550px;
+  }
+</style>
+```
+
 ## UI transitions
 
 Minimal demo:
@@ -1548,101 +1638,6 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");
 <style>
   path.shape {
     transition: d 200ms;
-  }
-</style>
-```
-
-## Navigation Rail
-
-Minimal demo:
-
-```svelte
-<NavigationRail>
-  {#snippet fab(open)}
-    <FAB color="primary-container" text="Label" showLabel={open} elevation="none" onclick={() => alert("!")} />
-  {/snippet}
-
-  <NavigationRailItem label="Label" icon={iconStars} active />
-
-  <NavigationRailItem label="Label" icon={iconStarsOutline} />
-
-  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
-
-  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
-</NavigationRail>
-```
-
-Full demo:
-
-```use
-FAB
-NavigationRail
-NavigationRailItem
-NavigationToggle
-```
-
-```ts
-import iconStarsOutline from "@ktibow/iconset-material-symbols/stars-outline";
-import iconStars from "@ktibow/iconset-material-symbols/stars";
-import iconEdit from "@ktibow/iconset-material-symbols/edit";
-import { addBadge } from "$lib/misc/badge";
-
-let collapse = $state<"full" | "normal" | "no">("normal");
-let alignment = $state<"top" | "center">("center");
-let iconType = $state<"full" | "left">("left");
-let modal = $state<boolean>(false);
-let open = $state<boolean>(false);
-```
-
-```svelte
-<label>
-  <Switch bind:checked={modal} />
-  {modal ? "Modal" : "Normal"}
-</label>
-<label>
-  <Arrows list={["left", "full"]} bind:value={iconType} />
-  {iconType === "left" ? "Icon Left" : "Icon Full"}
-</label>
-<label>
-  <Arrows list={["top", "center"]} bind:value={alignment} />
-  {alignment == "top"
-  ? "Top"
-  : "Center"}
-</label>
-<label>
-  <Arrows list={["normal", "full", "no"]} bind:value={collapse} />
-  {collapse == "normal"
-  ? "Collapse"
-  : collapse == "full"
-    ? "Fully Collapse"
-    : "Don't Collapse"}
-</label>
-
-{#snippet demo()}
-  <div id="navrail-container">
-    <div>
-      <NavigationRail {collapse} {alignment} {iconType} {modal} {open}>
-        {#snippet fab(open)}
-          <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} elevation="none" onclick={() => {}} />
-        {/snippet}
-
-        <NavigationRailItem label="Label" icon={iconStars} active />
-
-        <NavigationRailItem label="Label" icon={iconStarsOutline} />
-
-        <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
-
-        <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
-      </NavigationRail>
-    </div>
-  </div>
-{/snippet}
-
-<style>
-  /* Hotfixes required to make the navrail work within the demo, ignore these */
-  #navrail-container {
-    position: relative;
-    height: 550px;
   }
 </style>
 ```
