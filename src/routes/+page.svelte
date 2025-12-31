@@ -56,6 +56,10 @@
   });
 </script>
 
+<svelte:window
+  onkeydown={doc ? (e) => e.key == "Escape" && (e.preventDefault(), (doc = undefined)) : undefined}
+/>
+
 <svelte:head>
   <title>M3 Svelte</title>
   <meta
