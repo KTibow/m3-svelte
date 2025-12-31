@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { HTMLButtonAttributes, HTMLAnchorAttributes } from "svelte/elements";
   import type { IconifyIcon } from "@iconify/types";
 
   import Icon from "$lib/misc/Icon.svelte";
+  import type { AnchorAttrs, ButtonAttrs } from "$lib/misc/typing-utils";
 
   let {
     label,
@@ -13,10 +13,10 @@
     label: string;
     icon: IconifyIcon;
     active?: boolean;
-  } & (({ href: string } & HTMLAnchorAttributes) | HTMLButtonAttributes) = $props();
+  } & (AnchorAttrs | ButtonAttrs) = $props();
 </script>
 
-{#if "href" in props}
+{#if props.href != undefined}
   <a class:m3-container={true} class:active role="menuitem" {...props}>
     {@render item()}
   </a>
