@@ -2,6 +2,8 @@
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/Icon.svelte";
   import type { ButtonAttrs } from "$lib/misc/typing-utils";
+  import { slide } from "svelte/transition";
+  import { easeEmphasized } from "$lib/misc/easing";
 
   type ContentProps =
     | {
@@ -18,7 +20,6 @@
   let {
     color = "primary",
     elevation = "normal",
-    showLabel = "auto",
     size = "normal",
     icon,
     text,
@@ -32,7 +33,6 @@
       | "secondary"
       | "tertiary";
     elevation?: "normal" | "lowered" | "none";
-    showLabel?: boolean | "auto";
   } & ContentProps &
     ButtonAttrs = $props();
 </script>
@@ -40,15 +40,14 @@
 <button
   type="button"
   class="m3-container color-{color} size-{size} elevation-{elevation} m3-layer"
-  class:label={showLabel == null ? !!text : showLabel}
   {...extra}
 >
   {#if icon}
-    <div class="icon">
-      <Icon {icon} />
-    </div>
+    <Icon {icon} />
   {/if}
-  <span>{text}</span>
+  {#if text}
+    <span transition:slide={{ axis: "x", duration: 500, easing: easeEmphasized }}>{text}</span>
+  {/if}
 </button>
 
 <style>
@@ -64,33 +63,10 @@
     display: inline-flex;
     border: none;
     overflow: hidden;
-    flex-direction: row;
-    interpolate-size: allow-keywords;
-    user-select: none;
 
     align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: width var(--m3-easing);
-  }
-
-  .m3-container > span {
-    transition: opacity var(--m3-easing-fast);
-  }
-
-  .m3-container.label {
-    width: auto;
-  }
-
-  .m3-container:has(span:empty) {
-    gap: 0;
-  }
-
-  .m3-container.label > span {
-    opacity: 1;
-  }
-
-  .m3-container:not(.label) > span {
-    opacity: 0;
   }
 
   .elevation-normal {
@@ -102,37 +78,34 @@
 
   .size-small {
     height: 2.5rem;
-    width: 2.5rem;
     padding: 0.5rem;
-    gap: 0.5rem;
     border-radius: var(--m3-fab-small-shape);
   }
-
+  .size-small > span {
+    margin-inline-start: 0.5rem;
+  }
   .size-normal {
     height: 3.5rem;
-    width: 3.5rem;
     padding: 1rem;
-    gap: 0.75rem;
     border-radius: var(--m3-fab-normal-shape);
   }
-
+  .size-normal > span {
+    margin-inline-start: 0.75rem;
+  }
   .size-large {
     height: 6rem;
-    width: 6rem;
     padding: 1.875rem;
-    gap: 1.875rem;
     border-radius: var(--m3-fab-large-shape);
   }
-
-  .size-small > .icon > :global(svg),
-  .size-normal > .icon > :global(svg),
-  .size-small > .icon,
-  .size-normal > .icon {
+  .size-large > span {
+    margin-inline-start: 1.875rem;
+  }
+  .size-small > :global(svg),
+  .size-normal > :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
   }
-  .size-large > .icon > :global(svg),
-  .size-large > .icon {
+  .size-large > :global(svg) {
     width: 2.25rem;
     height: 2.25rem;
   }

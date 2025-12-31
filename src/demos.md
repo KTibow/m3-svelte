@@ -1266,8 +1266,7 @@ Minimal demo:
   {#snippet fab(open)}
     <FAB
       color="primary-container"
-      text="Label"
-      showLabel={open}
+      text={open ? "Label" : undefined}
       elevation="none"
       onclick={() => alert("!")}
     />
@@ -1328,8 +1327,7 @@ let open = $state(false);
       <FAB
         color="primary-container"
         icon={iconEdit}
-        text="Label"
-        showLabel={open}
+        text={open ? "Label" : undefined}
         elevation="none"
         onclick={() => {}}
       />
