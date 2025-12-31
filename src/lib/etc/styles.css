@@ -54,6 +54,7 @@
     --m3-shape-small: 8px;
     --m3-shape-medium: 12px;
     --m3-shape-large: 16px;
+    --m3-shape-large-increased: 20px;
     --m3-shape-extra-large: 28px;
     --m3-shape-full: calc(infinity * 1px);
     --m3-optical-centering-coefficient: 0.11;
