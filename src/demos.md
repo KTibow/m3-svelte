@@ -1283,11 +1283,11 @@ import iconCircleFilled from "@ktibow/iconset-material-symbols/circle";
 import iconEdit from "@ktibow/iconset-material-symbols/edit";
 import { addBadge } from "$lib/misc/badge";
 
-let collapse = $state<"full" | "normal" | "no">("normal");
-let alignment = $state<"top" | "center">("center");
-let iconType = $state<"full" | "left">("left");
-let modal = $state<boolean>(false);
-let open = $state<boolean>(false);
+let collapse: "full" | "normal" | "no" = $state("normal");
+let alignment: "top" | "center" = $state("center");
+let iconType: "full" | "left" = $state("left");
+let modal = $state(false);
+let open = $state(false);
 ```
 
 ```svelte
@@ -1297,7 +1297,7 @@ let open = $state<boolean>(false);
 </label>
 <label>
   <Arrows list={["left", "full"]} bind:value={iconType} />
-  {iconType === "left" ? "Icon Left" : "Icon Full"}
+  {iconType == "left" ? "Icon and text" : "Icon"}
 </label>
 <label>
   <Arrows list={["top", "center"]} bind:value={alignment} />
@@ -1310,33 +1310,19 @@ let open = $state<boolean>(false);
   {collapse == "normal"
   ? "Collapse"
   : collapse == "full"
-    ? "Fully Collapse"
-    : "Don't Collapse"}
+    ? "Fully collapse"
+    : "Don't collapse"}
 </label>
 
 {#snippet demo()}
-  <div id="navrail-container">
-    <div>
-      <NavigationRail {collapse} {alignment} {iconType} {modal} {open}>
-        {#snippet fab(open)}
-          <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} elevation="none" onclick={() => {}} />
-        {/snippet}
-
-        <NavigationRailItem label="Label" icon={iconCircleFilled} active />
-
-        <NavigationRailItem label="Label" icon={addBadge(iconTriangle, 3)} />
-      </NavigationRail>
-    </div>
-  </div>
+  <NavigationRail {collapse} {alignment} {iconType} {modal} {open}>
+    {#snippet fab(open)}
+      <FAB color="primary-container" icon={iconEdit} text="Label" showLabel={open} elevation="none" onclick={() => {}} />
+    {/snippet}
+    <NavigationRailItem label="Label" icon={iconCircleFilled} active />
+    <NavigationRailItem label="Label" icon={addBadge(iconTriangle, 3)} />
+  </NavigationRail>
 {/snippet}
-
-<style>
-  /* Hotfixes required to make the navrail work within the demo, ignore these */
-  #navrail-container {
-    position: relative;
-    height: 550px;
-  }
-</style>
 ```
 
 ## UI transitions
