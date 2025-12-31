@@ -199,9 +199,9 @@ let iconType: "none" | "left" | "full" = $state("none");
       {/if}
       {#snippet menu()}
         <Menu>
-          <MenuItem icon={iconCircle} onclick={() => {}}>Hi</MenuItem>
-          <MenuItem icon={iconSquare} onclick={() => {}}>Howdy</MenuItem>
-          <MenuItem icon={iconTriangle} onclick={() => {}}>G'day</MenuItem>
+          <MenuItem icon={iconCircle} onclick={() => {}}>Alpha</MenuItem>
+          <MenuItem icon={iconSquare} onclick={() => {}}>Beta</MenuItem>
+          <MenuItem icon={iconTriangle} onclick={() => {}}>Charlie</MenuItem>
         </Menu>
       {/snippet}
     </SplitButton>
@@ -412,9 +412,9 @@ Minimal demo:
 
 ```svelte
 <Menu>
-  <MenuItem icon={iconCircle}>Undo</MenuItem>
-  <MenuItem icon={iconSquare}>Redo</MenuItem>
-  <MenuItem icon={iconTriangle}>Cut</MenuItem>
+  <MenuItem icon={iconCircle}>Alpha</MenuItem>
+  <MenuItem icon={iconSquare}>Beta</MenuItem>
+  <MenuItem icon={iconTriangle}>Charlie</MenuItem>
 </Menu>
 ```
 
@@ -436,9 +436,9 @@ let icons = $state(false);
 </label>
 {#snippet demo()}
   <Menu>
-    <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Cut</MenuItem>
-    <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Undo</MenuItem>
-    <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Redo</MenuItem>
+    <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Alpha</MenuItem>
+    <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Beta</MenuItem>
+    <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Charlie</MenuItem>
   </Menu>
 {/snippet}
 ```
