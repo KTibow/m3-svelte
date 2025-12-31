@@ -167,7 +167,7 @@
     position: fixed;
     inset: 0;
     z-index: -1;
-    background: --translucent(var(--m3c-scrim), 0.5);
+    background-color: --translucent(var(--m3c-scrim), 0.5);
     transition: opacity var(--m3-easing);
   }
 

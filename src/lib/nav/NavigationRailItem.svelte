@@ -80,7 +80,7 @@
     }
 
     &.active::before {
-      background: var(--m3c-secondary-container);
+      background-color: var(--m3c-secondary-container);
     }
 
     span:first-of-type {
@@ -152,13 +152,13 @@
 
       &:not(.active) {
         &:hover::before {
-          background: color-mix(in oklab, currentColor 8%, transparent);
+          background-color: --translucent(currentColor, 0.08);
         }
 
         &:focus-visible,
         &:active {
           &::before {
-            background-color: color-mix(in oklab, currentColor 12%, transparent);
+            background-color: --translucent(currentColor, 0.12);
           }
         }
       }
@@ -193,13 +193,13 @@
 
       &:not(.active) {
         &:hover::before {
-          background: color-mix(in oklab, currentColor 8%, transparent);
+          background-color: --translucent(currentColor, 0.08);
         }
 
         &:focus-visible,
         &:active {
           .icon {
-            background-color: color-mix(in oklab, currentColor 12%, transparent);
+            background-color: --translucent(currentColor, 0.12);
           }
         }
       }
