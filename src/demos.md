@@ -293,13 +293,13 @@ Card
 ```
 
 ```ts
-let variant: "elevated" | "filled" | "outlined" = $state("elevated");
+let variant: "filled" | "outlined" | "elevated" = $state("elevated");
 let clickable = $state(false);
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "outlined"]} bind:value={variant} />
+  <Arrows list={["filled", "outlined", "elevated"]} bind:value={variant} />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
