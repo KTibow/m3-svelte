@@ -48,6 +48,7 @@ const style = `@theme {
   --radius-sm: var(--m3-shape-small); /* = 8px = rounded-lg */
   --radius-md: var(--m3-shape-medium); /* = 12px = rounded-xl */
   --radius-lg: var(--m3-shape-large); /* = 16px = rounded-2xl */
+  --radius-li: var(--m3-shape-large-increased); /* = 20px = halfway between 2xl and 3xl */
   --radius-xl: var(--m3-shape-extra-large); /* = 28px ≅ rounded-3xl */
 
 ${[...easings, ...easingsTF].map((e) => `  --ease${e}: var(--m3-timing-function${e});`).join("\n")}

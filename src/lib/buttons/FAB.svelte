@@ -7,14 +7,16 @@
 
   type ContentProps =
     | {
-        size?: "normal";
-        icon?: IconifyIcon;
+        icon: IconifyIcon;
+        text?: undefined;
+      }
+    | {
+        icon?: undefined;
         text: string;
       }
     | {
-        size?: "small" | "normal" | "large";
         icon: IconifyIcon;
-        text?: undefined;
+        text: string;
       };
 
   let {
@@ -25,6 +27,10 @@
     text,
     ...extra
   }: {
+    // small is deprecated
+
+    // normal means "baseline" normal fab or "small" extended fab
+    size?: "small" | "normal" | "medium" | "large";
     color?:
       | "primary-container"
       | "secondary-container"
@@ -43,7 +49,7 @@
   {...extra}
 >
   {#if icon}
-    <Icon {icon} />
+    <Icon {icon} size={size == "large" ? 36 : size == "medium" ? 28 : 24} />
   {/if}
   {#if text}
     <span transition:slide={{ axis: "x", duration: 500, easing: easeEmphasized }}>{text}</span>
@@ -55,11 +61,11 @@
     :root {
       --m3-fab-small-shape: var(--m3-shape-small);
       --m3-fab-normal-shape: var(--m3-shape-large);
+      --m3-fab-medium-shape: var(--m3-shape-large-increased);
       --m3-fab-large-shape: var(--m3-shape-extra-large);
     }
   }
   button {
-    @apply --m3-label-large;
     display: inline-flex;
     border: none;
     overflow: hidden;
@@ -76,38 +82,41 @@
     box-shadow: var(--m3-elevation-1);
   }
 
+  /* deprecated */
   .size-small {
     height: 2.5rem;
-    padding: 0.5rem;
+    padding-inline: 0.5rem;
     border-radius: var(--m3-fab-small-shape);
   }
-  .size-small > span {
+  .size-small > :global(svg + span) {
     margin-inline-start: 0.5rem;
   }
   .size-normal {
+    @apply --m3-title-medium;
     height: 3.5rem;
-    padding: 1rem;
+    padding-inline: 1rem;
     border-radius: var(--m3-fab-normal-shape);
   }
-  .size-normal > span {
+  .size-normal > :global(svg + span) {
+    margin-inline-start: 0.5rem;
+  }
+  .size-medium {
+    @apply --m3-title-large;
+    height: 5rem;
+    padding-inline: 1.625rem;
+    border-radius: var(--m3-fab-medium-shape);
+  }
+  .size-medium > :global(svg + span) {
     margin-inline-start: 0.75rem;
   }
   .size-large {
+    @apply --m3-headline-small;
     height: 6rem;
-    padding: 1.875rem;
+    padding-inline: 1.75rem;
     border-radius: var(--m3-fab-large-shape);
   }
-  .size-large > span {
-    margin-inline-start: 1.875rem;
-  }
-  .size-small > :global(svg),
-  .size-normal > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .size-large > :global(svg) {
-    width: 2.25rem;
-    height: 2.25rem;
+  .size-large > :global(svg + span) {
+    margin-inline-start: 1rem;
   }
 
   .color-primary {

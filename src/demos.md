@@ -231,9 +231,9 @@ let color:
   | "primary"
   | "secondary"
   | "tertiary" = $state("primary-container");
-const sizes = ["small", "normal", "large", "extended"] as const;
-const sizeLabels = ["Small", "Normal", "Large", "Extended"] as const;
-let sizeIndex = $state(1);
+const sizes = ["normal", "medium", "large"] as const;
+let sizeIndex = $state(0);
+let iconTextSetup: "icon" | "both" | "text" = $state("icon");
 ```
 
 ```svelte
@@ -251,15 +251,27 @@ let sizeIndex = $state(1);
   />
   {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
 </label>
-<Slider bind:value={sizeIndex} min={0} max={3} step={1} stops format={(n) => sizeLabels[n]} />
+<Slider bind:value={sizeIndex} min={0} max={2} step={1} stops format={(n) => sizes[n][0].toUpperCase() + sizes[n].slice(1)} />
+<label>
+  <Arrows list={["icon", "both", "text"]} bind:value={iconTextSetup} />
+  {iconTextSetup == "icon"
+    ? "Icon only"
+    : iconTextSetup == "both"
+      ? "Icon and text"
+      : "Text only"}
+</label>
 {#snippet demo()}
   {@const size = sizes[sizeIndex]}
   <div>
     <FAB
       {color}
+      {size}
+      {...iconTextSetup == "icon"
+        ? { icon: iconCircle }
+        : iconTextSetup == "both"
+          ? { icon: iconCircle, text: "Hello" }
+          : { text: "Hello" }}
       onclick={() => {}}
-      {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
-      icon={iconCircle}
     />
   </div>
 {/snippet}
