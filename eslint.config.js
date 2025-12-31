@@ -4,12 +4,13 @@ import { includeIgnoreFile } from "@eslint/compat";
 import svelte from "eslint-plugin-svelte";
 import globals from "globals";
 import { fileURLToPath } from "node:url";
+import { defineConfig } from "eslint/config";
 import ts from "typescript-eslint";
 import svelteConfig from "./svelte.config.js";
 
 const gitignorePath = fileURLToPath(new URL("./.gitignore", import.meta.url));
 
-export default ts.config(
+export default defineConfig(
   includeIgnoreFile(gitignorePath),
   {
     ignores: ["scripts/**"],
@@ -58,6 +59,17 @@ export default ts.config(
               message: "Use specific imports from $lib/* to preserve CSS tree shaking",
             },
           ],
+        },
+      ],
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "BinaryExpression[operator='===']",
+          message: "Use == instead of ===",
+        },
+        {
+          selector: "BinaryExpression[operator='!==']",
+          message: "Use != instead of !==",
         },
       ],
     },
