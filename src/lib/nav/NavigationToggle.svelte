@@ -5,7 +5,7 @@
 
   import Icon from "$lib/misc/Icon.svelte";
 
-  let noAnimations = $state<boolean>(true);
+  let noAnimations = $state(true);
   let {
     open = $bindable(),
     mode = "detached",
@@ -32,17 +32,16 @@
   aria-controls="menu"
   onclick={() => (open = !open)}
 >
-  <Icon icon={open ? iconMenuOpen : iconMenu} />
+  <Icon icon={open ? iconMenuOpen : iconMenu} size={24} />
 </button>
 
 <style>
   .toggle {
+    display: flex;
     background: none;
     padding: 0;
     border: none;
     cursor: pointer;
-    width: 24px;
-    height: 24px;
     margin: 1rem;
     color: var(--m3c-on-surface-container);
     border-radius: var(--m3-shape-extra-small);
@@ -67,21 +66,16 @@
     outline-offset: 3px;
   }
 
-  .toggle > :global(svg) {
-    width: 24px;
-    height: 24px;
-  }
-
-  .toggle.noAnimations {
-    --m3-easing: 0s;
-  }
-
-  .toggle:not(.noAnimations).open > :global(svg) {
+  .toggle.open > :global(svg) {
     animation: in_spin var(--m3-easing);
   }
 
   .toggle:not(.open) > :global(svg) {
     animation: out_spin var(--m3-easing);
+  }
+
+  .toggle.noAnimations > :global(svg) {
+    animation-duration: 0ms !important;
   }
 
   @keyframes in_spin {
