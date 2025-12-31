@@ -91,8 +91,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1))
       vite-plugin-token-shaker:
-        specifier: ^0.0.3
-        version: 0.0.3(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1))
+        specifier: ^0.0.6
+        version: 0.0.6(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1))
 
 packages:
 
@@ -1489,8 +1489,8 @@ packages:
     peerDependencies:
       vite: ^7.2.4
 
-  vite-plugin-token-shaker@0.0.3:
-    resolution: {integrity: sha512-V0kBO1W1cmObxTJRk2tpyU0MYjAwhSJpDoYB1pt4A2PY5zAbRcHwk0ydykA/5lm77OI9GIGH3vcBWIIFzPd66A==}
+  vite-plugin-token-shaker@0.0.6:
+    resolution: {integrity: sha512-FWEKPfFcEpppZxFowhXqXagOxcW6/qAngKY44fhw39663kG5ynwuR9Vjp3PV2g6guRVpXdpYcLOojEDQ7vf4pw==}
     peerDependencies:
       vite: ^7.2.4
 
@@ -3027,7 +3027,7 @@ snapshots:
     dependencies:
       vite: 7.3.0(@types/node@25.0.3)(jiti@2.6.1)
 
-  vite-plugin-token-shaker@0.0.3(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)):
+  vite-plugin-token-shaker@0.0.6(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)):
     dependencies:
       vite: 7.3.0(@types/node@25.0.3)(jiti@2.6.1)
 

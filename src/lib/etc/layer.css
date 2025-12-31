@@ -1,5 +1,6 @@
 :where(.m3-layer) {
   position: relative;
+  -webkit-tap-highlight-color: transparent;
 
   /* Hitbox for rounded elements */
   &::before {
