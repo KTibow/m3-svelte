@@ -246,12 +246,20 @@ or for very small text in the content body, such as captions. */
   font-weight: 400;
 }
 
-/* Button reset to normalize browser defaults */
+/* Button resets to normalize browser defaults */
 @mixin --m3-button-reset {
   border: none;
   background: transparent;
   padding: 0;
   cursor: pointer;
+}
+
+/* For buttons that should behave like containers (stretch, inherit text styles) */
+@mixin --m3-button-reset-container {
+  @apply --m3-button-reset;
+  text-align: inherit;
+  font: inherit;
+  letter-spacing: inherit;
 }
 
 @layer base {

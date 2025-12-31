@@ -92,9 +92,8 @@
   }
   button.m3-container,
   label.m3-container {
-    @apply --m3-button-reset;
+    @apply --m3-button-reset-container;
     padding: 0.5rem 1.5rem 0.5rem 1rem; /* Restore padding from .m3-container */
-    text-align: inherit;
   }
   .lines-1 {
     height: --m3-density(3.5rem);

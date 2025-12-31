@@ -46,11 +46,8 @@
   }
 
   button {
-    @apply --m3-button-reset;
+    @apply --m3-button-reset-container;
     padding: 1rem; /* Restore padding from .m3-container */
-    text-align: inherit;
-    font: inherit;
-    letter-spacing: inherit;
   }
   @media (hover: hover) {
     button:hover {
