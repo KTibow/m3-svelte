@@ -1288,7 +1288,6 @@ Full demo:
 FAB
 NavigationRail
 NavigationRailItem
-NavigationToggle
 ```
 
 ```ts
