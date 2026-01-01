@@ -57,7 +57,7 @@
         />
       {/each}
       {#if page.url.pathname.startsWith(resolve("/docs")) || innerWidth >= 840}
-        {#each [["Quick start", `${resolve("/docs/quick-start")}`], ["Walkthrough", `${resolve("/docs/detailed-walkthrough")}`], ["llms.txt", asset("/llms.txt")]] as [text, href]}
+        {#each [["Quick start", resolve("/docs/quick-start")], ["Walkthrough", resolve("/docs/detailed-walkthrough")], ["llms.txt", asset("/llms.txt")]] as [text, href]}
           <NavCMLXItem
             variant="auto"
             {href}
@@ -97,9 +97,11 @@
     padding: 1rem;
   }
   @media (width < 52.5rem) {
+    :root {
+      --m3v-bottom-offset: 5rem;
+    }
     .container {
       grid-template-rows: 1fr auto;
-      --m3v-bottom-offset: 5rem;
     }
     .sidebar {
       flex-direction: column;

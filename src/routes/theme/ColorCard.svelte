@@ -67,12 +67,12 @@
 >
   <p>{bg.name.replaceAll("_", " ")}</p>
   {#if ui}
-    <div
-      class="overlay"
-      class:invert={ui == 1}
-      style:background-color={ui == 2 ? "inherit" : "currentColor"}
-    >
-      <Icon size={24} icon={iconCopy} />
+    <div class="overlay" style:background-color={ui == 2 ? "inherit" : "currentColor"}>
+      <Icon
+        size={24}
+        icon={iconCopy}
+        style="color:{ui == 2 ? 'inherit' : `light-dark(${bgColorLight}, ${bgColorDark})`}"
+      />
     </div>
   {/if}
 </div>
@@ -100,9 +100,6 @@
     border-radius: inherit;
 
     pointer-events: none;
-  }
-  .overlay.invert :global(svg) {
-    mix-blend-mode: difference;
   }
   p {
     margin: 0;

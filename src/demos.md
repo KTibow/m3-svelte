@@ -199,9 +199,9 @@ let iconType: "none" | "left" | "full" = $state("none");
       {/if}
       {#snippet menu()}
         <Menu>
-          <MenuItem icon={iconCircle} onclick={() => {}}>Hi</MenuItem>
-          <MenuItem icon={iconSquare} onclick={() => {}}>Howdy</MenuItem>
-          <MenuItem icon={iconTriangle} onclick={() => {}}>G'day</MenuItem>
+          <MenuItem icon={iconCircle} onclick={() => {}}>Alpha</MenuItem>
+          <MenuItem icon={iconSquare} onclick={() => {}}>Beta</MenuItem>
+          <MenuItem icon={iconTriangle} onclick={() => {}}>Charlie</MenuItem>
         </Menu>
       {/snippet}
     </SplitButton>
@@ -293,13 +293,13 @@ Card
 ```
 
 ```ts
-let variant: "elevated" | "filled" | "outlined" = $state("elevated");
+let variant: "filled" | "outlined" | "elevated" = $state("elevated");
 let clickable = $state(false);
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "outlined"]} bind:value={variant} />
+  <Arrows list={["filled", "outlined", "elevated"]} bind:value={variant} />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
@@ -412,9 +412,9 @@ Minimal demo:
 
 ```svelte
 <Menu>
-  <MenuItem icon={iconCircle}>Undo</MenuItem>
-  <MenuItem icon={iconSquare}>Redo</MenuItem>
-  <MenuItem icon={iconTriangle}>Cut</MenuItem>
+  <MenuItem icon={iconCircle}>Alpha</MenuItem>
+  <MenuItem icon={iconSquare}>Beta</MenuItem>
+  <MenuItem icon={iconTriangle}>Charlie</MenuItem>
 </Menu>
 ```
 
@@ -436,9 +436,9 @@ let icons = $state(false);
 </label>
 {#snippet demo()}
   <Menu>
-    <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Cut</MenuItem>
-    <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Undo</MenuItem>
-    <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Redo</MenuItem>
+    <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Alpha</MenuItem>
+    <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Beta</MenuItem>
+    <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Charlie</MenuItem>
   </Menu>
 {/snippet}
 ```
@@ -992,7 +992,6 @@ TextFieldOutlinedMultiline
 ```
 
 ```ts
-import type { HTMLInputAttributes } from "svelte/elements";
 let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
 let option: "text" | "password" | "number" | "file" = $state("text");
 let leadingIcon = $state(false);
