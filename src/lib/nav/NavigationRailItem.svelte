@@ -91,7 +91,7 @@
       width: fit-content;
       opacity: 0;
       z-index: 1;
-      transition: opacity var(--m3-easing);
+      transition: opacity var(--m3-easing-fast);
     }
 
     span:last-of-type {
@@ -100,7 +100,7 @@
       top: 36px;
       left: 0;
       width: 56px;
-      transition: opacity var(--m3-easing);
+      transition: opacity var(--m3-easing-fast);
     }
   }
 

@@ -45,6 +45,7 @@
     margin: 1rem;
     color: var(--m3c-on-surface-container);
     border-radius: var(--m3-shape-extra-small);
+    width: 24px;
   }
 
   .toggle.detached {
