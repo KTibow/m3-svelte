@@ -97,9 +97,11 @@
     padding: 1rem;
   }
   @media (width < 52.5rem) {
+    :root {
+      --m3v-bottom-offset: 5rem;
+    }
     .container {
       grid-template-rows: 1fr auto;
-      --m3v-bottom-offset: 5rem;
     }
     .sidebar {
       flex-direction: column;
