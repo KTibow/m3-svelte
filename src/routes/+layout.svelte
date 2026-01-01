@@ -57,7 +57,7 @@
         />
       {/each}
       {#if page.url.pathname.startsWith(resolve("/docs")) || innerWidth >= 840}
-        {#each [["Quick start", `${resolve("/docs/quick-start")}`], ["Walkthrough", `${resolve("/docs/detailed-walkthrough")}`], ["llms.txt", asset("/llms.txt")]] as [text, href]}
+        {#each [["Quick start", resolve("/docs/quick-start")], ["Walkthrough", resolve("/docs/detailed-walkthrough")], ["llms.txt", asset("/llms.txt")]] as [text, href]}
           <NavCMLXItem
             variant="auto"
             {href}
