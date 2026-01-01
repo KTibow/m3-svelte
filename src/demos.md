@@ -992,7 +992,6 @@ TextFieldOutlinedMultiline
 ```
 
 ```ts
-import type { HTMLInputAttributes } from "svelte/elements";
 let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
 let option: "text" | "password" | "number" | "file" = $state("text");
 let leadingIcon = $state(false);
