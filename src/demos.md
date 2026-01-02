@@ -251,14 +251,17 @@ let iconTextSetup: "icon" | "both" | "text" = $state("icon");
   />
   {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
 </label>
-<Slider bind:value={sizeIndex} min={0} max={2} step={1} stops format={(n) => sizes[n][0].toUpperCase() + sizes[n].slice(1)} />
+<Slider
+  bind:value={sizeIndex}
+  min={0}
+  max={2}
+  step={1}
+  stops
+  format={(n) => sizes[n][0].toUpperCase() + sizes[n].slice(1)}
+/>
 <label>
   <Arrows list={["icon", "both", "text"]} bind:value={iconTextSetup} />
-  {iconTextSetup == "icon"
-    ? "Icon only"
-    : iconTextSetup == "both"
-      ? "Icon and text"
-      : "Text only"}
+  {iconTextSetup == "icon" ? "Icon only" : iconTextSetup == "both" ? "Icon and text" : "Text only"}
 </label>
 {#snippet demo()}
   {@const size = sizes[sizeIndex]}
