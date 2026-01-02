@@ -10,7 +10,7 @@ export function demosPlugin(): Plugin {
   return {
     name: "vite-plugin-demos",
     async resolveId(id) {
-      if (id === VIRTUAL_PREFIX) {
+      if (id == VIRTUAL_PREFIX) {
         return RESOLVED_PREFIX + "index.js";
       } else if (id.startsWith(VIRTUAL_PREFIX)) {
         return RESOLVED_PREFIX + id.slice(VIRTUAL_PREFIX.length + "/".length) + ".svelte";
@@ -20,12 +20,12 @@ export function demosPlugin(): Plugin {
       if (!id.startsWith(RESOLVED_PREFIX)) return;
       const demos = await loadDemos();
 
-      if (id === RESOLVED_PREFIX + "index.js") {
+      if (id == RESOLVED_PREFIX + "index.js") {
         const imports: string[] = [];
         const exports: string[] = [];
 
         demos.forEach(({ friendlyName }, index) => {
-          if (friendlyName === "Shapes") {
+          if (friendlyName == "Shapes") {
             exports.push(`import("${VIRTUAL_PREFIX + "/" + index}").then(m => m.default)`);
           } else {
             const name = "Demo" + index;
@@ -34,7 +34,7 @@ export function demosPlugin(): Plugin {
           }
         });
 
-        return `${imports.join("\n")}\nexport default [ ${exports.join(",")} ]`;
+        return `${imports.join("\n")}\nexport default [ ${exports.join(", ")} ]`;
       }
       if (!id.endsWith(".svelte")) return;
 
