@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import Layer from "$lib/misc/Layer.svelte";
   import type { ButtonAttrs, DivAttrs } from "$lib/misc/typing-utils";
 
   type ActionProps = ButtonAttrs | DivAttrs;
@@ -15,9 +14,8 @@
   } & ActionProps = $props();
 </script>
 
-{#if "onclick" in extra}
-  <button type="button" class="m3-container {variant}" {...extra}>
-    <Layer />
+{#if extra.onclick}
+  <button type="button" class="m3-container {variant} m3-layer" {...extra}>
     {@render children()}
   </button>
 {:else}
@@ -36,7 +34,6 @@
   .m3-container {
     display: flex;
     flex-direction: column;
-    position: relative;
     padding: 1rem; /* protip: use margin: -1rem (adjust as needed) to make images stretch to the end */
     border: none;
     border-radius: var(--m3-card-shape);
@@ -50,12 +47,13 @@
     font: inherit;
     letter-spacing: inherit;
     cursor: pointer;
+    transition: box-shadow var(--m3-easing-fast);
   }
   @media (hover: hover) {
     button:hover {
       box-shadow: var(--m3-elevation-1);
     }
-    button.type-elevated:hover {
+    button.elevated:hover {
       box-shadow: var(--m3-elevation-2);
     }
   }

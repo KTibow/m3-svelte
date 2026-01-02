@@ -1,19 +1,20 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
   import type { ButtonAttrs } from "$lib/misc/typing-utils";
 
   type ContentProps =
     | {
-        size?: "normal";
-        icon?: IconifyIcon;
+        icon: IconifyIcon;
+        text?: undefined;
+      }
+    | {
+        icon?: undefined;
         text: string;
       }
     | {
-        size?: "small" | "normal" | "large";
         icon: IconifyIcon;
-        text?: undefined;
+        text: string;
       };
 
   let {
@@ -24,6 +25,10 @@
     text,
     ...extra
   }: {
+    // small is deprecated
+
+    // normal means "baseline" normal fab or "small" extended fab
+    size?: "small" | "normal" | "medium" | "large";
     color?:
       | "primary-container"
       | "secondary-container"
@@ -38,12 +43,11 @@
 
 <button
   type="button"
-  class="m3-container color-{color} size-{size} elevation-{elevation}"
+  class="m3-container color-{color} size-{size} elevation-{elevation} m3-layer"
   {...extra}
 >
-  <Layer />
   {#if icon}
-    <Icon {icon} />
+    <Icon {icon} size={size == "large" ? 36 : size == "medium" ? 28 : 24} />
   {/if}
   {#if text}
     {text}
@@ -55,14 +59,13 @@
     :root {
       --m3-fab-small-shape: var(--m3-shape-small);
       --m3-fab-normal-shape: var(--m3-shape-large);
+      --m3-fab-medium-shape: var(--m3-shape-large-increased);
       --m3-fab-large-shape: var(--m3-shape-extra-large);
     }
   }
   button {
-    @apply --m3-label-large;
     display: inline-flex;
     border: none;
-    position: relative;
     overflow: hidden;
 
     align-items: center;
@@ -77,32 +80,33 @@
     box-shadow: var(--m3-elevation-1);
   }
 
+  /* deprecated */
   .size-small {
     height: 2.5rem;
-    padding: 0.5rem;
+    padding-inline: 0.5rem;
     gap: 0.5rem;
     border-radius: var(--m3-fab-small-shape);
   }
   .size-normal {
+    @apply --m3-title-medium;
     height: 3.5rem;
-    padding: 1rem;
-    gap: 0.75rem;
+    padding-inline: 1rem;
+    gap: 0.5rem;
     border-radius: var(--m3-fab-normal-shape);
   }
+  .size-medium {
+    @apply --m3-title-large;
+    height: 5rem;
+    padding-inline: 1.625rem;
+    gap: 0.75rem;
+    border-radius: var(--m3-fab-medium-shape);
+  }
   .size-large {
+    @apply --m3-headline-small;
     height: 6rem;
-    padding: 1.875rem;
-    gap: 1.875rem;
+    padding-inline: 1.75rem;
+    gap: 1rem;
     border-radius: var(--m3-fab-large-shape);
-  }
-  .size-small > :global(svg),
-  .size-normal > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .size-large > :global(svg) {
-    width: 2.25rem;
-    height: 2.25rem;
   }
 
   .color-primary {

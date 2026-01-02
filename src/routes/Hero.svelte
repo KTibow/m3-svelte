@@ -9,12 +9,12 @@
   <Branding />
   <div class="pills">
     <div class="pill">
-      <Icon icon={iconSquoosh} />
-      Tokens are shakeable
+      <Icon icon={iconInject} />
+      Now injecting globals
     </div>
     <div class="pill">
-      <Icon icon={iconInject} />
-      Now using functions and mixins
+      <Icon icon={iconSquoosh} />
+      Smallest CSS yet
     </div>
   </div>
 </div>

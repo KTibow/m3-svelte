@@ -57,7 +57,7 @@
     .search {
       position: fixed;
       right: 1.5rem;
-      bottom: calc(var(--m3v-bottom-offset) + 1.5rem);
+      bottom: calc(var(--m3v-bottom-offset, 0) + 1.5rem);
     }
   }
 

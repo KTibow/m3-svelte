@@ -56,6 +56,7 @@ const preset: Preset = {
       sm: "var(--m3-shape-small)", // 8px
       md: "var(--m3-shape-medium)", // 12px
       lg: "var(--m3-shape-large)", // 16px
+      li: "var(--m3-shape-large-increased)", // 20px
       xl: "var(--m3-shape-extra-large)", // 28px
     },
     colors: {

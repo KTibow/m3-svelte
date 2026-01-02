@@ -1,0 +1,39 @@
+:where(.m3-layer) {
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Hitbox for rounded elements */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Tint */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-color: currentColor;
+    opacity: 0;
+    transition: opacity var(--m3-easing-fast);
+  }
+}
+:disabled.m3-layer::after,
+input:disabled + .m3-layer-container.m3-layer::after,
+label:has(> input:disabled).m3-layer::after {
+  display: none;
+}
+@media (hover: hover) {
+  :hover.m3-layer::after,
+  :active.m3-layer::after {
+    opacity: 0.08;
+  }
+}
+:focus-visible.m3-layer::after,
+label:has(> input:focus-visible).m3-layer::after,
+html:not(.js) :active.m3-layer::after {
+  opacity: 0.12;
+}

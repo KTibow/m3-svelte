@@ -1,11 +1,10 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLButtonAttributes } from "svelte/elements";
-  import type { AnchorAttrs } from "$lib/misc/typing-utils";
+  import type { AnchorAttrs, NotLink } from "$lib/misc/typing-utils";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
 
-  type ActionProps = AnchorAttrs | HTMLButtonAttributes;
+  type ActionProps = AnchorAttrs | NotLink<HTMLButtonAttributes>;
   let {
     variant,
     icon,
@@ -20,10 +19,9 @@
   } & ActionProps = $props();
 </script>
 
-{#if "href" in props}
+{#if props.href != undefined}
   <a class="m3-container {variant}" {...props}>
-    <div class="content" class:selected>
-      <Layer />
+    <div class="content m3-layer" class:selected>
       <div class="icon">
         <Icon {icon} size={24} />
       </div>
@@ -32,8 +30,7 @@
   </a>
 {:else}
   <button type="button" class="m3-container {variant}" disabled={selected} {...props}>
-    <div class="content" class:selected>
-      <Layer />
+    <div class="content m3-layer" class:selected>
       <div class="icon">
         <Icon {icon} size={24} />
       </div>
@@ -83,7 +80,8 @@
         height: 2rem;
       }
 
-      > :global(:is(.ripple-container, .tint)) {
+      &::after,
+      > :global(.active-ripple) {
         display: none;
       }
     }
@@ -141,7 +139,6 @@
       display: flex;
       gap: 0.25rem;
       align-items: center;
-      position: relative;
       color: var(--m3c-on-surface-variant);
       transition: var(--m3-easing);
     }

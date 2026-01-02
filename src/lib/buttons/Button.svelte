@@ -1,12 +1,15 @@
 <script lang="ts">
-  import type { HTMLButtonAttributes, HTMLAttributes } from "svelte/elements";
+  import type { HTMLButtonAttributes, HTMLAttributes, HTMLLabelAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import type { LabelAttrs, AnchorAttrs } from "$lib/misc/typing-utils";
-  import Layer from "$lib/misc/Layer.svelte";
+  import type { AnchorAttrs, NotLink } from "$lib/misc/typing-utils";
+  import "$lib/etc/layer.js";
 
   // If you want a toggle button, use `for` with a checkbox input.
-  type SummaryAttrs = HTMLAttributes<HTMLElement> & { summary: true };
-  type ActionProps = LabelAttrs | AnchorAttrs | SummaryAttrs | HTMLButtonAttributes;
+  type ActionProps =
+    | AnchorAttrs
+    | (NotLink<HTMLLabelAttributes> & { label: true })
+    | (NotLink<HTMLAttributes<HTMLElement>> & { summary: true })
+    | NotLink<HTMLButtonAttributes>;
   type Props = {
     variant?: "elevated" | "filled" | "tonal" | "outlined" | "text";
     square?: boolean;
@@ -25,30 +28,27 @@
   }: Props = $props();
 </script>
 
-{#if "for" in props}
-  <label class="m3-container {variant} {size} icon-{iconType}" class:square {...props}>
-    <Layer />
-    {@render children()}
-  </label>
-{:else if "href" in props}
-  <a class="m3-container {variant} {size} icon-{iconType}" class:square {...props}>
-    <Layer />
+{#if props.href != undefined}
+  <a class="m3-container m3-layer {variant} {size} icon-{iconType}" class:square {...props}>
     {@render children()}
   </a>
+{:else if "label" in props}
+  {@const { label: _, ...extra } = props}
+  <label class="m3-container m3-layer {variant} {size} icon-{iconType}" class:square {...extra}>
+    {@render children()}
+  </label>
 {:else if "summary" in props}
   {@const { summary: _, ...extra } = props}
-  <summary class="m3-container {variant} {size} icon-{iconType}" class:square {...extra}>
-    <Layer />
+  <summary class="m3-container m3-layer {variant} {size} icon-{iconType}" class:square {...extra}>
     {@render children()}
   </summary>
 {:else}
   <button
-    type={"onclick" in props ? "button" : "submit"}
-    class="m3-container {variant} {size} icon-{iconType}"
+    type={props.onclick ? "button" : "submit"}
+    class="m3-container m3-layer {variant} {size} icon-{iconType}"
     class:square
     {...props}
   >
-    <Layer />
     {@render children()}
   </button>
 {/if}
@@ -168,20 +168,19 @@
     background-color: transparent;
     cursor: pointer;
     user-select: none;
-    position: relative;
 
     &:disabled,
-    &:is(:global(input:disabled) + label) {
+    &:has(> :global(input:disabled)) {
       background-color: --translucent(var(--m3c-on-surface), 0.12);
       color: --translucent(var(--m3c-on-surface), 0.38);
       cursor: auto;
     }
 
-    &.elevated:not(:disabled, :global(input:disabled) + label) {
+    &.elevated:not(:disabled, :has(> :global(input:disabled))) {
       background-color: var(--m3c-surface-container-low);
       color: var(--m3c-primary);
       box-shadow: var(--m3-elevation-1);
-      &:is(:global(input:checked) + .m3-container) {
+      &:has(> :global(input:checked)) {
         background-color: var(--m3c-primary);
         color: var(--m3c-on-primary);
       }
@@ -191,18 +190,18 @@
         }
       }
     }
-    &.filled:not(:disabled, :global(input:disabled) + label) {
+    &.filled:not(:disabled, :has(> :global(input:disabled))) {
       background-color: var(--m3c-primary);
       color: var(--m3c-on-primary);
-      &:is(:global(input:is([type="checkbox"], [type="radio"]):not(:checked)) + label) {
+      &:has(> :global(input:is([type="checkbox"], [type="radio"]):not(:checked))) {
         background-color: var(--m3c-surface-container);
         color: var(--m3c-on-surface-variant);
       }
     }
-    &.tonal:not(:disabled, :global(input:disabled) + label) {
+    &.tonal:not(:disabled, :has(> :global(input:disabled))) {
       background-color: var(--m3c-secondary-container);
       color: var(--m3c-on-secondary-container);
-      &:is(:global(input:checked) + label) {
+      &:has(> :global(input:checked)) {
         background-color: var(--m3c-secondary);
         color: var(--m3c-on-secondary);
       }
@@ -219,20 +218,20 @@
       outline-width: 3px;
       outline-offset: -3px;
     }
-    &.outlined:not(:disabled, :global(input:disabled) + label) {
+    &.outlined:not(:disabled, :has(> :global(input:disabled))) {
       outline-color: var(--m3c-outline-variant);
       color: var(--m3c-on-surface-variant);
-      &:is(:global(input:checked) + label) {
+      &:has(> :global(input:checked)) {
         outline-color: var(--m3c-inverse-surface);
         background-color: var(--m3c-inverse-surface);
         color: var(--m3c-inverse-on-surface);
       }
     }
-    &.outlined:is(:disabled, :global(input:disabled) + label) {
+    &.outlined:has(> :global(input:disabled)) {
       outline-color: --translucent(var(--m3c-on-surface), 0.12);
       background-color: transparent;
     }
-    &.text:not(:disabled, :global(input:disabled) + label) {
+    &.text:not(:disabled, :has(> :global(input:disabled))) {
       color: var(--m3c-primary);
     }
     @media (hover: hover) {
@@ -241,11 +240,11 @@
       }
     }
 
-    &.square:not(:global(input:checked) + label, :global(:open) > summary),
-    &:not(.square):is(:global(input:checked) + label, :global(:open) > summary) {
+    &.square:not(:has(> :global(input:checked)), :global(:open) > summary),
+    &:not(.square):is(:has(> :global(input:checked)), :global(:open) > summary) {
       border-radius: var(--square-shape);
     }
-    &:active:not(:disabled, :global(input:disabled) + label) {
+    &:active:not(:disabled, :has(> :global(input:disabled))) {
       border-radius: var(--pressed-shape) !important;
     }
   }
@@ -256,6 +255,13 @@
   .m3-container > :global(svg) {
     width: 1.25rem;
     height: 1.25rem;
+  }
+  .m3-container > :global(input) {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
   }
 
   .m3-container {

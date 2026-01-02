@@ -51,9 +51,6 @@ let enabled = $state(true);
 </label>
 {#snippet demo()}
   <div>
-    {#if action == "toggle"}
-      <input type="checkbox" id="button-input" disabled={!enabled} />
-    {/if}
     <Button
       {variant}
       {square}
@@ -61,10 +58,13 @@ let enabled = $state(true);
       {...{
         click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
-        toggle: { for: "button-input" },
+        toggle: { label: true },
       }[action]}
       {iconType}
     >
+      {#if action == "toggle"}
+        <input type="checkbox" disabled={!enabled} />
+      {/if}
       {#if iconType == "none"}
         Hello
       {:else if iconType == "left"}
@@ -91,8 +91,8 @@ Minimal demo:
 
 ```svelte
 <ConnectedButtons>
-  <TogglePrimitive bind:toggle={itemA}>A</TogglePrimitive>
-  <TogglePrimitive bind:toggle={itemB}>B</TogglePrimitive>
+  <Button><input type="checkbox" bind:checked={itemA} />A</Button>
+  <Button><input type="checkbox" bind:checked={itemB} />B</Button>
 </ConnectedButtons>
 ```
 
@@ -101,7 +101,6 @@ Full demo:
 ```use
 ConnectedButtons
 Button
-TogglePrimitive
 ```
 
 ```ts
@@ -125,18 +124,15 @@ let sizeIndex = $state(1);
 {#snippet demo()}
   {@const size = sizes[sizeIndex]}
   <ConnectedButtons>
-    {#if multiselect}
-      <TogglePrimitive toggle={true} {variant} {size}>Alpha</TogglePrimitive>
-      <TogglePrimitive toggle={false} {variant} {size}>Beta</TogglePrimitive>
-      <TogglePrimitive toggle={false} {variant} {size}>Charlie</TogglePrimitive>
-    {:else}
-      <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-      <Button for="segmented-b-0" {variant} {size} square>Alpha</Button>
-      <input type="radio" name="segmented-b" id="segmented-b-1" />
-      <Button for="segmented-b-1" {variant} {size} square>Beta</Button>
-      <input type="radio" name="segmented-b" id="segmented-b-2" />
-      <Button for="segmented-b-2" {variant} {size} square>Charlie</Button>
-    {/if}
+    <Button {variant} {size} square label>
+      <input type={multiselect ? "checkbox" : "radio"} checked name="connectedbuttons" />Alpha
+    </Button>
+    <Button {variant} {size} square label>
+      <input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons" />Beta
+    </Button>
+    <Button {variant} {size} square label>
+      <input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons" />Charlie
+    </Button>
   </ConnectedButtons>
 {/snippet}
 ```
@@ -203,9 +199,9 @@ let iconType: "none" | "left" | "full" = $state("none");
       {/if}
       {#snippet menu()}
         <Menu>
-          <MenuItem icon={iconCircle} onclick={() => {}}>Hi</MenuItem>
-          <MenuItem icon={iconSquare} onclick={() => {}}>Howdy</MenuItem>
-          <MenuItem icon={iconTriangle} onclick={() => {}}>G'day</MenuItem>
+          <MenuItem icon={iconCircle} onclick={() => {}}>Alpha</MenuItem>
+          <MenuItem icon={iconSquare} onclick={() => {}}>Beta</MenuItem>
+          <MenuItem icon={iconTriangle} onclick={() => {}}>Charlie</MenuItem>
         </Menu>
       {/snippet}
     </SplitButton>
@@ -235,9 +231,9 @@ let color:
   | "primary"
   | "secondary"
   | "tertiary" = $state("primary-container");
-const sizes = ["small", "normal", "large", "extended"] as const;
-const sizeLabels = ["Small", "Normal", "Large", "Extended"] as const;
-let sizeIndex = $state(1);
+const sizes = ["normal", "medium", "large"] as const;
+let sizeIndex = $state(0);
+let iconTextSetup: "icon" | "both" | "text" = $state("icon");
 ```
 
 ```svelte
@@ -255,15 +251,30 @@ let sizeIndex = $state(1);
   />
   {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
 </label>
-<Slider bind:value={sizeIndex} min={0} max={3} step={1} stops format={(n) => sizeLabels[n]} />
+<Slider
+  bind:value={sizeIndex}
+  min={0}
+  max={2}
+  step={1}
+  stops
+  format={(n) => sizes[n][0].toUpperCase() + sizes[n].slice(1)}
+/>
+<label>
+  <Arrows list={["icon", "both", "text"]} bind:value={iconTextSetup} />
+  {iconTextSetup == "icon" ? "Icon only" : iconTextSetup == "both" ? "Icon and text" : "Text only"}
+</label>
 {#snippet demo()}
   {@const size = sizes[sizeIndex]}
   <div>
     <FAB
       {color}
+      {size}
+      {...iconTextSetup == "icon"
+        ? { icon: iconCircle }
+        : iconTextSetup == "both"
+          ? { icon: iconCircle, text: "Hello" }
+          : { text: "Hello" }}
       onclick={() => {}}
-      {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
-      icon={iconCircle}
     />
   </div>
 {/snippet}
@@ -285,13 +296,13 @@ Card
 ```
 
 ```ts
-let variant: "elevated" | "filled" | "outlined" = $state("elevated");
+let variant: "filled" | "outlined" | "elevated" = $state("elevated");
 let clickable = $state(false);
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "outlined"]} bind:value={variant} />
+  <Arrows list={["filled", "outlined", "elevated"]} bind:value={variant} />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
@@ -404,9 +415,9 @@ Minimal demo:
 
 ```svelte
 <Menu>
-  <MenuItem icon={iconCircle}>Undo</MenuItem>
-  <MenuItem icon={iconSquare}>Redo</MenuItem>
-  <MenuItem icon={iconTriangle}>Cut</MenuItem>
+  <MenuItem icon={iconCircle}>Alpha</MenuItem>
+  <MenuItem icon={iconSquare}>Beta</MenuItem>
+  <MenuItem icon={iconTriangle}>Charlie</MenuItem>
 </Menu>
 ```
 
@@ -428,9 +439,9 @@ let icons = $state(false);
 </label>
 {#snippet demo()}
   <Menu>
-    <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Cut</MenuItem>
-    <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Undo</MenuItem>
-    <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Redo</MenuItem>
+    <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Alpha</MenuItem>
+    <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Beta</MenuItem>
+    <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Charlie</MenuItem>
   </Menu>
 {/snippet}
 ```
@@ -743,7 +754,9 @@ let container = $state(false);
 Minimal demo:
 
 ```svelte
-<label><RadioAnim1><input type="radio" name="stuff" value="one" bind:group={stuff} /></RadioAnim1></label>
+<label>
+  <RadioAnim1><input type="radio" name="stuff" value="one" bind:group={stuff} /></RadioAnim1>
+</label>
 ```
 
 Full demo:
@@ -982,7 +995,6 @@ TextFieldOutlinedMultiline
 ```
 
 ```ts
-import type { HTMLInputAttributes } from "svelte/elements";
 let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
 let option: "text" | "password" | "number" | "file" = $state("text");
 let leadingIcon = $state(false);
@@ -1421,22 +1433,17 @@ const [send, receive] = containerTransform({ duration: 1000 });
 Minimal demo:
 
 ```svelte
-<button>
-  <Layer />
-  Hello
-</button>
+<script>
+  // you may need to import "m3-svelte/etc/layer"
+</script>
 
-<style>
-  button {
-    position: relative;
-  }
-</style>
+<button class="m3-layer">Hello</button>
 ```
 
 Full demo:
 
 ```use
-Layer
+
 ```
 
 ```ts
@@ -1445,9 +1452,7 @@ Layer
 
 ```svelte
 {#snippet demo()}
-  <button class="layer-demo">
-    <Layer />
-  </button>
+  <button class="m3-layer layer-demo"></button>
   <style>
     .layer-demo {
       min-height: 10rem;

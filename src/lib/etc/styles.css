@@ -1,10 +1,30 @@
-@function --translucent(--color, --opacity) {
-  result: oklab(from var(--color) l a b / var(--opacity));
-}
-/* DEPRECATED: This default --m3-density function will be removed in a future version.
-   For new themes, pick which option you actually want. */
-@function --m3-density(--size) {
-  result: calc(var(--size) + (var(--m3v-density, 0) * 0.25rem));
+@layer base {
+  /* Reset a few things */
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+  .m3-container {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .m3-container a,
+  a.m3-container {
+    text-decoration: none;
+  }
+  .m3-container dialog,
+  dialog.m3-container {
+    margin: auto;
+  }
+
+  :root {
+    accent-color: var(--m3c-primary);
+  }
+  :focus-visible {
+    outline: none;
+    @apply --m3-focused-outward;
+  }
 }
 
 @layer tokens {
@@ -34,12 +54,13 @@
     --m3-shape-small: 8px;
     --m3-shape-medium: 12px;
     --m3-shape-large: 16px;
+    --m3-shape-large-increased: 20px;
     --m3-shape-extra-large: 28px;
     --m3-shape-full: calc(infinity * 1px);
     --m3-optical-centering-coefficient: 0.11;
 
     /* Typography */
-    --m3-font: Roboto, system-ui;
+    --m3-font: "Google Sans Flex", Roboto, system-ui;
     --m3-font-mono: "Google Sans Code", "Roboto Mono", monospace;
 
     /* Expressive easing */
@@ -120,13 +141,7 @@
     );
   }
 }
-/* Not tokens because they may be dynamically get/set and aren't generally constant */
-/* deprecated: need to replace with simple INLINE default value */
-@property --m3v-bottom-offset {
-  syntax: "<length>";
-  inherits: true;
-  initial-value: 0;
-}
+/* Background is dynamic, so not a token */
 :root {
   --m3v-background: var(--m3c-surface);
 }
@@ -136,21 +151,21 @@
   font-family: var(--m3-font);
   font-size: 3.563rem;
   line-height: 1.123;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-display-medium {
   font-family: var(--m3-font);
   font-size: 2.813rem;
   line-height: 1.156;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-display-small {
   font-family: var(--m3-font);
   font-size: 2.25rem;
   line-height: 1.222;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 
@@ -159,21 +174,21 @@
   font-family: var(--m3-font);
   font-size: 2rem;
   line-height: 1.25;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-headline-medium {
   font-family: var(--m3-font);
   font-size: 1.75rem;
   line-height: 1.286;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-headline-small {
   font-family: var(--m3-font);
   font-size: 1.5rem;
   line-height: 1.333;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 
@@ -182,21 +197,21 @@
   font-family: var(--m3-font);
   font-size: 1.375rem;
   line-height: 1.273;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-title-medium {
   font-family: var(--m3-font);
   font-size: 1rem;
   line-height: 1.5;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 500;
 }
 @mixin --m3-title-small {
   font-family: var(--m3-font);
   font-size: 0.875rem;
   line-height: 1.429;
-  letter-spacing: 0.006rem;
+  /*letter-spacing: 0.006rem;*/
   font-weight: 500;
 }
 
@@ -206,21 +221,21 @@ or for very small text in the content body, such as captions. */
   font-family: var(--m3-font);
   font-size: 0.875rem;
   line-height: 1.429;
-  letter-spacing: 0.006rem;
+  /*letter-spacing: 0.006rem;*/
   font-weight: 500;
 }
 @mixin --m3-label-medium {
   font-family: var(--m3-font);
   font-size: 0.75rem;
   line-height: 1.333;
-  letter-spacing: 0.031rem;
+  /*letter-spacing: 0.031rem;*/
   font-weight: 500;
 }
 @mixin --m3-label-small {
   font-family: var(--m3-font);
   font-size: 0.688rem;
   line-height: 1.455;
-  letter-spacing: 0.031rem;
+  /*letter-spacing: 0.031rem;*/
   font-weight: 500;
 }
 
@@ -229,46 +244,57 @@ or for very small text in the content body, such as captions. */
   font-family: var(--m3-font);
   font-size: 1rem;
   line-height: 1.5;
-  letter-spacing: 0;
+  /*letter-spacing: 0;*/
   font-weight: 400;
 }
 @mixin --m3-body-medium {
   font-family: var(--m3-font);
   font-size: 0.875rem;
   line-height: 1.429;
-  letter-spacing: 0.016rem;
+  /*letter-spacing: 0.016rem;*/
   font-weight: 400;
 }
 @mixin --m3-body-small {
   font-family: var(--m3-font);
   font-size: 0.75rem;
   line-height: 1.333;
-  letter-spacing: 0.025rem;
+  /*letter-spacing: 0.025rem;*/
   font-weight: 400;
 }
-@layer base {
-  /* Reset a few things */
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-  }
-  .m3-container {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .m3-container a,
-  a.m3-container {
-    text-decoration: none;
-  }
-  .m3-container dialog,
-  dialog.m3-container {
-    margin: auto;
-  }
 
-  :root {
-    accent-color: var(--m3c-primary);
+@keyframes focus-outward {
+  0% {
+    box-shadow: 0 0 0 0px var(--m3c-secondary);
   }
+  100% {
+    box-shadow: 0 0 0 3px var(--m3c-secondary);
+  }
+}
+@keyframes focus-inward {
+  0% {
+    box-shadow: inset 0 0 0 0px var(--m3c-secondary);
+  }
+  100% {
+    box-shadow: inset 0 0 0 3px var(--m3c-secondary);
+  }
+}
+@mixin --m3-focused-outward {
+  animation: focus-outward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
+}
+@mixin --m3-focused-inward {
+  animation: focus-inward 0.6s cubic-bezier(0.14, 5.63, 0.4, 0.5) forwards;
+}
+@mixin --m3-focus-inward {
+  &:focus-visible {
+    @apply --m3-focused-inward;
+  }
+}
+@mixin --m3-focus-none {
+  animation: none;
+}
+
+@function --translucent(--color, --opacity) {
+  result: oklab(from var(--color) l a b / var(--opacity));
 }
 
 /* Emphasized easing timing function derived from this code:

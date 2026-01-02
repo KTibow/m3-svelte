@@ -1,14 +1,21 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { HTMLAnchorAttributes, HTMLLabelAttributes } from "svelte/elements";
-  import Layer from "$lib/misc/Layer.svelte";
-  import type { ButtonAttrs, DivAttrs, NotButton } from "$lib/misc/typing-utils";
+  import type { HTMLLabelAttributes } from "svelte/elements";
 
+  import type {
+    ButtonAttrs,
+    AnchorAttrs,
+    DivAttrs,
+    NotButton,
+    NotLink,
+  } from "$lib/misc/typing-utils";
+
+  type NotLabel<T> = T & { label?: false };
   type ActionProps =
-    | DivAttrs
-    | ButtonAttrs
-    | ({ label: true } & NotButton<HTMLLabelAttributes>)
-    | ({ href: string } & NotButton<HTMLAnchorAttributes>);
+    | NotLabel<ButtonAttrs>
+    | NotLabel<AnchorAttrs>
+    | (NotLink<NotButton<HTMLLabelAttributes>> & { label: true })
+    | NotLabel<DivAttrs>;
 
   let {
     leading,
@@ -54,22 +61,19 @@
 {/snippet}
 
 <li style:display="contents">
-  {#if "label" in props}
-    {@const { label: _, ...extra } = props}
-    <label class="m3-container focus-inset lines-{lines}" {...extra}>
-      <Layer />
-      {@render content()}
-    </label>
-  {:else if "onclick" in props}
-    <button type="button" class="m3-container focus-inset lines-{lines}" {...props}>
-      <Layer />
+  {#if props.onclick}
+    <button type="button" class="m3-container m3-layer lines-{lines}" {...props}>
       {@render content()}
     </button>
-  {:else if "href" in props}
-    <a class="m3-container focus-inset lines-{lines}" {...props}>
-      <Layer />
+  {:else if props.href != undefined}
+    <a class="m3-container m3-layer lines-{lines}" {...props}>
       {@render content()}
     </a>
+  {:else if props.label}
+    {@const { label: _, ...extra } = props}
+    <label class="m3-container m3-layer lines-{lines}" {...extra}>
+      {@render content()}
+    </label>
   {:else}
     <div class="m3-container lines-{lines}" {...props}>
       {@render content()}
@@ -79,6 +83,7 @@
 
 <style>
   .m3-container {
+    @apply --m3-focus-inward;
     display: flex;
     justify-self: stretch;
     padding: 0.5rem 1.5rem 0.5rem 1rem;
@@ -87,7 +92,7 @@
 
     text-align: inherit;
     border: none;
-    position: relative;
+
     background: transparent;
     color: inherit;
   }

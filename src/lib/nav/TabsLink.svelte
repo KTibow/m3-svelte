@@ -2,7 +2,6 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAnchorAttributes } from "svelte/elements";
   import Icon from "$lib/misc/Icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
 
   let {
     secondary = false,
@@ -29,8 +28,13 @@
 >
   <div class="divider"></div>
   {#each items as item}
-    <a href={item.href} class:tall={item.icon} class:selected={item.value == tab} {...extra}>
-      <Layer />
+    <a
+      href={item.href}
+      class:tall={item.icon}
+      class:selected={item.value == tab}
+      class="m3-layer"
+      {...extra}
+    >
       {#if item.icon}
         <Icon icon={item.icon} />
       {/if}
@@ -59,7 +63,6 @@
     white-space: nowrap;
     padding: 0 1rem;
 
-    position: relative;
     display: flex;
     gap: 0.5rem;
     align-items: center;
