@@ -11,25 +11,25 @@ export function demosPlugin(): Plugin {
     name: "vite-plugin-demos",
     async resolveId(id) {
       if (id == VIRTUAL_PREFIX) {
-        return RESOLVED_PREFIX + "index.js";
+        return `${RESOLVED_PREFIX}/index.js`;
       } else if (id.startsWith(VIRTUAL_PREFIX)) {
-        return RESOLVED_PREFIX + id.slice(VIRTUAL_PREFIX.length + "/".length) + ".svelte";
+        return `${RESOLVED_PREFIX}${id.slice(VIRTUAL_PREFIX.length + 1)}.svelte`;
       }
     },
     async load(id) {
       if (!id.startsWith(RESOLVED_PREFIX)) return;
       const demos = await loadDemos();
 
-      if (id == RESOLVED_PREFIX + "index.js") {
+      if (id == `${RESOLVED_PREFIX}/index.js`) {
         const imports: string[] = [];
         const exports: string[] = [];
 
         demos.forEach(({ friendlyName }, index) => {
           if (friendlyName == "Shapes") {
-            exports.push(`import("${VIRTUAL_PREFIX + "/" + index}").then(m => m.default)`);
+            exports.push(`import("${VIRTUAL_PREFIX}/${index}").then(m => m.default)`);
           } else {
             const name = "Demo" + index;
-            imports.push(`import ${name} from "${VIRTUAL_PREFIX + "/" + index}"`);
+            imports.push(`import ${name} from "${VIRTUAL_PREFIX}/${index}"`);
             exports.push(name);
           }
         });
