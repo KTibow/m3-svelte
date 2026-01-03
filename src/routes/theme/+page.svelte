@@ -39,7 +39,10 @@
     content="Make a Material 3 theme and use it in CSS. Works great with M3 Svelte components."
   />
 </svelte:head>
-<ColorChooser bind:sourceColor={$sourceColor} />
+
+<div class="horizontal">
+  <ColorChooser bind:sourceColor={$sourceColor} />
+</div>
 <Arrow />
 <TransformChooser
   {schemes}
@@ -51,3 +54,11 @@
 />
 <Arrow />
 <SchemeShowcase {light} {dark} {includeDimBright} {includeFixed} />
+
+<style>
+  .horizontal {
+    display: flex;
+    height: 2.5rem;
+    gap: 0.5rem;
+  }
+</style>
