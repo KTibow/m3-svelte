@@ -51,13 +51,16 @@
 
 <dialog
   class="m3-container"
-  closedby="any"
   style:max-height="{height}px"
   use:open
   use:outroClass
   oncancel={(e) => {
     e.preventDefault();
     close("esc");
+  }}
+  onmousedown={(e) => {
+    if (e.target != e.currentTarget) return;
+    close("click");
   }}
   onwheel={moveWheel}
   in:heightAnim={{ easing: easeEmphasizedDecel, duration: 400 }}
