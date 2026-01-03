@@ -58,11 +58,12 @@
   .snippet :global {
     pre {
       margin: 0;
-      padding: 1rem 10rem 1rem 1rem;
+      padding: 1rem 7rem 1rem 1rem;
     }
     code {
       padding: 0;
       white-space: pre-wrap;
+      word-break: break-word;
     }
   }
 </style>

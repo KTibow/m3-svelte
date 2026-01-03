@@ -95,7 +95,6 @@
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    overflow: clip auto;
   }
   @media (width < 52.5rem) {
     :root {
