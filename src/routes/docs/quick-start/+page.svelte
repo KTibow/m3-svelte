@@ -1,8 +1,9 @@
 <script>
   import iconDownload from "@ktibow/iconset-material-symbols/download";
-  import iconConfig from "@ktibow/iconset-material-symbols/settings";
+  import iconConfig from "@ktibow/iconset-material-symbols/settings-outline";
   import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
+  import iconNext from "@ktibow/iconset-material-symbols/arrow-forward";
 
   import Icon from "$lib/misc/Icon.svelte";
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
@@ -17,110 +18,98 @@
 <svelte:head><title>Quick start</title></svelte:head>
 <ol>
   <li>
-    <div class="header">
+    <h2>
       <div class="number">
         1
         <Icon icon={iconDownload} />
       </div>
-    </div>
-    <div class="text">
-      <p>
-        Install packages with <code>npm i m3-svelte vite-plugin-functions-mixins</code> (or your package
-        manager).
-      </p>
-    </div>
+      <div class="text">Install M3 Svelte</div>
+    </h2>
+    <Snippet
+      name="install.sh"
+      html={/* sh */ `pnpm install m3-svelte vite-plugin-functions-mixins -D`}
+    />
   </li>
   <li>
-    <div class="header">
+    <h2>
       <div class="number">
         2
         <Icon icon={iconConfig} />
       </div>
-    </div>
-    <div class="text">
-      <p>Enable a functions/mixins polyfill.</p>
-      <Snippet
-        name="vite.config.ts"
-        html={/* typescript */ `import { defineConfig } from "vite";
+      <div class="text">Enable functions and mixins</div>
+    </h2>
+    <Snippet
+      name="vite.config.ts"
+      html={/* typescript */ `import { defineConfig } from "vite";
 import { functionsMixins } from "vite-plugin-functions-mixins";
 
 export default defineConfig({
   plugins: [/* your existing plugins */ functionsMixins({ deps: ["m3-svelte"] })],
 });`}
-      />
-    </div>
+    />
   </li>
   <li>
-    <div class="header">
+    <h2>
       <div class="number">
         3
         <Icon icon={iconPalette} />
       </div>
-    </div>
-    <div class="text">
-      <p>
-        <a href={resolve("/theme")}>Get a theme snippet</a> and start using it.
-      </p>
-      <Snippet
-        name="+layout.svelte, App.svelte, or similar"
-        html={/* svelte */ `<${""}script>
+      <div class="text">Enable your <a href={resolve("/theme")}>theme snippet</a></div>
+    </h2>
+    <Snippet
+      name="+layout.svelte, App.svelte, or similar"
+      html={/* svelte */ `<${""}script>
   import "../app.css"; // Change this if you're not in SvelteKit
 </${""}script>`}
-      />
-      <Snippet name="app.css" html={/* css */ `/* Your theme snippet */`} />
-    </div>
+    />
+    <Snippet name="app.css" html={/* css */ `/* Your theme snippet */`} />
   </li>
   <li>
-    <div class="header">
+    <h2>
       <div class="number">
         4
         <Icon icon={iconType} />
       </div>
       <ConnectedButtons>
-        <Button square label
-          ><input type="radio" value="gsans" name="font" bind:group={fontSelection} />Google Sans</Button
+        <Button variant="tonal" square label
+          ><input type="radio" value="gsans" name="font" bind:group={fontSelection} />Enable Google
+          Sans</Button
         >
-        <Button square label
-          ><input
-            type="radio"
-            value="manual"
-            name="font"
-            bind:group={fontSelection}
-          />Manual</Button
+        <Button variant="tonal" square label
+          ><input type="radio" value="manual" name="font" bind:group={fontSelection} />Enable your
+          font</Button
         >
       </ConnectedButtons>
-    </div>
-    <div class="text">
-      <p>Get a font for M3 Svelte to use.</p>
-      {#if fontSelection == "gsans"}
-        <Snippet
-          name="app.html"
-          html={/* html */ `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap" />`}
-        />
-      {:else}
-        <Snippet
-          name="app.css"
-          html={/* css */ `:root {
+    </h2>
+    {#if fontSelection == "gsans"}
+      <Snippet
+        name="app.html"
+        html={/* html */ `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap" />`}
+      />
+    {:else}
+      <Snippet
+        name="app.css"
+        html={/* css */ `:root {
   --m3-font: [your font], system-ui;
 }`}
-        />
-      {/if}
-    </div>
+      />
+    {/if}
   </li>
 </ol>
-<p>
-  Now you can start using components like this. <a href="./detailed-walkthrough"
-    >Keep learning: detailed walkthrough</a
-  >
-</p>
-<Snippet
-  name="Component.svelte"
-  html={/* svelte */ `<${""}script>
+<div class="stack">
+  <Snippet
+    name="Now you can start using components"
+    html={/* svelte */ `<${""}script>
   import { Button } from "m3-svelte";
 </${""}script>
 
-<${""}Button variant="filled" onclick={() => alert("Hello world")}>Click me</${""}Button>`}
-/>
+<${""}Button onclick={() => alert("Hello world")}>Click me</${""}Button>`}
+  />
+  <a class="m3-layer" href={resolve("/docs/detailed-walkthrough")}>
+    <Icon icon={iconNext} size={24} />
+    Keep learning
+  </a>
+</div>
 
 <style>
   ol {
@@ -137,11 +126,13 @@ export default defineConfig({
     flex-direction: column;
     gap: 0.5rem;
   }
-  .header {
+  h2 {
+    @apply --m3-title-large;
     display: flex;
     align-items: center;
     align-self: flex-start;
     gap: 0.5rem;
+    margin: 0;
   }
   .number {
     display: flex;
@@ -151,33 +142,42 @@ export default defineConfig({
     height: 2.5rem;
     border-radius: 3rem;
     padding: 0 1rem;
-    font-size: 1.2rem;
     background-color: var(--m3c-primary-container);
     color: var(--m3c-on-primary-container);
   }
   .text {
     display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 0.25em;
 
-    padding: 1rem;
-    border-radius: 1.5rem;
-
-    min-height: 3rem;
-    background-color: var(--m3c-surface-container-low);
-  }
-
-  p {
-    margin: 0;
-  }
-  code {
-    font-size: 0.9rem;
-    background-color: var(--m3c-surface-container-highest);
-    padding-inline: 2px;
-    border-radius: 0.3rem;
+    height: 2.5rem;
+    border-radius: 3rem;
+    padding: 0 1rem;
+    background-color: var(--m3c-secondary-container);
+    color: var(--m3c-on-secondary-container);
   }
   a {
-    color: var(--m3c-primary);
+    color: inherit;
+  }
+
+  .stack {
+    display: grid;
+    gap: 4rem;
+    @media (width >= 37.5rem) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .stack > a {
+    @apply --m3-title-large;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background-color: var(--m3c-primary-container-subtle);
+    color: var(--m3c-on-primary-container-subtle);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
   }
 </style>

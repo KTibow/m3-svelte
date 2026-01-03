@@ -1,7 +1,7 @@
 import { createHighlighter } from "shiki";
 const highlighterPromise = createHighlighter({
   themes: ["github-light", "github-dark"],
-  langs: ["svelte", "typescript", "html", "css"],
+  langs: ["svelte", "typescript", "html", "css", "sh"],
 });
 export default async (code: string, lang: string) => {
   const highlighter = await highlighterPromise;
