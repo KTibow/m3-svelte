@@ -186,7 +186,7 @@ export default defineConfig({
     align-items: center;
     gap: 0.25em;
 
-    height: 2.5rem;
+    min-height: 2.5rem;
     border-radius: 3rem;
     padding: 0 1rem;
     background-color: var(--m3c-secondary-container);
