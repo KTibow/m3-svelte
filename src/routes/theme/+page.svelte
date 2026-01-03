@@ -9,7 +9,7 @@
   import { sourceColor } from "../state";
 
   let variant: Variant = $state(Variant.TONAL_SPOT);
-  let specVersion: "2021" | "2025" = $state("2025");
+  let usePreExpressive = $state(false);
   let contrast = $state(0);
   let includeDimBright = $state(false);
   let includeFixed = $state(false);
@@ -18,7 +18,7 @@
     const commonArgs = {
       sourceColorHct: Hct.fromInt($sourceColor),
       contrastLevel: contrast,
-      specVersion,
+      specVersion: usePreExpressive ? "2021" : "2025",
     } as const;
     const result = {} as Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
     for (const { id } of variants) {
@@ -48,7 +48,7 @@
   {schemes}
   bind:variant
   bind:contrast
-  bind:specVersion
+  bind:usePreExpressive
   bind:includeDimBright
   bind:includeFixed
 />

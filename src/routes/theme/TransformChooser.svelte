@@ -19,14 +19,14 @@
     schemes,
     variant = $bindable(),
     contrast = $bindable(),
-    specVersion = $bindable(),
+    usePreExpressive = $bindable(),
     includeDimBright = $bindable(),
     includeFixed = $bindable(),
   }: {
     schemes: Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
     variant: Variant;
     contrast: number;
-    specVersion: "2021" | "2025";
+    usePreExpressive: boolean;
     includeDimBright: boolean;
     includeFixed: boolean;
   } = $props();
@@ -86,13 +86,8 @@
       />
       <ConnectedButtons>
         <Button square label size="m"
-          ><input type="radio" value="2021" bind:group={specVersion} />2021</Button
+          ><input type="checkbox" bind:checked={usePreExpressive} />Pre-Expressive colors</Button
         >
-        <Button square label size="m"
-          ><input type="radio" value="2025" bind:group={specVersion} />2025</Button
-        >
-      </ConnectedButtons>
-      <ConnectedButtons>
         <Button square label size="m"
           ><input type="checkbox" bind:checked={includeDimBright} />Include Dim/Bright</Button
         >
