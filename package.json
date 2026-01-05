@@ -69,7 +69,7 @@
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.13.1",
-    "globals": "^16.5.0",
+    "globals": "^17.0.0",
     "m3-svelte": "link:",
     "prettier": "^3.7.4",
     "prettier-plugin-svelte": "^3.4.1",
@@ -79,11 +79,11 @@
     "svelte-check": "^4.3.5",
     "tinyglobby": "^0.2.15",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.51.0",
+    "typescript-eslint": "^8.52.0",
     "unocss": "^66.5.12",
     "vite": "^7.3.0",
-    "vite-plugin-functions-mixins": "^0.4.0",
-    "vite-plugin-token-shaker": "^0.0.6"
+    "vite-plugin-functions-mixins": "^0.4.1",
+    "vite-plugin-token-shaker": "^0.0.7"
   },
   "peerDependencies": {
     "@ktibow/material-color-utilities-nightly": "^0.3.11763580498000",
