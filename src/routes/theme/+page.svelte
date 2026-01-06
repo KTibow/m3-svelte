@@ -1,9 +1,9 @@
 <script lang="ts">
   import { DynamicScheme, Hct, Variant } from "@ktibow/material-color-utilities-nightly";
 
-  import ColorChooser from "./ColorChooser.svelte";
-  import Arrow from "./Arrow.svelte";
-  import TransformChooser from "./TransformChooser.svelte";
+  import SelectColor from "./SelectColor.svelte";
+  import SelectVariant from "./SelectVariant.svelte";
+  import SelectConfig from "./SelectConfig.svelte";
   import SchemeShowcase from "./SchemeShowcase.svelte";
   import variants from "./variants";
   import { sourceColor } from "../state";
@@ -41,24 +41,27 @@
 </svelte:head>
 
 <div class="horizontal">
-  <ColorChooser bind:sourceColor={$sourceColor} />
+  <SelectColor bind:sourceColor={$sourceColor} />
 </div>
-<Arrow />
-<TransformChooser
-  {schemes}
-  bind:variant
-  bind:contrast
-  bind:usePreExpressive
-  bind:includeDimBright
-  bind:includeFixed
-/>
-<Arrow />
+<div class="horizontal variants">
+  <SelectVariant {schemes} bind:variant />
+</div>
+<SelectConfig bind:contrast bind:usePreExpressive bind:includeDimBright bind:includeFixed />
+
+<div style:height="10rem" style:flex-grow="1"></div>
+
 <SchemeShowcase {light} {dark} {includeDimBright} {includeFixed} />
 
 <style>
   .horizontal {
     display: flex;
-    height: 2.5rem;
     gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .variants {
+    @media (width < 37.5rem) {
+      flex-direction: column;
+      height: auto;
+    }
   }
 </style>

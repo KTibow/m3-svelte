@@ -1,72 +1,29 @@
 <script lang="ts">
-  import {
-    hexFromArgb,
-    type DynamicColor,
-    type DynamicScheme,
-    type Variant,
-  } from "@ktibow/material-color-utilities-nightly";
   import iconContrast from "@ktibow/iconset-material-symbols/contrast";
-  import { materialColors } from "$lib/etc/colors";
   import Slider from "$lib/forms/Slider.svelte";
   import Select from "$lib/forms/Select.svelte";
 
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import { appType, density } from "../state";
-  import variants from "./variants";
 
   let {
-    schemes,
-    variant = $bindable(),
     contrast = $bindable(),
     usePreExpressive = $bindable(),
     includeDimBright = $bindable(),
     includeFixed = $bindable(),
   }: {
-    schemes: Record<Variant, { light: DynamicScheme; dark: DynamicScheme }>;
-    variant: Variant;
     contrast: number;
     usePreExpressive: boolean;
     includeDimBright: boolean;
     includeFixed: boolean;
   } = $props();
 
-  const variantColor = (scheme: DynamicScheme, color: DynamicColor) => {
-    return hexFromArgb(color.getArgb(scheme));
-  };
   let showMore = $state(contrast != 0 || $density != 0 || $appType != "vanilla");
 </script>
 
-<div class="content variants">
-  {#each variants as { id, name, desc }}
-    {@const { light, dark } = schemes[id]}
-    <label>
-      <input type="radio" bind:group={variant} name="variants" value={id} />
-      <div
-        style:background-color="light-dark({variantColor(light, materialColors.primaryContainer())}, {variantColor(
-          dark,
-          materialColors.primaryContainer(),
-        )})"
-        style:color="light-dark({variantColor(light, materialColors.onPrimaryContainer())}, {variantColor(
-          dark,
-          materialColors.onPrimaryContainer(),
-        )})"
-      >
-        <p>{name}</p>
-      </div>
-      <div
-        style:background-color="light-dark({variantColor(
-          light,
-          materialColors.surfaceContainerLow(),
-        )}, {variantColor(dark, materialColors.surfaceContainerLow())})"
-      >
-        <p class="desc">{desc}</p>
-      </div>
-    </label>
-  {/each}
-</div>
 {#if showMore}
-  <div class="content more">
+  <div class="content">
     <div class="long">
       <Slider
         min={-1}
@@ -136,7 +93,7 @@
     </p>
   {/if}
 {:else}
-  <button class="content more m3-layer" onclick={() => (showMore = true)}>
+  <button class="content m3-layer" onclick={() => (showMore = true)}>
     Configure theme and more
   </button>
 {/if}
@@ -146,83 +103,17 @@
     background-color: var(--m3c-surface-container-low);
     padding: 1rem;
     border-radius: 0.5rem;
+    border: none;
   }
 
-  .variants {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    @media (min-width: 52.5rem) {
-      flex-direction: row;
-    }
-    @media (min-width: 100rem) {
-      flex-wrap: nowrap;
-    }
-  }
-  label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    border-radius: 0.5rem;
-    flex-grow: 1;
-    cursor: pointer;
-    > input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-    &:has(> input:focus-visible) {
-      @apply --m3-focused-outward;
-    }
-    > * {
-      display: flex;
-      flex-direction: column;
-      padding: 0.5rem 1rem;
-      flex-grow: 1;
-      transition: border-radius cubic-bezier(0.42, 5, 0.21, 0.9) 350ms;
-      &:first-of-type {
-        border-radius: 0.5rem 0.5rem 0.25rem 0.25rem;
-        padding-top: 0.75rem;
-      }
-      &:last-of-type {
-        border-radius: 0.25rem 0.25rem 0.5rem 0.5rem;
-        padding-bottom: 0.75rem;
-      }
-    }
-    &:has(> input:checked) {
-      border-radius: 1rem;
-      > :first-of-type {
-        border-radius: 1rem 1rem 0.25rem 0.25rem;
-      }
-      > :last-of-type {
-        border-radius: 0.25rem 0.25rem 1rem 1rem;
-        background-color: var(--m3c-primary) !important;
-        color: var(--m3c-on-primary) !important;
-      }
-    }
-  }
   p {
     margin: 0;
   }
-  p.desc {
-    @apply --m3-body-medium;
-  }
 
-  .content.variants {
-    border-start-start-radius: 1rem;
-    border-start-end-radius: 1rem;
-  }
-  .more {
-    margin-top: 0.5rem;
-    border: none;
-    border-end-start-radius: 1rem;
-    border-end-end-radius: 1rem;
-  }
-  button.more {
+  button.content {
     @apply --m3-label-large;
   }
-  div.more {
+  div.content {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
