@@ -48,7 +48,7 @@
 </div>
 <SelectConfig bind:contrast bind:usePreExpressive bind:includeDimBright bind:includeFixed />
 
-<div style:height="10rem" style:flex-grow="1"></div>
+<div style:height="5rem"></div>
 
 <SchemeShowcase {light} {dark} {includeDimBright} {includeFixed} />
 
