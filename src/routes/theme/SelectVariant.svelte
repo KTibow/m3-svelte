@@ -57,9 +57,8 @@
     align-items: center;
     justify-content: center;
     border-radius: var(--m3-shape-full);
-    padding-inline: 1rem;
+    padding-inline: 0.5rem;
     transition: var(--m3-timing-function-emphasized) 500ms;
-    cursor: pointer;
     flex-grow: 0;
   }
   input:focus-visible + div {
@@ -69,6 +68,7 @@
     flex-grow: 1;
   }
   div:not(input:checked + div) {
+    cursor: pointer;
     opacity: 0.8;
     @media (width < 37.5rem) {
       height: 1.5rem;
