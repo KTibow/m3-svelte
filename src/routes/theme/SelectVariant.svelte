@@ -56,20 +56,20 @@
     height: 2.5rem;
     align-items: center;
     justify-content: center;
-    border-radius: var(--m3-shape-full);
     padding-inline: 0.5rem;
     transition: var(--m3-timing-function-emphasized) 500ms;
-    flex-grow: 0;
   }
   input:focus-visible + div {
     @apply --m3-focused-outward;
   }
   input:checked + div {
     flex-grow: 1;
+    border-radius: 1.25rem;
   }
   div:not(input:checked + div) {
     cursor: pointer;
     opacity: 0.8;
+    border-radius: 0.5rem;
     @media (width < 37.5rem) {
       height: 1.5rem;
     }
