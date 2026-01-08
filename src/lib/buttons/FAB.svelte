@@ -2,6 +2,8 @@
   import type { IconifyIcon } from "@iconify/types";
   import Icon from "$lib/misc/Icon.svelte";
   import type { ButtonAttrs } from "$lib/misc/typing-utils";
+  import { slide } from "svelte/transition";
+  import { easeEmphasized } from "$lib/misc/easing";
 
   type ContentProps =
     | {
@@ -50,7 +52,7 @@
     <Icon {icon} size={size == "large" ? 36 : size == "medium" ? 28 : 24} />
   {/if}
   {#if text}
-    {text}
+    <span transition:slide={{ axis: "x", duration: 500, easing: easeEmphasized }}>{text}</span>
   {/if}
 </button>
 
@@ -84,29 +86,37 @@
   .size-small {
     height: 2.5rem;
     padding-inline: 0.5rem;
-    gap: 0.5rem;
     border-radius: var(--m3-fab-small-shape);
+  }
+  .size-small > :global(svg + span) {
+    margin-inline-start: 0.5rem;
   }
   .size-normal {
     @apply --m3-title-medium;
     height: 3.5rem;
     padding-inline: 1rem;
-    gap: 0.5rem;
     border-radius: var(--m3-fab-normal-shape);
+  }
+  .size-normal > :global(svg + span) {
+    margin-inline-start: 0.5rem;
   }
   .size-medium {
     @apply --m3-title-large;
     height: 5rem;
     padding-inline: 1.625rem;
-    gap: 0.75rem;
     border-radius: var(--m3-fab-medium-shape);
+  }
+  .size-medium > :global(svg + span) {
+    margin-inline-start: 0.75rem;
   }
   .size-large {
     @apply --m3-headline-small;
     height: 6rem;
     padding-inline: 1.75rem;
-    gap: 1rem;
     border-radius: var(--m3-fab-large-shape);
+  }
+  .size-large > :global(svg + span) {
+    margin-inline-start: 1rem;
   }
 
   .color-primary {
