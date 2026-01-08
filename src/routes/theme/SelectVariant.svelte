@@ -26,7 +26,7 @@
   <label title={desc}>
     <input type="radio" bind:group={variant} name="variants" value={id} />
     <div
-      class="m3-layer"
+      class:m3-layer={variant == id}
       style:background-color="light-dark({variantColor(light, materialColors.primaryContainer())}, {variantColor(
         dark,
         materialColors.primaryContainer(),
@@ -58,6 +58,9 @@
     justify-content: center;
     padding-inline: 0.5rem;
     transition: var(--m3-timing-function-emphasized) 500ms;
+    &.m3-layer {
+      cursor: pointer;
+    }
   }
   input:focus-visible + div {
     @apply --m3-focused-outward;
@@ -67,7 +70,6 @@
     border-radius: 1.25rem;
   }
   div:not(input:checked + div) {
-    cursor: pointer;
     opacity: 0.8;
     border-radius: 0.5rem;
     @media (width < 37.5rem) {
