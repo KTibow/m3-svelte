@@ -26,7 +26,7 @@
   <label title={desc}>
     <input type="radio" bind:group={variant} name="variants" value={id} />
     <div
-      class:m3-layer={variant == id}
+      class:m3-layer={variant != id}
       style:background-color="light-dark({variantColor(light, materialColors.primaryContainer())}, {variantColor(
         dark,
         materialColors.primaryContainer(),
