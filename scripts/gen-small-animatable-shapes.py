@@ -149,24 +149,36 @@ def convert_shape_smooth(path_str, num_rays=120):
 def polar_to_svg_path_optimized(points):
     """
     Convert to SVG with optimizations:
-    - Use implicit lineto (coordinates after M without command)
+    - Use relative coordinates (m dx dy dx dy)
     - Round to 1 decimal place for 48x48
     - Compact format
     """
     if not points:
         return ""
 
-    # Start with M
-    path = f"M{points[0]['x']:.1f} {points[0]['y']:.1f}"
+    # Track cursor to avoid rounding error accumulation
+    cursor_x, cursor_y = 0.0, 0.0
+    path_parts = []
 
-    # Add remaining points without 'L' (implicit lineto)
-    for point in points[1:]:
-        path += f" {point['x']:.1f} {point['y']:.1f}"
+    for i, point in enumerate(points):
+        dx = point["x"] - cursor_x
+        dy = point["y"] - cursor_y
+
+        dx_s = f"{dx:.1f}"
+        dy_s = f"{dy:.1f}"
+
+        if i == 0:
+            path_parts.append(f"m{dx_s} {dy_s}")
+        else:
+            path_parts.append(f"{dx_s} {dy_s}")
+
+        cursor_x += float(dx_s)
+        cursor_y += float(dy_s)
 
     # Close
-    path += "Z"
+    path_parts.append("z")
 
-    return path
+    return " ".join(path_parts)
 
 
 # Convert all smooth shapes
