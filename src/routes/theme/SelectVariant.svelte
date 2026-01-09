@@ -58,6 +58,7 @@
     justify-content: center;
     padding-inline: 0.5rem;
     transition: var(--m3-timing-function-emphasized) 500ms;
+    position: relative;
     &.m3-layer {
       cursor: pointer;
     }
