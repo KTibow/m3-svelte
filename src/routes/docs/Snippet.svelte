@@ -18,7 +18,7 @@
     {name}
     <Icon icon={iconCopy} size={20} />
   </button>
-  {@html html}
+  <pre><code>{@html html}</code></pre>
 </div>
 
 <style>
@@ -55,15 +55,10 @@
     }
   }
 
-  .snippet :global {
-    pre {
-      margin: 0;
-      padding: 1rem 7rem 1rem 1rem;
-    }
-    code {
-      padding: 0;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
+  pre {
+    margin: 0;
+    padding: 1rem 7rem 1rem 1rem;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 </style>
