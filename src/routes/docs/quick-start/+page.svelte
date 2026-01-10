@@ -13,7 +13,7 @@
   import Snippet from "../Snippet.svelte";
 
   let fontSelection = $state("gsans");
-  let frameworkSelection = $state("kit");
+  let useKit = $state("yes");
 </script>
 
 <svelte:head><title>Quick start</title></svelte:head>
@@ -40,24 +40,14 @@
       <div class="text">Enable functions and mixins</div>
       <ConnectedButtons>
         <Button variant="tonal" square label
-          ><input
-            type="radio"
-            value="kit"
-            name="framework"
-            bind:group={frameworkSelection}
-          />SvelteKit</Button
+          ><input type="radio" value="yes" name="usekit" bind:group={useKit} />SvelteKit</Button
         >
         <Button variant="tonal" square label
-          ><input
-            type="radio"
-            value="vite"
-            name="framework"
-            bind:group={frameworkSelection}
-          />Vite</Button
+          ><input type="radio" value="no" name="usekit" bind:group={useKit} />Pure Vite</Button
         >
       </ConnectedButtons>
     </h2>
-    {#if frameworkSelection == "kit"}
+    {#if useKit == "yes"}
       <Snippet
         name="vite.config.ts"
         html={/* typescript */ `import { defineConfig } from "vite";
@@ -72,10 +62,11 @@ export default defineConfig({
       <Snippet
         name="vite.config.ts"
         html={/* typescript */ `import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { functionsMixins } from "vite-plugin-functions-mixins";
 
 export default defineConfig({
-  plugins: [functionsMixins({ deps: ["m3-svelte"] })],
+  plugins: [svelte(), functionsMixins({ deps: ["m3-svelte"] })],
 });`}
       />
     {/if}
@@ -88,7 +79,7 @@ export default defineConfig({
       </div>
       <div class="text">Enable your <a href={resolve("/theme")}>theme snippet</a></div>
     </h2>
-    {#if frameworkSelection == "kit"}
+    {#if useKit == "kit"}
       <Snippet
         name="+layout.svelte"
         html={/* svelte */ `<${""}script>
@@ -119,7 +110,7 @@ export default defineConfig({
     </h2>
     {#if fontSelection == "gsans"}
       <Snippet
-        name={frameworkSelection == "kit" ? "app.html" : "index.html"}
+        name={useKit == "kit" ? "app.html" : "index.html"}
         html={/* html */ `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap" />`}
       />
     {:else}
