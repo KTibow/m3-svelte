@@ -45,12 +45,12 @@
   <label for={id}>{label}</label>
   <div class="layer"></div>
   {#if leadingIcon}
-    <Icon icon={leadingIcon} class="leading" />
+    <Icon icon={leadingIcon} class="leading" size={24} />
   {/if}
   {#if trailing}
     {@const { icon, ...extra } = trailing}
     <button type="button" class="trailing m3-layer" {...extra}>
-      <Icon {icon} />
+      <Icon {icon} size={24} />
     </button>
   {/if}
 </div>
@@ -134,8 +134,6 @@
     transition: all 100ms;
   }
   .m3-container :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
     color: var(--m3c-on-surface-variant);
     pointer-events: none;
   }

@@ -91,7 +91,7 @@
       {...extra}
     >
       {#if item.icon}
-        <Icon icon={item.icon} />
+        <Icon icon={item.icon} size={24} />
       {/if}
       <span>{item.name}</span>
     </a>
@@ -130,10 +130,6 @@
     cursor: pointer;
     transition: color var(--m3-easing-fast);
   }
-  a > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
   a > span {
     @apply --m3-title-small;
   }
@@ -167,10 +163,6 @@
   }
   .primary > a.tall {
     height: 4rem;
-  }
-  .primary > a > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
   }
   .primary > a.selected {
     color: var(--m3c-primary);

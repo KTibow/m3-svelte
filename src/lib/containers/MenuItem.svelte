@@ -21,7 +21,7 @@
     <span class="icon"></span>
   {:else if icon}
     <span class="icon">
-      <Icon {icon} />
+      <Icon {icon} size={24} />
     </span>
   {/if}
   {@render children()}
@@ -50,8 +50,6 @@
     height: 1.5rem;
   }
   .icon > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
     color: var(--m3c-on-surface-variant);
   }
 

@@ -86,7 +86,7 @@
     />
     <label for={id} class:tall={item.icon} class="m3-layer">
       {#if item.icon}
-        <Icon icon={item.icon} />
+        <Icon icon={item.icon} size={24} />
       {/if}
       <span>{item.name}</span>
     </label>
@@ -129,10 +129,6 @@
     user-select: none;
     cursor: pointer;
     transition: color var(--m3-easing-fast);
-  }
-  label > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
   }
   label > span {
     @apply --m3-title-small;
@@ -197,10 +193,6 @@
   }
   .primary > label.tall {
     height: 4rem;
-  }
-  .primary > label > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
   }
   .primary > input:checked + label {
     color: var(--m3c-primary);

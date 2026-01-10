@@ -41,7 +41,7 @@
   <div class="layer"></div>
   <label for={id}>{label}</label>
   {#if leadingIcon}
-    <Icon icon={leadingIcon} />
+    <Icon icon={leadingIcon} size={24} />
   {/if}
 </div>
 
@@ -123,8 +123,6 @@
   }
   .m3-container > :global(svg) {
     position: relative;
-    width: 1.5rem;
-    height: 1.5rem;
     margin-inline-start: 0.75rem;
     color: var(--m3c-on-surface-variant);
     pointer-events: none;

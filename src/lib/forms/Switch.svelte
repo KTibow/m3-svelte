@@ -58,9 +58,9 @@
   />
   <div class="handle">
     {#if icons != "none"}
-      <Icon icon={checkedIcon} />
+      <Icon icon={checkedIcon} size={16} />
       {#if icons == "both"}
-        <Icon icon={uncheckedIcon} />
+        <Icon icon={uncheckedIcon} size={16} />
       {/if}
     {/if}
   </div>
@@ -111,8 +111,6 @@
     justify-content: center;
   }
   .handle > :global(svg) {
-    width: 1rem;
-    height: 1rem;
     opacity: 0;
     transition:
       opacity var(--m3-easing-fast-spatial),
