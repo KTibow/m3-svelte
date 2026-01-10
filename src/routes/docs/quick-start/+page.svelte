@@ -160,10 +160,6 @@ export default defineConfig({
       flex-direction: column;
       align-items: start;
     }
-    @media (width >= 37.5rem) {
-      align-items: center;
-      align-self: start;
-    }
     gap: 0.5rem;
     margin: 0;
   }

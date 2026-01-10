@@ -21,9 +21,10 @@
 <h2>
   Make your own components
   <ConnectedButtons>
-    <Button square label><input type="radio" value="vanilla" bind:group={$appType} />Vanilla</Button
+    <Button variant="tonal" square label
+      ><input type="radio" value="vanilla" bind:group={$appType} />Vanilla</Button
     >
-    <Button square label
+    <Button variant="tonal" square label
       ><input type="radio" value="tailwind" bind:group={$appType} />Tailwind</Button
     >
   </ConnectedButtons>
@@ -144,7 +145,8 @@
   h2 {
     @apply --m3-headline-large;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
     margin: 0;
   }
   h3 {
