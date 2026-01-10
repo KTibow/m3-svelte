@@ -29,7 +29,7 @@
     transition: var(--transition);
     overflow: hidden;
 
-    &:not(:hover) {
+    &:not(:hover, :has(a:focus-visible)) {
       .row {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
