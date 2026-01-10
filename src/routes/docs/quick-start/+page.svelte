@@ -156,8 +156,14 @@ export default defineConfig({
   h2 {
     @apply --m3-title-large;
     display: flex;
-    align-items: center;
-    align-self: flex-start;
+    @media (width < 37.5rem) {
+      flex-direction: column;
+      align-items: start;
+    }
+    @media (width >= 37.5rem) {
+      align-items: center;
+      align-self: start;
+    }
     gap: 0.5rem;
     margin: 0;
   }
