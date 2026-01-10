@@ -4,6 +4,7 @@ eventually:
 - more css optimization (see discord)
 - bring icons out of html??
 - make layer use cursor pointer
+- switch font mixins to use pure `font` (smaller, clearer)
 
 WHEN anchor positioning:
 use it for date field, tab indicator, split button, etc etc etc
