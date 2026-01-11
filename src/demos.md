@@ -296,7 +296,7 @@ Card
 ```
 
 ```ts
-let variant: "filled" | "outlined" | "elevated" = $state("elevated");
+let variant: "filled" | "outlined" | "elevated" = $state("filled");
 let clickable = $state(false);
 ```
 
