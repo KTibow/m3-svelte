@@ -29,7 +29,7 @@
       <div>
         {@render children()}
       </div>
-      <button class="m3-layer" onclick={showCode}>
+      <button class="m3-layer" title="Show code" onclick={showCode}>
         <Icon icon={iconCode} size={24} />
       </button>
     </div>
