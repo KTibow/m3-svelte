@@ -8,7 +8,7 @@ export const linear = (
   from: number,
   to: number,
   time: number,
-  softTo?: number, // for consistent length
+  softTo?: number, // softTo allows making path length consistent to allow for animation
 ) => {
   time = time * frequencyT;
   time %= Math.PI * 2;
