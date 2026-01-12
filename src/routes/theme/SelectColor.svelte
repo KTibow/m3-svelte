@@ -9,19 +9,14 @@
   import Icon from "$lib/misc/Icon.svelte";
   import Button from "$lib/buttons/Button.svelte";
 
-  let {
-    sourceColor = $bindable(),
-  }: {
-    sourceColor: number;
-  } = $props();
+  import { sourceColor } from "../state";
 </script>
 
-<div style:background-color={hexFromArgb(sourceColor)} class="color-disc"></div>
+<div style:background-color={hexFromArgb($sourceColor)} class="color-disc"></div>
 <Button variant="filled" iconType="full" title="Pick a color" label>
   <input
     type="color"
-    value="#000000"
-    oninput={(e) => (sourceColor = argbFromHex(e.currentTarget.value))}
+    bind:value={() => hexFromArgb($sourceColor), (v) => ($sourceColor = argbFromHex(v))}
   />
   <Icon icon={iconColorLens} />
 </Button>
@@ -35,7 +30,7 @@
       reader.onload = async () => {
         const image = new Image();
         image.src = String(reader.result);
-        sourceColor = await sourceColorFromImage(image);
+        $sourceColor = await sourceColorFromImage(image);
       };
       reader.readAsDataURL(e.currentTarget.files[0]);
     }}

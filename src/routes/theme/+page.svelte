@@ -41,7 +41,7 @@
 </svelte:head>
 
 <div class="horizontal">
-  <SelectColor bind:sourceColor={$sourceColor} />
+  <SelectColor />
 </div>
 <div class="horizontal variants">
   <SelectVariant {schemes} bind:variant />
