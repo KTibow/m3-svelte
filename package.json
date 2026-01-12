@@ -87,10 +87,14 @@
   },
   "peerDependencies": {
     "@ktibow/material-color-utilities-nightly": "^0.3.11763580498000",
-    "svelte": "^5.40.0"
+    "svelte": "^5.40.0",
+    "vite-plugin-functions-mixins": "^0.4.1"
   },
   "peerDependenciesMeta": {
     "@ktibow/material-color-utilities-nightly": {
+      "optional": true
+    },
+    "vite-plugin-functions-mixins": {
       "optional": true
     }
   },
