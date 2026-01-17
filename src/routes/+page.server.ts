@@ -1,5 +1,5 @@
-import type { PageLoad } from "./$types";
-export const load: PageLoad = async () => {
+import type { PageServerLoad } from "./$types";
+export const load: PageServerLoad = async () => {
   const r1 = fetch("https://api.github.com/repos/KTibow/m3-svelte");
   const r2 = fetch("https://discord.com/api/v10/invites/sRzVYM9b47?with_counts=true");
   const { stargazers_count } = await (await r1).json();
