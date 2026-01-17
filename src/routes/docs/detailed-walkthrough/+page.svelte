@@ -164,7 +164,8 @@
   )}, {@render color("var(--m3c-primary-container)", "library baseline")}, and {@render color(
     "var(--m3c-primary)",
     "full size to render a Button",
-  )}.
+  )}. The build setups are
+  <a href="https://github.com/KTibow/m3-svelte-comparisons">available on GitHub</a>.
 </p>
 <label>
   <Switch bind:checked={useCompression} />
@@ -186,7 +187,11 @@
 {@render stackedBars("JS", [uc(37.43, 14.41), uc(23.5, 9.22), uc(19.82, 7.95)])}
 
 <h3><a href="https://material-web.dev/">Material Web</a> (Vite)</h3>
-<p>Material Web uses web components, but isn't maintained.</p>
+<p>
+  Material Web uses web components, but <a
+    href="https://github.com/material-components/material-web/discussions/5642">isn't developed</a
+  >.
+</p>
 <p>Takes {uc(0.35 + 45.5, 0.24 + 13.53).toFixed(1)}kB to render a Button.</p>
 {@render stackedBars("HTML", [uc(0.35, 0.24), uc(0.3, 0.22), uc(0.3, 0.22)])}
 {@render stackedBars("JS", [uc(45.5, 13.53), uc(25.42, 9.23), uc(15.39, 5.91)])}
@@ -226,10 +231,10 @@
 <h3>Fun fact</h3>
 <p>
   Most of Svelte and M3 Svelte's optimizations show up in this simple demo. For example, you can see
-  how Svelte let the button be rendered with just HTML and CSS, and how the CSS that was shipped was
-  optimized to the specific component. But you could tip the scale even further by adding an icon.
-  Material Web, M3E, and Beer CSS pull in <em>all icons</em> (by default) through an icon font, which
-  can weigh nearly 300kB.
+  how Svelte let the button be rendered with just HTML and CSS, and how the tokens and styles that
+  were shipped was optimized to the specific component. But adding an icon would tip the scale even
+  further. Material Web, M3E, and Beer CSS pull in <em>all icons</em> (by default) through an icon font,
+  which can weigh nearly 300kB.
 </p>
 
 <style>
