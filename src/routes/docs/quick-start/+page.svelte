@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import iconDownload from "@ktibow/iconset-material-symbols/download";
   import iconConfig from "@ktibow/iconset-material-symbols/settings-outline";
   import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
