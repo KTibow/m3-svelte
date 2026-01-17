@@ -13,7 +13,7 @@
   import Snippet from "../Snippet.svelte";
 
   let fontSelection = $state("gsans");
-  let useKit = $state("yes");
+  let useKit: "yes" | "no" = $state("yes");
 </script>
 
 <svelte:head><title>Quick start</title></svelte:head>
@@ -79,7 +79,7 @@ export default defineConfig({
       </div>
       <div class="text">Enable your <a href={resolve("/theme")}>theme snippet</a></div>
     </h2>
-    {#if useKit == "kit"}
+    {#if useKit == "yes"}
       <Snippet
         name="+layout.svelte"
         html={/* svelte */ `<${""}script>
@@ -110,7 +110,7 @@ export default defineConfig({
     </h2>
     {#if fontSelection == "gsans"}
       <Snippet
-        name={useKit == "kit" ? "app.html" : "index.html"}
+        name={useKit == "yes" ? "app.html" : "index.html"}
         html={/* html */ `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap" />`}
       />
     {:else}
