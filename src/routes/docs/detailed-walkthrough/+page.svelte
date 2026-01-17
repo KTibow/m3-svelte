@@ -214,9 +214,9 @@
 
 <h3><a href="https://www.beercss.com/">Beer CSS</a> (Vite)</h3>
 <p>
-  Beer CSS is like a German startup - manually crafted, drinks lots of beer, no support for tree
-  shaking, numerous extraneous styles, dark mode requires JS, doesn't really match M3, copies US
-  code without credit... if you can't tell I have beef with their <em>un</em>seriousness.
+  The good part about Beer CSS is that it has a lot of styles. The bad part is that it's unserious:
+  many of the styles aren't from M3, no support for tree shaking, dark mode requires JS, doesn't
+  really match M3, copies code without credit, etc.
 </p>
 <p>Takes {uc(0.4 + 192.49, 0.27 + 36.75).toFixed(1)}kB to render a Button.</p>
 {@render stackedBars("HTML", [uc(0.4, 0.27), uc(0.37, 0.25), uc(0.3, 0.22)])}
