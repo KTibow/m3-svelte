@@ -108,11 +108,7 @@
   <span class="theme-defined">Colors</span>, the
   <code class="theme-defined">--m3c-</code> variables, are also tokens.
 </p>
-<p>
-  We recommend using <a href="https://www.npmjs.com/package/vite-plugin-token-shaker"
-    >vite-plugin-token-shaker</a
-  > to minify tokens by dropping unused ones, inlining rarely used ones, and mangling commonly used ones.
-</p>
+<p>Want these to be minified and inlined? The "Use token-shaker" option from setup does that.</p>
 <h3>Variables</h3>
 <p>These start with <code>--m3v-</code>, and let you send information to M3 Svelte.</p>
 <ul>
