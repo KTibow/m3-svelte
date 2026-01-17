@@ -64,7 +64,7 @@
   <title>M3 Svelte</title>
   <meta
     name="description"
-    content="Implements the Material 3 design system in Svelte, cleanly, robustly, and across components, animations, and theming."
+    content="The Material 3 design system in Svelte, cleanly, robustly, and across components, animations, and theming."
   />
 </svelte:head>
 
