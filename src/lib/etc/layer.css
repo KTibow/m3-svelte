@@ -22,7 +22,7 @@
   }
 }
 :disabled.m3-layer::after,
-input:disabled + .m3-layer-container.m3-layer::after,
+input:disabled + .layer-container.m3-layer::after,
 label:has(> input:disabled).m3-layer::after {
   display: none;
 }
@@ -33,6 +33,7 @@ label:has(> input:disabled).m3-layer::after {
   }
 }
 :focus-visible.m3-layer::after,
+input:focus-visible + .layer-container.m3-layer::after,
 label:has(> input:focus-visible).m3-layer::after,
 html:not(.js) :active.m3-layer::after {
   opacity: 0.12;

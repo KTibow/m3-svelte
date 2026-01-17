@@ -1,62 +1,64 @@
 <script lang="ts">
-  import Button from "$lib/buttons/Button.svelte";
   import { snackbar } from "$lib/containers/Snackbar.svelte";
   import Icon from "$lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
 
-  let { name, html }: { name?: string; html: string } = $props();
+  let { name, html }: { name: string; html: string } = $props();
 
   function copyToClipboard(e: Event) {
     const code =
       (e.currentTarget as HTMLElement).closest(".snippet")?.querySelector("pre")?.innerText ?? "";
     navigator.clipboard.writeText(code);
-    snackbar("Text copied to clipboard", undefined, true, 2000);
+    snackbar("Code copied", undefined, true, 1000);
   }
 </script>
 
 <div class="snippet">
-  {#if name}
-    <p class="name">{name}</p>
-  {/if}
-  <div class="button-container">
-    <Button variant="text" onclick={copyToClipboard} iconType="full" title="Copy">
-      <Icon icon={iconCopy} />
-    </Button>
-  </div>
-  {@html html}
+  <button class="tags m3-layer" onclick={copyToClipboard} title="Copy">
+    {name}
+    <Icon icon={iconCopy} size={20} />
+  </button>
+  <pre><code>{@html html}</code></pre>
 </div>
 
 <style>
   .snippet {
     background-color: var(--m3c-surface-container);
     border-radius: var(--m3-shape-large);
-    padding: 1rem;
 
     width: 100%;
-    min-height: 3.5rem;
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
   }
 
-  .name {
-    margin: -1rem -1rem 1rem -1rem;
-    padding: 0.5rem 1rem;
-  }
+  .tags {
+    display: flex;
+    height: 2.5rem;
+    align-items: center;
 
-  .button-container {
+    gap: 0.5rem;
+    padding-inline: 1rem;
+
     position: absolute;
     top: 0;
-    right: 0.25rem;
+    right: 0;
+    border-radius: var(--m3-shape-large);
+    background-color: var(--m3c-surface-container);
+    box-shadow: var(--m3c-surface) 0 0 0 0.25rem;
+
+    @apply --m3-body-medium;
+    border: none;
+    cursor: pointer;
+    > :global(svg) {
+      color: var(--m3c-primary);
+    }
   }
 
-  .snippet :global {
-    pre {
-      margin: 0;
-    }
-    code {
-      padding: 0;
-      white-space: pre-wrap;
-    }
+  pre {
+    margin: 0;
+    padding: 1rem 7rem 1rem 1rem;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 </style>

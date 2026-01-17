@@ -58,39 +58,43 @@
     "@ktibow/iconset-material-symbols": "~0.0.1764827375"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.0",
+    "@eslint/compat": "^2.0.1",
     "@eslint/js": "^9.39.2",
     "@ktibow/material-color-utilities-nightly": "^0.3.11763580498000",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.49.2",
     "@sveltejs/package": "^2.5.7",
-    "@sveltejs/vite-plugin-svelte": "^6.2.1",
-    "@types/node": "^25.0.3",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "@types/node": "^25.0.6",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.13.1",
-    "globals": "^16.5.0",
+    "globals": "^17.0.0",
     "m3-svelte": "link:",
     "prettier": "^3.7.4",
     "prettier-plugin-svelte": "^3.4.1",
     "publint": "^0.3.16",
-    "shiki": "^3.20.0",
-    "svelte": "^5.46.1",
+    "shiki": "^3.21.0",
+    "svelte": "^5.46.3",
     "svelte-check": "^4.3.5",
     "tinyglobby": "^0.2.15",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.51.0",
+    "typescript-eslint": "^8.53.0",
     "unocss": "^66.5.12",
-    "vite": "^7.3.0",
-    "vite-plugin-functions-mixins": "^0.4.0",
-    "vite-plugin-token-shaker": "^0.0.6"
+    "vite": "^7.3.1",
+    "vite-plugin-functions-mixins": "^0.4.1",
+    "vite-plugin-token-shaker": "^0.0.7"
   },
   "peerDependencies": {
     "@ktibow/material-color-utilities-nightly": "^0.3.11763580498000",
-    "svelte": "^5.40.0"
+    "svelte": "^5.40.0",
+    "vite-plugin-functions-mixins": "^0.4.1"
   },
   "peerDependenciesMeta": {
     "@ktibow/material-color-utilities-nightly": {
+      "optional": true
+    },
+    "vite-plugin-functions-mixins": {
       "optional": true
     }
   },

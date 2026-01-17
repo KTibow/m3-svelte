@@ -145,14 +145,30 @@ def convert_shape_guaranteed_720(path_str, center, num_rays=720):
 
 
 def polar_to_svg_path(polar_points):
-    """Convert polar points to SVG path string."""
+    """Convert polar points to SVG path string using relative coordinates."""
     if not polar_points:
         return ""
 
-    path_parts = [f"M{polar_points[0]['x']:.1f} {polar_points[0]['y']:.1f}"]
-    for point in polar_points[1:]:
-        path_parts.append(f"L{point['x']:.1f} {point['y']:.1f}")
-    path_parts.append("Z")
+    # Track cursor to avoid rounding error accumulation
+    cursor_x, cursor_y = 0.0, 0.0
+    path_parts = []
+
+    for i, point in enumerate(polar_points):
+        dx = point["x"] - cursor_x
+        dy = point["y"] - cursor_y
+
+        dx_s = f"{dx:.1f}"
+        dy_s = f"{dy:.1f}"
+
+        if i == 0:
+            path_parts.append(f"m{dx_s} {dy_s}")
+        else:
+            path_parts.append(f"{dx_s} {dy_s}")
+
+        cursor_x += float(dx_s)
+        cursor_y += float(dy_s)
+
+    path_parts.append("z")
 
     return " ".join(path_parts)
 
@@ -181,10 +197,6 @@ for name, path_str in shapes:
     new_path = polar_to_svg_path(polar_points)
     converted_shapes.append((name.replace("path", "pathAnimatable"), new_path, center))
 
-    # Verify path has correct number of commands
-    l_count = new_path.count(" L")
-    if l_count != 719:
-        print(f"  ERROR: Path has {l_count} L commands instead of 719!")
 
 print(f"\n✓ Converted {len(converted_shapes)} shapes!")
 print("✓ All shapes have exactly 720 points!")

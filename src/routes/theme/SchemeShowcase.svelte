@@ -168,7 +168,7 @@ ${innerStyles}
   .content {
     background-color: var(--m3c-surface-container-low);
     padding: 1rem;
-    border-radius: 1rem;
+    border-radius: var(--m3-shape-large);
     &.inverted {
       @media (prefers-color-scheme: light) {
         color-scheme: dark;

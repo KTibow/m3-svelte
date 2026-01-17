@@ -36,7 +36,7 @@
 
 {#snippet content()}
   {#if icon}
-    <Icon {icon} class="leading" />
+    <Icon {icon} size={18} class="leading" />
   {/if}
   <span>{@render children()}</span>
   {#if trailingIcon}
@@ -91,10 +91,6 @@
     inset: -1px !important;
     width: calc(100% + 2px) !important;
     height: calc(100% + 2px) !important;
-  }
-  .m3-container > :global(svg) {
-    width: 1.125rem;
-    height: 1.125rem;
   }
   .m3-container:enabled:not(.input):not(.selected) > :global(.leading) {
     color: var(--m3c-primary);

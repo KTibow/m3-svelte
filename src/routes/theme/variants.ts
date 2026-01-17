@@ -8,12 +8,12 @@ export default [
   {
     id: Variant.CONTENT, // 6
     name: "Content",
-    desc: "Exact source color",
+    desc: "Exact source color", // tertiary is +60°
   },
   {
     id: Variant.FIDELITY, // 5
     name: "Fidelity",
-    desc: "Exact source color",
+    desc: "Exact source color", // tertiary is inverse warmth
   },
   {
     id: Variant.VIBRANT, // 3

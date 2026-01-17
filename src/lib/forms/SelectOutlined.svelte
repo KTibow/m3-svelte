@@ -170,6 +170,7 @@
 
   option {
     @apply --m3-focus-inward;
+    @apply --m3-label-large;
     display: grid;
     grid-template-columns: auto 1fr;
     padding-inline: 1rem;

@@ -44,5 +44,5 @@ export const styling = writable(`:root {
   --m3c-on-error-container-subtle: light-dark(#8f2339, #ff8796);
 }`);
 export const appType = writable("vanilla");
-export const sourceColor = writable(0xd0bcff);
+export const sourceColor = writable(0xffd0bcff);
 export const density = writable<"variable" | number>(0);

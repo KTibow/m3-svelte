@@ -18,7 +18,7 @@
 </script>
 
 <div class="anchor">
-  {@html minimalDemoHtml}
+  <pre><code>{@html minimalDemoHtml}</code></pre>
   <a href={demoURL}>Full demo code ↗</a>
   {#each relevantLinks as { title, link }}
     <a href={link}>{title} ↗</a>
@@ -33,14 +33,9 @@
     padding-bottom: 1.5rem;
     flex-grow: 1;
 
-    :global {
-      pre {
-        margin: 0;
-      }
-      code {
-        padding: 0;
-        white-space: pre-wrap;
-      }
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
     }
   }
 

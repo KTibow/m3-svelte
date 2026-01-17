@@ -66,7 +66,7 @@
               shown = undefined;
             }}
           >
-            <Icon icon={iconX} />
+            <Icon icon={iconX} size={24} />
           </button>
         {/if}
       </SnackbarItem>
@@ -98,10 +98,6 @@
     background-color: transparent;
     color: unset;
     cursor: pointer;
-  }
-  button :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
   }
 
   .action {

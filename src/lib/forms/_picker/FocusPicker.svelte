@@ -17,7 +17,7 @@
   {#each options as { name, selected, activate }}
     <button type="button" class="m3-layer" onclick={activate} use:conditionalScroll={selected}>
       {#if selected}
-        <Icon icon={iconCheck} />
+        <Icon icon={iconCheck} size={24} />
       {/if}
       {name}
     </button>
@@ -46,8 +46,6 @@
     cursor: pointer;
   }
   button > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
     position: absolute;
     left: 1rem;
     top: 50%;
