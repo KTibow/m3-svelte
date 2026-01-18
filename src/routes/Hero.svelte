@@ -86,7 +86,7 @@
     /* Description paragraph */
     & > p {
       height: 1.5rem;
-      margin: 0;
+      margin-block: -0.5rem 0.5rem;
       margin-inline: 1rem;
       overflow: hidden;
       white-space: nowrap;
@@ -96,6 +96,7 @@
     /* Link "Buttons" */
     a {
       @apply --m3-focus-inward;
+      @apply --m3-title-medium;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -114,7 +115,7 @@
       }
 
       .supporting {
-        font-size: 0.85rem;
+        @apply --m3-title-small;
         opacity: 0.8;
       }
     }
