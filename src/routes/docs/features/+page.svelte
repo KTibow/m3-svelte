@@ -35,8 +35,13 @@
   <div class="stacked-bars-container">
     <h4>{title}</h4>
     <div class="stacked-bars">
-      {#each nums as n}
-        <div style:width="{(n / 100) * 100}%" title="{n.toFixed(2)}kB"></div>
+      {#each nums as n, i}
+        <div
+          style:width="{(n / 100) * 100}%"
+          title="{['full Button size', 'library baseline', 'framework baseline'][i]} is {n.toFixed(
+            2,
+          )}kB"
+        ></div>
       {/each}
     </div>
   </div>
