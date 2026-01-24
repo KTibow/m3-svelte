@@ -3,7 +3,7 @@
   import Icon from "$lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
 
-  let { name, html }: { name: string; html: string } = $props();
+  let { name, html, stretch = false }: { name: string; html: string; stretch?: boolean } = $props();
 
   function copyToClipboard(e: Event) {
     const code =
@@ -13,7 +13,7 @@
   }
 </script>
 
-<div class="snippet">
+<div class="snippet" class:start={!stretch}>
   <button class="tags m3-layer" onclick={copyToClipboard} title="Copy">
     {name}
     <Icon icon={iconCopy} size={20} />
@@ -26,7 +26,10 @@
     background-color: var(--m3c-surface-container);
     border-radius: var(--m3-shape-large);
 
-    width: 100%;
+    align-self: stretch;
+    &.start {
+      max-width: 100ch;
+    }
     box-sizing: border-box;
     position: relative;
     overflow: hidden;

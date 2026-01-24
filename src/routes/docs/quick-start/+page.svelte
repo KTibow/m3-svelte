@@ -159,6 +159,7 @@ import "../app.css";
 </${""}script>
 
 <${""}Button onclick={() => alert("Hello world")}>Click me</${""}Button>`}
+    stretch
   />
   <a class="m3-layer" href={resolve("/docs/detailed-walkthrough")}>
     <Icon icon={iconNext} size={24} />
