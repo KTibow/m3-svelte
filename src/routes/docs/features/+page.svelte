@@ -99,8 +99,15 @@
 {@render stackedBars("HTML", [uc(0.3, 0.22), uc(0.3, 0.22), uc(0.3, 0.22)])}
 {@render stackedBars("JS", [uc(131.12, 29.04), uc(91.32, 23.29), uc(7.77, 3.83)])}
 
-<h3><a href="https://m3dl.r58playz.dev/">M3 Solid</a> (Vite)</h3>
-<p>Coming soon. Would show up <a href="https://github.com/PalmDevs">here</a>.</p>
+<h3><a href="https://github.com/PalmDevs/m3-solid">M3 Solid</a> (Vite)</h3>
+<p>
+  M3 Solid is a (more recent) Solid-based implementation. It has all the optimizations of M3 Svelte
+  and all the DX of Solid.
+</p>
+<p>Takes {uc(0.46 + 15.14 + 27.9, 0.3 + 3.22 + 9.42).toFixed(1)}kB to render a Button.</p>
+{@render stackedBars("HTML", [uc(0.46, 0.3), uc(0.46, 0.3), uc(0.39, 0.27)])}
+{@render stackedBars("CSS", [uc(15.14, 3.22), uc(7.75, 2.12), 0])}
+{@render stackedBars("JS", [uc(27.9, 9.42), uc(11.16, 4.47), uc(6.48, 2.71)])}
 
 <h3><a href="https://www.beercss.com/">Beer CSS</a> (Vite)</h3>
 <p>
