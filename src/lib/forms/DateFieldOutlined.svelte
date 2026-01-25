@@ -154,13 +154,13 @@ opacity: ${Math.min(t * 3, 1)};`,
     color: var(--error, var(--m3c-on-surface-variant));
     background-color: var(--m3v-background);
     padding: 0 0.25rem;
-    &:is(input:hover ~ label) {
+    input:hover ~ & {
       color: var(--error, var(--m3c-on-surface));
     }
-    &:is(input:focus ~ label) {
+    input:focus ~ & {
       color: var(--error, var(--m3c-primary));
     }
-    &:is(input:disabled ~ label) {
+    input:disabled ~ & {
       color: --translucent(var(--m3c-on-surface), 0.38);
     }
     pointer-events: none;
@@ -173,14 +173,14 @@ opacity: ${Math.min(t * 3, 1)};`,
     border-radius: var(--m3-field-outlined-shape);
     pointer-events: none;
     transition: all 100ms;
-    &:is(input:hover ~ .layer) {
+    input:hover ~ & {
       border-color: var(--error, var(--m3c-on-surface));
     }
-    &:is(input:focus ~ .layer) {
+    input:focus ~ & {
       border-color: var(--error, var(--m3c-primary));
       border-width: 0.125rem;
     }
-    &:is(input:disabled ~ .layer) {
+    input:disabled ~ & {
       border-color: --translucent(var(--m3c-on-surface), 0.38);
     }
   }

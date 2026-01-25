@@ -141,7 +141,7 @@
     &:active {
       --inner-shape: var(--m3-split-button-half-shape);
     }
-    &:is(details[open] summary) {
+    details[open] & {
       --inner-shape: var(--m3-split-button-outer-shape);
       &::after {
         opacity: 0.08;
@@ -162,16 +162,16 @@
   }
   details > :global(:not(summary)) :global {
     position: absolute !important;
-    &:is(details.align-inner > *) {
+    details.align-inner > & {
       left: 0;
     }
-    &:is(details.align-right > *) {
+    details.align-right > & {
       right: 0;
     }
-    &:is(details.align-down > *) {
+    details.align-down > & {
       top: 100%;
     }
-    &:is(details.align-up > *) {
+    details.align-up > & {
       bottom: 100%;
     }
   }

@@ -85,16 +85,17 @@
     color: var(--error, var(--m3c-on-surface-variant));
     background-color: var(--m3v-background);
     padding: 0 0.25rem;
-    &:is(textarea:hover ~ label) {
+    textarea:hover ~ & {
       color: var(--error, var(--m3c-on-surface));
     }
-    &:is(textarea:focus ~ label) {
+    textarea:focus ~ & {
       color: var(--error, var(--m3c-primary));
     }
-    &:is(textarea:disabled ~ label) {
+    textarea:disabled ~ & {
       color: --translucent(var(--m3c-on-surface), 0.38);
     }
-    &:is(textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label) {
+    textarea:focus ~ &,
+    textarea:not(:placeholder-shown) ~ & {
       @apply --m3-body-small;
       top: 0;
     }
@@ -113,10 +114,10 @@
     border-radius: var(--m3-field-outlined-shape);
     pointer-events: none;
     transition: all 100ms;
-    &:is(textarea:enabled:hover ~ .layer) {
+    textarea:enabled:hover ~ & {
       border-color: var(--error, var(--m3c-on-surface));
     }
-    &:is(textarea:enabled:focus ~ .layer) {
+    textarea:enabled:focus ~ & {
       border-color: var(--error, var(--m3c-primary));
       border-width: 0.125rem;
     }

@@ -184,7 +184,7 @@
     pointer-events: none;
     color: var(--m3c-secondary-container);
 
-    &:is(.vertical :global(.leading)) {
+    .vertical & {
       translate: -50% 0;
     }
   }
@@ -205,7 +205,7 @@
     pointer-events: none;
     color: var(--m3c-primary);
 
-    &:is(.vertical :global(.trailing)) {
+    .vertical & {
       translate: -50% 0;
     }
   }
@@ -230,7 +230,7 @@
       cursor: pointer;
     }
 
-    &:is(.vertical > input) {
+    .vertical & {
       translate: 0 50%;
     }
   }
@@ -254,7 +254,7 @@
           var(--track-radius) var(--track-radius) var(--m3-slider-track-in-shape)
       );
     }
-    &:is(.vertical > .track-1) {
+    .vertical & {
       clip-path: inset(
         calc(100% - var(--handle-left)) 0 0 0 round var(--m3-slider-track-in-shape)
           var(--m3-slider-track-in-shape) var(--track-radius) var(--track-radius)
@@ -264,7 +264,7 @@
     @media screen and (forced-colors: active) {
       background-color: selecteditem;
     }
-    &:is(input:disabled ~ .track-1) {
+    input:disabled ~ & {
       background-color: --translucent(var(--m3c-on-surface), 0.38);
       @media screen and (forced-colors: active) {
         background-color: canvastext;
@@ -283,7 +283,7 @@
           var(--m3-slider-track-in-shape) var(--track-radius)
       );
     }
-    &:is(.vertical > .track-2) {
+    .vertical & {
       clip-path: inset(
         0 0 var(--handle-right) 0 round var(--track-radius) var(--track-radius)
           var(--m3-slider-track-in-shape) var(--m3-slider-track-in-shape)
@@ -293,7 +293,7 @@
     @media screen and (forced-colors: active) {
       background-color: canvastext;
     }
-    &:is(input:disabled ~ .track-2) {
+    input:disabled ~ & {
       background-color: --translucent(var(--m3c-on-surface), 0.12);
       @media screen and (forced-colors: active) {
         background-color: graytext;
@@ -311,18 +311,18 @@
     &:dir(rtl) {
       translate: 50% -50%;
     }
-    &:is(.vertical .stop) {
+    .vertical & {
       translate: -50% 50%;
     }
-    &:is(.track-1 > .stop) {
+    .track-1 > & {
       background-color: var(--m3c-on-primary);
-      &:is(input:disabled ~ .track-1 > .stop) {
+      input:disabled ~ .track-1 > & {
         background-color: var(--m3c-inverse-on-surface);
       }
     }
-    &:is(.track-2 > .stop) {
+    .track-2 > & {
       background-color: var(--m3c-primary);
-      &:is(input:disabled ~ .track-2 > .stop) {
+      input:disabled ~ .track-2 > & {
         background-color: --translucent(var(--m3c-on-surface), 0.38);
       }
     }
@@ -338,7 +338,7 @@
     &:dir(rtl) {
       translate: 50% 0;
     }
-    &:is(.vertical > .handle) {
+    .vertical & {
       translate: 0 50%;
     }
     border-radius: 1.25rem;
@@ -350,7 +350,7 @@
     @media screen and (forced-colors: active) {
       background-color: selecteditem;
     }
-    &:is(input:disabled ~ .handle) {
+    input:disabled ~ & {
       background-color: --translucent(var(--m3c-on-surface), 0.38);
       @media screen and (forced-colors: active) {
         background-color: graytext;
@@ -388,7 +388,7 @@
       overflow: hidden;
     }
 
-    &:is(.vertical > .value) {
+    .vertical & {
       translate: 0 50%;
       rotate: 90deg;
     }

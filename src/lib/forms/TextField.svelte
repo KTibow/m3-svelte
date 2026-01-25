@@ -89,16 +89,17 @@
     top: 50%;
     translate: 0 -50%;
     color: var(--error, var(--m3c-on-surface-variant));
-    &:is(input:hover ~ label) {
+    input:hover ~ & {
       color: var(--error, var(--m3c-on-surface));
     }
-    &:is(input:focus ~ label) {
+    input:focus ~ & {
       color: var(--error, var(--m3c-primary));
     }
-    &:is(input:disabled ~ label) {
+    input:disabled ~ & {
       color: --translucent(var(--m3c-on-surface), 0.38);
     }
-    &:is(input:focus ~ label, input:not(:placeholder-shown) ~ label) {
+    input:focus ~ &,
+    input:not(:placeholder-shown) ~ & {
       @apply --m3-body-small;
       top: 0.5rem;
       translate: 0 0;
@@ -118,7 +119,7 @@
     border-radius: var(--m3-field-filled-shape) var(--m3-field-filled-shape) 0 0;
     pointer-events: none;
     transition: all 100ms;
-    &:is(input:enabled:hover ~ .layer) {
+    input:enabled:hover ~ & {
       background-color: --translucent(var(--m3c-on-surface), 0.08);
     }
   }
