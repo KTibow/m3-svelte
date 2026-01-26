@@ -1271,6 +1271,86 @@ let item = $state("a");
 </style>
 ```
 
+## Navigation Rail
+
+Minimal demo:
+
+```svelte
+<NavigationRail>
+  {#snippet fab(open)}
+    <FAB
+      color="primary-container"
+      text={open ? "Label" : undefined}
+      elevation="none"
+      onclick={() => alert("!")}
+    />
+  {/snippet}
+
+  <NavigationRailItem label="Label" icon={iconStars} active />
+
+  <NavigationRailItem label="Label" icon={iconStarsOutline} />
+
+  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
+
+  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
+</NavigationRail>
+```
+
+Full demo:
+
+```use
+FAB
+NavigationRail
+NavigationRailItem
+```
+
+```ts
+import iconCircleFilled from "@ktibow/iconset-material-symbols/circle";
+import iconEdit from "@ktibow/iconset-material-symbols/edit";
+import { addBadge } from "$lib/misc/badge";
+
+let collapse: "full" | "normal" | "no" = $state("normal");
+let alignment: "top" | "center" = $state("center");
+let iconType: "full" | "left" = $state("left");
+let modal = $state(false);
+let open = $state(false);
+```
+
+```svelte
+<label>
+  <Switch bind:checked={modal} />
+  {modal ? "Modal" : "Normal"}
+</label>
+<label>
+  <Arrows list={["left", "full"]} bind:value={iconType} />
+  {iconType == "left" ? "Icon and text" : "Icon"}
+</label>
+<label>
+  <Arrows list={["top", "center"]} bind:value={alignment} />
+  {alignment == "top" ? "Top" : "Center"}
+</label>
+<label>
+  <Arrows list={["normal", "full", "no"]} bind:value={collapse} />
+  {collapse == "normal" ? "Collapse" : collapse == "full" ? "Fully collapse" : "Don't collapse"}
+</label>
+
+{#snippet demo()}
+  <NavigationRail {collapse} {alignment} {iconType} {modal} {open}>
+    {#snippet fab(open)}
+      <FAB
+        color="primary-container"
+        icon={iconEdit}
+        text={open ? "Label" : undefined}
+        elevation="none"
+        onclick={() => {}}
+      />
+    {/snippet}
+    <NavigationRailItem label="Label" icon={iconCircleFilled} active />
+    <NavigationRailItem label="Label" icon={addBadge(iconTriangle, 3)} />
+  </NavigationRail>
+{/snippet}
+```
+
 ## UI transitions
 
 Minimal demo:

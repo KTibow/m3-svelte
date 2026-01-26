@@ -32,6 +32,7 @@
   import Demo22 from "virtual:demo/22";
   import Demo23 from "virtual:demo/23";
   import Demo24 from "virtual:demo/24";
+  import Demo25 from "virtual:demo/25";
   import { afterNavigate } from "$app/navigation";
 
   type DocData = {
@@ -101,7 +102,8 @@
     <Demo22 {showCode} />
     <Demo23 {showCode} />
     <Demo24 {showCode} />
-    {#await import("virtual:demo/25") then { default: LastDemo }}
+    <Demo25 {showCode} />
+    {#await import("virtual:demo/26") then { default: LastDemo }}
       <LastDemo {showCode} />
     {/await}
   </div>
