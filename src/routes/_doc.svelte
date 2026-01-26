@@ -1,22 +1,27 @@
 <script lang="ts">
-  import Button from "$lib/buttons/Button.svelte";
-  import Highlight from "svelte-highlight";
-  import xml from "svelte-highlight/languages/xml";
-
   let {
-    minimalDemo,
+    name,
+    minimalDemoHtml,
     relevantLinks,
   }: {
-    minimalDemo: string;
+    name: string;
+    minimalDemoHtml: string;
     relevantLinks: { title: string; link: string }[];
   } = $props();
+
+  let demoURL = $derived(
+    `https://github.com/KTibow/m3-svelte/blob/main/src/demos.md#${name
+      .toLowerCase()
+      .replaceAll(" ", "-")
+      .replace(/[^a-z0-9-]/g, "")}`,
+  );
 </script>
 
 <div class="anchor">
-  <Highlight language={xml} code={minimalDemo} />
-
-  {#each relevantLinks as { title, link }, i}
-    <Button variant={i == 0 ? "filled" : "tonal"} href={link}>{title}</Button>
+  <pre><code>{@html minimalDemoHtml}</code></pre>
+  <a href={demoURL}>Full demo code ↗</a>
+  {#each relevantLinks as { title, link }}
+    <a href={link}>{title} ↗</a>
   {/each}
 </div>
 
@@ -24,18 +29,21 @@
   .anchor {
     display: flex;
     flex-direction: column;
-    padding: 0 1.5rem;
-    gap: 0.5rem;
+    padding-inline: 1.5rem;
+    padding-bottom: 1.5rem;
+    flex-grow: 1;
 
-    :global {
-      pre {
-        margin: 0;
-      }
-      code {
-        padding: 0;
-        background: transparent;
-        white-space: pre-wrap;
-      }
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+  }
+
+  a {
+    font-family: monospace;
+    color: var(--m3c-on-surface-variant);
+    &:hover {
+      color: var(--m3c-primary);
     }
   }
 </style>

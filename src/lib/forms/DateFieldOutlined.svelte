@@ -3,8 +3,7 @@
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { TransitionConfig } from "svelte/transition";
   import iconCalendar from "@ktibow/iconset-material-symbols/calendar-today-outline";
-  import Icon from "$lib/misc/_icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import { easeEmphasized } from "$lib/misc/easing";
@@ -66,22 +65,17 @@ opacity: ${Math.min(t * 3, 1)};`,
   use:clickOutside
   style:--anchor-name="--{id}"
 >
-  <input
-    type="date"
-    class="focus-none m3-font-body-large"
-    {disabled}
-    {required}
-    {id}
-    bind:value
-    {...extra}
-    defaultValue={extra.defaultValue}
-  />
-  <!-- TODO/deprecated: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
+  <input type="date" {disabled} {required} {id} bind:value {...extra} />
   <div class="layer"></div>
-  <label class="m3-font-body-small" for={id}>{label}</label>
-  <button type="button" {disabled} title={datePickerTitle} onclick={() => (picker = !picker)}>
-    <Layer />
-    <Icon icon={iconCalendar} width="1.5rem" height="1.5rem" />
+  <label for={id}>{label}</label>
+  <button
+    type="button"
+    class="m3-layer"
+    {disabled}
+    title={datePickerTitle}
+    onclick={() => (picker = !picker)}
+  >
+    <Icon icon={iconCalendar} size={24} />
   </button>
   {#if picker}
     <div class="picker" transition:enterExit>
@@ -114,25 +108,28 @@ opacity: ${Math.min(t * 3, 1)};`,
 
   /*
   want to customize the label's background?
-  do this: <DateFieldOutlined --m3-util-background="rgb(var(--m3-scheme-surface-container))" />
+  do this: <DateFieldOutlined --m3v-background="var(--m3c-surface-container)" />
   */
-  :root {
-    --m3-datefield-outlined-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-field-outlined-shape: var(--m3-shape-extra-small);
+    }
   }
   .m3-container {
     display: inline-flex;
     position: relative;
-    height: calc(3.5rem + var(--m3-util-density-term));
+    height: --m3-density(3.5rem);
     min-width: 15rem;
     anchor-name: var(--anchor-name);
   }
   input {
+    @apply --m3-body-large;
+    @apply --m3-focus-none;
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: none;
-    outline: none;
 
     padding: 1rem;
     padding-inline-start: 0.875rem;
@@ -144,26 +141,27 @@ opacity: ${Math.min(t * 3, 1)};`,
       text-align: right; /* work around chromium bug 41489719 */
     }
 
-    border-radius: var(--m3-datefield-outlined-shape);
+    border-radius: var(--m3-field-outlined-shape);
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
   }
   label {
+    @apply --m3-body-small;
     position: absolute;
     inset-inline-start: 0.75rem;
     top: 0;
     translate: 0 -50%;
-    color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
-    background-color: var(--m3-util-background, rgb(var(--m3-scheme-surface)));
+    color: var(--error, var(--m3c-on-surface-variant));
+    background-color: var(--m3v-background);
     padding: 0 0.25rem;
-    &:is(input:hover ~ label) {
-      color: rgb(var(--error, var(--m3-scheme-on-surface)));
+    input:hover ~ & {
+      color: var(--error, var(--m3c-on-surface));
     }
-    &:is(input:focus ~ label) {
-      color: rgb(var(--error, var(--m3-scheme-primary)));
+    input:focus ~ & {
+      color: var(--error, var(--m3c-primary));
     }
-    &:is(input:disabled ~ label) {
-      color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    input:disabled ~ & {
+      color: --translucent(var(--m3c-on-surface), 0.38);
     }
     pointer-events: none;
     transition: color 100ms;
@@ -171,19 +169,19 @@ opacity: ${Math.min(t * 3, 1)};`,
   .layer {
     position: absolute;
     inset: 0;
-    border: 1px solid rgb(var(--error, var(--m3-scheme-outline)));
-    border-radius: var(--m3-datefield-outlined-shape);
+    border: 1px solid var(--error, var(--m3c-outline));
+    border-radius: var(--m3-field-outlined-shape);
     pointer-events: none;
     transition: all 100ms;
-    &:is(input:hover ~ .layer) {
-      border-color: rgb(var(--error, var(--m3-scheme-on-surface)));
+    input:hover ~ & {
+      border-color: var(--error, var(--m3c-on-surface));
     }
-    &:is(input:focus ~ .layer) {
-      border-color: rgb(var(--error, var(--m3-scheme-primary)));
+    input:focus ~ & {
+      border-color: var(--error, var(--m3c-primary));
       border-width: 0.125rem;
     }
-    &:is(input:disabled ~ .layer) {
-      border-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    input:disabled ~ & {
+      border-color: --translucent(var(--m3c-on-surface), 0.38);
     }
   }
 
@@ -199,38 +197,38 @@ opacity: ${Math.min(t * 3, 1)};`,
     justify-content: center;
     border: none;
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface-variant));
-    border-top-right-radius: var(--m3-datefield-outlined-shape);
+    color: var(--m3c-on-surface-variant);
+    border-top-right-radius: var(--m3-field-outlined-shape);
 
     cursor: pointer;
   }
 
   @media (hover: hover) {
     button:hover {
-      background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.08);
+      background-color: --translucent(var(--m3c-on-surface-variant), 0.08);
     }
   }
   button:focus-visible,
   button:active {
-    background-color: rgb(var(--m3-scheme-on-surface-variant) / 0.12);
+    background-color: --translucent(var(--m3c-on-surface-variant), 0.12);
   }
 
   .error {
-    --error: var(--m3-scheme-error);
+    --error: var(--m3c-error);
   }
   .error > input:hover ~ label,
   .error > input:hover ~ .layer {
-    --error: var(--m3-scheme-on-error-container);
+    --error: var(--m3c-on-error-container);
   }
 
   .m3-container.disabled {
     opacity: 0.38;
   }
   input:disabled {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--m3c-on-surface), 0.38);
   }
   button:disabled {
-    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    color: --translucent(var(--m3c-on-surface-variant), 0.38);
     cursor: auto;
   }
 

@@ -3,8 +3,7 @@
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { TransitionConfig } from "svelte/transition";
   import iconCalendar from "@ktibow/iconset-material-symbols/calendar-today-outline";
-  import Icon from "$lib/misc/_icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
   import { easeEmphasized } from "$lib/misc/easing";
@@ -66,21 +65,16 @@ opacity: ${Math.min(t * 3, 1)};`,
   use:clickOutside
   style:--anchor-name="--{id}"
 >
-  <input
-    type="date"
-    class="focus-none m3-font-body-large"
+  <input type="date" {disabled} {required} {id} bind:value {...extra} />
+  <label for={id}>{label}</label>
+  <button
+    type="button"
+    class="m3-layer"
     {disabled}
-    {required}
-    {id}
-    bind:value
-    {...extra}
-    defaultValue={extra.defaultValue}
-  />
-  <!-- TODO/deprecated: once https://github.com/sveltejs/svelte/pull/16481 is finished, remove the defaultvalue thing -->
-  <label class="m3-font-body-small" for={id}>{label}</label>
-  <button type="button" {disabled} title={datePickerTitle} onclick={() => (picker = !picker)}>
-    <Layer />
-    <Icon icon={iconCalendar} width="1.5rem" height="1.5rem" />
+    title={datePickerTitle}
+    onclick={() => (picker = !picker)}
+  >
+    <Icon icon={iconCalendar} size={24} />
   </button>
   {#if picker}
     <div class="picker" transition:enterExit>
@@ -111,25 +105,28 @@ opacity: ${Math.min(t * 3, 1)};`,
     margin-block-end: 1rem;
   }
 
-  :root {
-    --m3-datefield-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-field-shape: var(--m3-shape-extra-small);
+    }
   }
   .m3-container {
     position: relative;
-    height: calc(3.5rem + var(--m3-util-density-term));
+    height: --m3-density(3.5rem);
     min-width: 15rem;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
-    border-radius: var(--m3-datefield-shape) var(--m3-datefield-shape) 0 0;
-    border-bottom: solid 1px rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    background-color: var(--m3c-surface-container-highest);
+    border-radius: var(--m3-field-shape) var(--m3-field-shape) 0 0;
+    border-bottom: solid 1px var(--error, var(--m3c-on-surface-variant));
     anchor-name: var(--anchor-name);
   }
   input {
+    @apply --m3-body-large;
+    @apply --m3-focus-none;
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: none;
-    outline: none;
 
     padding: 1rem 1rem 0rem 1rem;
     padding-inline-start: 0.875rem;
@@ -142,13 +139,14 @@ opacity: ${Math.min(t * 3, 1)};`,
     }
 
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
   }
   label {
+    @apply --m3-body-small;
     position: absolute;
     inset-inline-start: 1rem;
     top: 0.5rem;
-    color: rgb(var(--error, var(--m3-scheme-on-surface-variant)));
+    color: var(--error, var(--m3c-on-surface-variant));
     pointer-events: none;
   }
 
@@ -164,27 +162,27 @@ opacity: ${Math.min(t * 3, 1)};`,
     justify-content: center;
     border: none;
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface-variant));
-    border-top-right-radius: var(--m3-datefield-shape);
+    color: var(--m3c-on-surface-variant);
+    border-top-right-radius: var(--m3-field-shape);
 
     cursor: pointer;
   }
 
   .m3-container.disabled {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.04);
-    border-bottom-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: --translucent(var(--m3c-on-surface), 0.04);
+    border-bottom-color: --translucent(var(--m3c-on-surface), 0.38);
   }
   input:disabled,
   input:disabled + label {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--m3c-on-surface), 0.38);
   }
   button:disabled {
-    color: rgb(var(--m3-scheme-on-surface-variant) / 0.38);
+    color: --translucent(var(--m3c-on-surface-variant), 0.38);
     cursor: auto;
   }
 
   .error {
-    --error: var(--m3-scheme-error);
+    --error: var(--m3c-error);
   }
 
   .picker {

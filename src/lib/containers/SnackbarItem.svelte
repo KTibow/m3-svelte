@@ -10,8 +10,10 @@
 </div>
 
 <style>
-  :root {
-    --m3-snackbar-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-snackbar-shape: var(--m3-shape-extra-small);
+    }
   }
   .m3-container {
     display: flex;
@@ -21,12 +23,12 @@
     max-width: 60rem;
     min-height: 3rem;
     border-radius: var(--m3-snackbar-shape);
-    box-shadow: var(--m3-util-elevation-3);
-    background-color: rgb(var(--m3-scheme-inverse-surface));
-    color: rgb(var(--m3-scheme-inverse-on-surface));
+    box-shadow: var(--m3-elevation-3);
+    background-color: var(--m3c-inverse-surface);
+    color: var(--m3c-inverse-on-surface);
     animation:
-      snackbarIn var(--m3-util-curve-decel) 500ms,
-      opacity var(--m3-util-curve-decel) 100ms;
+      snackbarIn var(--m3-timing-function-emphasized-decel) 500ms,
+      opacity var(--m3-timing-function-emphasized-decel) 100ms;
   }
   /*@TODO: Fix animation with different shaping or something*/
   @keyframes snackbarIn {

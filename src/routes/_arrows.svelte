@@ -9,6 +9,7 @@
     initialIndex?: number;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let index = $state(initialIndex);
   $effect(() => {
     value = list[index];
@@ -22,9 +23,16 @@
   };
 </script>
 
-<div class="container">
-  <button class="m3-font-label-large left" onclick={left}>&lt;</button>
-  <button class="m3-font-label-large right" onclick={right}>&gt;</button>
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div
+  class="container"
+  onkeydown={({ key }) => {
+    if (key == "ArrowLeft") left();
+    if (key == "ArrowRight") right();
+  }}
+>
+  <button class="left" onclick={left}>&lt;</button>
+  <button class="right" onclick={right}>&gt;</button>
 </div>
 
 <style>
@@ -32,9 +40,9 @@
     display: flex;
     gap: 0.25rem;
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
   button {
+    @apply --m3-label-large;
     flex: 1;
     font-size: 1rem;
     min-width: 1.5rem;
@@ -42,8 +50,8 @@
     padding: 0;
 
     border: none;
-    background-color: rgb(var(--m3-scheme-primary));
-    color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--m3c-primary);
+    color: var(--m3c-on-primary);
     cursor: pointer;
   }
   button.left {

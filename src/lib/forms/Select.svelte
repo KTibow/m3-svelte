@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLOptionAttributes, HTMLSelectAttributes } from "svelte/elements";
-  import Layer from "$lib/misc/Layer.svelte";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   type Option = { icon?: IconifyIcon; text: string; value: string } & HTMLOptionAttributes;
   let {
@@ -28,39 +27,40 @@
   class:enabled={!extra.disabled}
   style:align-self={width == "auto" ? "start" : undefined}
 >
-  <select class="m3-font-body-large" style:--width={width} bind:value {id} {...extra}>
+  <select style:--width={width} bind:value {id} {...extra}>
     {#each options as { icon, text, ...extra }, i (i)}
-      <option class="focus-inset" {...extra}>
-        <Layer />
+      <option {...extra} class="m3-layer">
         {#if icon}
-          <Icon {icon} width="1.5rem" height="1.5rem" />
+          <Icon {icon} size={24} style="grid-row: 1" />
         {/if}
         {@render render(text)}
       </option>
     {/each}
   </select>
-  <label for={id} class="m3-font-body-small">
+  <label for={id}>
     {label}
   </label>
 </div>
 
 <style>
-  :root {
-    --m3-menu-shape: var(--m3-util-rounding-extra-small);
-    --m3-field-filled-shape: var(--m3-util-rounding-extra-small);
+  @layer tokens {
+    :root {
+      --m3-menu-shape: var(--m3-shape-extra-small);
+      --m3-field-filled-shape: var(--m3-shape-extra-small);
+    }
   }
 
   .m3-container {
     display: flex;
     flex-direction: column;
     position: relative;
-    --secondary-color: rgb(var(--m3-scheme-on-surface-variant));
+    --secondary-color: var(--m3c-on-surface-variant);
     &.enabled {
       &:hover {
-        --secondary-color: rgb(var(--m3-scheme-on-surface));
+        --secondary-color: var(--m3c-on-surface);
       }
       &:focus-within {
-        --secondary-color: rgb(var(--m3-scheme-primary));
+        --secondary-color: var(--m3c-primary);
         select {
           box-shadow: inset 0px -2px var(--secondary-color);
         }
@@ -68,12 +68,13 @@
     }
   }
   label {
+    @apply --m3-body-small;
     position: absolute;
     top: 0.5rem;
     inset-inline: 1rem;
     color: var(--secondary-color);
     pointer-events: none;
-    transition: color var(--m3-util-easing-fast);
+    transition: color var(--m3-easing-fast);
   }
 
   select {
@@ -85,22 +86,20 @@
   }
 
   select {
+    @apply --m3-body-large;
     display: flex;
     align-items: center;
-    height: calc(3.5rem + var(--m3-util-density-term));
-    padding-top: calc(
-      var(--m3-font-body-small-size, 0.75rem) * var(--m3-font-body-small-height, 1.333)
-    );
+    height: --m3-density(3.5rem);
+    padding-top: 1rem;
     padding-inline: 1rem;
 
     border-radius: var(--m3-field-filled-shape) var(--m3-field-filled-shape) 0 0;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    background-color: var(--m3c-surface-container-highest);
     transition:
-      background-color var(--m3-util-easing-fast),
-      box-shadow var(--m3-util-easing-fast);
+      background-color var(--m3-easing-fast),
+      box-shadow var(--m3-easing-fast);
 
     border: none;
-    position: relative;
 
     &:enabled {
       cursor: pointer;
@@ -108,15 +107,8 @@
       &:open {
         background-color: color-mix(
           in oklab,
-          rgb(var(--m3-scheme-surface-container-highest)),
+          var(--m3c-surface-container-highest),
           currentColor 8%
-        );
-      }
-      &:active {
-        background-color: color-mix(
-          in oklab,
-          rgb(var(--m3-scheme-surface-container-highest)),
-          currentColor 12%
         );
       }
     }
@@ -128,16 +120,16 @@
     scale: 1 0.6; /* yes we are squashing the arrow, surely you don't have a problem with that */
     color: var(--secondary-color);
     transition:
-      color var(--m3-util-easing-fast),
-      rotate var(--m3-util-easing-fast);
+      color var(--m3-easing-fast),
+      rotate var(--m3-easing-fast);
   }
   select:open::picker-icon {
     rotate: 180deg;
   }
 
   ::picker(select) {
-    background-color: rgb(var(--m3-scheme-surface-container));
-    box-shadow: var(--m3-util-elevation-2);
+    background-color: var(--m3c-surface-container);
+    box-shadow: var(--m3-elevation-2);
     border-radius: var(--m3-menu-shape);
 
     box-sizing: border-box;
@@ -146,10 +138,10 @@
     interpolate-size: allow-keywords;
     overflow: hidden;
     transition:
-      width var(--m3-util-easing-fast),
-      height var(--m3-util-easing-fast),
-      display var(--m3-util-duration-fast) allow-discrete,
-      overlay var(--m3-util-duration-fast) allow-discrete;
+      width var(--m3-easing-fast),
+      height var(--m3-easing-fast),
+      display var(--m3-duration-fast) allow-discrete,
+      overlay var(--m3-duration-fast) allow-discrete;
 
     border: none;
     cursor: auto;
@@ -159,7 +151,7 @@
     height: auto;
     transition:
       width 500ms linear,
-      height 500ms var(--m3-util-timing-function-emphasized-decel),
+      height 500ms var(--m3-timing-function-emphasized-decel),
       display 500ms allow-discrete,
       overlay 500ms allow-discrete;
   }
@@ -171,16 +163,12 @@
   }
 
   option {
+    @apply --m3-focus-inward;
+    @apply --m3-label-large;
     display: grid;
     grid-template-columns: auto 1fr;
     padding-inline: 1rem;
-    padding-block: calc(
-      (
-          3rem + var(--m3-util-density-term) -
-            (var(--m3-font-body-large-size, 1rem) * var(--m3-font-body-large-height, 1.5))
-        ) /
-        2
-    );
+    padding-block: calc((--m3-density(3rem) - 1lh) / 2);
     &:first-child {
       margin-top: 0.5rem;
     }
@@ -190,12 +178,11 @@
 
     background-color: transparent;
     &:checked {
-      background-color: rgb(var(--m3-scheme-primary-container));
-      color: rgb(var(--m3-scheme-on-primary-container));
+      background-color: var(--m3c-primary-container);
+      color: var(--m3c-on-primary-container);
     }
 
-    > *,
-    > :global(svg) {
+    > * {
       grid-row: 1;
     }
     &::checkmark {
@@ -208,7 +195,7 @@
         margin-right: 0.5rem;
       }
       &:not(:checked) > :global(svg) {
-        color: rgb(var(--m3-scheme-on-surface-variant));
+        color: var(--m3c-on-surface-variant);
       }
       &:checked > :global(svg) {
         opacity: 0.8;
@@ -219,8 +206,8 @@
     }
 
     transition:
-      background-color var(--m3-util-easing-fast),
-      color var(--m3-util-easing-fast);
+      background-color var(--m3-easing-fast),
+      color var(--m3-easing-fast);
 
     position: relative;
     cursor: pointer;

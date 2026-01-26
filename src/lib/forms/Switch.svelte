@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import type { IconifyIcon } from "@iconify/types";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
   import iconX from "@ktibow/iconset-material-symbols/close";
@@ -58,9 +58,9 @@
   />
   <div class="handle">
     {#if icons != "none"}
-      <Icon icon={checkedIcon} />
+      <Icon icon={checkedIcon} size={16} />
       {#if icons == "both"}
-        <Icon icon={uncheckedIcon} />
+        <Icon icon={uncheckedIcon} size={16} />
       {/if}
     {/if}
   </div>
@@ -68,9 +68,11 @@
 </div>
 
 <style>
-  :root {
-    --m3-switch-track-shape: var(--m3-util-rounding-full);
-    --m3-switch-handle-shape: var(--m3-util-rounding-full);
+  @layer tokens {
+    :root {
+      --m3-switch-track-shape: var(--m3-shape-full);
+      --m3-switch-handle-shape: var(--m3-shape-full);
+    }
   }
   .m3-container {
     display: inline-flex;
@@ -85,10 +87,10 @@
     margin: 0;
     border-radius: var(--m3-switch-track-shape);
 
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
-    border: solid 0.125rem rgb(var(--m3-scheme-outline));
+    background-color: var(--m3c-surface-container-highest);
+    border: solid 0.125rem var(--m3c-outline);
     cursor: pointer;
-    transition: var(--m3-util-easing);
+    transition: var(--m3-easing);
   }
   .handle {
     position: absolute;
@@ -96,11 +98,10 @@
     height: 1rem;
     border-radius: var(--m3-switch-handle-shape);
 
-    background-color: rgb(var(--m3-scheme-outline));
-    /* Fallback for those without on on primary */
-    color: rgb(var(--m3-scheme-on-on-primary, var(--m3-scheme-on-primary-container)));
+    background-color: var(--m3c-outline);
+    color: var(--m3c-on-on-primary);
     cursor: pointer;
-    transition: var(--m3-util-easing-fast-spatial);
+    transition: var(--m3-easing-fast-spatial);
 
     left: 0.5rem;
     top: 50%;
@@ -110,17 +111,15 @@
     justify-content: center;
   }
   .handle > :global(svg) {
-    width: 1rem;
-    height: 1rem;
     opacity: 0;
     transition:
-      opacity var(--m3-util-easing-fast-spatial),
-      scale var(--m3-util-easing-fast-spatial);
+      opacity var(--m3-easing-fast-spatial),
+      scale var(--m3-easing-fast-spatial);
   }
   input:not(:checked) + :global(.handle:has(:nth-child(2))) {
     scale: 1.5;
     > :global(svg) {
-      color: rgb(var(--m3-scheme-surface-container-highest));
+      color: var(--m3c-surface-container-highest);
       scale: 0.667;
       opacity: 1;
     }
@@ -135,10 +134,10 @@
     position: absolute;
     width: 3rem;
     height: 3rem;
-    border-radius: var(--m3-util-rounding-full);
+    border-radius: var(--m3-shape-full);
 
     cursor: pointer;
-    transition: var(--m3-util-easing-fast);
+    transition: var(--m3-easing-fast);
 
     left: 1rem;
     top: 50%;
@@ -150,26 +149,26 @@
 
   .m3-container:hover > input:not(:checked):not(:disabled) + .handle,
   .m3-container:active > input:not(:checked):not(:disabled) + .handle {
-    background-color: rgb(var(--m3-scheme-on-surface-variant));
+    background-color: var(--m3c-on-surface-variant);
   }
   .m3-container:hover > input:enabled:checked + .handle,
   .m3-container > input:enabled:checked:is(:global(:active, :focus-visible)) + .handle {
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: var(--m3c-primary-container);
+    color: var(--m3c-on-primary-container);
   }
   .m3-container:hover > input ~ .hover {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.08);
+    background-color: --translucent(var(--m3c-on-surface), 0.08);
   }
   .m3-container:hover > input:checked ~ .hover {
-    background-color: rgb(var(--m3-scheme-primary) / 0.08);
+    background-color: --translucent(var(--m3c-primary), 0.08);
   }
 
   input:checked {
-    background-color: rgb(var(--m3-scheme-primary));
-    border-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--m3c-primary);
+    border-color: var(--m3c-primary);
   }
   input:checked + .handle {
-    background-color: rgb(var(--m3-scheme-on-primary));
+    background-color: var(--m3c-on-primary);
     scale: 1.5;
     left: 1.75rem;
   }
@@ -188,23 +187,23 @@
   }
 
   input:disabled {
-    background-color: rgb(var(--m3-scheme-surface-container-highest) / 0.12);
-    border-color: rgb(var(--m3-scheme-outline) / 0.12);
+    background-color: --translucent(var(--m3c-surface-container-highest), 0.12);
+    border-color: --translucent(var(--m3c-outline), 0.12);
     cursor: auto;
   }
   input:disabled:checked {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+    background-color: --translucent(var(--m3c-on-surface), 0.12);
     border-color: transparent;
   }
   input:disabled + .handle {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    background-color: --translucent(var(--m3c-on-surface), 0.38);
     cursor: auto;
   }
   input:disabled:checked + .handle {
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: var(--m3c-surface);
   }
   input:disabled:checked + .handle > :global(svg) {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--m3c-on-surface), 0.38);
   }
   input:disabled ~ .hover {
     display: none;
@@ -212,7 +211,6 @@
 
   .m3-container {
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
   @media screen and (forced-colors: active) {
     input:checked {

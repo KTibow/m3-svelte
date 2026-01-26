@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { IconifyIcon } from "@iconify/types";
-  import Icon from "$lib/misc/_icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   let {
     icon,
@@ -17,13 +16,12 @@
   } = $props();
 </script>
 
-<button type="button" class="item focus-inset m3-font-label-large" {disabled} {onclick}>
-  <Layer />
+<button type="button" class="item m3-layer" {disabled} {onclick}>
   {#if icon == "space"}
     <span class="icon"></span>
   {:else if icon}
     <span class="icon">
-      <Icon {icon} />
+      <Icon {icon} size={24} />
     </span>
   {/if}
   {@render children()}
@@ -31,17 +29,19 @@
 
 <style>
   .item {
+    @apply --m3-label-large;
+    @apply --m3-focus-inward;
     display: flex;
     align-items: center;
-    height: calc(3rem + var(--m3-util-density-term));
+    height: --m3-density(3rem);
     padding: 0 0.75rem;
     gap: 0.75rem;
     white-space: nowrap;
 
     border: none;
-    position: relative;
+
     background-color: transparent;
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
 
     cursor: pointer;
   }
@@ -50,16 +50,14 @@
     height: 1.5rem;
   }
   .icon > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
   }
 
   .item:disabled {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--m3c-on-surface), 0.38);
     cursor: auto;
   }
   .item:disabled > .icon > :global(svg) {
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    color: --translucent(var(--m3c-on-surface), 0.38);
   }
 </style>

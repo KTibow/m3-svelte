@@ -6,14 +6,14 @@
   import iconPaletteS from "@ktibow/iconset-material-symbols/palette";
   import iconBook from "@ktibow/iconset-material-symbols/book-2-outline";
   import iconBookS from "@ktibow/iconset-material-symbols/book-2";
-  import iconAnimation from "@ktibow/iconset-material-symbols/animation";
-  import iconAnimationS from "@ktibow/iconset-material-symbols/animation";
-  import { base, resolve } from "$app/paths";
+  import { asset, resolve } from "$app/paths";
   import { page } from "$app/state";
   import NavCMLX from "$lib/nav/NavCMLX.svelte";
   import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
-  import { styling } from "./state";
+  import { styling, density } from "./state";
   import "../app.css";
+  import "$lib/etc/layer";
+  import Snackbar from "$lib/containers/Snackbar.svelte";
 
   let { children }: { children: Snippet } = $props();
   let innerWidth = $state(0);
@@ -40,13 +40,14 @@
   };
 </script>
 
-{@html `<style>${$styling}</style>`}
+{@html `<style>${$styling}:root{--density:${$density == "variable" ? 0 : $density};}</style>`}
 <svelte:window bind:innerWidth />
+<Snackbar />
 <div class="container">
   <div class="sidebar">
     <NavCMLX variant="auto">
       {#each paths as { path, icon, iconS, label }}
-        {@const selected = normalizePath(path) === normalizePath(page.url.pathname)}
+        {@const selected = normalizePath(path) == normalizePath(page.url.pathname)}
         <NavCMLXItem
           variant="auto"
           href={normalizePath(path)}
@@ -56,7 +57,7 @@
         />
       {/each}
       {#if page.url.pathname.startsWith(resolve("/docs")) || innerWidth >= 840}
-        {#each [["Quick start", `${resolve("/docs/quick-start")}`], ["Walkthrough", `${resolve("/docs/detailed-walkthrough")}`], ["llms.txt", `${base}/llms.txt`]] as [text, href]}
+        {#each [["Quick start", resolve("/docs/quick-start")], ["Walkthrough", resolve("/docs/detailed-walkthrough")], ["llms.txt", asset("/llms.txt")]] as [text, href]}
           <NavCMLXItem
             variant="auto"
             {href}
@@ -74,15 +75,6 @@
           text="Docs"
         />
       {/if}
-      <NavCMLXItem
-        variant="auto"
-        href={normalizePath(resolve("/transitions"))}
-        selected={page.url.pathname.startsWith(resolve("/transitions"))}
-        icon={page.url.pathname.startsWith(resolve("/transitions"))
-          ? iconAnimationS
-          : iconAnimation}
-        text="Transitions"
-      />
     </NavCMLX>
   </div>
   <div class="content">
@@ -105,9 +97,11 @@
     padding: 1rem;
   }
   @media (width < 52.5rem) {
+    :root {
+      --m3v-bottom-offset: 5rem;
+    }
     .container {
       grid-template-rows: 1fr auto;
-      --m3-util-bottom-offset: 5rem;
     }
     .sidebar {
       flex-direction: column;

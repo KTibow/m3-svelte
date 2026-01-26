@@ -1,91 +1,171 @@
-<script>
+<script lang="ts">
   import iconDownload from "@ktibow/iconset-material-symbols/download";
+  import iconConfig from "@ktibow/iconset-material-symbols/settings-outline";
   import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
+  import iconNext from "@ktibow/iconset-material-symbols/arrow-forward";
 
-  import Icon from "$lib/misc/_icon.svelte";
-  import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import { resolve } from "$app/paths";
 
   import Snippet from "../Snippet.svelte";
 
-  let step3Page = $state("roboto");
-  const componentCode = `${"<"}script>
-  import { Button } from "m3-svelte";
-${"<"}/script>
-
-${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"}/Button>`;
+  let useTokenShaker = $state(false);
+  let useVite = $state(false);
+  let useCustomFont = $state(false);
 </script>
 
+<svelte:head><title>Quick start</title></svelte:head>
 <ol>
   <li>
-    <div class="header">
+    <h2>
       <div class="number">
         1
         <Icon icon={iconDownload} />
       </div>
-    </div>
-    <div class="text">
-      <p>Install M3 Svelte with <code>npm i m3-svelte</code> (or your package manager).</p>
-    </div>
+      <div class="text">Install M3 Svelte</div>
+      <Button label>
+        <input type="checkbox" bind:checked={useTokenShaker} />
+        Use token-shaker?
+      </Button>
+    </h2>
+    {#if useTokenShaker}
+      <Snippet
+        name="install.sh"
+        html={/* sh */ `pnpm install m3-svelte vite-plugin-functions-mixins vite-plugin-token-shaker -D`}
+      />
+    {:else}
+      <Snippet
+        name="install.sh"
+        html={/* sh */ `pnpm install m3-svelte vite-plugin-functions-mixins -D`}
+      />
+    {/if}
   </li>
   <li>
-    <div class="header">
+    <h2>
       <div class="number">
         2
-        <Icon icon={iconPalette} />
+        <Icon icon={iconConfig} />
       </div>
-    </div>
-    <div class="text">
-      <p>
-        <a href={resolve("/theme")}>Copy a theme snippet</a> and paste it on your site.
-      </p>
-      <Snippet
-        code={`<${""}script>
-  import "../app.css"; // Change this if you're not in SvelteKit
-</${""}script>`}
-        name="+layout.svelte, App.svelte, or similar"
-        lang="xml"
-      />
-      <Snippet code="/* Your theme snippet */" name="app.css" lang="css" />
-    </div>
-  </li>
-  <li>
-    <div class="header">
-      <div class="number">
-        3
-        <Icon icon={iconType} />
-      </div>
-      <ConnectedButtons>
-        <input type="radio" id="step3-roboto" value="roboto" name="step3" bind:group={step3Page} />
-        <Button for="step3-roboto" variant="filled" square>Roboto</Button>
-        <input type="radio" id="step3-manual" value="manual" name="step3" bind:group={step3Page} />
-        <Button for="step3-manual" variant="filled" square>Manual</Button>
-      </ConnectedButtons>
-    </div>
-    <div class="text">
-      <p>Get a font for M3 Svelte to use.</p>
-      {#if step3Page == "roboto"}
+      <div class="text">Enable plugins</div>
+      <Button label>
+        <input type="checkbox" bind:checked={useVite} />
+        Use pure Vite?
+      </Button>
+    </h2>
+    {#if useVite}
+      {#if useTokenShaker}
         <Snippet
-          code={`<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />`}
-          name="app.html"
-          lang="xml"
+          name="vite.config.ts"
+          html={/* typescript */ `import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { functionsMixins } from "vite-plugin-functions-mixins";
+import { tokenShaker } from "vite-plugin-token-shaker";
+
+export default defineConfig({
+  plugins: [svelte(), functionsMixins({ deps: ["m3-svelte"] }), tokenShaker()],
+});`}
         />
       {:else}
         <Snippet
-          code={`body {
-  --m3-font: [your font], system-ui, sans-serif;
-}`}
-          name="app.css"
-          lang="css"
+          name="vite.config.ts"
+          html={/* typescript */ `import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { functionsMixins } from "vite-plugin-functions-mixins";
+
+export default defineConfig({
+  plugins: [svelte(), functionsMixins({ deps: ["m3-svelte"] })],
+});`}
         />
       {/if}
-    </div>
+    {:else if useTokenShaker}
+      <Snippet
+        name="vite.config.ts"
+        html={/* typescript */ `import { defineConfig } from "vite";
+import { sveltekit } from "@sveltejs/kit/vite";
+import { functionsMixins } from "vite-plugin-functions-mixins";
+import { tokenShaker } from "vite-plugin-token-shaker";
+
+export default defineConfig({
+  plugins: [sveltekit(), functionsMixins({ deps: ["m3-svelte"] }), tokenShaker()],
+});`}
+      />
+    {:else}
+      <Snippet
+        name="vite.config.ts"
+        html={/* typescript */ `import { defineConfig } from "vite";
+import { sveltekit } from "@sveltejs/kit/vite";
+import { functionsMixins } from "vite-plugin-functions-mixins";
+
+export default defineConfig({
+  plugins: [sveltekit(), functionsMixins({ deps: ["m3-svelte"] })],
+});`}
+      />
+    {/if}
+  </li>
+  <li>
+    <h2>
+      <div class="number">
+        3
+        <Icon icon={iconPalette} />
+      </div>
+      <div class="text">Enable your <a href={resolve("/theme")}>theme snippet</a></div>
+    </h2>
+    {#if useVite}
+      <Snippet name="index.ts" html={/* typescript */ `import "./app.css";`} />
+    {:else}
+      <Snippet
+        name="+layout.svelte"
+        html={/* svelte */ `<${""}script>
+import "../app.css";
+</${""}script>`}
+      />
+    {/if}
+    <Snippet name="app.css" html={/* css */ `/* Your theme snippet */`} />
+  </li>
+  <li>
+    <h2>
+      <div class="number">
+        4
+        <Icon icon={iconType} />
+      </div>
+      <div class="text">Enable a font</div>
+      <Button label>
+        <input type="checkbox" bind:checked={useCustomFont} />
+        Use custom font?
+      </Button>
+    </h2>
+    {#if useCustomFont}
+      <Snippet
+        name="app.css"
+        html={/* css */ `:root {
+  --m3-font: [your font], system-ui;
+}`}
+      />
+    {:else}
+      <Snippet
+        name={useVite ? "index.html" : "app.html"}
+        html={/* html */ `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap" />`}
+      />
+    {/if}
   </li>
 </ol>
-<p>Now you can start using components like this. Check the rest of the docs to learn more.</p>
-<Snippet code={componentCode} name="Component.svelte" lang="xml" />
+<div class="stack">
+  <Snippet
+    name="Now you can start using components"
+    html={/* svelte */ `<${""}script>
+  import { Button } from "m3-svelte";
+</${""}script>
+
+<${""}Button onclick={() => alert("Hello world")}>Click me</${""}Button>`}
+    stretch
+  />
+  <a class="m3-layer" href={resolve("/docs/detailed-walkthrough")}>
+    <Icon icon={iconNext} size={24} />
+    Keep learning
+  </a>
+</div>
 
 <style>
   ol {
@@ -102,11 +182,15 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     flex-direction: column;
     gap: 0.5rem;
   }
-  .header {
+  h2 {
+    @apply --m3-title-large;
     display: flex;
-    align-items: center;
-    align-self: flex-start;
+    @media (width < 37.5rem) {
+      flex-direction: column;
+      align-items: start;
+    }
     gap: 0.5rem;
+    margin: 0;
   }
   .number {
     display: flex;
@@ -116,34 +200,42 @@ ${"<"}Button variant="filled" onclick={() => alert("Hello world")}>Click me${"<"
     height: 2.5rem;
     border-radius: 3rem;
     padding: 0 1rem;
-    font-size: 1.2rem;
-    background-color: rgb(var(--m3-scheme-primary-container));
-    color: rgb(var(--m3-scheme-on-primary-container));
+    background-color: var(--m3c-primary-container);
+    color: var(--m3c-on-primary-container);
   }
   .text {
     display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 0.25em;
 
-    padding: 1rem;
-    border-radius: 1.5rem;
-
-    min-height: 3rem;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-  }
-
-  p {
-    margin: 0;
-  }
-  code {
-    font-size: 0.9rem;
-    background-color: rgb(var(--m3-scheme-surface-variant));
-    padding-inline: 2px;
-    border-radius: 0.3rem;
+    min-height: 2.5rem;
+    border-radius: 3rem;
+    padding: 0 1rem;
+    background-color: var(--m3c-secondary-container);
+    color: var(--m3c-on-secondary-container);
   }
   a {
+    color: inherit;
+  }
+
+  .stack {
+    display: grid;
+    gap: 4rem;
+    @media (width >= 37.5rem) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .stack > a {
+    @apply --m3-title-large;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background-color: var(--m3c-primary-container-subtle);
+    color: var(--m3c-on-primary-container-subtle);
+    padding: 1.5rem;
+    border-radius: 1rem;
     text-decoration: none;
-    color: rgb(var(--m3-scheme-primary));
   }
 </style>

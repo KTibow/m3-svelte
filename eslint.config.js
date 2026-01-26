@@ -4,13 +4,17 @@ import { includeIgnoreFile } from "@eslint/compat";
 import svelte from "eslint-plugin-svelte";
 import globals from "globals";
 import { fileURLToPath } from "node:url";
+import { defineConfig } from "eslint/config";
 import ts from "typescript-eslint";
 import svelteConfig from "./svelte.config.js";
 
 const gitignorePath = fileURLToPath(new URL("./.gitignore", import.meta.url));
 
-export default ts.config(
+export default defineConfig(
   includeIgnoreFile(gitignorePath),
+  {
+    ignores: ["scripts/**"],
+  },
   js.configs.recommended,
   ...ts.configs.recommended,
   ...svelte.configs.recommended,
@@ -46,19 +50,28 @@ export default ts.config(
       "svelte/no-at-html-tags": "off",
       "svelte/no-useless-mustaches": "off",
       "svelte/no-navigation-without-resolve": "off",
-    },
-  },
-  {
-    files: ["src/lib/**/*.svelte"],
-    rules: {
-      "svelte/no-unused-props": "off",
-      "svelte/prefer-writable-derived": "off",
-    },
-  },
-  {
-    files: ["src/routes/*.svelte"],
-    rules: {
-      "@typescript-eslint/no-unused-vars": "off",
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "$lib",
+              message: "Use specific imports from $lib/* to preserve CSS tree shaking",
+            },
+          ],
+        },
+      ],
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "BinaryExpression[operator='===']",
+          message: "Use == instead of ===",
+        },
+        {
+          selector: "BinaryExpression[operator='!==']",
+          message: "Use != instead of !==",
+        },
+      ],
     },
   },
 );

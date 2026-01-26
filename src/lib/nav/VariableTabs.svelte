@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLInputAttributes } from "svelte/elements";
-  import Icon from "$lib/misc/_icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   let {
     secondary = false,
@@ -85,12 +84,11 @@
       oninput={handleInput}
       {...extra}
     />
-    <label for={id} class:tall={item.icon}>
-      <Layer />
+    <label for={id} class:tall={item.icon} class="m3-layer">
       {#if item.icon}
-        <Icon icon={item.icon} />
+        <Icon icon={item.icon} size={24} />
       {/if}
-      <span class="m3-font-title-small">{item.name}</span>
+      <span>{item.name}</span>
     </label>
   {/each}
   <div class="bar"></div>
@@ -100,7 +98,7 @@
   .m3-container {
     display: grid;
     position: relative;
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: var(--m3c-surface);
     grid-template-columns: repeat(var(--items), auto);
     padding-inline: 1rem;
     justify-content: start;
@@ -115,38 +113,36 @@
     position: absolute;
     inset: auto 0 0 0;
     height: 1px;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    background-color: var(--m3c-surface-container-highest);
   }
   label {
     height: 3rem;
     white-space: nowrap;
     padding: 0 1rem;
 
-    position: relative;
     display: flex;
     gap: 0.5rem;
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
     user-select: none;
     cursor: pointer;
-    transition: color var(--m3-util-easing-fast);
+    transition: color var(--m3-easing-fast);
   }
-  label > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
+  label > span {
+    @apply --m3-title-small;
   }
 
   @media (hover: hover) {
     label:hover {
-      color: rgb(var(--m3-scheme-on-surface));
+      color: var(--m3c-on-surface);
     }
   }
   input:focus-visible + label,
   input:active + label,
   input:checked + label {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
   }
 
   label,
@@ -154,7 +150,7 @@
     grid-row: 1;
   }
   .bar {
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--m3c-primary);
     height: 0.125rem;
     z-index: 1;
     align-self: end;
@@ -198,12 +194,8 @@
   .primary > label.tall {
     height: 4rem;
   }
-  .primary > label > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
   .primary > input:checked + label {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
   }
   .primary > .bar {
     width: 3rem;
@@ -214,7 +206,6 @@
 
   .bar {
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
   @media screen and (forced-colors: active) {
     .bar {

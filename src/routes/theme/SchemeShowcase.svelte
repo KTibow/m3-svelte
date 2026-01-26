@@ -1,73 +1,144 @@
 <script lang="ts">
-  import type { DynamicScheme } from "@ktibow/material-color-utilities-nightly";
-  import Icon from "$lib/misc/_icon.svelte";
+  import type { DynamicColor, DynamicScheme } from "@ktibow/material-color-utilities-nightly";
+  import Icon from "$lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
-  import iconLight from "@ktibow/iconset-material-symbols/light-mode-outline";
-  import iconDark from "@ktibow/iconset-material-symbols/dark-mode-outline";
+  import iconInvert from "@ktibow/iconset-material-symbols/invert-colors-outline";
   import iconX from "@ktibow/iconset-material-symbols/close";
   import iconGrab from "@ktibow/iconset-material-symbols/unarchive-outline";
-  import { onMount } from "svelte";
 
   import Button from "$lib/buttons/Button.svelte";
   import ColorCard from "./ColorCard.svelte";
-  import { appType, styling } from "../state";
-  import { pairs } from "$lib/misc/colors";
-  import { genCSS } from "$lib/misc/utils";
+  import { appType, styling, density } from "../state";
+  import {
+    colors,
+    errorContainerSubtle,
+    materialColors,
+    onErrorContainerSubtle,
+    onPrimaryContainerSubtle,
+    onSecondaryContainerSubtle,
+    onTertiaryContainerSubtle,
+    primaryContainerSubtle,
+    secondaryContainerSubtle,
+    tertiaryContainerSubtle,
+    genCSS,
+  } from "$lib/etc/colors";
+  import ColorDot from "./ColorDot.svelte";
 
   let {
     light,
     dark,
-    density,
+    includeDimBright,
+    includeFixed,
   }: {
     light: DynamicScheme;
     dark: DynamicScheme;
-    density: number;
+    includeDimBright: boolean;
+    includeFixed: boolean;
   } = $props();
-  let showDark = $state(false);
+  let inverted = $state(false);
   let grabbing = $state(false);
 
   $effect(() => {
-    let style = genCSS(light, dark);
-    if (density) {
-      style = `:root {
-  --m3-util-density: ${density};
-}
-${style}`;
+    let cs = colors;
+    if (!includeDimBright) {
+      cs = cs.filter((c) => !c.name.includes("dim") && !c.name.includes("bright"));
     }
-    $styling = style;
+    if (!includeFixed) {
+      cs = cs.filter((c) => !c.name.includes("fixed"));
+    }
+    const style = genCSS(light, dark, cs);
+    let fn;
+    if ($density == "variable") {
+      fn = `@function --m3-density(--size) {
+  result: calc(var(--size) + (var(--density) * 0.25rem));
+}`;
+    } else if ($density < 0) {
+      fn = `@function --m3-density(--size) {
+  result: calc(var(--size) - ${$density * -0.25}rem);
+}`;
+    } else if ($density == 0) {
+      fn = `@function --m3-density(--size) {
+  result: var(--size);
+}`;
+    } else {
+      fn = `@function --m3-density(--size) {
+  result: calc(var(--size) + ${$density * 0.25}rem);
+}`;
+    }
+    $styling = fn + "\n" + style;
   });
 
   const copyUsage = () => {
-    const innerStyles = `@import "m3-svelte/misc/styles.css";
-@import "m3-svelte/misc/recommended-styles.css";`;
+    const innerStyles = `@import "m3-svelte/etc/styles.css";
+@import "m3-svelte/etc/recommended-styles.css";`;
     navigator.clipboard.writeText(
       ($appType == "tailwind"
         ? `@import "tailwindcss";
 ${innerStyles}
-@import "m3-svelte/misc/tailwind-styles.css";`
+@import "m3-svelte/etc/tailwind-styles.css";`
         : innerStyles) +
         "\n" +
         $styling,
     );
   };
-
-  onMount(() => {
-    showDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
 </script>
 
-<div class="content">
-  <h2 class="m3-font-title-large">Your scheme 🎉</h2>
-  <div class="color-container">
-    {#each pairs as [bgName, fgName]}
-      <ColorCard
-        scheme={showDark ? dark : light}
-        fg={fgName}
-        bg={bgName}
-        {grabbing}
-        grabbed={() => (grabbing = false)}
-      />
-    {/each}
+{#snippet color(bg: DynamicColor, fg: DynamicColor)}
+  <ColorCard {light} {dark} {bg} {fg} bind:grabbing />
+{/snippet}
+{#snippet colorDot(bg: DynamicColor)}
+  <ColorDot {light} {dark} {bg} bind:grabbing />
+{/snippet}
+<div class="content" class:inverted>
+  <h3>
+    {@render color(materialColors.primary(), materialColors.onPrimary())}
+    <div class="spacer"></div>
+    {@render color(materialColors.primaryContainer(), materialColors.onPrimaryContainer())}
+    {@render color(primaryContainerSubtle, onPrimaryContainerSubtle)}
+  </h3>
+  <h3>
+    {@render color(materialColors.secondary(), materialColors.onSecondary())}
+    <div class="spacer"></div>
+    {@render color(materialColors.secondaryContainer(), materialColors.onSecondaryContainer())}
+    {@render color(secondaryContainerSubtle, onSecondaryContainerSubtle)}
+  </h3>
+  <h3>
+    {@render color(materialColors.tertiary(), materialColors.onTertiary())}
+    <div class="spacer"></div>
+    {@render color(materialColors.tertiaryContainer(), materialColors.onTertiaryContainer())}
+    {@render color(tertiaryContainerSubtle, onTertiaryContainerSubtle)}
+  </h3>
+  <h3>
+    {@render color(materialColors.error(), materialColors.onError())}
+    <div class="spacer"></div>
+    {@render color(materialColors.errorContainer(), materialColors.onErrorContainer())}
+    {@render color(errorContainerSubtle, onErrorContainerSubtle)}
+  </h3>
+  <div class="color-pane">
+    <h3 class="small">
+      Surface {@render colorDot(materialColors.surface())}
+    </h3>
+    <h3 class="small">
+      Surface container lowest {@render colorDot(materialColors.surfaceContainerLowest())}
+    </h3>
+    <h3 class="small">
+      Surface container low {@render colorDot(materialColors.surfaceContainerLow())}
+    </h3>
+    <h3 class="small">
+      Surface container {@render colorDot(materialColors.surfaceContainer())}
+    </h3>
+    <h3 class="small">
+      Surface container high {@render colorDot(materialColors.surfaceContainerHigh())}
+    </h3>
+    <h3 class="small">
+      Surface container highest {@render colorDot(materialColors.surfaceContainerHighest())}
+    </h3>
+    <h3 class="small">
+      On surface variant {@render colorDot(materialColors.onSurfaceVariant())}
+    </h3>
+    <h3 class="small">
+      On surface {@render colorDot(materialColors.onSurface())}
+    </h3>
   </div>
   <div class="buttons">
     <Button variant="filled" iconType="left" onclick={copyUsage}>
@@ -86,45 +157,72 @@ ${innerStyles}
       </Button>
     {/if}
     <div class="spacer"></div>
-    <Button variant="tonal" iconType="full" onclick={() => (showDark = !showDark)}>
-      <Icon icon={showDark ? iconLight : iconDark} />
+    <Button variant="tonal" iconType="full" title="Invert colors" label>
+      <input type="checkbox" bind:checked={inverted} />
+      <Icon icon={iconInvert} />
     </Button>
   </div>
 </div>
 
 <style>
   .content {
-    background-color: rgb(var(--m3-scheme-surface-container-low));
+    background-color: var(--m3c-surface-container-low);
     padding: 1rem;
-    border-radius: 1rem;
-  }
-  h2 {
-    margin: 0 0 1rem 0;
-  }
-  .color-container {
-    display: grid;
-    border-radius: 1rem;
-    overflow: hidden;
-  }
-  @media (min-width: 30rem) {
-    .color-container {
-      grid-template-columns: repeat(2, 1fr);
+    border-radius: var(--m3-shape-large);
+    &.inverted {
+      @media (prefers-color-scheme: light) {
+        color-scheme: dark;
+      }
+      @media (prefers-color-scheme: dark) {
+        color-scheme: light;
+      }
+    }
+
+    @media (width < 37.5rem) {
+      display: flex;
+      flex-direction: column;
+    }
+    @media (width >= 37.5rem) {
+      display: grid;
+      grid-auto-flow: row;
+      grid-template-columns: 1fr auto;
+      > * {
+        grid-column: 1;
+      }
+      > .color-pane {
+        grid-row: 1 / span 4;
+        grid-column: 2;
+        align-items: end;
+      }
+    }
+    gap: 0.5rem;
+    > .color-pane {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--m3c-on-surface-variant);
     }
   }
-  @media (min-width: 60rem) {
-    .color-container {
-      grid-template-columns: repeat(4, 1fr);
+  h3 {
+    @apply --m3-title-medium;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0;
+    &:not(.small) {
+      @media (width < 37.5rem) {
+        flex-direction: column;
+        align-items: start;
+      }
     }
-  }
-  @media (min-width: 80rem) {
-    .color-container {
-      grid-template-columns: repeat(6, auto);
+    &.small {
+      @apply --m3-title-small;
     }
   }
   .buttons {
     display: flex;
     gap: 0.5rem;
-    margin-top: 1rem;
+    grid-column: 1 / span 2;
   }
   .spacer {
     flex-grow: 1;

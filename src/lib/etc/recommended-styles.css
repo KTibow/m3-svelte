@@ -1,0 +1,8 @@
+[placeholder]::placeholder {
+  color: --translucent(var(--m3c-on-surface), 0.5);
+  opacity: 1;
+}
+::selection {
+  background-color: var(--m3c-tertiary-container);
+  color: var(--m3c-on-tertiary-container);
+}

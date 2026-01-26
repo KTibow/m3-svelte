@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { IconifyIcon } from "@iconify/types";
-  import Icon from "$lib/misc/_icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
-  import type { LabelAttrs, AnchorAttrs, ButtonAttrs } from "$lib/misc/typing-utils";
+  import Icon from "$lib/misc/Icon.svelte";
+  import type { AnchorAttrs, ButtonAttrs, NotLink } from "$lib/misc/typing-utils";
+  import type { HTMLLabelAttributes } from "svelte/elements";
 
-  type ActionProps = LabelAttrs | AnchorAttrs | ButtonAttrs;
+  type ActionProps = AnchorAttrs | (NotLink<HTMLLabelAttributes> & { label: true }) | ButtonAttrs;
 
   let {
     variant,
@@ -35,33 +35,40 @@
 </script>
 
 {#snippet content()}
-  <Layer />
   {#if icon}
-    <Icon {icon} class="leading" />
+    <Icon {icon} size={18} class="leading" />
   {/if}
-  <span class="m3-font-label-large">{@render children()}</span>
+  <span>{@render children()}</span>
   {#if trailingIcon}
     <Icon icon={trailingIcon} class="trailing" />
   {/if}
 {/snippet}
 
-{#if "for" in extra}
-  <label class="m3-container {variant}" class:elevated class:selected {...extra}>
-    {@render content()}
-  </label>
-{:else if "href" in extra}
-  <a class="m3-container {variant}" class:elevated class:selected {...extra}>
+{#if extra.href != undefined}
+  <a class="m3-container {variant} m3-layer" class:elevated class:selected {...extra}>
     {@render content()}
   </a>
+{:else if "label" in extra}
+  <label class="m3-container {variant} m3-layer" class:elevated class:selected {...extra}>
+    {@render content()}
+  </label>
 {:else}
-  <button class="m3-container {variant}" class:elevated class:selected {...extra} type="button">
+  <button
+    class="m3-container {variant} m3-layer"
+    class:elevated
+    class:selected
+    {...extra}
+    type="button"
+  >
     {@render content()}
   </button>
 {/if}
 
 <style>
-  :root {
-    --m3-chip-shape: var(--m3-util-rounding-small);
+  @layer tokens {
+    :root {
+      --m3-chip-shape: var(--m3-shape-small);
+    }
   }
   .m3-container {
     display: flex;
@@ -71,23 +78,22 @@
     gap: 0.5rem;
     align-items: center;
 
-    background-color: rgb(var(--m3-scheme-surface));
-    color: rgb(var(--m3-scheme-on-surface-variant));
-    border: solid 1px rgb(var(--m3-scheme-outline));
-    position: relative;
+    background-color: var(--m3c-surface);
+    color: var(--m3c-on-surface-variant);
+    border: solid 1px var(--m3c-outline);
     cursor: pointer;
-    transition: var(--m3-util-easing-fast);
+    transition: var(--m3-easing-fast);
   }
 
-  .m3-container > :global(:is(.ripple-container, .tint)) {
-    inset: -1px;
-  }
-  .m3-container > :global(svg) {
-    width: 1.125rem;
-    height: 1.125rem;
+  .m3-container::before,
+  .m3-container::after,
+  .m3-container > :global(.active-ripple) {
+    inset: -1px !important;
+    width: calc(100% + 2px) !important;
+    height: calc(100% + 2px) !important;
   }
   .m3-container:enabled:not(.input):not(.selected) > :global(.leading) {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
   }
   .m3-container > :global(.leading) {
     margin-left: -0.5rem;
@@ -102,21 +108,25 @@
     margin-right: -0.25rem;
   }
 
+  span {
+    @apply --m3-label-large;
+  }
+
   .assist {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
   }
   .input {
     padding: 0 0.75rem;
   }
   .elevated {
     border-color: transparent;
-    background-color: rgb(var(--m3-scheme-surface-container-low));
-    box-shadow: var(--m3-util-elevation-1);
+    background-color: var(--m3c-surface-container-low);
+    box-shadow: var(--m3-elevation-1);
   }
   .selected {
     border-color: transparent;
-    background-color: rgb(var(--m3-scheme-secondary-container));
-    color: rgb(var(--m3-scheme-on-secondary-container));
+    background-color: var(--m3c-secondary-container);
+    color: var(--m3c-on-secondary-container);
   }
 
   .layer {
@@ -125,19 +135,19 @@
   }
   @media (hover: hover) {
     .selected:hover:enabled {
-      box-shadow: var(--m3-util-elevation-1);
+      box-shadow: var(--m3-elevation-1);
     }
     .elevated:hover:enabled {
-      box-shadow: var(--m3-util-elevation-2);
+      box-shadow: var(--m3-elevation-2);
     }
   }
 
   .m3-container:disabled {
     cursor: auto;
     box-shadow: none;
-    border-color: rgb(var(--m3-scheme-on-surface) / 0.12);
-    background-color: rgb(var(--m3-scheme-surface));
-    color: rgb(var(--m3-scheme-on-surface) / 0.38);
+    border-color: --translucent(var(--m3c-on-surface), 0.12);
+    background-color: var(--m3c-surface);
+    color: --translucent(var(--m3c-on-surface), 0.38);
   }
   .selected:disabled,
   .elevated:disabled {
@@ -145,12 +155,11 @@
   }
   .selected:disabled,
   .elevated:disabled {
-    background-color: rgb(var(--m3-scheme-on-surface) / 0.12);
+    background-color: --translucent(var(--m3c-on-surface), 0.12);
   }
 
   .m3-container {
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
   @media screen and (forced-colors: active) {
     .selected {

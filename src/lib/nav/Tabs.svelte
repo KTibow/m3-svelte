@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLInputAttributes } from "svelte/elements";
-  import Icon from "$lib/misc/_icon.svelte";
-  import Layer from "$lib/misc/Layer.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   let {
     secondary = false,
@@ -26,12 +25,11 @@
   {#each items as item}
     {@const id = name + item.value}
     <input type="radio" {name} {id} value={item.value} bind:group={tab} {...extra} />
-    <label for={id} class:tall={item.icon}>
-      <Layer />
+    <label for={id} class:tall={item.icon} class="m3-layer">
       {#if item.icon}
-        <Icon icon={item.icon} />
+        <Icon icon={item.icon} size={24} />
       {/if}
-      <span class="m3-font-title-small">{item.name}</span>
+      <span>{item.name}</span>
     </label>
   {/each}
   <div class="bar"></div>
@@ -41,7 +39,7 @@
   .m3-container {
     display: flex;
     position: relative;
-    background-color: rgb(var(--m3-scheme-surface));
+    background-color: var(--m3c-surface);
   }
   input {
     position: absolute;
@@ -52,7 +50,7 @@
     position: absolute;
     inset: auto 0 0 0;
     height: 1px;
-    background-color: rgb(var(--m3-scheme-surface-container-highest));
+    background-color: var(--m3c-surface-container-highest);
   }
   label {
     flex: 1 0;
@@ -61,41 +59,39 @@
     white-space: nowrap;
     padding: 0 1rem;
 
-    position: relative;
     display: flex;
     gap: 0.5rem;
     align-items: center;
     justify-content: center;
 
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
     user-select: none;
     cursor: pointer;
-    transition: color var(--m3-util-easing-fast);
+    transition: color var(--m3-easing-fast);
   }
-  label > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
+  label > span {
+    @apply --m3-title-small;
   }
 
   @media (hover: hover) {
     label:hover {
-      color: rgb(var(--m3-scheme-on-surface));
+      color: var(--m3c-on-surface);
     }
   }
   input:focus-visible + label,
   input:active + label,
   input:checked + label {
-    color: rgb(var(--m3-scheme-on-surface));
+    color: var(--m3c-on-surface);
   }
 
   .bar {
     position: absolute;
-    background-color: rgb(var(--m3-scheme-primary));
+    background-color: var(--m3c-primary);
     width: calc(100% / var(--items));
     height: 0;
     bottom: 0;
     pointer-events: none;
-    transition: var(--m3-util-easing-fast-spatial);
+    transition: var(--m3-easing-fast-spatial);
   }
   input:checked:nth-of-type(1) ~ .bar {
     inset-inline-start: 0;
@@ -123,12 +119,8 @@
   .primary > label.tall {
     height: 4rem;
   }
-  .primary > label > :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
   .primary > input:checked + label {
-    color: rgb(var(--m3-scheme-primary));
+    color: var(--m3c-primary);
   }
   .primary > .bar {
     width: 3rem;
@@ -143,7 +135,6 @@
 
   .bar {
     print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
   @media screen and (forced-colors: active) {
     .bar {

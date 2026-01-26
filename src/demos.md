@@ -13,16 +13,23 @@ Button
 ```
 
 ```ts
-let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("elevated");
+let variant: "elevated" | "filled" | "tonal" | "outlined" | "text" = $state("filled");
 let action: "click" | "link" | "toggle" = $state("click");
 let square = $state(false);
 let iconType: "none" | "left" | "full" = $state("none");
+const sizes = ["xs", "s", "m", "l", "xl"] as const;
+const sizeLabels = ["Extra small", "Small", "Medium", "Large", "Extra large"] as const;
+let sizeIndex = $state(1);
 let enabled = $state(true);
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined", "text"]} bind:value={variant} />
+  <Arrows
+    list={["elevated", "filled", "tonal", "outlined", "text"]}
+    bind:value={variant}
+    initialIndex={1}
+  />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
@@ -37,23 +44,27 @@ let enabled = $state(true);
   <Arrows list={["none", "left", "full"]} bind:value={iconType} />
   {iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}
 </label>
+<Slider bind:value={sizeIndex} min={0} max={4} step={1} stops format={(n) => sizeLabels[n]} />
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
 {#snippet demo()}
   <div>
-    <input type="checkbox" id="random-input" disabled={!enabled} />
     <Button
       {variant}
       {square}
+      size={sizes[sizeIndex]}
       {...{
         click: { onclick: () => {}, disabled: !enabled },
         link: { href: "https://example.com" },
-        toggle: { for: "random-input" },
+        toggle: { label: true },
       }[action]}
       {iconType}
     >
+      {#if action == "toggle"}
+        <input type="checkbox" disabled={!enabled} />
+      {/if}
       {#if iconType == "none"}
         Hello
       {:else if iconType == "left"}
@@ -66,7 +77,7 @@ let enabled = $state(true);
 {/snippet}
 
 <style>
-  #random-input {
+  #button-input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
@@ -80,8 +91,8 @@ Minimal demo:
 
 ```svelte
 <ConnectedButtons>
-  <TogglePrimitive bind:toggle={itemA}>A</TogglePrimitive>
-  <TogglePrimitive bind:toggle={itemB}>B</TogglePrimitive>
+  <Button><input type="checkbox" bind:checked={itemA} />A</Button>
+  <Button><input type="checkbox" bind:checked={itemB} />B</Button>
 </ConnectedButtons>
 ```
 
@@ -90,12 +101,14 @@ Full demo:
 ```use
 ConnectedButtons
 Button
-TogglePrimitive
 ```
 
 ```ts
 let variant: "filled" | "tonal" = $state("filled");
 let multiselect = $state(true);
+const sizes = ["xs", "s", "m", "l", "xl"] as const;
+const sizeLabels = ["Extra small", "Small", "Medium", "Large", "Extra large"] as const;
+let sizeIndex = $state(1);
 ```
 
 ```svelte
@@ -107,20 +120,19 @@ let multiselect = $state(true);
   <Switch bind:checked={multiselect} />
   {multiselect ? "Multi-select" : "Single-select"}
 </label>
+<Slider bind:value={sizeIndex} min={0} max={4} step={1} stops format={(n) => sizeLabels[n]} />
 {#snippet demo()}
+  {@const size = sizes[sizeIndex]}
   <ConnectedButtons>
-    {#if multiselect}
-      <TogglePrimitive toggle={true} {variant}>Alpha</TogglePrimitive>
-      <TogglePrimitive toggle={false} {variant}>Beta</TogglePrimitive>
-      <TogglePrimitive toggle={false} {variant}>Charlie</TogglePrimitive>
-    {:else}
-      <input type="radio" name="segmented-b" id="segmented-b-0" checked />
-      <Button for="segmented-b-0" {variant} square>Alpha</Button>
-      <input type="radio" name="segmented-b" id="segmented-b-1" />
-      <Button for="segmented-b-1" {variant} square>Beta</Button>
-      <input type="radio" name="segmented-b" id="segmented-b-2" />
-      <Button for="segmented-b-2" {variant} square>Charlie</Button>
-    {/if}
+    <Button {variant} {size} square label>
+      <input type={multiselect ? "checkbox" : "radio"} checked name="connectedbuttons" />Alpha
+    </Button>
+    <Button {variant} {size} square label>
+      <input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons" />Beta
+    </Button>
+    <Button {variant} {size} square label>
+      <input type={multiselect ? "checkbox" : "radio"} name="connectedbuttons" />Charlie
+    </Button>
   </ConnectedButtons>
 {/snippet}
 ```
@@ -147,14 +159,18 @@ MenuItem
 ```
 
 ```ts
-let variant: "elevated" | "filled" | "tonal" | "outlined" = $state("elevated");
+let variant: "elevated" | "filled" | "tonal" | "outlined" = $state("filled");
 let position: "inner-down" | "inner-up" | "right-down" | "right-up" = $state("inner-down");
 let iconType: "none" | "left" | "full" = $state("none");
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "tonal", "outlined"]} bind:value={variant} />
+  <Arrows
+    list={["elevated", "filled", "tonal", "outlined"]}
+    bind:value={variant}
+    initialIndex={1}
+  />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
@@ -183,9 +199,9 @@ let iconType: "none" | "left" | "full" = $state("none");
       {/if}
       {#snippet menu()}
         <Menu>
-          <MenuItem icon={iconCircle} onclick={() => {}}>Hi</MenuItem>
-          <MenuItem icon={iconSquare} onclick={() => {}}>Howdy</MenuItem>
-          <MenuItem icon={iconTriangle} onclick={() => {}}>G'day</MenuItem>
+          <MenuItem icon={iconCircle} onclick={() => {}}>Alpha</MenuItem>
+          <MenuItem icon={iconSquare} onclick={() => {}}>Beta</MenuItem>
+          <MenuItem icon={iconTriangle} onclick={() => {}}>Charlie</MenuItem>
         </Menu>
       {/snippet}
     </SplitButton>
@@ -215,7 +231,9 @@ let color:
   | "primary"
   | "secondary"
   | "tertiary" = $state("primary-container");
-let size: "small" | "normal" | "large" | "extended" = $state("normal");
+const sizes = ["normal", "medium", "large"] as const;
+let sizeIndex = $state(0);
+let iconTextSetup: "icon" | "both" | "text" = $state("icon");
 ```
 
 ```svelte
@@ -233,17 +251,30 @@ let size: "small" | "normal" | "large" | "extended" = $state("normal");
   />
   {color[0].toUpperCase() + color.slice(1).replace("-", " ")}
 </label>
+<Slider
+  bind:value={sizeIndex}
+  min={0}
+  max={2}
+  step={1}
+  stops
+  format={(n) => sizes[n][0].toUpperCase() + sizes[n].slice(1)}
+/>
 <label>
-  <Arrows list={["small", "normal", "large", "extended"]} bind:value={size} initialIndex={1} />
-  {size[0].toUpperCase() + size.slice(1)}
+  <Arrows list={["icon", "both", "text"]} bind:value={iconTextSetup} />
+  {iconTextSetup == "icon" ? "Icon only" : iconTextSetup == "both" ? "Icon and text" : "Text only"}
 </label>
 {#snippet demo()}
+  {@const size = sizes[sizeIndex]}
   <div>
     <FAB
       {color}
+      {size}
+      {...iconTextSetup == "icon"
+        ? { icon: iconCircle }
+        : iconTextSetup == "both"
+          ? { icon: iconCircle, text: "Hello" }
+          : { text: "Hello" }}
       onclick={() => {}}
-      {...size == "extended" ? { size: "normal", text: "Hello" } : { size }}
-      icon={iconCircle}
     />
   </div>
 {/snippet}
@@ -265,13 +296,13 @@ Card
 ```
 
 ```ts
-let variant: "elevated" | "filled" | "outlined" = $state("elevated");
+let variant: "filled" | "outlined" | "elevated" = $state("filled");
 let clickable = $state(false);
 ```
 
 ```svelte
 <label>
-  <Arrows list={["elevated", "filled", "outlined"]} bind:value={variant} />
+  <Arrows list={["filled", "outlined", "elevated"]} bind:value={variant} />
   {variant[0].toUpperCase() + variant.slice(1)}
 </label>
 <label>
@@ -328,51 +359,45 @@ let supporting = $derived(
   {"<" + type + ">"}
 </label>
 {#snippet demo()}
-  <div class="demo">
-    {#snippet leading()}
-      {#if type == "label"}
-        <div class="box-wrapper">
-          <Checkbox><input type="checkbox" /></Checkbox>
-        </div>
-      {:else}
-        <Icon icon={iconCircle} />
-      {/if}
-    {/snippet}
-    <ListItem
-      {leading}
-      {headline}
-      {supporting}
-      lines={+lines}
-      {...type == "label"
-        ? { label: true }
-        : type == "button"
-          ? { onclick: () => {} }
-          : type == "a"
-            ? { href: "https://example.com" }
-            : {}}
-    />
-    <Divider />
-    <ListItem
-      {leading}
-      {headline}
-      {supporting}
-      lines={+lines}
-      {...type == "label"
-        ? { label: true }
-        : type == "button"
-          ? { onclick: () => {} }
-          : type == "a"
-            ? { href: "https://example.com" }
-            : {}}
-    />
-  </div>
+  {#snippet leading()}
+    {#if type == "label"}
+      <div class="box-wrapper">
+        <Checkbox><input type="checkbox" /></Checkbox>
+      </div>
+    {:else}
+      <Icon icon={iconCircle} />
+    {/if}
+  {/snippet}
+  <ListItem
+    {leading}
+    {headline}
+    {supporting}
+    lines={+lines}
+    {...type == "label"
+      ? { label: true }
+      : type == "button"
+        ? { onclick: () => {} }
+        : type == "a"
+          ? { href: "https://example.com" }
+          : {}}
+  />
+  <Divider />
+  <ListItem
+    {leading}
+    {headline}
+    {supporting}
+    lines={+lines}
+    {...type == "label"
+      ? { label: true }
+      : type == "button"
+        ? { onclick: () => {} }
+        : type == "a"
+          ? { href: "https://example.com" }
+          : {}}
+  />
 {/snippet}
 
 <style>
-  .demo {
-    display: flex;
-    flex-direction: column;
-  }
   .box-wrapper {
     display: flex;
     align-items: center;
@@ -390,9 +415,9 @@ Minimal demo:
 
 ```svelte
 <Menu>
-  <MenuItem icon={iconCircle}>Undo</MenuItem>
-  <MenuItem icon={iconSquare}>Redo</MenuItem>
-  <MenuItem icon={iconTriangle}>Cut</MenuItem>
+  <MenuItem icon={iconCircle}>Alpha</MenuItem>
+  <MenuItem icon={iconSquare}>Beta</MenuItem>
+  <MenuItem icon={iconTriangle}>Charlie</MenuItem>
 </Menu>
 ```
 
@@ -414,9 +439,9 @@ let icons = $state(false);
 </label>
 {#snippet demo()}
   <Menu>
-    <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Cut</MenuItem>
-    <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Undo</MenuItem>
-    <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Redo</MenuItem>
+    <MenuItem icon={icons ? iconCircle : undefined} onclick={() => {}}>Alpha</MenuItem>
+    <MenuItem icon={icons ? iconSquare : undefined} onclick={() => {}}>Beta</MenuItem>
+    <MenuItem icon={icons ? iconTriangle : undefined} disabled onclick={() => {}}>Charlie</MenuItem>
   </Menu>
 {/snippet}
 ```
@@ -498,13 +523,11 @@ Minimal demo:
 
 ```svelte
 <script lang="ts">
-  let snackbar: ReturnType<typeof Snackbar>;
+  import { snackbar } from "m3-svelte";
 </script>
 
-<Button variant="tonal" onclick={() => snackbar.show({ message: "Hello", closable: true })}>
-  Show
-</Button>
-<Snackbar bind:this={snackbar} />
+<Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>Show</Button>
+<Snackbar />
 ```
 
 Full demo:
@@ -515,15 +538,12 @@ Snackbar
 ```
 
 ```ts
-let snackbar: ReturnType<typeof Snackbar>;
+import { snackbar } from "$lib/containers/Snackbar.svelte";
 ```
 
 ```svelte
 {#snippet demo()}
-  <Button variant="tonal" onclick={() => snackbar.show({ message: "Hello", closable: true })}>
-    Show
-  </Button>
-  <Snackbar bind:this={snackbar} />
+  <Button variant="tonal" onclick={() => snackbar("Hello", undefined, true)}>Show</Button>
 {/snippet}
 ```
 
@@ -663,27 +683,33 @@ let percent = $state(10);
 </label>
 <label>
   <Switch bind:checked={thick} />
-  {thick ? "Thicker" : "Default"}
+  {thick ? "Thicker" : "Thinner"}
+</label>
+<label>
+  <Switch bind:checked={estimate} />
+  {estimate ? "Estimated" : "Percent"}
 </label>
 {#if !estimate}
-  <Slider bind:value={percent} />
+  <Slider bind:value={percent} endStops={false} format={(n) => `${n.toFixed(0)}%`} />
 {/if}
-<input type="checkbox" id="estimate-toggle" bind:checked={estimate} />
-<Button variant="tonal" for="estimate-toggle">{estimate ? "Estimated" : "Estimate"}</Button>
 
 {#snippet demo()}
   {#if estimate && type == "linear"}
-    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : 4} />
+    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : undefined} />
   {:else if estimate && type == "linear-wavy"}
-    <WavyLinearProgressEstimate height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+    <WavyLinearProgressEstimate height={thick ? 14 : undefined} thickness={thick ? 8 : undefined} />
   {:else if estimate && type == "circular"}
-    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : 4} />
+    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : undefined} />
   {:else if type == "linear"}
-    <LinearProgress {percent} height={thick ? 8 : 4} />
+    <LinearProgress {percent} height={thick ? 8 : undefined} />
   {:else if type == "linear-wavy"}
-    <WavyLinearProgress {percent} height={thick ? 14 : 10} thickness={thick ? 8 : 4} />
+    <WavyLinearProgress
+      {percent}
+      height={thick ? 14 : undefined}
+      thickness={thick ? 8 : undefined}
+    />
   {:else if type == "circular"}
-    <CircularProgress {percent} thickness={thick ? 8 : 4} />
+    <CircularProgress {percent} thickness={thick ? 8 : undefined} />
   {/if}
 {/snippet}
 
@@ -728,9 +754,9 @@ let container = $state(false);
 Minimal demo:
 
 ```svelte
-<RadioAnim1><input type="radio" name="stuff" value="one" bind:group={stuff} /></RadioAnim1>
-<RadioAnim1><input type="radio" name="stuff" value="two" bind:group={stuff} /></RadioAnim1>
-<RadioAnim1><input type="radio" name="stuff" value="three" bind:group={stuff} /></RadioAnim1>
+<label>
+  <RadioAnim1><input type="radio" name="stuff" value="one" bind:group={stuff} /></RadioAnim1>
+</label>
 ```
 
 Full demo:
@@ -853,11 +879,14 @@ Slider
 
 ```ts
 let precision = $state<"continuous" | "discrete" | "discrete-stops">("continuous");
-let size = $state<"xs" | "s" | "m" | "l" | "xl">("xs");
+const sizes = ["xs", "s", "m", "l", "xl"] as const;
+const sizeLabels = ["Extra small", "Small", "Medium", "Large", "Extra large"] as const;
+let sizeIndex = $state(0);
 let trailingIcon = $state<boolean>(false);
 let leadingIcon = $state<boolean>(false);
 let endStops = $state<boolean>(true);
 let enabled = $state<boolean>(true);
+let vertical = $state<boolean>(false);
 ```
 
 ```svelte
@@ -869,23 +898,16 @@ let enabled = $state<boolean>(true);
       ? "Discrete"
       : "Discrete (stops)"}
 </label>
-<label>
-  <Arrows list={["xs", "s", "m", "l", "xl"]} bind:value={size} />
-  {size == "xs"
-    ? "Extra small"
-    : size == "s"
-      ? "Small"
-      : size == "m"
-        ? "Medium"
-        : size == "l"
-          ? "Large"
-          : "Extra large"}
-</label>
+<Slider bind:value={sizeIndex} min={0} max={4} step={1} stops format={(n) => sizeLabels[n]} />
 <label>
   <Switch bind:checked={enabled} />
   {enabled ? "Enabled" : "Disabled"}
 </label>
-{#if size != "xs" && size != "s"}
+<label>
+  <Switch bind:checked={vertical} />
+  {vertical ? "Vertical" : "Horizontal"}
+</label>
+{#if sizeIndex > 1}
   <label>
     <Switch bind:checked={leadingIcon} />
     {leadingIcon ? "Leading icon" : "No leading icon"}
@@ -907,7 +929,8 @@ let enabled = $state<boolean>(true);
     step={precision == "continuous" ? "any" : 10}
     value={10}
     disabled={!enabled}
-    {size}
+    size={sizes[sizeIndex]}
+    {vertical}
     stops={precision == "discrete-stops"}
     {endStops}
     leadingIcon={leadingIcon ? iconCircle : undefined}
@@ -972,7 +995,6 @@ TextFieldOutlinedMultiline
 ```
 
 ```ts
-import type { HTMLInputAttributes } from "svelte/elements";
 let type: "filled" | "filled_multiline" | "outlined" | "outlined_multiline" = $state("filled");
 let option: "text" | "password" | "number" | "file" = $state("text");
 let leadingIcon = $state(false);
@@ -1059,6 +1081,51 @@ let enabled = $state(true);
 {/snippet}
 ```
 
+## Date field
+
+Minimal demo:
+
+```svelte
+<DateField label="Date" bind:value />
+<DateFieldOutlined label="Date" bind:value />
+```
+
+Full demo:
+
+```use
+DateField
+DateFieldOutlined
+```
+
+```ts
+let variant: "filled" | "outlined" = $state("filled");
+let enabled = $state(true);
+let errored = $state(false);
+```
+
+```svelte
+<label>
+  <Arrows list={["filled", "outlined"]} bind:value={variant} />
+  {variant[0].toUpperCase() + variant.slice(1)}
+</label>
+<label>
+  <Switch bind:checked={errored} />
+  {errored ? "Errored" : "Not errored"}
+</label>
+<label>
+  <Switch bind:checked={enabled} />
+  {enabled ? "Enabled" : "Disabled"}
+</label>
+
+{#snippet demo()}
+  {#if variant === "filled"}
+    <DateField label="Date" disabled={!enabled} error={errored} />
+  {:else}
+    <DateFieldOutlined label="Date" disabled={!enabled} error={errored} />
+  {/if}
+{/snippet}
+```
+
 ## Tabs
 
 Minimal demo:
@@ -1124,47 +1191,463 @@ let items = $derived(
 {/snippet}
 ```
 
-## Date field
+## Nav for C/M/L/X
 
 Minimal demo:
 
 ```svelte
-<DateField label="Date" bind:value />
-<DateFieldOutlined label="Date" bind:value />
+<NavCMLX variant="auto">
+  <NavCMLXItem
+    variant="auto"
+    icon={iconCircle}
+    text="A"
+    selected={$page.url.pathname == "/a"}
+    href="/a"
+  />
+  <NavCMLXItem
+    variant="auto"
+    icon={iconSquare}
+    text="B"
+    selected={$page.url.pathname == "/b"}
+    href="/b"
+  />
+</NavCMLX>
 ```
 
 Full demo:
 
 ```use
-DateField
-DateFieldOutlined
+NavCMLX
+NavCMLXItem
 ```
 
 ```ts
-let variant: "filled" | "outlined" = $state("filled");
-let enabled = $state(true);
-let errored = $state(false);
+let variant: "compact" | "medium" | "large" | "extra-large" | "auto" = $state("auto");
+let item = $state("a");
 ```
 
 ```svelte
 <label>
-  <Arrows list={["filled", "outlined"]} bind:value={variant} />
-  {variant[0].toUpperCase() + variant.slice(1)}
+  <Arrows
+    list={["compact", "medium", "large", "extra-large", "auto"]}
+    bind:value={variant}
+    initialIndex={4}
+  />
+  {variant[0].toUpperCase() + variant.slice(1).replace("-", " ")}
+</label>
+{#snippet demo()}
+  <div class="nav-demo">
+    <NavCMLX {variant}>
+      <NavCMLXItem
+        {variant}
+        icon={iconCircle}
+        text="Alpha"
+        selected={item == "a"}
+        onclick={() => (item = "a")}
+      />
+      <NavCMLXItem
+        {variant}
+        icon={iconSquare}
+        text="Beta"
+        selected={item == "b"}
+        onclick={() => (item = "b")}
+      />
+      <NavCMLXItem
+        {variant}
+        icon={iconTriangle}
+        text="Charlie"
+        selected={item == "c"}
+        onclick={() => (item = "c")}
+      />
+    </NavCMLX>
+  </div>
+{/snippet}
+
+<style>
+  .nav-demo {
+    display: grid;
+    place-content: center;
+  }
+</style>
+```
+
+## Navigation Rail
+
+Minimal demo:
+
+```svelte
+<NavigationRail>
+  {#snippet fab(open)}
+    <FAB
+      color="primary-container"
+      text={open ? "Label" : undefined}
+      elevation="none"
+      onclick={() => alert("!")}
+    />
+  {/snippet}
+
+  <NavigationRailItem label="Label" icon={iconStars} active />
+
+  <NavigationRailItem label="Label" icon={iconStarsOutline} />
+
+  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline, 3)} />
+
+  <NavigationRailItem label="Label" icon={addBadge(iconStarsOutline)} />
+</NavigationRail>
+```
+
+Full demo:
+
+```use
+FAB
+NavigationRail
+NavigationRailItem
+```
+
+```ts
+import iconCircleFilled from "@ktibow/iconset-material-symbols/circle";
+import iconEdit from "@ktibow/iconset-material-symbols/edit";
+import { addBadge } from "$lib/misc/badge";
+
+let collapse: "full" | "normal" | "no" = $state("normal");
+let alignment: "top" | "center" = $state("center");
+let iconType: "full" | "left" = $state("left");
+let modal = $state(false);
+let open = $state(false);
+```
+
+```svelte
+<label>
+  <Switch bind:checked={modal} />
+  {modal ? "Modal" : "Normal"}
 </label>
 <label>
-  <Switch bind:checked={errored} />
-  {errored ? "Errored" : "Not errored"}
+  <Arrows list={["left", "full"]} bind:value={iconType} />
+  {iconType == "left" ? "Icon and text" : "Icon"}
 </label>
 <label>
-  <Switch bind:checked={enabled} />
-  {enabled ? "Enabled" : "Disabled"}
+  <Arrows list={["top", "center"]} bind:value={alignment} />
+  {alignment == "top" ? "Top" : "Center"}
+</label>
+<label>
+  <Arrows list={["normal", "full", "no"]} bind:value={collapse} />
+  {collapse == "normal" ? "Collapse" : collapse == "full" ? "Fully collapse" : "Don't collapse"}
 </label>
 
 {#snippet demo()}
-  {#if variant === "filled"}
-    <DateField label="Date" disabled={!enabled} error={errored} />
-  {:else}
-    <DateFieldOutlined label="Date" disabled={!enabled} error={errored} />
-  {/if}
+  <NavigationRail {collapse} {alignment} {iconType} {modal} {open}>
+    {#snippet fab(open)}
+      <FAB
+        color="primary-container"
+        icon={iconEdit}
+        text={open ? "Label" : undefined}
+        elevation="none"
+        onclick={() => {}}
+      />
+    {/snippet}
+    <NavigationRailItem label="Label" icon={iconCircleFilled} active />
+    <NavigationRailItem label="Label" icon={addBadge(iconTriangle, 3)} />
+  </NavigationRail>
 {/snippet}
+```
+
+## UI transitions
+
+Minimal demo:
+
+```svelte
+<script>
+  import { containerTransform, sharedAxisTransition } from "m3-svelte";
+</script>
+```
+
+Full demo:
+
+```use
+Button
+```
+
+```ts
+import { containerTransform, sharedAxisTransition } from "$lib/misc/animation";
+let mode: "X" | "Y" | "Z" | "container" = $state("X");
+let affected = $state(false);
+const [send, receive] = containerTransform({ duration: 1000 });
+```
+
+```svelte
+<label>
+  <Arrows list={["X", "Y", "Z", "container"]} bind:value={mode} />
+  {mode[0].toUpperCase() + mode.slice(1)}
+</label>
+
+{#snippet demo()}
+  <article>
+    {#if mode == "container"}
+      {#if affected}
+        <div class="expanded" in:receive={{ key: "container" }} out:send={{ key: "container" }}>
+          <p>More info now!</p>
+          <button onclick={() => (affected = false)}>Close</button>
+        </div>
+      {:else}
+        <button
+          class="btn"
+          onclick={() => (affected = true)}
+          in:receive={{ key: "container" }}
+          out:send={{ key: "container" }}
+        >
+          Click
+        </button>
+      {/if}
+    {:else if mode == "Z"}
+      {#if affected}
+        <div
+          class="pane"
+          in:sharedAxisTransition={{
+            direction: "Z",
+            leaving: false,
+          }}
+          out:sharedAxisTransition={{
+            direction: "Z",
+            leaving: true,
+          }}
+        >
+          <Button onclick={() => (affected = false)}>Beta</Button>
+        </div>
+      {:else}
+        <div
+          class="pane"
+          in:sharedAxisTransition={{
+            direction: "Z",
+            leaving: false,
+          }}
+          out:sharedAxisTransition={{
+            direction: "Z",
+            leaving: true,
+          }}
+        >
+          <Button onclick={() => (affected = true)}>Alpha</Button>
+        </div>
+      {/if}
+    {:else if affected}
+      <div
+        class="pane"
+        transition:sharedAxisTransition={{
+          direction: mode,
+          rightSeam: false,
+        }}
+      >
+        <Button onclick={() => (affected = false)}>Beta</Button>
+      </div>
+    {:else}
+      <div
+        class="pane"
+        transition:sharedAxisTransition={{
+          direction: mode,
+          rightSeam: true,
+        }}
+      >
+        <Button onclick={() => (affected = true)}>Alpha</Button>
+      </div>
+    {/if}
+  </article>
+{/snippet}
+
+<style>
+  article {
+    display: grid;
+    height: 4rem;
+    > * {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+  .pane {
+    display: grid;
+    place-items: center;
+    background-color: var(--m3c-surface);
+    overflow: hidden;
+  }
+  .btn {
+    @apply --m3-label-large;
+    display: flex;
+    align-items: center;
+    place-self: center;
+
+    background-color: var(--m3c-primary);
+    color: var(--m3c-on-primary);
+    border: none;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    padding: 0 1rem;
+    cursor: pointer;
+  }
+  .expanded {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-image: linear-gradient(
+      to bottom right,
+      var(--m3c-primary-container-subtle),
+      var(--m3c-tertiary-container-subtle)
+    );
+    > p {
+      margin: 0;
+    }
+    > button {
+      background-color: unset;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font: unset;
+      font-weight: bold;
+      text-align: start;
+      cursor: pointer;
+    }
+  }
+</style>
+```
+
+## Layer
+
+Minimal demo:
+
+```svelte
+<script>
+  // you may need to import "m3-svelte/etc/layer"
+</script>
+
+<button class="m3-layer">Hello</button>
+```
+
+Full demo:
+
+```use
+
+```
+
+```ts
+
+```
+
+```svelte
+{#snippet demo()}
+  <button class="m3-layer layer-demo"></button>
+  <style>
+    .layer-demo {
+      min-height: 10rem;
+      border-radius: 1rem;
+      position: relative;
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
+    }
+  </style>
+{/snippet}
+```
+
+## Icons
+
+Minimal demo:
+
+```svelte
+<script>
+  import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
+</script>
+
+<Icon icon={iconCircle} />
+```
+
+Full demo:
+
+```use
+Icon
+Slider
+```
+
+```ts
+let size = $state(24);
+```
+
+```svelte
+<Slider bind:value={size} min={16} max={96} format={(n) => n.toFixed(0) + "px"} />
+
+{#snippet demo()}
+  <div
+    style:display="flex"
+    style:gap="1rem"
+    style:align-items="center"
+    style:justify-content="center"
+  >
+    <Icon icon={iconCircle} {size} />
+    <Icon icon={iconSquare} {size} />
+    <Icon icon={iconTriangle} {size} />
+  </div>
+{/snippet}
+```
+
+## Shapes
+
+Minimal demo:
+
+```svelte
+<script>
+  import { squarePath } from "m3-svelte";
+</script>
+
+<!-- go use it in an svg -->
+```
+
+Full demo:
+
+```use
+Button
+```
+
+```ts
+import iconGo from "@ktibow/iconset-material-symbols/arrow-forward-rounded";
+import * as _paths from "$lib/misc/shapes";
+import * as _pathsAnimatable from "$lib/misc/shapesAnimatable";
+import * as _pathsAnimatableSmall from "$lib/misc/shapesAnimatableSmall";
+import { snackbar } from "$lib/containers/Snackbar.svelte";
+import ShapeSelector from "/src/routes/ShapeSelector.svelte";
+
+const paths = _paths as Record<string, string>;
+const pathsAnimatable = _pathsAnimatable as Record<string, string>;
+const pathsAnimatableSmall = _pathsAnimatableSmall as Record<string, string>;
+let shape = $state("pathArch");
+let mode: "normal" | "animatable" | "animatable small" = $state("normal");
+```
+
+```svelte
+<ShapeSelector style="background-color:var(--m3c-surface-container)" bind:shape />
+<label>
+  <Arrows list={["normal", "animatable", "animatable small"]} bind:value={mode} />
+  {mode[0].toUpperCase() + mode.slice(1)} paths
+</label>
+
+{#snippet demo()}
+  <svg
+    width="4rem"
+    height="4rem"
+    style:margin="auto"
+    viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}
+  >
+    <path
+      class="shape"
+      d={mode == "animatable small"
+        ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")]
+        : mode == "animatable"
+          ? pathsAnimatable[shape.replace("path", "pathAnimatable")]
+          : paths[shape]}
+      fill="var(--m3c-primary)"
+    />
+  </svg>
+{/snippet}
+
+<style>
+  path.shape {
+    transition: d 200ms;
+  }
+</style>
 ```

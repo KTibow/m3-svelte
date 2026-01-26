@@ -1,14 +1,21 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { HTMLAnchorAttributes, HTMLLabelAttributes } from "svelte/elements";
-  import Layer from "$lib/misc/Layer.svelte";
-  import type { ButtonAttrs, DivAttrs, NotButton } from "$lib/misc/typing-utils";
+  import type { HTMLLabelAttributes } from "svelte/elements";
 
+  import type {
+    ButtonAttrs,
+    AnchorAttrs,
+    DivAttrs,
+    NotButton,
+    NotLink,
+  } from "$lib/misc/typing-utils";
+
+  type NotLabel<T> = T & { label?: false };
   type ActionProps =
-    | DivAttrs
-    | ButtonAttrs
-    | ({ label: true } & NotButton<HTMLLabelAttributes>)
-    | ({ href: string } & NotButton<HTMLAnchorAttributes>);
+    | NotLabel<ButtonAttrs>
+    | NotLabel<AnchorAttrs>
+    | (NotLink<NotButton<HTMLLabelAttributes>> & { label: true })
+    | NotLabel<DivAttrs>;
 
   let {
     leading,
@@ -16,7 +23,7 @@
     headline = "",
     supporting = "",
     trailing,
-    lines = overline && supporting ? 3 : overline || supporting ? 2 : 1,
+    lines: _lines,
     ...props
   }: {
     leading?: Snippet;
@@ -26,6 +33,8 @@
     trailing?: Snippet;
     lines?: number;
   } & ActionProps = $props();
+
+  let lines = $derived(_lines ?? (overline && supporting ? 3 : overline || supporting ? 2 : 1));
 </script>
 
 {#snippet content()}
@@ -37,37 +46,34 @@
   <div class="body">
     {#if overline}
       <!-- Renamed to not conflict with Tailwind -->
-      <p class="overline- m3-font-label-small">{overline}</p>
+      <p class="overline-">{overline}</p>
     {/if}
-    <p class="headline m3-font-body-large">{headline}</p>
+    <p class="headline">{headline}</p>
     {#if supporting}
-      <p class="supporting m3-font-body-medium">{supporting}</p>
+      <p class="supporting">{supporting}</p>
     {/if}
   </div>
   {#if trailing}
-    <div class="trailing m3-font-label-small">
+    <div class="trailing">
       {@render trailing()}
     </div>
   {/if}
 {/snippet}
 
 <li style:display="contents">
-  {#if "label" in props}
-    {@const { label: _, ...extra } = props}
-    <label class="m3-container focus-inset lines-{lines}" {...extra}>
-      <Layer />
-      {@render content()}
-    </label>
-  {:else if "onclick" in props}
-    <button type="button" class="m3-container focus-inset lines-{lines}" {...props}>
-      <Layer />
+  {#if props.onclick}
+    <button type="button" class="m3-container m3-layer lines-{lines}" {...props}>
       {@render content()}
     </button>
-  {:else if "href" in props}
-    <a class="m3-container focus-inset lines-{lines}" {...props}>
-      <Layer />
+  {:else if props.href != undefined}
+    <a class="m3-container m3-layer lines-{lines}" {...props}>
       {@render content()}
     </a>
+  {:else if props.label}
+    {@const { label: _, ...extra } = props}
+    <label class="m3-container m3-layer lines-{lines}" {...extra}>
+      {@render content()}
+    </label>
   {:else}
     <div class="m3-container lines-{lines}" {...props}>
       {@render content()}
@@ -77,14 +83,16 @@
 
 <style>
   .m3-container {
+    @apply --m3-focus-inward;
     display: flex;
+    justify-self: stretch;
     padding: 0.5rem 1.5rem 0.5rem 1rem;
     align-items: center;
     gap: 1rem;
 
     text-align: inherit;
     border: none;
-    position: relative;
+
     background: transparent;
     color: inherit;
   }
@@ -93,13 +101,13 @@
     cursor: pointer;
   }
   .lines-1 {
-    height: calc(3.5rem + var(--m3-util-density-term));
+    height: --m3-density(3.5rem);
   }
   .lines-2 {
-    height: calc(4.5rem + var(--m3-util-density-term));
+    height: --m3-density(4.5rem);
   }
   .lines-3 {
-    height: calc(5.5rem + var(--m3-util-density-term));
+    height: --m3-density(5.5rem);
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     align-items: flex-start;
@@ -110,7 +118,10 @@
   .leading,
   .trailing {
     display: contents;
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    color: var(--m3c-on-surface-variant);
+  }
+  .trailing {
+    @apply --m3-label-small;
   }
   .leading > :global(svg),
   .trailing > :global(svg) {
@@ -122,11 +133,16 @@
   p {
     margin: 0;
   }
-  .supporting,
+  .supporting {
+    @apply --m3-body-medium;
+    color: var(--m3c-on-surface-variant);
+  }
   .overline- {
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    @apply --m3-label-small;
+    color: var(--m3c-on-surface-variant);
   }
   .headline {
-    color: rgb(var(--m3-scheme-on-surface));
+    @apply --m3-body-large;
+    color: var(--m3c-on-surface);
   }
 </style>

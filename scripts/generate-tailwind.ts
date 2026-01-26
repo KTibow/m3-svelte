@@ -1,24 +1,24 @@
 import { writeFile } from "node:fs/promises";
-import { colors } from "../src/lib/misc/colors.ts";
+import { colors } from "../src/lib/etc/colors.ts";
 
 const easings = ["-fast-spatial", "-spatial", "-slow-spatial", "-fast", "", "-slow"];
 const easingsTF = ["-emphasized", "-emphasized-accel", "-emphasized-decel"];
 const fontClasses = [
-  "m3-font-display-large",
-  "m3-font-display-medium",
-  "m3-font-display-small",
-  "m3-font-headline-large",
-  "m3-font-headline-medium",
-  "m3-font-headline-small",
-  "m3-font-title-large",
-  "m3-font-title-medium",
-  "m3-font-title-small",
-  "m3-font-label-large",
-  "m3-font-label-medium",
-  "m3-font-label-small",
-  "m3-font-body-large",
-  "m3-font-body-medium",
-  "m3-font-body-small",
+  "display-large",
+  "display-medium",
+  "display-small",
+  "headline-large",
+  "headline-medium",
+  "headline-small",
+  "title-large",
+  "title-medium",
+  "title-small",
+  "label-large",
+  "label-medium",
+  "label-small",
+  "body-large",
+  "body-medium",
+  "body-small",
 ];
 
 const style = `@theme {
@@ -38,44 +38,45 @@ const style = `@theme {
 @theme inline {
   --font-mono: var(--m3-font-mono);
 
-  --shadow-1: var(--m3-util-elevation-1);
-  --shadow-2: var(--m3-util-elevation-2);
-  --shadow-3: var(--m3-util-elevation-3);
-  --shadow-4: var(--m3-util-elevation-4);
-  --shadow-5: var(--m3-util-elevation-5);
+  --shadow-1: var(--m3-elevation-1);
+  --shadow-2: var(--m3-elevation-2);
+  --shadow-3: var(--m3-elevation-3);
+  --shadow-4: var(--m3-elevation-4);
+  --shadow-5: var(--m3-elevation-5);
 
-  --radius-xs: var(--m3-util-rounding-extra-small); /* = 4px = rounded-sm */
-  --radius-sm: var(--m3-util-rounding-small); /* = 8px = rounded-lg */
-  --radius-md: var(--m3-util-rounding-medium); /* = 12px = rounded-xl */
-  --radius-lg: var(--m3-util-rounding-large); /* = 16px = rounded-2xl */
-  --radius-xl: var(--m3-util-rounding-extra-large); /* = 28px ≅ rounded-3xl */
+  --radius-xs: var(--m3-shape-extra-small); /* = 4px = rounded-sm */
+  --radius-sm: var(--m3-shape-small); /* = 8px = rounded-lg */
+  --radius-md: var(--m3-shape-medium); /* = 12px = rounded-xl */
+  --radius-lg: var(--m3-shape-large); /* = 16px = rounded-2xl */
+  --radius-li: var(--m3-shape-large-increased); /* = 20px = halfway between 2xl and 3xl */
+  --radius-xl: var(--m3-shape-extra-large); /* = 28px ≅ rounded-3xl */
 
-${[...easings, ...easingsTF].map((e) => `  --ease${e}: var(--m3-util-timing-function${e});`).join("\n")}
+${[...easings, ...easingsTF].map((e) => `  --ease${e}: var(--m3-timing-function${e});`).join("\n")}
 
   --default-transition-timing-function: var(--ease);
-  --default-transition-duration: var(--m3-util-duration);
+  --default-transition-duration: var(--m3-duration);
 
 ${colors
   .map((c) => c.name.replaceAll("_", "-"))
-  .map((c) => `  --color-${c}: rgb(var(--m3-scheme-${c}));`)
+  .map((c) => `  --color-${c}: var(--m3c-${c});`)
   .join("\n")}
-  --color-util-background: var(--m3-util-background);
+  --color-v-background: var(--m3v-background);
 }
 
 ${easings
   .filter((e) => e != "")
   .map(
     (e) => `@utility transition${e} {
-  transition-timing-function: var(--m3-util-timing-function${e});
-  transition-duration: var(--m3-util-duration${e});
+  transition-timing-function: var(--m3-timing-function${e});
+  transition-duration: var(--m3-duration${e});
 }`,
   )
   .join("\n")}
 
 ${fontClasses
   .map(
-    (c) => `@utility ${c} {
-  --: "";
+    (c) => `@utility m3-font-${c} {
+  @apply --m3-${c};
 }`,
   )
   .join("\n")}
@@ -86,4 +87,4 @@ ${fontClasses
   }
 }
 `;
-await writeFile("src/lib/misc/tailwind-styles.css", style);
+await writeFile("src/lib/etc/tailwind-styles.css", style);

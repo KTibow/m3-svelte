@@ -2,7 +2,7 @@
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLDialogAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import Icon from "$lib/misc/_icon.svelte";
+  import Icon from "$lib/misc/Icon.svelte";
 
   let {
     icon,
@@ -18,14 +18,6 @@
     buttons: Snippet;
     children: Snippet;
     open: boolean;
-    /** @deprecated use closedby instead */
-    closeOnEsc?: boolean;
-    /** @deprecated use closedby instead */
-    closeOnClick?: boolean;
-    /** @deprecated listen to `open` state changes instead of onEsc */
-    onEsc?: () => void;
-    /** @deprecated listen to `open` state changes instead of onClick */
-    onClick?: () => void;
   } & HTMLDialogAttributes = $props();
 
   let dialog: HTMLDialogElement | undefined = $state();
@@ -41,33 +33,16 @@
   ontoggle={(e) => {
     open = e.newState == "open";
   }}
-  oncancel={(e) => {
-    if (e.target != e.currentTarget) return;
-    if (extra.closeOnEsc && extra.onEsc) {
-      extra.onEsc();
-    }
-  }}
-  onclick={(e) => {
-    if (e.target != e.currentTarget) return;
-    if (extra.closeOnClick && extra.onClick) {
-      extra.onClick();
-    }
-  }}
   bind:this={dialog}
-  closedby={closedby ||
-    (extra.closeOnClick == false && extra.closeOnEsc == false
-      ? "none"
-      : extra.closeOnClick == false
-        ? "closerequest"
-        : "any")}
+  {closedby}
   role="alertdialog"
   {...extra}
 >
   {#if icon}
-    <Icon {icon} width="1.5rem" height="1.5rem" />
+    <Icon {icon} size={24} />
   {/if}
-  <p class="headline m3-font-headline-small" class:center={icon}>{headline}</p>
-  <div class="content m3-font-body-medium">
+  <p class="headline" class:center={icon}>{headline}</p>
+  <div class="content">
     {@render children()}
   </div>
   <form method="dialog" class="buttons">
@@ -76,14 +51,16 @@
 </dialog>
 
 <style>
-  :root {
-    --m3-dialog-shape: var(--m3-util-rounding-extra-large);
+  @layer tokens {
+    :root {
+      --m3-dialog-shape: var(--m3-shape-extra-large);
+    }
   }
   dialog {
     display: flex;
     flex-direction: column;
-    background-color: rgb(var(--m3-scheme-surface-container-high));
-    --m3-util-background: rgb(var(--m3-scheme-surface-container-high));
+    background-color: var(--m3c-surface-container-high);
+    --m3v-background: var(--m3c-surface-container-high);
     border: none;
     border-radius: var(--m3-dialog-shape);
     min-width: 17.5rem;
@@ -91,7 +68,7 @@
     padding: 1.5rem;
     overflow: auto;
     > :global(svg) {
-      color: rgb(var(--m3-scheme-secondary));
+      color: var(--m3c-secondary);
 
       flex-shrink: 0;
       align-self: center;
@@ -99,7 +76,8 @@
     }
   }
   .headline {
-    color: rgb(var(--m3-scheme-on-surface));
+    @apply --m3-headline-small;
+    color: var(--m3c-on-surface);
     margin-top: 0;
     margin-bottom: 1rem;
   }
@@ -107,7 +85,8 @@
     text-align: center;
   }
   .content {
-    color: rgb(var(--m3-scheme-on-surface-variant));
+    @apply --m3-body-medium;
+    color: var(--m3c-on-surface-variant);
     margin-bottom: 1.5rem;
   }
   .buttons {
@@ -123,31 +102,31 @@
     visibility: hidden;
     pointer-events: none;
     transition:
-      opacity var(--m3-util-easing-fast),
-      visibility var(--m3-util-easing-fast);
+      opacity var(--m3-easing-fast),
+      visibility var(--m3-easing-fast);
   }
   dialog[open] {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
     animation:
-      dialogIn var(--m3-util-curve-decel) 500ms,
-      opacity var(--m3-util-curve-decel) 100ms backwards;
+      dialogIn var(--m3-timing-function-emphasized-decel) 500ms,
+      opacity var(--m3-timing-function-emphasized-decel) 100ms backwards;
   }
   dialog[open] .headline {
-    animation: opacity var(--m3-util-easing-fast);
+    animation: opacity var(--m3-easing-fast);
   }
   dialog[open] .content {
-    animation: opacity var(--m3-util-easing-fast) 50ms backwards;
+    animation: opacity var(--m3-easing-fast) 50ms backwards;
   }
   dialog[open] .buttons {
     animation:
-      buttonsIn var(--m3-util-curve-decel) 500ms,
-      opacity var(--m3-util-easing-fast) 100ms backwards;
+      buttonsIn var(--m3-timing-function-emphasized-decel) 500ms,
+      opacity var(--m3-easing-fast) 100ms backwards;
   }
   dialog::backdrop {
-    background-color: rgb(var(--m3-scheme-scrim) / 0.3);
-    animation: opacity var(--m3-util-curve-decel) 500ms;
+    background-color: --translucent(var(--m3c-scrim), 0.3);
+    animation: opacity var(--m3-timing-function-emphasized-decel) 500ms;
   }
   @keyframes dialogIn {
     0% {
