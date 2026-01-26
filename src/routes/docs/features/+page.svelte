@@ -1,9 +1,8 @@
 <script lang="ts">
   import Switch from "$lib/forms/Switch.svelte";
 
-  let useCompression = $state(true);
-  const uc = (uncompressed: number, compressed: number) =>
-    useCompression ? compressed : uncompressed;
+  let useGzip = $state(true);
+  const uc = (uncompressed: number, compressed: number) => (useGzip ? compressed : uncompressed);
 </script>
 
 <svelte:head><title>Features</title></svelte:head>
@@ -58,8 +57,8 @@
   <a href="https://github.com/KTibow/m3-svelte-comparisons">available on GitHub</a>.
 </p>
 <label>
-  <Switch bind:checked={useCompression} />
-  Use compression
+  <Switch bind:checked={useGzip} />
+  Use gzip
 </label>
 
 <h3>M3 Svelte (SvelteKit)</h3>
