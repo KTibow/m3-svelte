@@ -180,10 +180,10 @@
     }
     details {
       z-index: 1;
-      & summary {
+      summary {
         anchor-name: var(--anchor-name);
       }
-      & > :global(:not(summary)) :global {
+      > :global(:not(summary)) :global {
         position: fixed !important;
         position-anchor: var(--anchor-name);
         margin-left: -3rem;
