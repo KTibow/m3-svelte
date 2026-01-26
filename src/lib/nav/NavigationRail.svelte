@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import NavigationToggle from "./NavigationToggle.svelte";
+  import NavigationRailToggle from "./NavigationRailToggle.svelte";
 
   let {
     open = $bindable(false),
@@ -44,7 +44,10 @@
     {#if (collapse != "no" && collapse != false) || fab}
       <div class="top">
         {#if collapse != "no" && collapse != false}
-          <NavigationToggle mode={collapse == "full" ? "inline-detached" : "inline"} bind:open />
+          <NavigationRailToggle
+            mode={collapse == "full" ? "inline-detached" : "inline"}
+            bind:open
+          />
         {/if}
 
         {#if fab}
