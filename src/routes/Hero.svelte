@@ -43,7 +43,6 @@
     --transition: var(--m3-timing-function-emphasized) 500ms;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     border-radius: 1.5rem;
     background-color: var(--m3c-primary-container-subtle);
     color: var(--m3c-on-primary-container-subtle);
