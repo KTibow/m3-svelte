@@ -13,5 +13,5 @@ const svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"
   <rect width="${size}" y="${size - v}" height="${v}" rx="${v / 2}" fill="#ff3e00"/>
 </svg>`;
 
-await Deno.writeTextFile("static/favicon.svg", svg);
+await Deno.writeTextFile("src/favicon.svg", svg);
 console.log("Generated favicon.svg");

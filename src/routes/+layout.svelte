@@ -14,6 +14,7 @@
   import "../app.css";
   import "$lib/etc/layer";
   import Snackbar from "$lib/containers/Snackbar.svelte";
+  import favicon from "../favicon.svg";
 
   let { children }: { children: Snippet } = $props();
   let innerWidth = $state(0);
@@ -40,8 +41,11 @@
   };
 </script>
 
-{@html `<style>${$styling}:root{--density:${$density == "variable" ? 0 : $density};}</style>`}
 <svelte:window bind:innerWidth />
+<svelte:head>
+  <link rel="icon" href={favicon} />
+</svelte:head>
+{@html `<style>${$styling}:root{--density:${$density == "variable" ? 0 : $density};}</style>`}
 <Snackbar />
 <div class="container">
   <div class="sidebar">
