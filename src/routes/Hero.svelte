@@ -87,7 +87,7 @@
     }
 
     /* Description paragraph */
-    & > p {
+    > p {
       height: 1.5rem;
       margin-block: -0.5rem 0.5rem;
       margin-inline: 1rem;
