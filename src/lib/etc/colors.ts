@@ -6,7 +6,7 @@ import {
 import type { DynamicScheme } from "@ktibow/material-color-utilities-nightly";
 
 export const materialColors = new MaterialDynamicColors();
-// Generates on-on-primary for Switch, read more: https://ktibow.github.io/blog/humanresearch/ononprimary/
+// Generates on-on-primary for Switch, read more: https://kendell.dev/milliblog/ononprimary/
 const onOnPrimary = DynamicColor.fromPalette({
   name: "on_on_primary",
   palette: (s) => s.primaryPalette,
