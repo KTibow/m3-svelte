@@ -76,7 +76,7 @@
 {/snippet}
 <div class="side-wrapper">
   <Hero />
-  <div class="cards">
+  <main>
     <Demo0 {showCode} />
     <Demo1 {showCode} />
     <Demo2 {showCode} />
@@ -106,7 +106,7 @@
     {#await import("virtual:demo/26") then { default: LastDemo }}
       <LastDemo {showCode} />
     {/await}
-  </div>
+  </main>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
     <div class="sheet" transition:slide={{ easing: easeEmphasized, duration: 500, axis: "x" }}>
       <StandardSideSheet headline={doc.name} close={() => (doc = undefined)}>
@@ -129,7 +129,7 @@
     margin: -1rem;
     min-height: 100dvh;
   }
-  .cards {
+  main {
     display: grid;
     gap: 3rem 1.5rem;
     padding: 0 1rem;
@@ -155,7 +155,7 @@
     .side-wrapper {
       margin: -1.5rem;
     }
-    .cards {
+    main {
       grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
       padding: 0 1.5rem;
       margin-bottom: 1.5rem;
