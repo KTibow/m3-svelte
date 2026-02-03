@@ -24,6 +24,7 @@
   class:detached={mode != "inline"}
   class:inline={mode == "inline-detached"}
   class:open
+  title={open ? "Close menu" : "Open menu"}
   type="button"
   id={(mode == "detached" ? !open : mode == "inline-detached" ? open : true)
     ? "m3-navigationtoggle"

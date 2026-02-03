@@ -1541,7 +1541,7 @@ Full demo:
 
 ```svelte
 {#snippet demo()}
-  <button class="m3-layer layer-demo"></button>
+  <button class="m3-layer layer-demo" role="presentation"></button>
   <style>
     .layer-demo {
       min-height: 10rem;
@@ -1629,7 +1629,7 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");
 ```
 
 ```svelte
-<ShapeSelector style="background-color:var(--m3c-surface-container)" bind:shape />
+<ShapeSelector bind:shape />
 <label>
   <Arrows list={["normal", "animatable", "animatable small"]} bind:value={mode} />
   {mode[0].toUpperCase() + mode.slice(1)} paths
