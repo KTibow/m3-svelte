@@ -648,12 +648,12 @@ let selected = $state(false);
 Minimal demo:
 
 ```svelte
-<LinearProgress percent={60} />
-<LinearProgressEstimate sToHalfway={2} />
-<WavyLinearProgress percent={60} />
-<WavyLinearProgressEstimate sToHalfway={2} />
-<CircularProgress percent={60} />
-<CircularProgressEstimate sToHalfway={2} />
+<LinearProgress percent={60} title="Loading data" />
+<LinearProgressEstimate sToHalfway={2} title="Loading data" />
+<WavyLinearProgress percent={60} title="Loading data" />
+<WavyLinearProgressEstimate sToHalfway={2} title="Loading data" />
+<CircularProgress percent={60} title="Loading data" />
+<CircularProgressEstimate sToHalfway={2} title="Loading data" />
 ```
 
 Full demo:
@@ -695,21 +695,30 @@ let percent = $state(10);
 
 {#snippet demo()}
   {#if estimate && type == "linear"}
-    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : undefined} />
+    <LinearProgressEstimate sToHalfway={2} height={thick ? 8 : undefined} title="Loading data" />
   {:else if estimate && type == "linear-wavy"}
-    <WavyLinearProgressEstimate height={thick ? 14 : undefined} thickness={thick ? 8 : undefined} />
+    <WavyLinearProgressEstimate
+      height={thick ? 14 : undefined}
+      thickness={thick ? 8 : undefined}
+      title="Loading data"
+    />
   {:else if estimate && type == "circular"}
-    <CircularProgressEstimate sToHalfway={2} thickness={thick ? 8 : undefined} />
+    <CircularProgressEstimate
+      sToHalfway={2}
+      thickness={thick ? 8 : undefined}
+      title="Loading data"
+    />
   {:else if type == "linear"}
-    <LinearProgress {percent} height={thick ? 8 : undefined} />
+    <LinearProgress {percent} height={thick ? 8 : undefined} title="Loading data" />
   {:else if type == "linear-wavy"}
     <WavyLinearProgress
       {percent}
       height={thick ? 14 : undefined}
       thickness={thick ? 8 : undefined}
+      title="Loading data"
     />
   {:else if type == "circular"}
-    <CircularProgress {percent} thickness={thick ? 8 : undefined} />
+    <CircularProgress {percent} thickness={thick ? 8 : undefined} title="Loading data" />
   {/if}
 {/snippet}
 

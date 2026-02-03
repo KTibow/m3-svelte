@@ -1,12 +1,14 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
+  import type { LabelledAria } from "$lib/misc/typing-utils";
 
   let {
     percent,
     size = 48,
     thickness = 4,
     ...extra
-  }: { percent: number; size?: number; thickness?: number } & HTMLAttributes<SVGElement> = $props();
+  }: { percent: number; size?: number; thickness?: number } & HTMLAttributes<SVGElement> &
+    LabelledAria = $props();
 
   let r = $derived(size / 2 - thickness / 2);
   let circumference = $derived(Math.PI * r * 2);

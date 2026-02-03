@@ -1,8 +1,14 @@
 <script lang="ts">
-  let { percent, height = 4 }: { percent: number; height?: number } = $props();
+  import type { LabelledAria } from "$lib/misc/typing-utils";
+
+  let {
+    percent,
+    height = 4,
+    ...extra
+  }: { percent: number; height?: number } & LabelledAria = $props();
 </script>
 
-<div class="m3-container" role="progressbar" style:height="{height / 16}rem">
+<div class="m3-container" role="progressbar" style:height="{height / 16}rem" {...extra}>
   <div class="percent" style:width="{percent}%"></div>
   <div class="track"></div>
 </div>
