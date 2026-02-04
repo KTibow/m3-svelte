@@ -22,8 +22,7 @@ let svg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/200
     </style>
   </defs>
   <rect width="100%" height="100%" fill="#1c1b1f"/>
-
-  <g>`;
+`;
 
 sourceColors.forEach((sourceColor, x) => {
   const scheme = new SchemeTonalSpot(Hct.fromInt(sourceColor), true, 0);
@@ -31,17 +30,16 @@ sourceColors.forEach((sourceColor, x) => {
     if (x >= 3 && x <= 8 && y === 1) return;
     const colorValue = scheme[color];
     svg += `
-    <circle
-      cx="${(x + 1) * xSpacing}"
-      cy="${(y + 1) * ySpacing}"
-      r="${dotSize / 2}"
-      fill="#${(colorValue >>> 0).toString(16).padStart(8, "0").slice(2)}"
-    />`;
+  <circle
+    cx="${(x + 1) * xSpacing}"
+    cy="${(y + 1) * ySpacing}"
+    r="${dotSize / 2}"
+    fill="#${(colorValue >>> 0).toString(16).padStart(8, "0").slice(2)}"
+  />`;
   });
 });
 
 svg += `
-  </g>
   <text
     x="50%"
     y="50%"
