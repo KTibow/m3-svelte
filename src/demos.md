@@ -1636,22 +1636,24 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");
 </label>
 
 {#snippet demo()}
-  <svg
-    width="4rem"
-    height="4rem"
-    style:margin="auto"
-    viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}
-  >
-    <path
-      class="shape"
-      d={mode == "animatable small"
-        ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")]
-        : mode == "animatable"
-          ? pathsAnimatable[shape.replace("path", "pathAnimatable")]
-          : paths[shape]}
-      fill="var(--m3c-primary)"
-    />
-  </svg>
+  {@const d =
+    mode == "animatable small"
+      ? pathsAnimatableSmall[shape.replace("path", "pathAnimatableSmall")]
+      : mode == "animatable"
+        ? pathsAnimatable[shape.replace("path", "pathAnimatable")]
+        : paths[shape]}
+  {#if d}
+    <svg
+      width="4rem"
+      height="4rem"
+      style:margin="auto"
+      viewBox={mode == "animatable small" ? "0 0 48 48" : "0 0 380 380"}
+    >
+      <path class="shape" {d} fill="var(--m3c-primary)" />
+    </svg>
+  {:else}
+    <p style:display="flex" style:align-items="center" style:justify-content="center" style:height="4rem" style:margin="0">this shape-settings combination is unavailable</p>
+  {/if}
 {/snippet}
 
 <style>
