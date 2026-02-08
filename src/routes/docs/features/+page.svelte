@@ -25,7 +25,7 @@
 
 <h2>Tiny</h2>
 {#snippet color(c: string, label: string)}
-  <span class="color" style:color="color-mix(in oklab, currentColor, {c} 30%)">
+  <span class="color" style:color="color-mix(in oklch, currentColor, {c} 30%)">
     <span style:background-color={c}></span>
     {label}
   </span>

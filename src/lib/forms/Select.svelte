@@ -106,7 +106,7 @@
       &:hover,
       &:open {
         background-color: color-mix(
-          in oklab,
+          in oklch,
           var(--m3c-surface-container-highest),
           currentColor 8%
         );

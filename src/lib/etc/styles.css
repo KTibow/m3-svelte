@@ -372,5 +372,5 @@ or for very small text in the content body, such as captions. */
 }
 
 @function --translucent(--color, --opacity) {
-  result: oklab(from var(--color) l a b / var(--opacity));
+  result: oklch(from var(--color) l c h / var(--opacity));
 }
