@@ -509,7 +509,7 @@ SideSheet
 ```
 
 ```ts
-let modal = $state(false);
+let modal = $state(true);
 let open = $state(false);
 ```
 
@@ -519,11 +519,13 @@ let open = $state(false);
   {modal ? "Modal" : "Standard"}
 </label>
 {#snippet demo()}
-  <Button variant="tonal" label>
-    <input type="checkbox" bind:checked={open} />
-    {#if open}Close{:else}Open{/if}
-  </Button>
-  {#if open}
+  {#if modal}
+    <Button variant="tonal" label>
+      <input type="checkbox" bind:checked={open} />
+      {#if open}Close{:else}Open{/if}
+    </Button>
+  {/if}
+  {#if !modal || open}
     <SideSheet {modal} close={() => open = false} headline="Title">
       {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(
         20,
