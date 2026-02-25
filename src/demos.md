@@ -452,7 +452,7 @@ Minimal demo:
 
 ```svelte
 {#if open}
-  <BottomSheet close={() => (open = false)}>Hello</BottomSheet>
+  <BottomSheet close={() => open = false}>Hello</BottomSheet>
 {/if}
 ```
 
@@ -464,18 +464,78 @@ BottomSheet
 ```
 
 ```ts
+let handle = $state(true);
+let modal = $state(true);
 let open = $state(false);
 ```
 
 ```svelte
+<label>
+  <Switch bind:checked={modal} />
+  {modal ? "Modal" : "Standard"}
+</label>
+<label>
+  <Switch bind:checked={handle} />
+  {handle ? "Handle" : "No handle"}
+</label>
+
 {#snippet demo()}
   <Button variant="tonal" onclick={() => (open = true)}>Open</Button>
   {#if open}
-    <BottomSheet close={() => (open = false)}>
+    <BottomSheet {modal} {handle} close={() => (open = false)}>
       {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(
         20,
       )}
     </BottomSheet>
+  {/if}
+{/snippet}
+```
+
+## Side sheet
+
+Minimal demo:
+
+```svelte
+{#if open}
+  <SideSheet close={() => (open = false)}>Hello</SideSheet>
+{/if}
+```
+
+Full demo:
+
+```use
+Button
+SideSheet
+```
+
+```ts
+let modal = $state(true);
+let open = $state(false);
+```
+
+```svelte
+<label>
+  <Switch bind:checked={modal} />
+  {modal ? "Modal" : "Standard"}
+</label>
+{#snippet demo()}
+  {#if modal}
+    <Button variant="tonal" label>
+      <input type="checkbox" bind:checked={open} />
+      {#if open}Close{:else}Open{/if}
+    </Button>
+  {/if}
+  {#if !modal || open}
+    <SideSheet {modal} close={() => open = false} headline="Title">
+      {"Anything is possible at ZomboCom! You can do anything at ZomboCom! The infinite is possible at ZomboCom! The unattainable is unknown at ZomboCom! ".repeat(
+        20,
+      )}
+
+      {#snippet footer()}
+        <Button variant="filled" onclick={() => open = false}>Save</Button>
+        <Button variant="outlined" onclick={() => open = false}>Cancel</Button>
+      {/snippet}
+    </SideSheet>
   {/if}
 {/snippet}
 ```
