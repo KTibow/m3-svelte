@@ -45,4 +45,5 @@ export const styling = writable(`:root {
 }`);
 export const appType = writable("vanilla");
 export const sourceColor = writable(0xffd0bcff);
+export const secondarySourceColor = writable(0xffffcfee);
 export const density = writable<"variable" | number>(0);

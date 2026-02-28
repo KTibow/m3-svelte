@@ -22,8 +22,8 @@ importers:
         specifier: ^9.39.3
         version: 9.39.3
       '@ktibow/material-color-utilities-nightly':
-        specifier: ^0.4.1768930731000
-        version: 0.4.1768930731000
+        specifier: ^0.4.1771351390000
+        version: 0.4.1771351390000
       '@sveltejs/adapter-static':
         specifier: ^3.0.10
         version: 3.0.10(@sveltejs/kit@2.49.2(@sveltejs/vite-plugin-svelte@7.0.0(svelte@5.53.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)))(svelte@5.53.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)))
@@ -395,8 +395,8 @@ packages:
   '@ktibow/iconset-material-symbols@0.0.1764827375':
     resolution: {integrity: sha512-D5r08cbHpLn+G2G03Zj3nV0afQpS/IV4kD0g7rDHpU4k7tC/CUt6+PbddKISTWz8u+SRPQNaR5cZU0e9IlUoWg==}
 
-  '@ktibow/material-color-utilities-nightly@0.4.1768930731000':
-    resolution: {integrity: sha512-q8lmiumExKpfwzIzsbP24Jvd35iHDcNhBd6w2Jmu3qWCZGnibIFnFX31d8BeDnbDe9IvxfvOXebKMEjIVAkC+w==}
+  '@ktibow/material-color-utilities-nightly@0.4.1771351390000':
+    resolution: {integrity: sha512-xWOmlH96MjJmzcg0Yt3c8dT5gXnNMHAaHWnQcIHYqNnOTvxNeN6lzng5wu5Mx6r8+2v6ZVLbM1Pya8U9IDzdaQ==}
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
@@ -1861,7 +1861,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@ktibow/material-color-utilities-nightly@0.4.1768930731000': {}
+  '@ktibow/material-color-utilities-nightly@0.4.1771351390000': {}
 
   '@polka/url@1.0.0-next.29': {}
 

@@ -2,19 +2,24 @@
   import iconContrast from "@ktibow/iconset-material-symbols/contrast";
   import Slider from "$lib/forms/Slider.svelte";
   import Select from "$lib/forms/Select.svelte";
+  import type { SpecVersion } from "./variants";
 
   import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
   import Button from "$lib/buttons/Button.svelte";
   import { appType, density } from "../state";
 
+  const allSpecVersions: SpecVersion[] = ["2021", "2025", "2026"];
+
   let {
     contrast = $bindable(),
-    usePreExpressive = $bindable(),
+    specVersion = $bindable(),
+    availableSpecVersions,
     includeDimBright = $bindable(),
     includeFixed = $bindable(),
   }: {
     contrast: number;
-    usePreExpressive: boolean;
+    specVersion: SpecVersion;
+    availableSpecVersions: SpecVersion[];
     includeDimBright: boolean;
     includeFixed: boolean;
   } = $props();
@@ -43,9 +48,6 @@
       />
       <ConnectedButtons>
         <Button square label size="m"
-          ><input type="checkbox" bind:checked={usePreExpressive} />Pre-Expressive colors</Button
-        >
-        <Button square label size="m"
           ><input type="checkbox" bind:checked={includeDimBright} />Include Dim/Bright</Button
         >
         <Button square label size="m"
@@ -54,9 +56,29 @@
       </ConnectedButtons>
     </div>
     <div>
+      {#if availableSpecVersions.length == 1}
+        <Select
+          label="Spec Version"
+          width="100%"
+          options={[{ text: availableSpecVersions[0], value: availableSpecVersions[0] }]}
+          disabled
+          value={availableSpecVersions[0]}
+        />
+      {:else}
+        <Select
+          label="Spec Version"
+          width="100%"
+          options={allSpecVersions.map((version) => ({
+            text: version,
+            value: version,
+            disabled: !availableSpecVersions.includes(version),
+          }))}
+          bind:value={specVersion}
+        />
+      {/if}
       <Select
         label="Density"
-        width="50%"
+        width="100%"
         options={[
           { text: "0", value: "0" },
           { text: "Variable", value: "variable" },
@@ -76,7 +98,7 @@
       />
       <Select
         label="App Type"
-        width="50%"
+        width="100%"
         options={[
           { text: "Vanilla", value: "vanilla" },
           { text: "Tailwind", value: "tailwind" },
