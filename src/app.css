@@ -1,5 +1,6 @@
 @import "$lib/etc/styles.css";
 @import "$lib/etc/recommended-styles.css";
+@import "@fontsource-variable/google-sans-flex/opsz.css";
 
 @function --m3-density(--size) {
   result: calc(var(--size) + (var(--density) * 0.25rem));

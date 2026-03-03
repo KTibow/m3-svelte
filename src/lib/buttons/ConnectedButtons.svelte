@@ -1,10 +1,15 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import type { DivAttrs } from "$lib/misc/typing-utils";
 
-  let { round = false, children }: { round?: boolean; children: Snippet } = $props();
+  let {
+    round = false,
+    children,
+    ...extra
+  }: { round?: boolean; children: Snippet } & DivAttrs = $props();
 </script>
 
-<div class="m3-container" class:round>
+<div class="m3-container" class:round {...extra}>
   {@render children()}
 </div>
 
