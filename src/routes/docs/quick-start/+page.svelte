@@ -11,6 +11,7 @@
 
   import Snippet from "../Snippet.svelte";
 
+  let skipIcons = $state(false);
   let useTokenShaker = $state(false);
   let useVite = $state(false);
   let useCustomFont = $state(false);
@@ -26,21 +27,18 @@
       </div>
       <div class="text">Install M3 Svelte</div>
       <Button label>
+        <input type="checkbox" bind:checked={skipIcons} />
+        Skip icons?
+      </Button>
+      <Button label>
         <input type="checkbox" bind:checked={useTokenShaker} />
         Use token-shaker?
       </Button>
     </h2>
-    {#if useTokenShaker}
-      <Snippet
-        name="install.sh"
-        html={/* sh */ `pnpm install m3-svelte vite-plugin-functions-mixins vite-plugin-token-shaker -D`}
-      />
-    {:else}
-      <Snippet
-        name="install.sh"
-        html={/* sh */ `pnpm install m3-svelte vite-plugin-functions-mixins -D`}
-      />
-    {/if}
+    <Snippet
+      name="install.sh"
+      html={`pnpm install m3-svelte ${["vite-plugin-functions-mixins", useTokenShaker ? "vite-plugin-token-shaker" : undefined, !skipIcons ? "@ktibow/iconset-material-symbols" : undefined].filter(Boolean).join(" ")} -D`}
+    />
   </li>
   <li>
     <h2>
