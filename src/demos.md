@@ -45,7 +45,7 @@ let enabled = $state(true);
   {iconType == "none" ? "No icon" : iconType == "left" ? "Left icon" : "Icon"}
 </label>
 <Slider bind:value={sizeIndex} min={0} max={4} step={1} stops format={(n) => sizeLabels[n]} />
-{#if action == "click"}
+{#if action == "click" || action == "toggle"}
   <label>
     <Switch bind:checked={enabled} />
     {enabled ? "Enabled" : "Disabled"}
