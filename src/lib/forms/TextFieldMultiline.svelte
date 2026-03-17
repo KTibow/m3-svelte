@@ -20,23 +20,22 @@
     value?: string;
   } & HTMLTextareaAttributes = $props();
   const id = $props.id();
-  const resize = (node: HTMLElement) => {
-    const update = () => {
+</script>
+
+<div
+  class="m3-container"
+  class:leading-icon={leadingIcon}
+  class:error
+  {@attach (node) => {
+    $effect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      value;
       const textarea = node.firstElementChild as HTMLTextAreaElement;
       node.style.height = "unset";
       node.style.height = textarea.scrollHeight + "px";
-    };
-    node.addEventListener("input", update);
-
-    return {
-      destroy() {
-        node.removeEventListener("input", update);
-      },
-    };
-  };
-</script>
-
-<div class="m3-container" class:leading-icon={leadingIcon} class:error use:resize>
+    });
+  }}
+>
   <textarea placeholder=" " bind:value {id} {disabled} {required} {...extra}></textarea>
   <label for={id}>{label}</label>
   <div class="layer"></div>

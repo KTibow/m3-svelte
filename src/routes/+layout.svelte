@@ -6,6 +6,8 @@
   import iconPaletteS from "@ktibow/iconset-material-symbols/palette";
   import iconBook from "@ktibow/iconset-material-symbols/book-2-outline";
   import iconBookS from "@ktibow/iconset-material-symbols/book-2";
+  import googleSans from "@fontsource-variable/google-sans-flex/files/google-sans-flex-latin-opsz-normal.woff2";
+
   import { asset, resolve } from "$app/paths";
   import { page } from "$app/state";
   import NavCMLX from "$lib/nav/NavCMLX.svelte";
@@ -44,6 +46,7 @@
 <svelte:window bind:innerWidth />
 <svelte:head>
   <link rel="icon" href={favicon} />
+  <link rel="preload" href={googleSans} as="font" type="font/woff2" crossorigin="" />
 </svelte:head>
 {@html `<style>${$styling}:root{--density:${$density == "variable" ? 0 : $density};}</style>`}
 <Snackbar />
