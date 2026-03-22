@@ -20,6 +20,7 @@
 
   :root {
     accent-color: var(--m3c-primary);
+    caret-color: var(--m3c-primary);
   }
   :focus-visible {
     outline: none;
