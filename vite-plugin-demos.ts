@@ -35,6 +35,7 @@ export function demosPlugin(): Plugin {
         components: componentsStr,
         fullDemoTs,
         fullDemoSvelte,
+        warning,
       } = demo;
       const demoComponents = componentsStr.split("\n").filter(Boolean);
 
@@ -66,6 +67,7 @@ export function demosPlugin(): Plugin {
 
       const relevantLinksJson = JSON.stringify(relevantLinksData);
       const friendlyNameJson = JSON.stringify(friendlyName);
+      const warningJson = warning ? JSON.stringify(warning) : "undefined";
 
       return `<script lang="ts">
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
@@ -89,7 +91,7 @@ const minimalDemoHtml = \`${escapedMinimalDemoHtml}\`;
 const relevantLinks: { title: string; link: string }[] = ${relevantLinksJson};
 </script>
 
-<InternalCard title="${friendlyName}" showCode={() => showCode(${friendlyNameJson}, minimalDemoHtml, relevantLinks)}>
+<InternalCard title="${friendlyName}" warning={${warningJson}} showCode={() => showCode(${friendlyNameJson}, minimalDemoHtml, relevantLinks)}>
 ${fullDemoSvelte}
 </InternalCard>
 `;

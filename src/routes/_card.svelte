@@ -8,11 +8,13 @@
     children,
     demo,
     showCode,
+    warning,
   }: {
     title: string;
     children?: Snippet;
     demo: Snippet;
     showCode: () => void;
+    warning?: string;
   } = $props();
 
   let id = $derived(`${title.toLowerCase().replaceAll(" ", "-")}-demo`);
@@ -23,6 +25,9 @@
     <a href={`#${id}`}>
       <h2 {id}>
         {title}
+        {#if warning}
+          <span class="warning" title={warning}>!</span>
+        {/if}
       </h2>
     </a>
     <div class="controls">
@@ -72,6 +77,18 @@
   }
   h2:target {
     color: var(--m3c-primary);
+  }
+  .warning {
+    @apply --m3-label-large;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--m3-shape-full);
+    background-color: var(--m3c-tertiary-container);
+    color: var(--m3c-on-tertiary-container);
+    align-self: center;
   }
   .controls {
     display: flex;
