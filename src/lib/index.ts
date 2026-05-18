@@ -13,6 +13,7 @@ export { default as FAB } from "./buttons/FAB.svelte";
 export { default as SplitButton } from "./buttons/SplitButton.svelte";
 
 export { default as BottomSheet } from "./containers/BottomSheet.svelte";
+export { default as SideSheet } from "./containers/SideSheet.svelte";
 export { default as Card } from "./containers/Card.svelte";
 export { default as Dialog } from "./containers/Dialog.svelte";
 export { default as ListItem } from "./containers/ListItem.svelte";
