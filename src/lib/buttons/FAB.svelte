@@ -74,6 +74,9 @@
     justify-content: center;
     cursor: pointer;
   }
+  span {
+    white-space: nowrap;
+  }
 
   .elevation-normal {
     box-shadow: var(--m3-elevation-3);
