@@ -48,7 +48,7 @@
     text-align: center;
 
     > span:first-of-type {
-      word-wrap: nowrap;
+      white-space: nowrap;
     }
   }
 
