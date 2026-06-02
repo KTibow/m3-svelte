@@ -1141,6 +1141,47 @@ let errored = $state(false);
 {/snippet}
 ```
 
+## Time picker
+
+Minimal demo:
+
+```svelte
+<TimePickerDial {time} setTime={(t) => (time = t)} close={() => (open = false)} />
+```
+
+Full demo:
+
+```use
+TimePickerDial
+Button
+```
+
+```ts
+let time = $state("09:30");
+let open = $state(false);
+```
+
+```svelte
+<Button variant="tonal" onclick={() => (open = true)}>
+  {time ? `Time: ${time}` : "Pick a time"}
+</Button>
+
+{#snippet demo()}
+  {#if open}
+    <div
+      style:position="fixed"
+      style:inset="0"
+      style:display="grid"
+      style:place-items="center"
+      style:background-color="rgb(0 0 0 / 0.5)"
+      style:z-index="10"
+    >
+      <TimePickerDial {time} clearable setTime={(t) => (time = t)} close={() => (open = false)} />
+    </div>
+  {/if}
+{/snippet}
+```
+
 ## Tabs
 
 Minimal demo:

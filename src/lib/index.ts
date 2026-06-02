@@ -42,6 +42,7 @@ export { default as TextField } from "./forms/TextField.svelte";
 export { default as TextFieldMultiline } from "./forms/TextFieldMultiline.svelte";
 export { default as TextFieldOutlined } from "./forms/TextFieldOutlined.svelte";
 export { default as TextFieldOutlinedMultiline } from "./forms/TextFieldOutlinedMultiline.svelte";
+export { default as TimePickerDial } from "./forms/TimePickerDial.svelte";
 export { default as WavyLinearProgress } from "./forms/WavyLinearProgress.svelte";
 export { default as WavyLinearProgressEstimate } from "./forms/WavyLinearProgressEstimate.svelte";
 
