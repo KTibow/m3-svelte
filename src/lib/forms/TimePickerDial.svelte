@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { tick } from "svelte";
   import Button from "$lib/buttons/Button.svelte";
+  import { Spring } from "svelte/motion";
 
   let {
     time = "",
@@ -33,6 +33,7 @@
 
   let isPm = $derived(editH >= 12);
   let h12 = $derived(((editH + 11) % 12) + 1);
+  const initialH12 = ((initial.h + 11) % 12) + 1;
 
   // --- Dial geometry ---
   const DIAL = 256;
@@ -43,16 +44,18 @@
   // Continuous angle the arm + masked-glyph layer rotate to. In hour mode the
   // value snaps to 30° per hour; in minute mode it's 6° per minute so the user
   // can scrub through any value 0..59 by dragging between labelled positions.
-  //
-  // Animating an angle from e.g. 350° → 10° naively takes the long way around;
-  // we unwrap the angle here so the visual always moves the short arc.
-  let targetAngle = $derived(mode == "hour" ? (h12 == 12 ? 0 : h12) * 30 - 90 : editM * 6 - 90);
-  let visualAngle = $state(targetAngle);
+  // The spring drives the actual rendered angle so this stays snappy without
+  // relying on CSS interpolation of custom properties.
+  const visualAngle = new Spring((initialH12 == 12 ? 0 : initialH12) * 30 - 90, {
+    stiffness: 0.3,
+    damping: 1,
+  });
   $effect(() => {
-    let next = targetAngle;
-    while (next - visualAngle > 180) next -= 360;
-    while (next - visualAngle < -180) next += 360;
-    visualAngle = next;
+    let next = mode == "hour" ? (h12 == 12 ? 0 : h12) * 30 - 90 : editM * 6 - 90;
+    while (next - visualAngle.target > 180) next -= 360;
+    while (next - visualAngle.target < -180) next += 360;
+    if (instantJump) void visualAngle.set(next, { instant: true });
+    else visualAngle.target = next;
   });
 
   const slotPos = (i: number) => {
@@ -99,10 +102,9 @@
     close();
   };
 
-  // Pointer interaction. The initial tap snaps the needle with no transition;
-  // once movement crosses a small threshold the rest of the gesture is treated
-  // as a drag and the transition is re-enabled, so the needle glides after the
-  // cursor instead of teleporting on every pointermove event.
+  // Pointer interaction. The initial tap snaps the needle immediately; once
+  // movement crosses a small threshold the rest of the gesture is treated as a
+  // drag and the spring follows the cursor instead of teleporting every event.
   let dragging = false;
   let movedPastThreshold = false;
   let pointerStartX = 0;
@@ -141,7 +143,7 @@
     }
     updateFromPointer(e);
   };
-  const onDialPointerUp = async (e: PointerEvent) => {
+  const onDialPointerUp = (e: PointerEvent) => {
     if (!dragging) return;
     dragging = false;
     try {
@@ -149,10 +151,6 @@
     } catch {
       /* no-op */
     }
-    // Let the no-transition snap render before we re-enable transitions and
-    // trigger the autonomous follow-up (hour → minute, or confirm on minute).
-    await tick();
-    await new Promise<void>((r) => requestAnimationFrame(() => r()));
     instantJump = false;
     if (mode == "hour") mode = "minute";
     else confirm();
@@ -190,7 +188,6 @@
 
   <svg
     class="dial"
-    class:no-anim={instantJump}
     width={DIAL}
     height={DIAL}
     viewBox="0 0 {DIAL} {DIAL}"
@@ -204,7 +201,7 @@
 
     <!-- The mask cuts a circular window over the rotating disc, so the colour-
          inverted text layer only shows through where the disc currently sits.
-         Both this circle and the visible arm share the same --angle rotation. -->
+         Both this circle and the visible arm share the same spring rotation. -->
     <defs>
       <mask id={maskId}>
         <rect width={DIAL} height={DIAL} fill="black" />
@@ -214,7 +211,7 @@
           r={NUM / 2}
           fill="white"
           class="rot"
-          style="--angle: {visualAngle}deg"
+          style="transform: rotate({visualAngle.current}deg)"
         />
       </mask>
     </defs>
@@ -238,7 +235,7 @@
     {/each}
 
     <!-- The arm: line + disc, rotating around the dial centre. -->
-    <g class="rot" style="--angle: {visualAngle}deg" pointer-events="none">
+    <g class="rot" style="transform: rotate({visualAngle.current}deg)" pointer-events="none">
       <line x1={CENTER} y1={CENTER} x2={CENTER + RADIUS} y2={CENTER} class="hand" />
       <circle cx={CENTER + RADIUS} cy={CENTER} r={NUM / 2} class="disc" />
     </g>
@@ -272,14 +269,6 @@
     :root {
       --m3-time-picker-shape: var(--m3-shape-extra-large);
     }
-  }
-
-  /* Register --angle as a real <angle> custom property so CSS can interpolate
-     it during a transition — without @property the value would just snap. */
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
   }
 
   .m3-container {
@@ -383,18 +372,9 @@
     user-select: none;
   }
   /* The arm + the mask disc share this rule, so they orbit in lock-step
-     around the dial centre via the same interpolated --angle. */
+     around the dial centre via the same spring-driven angle. */
   .rot {
-    --angle: 0deg;
     transform-origin: 50% 50%;
-    transform: rotate(var(--angle));
-    transition: --angle 220ms cubic-bezier(0.2, 0, 0, 1);
-  }
-  /* While the pointer is on the dial, freeze the transition so every click
-     snaps the needle 1:1 to the cursor. Once the user releases, the class is
-     removed and the autonomous mode-swap (or confirm) transition glides. */
-  .dial.no-anim .rot {
-    transition: none;
   }
   .hand {
     stroke: var(--m3c-primary);
