@@ -27,6 +27,15 @@
   let nextMonth = $derived((focusedMonth + 1) % 12);
   let prevYear = $derived(focusedYear - 1);
   let nextYear = $derived(focusedYear + 1);
+
+  const choosePrevMonth = () => {
+    if (focusedMonth == 0) focusedYear = prevYear;
+    focusedMonth = prevMonth;
+  };
+  const chooseNextMonth = () => {
+    if (focusedMonth == 11) focusedYear = nextYear;
+    focusedMonth = nextMonth;
+  };
 </script>
 
 <div class="m3-container" class:choosing={currentView != "calendar"}>
@@ -34,7 +43,8 @@
     <button
       type="button"
       class="arrow m3-layer"
-      onclick={() => (focusedMonth = prevMonth)}
+      disabled={focusedYear <= startYear && focusedMonth == 0}
+      onclick={choosePrevMonth}
       title={getShortMonth(prevMonth)}
     >
       <Icon icon={iconLeft} size={24} />
@@ -51,7 +61,8 @@
     <button
       type="button"
       class="arrow m3-layer"
-      onclick={() => (focusedMonth = nextMonth)}
+      disabled={focusedYear >= endYear && focusedMonth == 11}
+      onclick={chooseNextMonth}
       title={getShortMonth(nextMonth)}
     >
       <Icon icon={iconRight} size={24} />

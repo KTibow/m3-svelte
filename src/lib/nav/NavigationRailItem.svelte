@@ -45,6 +45,11 @@
     border: none;
     cursor: pointer;
     animation: none !important;
+    text-align: center;
+
+    > span:first-of-type {
+      white-space: nowrap;
+    }
   }
 
   .m3-container {

@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: "npm" # Use "npm" for pnpm as they are part of the same ecosystem
     directory: "/" # Location of your package.json and lockfile
     schedule:
-      interval: "weekly" # Check for updates weekly, adjust as needed
+      interval: "monthly"
     groups:
       dependencies:
         patterns: ["*"]
@@ -11,7 +11,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/" # Check for updates in your .github/workflows directory
     schedule:
-      interval: "weekly" # Check for updates weekly, adjust as needed
+      interval: "monthly"
     groups:
       dependencies:
         patterns: ["*"]

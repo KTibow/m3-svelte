@@ -318,6 +318,8 @@ let clickable = $state(false);
 
 ## List
 
+> Warning: Not updated to M3 Expressive
+
 Minimal demo:
 
 ```svelte
@@ -412,6 +414,8 @@ let supporting = $derived(
 ```
 
 ## Menu
+
+> Warning: Not updated to M3 Expressive
 
 Minimal demo:
 
@@ -1714,7 +1718,15 @@ let mode: "normal" | "animatable" | "animatable small" = $state("normal");
       <path class="shape" {d} fill="var(--m3c-primary)" />
     </svg>
   {:else}
-    <p style:display="flex" style:align-items="center" style:justify-content="center" style:height="4rem" style:margin="0">this shape-settings combination is unavailable</p>
+    <p
+      style:display="flex"
+      style:align-items="center"
+      style:justify-content="center"
+      style:height="4rem"
+      style:margin="0"
+    >
+      this shape-settings combination is unavailable
+    </p>
   {/if}
 {/snippet}
 

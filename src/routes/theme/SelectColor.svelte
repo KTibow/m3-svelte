@@ -6,12 +6,27 @@
   } from "@ktibow/material-color-utilities-nightly";
   import iconColorLens from "@ktibow/iconset-material-symbols/palette-outline";
   import iconImage from "@ktibow/iconset-material-symbols/wallpaper";
+  import iconAutoAwesome from "@ktibow/iconset-material-symbols/auto-awesome";
   import Icon from "$lib/misc/Icon.svelte";
   import Button from "$lib/buttons/Button.svelte";
 
   import { secondarySourceColor, sourceColor } from "../state";
+  import { browser } from "$app/environment";
 
   let { showSecondary = false }: { showSecondary?: boolean } = $props();
+
+  function resolveSystemColor(name: string) {
+    if (!browser) return undefined;
+    const temp = document.createElement("div");
+    temp.style.color = name;
+    document.body.appendChild(temp);
+    const resolved = getComputedStyle(temp).color;
+    document.body.removeChild(temp);
+    const match = resolved.match(/\d+/g);
+    if (!match) return undefined;
+    const [r, g, b] = match.map(Number);
+    return (0xff << 24) | (r << 16) | (g << 8) | b;
+  }
 </script>
 
 {#snippet palette(bg: string)}
@@ -55,6 +70,17 @@
     />
     {@render palette("var(--m3c-tertiary)")}
   </label>
+{/if}
+{#if resolveSystemColor("AccentColor") != undefined}
+  <Button
+    variant="tonal"
+    iconType="full"
+    title="Use system accent color"
+    style="background-color:AccentColor;color:AccentColorText"
+    onclick={() => ($sourceColor = resolveSystemColor("AccentColor")!)}
+  >
+    <Icon icon={iconAutoAwesome} />
+  </Button>
 {/if}
 <Button variant="tonal" iconType="full" title="Pick from an image" label>
   <input

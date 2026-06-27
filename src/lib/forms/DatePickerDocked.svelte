@@ -12,7 +12,7 @@
     // eslint and svelte disagree
     // eslint-disable-next-line svelte/no-unused-svelte-ignore
     // svelte-ignore state_referenced_locally
-    focusedMonth = $bindable(parseInt(date.slice(5, 7)) - 1 || now.getMonth()),
+    focusedMonth = $bindable(date ? parseInt(date.slice(5, 7)) - 1 : now.getMonth()),
     // eslint and svelte disagree
     // eslint-disable-next-line svelte/no-unused-svelte-ignore
     // svelte-ignore state_referenced_locally
@@ -71,11 +71,11 @@
     />
   {:else}
     <FocusPicker
-      options={Array.from({ length: endYear - startYear }, (_, i) => ({
-        name: (startYear + i + 1).toString(),
-        selected: startYear + i + 1 == focusedYear,
+      options={Array.from({ length: endYear - startYear + 1 }, (_, i) => ({
+        name: (startYear + i).toString(),
+        selected: startYear + i == focusedYear,
         activate: () => {
-          focusedYear = startYear + i + 1;
+          focusedYear = startYear + i;
           currentView = "calendar";
         },
       }))}
