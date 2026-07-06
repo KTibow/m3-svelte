@@ -1164,11 +1164,10 @@ let open = $state(false);
 ```
 
 ```svelte
-<Button variant="tonal" onclick={() => (open = true)}>
-  {time ? `Time: ${time}` : "Pick a time"}
-</Button>
-
 {#snippet demo()}
+  <Button variant="tonal" onclick={() => (open = true)}>
+    {time ? `Time: ${time}` : "Pick a time"}
+  </Button>
   {#if open}
     <TimePickerDial
       {time}
