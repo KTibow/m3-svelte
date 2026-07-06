@@ -93,8 +93,8 @@ Minimal demo:
 
 ```svelte
 <ConnectedButtons>
-  <Button><input type="checkbox" bind:checked={itemA} />A</Button>
-  <Button><input type="checkbox" bind:checked={itemB} />B</Button>
+  <Button label><input type="checkbox" bind:checked={itemA} />A</Button>
+  <Button label><input type="checkbox" bind:checked={itemB} />B</Button>
 </ConnectedButtons>
 ```
 
