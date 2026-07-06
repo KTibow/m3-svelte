@@ -37,7 +37,7 @@
   const DIAL = 256;
   const CENTER = DIAL / 2;
   const RADIUS = 100;
-  const NUM = 40;
+  const NUM = 48;
 
   // Continuous angle the arm + masked-glyph layer rotate to. In hour mode the
   // value snaps to 30° per hour; in minute mode it's 6° per minute so the user
@@ -284,7 +284,7 @@
     justify-content: center;
   }
   .seg {
-    @apply --m3-display-medium;
+    @apply --m3-display-large;
     flex: none;
     min-width: 5.5rem;
     padding: 0.875rem 0.5rem;
@@ -298,15 +298,14 @@
       background-color 140ms,
       color 140ms;
   }
-  /* Selected segment is the filled-tonal inversion: bright primary fill with
-     on-primary text (the same tonal pair Android M3 uses for the active
-     segment, so it reads as dark glyphs on a light fill). */
+  /* Selected segment uses the primary-container / on-primary-container pair,
+     which M3 uses for the active time segment. */
   .seg.on {
-    background-color: var(--m3c-primary);
-    color: var(--m3c-on-primary);
+    background-color: var(--m3c-primary-container);
+    color: var(--m3c-on-primary-container);
   }
   .colon {
-    @apply --m3-display-medium;
+    @apply --m3-display-large;
     display: flex;
     align-items: center;
     /* The ':' glyph sits low in its line-box — nudge it up so it visually
@@ -317,14 +316,14 @@
      single container. `flex: none` so the parent flex row can't crush them. */
   .ampm {
     flex: none;
-    width: 3.75rem;
+    width: 3.25rem;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
     margin-left: 0.5rem;
   }
   .ampm button {
-    @apply --m3-label-large;
+    @apply --m3-title-medium;
     flex: 1;
     display: flex;
     align-items: center;
