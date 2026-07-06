@@ -1146,7 +1146,9 @@ let errored = $state(false);
 Minimal demo:
 
 ```svelte
-<TimePickerDial {time} setTime={(t) => (time = t)} close={() => (open = false)} />
+{#if open}
+  <TimePickerDial {time} setTime={(t) => (time = t)} close={() => (open = false)} />
+{/if}
 ```
 
 Full demo:
@@ -1168,16 +1170,12 @@ let open = $state(false);
 
 {#snippet demo()}
   {#if open}
-    <div
-      style:position="fixed"
-      style:inset="0"
-      style:display="grid"
-      style:place-items="center"
-      style:background-color="rgb(0 0 0 / 0.5)"
-      style:z-index="10"
-    >
-      <TimePickerDial {time} clearable setTime={(t) => (time = t)} close={() => (open = false)} />
-    </div>
+    <TimePickerDial
+      {time}
+      clearable
+      setTime={(t) => (time = t)}
+      close={() => (open = false)}
+    />
   {/if}
 {/snippet}
 ```

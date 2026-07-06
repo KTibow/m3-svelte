@@ -5,7 +5,7 @@
   let {
     time = "",
     clearable = false,
-    close,
+    close: closeProp,
     setTime,
   }: {
     time?: string;
@@ -72,28 +72,25 @@
     editM = m % 60;
   };
 
-  // Tapping an hour label advances to minute mode.
-  const pickHour = (slot: number) => {
-    applyHourSlot(slot);
-    mode = "minute";
-  };
-  // Tapping a minute label confirms.
-  const pickMinute = (m: number) => {
-    applyMinuteValue(m);
-    confirm();
-  };
   const setAmPm = (toPm: boolean) => {
     if (toPm == isPm) return;
     editH = toPm ? editH + 12 : editH - 12;
   };
+  // --- Dialog lifecycle ---
+  let dialog: HTMLDialogElement | undefined = $state();
+  $effect(() => {
+    if (!dialog) return;
+    dialog.showModal();
+  });
+
   const confirm = () => {
     setTime(fmt(editH, editM));
-    close();
+    dialog?.close();
   };
-  const cancel = () => close();
+  const cancel = () => dialog?.close();
   const clear = () => {
     setTime("");
-    close();
+    dialog?.close();
   };
 
   // Pointer interaction. The initial tap snaps the needle immediately; once
@@ -151,7 +148,7 @@
   };
 </script>
 
-<div class="m3-container">
+<dialog class="m3-container" bind:this={dialog} closedby="any" onclose={closeProp}>
   <p class="title">Select time</p>
 
   <div class="display">
@@ -250,7 +247,7 @@
     <Button variant="text" onclick={cancel} type="button">Cancel</Button>
     <Button variant="text" onclick={confirm} type="button">OK</Button>
   </div>
-</div>
+</dialog>
 
 <style>
   @layer tokens {
@@ -268,6 +265,21 @@
     background-color: var(--m3c-surface-container-high);
     color: var(--m3c-on-surface);
     border-radius: var(--m3-time-picker-shape);
+    border: none;
+    inset: 0;
+    margin: auto;
+  }
+  .m3-container::backdrop {
+    background-color: --translucent(var(--m3c-scrim), 0.3);
+    animation: fadeIn 150ms;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 
   .title {
