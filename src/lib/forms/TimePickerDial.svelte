@@ -103,8 +103,8 @@
   let instantJump = $state(false);
   const DRAG_THRESHOLD = 4; // px
 
-  const updateFromPointer = (e: PointerEvent) => {
-    const dial = e.currentTarget as HTMLElement;
+  const updateFromPointer = (e: PointerEvent & { currentTarget: Element }) => {
+    const dial = e.currentTarget;
     const r = dial.getBoundingClientRect();
     const dx = e.clientX - r.left - r.width / 2;
     const dy = e.clientY - r.top - r.height / 2;
@@ -113,17 +113,17 @@
     if (mode == "hour") applyHourSlot(Math.round(norm / 30));
     else applyMinuteValue(Math.round(norm / 6));
   };
-  const onDialPointerDown = (e: PointerEvent) => {
+  const onDialPointerDown = (e: PointerEvent & { currentTarget: Element }) => {
     if (e.button != 0) return;
     dragging = true;
     movedPastThreshold = false;
     instantJump = true;
     pointerStartX = e.clientX;
     pointerStartY = e.clientY;
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    e.currentTarget.setPointerCapture(e.pointerId);
     updateFromPointer(e);
   };
-  const onDialPointerMove = (e: PointerEvent) => {
+  const onDialPointerMove = (e: PointerEvent & { currentTarget: Element }) => {
     if (!dragging) return;
     if (!movedPastThreshold) {
       const dx = e.clientX - pointerStartX;
@@ -134,11 +134,11 @@
     }
     updateFromPointer(e);
   };
-  const onDialPointerUp = (e: PointerEvent) => {
+  const onDialPointerUp = (e: PointerEvent & { currentTarget: Element }) => {
     if (!dragging) return;
     dragging = false;
     try {
-      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+      e.currentTarget.releasePointerCapture(e.pointerId);
     } catch {
       /* no-op */
     }
