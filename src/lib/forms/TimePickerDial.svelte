@@ -32,9 +32,7 @@
   let mode = $state<"hour" | "minute">("hour");
 
   let isPm = $derived(editH >= 12);
-  let h12 = $derived(((editH + 11) % 12) + 1);
-  const initialH12 = ((initial.h + 11) % 12) + 1;
-
+  let h12 = $derived((editH % 12) || 12);
   // --- Dial geometry ---
   const DIAL = 256;
   const CENTER = DIAL / 2;
@@ -46,14 +44,13 @@
   // can scrub through any value 0..59 by dragging between labelled positions.
   // The spring drives the actual rendered angle so this stays snappy without
   // relying on CSS interpolation of custom properties.
-  const visualAngle = new Spring((initialH12 == 12 ? 0 : initialH12) * 30 - 90, {
+  const visualAngle = new Spring((initial.h % 12) * 30 - 90, {
     stiffness: 0.3,
     damping: 1,
   });
   $effect(() => {
-    let next = mode == "hour" ? (h12 == 12 ? 0 : h12) * 30 - 90 : editM * 6 - 90;
-    while (next - visualAngle.target > 180) next -= 360;
-    while (next - visualAngle.target < -180) next += 360;
+    let next = mode == "hour" ? (editH % 12) * 30 - 90 : editM * 6 - 90;
+    next -= Math.round((next - visualAngle.target) / 360) * 360;
     if (instantJump) void visualAngle.set(next, { instant: true });
     else visualAngle.target = next;
   });
@@ -63,19 +60,16 @@
     return { x: CENTER + RADIUS * Math.cos(rad), y: CENTER + RADIUS * Math.sin(rad) };
   };
   const slotLabel = (i: number) =>
-    mode == "hour" ? (i == 0 ? 12 : i).toString() : (i * 5).toString().padStart(2, "0");
+    mode == "hour" ? (i || 12).toString() : (i * 5).toString().padStart(2, "0");
 
   // Unique mask id so multiple instances on a page don't collide.
   const maskId = $props.id();
 
   const applyHourSlot = (slot: number) => {
-    const i = ((slot % 12) + 12) % 12;
-    const h = i == 0 ? 12 : i;
-    const base = h == 12 ? 0 : h;
-    editH = base + (isPm ? 12 : 0);
+    editH = (slot % 12) + (isPm ? 12 : 0);
   };
   const applyMinuteValue = (m: number) => {
-    editM = ((m % 60) + 60) % 60;
+    editM = m % 60;
   };
 
   // Tapping an hour label advances to minute mode.
@@ -119,7 +113,7 @@
     const dy = e.clientY - r.top - r.height / 2;
     const ang = (Math.atan2(dy, dx) * 180) / Math.PI; // -180..180, 0 = right
     const norm = (((ang + 90) % 360) + 360) % 360; // 0..360, 0 = top
-    if (mode == "hour") applyHourSlot(Math.round(norm / 30) % 12);
+    if (mode == "hour") applyHourSlot(Math.round(norm / 30));
     else applyMinuteValue(Math.round(norm / 6));
   };
   const onDialPointerDown = (e: PointerEvent) => {
