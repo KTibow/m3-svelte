@@ -32,7 +32,7 @@
   let mode = $state<"hour" | "minute">("hour");
 
   let isPm = $derived(editH >= 12);
-  let h12 = $derived((editH % 12) || 12);
+  let h12 = $derived(editH % 12 || 12);
   // --- Dial geometry ---
   const DIAL = 256;
   const CENTER = DIAL / 2;
@@ -180,6 +180,7 @@
     </div>
   </div>
 
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
   <svg
     class="dial"
     width={DIAL}
@@ -216,14 +217,7 @@
     <!-- Default numbers (base layer, always rendered). -->
     {#each Array(12) as _, i (i)}
       {@const p = slotPos(i)}
-      <text
-        x={p.x}
-        y={p.y}
-        class="num default"
-        text-anchor="middle"
-        dominant-baseline="central"
-        onclick={() => (mode == "hour" ? pickHour(i) : pickMinute(i * 5))}
-      >
+      <text x={p.x} y={p.y} class="num default" text-anchor="middle" dominant-baseline="central">
         {slotLabel(i)}
       </text>
     {/each}
@@ -364,6 +358,7 @@
     margin: 0.5rem auto 0;
     touch-action: none;
     user-select: none;
+    cursor: pointer;
   }
   /* The arm + the mask disc share this rule, so they orbit in lock-step
      around the dial centre via the same spring-driven angle. */
@@ -384,7 +379,6 @@
   }
   .num.default {
     fill: var(--m3c-on-surface);
-    cursor: pointer;
   }
   .num.inverted {
     fill: var(--m3c-on-primary);
