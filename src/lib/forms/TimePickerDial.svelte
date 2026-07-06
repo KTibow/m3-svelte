@@ -282,12 +282,16 @@
     align-items: stretch;
     gap: 0.5rem;
     justify-content: center;
+    height: 5rem;
   }
   .seg {
     @apply --m3-display-large;
     flex: none;
     min-width: 5.5rem;
-    padding: 0.875rem 0.5rem;
+    padding-inline: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     border: none;
     border-radius: 0.5rem;
@@ -321,6 +325,7 @@
     flex-direction: column;
     gap: 0.25rem;
     margin-left: 0.5rem;
+    height: 5rem;
   }
   .ampm button {
     @apply --m3-title-medium;
@@ -348,7 +353,7 @@
     background-color: var(--m3c-tertiary-container);
     color: var(--m3c-on-tertiary-container);
     box-shadow: none;
-    border-radius: var(--m3-shape-full);
+    border-radius: 1.1875rem;
   }
 
   /* Dial ----------------------------------------------------------------- */
