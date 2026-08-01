@@ -24,17 +24,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/setup@v1
         name: PNPM
         with:
           version: latest
-          run_install: false
+          runtime: node@latest
       - name: Setup Pages
         uses: actions/configure-pages@v6
         with:
           static_site_generator: sveltekit
-      - name: Run install
-        run: pnpm install
       - name: Run build
         run: pnpm run build
       - name: Upload artifact
