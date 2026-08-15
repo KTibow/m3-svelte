@@ -11,14 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v6
+        uses: actions/checkout@v7
+      - uses: pnpm/setup@v1
         name: PNPM
         with:
           version: latest
-          run_install: false
-      - name: Run install
-        run: pnpm install
+          runtime: node@latest
       - name: Build site
         run: pnpm run build
       - name: Build library

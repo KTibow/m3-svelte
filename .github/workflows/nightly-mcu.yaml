@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout upstream
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: material-foundation/material-color-utilities
           path: upstream

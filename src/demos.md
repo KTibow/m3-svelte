@@ -93,8 +93,8 @@ Minimal demo:
 
 ```svelte
 <ConnectedButtons>
-  <Button><input type="checkbox" bind:checked={itemA} />A</Button>
-  <Button><input type="checkbox" bind:checked={itemB} />B</Button>
+  <Button label><input type="checkbox" bind:checked={itemA} />A</Button>
+  <Button label><input type="checkbox" bind:checked={itemB} />B</Button>
 </ConnectedButtons>
 ```
 
@@ -1197,6 +1197,44 @@ let errored = $state(false);
     <DateField label="Date" disabled={!enabled} error={errored} />
   {:else}
     <DateFieldOutlined label="Date" disabled={!enabled} error={errored} />
+  {/if}
+{/snippet}
+```
+
+## Time picker
+
+Minimal demo:
+
+```svelte
+{#if open}
+  <TimePickerDial {time} setTime={(t) => (time = t)} close={() => (open = false)} />
+{/if}
+```
+
+Full demo:
+
+```use
+TimePickerDial
+Button
+```
+
+```ts
+let time = $state("09:30");
+let open = $state(false);
+```
+
+```svelte
+{#snippet demo()}
+  <Button variant="tonal" onclick={() => (open = true)}>
+    {time ? `Time: ${time}` : "Pick a time"}
+  </Button>
+  {#if open}
+    <TimePickerDial
+      {time}
+      clearable
+      setTime={(t) => (time = t)}
+      close={() => (open = false)}
+    />
   {/if}
 {/snippet}
 ```
