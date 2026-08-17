@@ -77,15 +77,15 @@ const ROLES = colors.filter(
   (c) => !c.name.includes("dim") && !c.name.includes("bright") && !c.name.includes("fixed"),
 );
 
-const D2R = Math.PI / 180;
-const PREC = 4;
+const DEG_TO_RAD = Math.PI / 180;
+const PRECISION = 4;
 
 // --- numbers and angles ------------------------------------------------------
 /** A fitted angle whose cosine prints as ".9999" is carrying rounding noise. */
 const n = (x: number) => {
   const r = Math.round(x);
-  if (Math.abs(x - r) < 0.5 * 10 ** -PREC) x = r;
-  return (+x.toFixed(PREC)).toString().replace(/^0\./, ".").replace(/^-0\./, "-.");
+  if (Math.abs(x - r) < 0.5 * 10 ** -PRECISION) x = r;
+  return (+x.toFixed(PRECISION)).toString().replace(/^0\./, ".").replace(/^-0\./, "-.");
 };
 const mul = (k: number, expr: string) => {
   const t = n(k);
@@ -93,8 +93,8 @@ const mul = (k: number, expr: string) => {
 };
 /** the two channel expressions of a 2-D rotation by `deg`, unit factors folded */
 const rot = (deg: number): [string, string] => {
-  const c = Math.cos(deg * D2R),
-    s = Math.sin(deg * D2R);
+  const c = Math.cos(deg * DEG_TO_RAD),
+    s = Math.sin(deg * DEG_TO_RAD);
   const half = (kc: number, ks: number, x: string, y: string, sign: number) => {
     const l = mul(kc, x),
       r = mul(ks, y);
@@ -104,24 +104,24 @@ const rot = (deg: number): [string, string] => {
   };
   return [half(c, s, "a", "b", -1), half(s, c, "a", "b", +1)];
 };
-const cdiff = (a: number, b: number) => ((((a - b) % 360) + 540) % 360) - 180;
-const cmean = (arr: number[]) => {
+const circularDiff = (a: number, b: number) => ((((a - b) % 360) + 540) % 360) - 180;
+const circularMean = (arr: number[]) => {
   let c = 0,
     s = 0;
   for (const v of arr) {
-    c += Math.cos(v * D2R);
-    s += Math.sin(v * D2R);
+    c += Math.cos(v * DEG_TO_RAD);
+    s += Math.sin(v * DEG_TO_RAD);
   }
-  return Math.atan2(s, c) / D2R;
+  return Math.atan2(s, c) / DEG_TO_RAD;
 };
 /** length of the shortest arc containing every sample */
-const cspread = (arr: number[]) => {
+const circularSpread = (arr: number[]) => {
   if (!arr.length) return 0;
-  const m = cmean(arr);
+  const m = circularMean(arr);
   let lo = 0,
     hi = 0;
   for (const v of arr) {
-    const d = cdiff(v, m);
+    const d = circularDiff(v, m);
     lo = Math.min(lo, d);
     hi = Math.max(hi, d);
   }
@@ -140,7 +140,7 @@ const argbToOklch = (argb: number): [number, number, number] => {
   const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
   const A = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
   const Bb = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
-  return [L, Math.hypot(A, Bb), (Math.atan2(Bb, A) / D2R + 360) % 360];
+  return [L, Math.hypot(A, Bb), (Math.atan2(Bb, A) / DEG_TO_RAD + 360) % 360];
 };
 
 // --- evaluating a fitted expression -----------------------------------------
@@ -170,7 +170,7 @@ const evalCss = (expr: string, names: string[]) => {
 // "is the hue past this bound" is a half-plane test on (a,b): the sign of the cross
 // product with the bound's own unit vector.
 const sideExpr = (deg: number) =>
-  `clamp(0,(${mul(Math.cos(deg * D2R), "b")} - ${mul(Math.sin(deg * D2R), "a")})*1000,1)`;
+  `clamp(0,(${mul(Math.cos(deg * DEG_TO_RAD), "b")} - ${mul(Math.sin(deg * DEG_TO_RAD), "a")})*1000,1)`;
 /** indicator for the arc [lo, hi) going anticlockwise */
 const arcExpr = (lo: number, hi: number): string => {
   const len = (((hi - lo) % 360) + 360) % 360;
@@ -185,10 +185,10 @@ const arcExpr = (lo: number, hi: number): string => {
 const toArcs = (bounds: number[], val: number[]) => {
   const m = bounds.length;
   if (m === 0) return [{ v: val[0], all: true } as const];
-  const arcs = [{ lo: bounds[m - 1], hi: bounds[0], v: cmean([val[0], val[m]]) }];
+  const arcs = [{ lo: bounds[m - 1], hi: bounds[0], v: circularMean([val[0], val[m]]) }];
   for (let i = 0; i < m - 1; i++) arcs.push({ lo: bounds[i], hi: bounds[i + 1], v: val[i + 1] });
-  if (arcs.length === 1 || cspread(arcs.map((a) => a.v)) < 2)
-    return [{ v: cmean(arcs.map((a) => a.v)), all: true } as const];
+  if (arcs.length === 1 || circularSpread(arcs.map((a) => a.v)) < 2)
+    return [{ v: circularMean(arcs.map((a) => a.v)), all: true } as const];
   return arcs;
 };
 /** the arcs must tile the circle exactly once, or a swatch gets two rotations */
@@ -216,7 +216,7 @@ const checkPartition = (arcs: any[], label: string) => {
 };
 
 // --- sampling ----------------------------------------------------------------
-const PALS = [
+const PALETTES = [
   "primaryPalette",
   "secondaryPalette",
   "tertiaryPalette",
@@ -224,7 +224,18 @@ const PALS = [
   "neutralVariantPalette",
   "errorPalette",
 ] as const;
-const AB: Record<string, string> = {
+/** readable half of a curve id, e.g. "primary" in ".../palette/primary/light/gamut" */
+const PALETTE_NAME: Record<string, string> = {
+  primaryPalette: "primary",
+  secondaryPalette: "secondary",
+  tertiaryPalette: "tertiary",
+  neutralPalette: "neutral",
+  neutralVariantPalette: "neutral-variant",
+  errorPalette: "error",
+};
+// The one place brevity is worth having: this ends up in the emitted custom property
+// name (--hpl and friends), repeated once per role, so it is paying for itself.
+const CSS_KEY: Record<string, string> = {
   primaryPalette: "p",
   secondaryPalette: "s",
   tertiaryPalette: "t",
@@ -233,7 +244,7 @@ const AB: Record<string, string> = {
   errorPalette: "e",
 };
 
-const SRC: { hct: Hct; hctH: number; okL: number; okC: number; okH: number }[] = [];
+const SOURCES: { hct: Hct; hctH: number; okL: number; okC: number; okH: number }[] = [];
 for (let h = 0; h < 360; h += 2)
   for (const [c, t] of [
     [15, 50],
@@ -244,21 +255,21 @@ for (let h = 0; h < 360; h += 2)
     [45, 70],
   ]) {
     const hct = Hct.from(h, c, t);
-    if (Math.abs(cdiff(hct.hue, h)) > 1.5) continue;
+    if (Math.abs(circularDiff(hct.hue, h)) > 1.5) continue;
     const ok = argbToOklch(hct.toInt());
-    SRC.push({ hct, hctH: hct.hue, okL: ok[0], okC: ok[1], okH: ok[2] });
+    SOURCES.push({ hct, hctH: hct.hue, okL: ok[0], okC: ok[1], okH: ok[2] });
   }
-// A hue-ordered spine for locating breakpoints. The pooled SRC array is ordered by
+// A hue-ordered spine for locating breakpoints. The pooled SOURCES array is ordered by
 // (hue, chroma, tone), so consecutive entries jump around in OK hue.
 const SPINE = Array.from({ length: 1440 }, (_, i) => {
   const hct = Hct.from((i * 360) / 1440, 50, 50);
   return { hct, hctH: hct.hue, okH: argbToOklch(hct.toInt())[2] };
 });
-const S = {
-  light: SRC.map((s) => scheme(s.hct, false)),
-  dark: SRC.map((s) => scheme(s.hct, true)),
+const SCHEMES = {
+  light: SOURCES.map((s) => scheme(s.hct, false)),
+  dark: SOURCES.map((s) => scheme(s.hct, true)),
 };
-const SP = {
+const SPINE_SCHEMES = {
   light: SPINE.map((s) => scheme(s.hct, false)),
   dark: SPINE.map((s) => scheme(s.hct, true)),
 };
@@ -315,18 +326,21 @@ const ROLE_SIZE = 45;
 // them by scanning the spine and cutting wherever the rotation steps.
 const palInfo = new Map<string, any>();
 for (const mode of ["light", "dark"] as const) {
-  for (const p of PALS) {
-    const key = `${AB[p]}${mode[0]}`;
-    const palOkSpine = SP[mode].map((s) => argbToOklch((s as any)[p].keyColor.toInt())[2]);
-    const palHctSpine = SP[mode].map((s) => (s as any)[p].hue as number);
-    const relHct = palHctSpine.map((v, i) => cdiff(v, SPINE[i].hctH));
-    const relOk = palOkSpine.map((v, i) => cdiff(v, SPINE[i].okH));
+  for (const p of PALETTES) {
+    const key = `${CSS_KEY[p]}${mode[0]}`;
+    const curveName = `${PALETTE_NAME[p]}/${mode}`;
+    const palOkSpine = SPINE_SCHEMES[mode].map(
+      (s) => argbToOklch((s as any)[p].keyColor.toInt())[2],
+    );
+    const palHctSpine = SPINE_SCHEMES[mode].map((s) => (s as any)[p].hue as number);
+    const relHct = palHctSpine.map((v, i) => circularDiff(v, SPINE[i].hctH));
+    const relOk = palOkSpine.map((v, i) => circularDiff(v, SPINE[i].okH));
 
     // WHICH model, and WHERE it steps, are HCT questions -- that is where MCU
     // defines the table. Deciding this in OK hue fails for a near-grey palette:
     // neutral is chroma 6, so its key colour's OK hue is erratic and the comparison
     // picks "fixed hue", pinning every source to one tint.
-    const absolute = cspread(palHctSpine) < cspread(relHct);
+    const absolute = circularSpread(palHctSpine) < circularSpread(relHct);
     const stepSeries = absolute ? palHctSpine : relHct;
     // ...but the VALUE emitted per segment is what CSS evaluates, so it is measured
     // in OK hue. Residual drift inside a segment is what the correction is for.
@@ -334,14 +348,14 @@ for (const mode of ["light", "dark"] as const) {
 
     const cuts: number[] = [];
     for (let i = 1; i < SPINE.length; i++)
-      if (Math.abs(cdiff(stepSeries[i], stepSeries[i - 1])) > 4) cuts.push(i);
+      if (Math.abs(circularDiff(stepSeries[i], stepSeries[i - 1])) > 4) cuts.push(i);
     const bounds = cuts.map((i) => SPINE[i].okH);
     const hctBounds = cuts.map((i) => SPINE[i].hctH);
     const segs: number[] = [];
     {
       const edges = [0, ...cuts, SPINE.length];
       for (let b = 0; b < edges.length - 1; b++)
-        segs.push(cmean(emitSeries.slice(edges[b], edges[b + 1])));
+        segs.push(circularMean(emitSeries.slice(edges[b], edges[b + 1])));
     }
 
     const arcs = toArcs(bounds, segs);
@@ -356,56 +370,62 @@ for (const mode of ["light", "dark"] as const) {
       for (let i = 0; i < bn.length; i++) if (h >= bn[i]) k = i + 1;
       return k;
     };
-    let hCss = SRC.map((s) =>
+    let hueCss = SOURCES.map((s) =>
       absolute ? pick(bounds, segs, s.okH) : s.okH + pick(bounds, segs, s.okH),
     );
     // A sample whose OK hue lands in a different bucket than its HCT hue is off by a
     // whole rotation. Nothing downstream can repair it, so keep it out of the fits.
-    const wPal = SRC.map((s) =>
+    const wPal = SOURCES.map((s) =>
       bounds.length === 0 || bucket(bounds, s.okH) === bucket(hctBounds, s.hctH) ? 1 : 0,
     );
 
-    const palOk = S[mode].map((s) => argbToOklch((s as any)[p].keyColor.toInt())[2]);
-    const unit = { a: hCss.map((h) => Math.cos(h * D2R)), b: hCss.map((h) => Math.sin(h * D2R)) };
+    const palOk = SCHEMES[mode].map((s) => argbToOklch((s as any)[p].keyColor.toInt())[2]);
+    const unit = {
+      a: hueCss.map((h) => Math.cos(h * DEG_TO_RAD)),
+      b: hueCss.map((h) => Math.sin(h * DEG_TO_RAD)),
+    };
 
     // correction: the smooth part of the residual, as a function of the source's own
     // chroma and lightness, both of which the relative-colour context exposes
     let corrCss: string | null = null;
-    const d = SRC.map((_, i) => cdiff(palOk[i], hCss[i]));
-    if (cspread(d) < 45) {
+    const d = SOURCES.map((_, i) => circularDiff(palOk[i], hueCss[i]));
+    if (circularSpread(d) < 45) {
       corrCss = curve(
-        `pal/${key}/corr`,
-        { ...unit, c: SRC.map((s) => s.okC), sl: SRC.map((s) => s.okL) },
+        `palette/${curveName}/correction`,
+        { ...unit, c: SOURCES.map((s) => s.okC), sl: SOURCES.map((s) => s.okL) },
         d,
         wPal.map((x, i) => (Math.abs(d[i]) > 20 ? 0 : x)),
-        0.1 * D2R * 1000,
+        0.1 * DEG_TO_RAD * 1000,
         0.6,
         PALETTE_SIZE,
       );
       if (corrCss) {
         const f = evalCss(corrCss, ["a", "b", "c", "sl"]);
-        hCss = hCss.map((h, i) => h + f(unit.a[i], unit.b[i], SRC[i].okC, SRC[i].okL));
+        hueCss = hueCss.map((h, i) => h + f(unit.a[i], unit.b[i], SOURCES[i].okC, SOURCES[i].okL));
       }
     }
 
     // the gamut cusp, packed into the palette colour's L channel and read back by
     // every role drawn from this palette
-    const hu = { a: hCss.map((h) => Math.cos(h * D2R)), b: hCss.map((h) => Math.sin(h * D2R)) };
-    const gamRaw = S[mode].map((s) => tMaxCL((s as any)[p].hue, (s as any)[p].chroma));
+    const hu = {
+      a: hueCss.map((h) => Math.cos(h * DEG_TO_RAD)),
+      b: hueCss.map((h) => Math.sin(h * DEG_TO_RAD)),
+    };
+    const gamRaw = SCHEMES[mode].map((s) => tMaxCL((s as any)[p].hue, (s as any)[p].chroma));
     // The target here is advisory, not a quality bar. This value is never emitted as
     // a colour: it is packed into the palette colour's L channel so that every role
     // expression has a cusp-shaped signal to read, and the roles below are then
     // fitted against WHAT THIS EXPRESSION PRODUCES rather than against MCU's exact
     // cusp. So a loose fit costs accuracy only insofar as it discards information the
     // roles needed; it does not add error of its own. Judge it by the final dE.
-    const gamCss = curve(`pal/${key}/gamut`, hu, gamRaw, wPal, 1000, 8, PALETTE_SIZE);
+    const gamCss = curve(`palette/${curveName}/gamut`, hu, gamRaw, wPal, 1000, 8, PALETTE_SIZE);
     // roles must see what CSS will really compute, not MCU's exact cusp
-    let gCss: number[] | null = null;
+    let gamutCss: number[] | null = null;
     if (gamCss) {
       const f = evalCss(gamCss, ["a", "b"]);
-      gCss = hu.a.map((_, i) => f(hu.a[i], hu.b[i]));
+      gamutCss = hu.a.map((_, i) => f(hu.a[i], hu.b[i]));
     }
-    palInfo.set(key, { p, mode, hCss, hu, gCss, gamCss, corrCss, arcs, absolute, wPal });
+    palInfo.set(key, { p, mode, hueCss, hu, gamutCss, gamCss, corrCss, arcs, absolute, wPal });
   }
 }
 
@@ -413,57 +433,58 @@ for (const mode of ["light", "dark"] as const) {
 const entries: any[] = [];
 for (const mode of ["light", "dark"] as const) {
   for (const role of ROLES as DynamicColor[]) {
-    const rname = role.name.replaceAll("_", "-");
-    const argbs = S[mode].map((s) => role.getArgb(s));
+    const roleName = role.name.replaceAll("_", "-");
+    const argbs = SCHEMES[mode].map((s) => role.getArgb(s));
     // A role that ignores --source costs nothing to emit exactly: shadow and scrim
     // are always black, and the 2021 error palette is a fixed hue, so a third of all
     // roles land here. Testing the rendered argb needs no per-variant table.
     if (argbs.every((v) => v === argbs[0])) {
       entries.push({
-        role: rname,
+        role: roleName,
         mode,
         literal: "#" + (argbs[0] & 0xffffff).toString(16).padStart(6, "0"),
       });
       continue;
     }
-    const p = PALS.find((x) => (S[mode][0] as any)[x] === role.palette(S[mode][0]));
+    const p = PALETTES.find((x) => (SCHEMES[mode][0] as any)[x] === role.palette(SCHEMES[mode][0]));
     if (!p) continue;
-    const key = `${AB[p]}${mode[0]}`;
-    const pk = palInfo.get(key);
-    if (!pk.gCss) continue; // palette layer not fitted yet; nothing to dump against
+    const key = `${CSS_KEY[p]}${mode[0]}`;
+    const curveName = `${PALETTE_NAME[p]}/${mode}`;
+    const palette = palInfo.get(key);
+    if (!palette.gamutCss) continue; // palette layer not fitted yet; nothing to dump against
     const out = argbs.map((v) => argbToOklch(v));
-    const vars = { a: pk.hu.a, b: pk.hu.b, l: pk.gCss };
+    const vars = { a: palette.hu.a, b: palette.hu.b, l: palette.gamutCss };
     const meanC = out.reduce((t, o) => t + o[1], 0) / out.length;
     // dE per unit of residual: L and C are oklab channels, so 1000x. A hue offset is
     // in degrees and matters only in proportion to how colourful the role is.
     const L = curve(
-      `role/${rname}/${mode}/L`,
+      `role/${roleName}/${mode}/lightness`,
       vars,
       out.map((o) => o[0]),
-      pk.wPal,
+      palette.wPal,
       1000,
       0.6,
       ROLE_SIZE,
     );
     const C = curve(
-      `role/${rname}/${mode}/C`,
+      `role/${roleName}/${mode}/chroma`,
       vars,
       out.map((o) => o[1]),
-      pk.wPal,
+      palette.wPal,
       1000,
       0.6,
       ROLE_SIZE,
     );
     const H = curve(
-      `role/${rname}/${mode}/H`,
+      `role/${roleName}/${mode}/hue`,
       vars,
-      out.map((o, i) => cdiff(o[2], pk.hCss[i])),
-      pk.wPal.map((x: number, i: number) => x * Math.max(out[i][1], 1e-4) ** 2),
-      Math.max(meanC, 1e-3) * D2R * 1000,
+      out.map((o, i) => circularDiff(o[2], palette.hueCss[i])),
+      palette.wPal.map((x: number, i: number) => x * Math.max(out[i][1], 1e-4) ** 2),
+      Math.max(meanC, 1e-3) * DEG_TO_RAD * 1000,
       0.6,
       ROLE_SIZE,
     );
-    if (L && C && H) entries.push({ role: rname, mode, key, L, C, H });
+    if (L && C && H) entries.push({ role: roleName, mode, key, L, C, H });
   }
 }
 
@@ -476,7 +497,7 @@ if (dumping) {
     new URL("../build/livetheme-curves.json", import.meta.url),
     JSON.stringify(curves),
   );
-  const layers = new Set(curves.map((c) => (c.id.includes("/pal/") ? "palette" : "role")));
+  const layers = new Set(curves.map((c) => (c.id.includes("/palette/") ? "palette" : "role")));
   console.log(
     `${variant}: ${curves.length} curves to fit${curves.length ? ` (${[...layers].join(" + ")})` : ""}`,
   );
@@ -525,17 +546,17 @@ const pd: string[] = [];
 if (!allLiteral)
   // --u carries: L = source lightness, (a,b) = unit hue vector, alpha = source chroma
   pd.push(`--u:oklab(from var(--source) l calc(a/${CE}) calc(b/${CE}) / calc(${CE}))`);
-for (const [key, pk] of palInfo) {
+for (const [key, palette] of palInfo) {
   if (!usedKeys.has(key)) continue;
   let base = "var(--u)";
-  if (!(pk.arcs.length === 1 && pk.arcs[0].all)) {
+  if (!(palette.arcs.length === 1 && palette.arcs[0].all)) {
     const ax: string[] = [],
       bx: string[] = [];
-    for (const r of pk.arcs) {
+    for (const r of palette.arcs) {
       const box = arcExpr(r.lo, r.hi);
-      if (pk.absolute) {
-        ax.push(mul(Math.cos(r.v * D2R), box));
-        bx.push(mul(Math.sin(r.v * D2R), box));
+      if (palette.absolute) {
+        ax.push(mul(Math.cos(r.v * DEG_TO_RAD), box));
+        bx.push(mul(Math.sin(r.v * DEG_TO_RAD), box));
       } else {
         const [ra, rb] = rot(r.v);
         ax.push(`${box}*(${ra})`);
@@ -543,24 +564,24 @@ for (const [key, pk] of palInfo) {
       }
     }
     base = `oklab(from var(--u) l calc(${ax.join(" + ")}) calc(${bx.join(" + ")}))`;
-  } else if (pk.absolute) {
-    base = `oklab(from var(--u) l ${n(Math.cos(pk.arcs[0].v * D2R))} ${n(Math.sin(pk.arcs[0].v * D2R))})`;
-  } else if (Math.abs(pk.arcs[0].v) >= 0.5) {
-    const [ra, rb] = rot(pk.arcs[0].v);
+  } else if (palette.absolute) {
+    base = `oklab(from var(--u) l ${n(Math.cos(palette.arcs[0].v * DEG_TO_RAD))} ${n(Math.sin(palette.arcs[0].v * DEG_TO_RAD))})`;
+  } else if (Math.abs(palette.arcs[0].v) >= 0.5) {
+    const [ra, rb] = rot(palette.arcs[0].v);
     base = `oklab(from var(--u) l calc(${ra}) calc(${rb}))`;
   }
-  if (pk.corrCss) {
+  if (palette.corrCss) {
     // The correction rides on the rotation and cannot be folded into it: it was
     // fitted against the PALETTE hue, so it must be evaluated on the already-rotated
     // vector. A first-order rotation also stretches the vector by sqrt(1+T*T), which
     // the series 1 - T*T/2 takes back out without needing a stage of its own.
     const T = hoistable(
-      `((${pk.corrCss.replaceAll("sl", "l").replaceAll(/\bc\b/g, "alpha")})*.01745)`,
+      `((${palette.corrCss.replaceAll("sl", "l").replaceAll(/\bc\b/g, "alpha")})*.01745)`,
     );
     const NRM = hoistable(`(1 - .5*${T}*${T})`);
     base = `oklab(from ${base} l calc((a - b*${T})*${NRM}) calc((b + a*${T})*${NRM}))`;
   }
-  pd.push(`--h${key}:oklab(from ${base} calc(${pk.gamCss}) a b)`);
+  pd.push(`--h${key}:oklab(from ${base} calc(${palette.gamCss}) a b)`);
 }
 const byRole: Record<string, any> = {};
 for (const e of entries) (byRole[e.role] ??= {})[e.mode] = e;

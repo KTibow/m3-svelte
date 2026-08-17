@@ -51,14 +51,14 @@ ROOT = Path(__file__).resolve().parent.parent
 CURVES = ROOT / "build" / "livetheme-curves.json"
 DEFAULT_FITS = ROOT / "build" / "livetheme-fits.json"
 
-NUM = re.compile(r"-?(?:\d+\.\d*|\.\d+|\d+)(?:[eE][-+]?\d+)?")
-ADD, MUL, ATOM = 1, 2, 3
+NUMBER = re.compile(r"-?(?:\d+\.\d*|\.\d+|\d+)(?:[eE][-+]?\d+)?")
+PREC_SUM, PREC_PRODUCT, PREC_ATOM = 1, 2, 3
 
 # scripts/dev-css-ops.py re-derives this table from the installed browsers.
-BINARY = ["+", "-", "*", "min", "max", "hypot"]
-UNARY = ["abs", "sign", "round"]
+BINARY_OPERATORS = ["+", "-", "*", "min", "max", "hypot"]
+UNARY_OPERATORS = ["abs", "sign", "round"]
 # bytes each costs to print, e.g. "abs(" + ")" = 5, "round(x,1)" wraps 9 around x
-COST = {
+OPERATOR_BYTES = {
     "+": 3,
     "-": 3,
     "*": 1,
@@ -76,7 +76,7 @@ COST = {
 # parentheses are structural, every constant carries full float precision, and
 # negatives arrive as "+ -c". Printed naively that is a third larger than it needs
 # to be, and size is half the objective.
-def fmt(x: float) -> str:
+def format_number(x: float) -> str:
     """CSS number. Lossless on purpose -- dropping digits changes the function, so
     it belongs in `shrink` where it is checked against the error budget."""
     if x == int(x) and abs(x) < 1e15:
@@ -87,45 +87,45 @@ def fmt(x: float) -> str:
     return re.sub(r"^(-?)0\.", r"\1.", s) or "0"
 
 
-def _flatten_mul(node):
+def _flatten_product(node):
     import ast
 
     if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Mult):
-        c1, f1 = _flatten_mul(node.left)
-        c2, f2 = _flatten_mul(node.right)
+        c1, f1 = _flatten_product(node.left)
+        c2, f2 = _flatten_product(node.right)
         return c1 * c2, f1 + f2
     if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
-        c, f = _flatten_mul(node.operand)
+        c, f = _flatten_product(node.operand)
         return -c, f
     if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
         return float(node.value), []
     return 1.0, [node]
 
 
-def _flatten_add(node):
+def _flatten_sum(node):
     import ast
 
     if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Sub)):
-        left = _flatten_add(node.left)
-        right = _flatten_add(node.right)
+        left = _flatten_sum(node.left)
+        right = _flatten_sum(node.right)
         if isinstance(node.op, ast.Sub):
             right = [(-s, c, f) for s, c, f in right]
         return left + right
     if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
-        return [(-s, c, f) for s, c, f in _flatten_add(node.operand)]
-    c, f = _flatten_mul(node)
+        return [(-s, c, f) for s, c, f in _flatten_sum(node.operand)]
+    c, f = _flatten_product(node)
     return [(1.0, c, f)]
 
 
-def _product(coef, factors):
+def _render_product(coef, factors):
     if not factors:
-        return fmt(coef)
+        return format_number(coef)
     parts = []
     if abs(coef - 1.0) > 1e-12:
-        parts.append("-1" if abs(coef + 1.0) < 1e-12 else fmt(coef))
+        parts.append("-1" if abs(coef + 1.0) < 1e-12 else format_number(coef))
     for f in factors:
         s, p = _emit(f)
-        parts.append(f"({s})" if p < MUL else s)
+        parts.append(f"({s})" if p < PREC_PRODUCT else s)
     return "*".join(parts)
 
 
@@ -136,34 +136,34 @@ def _emit(node):
     if isinstance(node, ast.Expression):
         return _emit(node.body)
     if isinstance(node, ast.Name):
-        return node.id, ATOM
+        return node.id, PREC_ATOM
     if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
-        return fmt(float(node.value)), ATOM
+        return format_number(float(node.value)), PREC_ATOM
     if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
         fn = node.func.id
         args = [_emit(a)[0] for a in node.args]
         # CSS round() takes an explicit step; Julia's takes one argument
         if fn == "round" and len(args) == 1:
             args.append("1")
-        return f"{fn}({','.join(args)})", ATOM
+        return f"{fn}({','.join(args)})", PREC_ATOM
     if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Sub)):
-        terms = _flatten_add(node)
+        terms = _flatten_sum(node)
         const = sum(s * c for s, c, f in terms if not f)
         terms = [t for t in terms if t[2] and abs(t[0] * t[1]) > 0]
         terms.sort(key=lambda t: (t[0] * t[1]) < 0)  # positives first, no leading "-"
-        chunks = [((s * c) < 0, _product(abs(s * c), f)) for s, c, f in terms]
+        chunks = [((s * c) < 0, _render_product(abs(s * c), f)) for s, c, f in terms]
         if abs(const) > 1e-12 or not chunks:
-            chunks.insert(0, (const < 0, fmt(abs(const))))
+            chunks.insert(0, (const < 0, format_number(abs(const))))
         neg0, head = chunks[0]
         out = ("-" + head) if neg0 else head
         for neg, txt in chunks[1:]:
             out += (" - " if neg else " + ") + txt
-        return out, ADD
+        return out, PREC_SUM
     if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Mult):
-        return _product(*_flatten_mul(node)), MUL
+        return _render_product(*_flatten_product(node)), PREC_PRODUCT
     if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
         s, p = _emit(node.operand)
-        return "-1*" + (f"({s})" if p < MUL else s), MUL
+        return "-1*" + (f"({s})" if p < PREC_PRODUCT else s), PREC_PRODUCT
     raise ValueError(f"unsupported node {type(node).__name__}")
 
 
@@ -184,7 +184,7 @@ def _css_round(x, step=1):
     return np.round(np.asarray(x, float) / step) * step
 
 
-EVAL_FNS = {
+EVAL_FUNCTIONS = {
     "min": np.minimum,
     "max": np.maximum,
     "hypot": np.hypot,
@@ -196,7 +196,7 @@ EVAL_FNS = {
 
 def evaluate(expr, env):
     try:
-        v = eval(expr, {"__builtins__": {}, **EVAL_FNS}, env)
+        v = eval(expr, {"__builtins__": {}, **EVAL_FUNCTIONS}, env)
     except Exception:  # noqa: BLE001 -- evaluating a machine-generated expression
         return None  # can raise almost anything; every failure means "unusable"
     v = np.asarray(v, dtype=float)
@@ -216,7 +216,7 @@ def shrink(expr, env, y, w, scale, bound):
     """Cut decimal places, smallest-magnitude constants first, while the error stays
     inside the budget. Worth ~1 byte per place per constant, and a constant that
     rounds to 0 or 1 removes a whole term or factor."""
-    spans = [(m.start(), m.end()) for m in NUM.finditer(expr)]
+    spans = [(m.start(), m.end()) for m in NUMBER.finditer(expr)]
     vals = [float(expr[s:e]) for s, e in spans]
 
     def rebuild(vs):
@@ -264,8 +264,8 @@ def search(curve, iters, maxsize, sub):
 
     model = PySRRegressor(
         niterations=iters,
-        binary_operators=BINARY,
-        unary_operators=UNARY,
+        binary_operators=BINARY_OPERATORS,
+        unary_operators=UNARY_OPERATORS,
         maxsize=maxsize,
         populations=int(os.environ.get("POPS", "20")),
         parallelism="serial",
@@ -276,7 +276,7 @@ def search(curve, iters, maxsize, sub):
         # Pareto front is directly the size/accuracy tradeoff
         complexity_of_variables=1,
         complexity_of_constants=5,
-        complexity_of_operators=COST,
+        complexity_of_operators=OPERATOR_BYTES,
     )
     model.fit(Xf, yf, weights=wf, variable_names=names)
 
