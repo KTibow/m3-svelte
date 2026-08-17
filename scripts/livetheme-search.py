@@ -192,7 +192,13 @@ def _emit(node):
         if abs(const) > 1e-12 or not chunks:
             chunks.insert(0, (const < 0, format_number(abs(const))))
         neg0, head = chunks[0]
-        out = ("-" + head) if neg0 else head
+        # An all-negative sum has no positive term to lead with, and calc() has no
+        # unary minus: "-b" and "-max(a,b)" are parse errors. Firefox rejects them and
+        # takes the whole declaration -- and every light-dark() and palette built on
+        # it -- with them; Chrome happens to accept them, so this only shows up there.
+        # A leading "-" is only safe when it lands on a number, where it is part of
+        # the literal rather than an operator.
+        out = head if not neg0 else ("-" + head if NUMBER.match(head) else "-1*" + head)
         for neg, txt in chunks[1:]:
             out += (" - " if neg else " + ") + txt
         return out, PREC_SUM
