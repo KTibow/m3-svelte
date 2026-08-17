@@ -45,7 +45,9 @@ import { colors } from "../src/lib/etc/colors.ts";
 const VARIANTS: Record<string, [Variant, "2021" | "2025"]> = {
   tonalspot2021: [Variant.TONAL_SPOT, "2021"],
   tonalspot2025: [Variant.TONAL_SPOT, "2025"],
+  vibrant2021: [Variant.VIBRANT, "2021"],
   vibrant2025: [Variant.VIBRANT, "2025"],
+  expressive2021: [Variant.EXPRESSIVE, "2021"],
   expressive2025: [Variant.EXPRESSIVE, "2025"],
   rainbow2021: [Variant.RAINBOW, "2021"],
   fruitsalad2021: [Variant.FRUIT_SALAD, "2021"],

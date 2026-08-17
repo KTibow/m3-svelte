@@ -37,7 +37,7 @@ jobs:
         id: pick
         run: |
           list="${{ inputs.variants }}"
-          [ -z "$list" ] && list="tonalspot2021 tonalspot2025 neutral2021 neutral2025 expressive2025 vibrant2025 fruitsalad2021 rainbow2021"
+          [ -z "$list" ] && list="tonalspot2021 tonalspot2025 neutral2021 neutral2025 expressive2021 expressive2025 vibrant2021 vibrant2025 fruitsalad2021 rainbow2021"
           echo "variants=$(printf '%s\n' $list | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
 
   fit:
