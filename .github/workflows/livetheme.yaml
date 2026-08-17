@@ -33,11 +33,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+      - name: PNPM
+        uses: pnpm/setup@v1
+        with:
+          version: latest
+          runtime: node@latest
+      # The generator owns the variant list, so adding one there is the only edit
+      # needed; a copy here silently went stale every time one was added.
       - name: Pick variants
         id: pick
         run: |
           list="${{ inputs.variants }}"
-          [ -z "$list" ] && list="tonalspot2021 tonalspot2025 neutral2021 neutral2025 expressive2021 expressive2025 vibrant2021 vibrant2025 fruitsalad2021 rainbow2021"
+          [ -z "$list" ] && list="$(node scripts/generate-livetheme.ts --list)"
           echo "variants=$(printf '%s\n' $list | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
 
   fit:

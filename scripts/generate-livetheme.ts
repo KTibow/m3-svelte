@@ -3,9 +3,12 @@
  * CSS, computed live from one `--source` custom property. No JS at runtime, no
  * trigonometry, so it runs in both Firefox and Chromium.
  *
- *   node --experimental-strip-types scripts/generate-livetheme.ts <variant> --dump
+ *   node --experimental-strip-types scripts/generate-livetheme.ts <variants> --dump
  *   uv run scripts/livetheme-search.py            # fits the dumped curves
- *   node --experimental-strip-types scripts/generate-livetheme.ts <variant>
+ *   node --experimental-strip-types scripts/generate-livetheme.ts <variants>
+ *
+ * <variants> is a space-separated list, and blank means all of them -- the same
+ * spelling the CI workflow takes. More than one runs a child process each.
  *
  * The search is slow and memory-hungry, so in practice CI runs it (see
  * .github/workflows/oklch-theme.yaml) and publishes the fits as an artifact. To emit
@@ -55,16 +58,67 @@ const VARIANTS: Record<string, [Variant, "2021" | "2025"]> = {
   neutral2025: [Variant.NEUTRAL, "2025"],
 };
 
-const variant =
-  process.argv
-    .slice(2)
-    .find((a) => !a.startsWith("--") && process.argv[process.argv.indexOf(a) - 1] !== "--fits") ??
-  "tonalspot2021";
-const dumping = process.argv.includes("--dump");
-if (!(variant in VARIANTS)) {
-  console.error(`unknown variant ${variant}; known: ${Object.keys(VARIANTS).join(" ")}`);
+// Positional args are variant names, everything else is a flag. Walking the list
+// beats find()+indexOf, which resolved a repeated token to its first occurrence.
+const names: string[] = [];
+const flags: string[] = [];
+for (let i = 2; i < process.argv.length; i++) {
+  const a = process.argv[i];
+  if (a === "--fits") flags.push(a, process.argv[++i] ?? "");
+  else if (a.startsWith("--")) flags.push(a);
+  else names.push(a);
+}
+// So the CI matrix can fan out over the variants without keeping its own copy of the
+// list; adding one here is then the only edit needed.
+if (flags.includes("--list")) {
+  console.log(Object.keys(VARIANTS).join(" "));
+  process.exit(0);
+}
+const dumping = flags.includes("--dump");
+// No variants named means all of them, same as the CI's blank `variants` input.
+const requested = names.length ? names : Object.keys(VARIANTS);
+const unknown = requested.filter((v) => !(v in VARIANTS));
+if (unknown.length) {
+  console.error(
+    `unknown variant${unknown.length > 1 ? "s" : ""} ${unknown.join(" ")}; ` +
+      `known: ${Object.keys(VARIANTS).join(" ")}`,
+  );
   process.exit(1);
 }
+
+// One child process per variant rather than a loop in here: palInfo, entries, curves
+// and HOIST are module-level and accumulate, so a second variant in the same process
+// would hoist its expressions against the first one's. A child also keeps a variant
+// that exits nonzero from taking the rest of the run with it.
+if (requested.length > 1) {
+  const { spawnSync } = await import("node:child_process");
+  const CURVES = new URL("../build/livetheme-curves.json", import.meta.url);
+  const merged: any[] = [];
+  const failed: string[] = [];
+  for (const v of requested) {
+    const r = spawnSync(process.execPath, [...process.execArgv, process.argv[1], v, ...flags], {
+      stdio: "inherit",
+    });
+    if (r.status !== 0) {
+      failed.push(v);
+      continue;
+    }
+    // Each child writes the dump with only its own curves, so collect before the next
+    // one overwrites it. Ids are namespaced by variant, so the merge is just a concat.
+    if (dumping) merged.push(...JSON.parse(await readFile(CURVES, "utf8")));
+  }
+  if (dumping) {
+    await mkdir(new URL("../build/", import.meta.url), { recursive: true });
+    await writeFile(CURVES, JSON.stringify(merged));
+    console.log(`${merged.length} curves to fit across ${requested.length - failed.length}`);
+  }
+  if (failed.length) {
+    console.error(`failed: ${failed.join(" ")}`);
+    process.exit(1);
+  }
+  process.exit(0);
+}
+const variant = requested[0];
 const [VAR, SPEC] = VARIANTS[variant];
 const scheme = (hct: Hct, isDark: boolean) =>
   new DynamicScheme({
