@@ -370,13 +370,17 @@ def main():
     curves = json.loads(CURVES.read_text())
     if args.only:
         curves = [c for c in curves if args.only in c["id"]]
-    if args.curves:
-        curves = curves[: args.curves]
 
     # Resume: Julia does not release state between fits, so long runs are chunked
     # by an outer driver and every curve is checkpointed as it lands.
     fits = json.loads(fits_path.read_text()) if fits_path.exists() else {}
     todo = [c for c in curves if c["id"] not in fits]
+    # --curves caps the chunk, so it has to apply AFTER the already-fitted ones are
+    # removed. Capping first meant every invocation re-selected the same leading
+    # slice, found it complete, and reported nothing to do -- so the driver saw no
+    # progress and stopped after exactly one chunk per pass.
+    if args.curves:
+        todo = todo[: args.curves]
     print(f"{len(fits)} already fitted, {len(todo)} to go", flush=True)
 
     t0 = time.time()
