@@ -33,7 +33,7 @@ from pathlib import Path
 # PySR converts every front entry through sympy, which recurses once per node. The
 # palette curves are allowed to be long (see PALETTE_SIZE in the generator), and at
 # that depth the default 1000 is not enough.
-sys.setrecursionlimit(20000)
+sys.setrecursionlimit(40000)
 
 # Julia sizes a heap per worker and takes a thread per core by default; unbounded,
 # that is enough to take a workstation down. Must be set before juliacall loads.
@@ -285,6 +285,76 @@ def shrink(expr, env, y, w, scale, bound):
     return rebuild(vals)
 
 
+def least_squares_candidate(env, y, w, names):
+    """A closed-form fit over a fixed basis, offered alongside the searched trees.
+
+    Tree search wins where the shape is factored or discontinuous. It loses badly
+    where the target is a smooth low-degree curve buried in noise -- which is exactly
+    the palette gamut: MCU's cusp comes from a greedy integer tone walk, so it jitters
+    by ~12 dE, and no model should chase that. Least squares lands on the trend in
+    closed form and sits at that floor; the search wandered 50% above it and spent
+    min/max building a staircase.
+
+    On the unit circle a^2 + b^2 = 1, so every trig polynomial of degree d is
+    P(b) + a*Q(b) -- 2d+1 monomials, and no trigonometry is needed to evaluate them.
+    """
+    a, b = env.get("a"), env.get("b")
+    if a is None or b is None:
+        return None
+
+    labels = ["1"]
+    columns = [np.ones_like(y)]
+    for degree in range(1, 7):
+        labels.append("*".join(["b"] * degree))
+        columns.append(b**degree)
+    for degree in range(6):
+        labels.append("*".join(["a"] + ["b"] * degree))
+        columns.append(a * b**degree)
+    for extra in ("l", "c", "sl"):  # whatever else this curve was given
+        if extra in names:
+            for label, column in (
+                (extra, env[extra]),
+                (f"{extra}*a", env[extra] * a),
+                (f"{extra}*b", env[extra] * b),
+            ):
+                labels.append(label)
+                columns.append(column)
+
+    matrix = np.column_stack(columns)
+    sqrt_w = np.sqrt(w)
+
+    def solve(keep):
+        coef, *_ = np.linalg.lstsq(
+            matrix[:, keep] * sqrt_w[:, None], y * sqrt_w, rcond=None
+        )
+        residual = matrix[:, keep] @ coef - y
+        return coef, float(np.sqrt(np.sum(w * residual**2) / np.sum(w)))
+
+    keep = list(range(len(labels)))
+    coef, best = solve(keep)
+    # Drop terms while the fit stays within a few percent: the tail of a least-squares
+    # fit is usually chasing noise, and every term costs bytes.
+    while len(keep) > 1:
+        contribution = [
+            abs(coef[i]) * float(np.std(matrix[:, k])) for i, k in enumerate(keep)
+        ]
+        drop = int(np.argmin(contribution))
+        trial = [k for j, k in enumerate(keep) if j != drop]
+        trial_coef, trial_err = solve(trial)
+        if trial_err > best * 1.02 + 1e-12:
+            break
+        keep, coef, best = trial, trial_coef, max(trial_err, best)
+
+    parts = [
+        (float(coef[i]), labels[k])
+        for i, k in enumerate(keep)
+        if abs(float(coef[i])) > 0
+    ]
+    if not parts:
+        return "0"
+    return " + ".join(f"{c}" if lab == "1" else f"{c}*{lab}" for c, lab in parts)
+
+
 def search(curve, iters, maxsize, sub):
     # imported lazily: --check-ops needs none of this, and loading PySR pulls in a
     # Julia runtime that takes a while to start
@@ -302,7 +372,11 @@ def search(curve, iters, maxsize, sub):
     env = {k: v[keep] for k, v in env_full.items()}
     y, w = y[keep], w[keep]
     if len(y) < 8:
-        return format_number(float(np.average(y, weights=w)) if len(y) else 0.0), 0.0
+        # Too few samples to search. Report the constant's REAL error rather than 0:
+        # a fake zero would make an unfittable curve look like the best fit in the set.
+        css = format_number(float(np.average(y, weights=w)) if len(y) else 0.0)
+        constant_error = error(css, env, y, w, curve["scale"]) if len(y) else 0.0
+        return css, constant_error, constant_error
     w = w / w.mean()  # keep the weighted loss on the same scale for every curve
     names = list(env)
 
@@ -338,15 +412,29 @@ def search(curve, iters, maxsize, sub):
         (error(str(r["equation"]), env, y, w, scale), str(r["equation"]))
         for _, r in model.equations_.iterrows()
     ]
-    ok = [t for t in scored if t[0] <= target]
+    lsq = least_squares_candidate(env, y, w, names)
+    if lsq:
+        scored.append((error(lsq, env, y, w, scale), lsq))
+    # Selection is "shortest that is accurate enough", and "enough" cannot be a fixed
+    # number: the palette gamut's target sits below the noise in the data itself (MCU's
+    # cusp jitters ~12 dE), so an absolute bar was never met and the rule degenerated
+    # to "most accurate", which bought a 359-byte expression for noise. Fall back to a
+    # margin above the best any candidate achieved, so the bar adapts to the curve.
+    reachable = min(e for e, _ in scored) if scored else math.inf
+    bound = max(target, reachable * 1.1)
+    ok = [t for t in scored if t[0] <= bound]
     _, expr = min(ok, key=lambda t: len(to_css(t[1]))) if ok else min(scored)
 
     css = to_css(expr)
     css = to_css(
-        shrink(css, env, y, w, scale, max(target, error(css, env, y, w, scale)))
+        shrink(css, env, y, w, scale, max(bound, error(css, env, y, w, scale)))
     )
     dE = error(css, env, y, w, scale)
-    return css, (dE if math.isfinite(dE) else 1e9)
+    return (
+        css,
+        (dE if math.isfinite(dE) else 1e9),
+        (reachable if math.isfinite(reachable) else 1e9),
+    )
 
 
 def main():
@@ -385,21 +473,32 @@ def main():
 
     t0 = time.time()
     for i, curve in enumerate(todo):
-        css, dE = search(curve, args.iters, args.maxsize, args.sub)
-        fits[curve["id"]] = {"css": css, "dE": dE, "target": curve["target"]}
+        css, dE, reachable = search(curve, args.iters, args.maxsize, args.sub)
+        fits[curve["id"]] = {
+            "css": css,
+            "dE": dE,
+            "target": curve["target"],
+            # the best any candidate managed: on a noisy curve this is the real floor,
+            # and dE close to it means the fit is as good as the data allows
+            "reachable": reachable,
+        }
         fits_path.write_text(
             json.dumps(fits, indent=1, sort_keys=True, allow_nan=False)
         )
-        flag = "" if dE <= curve["target"] else "  OVER"
+        flag = "" if dE <= max(curve["target"], reachable * 1.1) else "  OVER"
         print(
             f"[{i + 1}/{len(todo)}] {curve['id']:44} {len(css):4d}B  "
-            f"dE {dE:6.2f} / {curve['target']:.2f}{flag}   "
+            f"dE {dE:6.2f} (floor {reachable:5.2f}, want {curve['target']:.2f}){flag}   "
             f"{(time.time() - t0) / (i + 1):.1f}s/curve",
             flush=True,
         )
 
-    over = [k for k, v in fits.items() if v["dE"] > v["target"] + 1e-9]
-    print(f"\n{len(fits)} curves fitted, {len(over)} above target")
+    over = [
+        k
+        for k, v in fits.items()
+        if v["dE"] > max(v["target"], v.get("reachable", 0) * 1.1) + 1e-9
+    ]
+    print(f"\n{len(fits)} curves fitted, {len(over)} above what the data allows")
 
 
 if __name__ == "__main__":

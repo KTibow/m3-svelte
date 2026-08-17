@@ -274,6 +274,33 @@ const SPINE_SCHEMES = {
   dark: SPINE.map((s) => scheme(s.hct, true)),
 };
 
+/**
+ * Circular moving average in hue: for each sample, the mean of every sample within
+ * `halfWidth` degrees of it. Wrap-aware, and it does not assume the samples arrive in
+ * hue order (they arrive ordered by hue, then chroma, then tone).
+ */
+const smoothOverHue = (values: number[], hues: number[], halfWidth: number) => {
+  const order = hues.map((h, i) => [h, i] as const).sort((x, y) => x[0] - y[0]);
+  const sortedHues = order.map((o) => o[0]);
+  const sortedValues = order.map((o) => values[o[1]]);
+  const n = order.length;
+  const out = new Array<number>(n);
+  for (let k = 0; k < n; k++) {
+    let sum = 0,
+      count = 0;
+    for (let d = -1; d <= 1; d += 2)
+      for (let step = d < 0 ? 0 : 1; ; step++) {
+        const j = (((k + d * step) % n) + n) % n;
+        if (step > 0 && Math.abs(circularDiff(sortedHues[j], sortedHues[k])) > halfWidth) break;
+        sum += sortedValues[j];
+        count++;
+        if (step > n / 2) break;
+      }
+    out[order[k][1]] = sum / count;
+  }
+  return out;
+};
+
 /** the cusp: OkLab L of the most colourful tone still reaching `chroma` */
 const tMaxCL = (hue: number, chroma: number) => {
   let tone = 100,
@@ -289,7 +316,7 @@ const tMaxCL = (hue: number, chroma: number) => {
 // --- fits --------------------------------------------------------------------
 type Fit = { css: string; dE: number; target: number };
 // The fits are a build output, not a source: they are produced by CI (see
-// .github/workflows/oklch-theme.yaml) and published as an artifact. Point --fits at a
+// .github/workflows/livetheme.yaml) and published as an artifact. Point --fits at a
 // downloaded copy to emit locally, e.g. --fits ~/Downloads/livetheme-fits.json.
 const fitsArg = process.argv.indexOf("--fits");
 const fitsPath =
@@ -314,10 +341,12 @@ const curve = (
   return null;
 };
 // Byte budgets differ by layer because the expressions are emitted a different
-// number of times. There are 12 palette expressions in a stylesheet and ~120 role
-// ones, so a palette curve can afford to be several times longer -- and needs to
-// be: the gamut cusp has corners, which a compact tree approximates badly.
-const PALETTE_SIZE = 120;
+// number of times: 12 palette expressions in a stylesheet against ~120 role ones, so
+// a palette curve can afford to be longer. It is not larger still because PySR runs
+// every candidate through sympy, which recurses per node and blows the stack well
+// before 120 -- and the long smooth palette curves are served by the least-squares
+// candidate anyway, which is built outside the search and is not bound by this.
+const PALETTE_SIZE = 60;
 const ROLE_SIZE = 45;
 
 // --- palettes ----------------------------------------------------------------
@@ -360,23 +389,40 @@ for (const mode of ["light", "dark"] as const) {
 
     const arcs = toArcs(bounds, segs);
     checkPartition(arcs as any, `${variant} ${key}`);
-    const pick = (bn: number[], vals: number[], h: number) => {
-      let v = vals[0];
-      for (let i = 0; i < bn.length; i++) if (h >= bn[i]) v = vals[i + 1];
-      return v;
+    // Read the value back out of the ARCS, not out of bounds/segs. Those two are not
+    // the same function: toArcs merges the first and last segment into one wrapped arc
+    // carrying their circular mean, because SPINE's OK hue wraps partway through (HCT
+    // 0 is OK 359.4). A plain ascending scan over bounds returns the two ends as
+    // separate values, so the hue the fit targets would not be the hue the emitted
+    // arcs compute -- fitting one model and shipping another.
+    const arcIndex = (h: number) => {
+      for (let i = 0; i < arcs.length; i++) {
+        const a = arcs[i] as any;
+        if (a.all) return i;
+        // inside [lo, hi) going anticlockwise, measured as a wrapped offset
+        const span = (((a.hi - a.lo) % 360) + 360) % 360;
+        const off = (((h - a.lo) % 360) + 360) % 360;
+        if (off < span) return i;
+      }
+      return 0;
     };
-    const bucket = (bn: number[], h: number) => {
-      let k = 0;
-      for (let i = 0; i < bn.length; i++) if (h >= bn[i]) k = i + 1;
-      return k;
-    };
-    let hueCss = SOURCES.map((s) =>
-      absolute ? pick(bounds, segs, s.okH) : s.okH + pick(bounds, segs, s.okH),
-    );
-    // A sample whose OK hue lands in a different bucket than its HCT hue is off by a
+    const arcValue = (h: number) => (arcs[arcIndex(h)] as any).v as number;
+    let hueCss = SOURCES.map((s) => (absolute ? arcValue(s.okH) : s.okH + arcValue(s.okH)));
+    // A sample whose OK hue lands in a different arc than its HCT hue does is off by a
     // whole rotation. Nothing downstream can repair it, so keep it out of the fits.
+    const hctArcs = toArcs(hctBounds, segs);
+    const hctIndex = (h: number) => {
+      for (let i = 0; i < hctArcs.length; i++) {
+        const a = hctArcs[i] as any;
+        if (a.all) return i;
+        const span = (((a.hi - a.lo) % 360) + 360) % 360;
+        const off = (((h - a.lo) % 360) + 360) % 360;
+        if (off < span) return i;
+      }
+      return 0;
+    };
     const wPal = SOURCES.map((s) =>
-      bounds.length === 0 || bucket(bounds, s.okH) === bucket(hctBounds, s.hctH) ? 1 : 0,
+      bounds.length === 0 || arcIndex(s.okH) === hctIndex(s.hctH) ? 1 : 0,
     );
 
     const palOk = SCHEMES[mode].map((s) => argbToOklch((s as any)[p].keyColor.toInt())[2]);
@@ -411,7 +457,14 @@ for (const mode of ["light", "dark"] as const) {
       a: hueCss.map((h) => Math.cos(h * DEG_TO_RAD)),
       b: hueCss.map((h) => Math.sin(h * DEG_TO_RAD)),
     };
-    const gamRaw = SCHEMES[mode].map((s) => tMaxCL((s as any)[p].hue, (s as any)[p].chroma));
+    // Smooth the cusp before fitting it. tMaxC is a greedy integer walk down the tone
+    // scale, so its output jitters by ~12 dE between neighbouring hues -- noise from
+    // the search procedure, not a property of the gamut. Fitting it raw meant no model
+    // could get near the stated target, because the target was below the noise in the
+    // data; it also fed that jitter to every role as their `l` input. This value is a
+    // FEATURE, never emitted as a colour, so the trend is all anyone wants from it.
+    const gamRawJittery = SCHEMES[mode].map((s) => tMaxCL((s as any)[p].hue, (s as any)[p].chroma));
+    const gamRaw = smoothOverHue(gamRawJittery, hueCss, 6);
     // The target here is advisory, not a quality bar. This value is never emitted as
     // a colour: it is packed into the palette colour's L channel so that every role
     // expression has a cusp-shaped signal to read, and the roles below are then
@@ -449,7 +502,6 @@ for (const mode of ["light", "dark"] as const) {
     const p = PALETTES.find((x) => (SCHEMES[mode][0] as any)[x] === role.palette(SCHEMES[mode][0]));
     if (!p) continue;
     const key = `${CSS_KEY[p]}${mode[0]}`;
-    const curveName = `${PALETTE_NAME[p]}/${mode}`;
     const palette = palInfo.get(key);
     if (!palette.gamutCss) continue; // palette layer not fitted yet; nothing to dump against
     const out = argbs.map((v) => argbToOklch(v));
