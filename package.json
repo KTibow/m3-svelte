@@ -40,6 +40,9 @@
     "./etc/tailwind-styles.css": {
       "style": "./package/etc/tailwind-styles.css"
     },
+    "./etc/livetheme/*.css": {
+      "style": "./package/etc/livetheme/*.css"
+    },
     "./etc/unocss-preset": {
       "types": "./package/etc/unocss-preset.d.ts",
       "import": "./package/etc/unocss-preset.js"

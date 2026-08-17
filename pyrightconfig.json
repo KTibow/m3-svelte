@@ -1,0 +1,8 @@
+{
+  // scripts/ are PEP 723 single-file tools: their dependencies are declared inline
+  // and installed by `uv run`, so they are not resolvable from the repo root.
+  "include": ["scripts"],
+  "typeCheckingMode": "standard",
+  "reportMissingImports": "none",
+  "reportMissingModuleSource": "none"
+}

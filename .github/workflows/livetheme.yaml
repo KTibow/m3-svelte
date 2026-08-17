@@ -66,21 +66,30 @@ jobs:
           # Curves come in layers: a role can only be fitted once the palette
           # expression it reads has been fitted, because it must be fitted against
           # what CSS will really compute. Loop until --dump reports nothing left.
+          left() {
+            node -e "
+              const c = require('./build/livetheme-curves.json');
+              let f = {}; try { f = require('./build/livetheme-fits.json') } catch {}
+              console.log(c.filter((x) => !f[x.id]).length)"
+          }
           for pass in 1 2 3 4; do
             node --experimental-strip-types scripts/generate-livetheme.ts \
               "${{ matrix.variant }}" --dump
-            n=$(node -e "console.log(require('./build/livetheme-curves.json').length)")
-            [ "$n" -eq 0 ] && break
+            n=$(left)
+            if [ "$n" -eq 0 ]; then break; fi
             echo "::group::pass $pass -- $n curves"
-            # Chunked: Julia state accumulates across fits, so each chunk is a fresh
-            # process. --curves bounds the chunk; the loop resumes from the fits file.
-            for i in $(seq 1 40); do
-              left=$(node -e "
-                const c = require('./build/livetheme-curves.json');
-                let f = {}; try { f = require('./build/livetheme-fits.json') } catch {}
-                console.log(c.filter((x) => !f[x.id]).length)")
-              [ "$left" -eq 0 ] && break
-              uv run scripts/livetheme-search.py --curves 8 --iters "$ITERS" || true
+            # Chunked because Julia does not release state between fits, so each chunk
+            # is a fresh process. The chunk is large: every `uv run` pays ~40s of
+            # interpreter and Julia startup, which dominated the run when it was 8.
+            while [ "$(left)" -gt 0 ]; do
+              before=$(left)
+              uv run scripts/livetheme-search.py --curves 40 --iters "$ITERS" || true
+              # A chunk that fits nothing will never fit anything: stop rather than
+              # spin. This is how the first run burned 40 iterations silently.
+              if [ "$(left)" -eq "$before" ]; then
+                echo "::error::no progress on $before remaining curves; giving up on this pass"
+                break
+              fi
             done
             echo "::endgroup::"
           done

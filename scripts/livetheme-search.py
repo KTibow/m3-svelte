@@ -54,6 +54,14 @@ DEFAULT_FITS = ROOT / "build" / "livetheme-fits.json"
 NUMBER = re.compile(r"-?(?:\d+\.\d*|\.\d+|\d+)(?:[eE][-+]?\d+)?")
 PREC_SUM, PREC_PRODUCT, PREC_ATOM = 1, 2, 3
 
+
+class _Raw:
+    """already-rendered text, so collected terms can be re-emitted without reparsing"""
+
+    def __init__(self, text: str):
+        self.text = text
+
+
 # scripts/dev-css-ops.py re-derives this table from the installed browsers.
 BINARY_OPERATORS = ["+", "-", "*", "min", "max", "hypot"]
 UNARY_OPERATORS = ["abs", "sign", "round"]
@@ -124,6 +132,9 @@ def _render_product(coef, factors):
     if abs(coef - 1.0) > 1e-12:
         parts.append("-1" if abs(coef + 1.0) < 1e-12 else format_number(coef))
     for f in factors:
+        if isinstance(f, _Raw):
+            parts.append(f.text)
+            continue
         s, p = _emit(f)
         parts.append(f"({s})" if p < PREC_PRODUCT else s)
     return "*".join(parts)
@@ -142,6 +153,20 @@ def _emit(node):
     if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
         fn = node.func.id
         args = [_emit(a)[0] for a in node.args]
+        # A call whose arguments are all constant is a constant. The search emits
+        # these constantly -- abs(abs(sign(b))), max(-.942,-1.1), round(round(-1.4)) --
+        # and printing them verbatim inflates every byte count with dead weight.
+        # abs and sign are idempotent, and the search stacks them
+        while fn in ("abs", "sign") and len(args) == 1 and args[0].startswith(f"{fn}("):
+            args = [args[0][len(fn) + 1 : -1]]
+        if all(NUMBER.fullmatch(a) for a in args):
+            value = (
+                EVAL_FUNCTIONS[fn](*(float(a) for a in args))
+                if fn in EVAL_FUNCTIONS
+                else None
+            )
+            if value is not None:
+                return format_number(float(value)), PREC_ATOM
         # CSS round() takes an explicit step; Julia's takes one argument
         if fn == "round" and len(args) == 1:
             args.append("1")
@@ -149,9 +174,21 @@ def _emit(node):
     if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Sub)):
         terms = _flatten_sum(node)
         const = sum(s * c for s, c, f in terms if not f)
-        terms = [t for t in terms if t[2] and abs(t[0] * t[1]) > 0]
-        terms.sort(key=lambda t: (t[0] * t[1]) < 0)  # positives first, no leading "-"
-        chunks = [((s * c) < 0, _render_product(abs(s * c), f)) for s, c, f in terms]
+        terms = [t for t in terms if t[2]]
+        # Collect like terms so that "b - b" cancels instead of being printed. The
+        # search produces these often; without this they survive into the stylesheet.
+        collected: dict[str, float] = {}
+        for sign, coefficient, factors in terms:
+            text = _render_product(1.0, factors)
+            collected[text] = collected.get(text, 0.0) + sign * coefficient
+        chunks = []
+        for text, coefficient in collected.items():
+            if abs(coefficient) < 1e-12:
+                continue
+            chunks.append(
+                (coefficient < 0, _render_product(abs(coefficient), [_Raw(text)]))
+            )
+        chunks.sort(key=lambda ch: ch[0])  # positives first, no leading "-"
         if abs(const) > 1e-12 or not chunks:
             chunks.insert(0, (const < 0, format_number(abs(const))))
         neg0, head = chunks[0]
@@ -162,6 +199,13 @@ def _emit(node):
     if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Mult):
         return _render_product(*_flatten_product(node)), PREC_PRODUCT
     if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+        # Python parses "-0.9" as USub applied to 0.9, so without this a negative
+        # literal prints as "-1*.9" -- ugly, and it defeats the constant folding above
+        # because the argument no longer looks like a number.
+        if isinstance(node.operand, ast.Constant) and isinstance(
+            node.operand.value, (int, float)
+        ):
+            return format_number(-float(node.operand.value)), PREC_ATOM
         s, p = _emit(node.operand)
         return "-1*" + (f"({s})" if p < PREC_PRODUCT else s), PREC_PRODUCT
     raise ValueError(f"unsupported node {type(node).__name__}")
@@ -250,9 +294,16 @@ def search(curve, iters, maxsize, sub):
     env_full = {k: np.array(v) for k, v in curve["vars"].items()}
     y = np.array(curve["y"])
     w = np.array(curve.get("w") or np.ones_like(y))
-    keep = w > 0.5  # samples the generator flagged as unfittable
+    # w is a genuine weight, not a 0/1 mask: the generator zeroes samples it knows are
+    # unfittable, but hue curves are additionally chroma-weighted, so their weights
+    # run around 1e-4..1e-2. Thresholding at 0.5 discarded every sample of every hue
+    # curve -- 60 of 178 -- and the search then crashed on an empty array.
+    keep = w > 0
     env = {k: v[keep] for k, v in env_full.items()}
     y, w = y[keep], w[keep]
+    if len(y) < 8:
+        return format_number(float(np.average(y, weights=w)) if len(y) else 0.0), 0.0
+    w = w / w.mean()  # keep the weighted loss on the same scale for every curve
     names = list(env)
 
     X = np.column_stack([env[k] for k in names])
