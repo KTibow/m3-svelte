@@ -1,0 +1,351 @@
+# /// script
+# dependencies = ["pysr", "numpy"]
+# ///
+"""Find a compact CSS expression for each colour curve, by symbolic regression.
+
+generate-livetheme.ts writes livetheme-curves.json: for every quantity the stylesheet
+has to compute, the inputs CSS will actually have at that point and the value MCU
+produces. This searches an expression tree for each one and writes livetheme-fits.json
+back, which the generator then emits verbatim.
+
+Why a search rather than a least-squares fit: a fit that is linear in its parameters can
+only ever produce SUMS of whatever basis you picked in advance. The shapes that
+actually win here are factored -- ".013*(a - .1*b)*l" -- and no basis of that size
+expresses them. min/max matter too: several roles flip tone discontinuously once
+contrast demands it, which a smooth model cannot follow at any length.
+
+Complexity is denominated in CSS BYTES (a variable costs 1, a constant 5, "*" 1,
+" + " 3), so PySR's Pareto front is directly the size/accuracy tradeoff, and the
+front entry chosen is the shortest one meeting the accuracy target.
+
+  uv run scripts/livetheme-search.py [--curves N] [--iters N] [--only ROLE]
+"""
+
+import argparse
+import json
+import math
+import os
+import re
+import sys
+import time
+from pathlib import Path
+
+# PySR converts every front entry through sympy, which recurses once per node. The
+# palette curves are allowed to be long (see PALETTE_SIZE in the generator), and at
+# that depth the default 1000 is not enough.
+sys.setrecursionlimit(20000)
+
+# Julia sizes a heap per worker and takes a thread per core by default; unbounded,
+# that is enough to take a workstation down. Must be set before juliacall loads.
+os.environ.setdefault("JULIA_NUM_THREADS", "2")
+os.environ.setdefault("PYTHON_JULIACALL_HEAP_SIZE_HINT", "1200M")
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")
+
+import numpy as np
+
+ROOT = Path(__file__).resolve().parent.parent
+# Both are build outputs, not sources. The curves dump is a regenerable intermediate;
+# the fits are the expensive result, produced by CI and published as an artifact.
+# --fits points at a downloaded copy, e.g. ~/Downloads/livetheme-fits.json.
+CURVES = ROOT / "build" / "livetheme-curves.json"
+DEFAULT_FITS = ROOT / "build" / "livetheme-fits.json"
+
+NUM = re.compile(r"-?(?:\d+\.\d*|\.\d+|\d+)(?:[eE][-+]?\d+)?")
+ADD, MUL, ATOM = 1, 2, 3
+
+# scripts/dev-css-ops.py re-derives this table from the installed browsers.
+BINARY = ["+", "-", "*", "min", "max", "hypot"]
+UNARY = ["abs", "sign", "round"]
+# bytes each costs to print, e.g. "abs(" + ")" = 5, "round(x,1)" wraps 9 around x
+COST = {
+    "+": 3,
+    "-": 3,
+    "*": 1,
+    "min": 6,
+    "max": 6,
+    "hypot": 8,
+    "abs": 5,
+    "sign": 6,
+    "round": 9,
+}
+
+
+# --- printing ---------------------------------------------------------------
+# PySR emits a raw parse tree: "(((b * -0.1) + a) * (0.013 * l))". Most of those
+# parentheses are structural, every constant carries full float precision, and
+# negatives arrive as "+ -c". Printed naively that is a third larger than it needs
+# to be, and size is half the objective.
+def fmt(x: float) -> str:
+    """CSS number. Lossless on purpose -- dropping digits changes the function, so
+    it belongs in `shrink` where it is checked against the error budget."""
+    if x == int(x) and abs(x) < 1e15:
+        return str(int(x))
+    s = repr(float(x))
+    if "e" in s or "E" in s:  # calc() has no exponent notation
+        s = f"{x:.20f}".rstrip("0").rstrip(".")
+    return re.sub(r"^(-?)0\.", r"\1.", s) or "0"
+
+
+def _flatten_mul(node):
+    import ast
+
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Mult):
+        c1, f1 = _flatten_mul(node.left)
+        c2, f2 = _flatten_mul(node.right)
+        return c1 * c2, f1 + f2
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+        c, f = _flatten_mul(node.operand)
+        return -c, f
+    if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+        return float(node.value), []
+    return 1.0, [node]
+
+
+def _flatten_add(node):
+    import ast
+
+    if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Sub)):
+        left = _flatten_add(node.left)
+        right = _flatten_add(node.right)
+        if isinstance(node.op, ast.Sub):
+            right = [(-s, c, f) for s, c, f in right]
+        return left + right
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+        return [(-s, c, f) for s, c, f in _flatten_add(node.operand)]
+    c, f = _flatten_mul(node)
+    return [(1.0, c, f)]
+
+
+def _product(coef, factors):
+    if not factors:
+        return fmt(coef)
+    parts = []
+    if abs(coef - 1.0) > 1e-12:
+        parts.append("-1" if abs(coef + 1.0) < 1e-12 else fmt(coef))
+    for f in factors:
+        s, p = _emit(f)
+        parts.append(f"({s})" if p < MUL else s)
+    return "*".join(parts)
+
+
+def _emit(node):
+    """returns (text, precedence)"""
+    import ast
+
+    if isinstance(node, ast.Expression):
+        return _emit(node.body)
+    if isinstance(node, ast.Name):
+        return node.id, ATOM
+    if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+        return fmt(float(node.value)), ATOM
+    if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+        fn = node.func.id
+        args = [_emit(a)[0] for a in node.args]
+        # CSS round() takes an explicit step; Julia's takes one argument
+        if fn == "round" and len(args) == 1:
+            args.append("1")
+        return f"{fn}({','.join(args)})", ATOM
+    if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Sub)):
+        terms = _flatten_add(node)
+        const = sum(s * c for s, c, f in terms if not f)
+        terms = [t for t in terms if t[2] and abs(t[0] * t[1]) > 0]
+        terms.sort(key=lambda t: (t[0] * t[1]) < 0)  # positives first, no leading "-"
+        chunks = [((s * c) < 0, _product(abs(s * c), f)) for s, c, f in terms]
+        if abs(const) > 1e-12 or not chunks:
+            chunks.insert(0, (const < 0, fmt(abs(const))))
+        neg0, head = chunks[0]
+        out = ("-" + head) if neg0 else head
+        for neg, txt in chunks[1:]:
+            out += (" - " if neg else " + ") + txt
+        return out, ADD
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Mult):
+        return _product(*_flatten_mul(node)), MUL
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+        s, p = _emit(node.operand)
+        return "-1*" + (f"({s})" if p < MUL else s), MUL
+    raise ValueError(f"unsupported node {type(node).__name__}")
+
+
+def to_css(expr: str) -> str:
+    import ast
+
+    try:
+        return _emit(ast.parse(expr.strip(), mode="eval").body)[0]
+    except Exception:  # noqa: BLE001 -- printing is best-effort; on any surprise
+        return expr  # node shape, fall back to what the search produced
+
+
+# --- scoring ----------------------------------------------------------------
+def _css_round(x, step=1):
+    """CSS round(x, step) is "nearest multiple of step". numpy's second argument is
+    decimal places, so np.round would silently score a different function than the
+    one being emitted."""
+    return np.round(np.asarray(x, float) / step) * step
+
+
+EVAL_FNS = {
+    "min": np.minimum,
+    "max": np.maximum,
+    "hypot": np.hypot,
+    "abs": np.abs,
+    "sign": np.sign,
+    "round": _css_round,
+}
+
+
+def evaluate(expr, env):
+    try:
+        v = eval(expr, {"__builtins__": {}, **EVAL_FNS}, env)
+    except Exception:  # noqa: BLE001 -- evaluating a machine-generated expression
+        return None  # can raise almost anything; every failure means "unusable"
+    v = np.asarray(v, dtype=float)
+    return v if np.all(np.isfinite(v)) else None
+
+
+def error(expr, env, y, w, scale):
+    """weighted RMSE, expressed in dE so every curve shares one budget"""
+    v = evaluate(expr, env)
+    if v is None:
+        return math.inf
+    v = np.broadcast_to(v, y.shape)
+    return float(np.sqrt(np.sum(w * (v - y) ** 2) / np.sum(w)) * scale)
+
+
+def shrink(expr, env, y, w, scale, bound):
+    """Cut decimal places, smallest-magnitude constants first, while the error stays
+    inside the budget. Worth ~1 byte per place per constant, and a constant that
+    rounds to 0 or 1 removes a whole term or factor."""
+    spans = [(m.start(), m.end()) for m in NUM.finditer(expr)]
+    vals = [float(expr[s:e]) for s, e in spans]
+
+    def rebuild(vs):
+        out, last = [], 0
+        for (s0, e0), v in zip(spans, vs):
+            out.append(expr[last:s0])
+            out.append(repr(v))
+            last = e0
+        out.append(expr[last:])
+        return "".join(out)
+
+    for i in sorted(range(len(vals)), key=lambda i: abs(vals[i])):
+        keep = vals[i]
+        for places in range(1, 8):
+            r = round(keep, places)
+            if r == keep:
+                break
+            vals[i] = r
+            if error(rebuild(vals), env, y, w, scale) <= bound:
+                break
+            vals[i] = keep
+    return rebuild(vals)
+
+
+def search(curve, iters, maxsize, sub):
+    # imported lazily: --check-ops needs none of this, and loading PySR pulls in a
+    # Julia runtime that takes a while to start
+    from pysr import PySRRegressor
+
+    maxsize = curve.get("maxsize", maxsize)
+    env_full = {k: np.array(v) for k, v in curve["vars"].items()}
+    y = np.array(curve["y"])
+    w = np.array(curve.get("w") or np.ones_like(y))
+    keep = w > 0.5  # samples the generator flagged as unfittable
+    env = {k: v[keep] for k, v in env_full.items()}
+    y, w = y[keep], w[keep]
+    names = list(env)
+
+    X = np.column_stack([env[k] for k in names])
+    if len(y) > sub:  # even stride keeps hue coverage uniform
+        idx = np.linspace(0, len(y) - 1, sub).astype(int)
+        Xf, yf, wf = X[idx], y[idx], w[idx]
+    else:
+        Xf, yf, wf = X, y, w
+
+    model = PySRRegressor(
+        niterations=iters,
+        binary_operators=BINARY,
+        unary_operators=UNARY,
+        maxsize=maxsize,
+        populations=int(os.environ.get("POPS", "20")),
+        parallelism="serial",
+        progress=False,
+        verbosity=0,
+        temp_equation_file=True,
+        # complexity is denominated in the bytes the operator costs to PRINT, so the
+        # Pareto front is directly the size/accuracy tradeoff
+        complexity_of_variables=1,
+        complexity_of_constants=5,
+        complexity_of_operators=COST,
+    )
+    model.fit(Xf, yf, weights=wf, variable_names=names)
+
+    target = curve["target"]
+    scale = curve["scale"]
+    # re-score the whole front on the FULL sample; it was fitted on a subsample
+    scored = [
+        (error(str(r["equation"]), env, y, w, scale), str(r["equation"]))
+        for _, r in model.equations_.iterrows()
+    ]
+    ok = [t for t in scored if t[0] <= target]
+    _, expr = min(ok, key=lambda t: len(to_css(t[1]))) if ok else min(scored)
+
+    css = to_css(expr)
+    css = to_css(
+        shrink(css, env, y, w, scale, max(target, error(css, env, y, w, scale)))
+    )
+    dE = error(css, env, y, w, scale)
+    return css, (dE if math.isfinite(dE) else 1e9)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--iters", type=int, default=40)
+    ap.add_argument("--maxsize", type=int, default=45)
+    ap.add_argument("--sub", type=int, default=400)
+    ap.add_argument(
+        "--curves", type=int, default=0, help="stop after N (for a smoke test)"
+    )
+    ap.add_argument("--only", default="", help="substring filter on curve id")
+    ap.add_argument(
+        "--fits",
+        type=Path,
+        default=DEFAULT_FITS,
+        help="where to read/write fits (default build/livetheme-fits.json)",
+    )
+    args = ap.parse_args()
+    fits_path = args.fits
+    fits_path.parent.mkdir(parents=True, exist_ok=True)
+    curves = json.loads(CURVES.read_text())
+    if args.only:
+        curves = [c for c in curves if args.only in c["id"]]
+    if args.curves:
+        curves = curves[: args.curves]
+
+    # Resume: Julia does not release state between fits, so long runs are chunked
+    # by an outer driver and every curve is checkpointed as it lands.
+    fits = json.loads(fits_path.read_text()) if fits_path.exists() else {}
+    todo = [c for c in curves if c["id"] not in fits]
+    print(f"{len(fits)} already fitted, {len(todo)} to go", flush=True)
+
+    t0 = time.time()
+    for i, curve in enumerate(todo):
+        css, dE = search(curve, args.iters, args.maxsize, args.sub)
+        fits[curve["id"]] = {"css": css, "dE": dE, "target": curve["target"]}
+        fits_path.write_text(
+            json.dumps(fits, indent=1, sort_keys=True, allow_nan=False)
+        )
+        flag = "" if dE <= curve["target"] else "  OVER"
+        print(
+            f"[{i + 1}/{len(todo)}] {curve['id']:44} {len(css):4d}B  "
+            f"dE {dE:6.2f} / {curve['target']:.2f}{flag}   "
+            f"{(time.time() - t0) / (i + 1):.1f}s/curve",
+            flush=True,
+        )
+
+    over = [k for k, v in fits.items() if v["dE"] > v["target"] + 1e-9]
+    print(f"\n{len(fits)} curves fitted, {len(over)} above target")
+
+
+if __name__ == "__main__":
+    main()

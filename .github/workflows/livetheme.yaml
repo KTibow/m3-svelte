@@ -1,0 +1,114 @@
+name: livetheme
+
+# Fits the colour curves for the livethemes and uploads the result as JSON.
+#
+# That is all it does. Emitting a stylesheet from the fits is fast and local:
+#   node --experimental-strip-types scripts/generate-livetheme.ts <variant> \
+#     --fits ~/Downloads/livetheme-fits.json
+#
+# It runs here rather than locally because the search is memory-hungry and Julia does
+# not release state between fits; on a workstation that is how you lose the
+# workstation. A runner is isolated and disposable, and one job per variant means a
+# variant that blows up takes nothing else with it.
+
+on:
+  workflow_dispatch:
+    inputs:
+      variants:
+        description: space-separated variants (blank = all)
+        default: ""
+      iters:
+        description: PySR iterations per curve
+        default: "40"
+
+concurrency:
+  group: livetheme-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      variants: ${{ steps.pick.outputs.variants }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Pick variants
+        id: pick
+        run: |
+          list="${{ inputs.variants }}"
+          [ -z "$list" ] && list="tonalspot2021 tonalspot2025 neutral2021 neutral2025 expressive2025 vibrant2025 fruitsalad2021 rainbow2021"
+          echo "variants=$(printf '%s\n' $list | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
+
+  fit:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ${{ fromJSON(needs.plan.outputs.variants) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: PNPM
+        uses: pnpm/setup@v1
+        with:
+          version: latest
+          runtime: node@latest
+      - name: uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Fit every layer
+        env:
+          ITERS: ${{ inputs.iters || '40' }}
+        run: |
+          # Curves come in layers: a role can only be fitted once the palette
+          # expression it reads has been fitted, because it must be fitted against
+          # what CSS will really compute. Loop until --dump reports nothing left.
+          for pass in 1 2 3 4; do
+            node --experimental-strip-types scripts/generate-livetheme.ts \
+              "${{ matrix.variant }}" --dump
+            n=$(node -e "console.log(require('./build/livetheme-curves.json').length)")
+            [ "$n" -eq 0 ] && break
+            echo "::group::pass $pass -- $n curves"
+            # Chunked: Julia state accumulates across fits, so each chunk is a fresh
+            # process. --curves bounds the chunk; the loop resumes from the fits file.
+            for i in $(seq 1 40); do
+              left=$(node -e "
+                const c = require('./build/livetheme-curves.json');
+                let f = {}; try { f = require('./build/livetheme-fits.json') } catch {}
+                console.log(c.filter((x) => !f[x.id]).length)")
+              [ "$left" -eq 0 ] && break
+              uv run scripts/livetheme-search.py --curves 8 --iters "$ITERS" || true
+            done
+            echo "::endgroup::"
+          done
+
+      - name: Upload fits
+        uses: actions/upload-artifact@v4
+        with:
+          name: fits-${{ matrix.variant }}
+          path: build/livetheme-fits.json
+
+  merge:
+    needs: fit
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download per-variant fits
+        uses: actions/download-artifact@v4
+        with:
+          pattern: fits-*
+      # Every variant namespaces its curve ids, so the per-variant files merge into
+      # one download that covers all of them.
+      - name: Merge into one file
+        run: |
+          jq -s 'add' fits-*/livetheme-fits.json > livetheme-fits.json
+          echo "$(jq 'length' livetheme-fits.json) curves fitted across all variants" \
+            >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload merged fits
+        uses: actions/upload-artifact@v4
+        with:
+          name: livetheme-fits
+          path: livetheme-fits.json
