@@ -422,13 +422,24 @@ def search(curve, iters, maxsize, sub):
     # margin above the best any candidate achieved, so the bar adapts to the curve.
     reachable = min(e for e, _ in scored) if scored else math.inf
     bound = max(target, reachable * 1.1)
-    ok = [t for t in scored if t[0] <= bound]
-    _, expr = min(ok, key=lambda t: len(to_css(t[1]))) if ok else min(scored)
 
-    css = to_css(expr)
-    css = to_css(
-        shrink(css, env, y, w, scale, max(bound, error(css, env, y, w, scale)))
-    )
+    def finish(expr, budget):
+        """render and cut precision. The second to_css is load-bearing: a constant
+        that rounds to 0 or 1 folds away, taking a whole term or factor with it."""
+        return to_css(shrink(to_css(expr), env, y, w, scale, budget))
+
+    # Shrink every candidate BEFORE choosing, not just the winner after. Rendered
+    # losslessly a constant is 13-18 bytes but survives `shrink` at 3-4, so ranking on
+    # the unshrunk text charged constant-heavy candidates for bytes nobody pays and
+    # systematically picked structure -- which does not shrink at all -- over
+    # arithmetic, which does. Every candidate gets the same accuracy budget, so this
+    # compares what actually gets emitted.
+    ok = [t for t in scored if t[0] <= bound]
+    if ok:
+        css = min((finish(expr, bound) for _, expr in ok), key=len)
+    else:
+        worst, expr = min(scored)
+        css = finish(expr, max(bound, worst))
     dE = error(css, env, y, w, scale)
     return (
         css,
