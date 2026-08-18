@@ -31,7 +31,7 @@
 </h2>
 {#if $appType == "tailwind"}
   <p>
-    ⚠️ Tailwind <a href="https://github.com/tailwindlabs/tailwindcss/pull/19427"
+    ⚠️ Tailwind <a href="https://github.com/parcel-bundler/lightningcss/issues/788"
       >may not support mixins yet</a
     >. You may need to stay on M3 Svelte v5 for now.
   </p>
