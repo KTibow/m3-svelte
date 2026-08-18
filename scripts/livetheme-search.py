@@ -152,13 +152,23 @@ def _emit(node):
         return format_number(float(node.value)), PREC_ATOM
     if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
         fn = node.func.id
-        args = [_emit(a)[0] for a in node.args]
+        # abs and sign are idempotent, and the search stacks them. Collapse on the
+        # TREE: "starts with abs(" does not mean "is one abs() call", so testing the
+        # printed text matched abs(a) + b too, and slicing off "abs(" and the last
+        # character then cut a term in half and unbalanced the parentheses.
+        inner = node.args
+        while (
+            fn in ("abs", "sign")
+            and len(inner) == 1
+            and isinstance(inner[0], ast.Call)
+            and isinstance(inner[0].func, ast.Name)
+            and inner[0].func.id == fn
+        ):
+            inner = inner[0].args
+        args = [_emit(a)[0] for a in inner]
         # A call whose arguments are all constant is a constant. The search emits
         # these constantly -- abs(abs(sign(b))), max(-.942,-1.1), round(round(-1.4)) --
         # and printing them verbatim inflates every byte count with dead weight.
-        # abs and sign are idempotent, and the search stacks them
-        while fn in ("abs", "sign") and len(args) == 1 and args[0].startswith(f"{fn}("):
-            args = [args[0][len(fn) + 1 : -1]]
         if all(NUMBER.fullmatch(a) for a in args):
             value = (
                 EVAL_FUNCTIONS[fn](*(float(a) for a in args))
@@ -218,12 +228,15 @@ def _emit(node):
 
 
 def to_css(expr: str) -> str:
+    """Raises on anything it cannot print. This used to return `expr` unchanged on any
+    exception, which is a fallback that cannot work: the input is Julia's syntax, so
+    if _emit could not read it there is no reason CSS can. What it actually did was
+    launder a printer bug into the stylesheet -- `finish` calls to_css twice, so a
+    first pass that emitted unbalanced parens came back through here, failed to parse,
+    and was handed on verbatim. The caller decides what to do with the failure."""
     import ast
 
-    try:
-        return _emit(ast.parse(expr.strip(), mode="eval").body)[0]
-    except Exception:  # noqa: BLE001 -- printing is best-effort; on any surprise
-        return expr  # node shape, fall back to what the search produced
+    return _emit(ast.parse(expr.strip(), mode="eval").body)[0]
 
 
 # --- scoring ----------------------------------------------------------------
@@ -430,9 +443,32 @@ def search(curve, iters, maxsize, sub):
     bound = max(target, reachable * 1.1)
 
     def finish(expr, budget):
-        """render and cut precision. The second to_css is load-bearing: a constant
-        that rounds to 0 or 1 folds away, taking a whole term or factor with it."""
-        return to_css(shrink(to_css(expr), env, y, w, scale, budget))
+        """render, cut precision, and score what will actually be emitted. The second
+        to_css is load-bearing: a constant that rounds to 0 or 1 folds away, taking a
+        whole term or factor with it.
+
+        The score is taken here, on the rendered text, because that is the only string
+        anyone downstream sees. A candidate whose render does not evaluate is not a
+        candidate -- it is a printer bug, and it stops being one silently the moment
+        its dE comes back non-finite."""
+        css = to_css(shrink(to_css(expr), env, y, w, scale, budget))
+        dE = error(css, env, y, w, scale)
+        if not math.isfinite(dE):
+            raise ValueError(f"{expr!r} rendered to something unevaluable: {css!r}")
+        return css, dE
+
+    def rendered(pairs, budget):
+        """Every candidate that survives printing, loudly. A gap in the printer costs
+        one entry off the Pareto front rather than the whole curve, but it is never
+        swallowed: it is reported per candidate, and if it takes all of them the curve
+        raises instead of shipping whatever string came out."""
+        out = []
+        for _, expr in pairs:
+            try:
+                out.append(finish(expr, budget))
+            except (SyntaxError, ValueError) as e:
+                print(f"    unprintable: {e}", flush=True)
+        return out
 
     # Shrink every candidate BEFORE choosing, not just the winner after. Rendered
     # losslessly a constant is 13-18 bytes but survives `shrink` at 3-4, so ranking on
@@ -440,18 +476,14 @@ def search(curve, iters, maxsize, sub):
     # systematically picked structure -- which does not shrink at all -- over
     # arithmetic, which does. Every candidate gets the same accuracy budget, so this
     # compares what actually gets emitted.
-    ok = [t for t in scored if t[0] <= bound]
-    if ok:
-        css = min((finish(expr, bound) for _, expr in ok), key=len)
-    else:
+    cands = rendered([t for t in scored if t[0] <= bound], bound)
+    if not cands:
         worst, expr = min(scored)
-        css = finish(expr, max(bound, worst))
-    dE = error(css, env, y, w, scale)
-    return (
-        css,
-        (dE if math.isfinite(dE) else 1e9),
-        (reachable if math.isfinite(reachable) else 1e9),
-    )
+        cands = rendered([(worst, expr)], max(bound, worst))
+    if not cands:
+        raise ValueError(f"{curve['id']}: no candidate could be printed")
+    css, dE = min(cands, key=lambda c: len(c[0]))
+    return css, dE, (reachable if math.isfinite(reachable) else 1e9)
 
 
 def main():

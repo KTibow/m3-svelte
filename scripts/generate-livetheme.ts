@@ -630,7 +630,7 @@ const hoistable = (s: string) => {
   return s;
 };
 const hoistPass = (decls: string[]) => {
-  const seg = [decls.join(";\n")];
+  const seg = [decls.map(x => `  ${x}`).join(";\n")];
   let i = 0;
   for (const expr of [...new Set(HOIST)].sort((a, b) => b.length - a.length)) {
     let uses = 0;
@@ -704,7 +704,7 @@ const rd = Object.entries(byRole).map(([rn, m]: [string, any]) => {
   };
   const l = one(m.light),
     d = one(m.dark);
-  return `--m3c-${rn}:${l === d ? l : `light-dark(${l},${d})`}`;
+  return `--m3c-${rn}: ${l === d ? l : `light-dark(${l},${d})`}`;
 });
 
 // Standalone on purpose: one @import is the whole API. --source defaults to the OS
