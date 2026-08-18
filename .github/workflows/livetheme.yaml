@@ -3,7 +3,7 @@ name: livetheme
 # Fits the colour curves for the livethemes and uploads the result as JSON.
 #
 # That is all it does. Emitting a stylesheet from the fits is fast and local:
-#   node --experimental-strip-types scripts/generate-livetheme.ts <variant> \
+#   node scripts/generate-livetheme.ts <variant> \
 #     --fits ~/Downloads/livetheme-fits.json
 #
 # It runs here rather than locally because the search is memory-hungry and Julia does
@@ -80,7 +80,7 @@ jobs:
               console.log(c.filter((x) => !f[x.id]).length)"
           }
           for pass in 1 2 3 4; do
-            node --experimental-strip-types scripts/generate-livetheme.ts \
+            node scripts/generate-livetheme.ts \
               "${{ matrix.variant }}" --dump
             n=$(left)
             if [ "$n" -eq 0 ]; then break; fi

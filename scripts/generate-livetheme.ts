@@ -1,11 +1,11 @@
 /**
  * Emit a stylesheet that reproduces a Material Color Utilities scheme entirely in
- * CSS, computed live from one `--source` custom property. No JS at runtime, no
+ * CSS, computed live from one `--m3v-source` custom property. No JS at runtime, no
  * trigonometry, so it runs in both Firefox and Chromium.
  *
- *   node --experimental-strip-types scripts/generate-livetheme.ts <variants> --dump
+ *   node scripts/generate-livetheme.ts <variants> --dump
  *   uv run scripts/livetheme-search.py            # fits the dumped curves
- *   node --experimental-strip-types scripts/generate-livetheme.ts <variants>
+ *   node scripts/generate-livetheme.ts <variants>
  *
  * <variants> is a space-separated list, and blank means all of them -- the same
  * spelling the CI workflow takes. More than one runs a child process each.
@@ -14,7 +14,7 @@
  * .github/workflows/oklch-theme.yaml) and publishes the fits as an artifact. To emit
  * from a downloaded copy without re-running anything:
  *
- *   node --experimental-strip-types scripts/generate-livetheme.ts <variant> \
+ *   node scripts/generate-livetheme.ts <variant> \
  *     --fits ~/Downloads/livetheme-fits.json
  *
  * The dump/search/emit cycle repeats until `--dump` reports nothing left: curves
@@ -544,7 +544,7 @@ for (const mode of ["light", "dark"] as const) {
   for (const role of ROLES as DynamicColor[]) {
     const roleName = role.name.replaceAll("_", "-");
     const argbs = SCHEMES[mode].map((s) => role.getArgb(s));
-    // A role that ignores --source costs nothing to emit exactly: shadow and scrim
+    // A role that ignores --m3v-source costs nothing to emit exactly: shadow and scrim
     // are always black, and the 2021 error palette is a fixed hue, so a third of all
     // roles land here. Testing the rendered argb needs no per-variant table.
     if (argbs.every((v) => v === argbs[0])) {
@@ -651,7 +651,7 @@ const usedKeys = new Set(entries.filter((e) => !e.literal).map((e) => e.key));
 const CE = hoistable("max(hypot(a,b),.00001)");
 const pd: string[] = [];
 // --u carries: L = source lightness, (a,b) = unit hue vector, alpha = source chroma
-pd.push(`--u:oklab(from var(--source) l calc(a/${CE}) calc(b/${CE}) / calc(${CE}))`);
+pd.push(`--u:oklab(from var(--m3v-source) l calc(a/${CE}) calc(b/${CE}) / calc(${CE}))`);
 for (const [key, palette] of palInfo) {
   if (!usedKeys.has(key)) continue;
   let base = "var(--u)";
@@ -707,10 +707,6 @@ const rd = Object.entries(byRole).map(([rn, m]: [string, any]) => {
   return `--m3c-${rn}: ${l === d ? l : `light-dark(${l},${d})`}`;
 });
 
-// Standalone on purpose: one @import is the whole API. --source defaults to the OS
-// accent so an unconfigured import already themes to the user, and .m3-theme lets a
-// subtree carry its own --source -- the custom properties are re-evaluated per
-// element, so a nested theme just works.
 const css = `:root, .m3-theme {
 ${hoistPass([...pd, ...rd])}
 }

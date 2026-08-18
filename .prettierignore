@@ -7,3 +7,4 @@ bun.lockb
 
 src/lib/misc/shapesAnimatable.ts
 src/lib/misc/shapesAnimatableSmall.ts
+src/lib/etc/livetheme/
