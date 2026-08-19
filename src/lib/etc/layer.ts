@@ -147,6 +147,7 @@ if (typeof document != "undefined") {
   };
   document.addEventListener("pointerup", cancelPointerRipples);
   document.addEventListener("dragend", cancelPointerRipples);
+  document.addEventListener("touchend", cancelPointerRipples);
 
   // Keyboard events
   document.addEventListener("keydown", (e) => {
