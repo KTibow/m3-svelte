@@ -147,7 +147,12 @@ if (typeof document != "undefined") {
   };
   document.addEventListener("pointerup", cancelPointerRipples);
   document.addEventListener("dragend", cancelPointerRipples);
+
+  // Mobile events
+  // Triggered during swipe off
   document.addEventListener("touchend", cancelPointerRipples);
+  // Triggered when browser feature triggers when holding (context menu, pull to refresh, etc.)
+  document.addEventListener("touchcancel", cancelPointerRipples);
 
   // Keyboard events
   document.addEventListener("keydown", (e) => {
