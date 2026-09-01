@@ -34,7 +34,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
       - name: PNPM
-        uses: pnpm/setup@v1
+        uses: pnpm/setup@v2
         with:
           version: latest
           runtime: node@latest
@@ -59,12 +59,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
       - name: PNPM
-        uses: pnpm/setup@v1
+        uses: pnpm/setup@v2
         with:
           version: latest
           runtime: node@latest
       - name: uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v7
 
       - name: Fit every layer
         env:
@@ -102,7 +102,7 @@ jobs:
           done
 
       - name: Upload fits
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fits-${{ matrix.variant }}
           path: build/livetheme-fits.json
@@ -113,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download per-variant fits
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: fits-*
       # Every variant namespaces its curve ids, so the per-variant files merge into
@@ -124,7 +124,7 @@ jobs:
           echo "$(jq 'length' livetheme-fits.json) curves fitted across all variants" \
             >> "$GITHUB_STEP_SUMMARY"
       - name: Upload merged fits
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: livetheme-fits
           path: livetheme-fits.json

@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-      - uses: pnpm/setup@v1
+      - uses: pnpm/setup@v2
         name: PNPM
         with:
           version: latest
