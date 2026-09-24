@@ -29,7 +29,7 @@
   .anchor {
     display: flex;
     flex-direction: column;
-    padding-inline: 1.5rem;
+    padding-inline: 0.5rem;
     padding-bottom: 1.5rem;
     flex-grow: 1;
 

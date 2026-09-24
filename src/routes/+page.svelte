@@ -2,7 +2,7 @@
   import { slide } from "svelte/transition";
   import { innerWidth } from "svelte/reactivity/window";
   import { easeEmphasized } from "$lib/misc/easing";
-  import StandardSideSheet from "$lib/containers/StandardSideSheet.svelte";
+  import SideSheet from "$lib/containers/SideSheet.svelte";
   import BottomSheet from "$lib/containers/BottomSheet.svelte";
 
   import Doc from "./_doc.svelte";
@@ -110,11 +110,9 @@
     {/await}
   </main>
   {#if doc && innerWidth.current && innerWidth.current >= 600}
-    <div class="sheet" transition:slide={{ easing: easeEmphasized, duration: 500, axis: "x" }}>
-      <StandardSideSheet headline={doc.name} close={() => (doc = undefined)}>
-        {@render docs()}
-      </StandardSideSheet>
-    </div>
+    <SideSheet headline={doc.name} close={() => (doc = undefined)} modal>
+      {@render docs()}
+    </SideSheet>
   {:else if doc}
     <BottomSheet close={() => (doc = undefined)}>
       {@render docs()}
@@ -138,19 +136,6 @@
     margin-bottom: 1rem;
 
     grid-column: 1;
-  }
-  .sheet {
-    display: grid;
-    width: 16rem;
-    margin-inline-start: 1rem;
-    border-inline-start: solid 1px var(--m3c-outline);
-
-    position: sticky;
-    top: 0;
-    height: 100dvh;
-    overflow: auto;
-    grid-row: 1 / span 3;
-    grid-column: 2;
   }
 
   @media (width >= 52.5rem) {

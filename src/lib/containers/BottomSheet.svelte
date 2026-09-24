@@ -5,15 +5,33 @@
   import { outroClass } from "$lib/misc/animation";
 
   // todo/deprecated: remove "click" and "esc" and onmousedown, switch to closedby="any" and "cancel"
-  let { children, close }: { children: Snippet; close: (reason: "esc" | "click" | "low") => void } =
-    $props();
+  // Waiting on webkit support: https://bugs.webkit.org/show_bug.cgi?id=284592
+  let {
+    children,
+    close,
+    handle,
+    modal
+  }: {
+    children: Snippet;
+    close: (reason: "esc" | "click" | "low") => void;
+    handle?: boolean;
+    modal?: boolean;
+  } = $props();
+
+  handle ??= true;
+  modal ??= false;
 
   let height = $state(480);
   let container: HTMLDivElement | undefined = $state();
   let isDragging = $state(false),
     startY = $state(0);
 
-  const open = (node: HTMLDialogElement) => node.showModal();
+  const open = (node: HTMLDialogElement) => {
+    node.showModal();
+
+    return outroClass(node).destroy;
+  };
+
   const heightAnim = (
     node: HTMLDialogElement,
     options: { duration: number; easing: typeof easeEmphasizedDecel },
@@ -52,9 +70,9 @@
 
 <dialog
   class="m3-container"
+  class:modal
   style:max-height="{height}px"
-  use:open
-  use:outroClass
+  {@attach open}
   oncancel={(e) => {
     e.preventDefault();
     close("esc");
@@ -67,6 +85,7 @@
   in:heightAnim={{ easing: easeEmphasizedDecel, duration: 400 }}
   out:heightAnim={{ easing: easeEmphasizedAccel, duration: 300 }}
 >
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
     class="container"
     bind:this={container}
@@ -76,16 +95,19 @@
     }}
   >
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div
-      class="handle-container"
-      onmousedown={(e) => {
-        e.preventDefault();
-        isDragging = true;
-        startY = e.clientY;
-      }}
-    >
-      <div class="handle"></div>
-    </div>
+    {#if handle}
+      <div
+        class="handle-container"
+        onmousedown={(e) => {
+          e.preventDefault();
+          isDragging = true;
+          startY = e.clientY;
+        }}
+      >
+        <div class="handle"></div>
+      </div>
+    {/if}
+
     {@render children()}
   </div>
 </dialog>
@@ -108,18 +130,21 @@
     color: var(--m3c-on-surface);
     border-radius: var(--m3-bottom-sheet-shape) var(--m3-bottom-sheet-shape) 0 0;
     border: none;
-    padding: 0;
+    padding: 0 1.5rem;
   }
-  dialog::backdrop {
+  .m3-container:not(.modal) {
+    box-shadow: var(--m3-elevation-3);
+  }
+  .m3-container.modal::backdrop {
     background-color: --translucent(var(--m3c-scrim), 0.5);
     animation: backdrop 400ms;
   }
-  dialog:global(.leaving)::backdrop {
+  .m3-container.modal:global(.leaving)::backdrop {
     background-color: transparent;
     animation: backdropReverse 400ms;
   }
-  .container {
-    padding: 0 1rem;
+  .m3-container:not(:has(.handle-container)) {
+    padding-block-start: 1.5rem;
   }
   .handle-container {
     display: flex;
