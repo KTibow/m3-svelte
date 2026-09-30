@@ -162,32 +162,27 @@
     }
   }
   @supports (anchor-name: --a) {
-    @position-try --bottom-right {
-      position-area: bottom right;
-      margin-left: -3rem;
+    summary {
+      anchor-name: var(--anchor-name);
     }
-    @position-try --top-right {
-      position-area: top right;
-      margin-left: -3rem;
-    }
-    @position-try --bottom-left {
-      position-area: bottom left;
-      margin-right: -3rem;
-    }
-    @position-try --top-left {
-      position-area: top left;
-      margin-right: -3rem;
-    }
-    details {
-      z-index: 1;
-      summary {
-        anchor-name: var(--anchor-name);
+    details > :global(:not(summary)) :global {
+      position: fixed !important;
+      position-anchor: var(--anchor-name);
+      position-try-fallbacks:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline;
+      details.align-inner.align-down > & {
+        position-area: bottom span-right;
       }
-      > :global(:not(summary)) :global {
-        position: fixed !important;
-        position-anchor: var(--anchor-name);
-        margin-left: -3rem;
-        position-try-fallbacks: --bottom-right, --top-right, --bottom-left, --top-left;
+      details.align-inner.align-up > & {
+        position-area: top span-right;
+      }
+      details.align-right.align-down > & {
+        position-area: bottom span-left;
+      }
+      details.align-right.align-up > & {
+        position-area: top span-left;
       }
     }
   }
