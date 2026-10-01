@@ -34,7 +34,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
       - name: PNPM
-        uses: pnpm/setup@v2
+        uses: pnpm/setup@v3
         with:
           version: latest
           runtime: node@latest
@@ -59,7 +59,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
       - name: PNPM
-        uses: pnpm/setup@v2
+        uses: pnpm/setup@v3
         with:
           version: latest
           runtime: node@latest
