@@ -1,0 +1,39 @@
+<svg width="861" height="167" viewBox="0 0 861 167" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      <![CDATA[
+        @import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,700&display=swap");
+      ]]>
+    </style>
+    <linearGradient id="fill" x1="0" y1="0" x2="861" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffb0c8"/>
+      <stop offset="0.08333333333333333" stop-color="#ffb4a5"/>
+      <stop offset="0.16666666666666666" stop-color="#ffb77a"/>
+      <stop offset="0.25" stop-color="#e5c36c"/>
+      <stop offset="0.3333333333333333" stop-color="#c0ce7e"/>
+      <stop offset="0.4166666666666667" stop-color="#9cd49f"/>
+      <stop offset="0.5" stop-color="#84d6c2"/>
+      <stop offset="0.5833333333333334" stop-color="#82d3e1"/>
+      <stop offset="0.6666666666666666" stop-color="#94cdf7"/>
+      <stop offset="0.75" stop-color="#b2c5ff"/>
+      <stop offset="0.8333333333333334" stop-color="#d0bcfe"/>
+      <stop offset="0.9166666666666666" stop-color="#edb4ea"/>
+      <stop offset="1" stop-color="#ffb0c8"/>
+    </linearGradient>
+    <mask id="shape">
+      <g transform="scale(1.3)">
+        <path fill="white" d="M94 23a34 34 0 0 0-46-10L22 30A30 30 0 0 0 9 50a32 32 0 0 0 3 20L7 81a32 32 0 0 0 6 24c10 15 31 19 46 10l26-17a30 30 0 0 0 13-20 32 32 0 0 0-3-20l5-11a32 32 0 0 0-6-24"/>
+        <path fill="black" d="M46 107a21 21 0 0 1-22-9 19 19 0 0 1-4-14l1-3v-1l2 1 10 5h1v1l1 4a6 6 0 0 0 7 3l1-1 26-17 3-3-1-5a6 6 0 0 0-7-2h-2l-10 7-5 2a21 21 0 0 1-22-8 19 19 0 0 1-3-15 18 18 0 0 1 8-12l26-16 5-3a21 21 0 0 1 22 9 19 19 0 0 1 4 14l-1 3v1l-2-1-10-5h-1v-1l-1-4a6 6 0 0 0-7-3l-1 1-26 17-3 3 1 5a6 6 0 0 0 7 2h2l10-7 5-2a21 21 0 0 1 22 8 19 19 0 0 1 3 15 18 18 0 0 1-8 12l-26 16z"/>
+      </g>
+      <text
+        x="162.1"
+        y="138.2"
+        font-family="Google Sans Flex"
+        font-size="150"
+        font-weight="700"
+        fill="white"
+      >M3 Svelte</text>
+    </mask>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#fill)" mask="url(#shape)"/>
+</svg>
