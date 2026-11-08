@@ -404,6 +404,8 @@ const curve = (
 // candidate anyway, which is built outside the search and is not bound by this.
 const PALETTE_SIZE = 60;
 const ROLE_SIZE = 45;
+// How accurate a role curve has to be before the search takes the shortest answer.
+const ROLE_TARGET = +(process.env.ROLE_TARGET ?? 0.6);
 
 // --- palettes ----------------------------------------------------------------
 // MCU's rotations are piecewise-constant in HCT hue. Rather than transcribe the
@@ -571,7 +573,7 @@ for (const mode of ["light", "dark"] as const) {
       out.map((o) => o[0]),
       palette.wPal,
       1000,
-      0.6,
+      ROLE_TARGET,
       ROLE_SIZE,
     );
     const C = curve(
@@ -580,7 +582,7 @@ for (const mode of ["light", "dark"] as const) {
       out.map((o) => o[1]),
       palette.wPal,
       1000,
-      0.6,
+      ROLE_TARGET,
       ROLE_SIZE,
     );
     const H = curve(
@@ -589,7 +591,7 @@ for (const mode of ["light", "dark"] as const) {
       out.map((o, i) => circularDiff(o[2], palette.hueCss[i])),
       palette.wPal.map((x: number, i: number) => x * Math.max(out[i][1], 1e-4) ** 2),
       Math.max(meanC, 1e-3) * DEG_TO_RAD * 1000,
-      0.6,
+      ROLE_TARGET,
       ROLE_SIZE,
     );
     if (L && C && H) entries.push({ role: roleName, mode, key, L, C, H });
