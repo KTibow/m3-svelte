@@ -5,7 +5,7 @@
   import iconGuidelines from "@ktibow/iconset-material-symbols/lightbulb";
   import iconAccessibility from "@ktibow/iconset-material-symbols/accessibility";
 
-  let currentTab = "overview";
+  let currentTab = $state("overview");
   const tabs = [
     { icon: iconInfo, label: "Overview", id: "overview" },
     { icon: iconSpecs, label: "Specs", id: "specs" },

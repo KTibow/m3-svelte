@@ -10,6 +10,8 @@
   import iconPages from "@ktibow/iconset-material-symbols/pages";
   import "./layout.css";
 
+  let { children } = $props();
+
   // not implemented: using an outlined icon if not selected
   const navItems = [
     { icon: iconHome, label: "Home", id: "home" },
@@ -40,7 +42,7 @@
   </NavCMLX>
 </div>
 <div class="main">
-  <slot />
+  {@render children()}
 </div>
 
 <style>

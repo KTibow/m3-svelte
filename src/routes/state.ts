@@ -1,4 +1,6 @@
 import { writable } from "svelte/store";
+import { pushState } from "$app/navigation";
+import { resolve } from "$app/paths";
 
 export const styling = writable(`:root {
   color-scheme: light dark;
@@ -47,3 +49,9 @@ export const appType = writable("vanilla");
 export const sourceColor = writable(0xffd0bcff);
 export const secondarySourceColor = writable(0xffffcfee);
 export const density = writable<"variable" | number>(0);
+
+export const openThemeModal = (e: MouseEvent) => {
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  pushState(resolve("theme"), { themeModal: true });
+};

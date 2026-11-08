@@ -1,3 +1,138 @@
+@property --u{syntax:"<color>";inherits:true;initial-value:#000}
+@property --hpl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --hsl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --htl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --hnl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --hel{syntax:"<color>";inherits:true;initial-value:#000}
+@property --hpd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --hsd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --htd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --hnd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --hed{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r0l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r0d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r2l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r2d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r3l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r3d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r4l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r4d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r5l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r5d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r6l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r6d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r7l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r7d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r8l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r8d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r9l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r9d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --ral{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rad{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rbl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rbd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rcl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rcd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rdl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rdd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rel{syntax:"<color>";inherits:true;initial-value:#000}
+@property --red{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rfl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rfd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rgl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rgd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rhl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rhd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --ril{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rid{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rjl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rjd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rkl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rkd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rll{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rld{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rml{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rmd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rnl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rnd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rol{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rod{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rpl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rpd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rql{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rqd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rrl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rrd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rsl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rsd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rvl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rvd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rwl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rwd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rxl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rxd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --ryl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --ryd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rzl{syntax:"<color>";inherits:true;initial-value:#000}
+@property --rzd{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r10l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r10d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r11l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r11d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r12l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r12d{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r13l{syntax:"<color>";inherits:true;initial-value:#000}
+@property --r13d{syntax:"<color>";inherits:true;initial-value:#000}
+:root {
+  color-scheme: light dark;
+}
+@layer tokens {
+  :root {
+    --m3v-source: AccentColor;
+  }
+  :root, .m3-theme {
+    --m3c-surface: light-dark(var(--r0l),var(--r0d));
+    --m3c-surface-container-lowest: light-dark(#ffffff,#000000);
+    --m3c-surface-container-low: light-dark(var(--r2l),var(--r2d));
+    --m3c-surface-container: light-dark(var(--r3l),var(--r3d));
+    --m3c-surface-container-high: light-dark(var(--r4l),var(--r4d));
+    --m3c-surface-container-highest: light-dark(var(--r5l),var(--r5d));
+    --m3c-on-surface: light-dark(var(--r6l),var(--r6d));
+    --m3c-on-surface-variant: light-dark(var(--r7l),var(--r7d));
+    --m3c-outline: light-dark(var(--r8l),var(--r8d));
+    --m3c-outline-variant: light-dark(var(--r9l),var(--r9d));
+    --m3c-inverse-surface: light-dark(var(--ral),var(--rad));
+    --m3c-inverse-on-surface: light-dark(var(--rbl),var(--rbd));
+    --m3c-primary: light-dark(var(--rcl),var(--rcd));
+    --m3c-on-primary: light-dark(var(--rdl),var(--rdd));
+    --m3c-primary-container: light-dark(var(--rel),var(--red));
+    --m3c-on-primary-container: light-dark(var(--rfl),var(--rfd));
+    --m3c-inverse-primary: light-dark(var(--rgl),var(--rgd));
+    --m3c-secondary: light-dark(var(--rhl),var(--rhd));
+    --m3c-on-secondary: light-dark(var(--ril),var(--rid));
+    --m3c-secondary-container: light-dark(var(--rjl),var(--rjd));
+    --m3c-on-secondary-container: light-dark(var(--rkl),var(--rkd));
+    --m3c-tertiary: light-dark(var(--rll),var(--rld));
+    --m3c-on-tertiary: light-dark(var(--rml),var(--rmd));
+    --m3c-tertiary-container: light-dark(var(--rnl),var(--rnd));
+    --m3c-on-tertiary-container: light-dark(var(--rol),var(--rod));
+    --m3c-error: light-dark(var(--rpl),var(--rpd));
+    --m3c-on-error: light-dark(var(--rql),var(--rqd));
+    --m3c-error-container: light-dark(var(--rrl),var(--rrd));
+    --m3c-on-error-container: light-dark(var(--rsl),var(--rsd));
+    --m3c-shadow: #000000;
+    --m3c-scrim: #000000;
+    --m3c-on-on-primary: light-dark(var(--rvl),var(--rvd));
+    --m3c-primary-container-subtle: light-dark(var(--rwl),var(--rwd));
+    --m3c-on-primary-container-subtle: light-dark(var(--rxl),var(--rxd));
+    --m3c-secondary-container-subtle: light-dark(var(--ryl),var(--ryd));
+    --m3c-on-secondary-container-subtle: light-dark(var(--rzl),var(--rzd));
+    --m3c-tertiary-container-subtle: light-dark(var(--r10l),var(--r10d));
+    --m3c-on-tertiary-container-subtle: light-dark(var(--r11l),var(--r11d));
+    --m3c-error-container-subtle: light-dark(var(--r12l),var(--r12d));
+    --m3c-on-error-container-subtle: light-dark(var(--r13l),var(--r13d));
+  }
+}
 :root, .m3-theme {
   --z0: (175.6*b*b + 63.6*b*b*b*b + 151.9*b*b*b*b*b + 40.8*a + 485.9*a*b*b*b + 47.4*a*b*b*b*b + 40.8*l*a - 18.5*b - 163.2*b*b*b - 157.6*b*b*b*b*b*b - 50.1*a*b - 197.4*a*b*b - 482.6*a*b*b*b*b*b - 53.8*l - 18.5*l*b)*.01745;
   --z1: (342.8*b*b + 190*b*b*b*b*b + 115*b*b*b*b*b*b + 44.3*a + 412.8*a*b*b*b + 203.4*a*b*b*b*b + 44.3*l*a - 11.5*b - 221.4*b*b*b - 367.5*b*b*b*b - 44.2*a*b - 295.8*a*b*b - 353.9*a*b*b*b*b*b - 63.5*l - 11.5*l*b)*.01745;
@@ -109,44 +244,78 @@
   --htd:oklab(from oklab(from var(--u) l calc(clamp(0,clamp(0,(.8579*b - -.5138*a)*1000,1) - clamp(0,(.7575*b - .6528*a)*1000,1),1)*(.8458*a - -.5335*b) + clamp(0,clamp(0,(.7575*b - .6528*a)*1000,1) - clamp(0,(-.2381*b - .9713*a)*1000,1),1)*(.9169*a - .3991*b) + clamp(0,clamp(0,(-.2381*b - .9713*a)*1000,1) - clamp(0,(-.9327*b - .3605*a)*1000,1),1)*(.9935*a - .114*b) + clamp(0,clamp(0,(-.9327*b - .3605*a)*1000,1) - clamp(0,(-.9189*b - -.3944*a)*1000,1),1)*(.7424*a - -.67*b) + clamp(0,clamp(0,(-.9189*b - -.3944*a)*1000,1) - clamp(0,(.063*b - -.998*a)*1000,1),1)*(.8813*a - .4725*b) + clamp(0,clamp(0,(.063*b - -.998*a)*1000,1) - clamp(0,(.8579*b - -.5138*a)*1000,1),1)*(.9841*a - -.1774*b)) calc(clamp(0,clamp(0,(.8579*b - -.5138*a)*1000,1) - clamp(0,(.7575*b - .6528*a)*1000,1),1)*(-.5335*a + .8458*b) + clamp(0,clamp(0,(.7575*b - .6528*a)*1000,1) - clamp(0,(-.2381*b - .9713*a)*1000,1),1)*(.3991*a + .9169*b) + clamp(0,clamp(0,(-.2381*b - .9713*a)*1000,1) - clamp(0,(-.9327*b - .3605*a)*1000,1),1)*(.114*a + .9935*b) + clamp(0,clamp(0,(-.9327*b - .3605*a)*1000,1) - clamp(0,(-.9189*b - -.3944*a)*1000,1),1)*(-.67*a + .7424*b) + clamp(0,clamp(0,(-.9189*b - -.3944*a)*1000,1) - clamp(0,(.063*b - -.998*a)*1000,1),1)*(.4725*a + .8813*b) + clamp(0,clamp(0,(.063*b - -.998*a)*1000,1) - clamp(0,(.8579*b - -.5138*a)*1000,1),1)*(-.1774*a + .9841*b))) calc(max(.904,min(-.07 + (.2 - a)*(-.4 + a)*a + b,.963))) a b);
   --hnd:oklab(from oklab(from var(--u) l calc(.9863*a - -.1652*b) calc(-.1652*a + .9863*b)) calc(1) a b);
   --hed:oklab(from oklab(from oklab(from var(--u) l calc(.9739*clamp(0,clamp(0,(-.0235*b - -.9997*a)*1000,1) - clamp(0,(.9985*b - .0548*a)*1000,1),1) + .9113*clamp(0,clamp(0,(.9985*b - .0548*a)*1000,1) - clamp(0,(.9662*b - .2579*a)*1000,1),1) + .8219*clamp(0,clamp(0,(.9662*b - .2579*a)*1000,1) - clamp(0,(.8993*b - .4374*a)*1000,1),1) + .9739*clamp(0,clamp(0,(.8993*b - .4374*a)*1000,1) - clamp(0,(.8068*b - .5908*a)*1000,1),1) + .9113*clamp(0,clamp(0,(.8068*b - .5908*a)*1000,1) - clamp(0,(.7033*b - .7109*a)*1000,1),1) + .8219*clamp(0,clamp(0,(.7033*b - .7109*a)*1000,1) - clamp(0,(-.8749*b - .4843*a)*1000,1),1) + .9113*clamp(0,clamp(0,(-.8749*b - .4843*a)*1000,1) - clamp(0,(-.0235*b - -.9997*a)*1000,1),1)) calc(.2268*clamp(0,clamp(0,(-.0235*b - -.9997*a)*1000,1) - clamp(0,(.9985*b - .0548*a)*1000,1),1) + .4117*clamp(0,clamp(0,(.9985*b - .0548*a)*1000,1) - clamp(0,(.9662*b - .2579*a)*1000,1),1) + .5697*clamp(0,clamp(0,(.9662*b - .2579*a)*1000,1) - clamp(0,(.8993*b - .4374*a)*1000,1),1) + .2268*clamp(0,clamp(0,(.8993*b - .4374*a)*1000,1) - clamp(0,(.8068*b - .5908*a)*1000,1),1) + .4117*clamp(0,clamp(0,(.8068*b - .5908*a)*1000,1) - clamp(0,(.7033*b - .7109*a)*1000,1),1) + .5697*clamp(0,clamp(0,(.7033*b - .7109*a)*1000,1) - clamp(0,(-.8749*b - .4843*a)*1000,1),1) + .4117*clamp(0,clamp(0,(-.8749*b - .4843*a)*1000,1) - clamp(0,(-.0235*b - -.9997*a)*1000,1),1))) l calc((a - b*((.1)*.01745))*var(--z24)) calc((b + a*((.1)*.01745))*var(--z24))) calc(.76) a b);
-  --m3c-surface: light-dark(oklab(from var(--hnl) calc(.005*b*b*b*b*b + .002*b*b*b*b*b*b + .005*a*b*b + .018*a*b*b*b + .9838*l - .001*b*b - .004*b*b*b - .002*a*b - .01*a*b*b*b*b - .024*a*b*b*b*b*b) calc(var(--z1u)*(a - b*var(--z0))) calc(var(--z1u)*(b + a*var(--z0))) / 1),oklab(from var(--hnd) calc(-.8354 + .001*a + l) calc((.0028*max(.2 + b + a,b*b))*(a - b*(20*(b*a + l - b))*.01745)) calc((.0028*max(.2 + b + a,b*b))*(b + a*(20*(b*a + l - b))*.01745)) / 1));
-  --m3c-surface-container-lowest: light-dark(#ffffff,#000000);
-  --m3c-surface-container-low: light-dark(oklab(from var(--hnl) calc(max(.966,-2.06 + l + 2*b - .46*a)) calc((.0016*(3.7 + 2*a + b))*(a - b*var(--z4))) calc((.0016*(3.7 + 2*a + b))*(b + a*var(--z4))) / 1),oklab(from var(--hnd) calc(.001*b + .0024*b*b + .0005*b*b*b*b*b + .005*b*b*b*b*b*b + .001*a*b*b*b*b + .01*a*b*b*b*b*b + .189*l + .0002*l*a + .001*l*b - .003*b*b*b - .009*b*b*b*b - .008*a*b*b*b) calc(var(--z2k)*(a - b*var(--z8))) calc(var(--z2k)*(b + a*var(--z8))) / 1));
-  --m3c-surface-container: light-dark(oklab(from var(--hnl) calc(.01*b*b*b*b*b + .013*b*b*b*b*b*b + .01*a*b*b + .03*a*b*b*b + .95*l - .006*b*b*b - .01*b*b*b*b - .005*a*b - .02*a*b*b*b*b - .04*a*b*b*b*b*b) calc(var(--z2g)*(a - b*var(--z2))) calc(var(--z2g)*(b + a*var(--z2))) / 1),oklab(from var(--hnd) calc(.002*b*b*b*b + .0004*a + .011*a*b*b*b + .001*a*b*b*b*b + .216*l + .0004*l*a - .0003*b - .003*b*b*b*b*b*b - .002*a*b - .002*a*b*b - .012*a*b*b*b*b*b) calc(var(--z2c)*(a - b*var(--z9))) calc(var(--z2c)*(b + a*var(--z9))) / 1));
-  --m3c-surface-container-high: light-dark(oklab(from var(--hnl) calc(max(min(.942,min(.9 - a,b)),.932)) calc(var(--z2d)*(a - b*var(--z5))) calc(var(--z2d)*(b + a*var(--z5))) / 1),oklab(from var(--hnd) calc(1.2412 + abs(.0012*(a + l)*a) - l) calc((.0015*(3.4 + b + a))*(a - b*var(--z20))) calc((.0015*(3.4 + b + a))*(b + a*var(--z20))) / 1));
-  --m3c-surface-container-highest: light-dark(oklab(from var(--hnl) calc(hypot(.914,.05*(b + l - sign(a))*b*b)) calc(var(--z22)*(a - b*var(--z6))) calc(var(--z22)*(b + a*var(--z6))) / 1),oklab(from var(--hnd) calc(.267 + .003*max(a,.4*b)*a) calc((.0018*(2.8 + a + b*b + b))*(a - b*var(--z1o))) calc((.0018*(2.8 + a + b*b + b))*(b + a*var(--z1o))) / 1));
-  --m3c-on-surface: light-dark(oklab(from var(--hnl) calc(hypot(.04*b*(b + b*b)*b*(2*a - b)*b,.318)) calc(var(--za)*(a - b*var(--z2h))) calc(var(--za)*(b + a*var(--z2h))) / 1),oklab(from var(--hnd) calc(.0011*b + .0115*b*b*b*b + .0049*b*b*b*b*b + .0004*a*b*b + .001*a*b*b*b + .001*a*b*b*b*b*b + .92378*l + .0011*l*b - .005*b*b - .0072*b*b*b - .0072*b*b*b*b*b*b - .001*a*b) calc(var(--zm)*(a - b*var(--z7))) calc(var(--zm)*(b + a*var(--z7))) / 1));
-  --m3c-on-surface-variant: light-dark(oklab(from var(--hnl) calc(.485*max(b - .28*b*a,l)) calc(var(--z1r)*(a - b*var(--z2a))) calc(var(--z1r)*(b + a*var(--z2a))) / 1),oklab(from var(--hnd) calc(.7412 + .001*a) calc(var(--z2l)*(a - b*var(--z1s))) calc(var(--z2l)*(b + a*var(--z1s))) / 1));
-  --m3c-outline: light-dark(oklab(from var(--hnl) calc(max(.582,-.534 - l*(a - b)*b*b)) calc(var(--z2e)*(a - b*var(--z27))) calc(var(--z2e)*(b + a*var(--z27))) / 1),oklab(from var(--hnd) calc(.004*b*b*b + .005*b*b*b*b*b*b + .0004*a + .002*a*b + .001*a*b*b + .01*a*b*b*b*b*b + .5646*l + .0004*l*a - .006*b*b*b*b - .004*b*b*b*b*b - .01*a*b*b*b - .002*a*b*b*b*b - .0003*l*b) calc(var(--z2m)*(a - b*var(--zc))) calc(var(--z2m)*(b + a*var(--zc))) / 1));
-  --m3c-outline-variant: light-dark(oklab(from var(--hnl) calc(.013*b*b*b*b*b + .01*b*b*b*b*b*b + .015*a*b*b + .06*a*b*b*b + .764*l - .003*b*b - .008*b*b*b - .01*a*b - .03*a*b*b*b*b - .07*a*b*b*b*b*b) calc(var(--z2b)*(a - b*var(--z1t))) calc(var(--z2b)*(b + a*var(--z1t))) / 1),oklab(from var(--hnd) calc(.004*b*b + .0026*b*b*b*b*b + .0005*b*b*b*b*b*b + .0053*a*b*b + .002*a*b*b*b + .4002*l + .0002*l*a - .00223*b*b*b - .0038*b*b*b*b - .0067*a*b*b*b*b - .001*a*b*b*b*b*b) calc(var(--z28)*(a - b*var(--z1v))) calc(var(--z28)*(b + a*var(--z1v))) / 1));
-  --m3c-inverse-surface: light-dark(oklab(from var(--hnl) calc(.1646 + .001*a) calc(var(--z2n)*(a - b*(20*(a*b + l - b))*.01745)) calc(var(--z2n)*(b + a*(20*(a*b + l - b))*.01745)) / 1),oklab(from var(--hnd) calc(.9834) calc((.0005*(2.2 + a)*(4.8 + b))*(a - b*var(--z1))) calc((.0005*(2.2 + a)*(4.8 + b))*(b + a*var(--z1))) / 1));
-  --m3c-inverse-on-surface: light-dark(oklab(from var(--hnl) calc(.695 + .002*a*a) calc((.0043 + .0015*(a + b))*(a - b*var(--z3))) calc((.0043 + .0015*(a + b))*(b + a*var(--z3))) / 1),oklab(from var(--hnd) calc(max(.4496*sign(a*(-.9 + a)),.449)) calc((.0024*(max(l,l + b) + a))*(a - b*var(--z2f))) calc((.0024*(max(l,l + b) + a))*(b + a*var(--z2f))) / 1));
-  --m3c-primary: light-dark(oklab(from var(--hpl) calc(min(l,.4828 + .0024*a)) calc(var(--zr)*(a - b*(b - a)*.01745)) calc(var(--zr)*(b + a*(b - a)*.01745)) / 1),oklab(from var(--hpd) calc(.8277 + .8*a*(.00277 + .001*a)) calc(var(--z1f)*(a - b*var(--z2i))) calc(var(--z1f)*(b + a*var(--z2i))) / 1));
-  --m3c-on-primary: light-dark(oklab(from var(--hpl) calc(.9781 + .002*min(hypot(b,b),a)) calc(var(--zj)*(a - b*var(--z15))) calc(var(--zj)*(b + a*var(--z15))) / 1),oklab(from var(--hpd) calc(.002*b*b + .0035*b*b*b*b*b*b + .0232*a + .011*a*b + .007*a*b*b*b*b*b + .387*l - .0052*b*b*b*b - .009*a*b*b*b - .0137*l*a) calc(var(--z16)*(a - b*var(--z2q))) calc(var(--z16)*(b + a*var(--z2q))) / 1));
-  --m3c-primary-container: light-dark(oklab(from var(--hpl) calc(.9395 + .002*max(a,-.3) - .0267*l) calc(var(--z1j)*(a - b*var(--z1w))) calc(var(--z1j)*(b + a*var(--z1w))) / 1),oklab(from var(--hpd) calc(.3991 - .002*(hypot(l,b) - a)) calc(var(--z1g)*(a - b*var(--z2q))) calc(var(--z1g)*(b + a*var(--z2q))) / 1));
-  --m3c-on-primary-container: light-dark(oklab(from var(--hpl) calc(.4374 + .002*a) calc(var(--z1d)*(a - b*var(--z2q))) calc(var(--z1d)*(b + a*var(--z2q))) / 1),oklab(from var(--hpd) calc(.039*a + .016*a*b + .01*a*b*b*b + .89406*l - .008*a*b*b*b*b*b - .02*l*a) calc(var(--z1y)*(a - b*var(--z23))) calc(var(--z1y)*(b + a*var(--z23))) / 1));
-  --m3c-inverse-primary: light-dark(oklab(from var(--hpl) calc(l - max(.003*sign((a - b)*b),-.4*(l + b))) calc(var(--z2j)*(a - b*var(--zw))) calc(var(--z2j)*(b + a*var(--zw))) / 1),oklab(from var(--hpd) calc(.4852 + .002*a) calc(var(--zp)*(a - b*(b*b*b - a)*.01745)) calc(var(--zp)*(b + a*(b*b*b - a)*.01745)) / 1));
-  --m3c-secondary: light-dark(oklab(from var(--hsl) calc(.486 + .013*b*(a*a - a)*(1.1 + b)*b*b*b*b) calc(var(--zi)*(a - b*var(--z1x))) calc(var(--zi)*(b + a*var(--z1x))) / 1),oklab(from var(--hsd) calc(.174*b + .0133*b*b*b*b + .046*a + .021*a*b + .007*a*b*b*b + .7196*l - .006*b*b - .013*b*b*b - .007*b*b*b*b*b*b - .018*a*b*b - .015*a*b*b*b*b*b - .032*l*a - .166*l*b) calc(var(--zz)*(a - b*var(--z1c))) calc(var(--zz)*(b + a*var(--z1c))) / 1));
-  --m3c-on-secondary: light-dark(oklab(from var(--hsl) calc(.054*b*b*b*b + .03*a*b + 1.0137*l + .061*l*a + .531*l*b - .499*b - .01*b*b - .015*b*b*b*b*b - .044*b*b*b*b*b*b - .039*a - .02*a*b*b*b*b - .03*a*b*b*b*b*b) calc(var(--z11)*(a - b*var(--zs))) calc(var(--z11)*(b + a*var(--zs))) / 1),oklab(from var(--hsd) calc(.322*b + .013*b*b*b*b*b*b + .0066*a + .005*a*b + .012*a*b*b*b*b + .2517*l - .006*b*b*b - .013*b*b*b*b - .022*a*b*b - .326*l*b) calc(var(--z19)*(a - b*var(--z29))) calc(var(--z19)*(b + a*var(--z29))) / 1));
-  --m3c-secondary-container: light-dark(oklab(from var(--hsl) calc(.9144 + .0013*a) calc(var(--zg)*(a - b*var(--zq))) calc(var(--zg)*(b + a*var(--zq))) / 1),oklab(from var(--hsd) calc(.3538 + .0016*a*a*a*(b + l)) calc(var(--zd)*(a - b*(8.5*(a*l - b))*.01745)) calc(var(--zd)*(b + a*(8.5*(a*l - b))*.01745)) / 1));
-  --m3c-on-secondary-container: light-dark(oklab(from var(--hsl) calc(.4373 + abs(.0016*a*(a*a*b + l))*a) calc(var(--ze)*(a - b*var(--z2o))) calc(var(--ze)*(b + a*var(--z2o))) / 1),oklab(from var(--hsd) calc(.8053 + .0013*(.6*a*a + a)) calc(var(--zb)*(a - b*var(--zv))) calc(var(--zb)*(b + a*var(--zv))) / 1));
-  --m3c-tertiary: light-dark(oklab(from var(--htl) calc(.4863 + .008*a*a*a) calc(var(--z1a)*(a - b*(b)*.01745)) calc(var(--z1a)*(b + a*(b)*.01745)) / 1),oklab(from var(--htd) calc(.23*b + .16*b*b + .03*b*b*b*b*b + .177*b*b*b*b*b*b + 1.04*l + .68*l*a - .33*b*b*b*b - .63*a - .28*l*b) calc(var(--z1e)*(a - b*(-3.5*b)*.01745)) calc(var(--z1e)*(b + a*(-3.5*b)*.01745)) / 1));
-  --m3c-on-tertiary: light-dark(oklab(from var(--htl) calc(.982 + .002*a) calc((-.43 + .49*l)*(a - b*var(--zu))) calc((-.43 + .49*l)*(b + a*var(--zu))) / 1),oklab(from var(--htd) calc(.04*b + .1*b*b + .03*b*b*b + .12*b*b*b*b*b*b + .5*l + .227*l*a - .21*b*b*b*b - .21*a - .075*l*b) calc(var(--z1l)*(a - b*(b)*.01745)) calc(var(--z1l)*(b + a*(b)*.01745)) / 1));
-  --m3c-tertiary-container: light-dark(oklab(from var(--htl) calc(min(l,.96)) calc(var(--z10)*(a - b*(a)*.01745)) calc(var(--z10)*(b + a*(a)*.01745)) / 1),oklab(from var(--htd) calc(.19*b + .16*b*b + .03*b*b*b*b*b + .19*b*b*b*b*b*b + .99*l + .64*l*a - .34*b*b*b*b - .59*a - .23*l*b) calc(var(--z17)*(a - b*(a)*.01745)) calc(var(--z17)*(b + a*(a)*.01745)) / 1));
-  --m3c-on-tertiary-container: light-dark(oklab(from var(--htl) calc(abs(1.483*l - max(l,.91))) calc(var(--z18)*(a - b*(b)*.01745)) calc(var(--z18)*(b + a*(b)*.01745)) / 1),oklab(from var(--htd) calc(.1*b*b + .035*b*b*b + .122*b*b*b*b*b*b + .47*l + .15*l*a - .218*b*b*b*b - .14*a - .03*l*b) calc(var(--z1q)*(a - b*(b)*.01745)) calc(var(--z1q)*(b + a*(b)*.01745)) / 1));
-  --m3c-error: light-dark(oklab(from var(--hel) calc(.5) calc((.126 + .004*b)*(a - b*(a - l)*.01745)) calc((.126 + .004*b)*(b + a*(a - l)*.01745)) / 1),oklab(from var(--hed) calc(.7027 + .014*a) calc((.136 + .01*b)*(a - b*(.1)*.01745)) calc((.136 + .01*b)*(b + a*(.1)*.01745)) / 1));
-  --m3c-on-error: light-dark(oklab(from var(--hel) calc(.983) calc((.008)*(a - b*(-34.4*b*b*b)*.01745)) calc((.008)*(b + a*(-34.4*b*b*b)*.01745)) / 1),oklab(from var(--hed) calc(.24 + .018*a) calc((.112*min(a,.92))*(a - b*(-13.1 + 15*a)*.01745)) calc((.112*min(a,.92))*(b + a*(-13.1 + 15*a)*.01745)) / 1));
-  --m3c-error-container: light-dark(oklab(from var(--hel) calc(max(.995 - b,.757)) calc((.137 + .014*b)*(a - b*(-.4)*.01745)) calc((.137 + .014*b)*(b + a*(-.4)*.01745)) / 1),oklab(from var(--hed) calc(.397 + .015*a) calc((.122 - .004*b)*(a - b*(2*b - round(b,1))*.01745)) calc((.122 - .004*b)*(b + a*(2*b - round(b,1))*.01745)) / 1));
-  --m3c-on-error-container: light-dark(oklab(from var(--hel) calc(max(.403*a,.382)) calc((.12 - .007*b)*(a - b*(l - b)*.01745)) calc((.12 - .007*b)*(b + a*(l - b)*.01745)) / 1),oklab(from var(--hed) calc(.787) calc((.168 - .037*a*(a + b))*(a - b*((b - l)*l)*.01745)) calc((.168 - .037*a*(a + b))*(b + a*((b - l)*l)*.01745)) / 1));
-  --m3c-shadow: #000000;
-  --m3c-scrim: #000000;
-  --m3c-on-on-primary: light-dark(oklab(from var(--hpl) calc(.4818 + .002*a) calc(var(--zn)*(a - b*(2*b*b*b - l)*.01745)) calc(var(--zn)*(b + a*(2*b*b*b - l)*.01745)) / 1),oklab(from var(--hpd) calc(.855 + .0017*a - .029*l) calc(var(--z1k)*(a - b*var(--z25))) calc(var(--z1k)*(b + a*var(--z25))) / 1));
-  --m3c-primary-container-subtle: light-dark(oklab(from var(--hpl) calc(.029*b*b*b*b + .004*b*b*b*b*b + .02*a + .01*a*b + .02*a*b*b + .05*a*b*b*b + .926*l - .01*b*b - .014*b*b*b*b*b*b - .04*a*b*b*b*b - .07*a*b*b*b*b*b) calc(var(--z1h)*(a - b*var(--z21))) calc(var(--z1h)*(b + a*var(--z21))) / 1),oklab(from var(--hpd) calc(.2933 + .002*a) calc(var(--z1z)*(a - b*((3.9 - b)*b - a)*.01745)) calc(var(--z1z)*(b + a*((3.9 - b)*b - a)*.01745)) / 1));
-  --m3c-on-primary-container-subtle: light-dark(oklab(from var(--hpl) calc(.32*(.41 + max(.9,min(b,l*l)))) calc(var(--zy)*(a - b*var(--z2q))) calc(var(--zy)*(b + a*var(--z2q))) / 1),oklab(from var(--hpd) calc(.7695 + .0018*l*a - .0294*l) calc(var(--zl)*(a - b*(a - b - sign(b))*.01745)) calc(var(--zl)*(b + a*(a - b - sign(b))*.01745)) / 1));
-  --m3c-secondary-container-subtle: light-dark(oklab(from var(--hsl) calc(.888 + (b*(a - b) + b - a)*(b - min(.76,b))) calc(var(--z14)*(a - b*var(--zt))) calc(var(--z14)*(b + a*var(--zt))) / 1),oklab(from var(--hsd) calc(.273*b*b + .403*b*b*b + .012*b*b*b*b*b*b + 6.4*a + .139*a*b*b*b + .1663*l + .098*l*b - .3584*b - .1527*b*b*b*b - .14*b*b*b*b*b - .126*a*b - .01*a*b*b*b*b*b - 6.594*l*a) calc(var(--zf)*(a - b*var(--zk))) calc(var(--zf)*(b + a*var(--zk))) / 1));
-  --m3c-on-secondary-container-subtle: light-dark(oklab(from var(--hsl) calc(.01*b*b*b + .075*b*b*b*b + .01*a + .013*a*b + .433*l + .0804*l*b - .0736*b - .023*b*b - .015*b*b*b*b*b - .053*b*b*b*b*b*b - .02*a*b*b*b*b - .02*a*b*b*b*b*b) calc(var(--zh)*(a - b*(6.1*(a - 2*b))*.01745)) calc(var(--zh)*(b + a*(6.1*(a - 2*b))*.01745)) / 1),oklab(from var(--hsd) calc(.7412 + .001*max(a,-1.7*b*b)) calc(var(--zo)*(a - b*var(--zx))) calc(var(--zo)*(b + a*var(--zx))) / 1));
-  --m3c-tertiary-container-subtle: light-dark(oklab(from var(--htl) calc(.89 + .008*a*a*a) calc(var(--z12)*(a - b*(a)*.01745)) calc(var(--z12)*(b + a*(a)*.01745)) / 1),oklab(from var(--htd) calc(.2937 + .0074*a*l*l) calc(var(--z26)*(a - b*(2*b)*.01745)) calc(var(--z26)*(b + a*(2*b)*.01745)) / 1));
-  --m3c-on-tertiary-container-subtle: light-dark(oklab(from var(--htl) calc(.4195 + .007*a*a*a) calc(var(--z13)*(a - b*(b)*.01745)) calc(var(--z13)*(b + a*(b)*.01745)) / 1),oklab(from var(--htd) calc(.7667 + .006*a - .0275*l) calc(var(--z1m)*(a - b*(a)*.01745)) calc(var(--z1m)*(b + a*(a)*.01745)) / 1));
-  --m3c-error-container-subtle: light-dark(oklab(from var(--hel) calc(.896) calc((.055)*(a - b*(-2.4*b)*.01745)) calc((.055)*(b + a*(-2.4*b)*.01745)) / 1),oklab(from var(--hed) calc(.2855 + .0236*a) calc((.086 + .026*a)*(a - b*(sign(a*a - l)*l)*.01745)) calc((.086 + .026*a)*(b + a*(sign(a*a - l)*l)*.01745)) / 1));
-  --m3c-on-error-container-subtle: light-dark(oklab(from var(--hel) calc(.434) calc((.1224)*(a - b*(b*b)*.01745)) calc((.1224)*(b + a*(b*b)*.01745)) / 1),oklab(from var(--hed) calc(l - .007*b) calc((.137 + .013*b)*(a - b*(-.2)*.01745)) calc((.137 + .013*b)*(b + a*(-.2)*.01745)) / 1))
+  --r0l:oklab(from var(--hnl) calc(.005*b*b*b*b*b + .002*b*b*b*b*b*b + .005*a*b*b + .018*a*b*b*b + .9838*l - .001*b*b - .004*b*b*b - .002*a*b - .01*a*b*b*b*b - .024*a*b*b*b*b*b) calc(var(--z1u)*(a - b*var(--z0))) calc(var(--z1u)*(b + a*var(--z0))) / 1);
+  --r0d:oklab(from var(--hnd) calc(-.8354 + .001*a + l) calc((.0028*max(.2 + b + a,b*b))*(a - b*(20*(b*a + l - b))*.01745)) calc((.0028*max(.2 + b + a,b*b))*(b + a*(20*(b*a + l - b))*.01745)) / 1);
+  --r2l:oklab(from var(--hnl) calc(max(.966,-2.06 + l + 2*b - .46*a)) calc((.0016*(3.7 + 2*a + b))*(a - b*var(--z4))) calc((.0016*(3.7 + 2*a + b))*(b + a*var(--z4))) / 1);
+  --r2d:oklab(from var(--hnd) calc(.001*b + .0024*b*b + .0005*b*b*b*b*b + .005*b*b*b*b*b*b + .001*a*b*b*b*b + .01*a*b*b*b*b*b + .189*l + .0002*l*a + .001*l*b - .003*b*b*b - .009*b*b*b*b - .008*a*b*b*b) calc(var(--z2k)*(a - b*var(--z8))) calc(var(--z2k)*(b + a*var(--z8))) / 1);
+  --r3l:oklab(from var(--hnl) calc(.01*b*b*b*b*b + .013*b*b*b*b*b*b + .01*a*b*b + .03*a*b*b*b + .95*l - .006*b*b*b - .01*b*b*b*b - .005*a*b - .02*a*b*b*b*b - .04*a*b*b*b*b*b) calc(var(--z2g)*(a - b*var(--z2))) calc(var(--z2g)*(b + a*var(--z2))) / 1);
+  --r3d:oklab(from var(--hnd) calc(.002*b*b*b*b + .0004*a + .011*a*b*b*b + .001*a*b*b*b*b + .216*l + .0004*l*a - .0003*b - .003*b*b*b*b*b*b - .002*a*b - .002*a*b*b - .012*a*b*b*b*b*b) calc(var(--z2c)*(a - b*var(--z9))) calc(var(--z2c)*(b + a*var(--z9))) / 1);
+  --r4l:oklab(from var(--hnl) calc(max(min(.942,min(.9 - a,b)),.932)) calc(var(--z2d)*(a - b*var(--z5))) calc(var(--z2d)*(b + a*var(--z5))) / 1);
+  --r4d:oklab(from var(--hnd) calc(1.2412 + abs(.0012*(a + l)*a) - l) calc((.0015*(3.4 + b + a))*(a - b*var(--z20))) calc((.0015*(3.4 + b + a))*(b + a*var(--z20))) / 1);
+  --r5l:oklab(from var(--hnl) calc(hypot(.914,.05*(b + l - sign(a))*b*b)) calc(var(--z22)*(a - b*var(--z6))) calc(var(--z22)*(b + a*var(--z6))) / 1);
+  --r5d:oklab(from var(--hnd) calc(.267 + .003*max(a,.4*b)*a) calc((.0018*(2.8 + a + b*b + b))*(a - b*var(--z1o))) calc((.0018*(2.8 + a + b*b + b))*(b + a*var(--z1o))) / 1);
+  --r6l:oklab(from var(--hnl) calc(hypot(.04*b*(b + b*b)*b*(2*a - b)*b,.318)) calc(var(--za)*(a - b*var(--z2h))) calc(var(--za)*(b + a*var(--z2h))) / 1);
+  --r6d:oklab(from var(--hnd) calc(.0011*b + .0115*b*b*b*b + .0049*b*b*b*b*b + .0004*a*b*b + .001*a*b*b*b + .001*a*b*b*b*b*b + .92378*l + .0011*l*b - .005*b*b - .0072*b*b*b - .0072*b*b*b*b*b*b - .001*a*b) calc(var(--zm)*(a - b*var(--z7))) calc(var(--zm)*(b + a*var(--z7))) / 1);
+  --r7l:oklab(from var(--hnl) calc(.485*max(b - .28*b*a,l)) calc(var(--z1r)*(a - b*var(--z2a))) calc(var(--z1r)*(b + a*var(--z2a))) / 1);
+  --r7d:oklab(from var(--hnd) calc(.7412 + .001*a) calc(var(--z2l)*(a - b*var(--z1s))) calc(var(--z2l)*(b + a*var(--z1s))) / 1);
+  --r8l:oklab(from var(--hnl) calc(max(.582,-.534 - l*(a - b)*b*b)) calc(var(--z2e)*(a - b*var(--z27))) calc(var(--z2e)*(b + a*var(--z27))) / 1);
+  --r8d:oklab(from var(--hnd) calc(.004*b*b*b + .005*b*b*b*b*b*b + .0004*a + .002*a*b + .001*a*b*b + .01*a*b*b*b*b*b + .5646*l + .0004*l*a - .006*b*b*b*b - .004*b*b*b*b*b - .01*a*b*b*b - .002*a*b*b*b*b - .0003*l*b) calc(var(--z2m)*(a - b*var(--zc))) calc(var(--z2m)*(b + a*var(--zc))) / 1);
+  --r9l:oklab(from var(--hnl) calc(.013*b*b*b*b*b + .01*b*b*b*b*b*b + .015*a*b*b + .06*a*b*b*b + .764*l - .003*b*b - .008*b*b*b - .01*a*b - .03*a*b*b*b*b - .07*a*b*b*b*b*b) calc(var(--z2b)*(a - b*var(--z1t))) calc(var(--z2b)*(b + a*var(--z1t))) / 1);
+  --r9d:oklab(from var(--hnd) calc(.004*b*b + .0026*b*b*b*b*b + .0005*b*b*b*b*b*b + .0053*a*b*b + .002*a*b*b*b + .4002*l + .0002*l*a - .00223*b*b*b - .0038*b*b*b*b - .0067*a*b*b*b*b - .001*a*b*b*b*b*b) calc(var(--z28)*(a - b*var(--z1v))) calc(var(--z28)*(b + a*var(--z1v))) / 1);
+  --ral:oklab(from var(--hnl) calc(.1646 + .001*a) calc(var(--z2n)*(a - b*(20*(a*b + l - b))*.01745)) calc(var(--z2n)*(b + a*(20*(a*b + l - b))*.01745)) / 1);
+  --rad:oklab(from var(--hnd) calc(.9834) calc((.0005*(2.2 + a)*(4.8 + b))*(a - b*var(--z1))) calc((.0005*(2.2 + a)*(4.8 + b))*(b + a*var(--z1))) / 1);
+  --rbl:oklab(from var(--hnl) calc(.695 + .002*a*a) calc((.0043 + .0015*(a + b))*(a - b*var(--z3))) calc((.0043 + .0015*(a + b))*(b + a*var(--z3))) / 1);
+  --rbd:oklab(from var(--hnd) calc(max(.4496*sign(a*(-.9 + a)),.449)) calc((.0024*(max(l,l + b) + a))*(a - b*var(--z2f))) calc((.0024*(max(l,l + b) + a))*(b + a*var(--z2f))) / 1);
+  --rcl:oklab(from var(--hpl) calc(min(l,.4828 + .0024*a)) calc(var(--zr)*(a - b*(b - a)*.01745)) calc(var(--zr)*(b + a*(b - a)*.01745)) / 1);
+  --rcd:oklab(from var(--hpd) calc(.8277 + .8*a*(.00277 + .001*a)) calc(var(--z1f)*(a - b*var(--z2i))) calc(var(--z1f)*(b + a*var(--z2i))) / 1);
+  --rdl:oklab(from var(--hpl) calc(.9781 + .002*min(hypot(b,b),a)) calc(var(--zj)*(a - b*var(--z15))) calc(var(--zj)*(b + a*var(--z15))) / 1);
+  --rdd:oklab(from var(--hpd) calc(.002*b*b + .0035*b*b*b*b*b*b + .0232*a + .011*a*b + .007*a*b*b*b*b*b + .387*l - .0052*b*b*b*b - .009*a*b*b*b - .0137*l*a) calc(var(--z16)*(a - b*var(--z2q))) calc(var(--z16)*(b + a*var(--z2q))) / 1);
+  --rel:oklab(from var(--hpl) calc(.9395 + .002*max(a,-.3) - .0267*l) calc(var(--z1j)*(a - b*var(--z1w))) calc(var(--z1j)*(b + a*var(--z1w))) / 1);
+  --red:oklab(from var(--hpd) calc(.3991 - .002*(hypot(l,b) - a)) calc(var(--z1g)*(a - b*var(--z2q))) calc(var(--z1g)*(b + a*var(--z2q))) / 1);
+  --rfl:oklab(from var(--hpl) calc(.4374 + .002*a) calc(var(--z1d)*(a - b*var(--z2q))) calc(var(--z1d)*(b + a*var(--z2q))) / 1);
+  --rfd:oklab(from var(--hpd) calc(.039*a + .016*a*b + .01*a*b*b*b + .89406*l - .008*a*b*b*b*b*b - .02*l*a) calc(var(--z1y)*(a - b*var(--z23))) calc(var(--z1y)*(b + a*var(--z23))) / 1);
+  --rgl:oklab(from var(--hpl) calc(l - max(.003*sign((a - b)*b),-.4*(l + b))) calc(var(--z2j)*(a - b*var(--zw))) calc(var(--z2j)*(b + a*var(--zw))) / 1);
+  --rgd:oklab(from var(--hpd) calc(.4852 + .002*a) calc(var(--zp)*(a - b*(b*b*b - a)*.01745)) calc(var(--zp)*(b + a*(b*b*b - a)*.01745)) / 1);
+  --rhl:oklab(from var(--hsl) calc(.486 + .013*b*(a*a - a)*(1.1 + b)*b*b*b*b) calc(var(--zi)*(a - b*var(--z1x))) calc(var(--zi)*(b + a*var(--z1x))) / 1);
+  --rhd:oklab(from var(--hsd) calc(.174*b + .0133*b*b*b*b + .046*a + .021*a*b + .007*a*b*b*b + .7196*l - .006*b*b - .013*b*b*b - .007*b*b*b*b*b*b - .018*a*b*b - .015*a*b*b*b*b*b - .032*l*a - .166*l*b) calc(var(--zz)*(a - b*var(--z1c))) calc(var(--zz)*(b + a*var(--z1c))) / 1);
+  --ril:oklab(from var(--hsl) calc(.054*b*b*b*b + .03*a*b + 1.0137*l + .061*l*a + .531*l*b - .499*b - .01*b*b - .015*b*b*b*b*b - .044*b*b*b*b*b*b - .039*a - .02*a*b*b*b*b - .03*a*b*b*b*b*b) calc(var(--z11)*(a - b*var(--zs))) calc(var(--z11)*(b + a*var(--zs))) / 1);
+  --rid:oklab(from var(--hsd) calc(.322*b + .013*b*b*b*b*b*b + .0066*a + .005*a*b + .012*a*b*b*b*b + .2517*l - .006*b*b*b - .013*b*b*b*b - .022*a*b*b - .326*l*b) calc(var(--z19)*(a - b*var(--z29))) calc(var(--z19)*(b + a*var(--z29))) / 1);
+  --rjl:oklab(from var(--hsl) calc(.9144 + .0013*a) calc(var(--zg)*(a - b*var(--zq))) calc(var(--zg)*(b + a*var(--zq))) / 1);
+  --rjd:oklab(from var(--hsd) calc(.3538 + .0016*a*a*a*(b + l)) calc(var(--zd)*(a - b*(8.5*(a*l - b))*.01745)) calc(var(--zd)*(b + a*(8.5*(a*l - b))*.01745)) / 1);
+  --rkl:oklab(from var(--hsl) calc(.4373 + abs(.0016*a*(a*a*b + l))*a) calc(var(--ze)*(a - b*var(--z2o))) calc(var(--ze)*(b + a*var(--z2o))) / 1);
+  --rkd:oklab(from var(--hsd) calc(.8053 + .0013*(.6*a*a + a)) calc(var(--zb)*(a - b*var(--zv))) calc(var(--zb)*(b + a*var(--zv))) / 1);
+  --rll:oklab(from var(--htl) calc(.4863 + .008*a*a*a) calc(var(--z1a)*(a - b*(b)*.01745)) calc(var(--z1a)*(b + a*(b)*.01745)) / 1);
+  --rld:oklab(from var(--htd) calc(.23*b + .16*b*b + .03*b*b*b*b*b + .177*b*b*b*b*b*b + 1.04*l + .68*l*a - .33*b*b*b*b - .63*a - .28*l*b) calc(var(--z1e)*(a - b*(-3.5*b)*.01745)) calc(var(--z1e)*(b + a*(-3.5*b)*.01745)) / 1);
+  --rml:oklab(from var(--htl) calc(.982 + .002*a) calc((-.43 + .49*l)*(a - b*var(--zu))) calc((-.43 + .49*l)*(b + a*var(--zu))) / 1);
+  --rmd:oklab(from var(--htd) calc(.04*b + .1*b*b + .03*b*b*b + .12*b*b*b*b*b*b + .5*l + .227*l*a - .21*b*b*b*b - .21*a - .075*l*b) calc(var(--z1l)*(a - b*(b)*.01745)) calc(var(--z1l)*(b + a*(b)*.01745)) / 1);
+  --rnl:oklab(from var(--htl) calc(min(l,.96)) calc(var(--z10)*(a - b*(a)*.01745)) calc(var(--z10)*(b + a*(a)*.01745)) / 1);
+  --rnd:oklab(from var(--htd) calc(.19*b + .16*b*b + .03*b*b*b*b*b + .19*b*b*b*b*b*b + .99*l + .64*l*a - .34*b*b*b*b - .59*a - .23*l*b) calc(var(--z17)*(a - b*(a)*.01745)) calc(var(--z17)*(b + a*(a)*.01745)) / 1);
+  --rol:oklab(from var(--htl) calc(abs(1.483*l - max(l,.91))) calc(var(--z18)*(a - b*(b)*.01745)) calc(var(--z18)*(b + a*(b)*.01745)) / 1);
+  --rod:oklab(from var(--htd) calc(.1*b*b + .035*b*b*b + .122*b*b*b*b*b*b + .47*l + .15*l*a - .218*b*b*b*b - .14*a - .03*l*b) calc(var(--z1q)*(a - b*(b)*.01745)) calc(var(--z1q)*(b + a*(b)*.01745)) / 1);
+  --rpl:oklab(from var(--hel) calc(.5) calc((.126 + .004*b)*(a - b*(a - l)*.01745)) calc((.126 + .004*b)*(b + a*(a - l)*.01745)) / 1);
+  --rpd:oklab(from var(--hed) calc(.7027 + .014*a) calc((.136 + .01*b)*(a - b*(.1)*.01745)) calc((.136 + .01*b)*(b + a*(.1)*.01745)) / 1);
+  --rql:oklab(from var(--hel) calc(.983) calc((.008)*(a - b*(-34.4*b*b*b)*.01745)) calc((.008)*(b + a*(-34.4*b*b*b)*.01745)) / 1);
+  --rqd:oklab(from var(--hed) calc(.24 + .018*a) calc((.112*min(a,.92))*(a - b*(-13.1 + 15*a)*.01745)) calc((.112*min(a,.92))*(b + a*(-13.1 + 15*a)*.01745)) / 1);
+  --rrl:oklab(from var(--hel) calc(max(.995 - b,.757)) calc((.137 + .014*b)*(a - b*(-.4)*.01745)) calc((.137 + .014*b)*(b + a*(-.4)*.01745)) / 1);
+  --rrd:oklab(from var(--hed) calc(.397 + .015*a) calc((.122 - .004*b)*(a - b*(2*b - round(b,1))*.01745)) calc((.122 - .004*b)*(b + a*(2*b - round(b,1))*.01745)) / 1);
+  --rsl:oklab(from var(--hel) calc(max(.403*a,.382)) calc((.12 - .007*b)*(a - b*(l - b)*.01745)) calc((.12 - .007*b)*(b + a*(l - b)*.01745)) / 1);
+  --rsd:oklab(from var(--hed) calc(.787) calc((.168 - .037*a*(a + b))*(a - b*((b - l)*l)*.01745)) calc((.168 - .037*a*(a + b))*(b + a*((b - l)*l)*.01745)) / 1);
+  --rvl:oklab(from var(--hpl) calc(.4818 + .002*a) calc(var(--zn)*(a - b*(2*b*b*b - l)*.01745)) calc(var(--zn)*(b + a*(2*b*b*b - l)*.01745)) / 1);
+  --rvd:oklab(from var(--hpd) calc(.855 + .0017*a - .029*l) calc(var(--z1k)*(a - b*var(--z25))) calc(var(--z1k)*(b + a*var(--z25))) / 1);
+  --rwl:oklab(from var(--hpl) calc(.029*b*b*b*b + .004*b*b*b*b*b + .02*a + .01*a*b + .02*a*b*b + .05*a*b*b*b + .926*l - .01*b*b - .014*b*b*b*b*b*b - .04*a*b*b*b*b - .07*a*b*b*b*b*b) calc(var(--z1h)*(a - b*var(--z21))) calc(var(--z1h)*(b + a*var(--z21))) / 1);
+  --rwd:oklab(from var(--hpd) calc(.2933 + .002*a) calc(var(--z1z)*(a - b*((3.9 - b)*b - a)*.01745)) calc(var(--z1z)*(b + a*((3.9 - b)*b - a)*.01745)) / 1);
+  --rxl:oklab(from var(--hpl) calc(.32*(.41 + max(.9,min(b,l*l)))) calc(var(--zy)*(a - b*var(--z2q))) calc(var(--zy)*(b + a*var(--z2q))) / 1);
+  --rxd:oklab(from var(--hpd) calc(.7695 + .0018*l*a - .0294*l) calc(var(--zl)*(a - b*(a - b - sign(b))*.01745)) calc(var(--zl)*(b + a*(a - b - sign(b))*.01745)) / 1);
+  --ryl:oklab(from var(--hsl) calc(.888 + (b*(a - b) + b - a)*(b - min(.76,b))) calc(var(--z14)*(a - b*var(--zt))) calc(var(--z14)*(b + a*var(--zt))) / 1);
+  --ryd:oklab(from var(--hsd) calc(.273*b*b + .403*b*b*b + .012*b*b*b*b*b*b + 6.4*a + .139*a*b*b*b + .1663*l + .098*l*b - .3584*b - .1527*b*b*b*b - .14*b*b*b*b*b - .126*a*b - .01*a*b*b*b*b*b - 6.594*l*a) calc(var(--zf)*(a - b*var(--zk))) calc(var(--zf)*(b + a*var(--zk))) / 1);
+  --rzl:oklab(from var(--hsl) calc(.01*b*b*b + .075*b*b*b*b + .01*a + .013*a*b + .433*l + .0804*l*b - .0736*b - .023*b*b - .015*b*b*b*b*b - .053*b*b*b*b*b*b - .02*a*b*b*b*b - .02*a*b*b*b*b*b) calc(var(--zh)*(a - b*(6.1*(a - 2*b))*.01745)) calc(var(--zh)*(b + a*(6.1*(a - 2*b))*.01745)) / 1);
+  --rzd:oklab(from var(--hsd) calc(.7412 + .001*max(a,-1.7*b*b)) calc(var(--zo)*(a - b*var(--zx))) calc(var(--zo)*(b + a*var(--zx))) / 1);
+  --r10l:oklab(from var(--htl) calc(.89 + .008*a*a*a) calc(var(--z12)*(a - b*(a)*.01745)) calc(var(--z12)*(b + a*(a)*.01745)) / 1);
+  --r10d:oklab(from var(--htd) calc(.2937 + .0074*a*l*l) calc(var(--z26)*(a - b*(2*b)*.01745)) calc(var(--z26)*(b + a*(2*b)*.01745)) / 1);
+  --r11l:oklab(from var(--htl) calc(.4195 + .007*a*a*a) calc(var(--z13)*(a - b*(b)*.01745)) calc(var(--z13)*(b + a*(b)*.01745)) / 1);
+  --r11d:oklab(from var(--htd) calc(.7667 + .006*a - .0275*l) calc(var(--z1m)*(a - b*(a)*.01745)) calc(var(--z1m)*(b + a*(a)*.01745)) / 1);
+  --r12l:oklab(from var(--hel) calc(.896) calc((.055)*(a - b*(-2.4*b)*.01745)) calc((.055)*(b + a*(-2.4*b)*.01745)) / 1);
+  --r12d:oklab(from var(--hed) calc(.2855 + .0236*a) calc((.086 + .026*a)*(a - b*(sign(a*a - l)*l)*.01745)) calc((.086 + .026*a)*(b + a*(sign(a*a - l)*l)*.01745)) / 1);
+  --r13l:oklab(from var(--hel) calc(.434) calc((.1224)*(a - b*(b*b)*.01745)) calc((.1224)*(b + a*(b*b)*.01745)) / 1);
+  --r13d:oklab(from var(--hed) calc(l - .007*b) calc((.137 + .013*b)*(a - b*(-.2)*.01745)) calc((.137 + .013*b)*(b + a*(-.2)*.01745)) / 1)
 }

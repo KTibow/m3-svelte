@@ -3,56 +3,51 @@
   import iconPlus from "@ktibow/iconset-material-symbols/add";
   import iconDelete from "@ktibow/iconset-material-symbols/delete";
 
-  let tasks = [
+  let tasks = $state([
     { id: 1, text: "Learn M3 Svelte", completed: false },
     { id: 2, text: "Build a prototype", completed: false },
     { id: 3, text: "Test components", completed: true },
-  ];
+  ]);
 
-  let newTaskText = "";
+  let newTaskText = $state("");
 
   function addTask() {
-    newTaskText = newTaskText.trim();
-    if (!newTaskText) return;
+    const text = newTaskText.trim();
+    if (!text) return;
 
-    tasks = [
-      ...tasks,
-      {
-        id: Math.max(...tasks.map((t) => t.id)) + 1,
-        text: newTaskText,
-        completed: false,
-      },
-    ];
+    tasks.push({ id: Date.now(), text, completed: false });
     newTaskText = "";
   }
 </script>
 
-<div class="tasks">
+<ul class="tasks">
   {#each tasks as task (task.id)}
     <ListItem headline={task.text}>
-      <label class="box-wrapper" slot="leading">
-        <Checkbox>
-          <input type="checkbox" bind:checked={task.completed} />
-        </Checkbox>
-      </label>
-      <label slot="trailing">
+      {#snippet leading()}
+        <label class="box-wrapper">
+          <Checkbox>
+            <input type="checkbox" bind:checked={task.completed} />
+          </Checkbox>
+        </label>
+      {/snippet}
+      {#snippet trailing()}
         <Button
           variant="text"
           iconType="full"
+          title="Delete"
           onclick={() => (tasks = tasks.filter((t) => t.id != task.id))}
         >
           <Icon icon={iconDelete} />
         </Button>
-      </label>
+      {/snippet}
     </ListItem>
   {/each}
-</div>
+</ul>
 <TextField
   label="Task name"
-  trailingIcon={iconPlus}
+  trailing={{ icon: iconPlus, title: "Add task", onclick: addTask }}
   bind:value={newTaskText}
-  on:enter={addTask}
-  on:trailingClick={addTask}
+  enter={addTask}
 />
 
 <style>
@@ -61,6 +56,8 @@
     flex-direction: column;
     width: 100%;
     flex-grow: 1;
+    margin: 0;
+    padding: 0;
   }
   .box-wrapper {
     display: flex;

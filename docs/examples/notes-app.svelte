@@ -21,12 +21,12 @@
     date: string;
   };
 
-  let notes: Note[] = [];
-  let dialog: { open: boolean; editingId?: number; title: string; content: string } = {
+  let notes: Note[] = $state([]);
+  let dialog: { open: boolean; editingId?: number; title: string; content: string } = $state({
     open: false,
     title: "",
     content: "",
-  };
+  });
 
   function addNote() {
     const newNote = {
@@ -67,28 +67,38 @@
 
 <div class="container">
   {#if notes.length}
-    {#each notes as note (note.id)}
-      <ListItem headline={note.title} supporting={note.content} overline={note.date}>
-        <div slot="trailing" class="actions">
-          <Button
-            variant="text"
-            iconType="full"
-            onclick={() =>
-              (dialog = {
-                open: true,
-                editingId: note.id,
-                title: note.title,
-                content: note.content,
-              })}
-          >
-            <Icon icon={iconEdit} />
-          </Button>
-          <Button variant="text" iconType="full" onclick={() => deleteNote(note.id)}>
-            <Icon icon={iconDelete} />
-          </Button>
-        </div>
-      </ListItem>
-    {/each}
+    <ul>
+      {#each notes as note (note.id)}
+        <ListItem headline={note.title} supporting={note.content} overline={note.date}>
+          {#snippet trailing()}
+            <div class="actions">
+              <Button
+                variant="text"
+                iconType="full"
+                title="Edit"
+                onclick={() =>
+                  (dialog = {
+                    open: true,
+                    editingId: note.id,
+                    title: note.title,
+                    content: note.content,
+                  })}
+              >
+                <Icon icon={iconEdit} />
+              </Button>
+              <Button
+                variant="text"
+                iconType="full"
+                title="Delete"
+                onclick={() => deleteNote(note.id)}
+              >
+                <Icon icon={iconDelete} />
+              </Button>
+            </div>
+          {/snippet}
+        </ListItem>
+      {/each}
+    </ul>
   {:else}
     <Card variant="outlined">
       <div class="empty-content">
@@ -99,7 +109,7 @@
   {/if}
 </div>
 
-<Dialog headline={dialog.editingId ? "New note" : "Edit note"} bind:open={dialog.open}>
+<Dialog headline={dialog.editingId ? "Edit note" : "New note"} bind:open={dialog.open}>
   <div class="dialog-content">
     <TextFieldMultiline label="Title" bind:value={dialog.title} />
     <TextFieldMultiline label="Content" bind:value={dialog.content} />
@@ -133,6 +143,11 @@
     padding: 1rem;
     overflow-y: auto;
     box-sizing: border-box;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
   }
 
   .empty-content {

@@ -691,7 +691,8 @@ for (const [key, palette] of palInfo) {
 }
 const byRole: Record<string, any> = {};
 for (const e of entries) (byRole[e.role] ??= {})[e.mode] = e;
-const rd = Object.entries(byRole).map(([rn, m]: [string, any]) => {
+const backing: string[] = [];
+const aliases = Object.entries(byRole).map(([rn, m]: [string, any], i) => {
   const one = (e: any) => {
     if (e.literal) return e.literal;
     // C and D are each used twice (once per output channel), so they are always
@@ -704,11 +705,44 @@ const rd = Object.entries(byRole).map(([rn, m]: [string, any]) => {
   };
   const l = one(m.light),
     d = one(m.dark);
-  return `--m3c-${rn}: ${l === d ? l : `light-dark(${l},${d})`}`;
+  // Literals have nothing to compute, so only fitted colours get a registered backing.
+  const back = (e: any, expr: string, suffix: string) => {
+    if (e.literal) return expr;
+    const name = `--r${i.toString(36)}${suffix}`;
+    backing.push(`${name}:${expr}`);
+    return `var(${name})`;
+  };
+  if (l === d) return `--m3c-${rn}: ${back(m.light, l, "")}`;
+  return `--m3c-${rn}: light-dark(${back(m.light, l, "l")},${back(m.dark, d, "d")})`;
 });
 
-const css = `:root, .m3-theme {
-${hoistPass([...pd, ...rd])}
+// Unregistered, a custom property substitutes as tokens, so every var(--m3c-*) would
+// re-expand and re-evaluate kilobytes of maths on every element that uses it. A
+// registered <color> is computed once where it is declared and inherited as a colour.
+//
+// --m3c-* themselves must stay unregistered: a registered light-dark() resolves where
+// it is declared, which would break a nested color-scheme. Hence one registered colour
+// per mode, with light-dark() choosing between them at the use site.
+//
+// The registered colours stay out of @layer tokens because token-shaker renames what it
+// finds there, which would orphan the @property rules.
+const registered = [...pd, ...backing].map((x) => x.slice(0, x.indexOf(":")));
+const css = `${registered
+  .map((x) => `@property ${x}{syntax:"<color>";inherits:true;initial-value:#000}`)
+  .join("\n")}
+:root {
+  color-scheme: light dark;
+}
+@layer tokens {
+  :root {
+    --m3v-source: AccentColor;
+  }
+  :root, .m3-theme {
+    ${aliases.join(";\n    ")};
+  }
+}
+:root, .m3-theme {
+${hoistPass([...pd, ...backing])}
 }
 `;
 // Alongside the library's other stylesheets, so svelte-package ships it and it is
