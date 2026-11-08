@@ -22,7 +22,7 @@ on:
         default: "40"
       role_target:
         description: accuracy target for role curves, in dE
-        default: "0.6"
+        default: "6"
 
 concurrency:
   group: livetheme-${{ github.ref }}
@@ -72,7 +72,7 @@ jobs:
       - name: Fit every layer
         env:
           ITERS: ${{ inputs.iters || '40' }}
-          ROLE_TARGET: ${{ inputs.role_target || '0.6' }}
+          ROLE_TARGET: ${{ inputs.role_target || '6' }}
         run: |
           # Curves come in layers: a role can only be fitted once the palette
           # expression it reads has been fitted, because it must be fitted against

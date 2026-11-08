@@ -405,7 +405,7 @@ const curve = (
 const PALETTE_SIZE = 60;
 const ROLE_SIZE = 45;
 // How accurate a role curve has to be before the search takes the shortest answer.
-const ROLE_TARGET = +(process.env.ROLE_TARGET ?? 0.6);
+const ROLE_TARGET = +(process.env.ROLE_TARGET ?? 6);
 
 // --- palettes ----------------------------------------------------------------
 // MCU's rotations are piecewise-constant in HCT hue. Rather than transcribe the
