@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { TransitionConfig } from "svelte/transition";
-  import { easeEmphasizedAccel, easeEmphasizedDecel } from "$lib/misc/easing";
-  import { outroClass } from "$lib/misc/animation";
+  import { easeEmphasizedAccel, easeEmphasizedDecel } from "#lib/misc/easing.js";
+  import { outroClass } from "#lib/misc/animation.js";
 
   // todo/deprecated: remove "click" and "esc" and onmousedown, switch to closedby="any" and "cancel"
   let { children, close }: { children: Snippet; close: (reason: "esc" | "click" | "low") => void } =

@@ -1,6 +1,6 @@
 import type { Plugin } from "vite";
 import { readFile } from "fs/promises";
-import shiki from "./shiki";
+import shiki from "./shiki.ts";
 
 function escapeForTemplate(str: string): string {
   return str

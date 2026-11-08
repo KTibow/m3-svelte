@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { IconifyIcon } from "@iconify/types";
-  import Icon from "$lib/misc/Icon.svelte";
-  import type { AnchorAttrs, ButtonAttrs, NotLink } from "$lib/misc/typing-utils";
+  import Icon from "#lib/misc/Icon.svelte";
+  import type { AnchorAttrs, ButtonAttrs, NotLink } from "#lib/misc/typing-utils.js";
   import type { HTMLLabelAttributes } from "svelte/elements";
 
   type ActionProps = AnchorAttrs | (NotLink<HTMLLabelAttributes> & { label: true }) | ButtonAttrs;

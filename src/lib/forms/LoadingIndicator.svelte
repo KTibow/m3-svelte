@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LabelledAria } from "$lib/misc/typing-utils";
+  import type { LabelledAria } from "#lib/misc/typing-utils.js";
 
   // for more weird loaders check out https://www.npmjs.com/package/kreations
   let {

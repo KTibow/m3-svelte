@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
-  import Icon from "$lib/misc/Icon.svelte";
-  import type { ButtonAttrs } from "$lib/misc/typing-utils";
+  import Icon from "#lib/misc/Icon.svelte";
+  import type { ButtonAttrs } from "#lib/misc/typing-utils.js";
   import { slide } from "svelte/transition";
-  import { easeEmphasized } from "$lib/misc/easing";
+  import { easeEmphasized } from "#lib/misc/easing.js";
 
   type ContentProps =
     | {

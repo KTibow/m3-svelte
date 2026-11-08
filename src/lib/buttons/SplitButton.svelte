@@ -1,8 +1,8 @@
 <script lang="ts">
   import iconExpand from "@ktibow/iconset-material-symbols/keyboard-arrow-down";
   import type { Snippet } from "svelte";
-  import Icon from "$lib/misc/Icon.svelte";
-  import type { ButtonAttrs } from "$lib/misc/typing-utils";
+  import Icon from "#lib/misc/Icon.svelte";
+  import type { ButtonAttrs } from "#lib/misc/typing-utils.js";
 
   let {
     variant,

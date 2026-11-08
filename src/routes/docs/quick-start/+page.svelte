@@ -5,12 +5,12 @@
   import iconType from "@ktibow/iconset-material-symbols/font-download-outline";
   import iconNext from "@ktibow/iconset-material-symbols/arrow-forward";
 
-  import Icon from "$lib/misc/Icon.svelte";
-  import Button from "$lib/buttons/Button.svelte";
+  import Icon from "#lib/misc/Icon.svelte";
+  import Button from "#lib/buttons/Button.svelte";
   import { resolve } from "$app/paths";
 
   import Snippet from "../Snippet.svelte";
-  import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
+  import ConnectedButtons from "#lib/buttons/ConnectedButtons.svelte";
 
   let materialSymbols = $state(true);
   let googleSans = $state(true);
@@ -115,7 +115,7 @@ export default defineConfig({
         3
         <Icon icon={iconPalette} />
       </div>
-      <div class="text">Enable your <a href={resolve("/theme")}>theme snippet</a></div>
+      <div class="text">Enable your <a href={resolve("theme")}>theme snippet</a></div>
     </h2>
     {#if useVite}
       <Snippet name="index.ts" html={/* typescript */ `import "./app.css";`} />
@@ -162,7 +162,7 @@ import "../app.css";
 <${""}Button onclick={() => alert("Hello world")}>Click me</${""}Button>`}
     stretch
   />
-  <a class="m3-layer" href={resolve("/docs/detailed-walkthrough")}>
+  <a class="m3-layer" href={resolve("docs/detailed-walkthrough")}>
     <Icon icon={iconNext} size={24} />
     Keep learning
   </a>

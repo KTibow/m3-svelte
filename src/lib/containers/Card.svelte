@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { ButtonAttrs, DivAttrs } from "$lib/misc/typing-utils";
+  import type { ButtonAttrs, DivAttrs } from "#lib/misc/typing-utils.js";
 
   type ActionProps = ButtonAttrs | DivAttrs;
 

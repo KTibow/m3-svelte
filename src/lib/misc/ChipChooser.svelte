@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Chip from "$lib/forms/Chip.svelte";
+  import Chip from "#lib/forms/Chip.svelte";
   import type { IconifyIcon } from "@iconify/types";
 
   let {

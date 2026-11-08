@@ -1,11 +1,11 @@
 <script lang="ts">
   import iconContrast from "@ktibow/iconset-material-symbols/contrast";
-  import Slider from "$lib/forms/Slider.svelte";
-  import Select from "$lib/forms/Select.svelte";
+  import Slider from "#lib/forms/Slider.svelte";
+  import Select from "#lib/forms/Select.svelte";
   import type { SpecVersion } from "./variants";
 
-  import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
-  import Button from "$lib/buttons/Button.svelte";
+  import ConnectedButtons from "#lib/buttons/ConnectedButtons.svelte";
+  import Button from "#lib/buttons/Button.svelte";
   import { appType, density } from "../state";
 
   const allSpecVersions: SpecVersion[] = ["2021", "2025", "2026"];

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from "$lib/buttons/Button.svelte";
+  import Button from "#lib/buttons/Button.svelte";
 
   let {
     clearable,

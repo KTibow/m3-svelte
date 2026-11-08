@@ -1,9 +1,9 @@
 <script lang="ts">
   import { slide } from "svelte/transition";
   import { innerWidth } from "svelte/reactivity/window";
-  import { easeEmphasized } from "$lib/misc/easing";
-  import StandardSideSheet from "$lib/containers/StandardSideSheet.svelte";
-  import BottomSheet from "$lib/containers/BottomSheet.svelte";
+  import { easeEmphasized } from "#lib/misc/easing.js";
+  import StandardSideSheet from "#lib/containers/StandardSideSheet.svelte";
+  import BottomSheet from "#lib/containers/BottomSheet.svelte";
 
   import Doc from "./_doc.svelte";
   import Hero from "./Hero.svelte";

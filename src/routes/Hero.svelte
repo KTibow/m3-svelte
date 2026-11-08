@@ -32,7 +32,7 @@
     <p>Discord</p>
     <p class="supporting">{page.data.members} members</p>
   </a>
-  <a href={resolve("/docs/features")}>
+  <a href={resolve("docs/features")}>
     <p>Features...</p>
     <p class="supporting">Powerful yet lean</p>
   </a>

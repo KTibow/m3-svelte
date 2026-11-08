@@ -8,14 +8,14 @@
   import iconBookS from "@ktibow/iconset-material-symbols/book-2";
   import googleSans from "@fontsource-variable/google-sans-flex/files/google-sans-flex-latin-opsz-normal.woff2";
 
-  import { asset, resolve } from "$app/paths";
+  import { resolve } from "$app/paths";
   import { page } from "$app/state";
-  import NavCMLX from "$lib/nav/NavCMLX.svelte";
-  import NavCMLXItem from "$lib/nav/NavCMLXItem.svelte";
+  import NavCMLX from "#lib/nav/NavCMLX.svelte";
+  import NavCMLXItem from "#lib/nav/NavCMLXItem.svelte";
   import { styling, density } from "./state";
   import "../app.css";
-  import "$lib/etc/layer";
-  import Snackbar from "$lib/containers/Snackbar.svelte";
+  import "#lib/etc/layer.js";
+  import Snackbar from "#lib/containers/Snackbar.svelte";
   import favicon from "../favicon.svg";
 
   let { children }: { children: Snippet } = $props();
@@ -29,12 +29,13 @@
       label: "Home",
     },
     {
-      path: resolve("/theme"),
+      path: resolve("theme"),
       icon: iconPalette,
       iconS: iconPaletteS,
       label: "Theme",
     },
   ];
+  const inDocs = $derived(page.route.id?.startsWith("/docs") ?? false);
   const normalizePath = (path: string) => {
     const u = new URL(path, page.url.href);
     path = u.pathname;
@@ -63,8 +64,8 @@
           text={label}
         />
       {/each}
-      {#if page.url.pathname.startsWith(resolve("/docs")) || innerWidth >= 840}
-        {#each [["Quick start", resolve("/docs/quick-start")], ["Walkthrough", resolve("/docs/detailed-walkthrough")], ["llms.txt", asset("/llms.txt")]] as [text, href]}
+      {#if inDocs || innerWidth >= 840}
+        {#each [["Quick start", resolve("docs/quick-start")], ["Walkthrough", resolve("docs/detailed-walkthrough")], ["llms.txt", "/llms.txt"]] as [text, href]}
           <NavCMLXItem
             variant="auto"
             {href}
@@ -76,9 +77,9 @@
       {:else}
         <NavCMLXItem
           variant="auto"
-          href={normalizePath(resolve("/docs/quick-start"))}
-          selected={page.url.pathname.startsWith(resolve("/docs"))}
-          icon={page.url.pathname.startsWith(resolve("/docs")) ? iconBookS : iconBook}
+          href={normalizePath(resolve("docs/quick-start"))}
+          selected={inDocs}
+          icon={inDocs ? iconBookS : iconBook}
           text="Docs"
         />
       {/if}

@@ -6,7 +6,9 @@ import globals from "globals";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "eslint/config";
 import ts from "typescript-eslint";
-import svelteConfig from "./svelte.config.js";
+import { loadConfig } from "@sveltejs/load-config";
+
+const svelteConfig = (await loadConfig("./", { traverse: false }))?.config;
 
 const gitignorePath = fileURLToPath(new URL("./.gitignore", import.meta.url));
 
@@ -55,8 +57,8 @@ export default defineConfig(
         {
           paths: [
             {
-              name: "$lib",
-              message: "Use specific imports from $lib/* to preserve CSS tree shaking",
+              name: "#lib",
+              message: "Use specific imports from #lib/* to preserve CSS tree shaking",
             },
           ],
         },

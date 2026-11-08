@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { DivAttrs } from "$lib/misc/typing-utils";
+  import type { DivAttrs } from "#lib/misc/typing-utils.js";
 
   // MUST BE WRAPPED IN A <label>
   let {

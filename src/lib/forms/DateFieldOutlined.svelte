@@ -3,10 +3,10 @@
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { TransitionConfig } from "svelte/transition";
   import iconCalendar from "@ktibow/iconset-material-symbols/calendar-today-outline";
-  import Icon from "$lib/misc/Icon.svelte";
+  import Icon from "#lib/misc/Icon.svelte";
 
-  import DatePickerDocked from "$lib/forms/DatePickerDocked.svelte";
-  import { easeEmphasized } from "$lib/misc/easing";
+  import DatePickerDocked from "#lib/forms/DatePickerDocked.svelte";
+  import { easeEmphasized } from "#lib/misc/easing.js";
 
   let {
     label,

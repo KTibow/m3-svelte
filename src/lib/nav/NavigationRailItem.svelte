@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
 
-  import Icon from "$lib/misc/Icon.svelte";
-  import type { AnchorAttrs, ButtonAttrs } from "$lib/misc/typing-utils";
+  import Icon from "#lib/misc/Icon.svelte";
+  import type { AnchorAttrs, ButtonAttrs } from "#lib/misc/typing-utils.js";
 
   let {
     label,

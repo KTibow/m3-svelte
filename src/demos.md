@@ -544,7 +544,7 @@ Snackbar
 ```
 
 ```ts
-import { snackbar } from "$lib/containers/Snackbar.svelte";
+import { snackbar } from "#lib/containers/Snackbar.svelte";
 ```
 
 ```svelte
@@ -1360,7 +1360,7 @@ NavigationRailItem
 ```ts
 import iconCircleFilled from "@ktibow/iconset-material-symbols/circle";
 import iconEdit from "@ktibow/iconset-material-symbols/edit";
-import { addBadge } from "$lib/misc/badge";
+import { addBadge } from "#lib/misc/badge.js";
 
 let collapse: "full" | "normal" | "no" = $state("normal");
 let alignment: "top" | "center" = $state("center");
@@ -1421,7 +1421,7 @@ Button
 ```
 
 ```ts
-import { containerTransform, sharedAxisTransition } from "$lib/misc/animation";
+import { containerTransform, sharedAxisTransition } from "#lib/misc/animation.js";
 let mode: "X" | "Y" | "Z" | "container" = $state("X");
 let affected = $state(false);
 const [send, receive] = containerTransform({ duration: 1000 });
@@ -1659,10 +1659,10 @@ Button
 
 ```ts
 import iconGo from "@ktibow/iconset-material-symbols/arrow-forward-rounded";
-import * as _paths from "$lib/misc/shapes";
-import * as _pathsAnimatable from "$lib/misc/shapesAnimatable";
-import * as _pathsAnimatableSmall from "$lib/misc/shapesAnimatableSmall";
-import { snackbar } from "$lib/containers/Snackbar.svelte";
+import * as _paths from "#lib/misc/shapes.js";
+import * as _pathsAnimatable from "#lib/misc/shapesAnimatable.js";
+import * as _pathsAnimatableSmall from "#lib/misc/shapesAnimatableSmall.js";
+import { snackbar } from "#lib/containers/Snackbar.svelte";
 import ShapeSelector from "/src/routes/ShapeSelector.svelte";
 
 const paths = _paths as Record<string, string>;

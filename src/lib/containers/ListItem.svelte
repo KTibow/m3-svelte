@@ -8,7 +8,7 @@
     DivAttrs,
     NotButton,
     NotLink,
-  } from "$lib/misc/typing-utils";
+  } from "#lib/misc/typing-utils.js";
 
   type NotLabel<T> = T & { label?: false };
   type ActionProps =

@@ -5,7 +5,7 @@
     type DynamicScheme,
     type Variant,
   } from "@ktibow/material-color-utilities-nightly";
-  import { materialColors } from "$lib/etc/colors";
+  import { materialColors } from "#lib/etc/colors.js";
   import variants from "./variants";
 
   let {

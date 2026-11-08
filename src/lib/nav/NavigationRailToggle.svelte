@@ -3,7 +3,7 @@
   import iconMenu from "@ktibow/iconset-material-symbols/menu";
   import { onMount } from "svelte";
 
-  import Icon from "$lib/misc/Icon.svelte";
+  import Icon from "#lib/misc/Icon.svelte";
 
   let noAnimations = $state(true);
   let {

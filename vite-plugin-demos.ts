@@ -1,8 +1,8 @@
 import type { Plugin } from "vite";
-import { loadDemos } from "./src/load-demos";
+import { loadDemos } from "./src/load-demos.ts";
 import { glob } from "tinyglobby";
 import { resolve } from "node:path";
-import shiki from "./shiki";
+import shiki from "./shiki.ts";
 
 const VIRTUAL_PREFIX = "virtual:demo/";
 const RESOLVED_PREFIX = resolve("src/virtual-demos") + "/";
@@ -41,7 +41,7 @@ export function demosPlugin(): Plugin {
 
       const imports = demoComponents
         .filter((c) => !["Switch", "Icon", "Slider"].includes(c))
-        .map((c) => `import ${c} from "${getFile(c).replace("src/lib", "$lib")}";`)
+        .map((c) => `import ${c} from "${getFile(c).replace("src/lib", "#lib")}";`)
         .join("\n");
 
       const relevantLinksData = demoComponents
@@ -73,9 +73,9 @@ export function demosPlugin(): Plugin {
 import iconCircle from "@ktibow/iconset-material-symbols/circle-outline";
 import iconSquare from "@ktibow/iconset-material-symbols/square-outline";
 import iconTriangle from "@ktibow/iconset-material-symbols/change-history-outline";
-import Switch from "$lib/forms/Switch.svelte";
-import Icon from "$lib/misc/Icon.svelte";
-import Slider from "$lib/forms/Slider.svelte";
+import Switch from "#lib/forms/Switch.svelte";
+import Icon from "#lib/misc/Icon.svelte";
+import Slider from "#lib/forms/Slider.svelte";
 import Arrows from "/src/routes/_arrows.svelte";
 import InternalCard from "/src/routes/_card.svelte";
 ${imports}

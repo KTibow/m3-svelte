@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { IconifyIcon } from "@iconify/types";
   import type { HTMLAnchorAttributes } from "svelte/elements";
-  import Icon from "$lib/misc/Icon.svelte";
+  import Icon from "#lib/misc/Icon.svelte";
 
   let {
     secondary = false,

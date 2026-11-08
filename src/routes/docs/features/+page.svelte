@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Switch from "$lib/forms/Switch.svelte";
+  import Switch from "#lib/forms/Switch.svelte";
 
   let useGzip = $state(true);
   const uc = (uncompressed: number, compressed: number) => (useGzip ? compressed : uncompressed);

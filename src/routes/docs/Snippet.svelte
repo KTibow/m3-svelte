@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { snackbar } from "$lib/containers/Snackbar.svelte";
-  import Icon from "$lib/misc/Icon.svelte";
+  import { snackbar } from "#lib/containers/Snackbar.svelte";
+  import Icon from "#lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
 
   let { name, html, stretch = false }: { name: string; html: string; stretch?: boolean } = $props();

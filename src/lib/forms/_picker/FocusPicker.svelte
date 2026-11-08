@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Icon from "$lib/misc/Icon.svelte";
+  import Icon from "#lib/misc/Icon.svelte";
   import iconCheck from "@ktibow/iconset-material-symbols/check";
 
   const conditionalScroll = (node: Element, shouldScroll: boolean) => {

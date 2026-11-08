@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { HTMLButtonAttributes, HTMLAttributes, HTMLLabelAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import type { AnchorAttrs, NotLink } from "$lib/misc/typing-utils";
-  import "$lib/etc/layer.js";
+  import type { AnchorAttrs, NotLink } from "#lib/misc/typing-utils.js";
+  import "#lib/etc/layer.js";
 
   // If you want a toggle button, use `for` with a checkbox input.
   type ActionProps =

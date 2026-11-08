@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DivAttrs } from "$lib/misc/typing-utils";
+  import type { DivAttrs } from "#lib/misc/typing-utils.js";
   import type { Snippet } from "svelte";
 
   let { children, ...extra }: { children: Snippet } & DivAttrs = $props();

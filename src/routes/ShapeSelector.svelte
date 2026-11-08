@@ -1,5 +1,5 @@
 <script lang="ts">
-  import * as _paths from "$lib/misc/shapes";
+  import * as _paths from "#lib/misc/shapes.js";
   import type { HTMLSelectAttributes } from "svelte/elements";
   const paths = _paths as Record<string, string>;
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ConnectedButtons from "$lib/buttons/ConnectedButtons.svelte";
-  import Button from "$lib/buttons/Button.svelte";
+  import ConnectedButtons from "#lib/buttons/ConnectedButtons.svelte";
+  import Button from "#lib/buttons/Button.svelte";
   import Snippet from "../Snippet.svelte";
   import { appType } from "../../state";
 </script>

@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { DynamicColor, DynamicScheme } from "@ktibow/material-color-utilities-nightly";
-  import Icon from "$lib/misc/Icon.svelte";
+  import Icon from "#lib/misc/Icon.svelte";
   import iconCopy from "@ktibow/iconset-material-symbols/content-copy-outline";
   import iconInvert from "@ktibow/iconset-material-symbols/invert-colors-outline";
   import iconX from "@ktibow/iconset-material-symbols/close";
   import iconGrab from "@ktibow/iconset-material-symbols/unarchive-outline";
 
-  import Button from "$lib/buttons/Button.svelte";
+  import Button from "#lib/buttons/Button.svelte";
   import ColorCard from "./ColorCard.svelte";
   import { appType, styling, density } from "../state";
   import {
@@ -21,7 +21,7 @@
     secondaryContainerSubtle,
     tertiaryContainerSubtle,
     genCSS,
-  } from "$lib/etc/colors";
+  } from "#lib/etc/colors.js";
   import ColorDot from "./ColorDot.svelte";
 
   let {

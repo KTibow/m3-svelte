@@ -7,11 +7,11 @@
   import iconColorLens from "@ktibow/iconset-material-symbols/palette-outline";
   import iconImage from "@ktibow/iconset-material-symbols/wallpaper";
   import iconAutoAwesome from "@ktibow/iconset-material-symbols/auto-awesome";
-  import Icon from "$lib/misc/Icon.svelte";
-  import Button from "$lib/buttons/Button.svelte";
+  import Icon from "#lib/misc/Icon.svelte";
+  import Button from "#lib/buttons/Button.svelte";
 
   import { secondarySourceColor, sourceColor } from "../state";
-  import { browser } from "$app/environment";
+  import { browser } from "$app/env";
 
   let { showSecondary = false }: { showSecondary?: boolean } = $props();
 

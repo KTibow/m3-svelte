@@ -1,7 +1,7 @@
 import type { Plugin } from "vite";
-import { loadDemos } from "./src/load-demos";
+import { loadDemos } from "./src/load-demos.ts";
 import { readFile } from "node:fs/promises";
-import { colors } from "./src/lib/etc/colors";
+import { colors } from "./src/lib/etc/colors.ts";
 
 async function generateLlmsTxt(): Promise<string> {
   const todoListDemo = await readFile("scripts/demo-todo-list.svelte", "utf8");
