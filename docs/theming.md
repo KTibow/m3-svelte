@@ -44,8 +44,8 @@ Swap the import for another file in `m3-svelte/etc/livetheme/`:
 ## Live or static
 
 A live theme is an approximation of Material Color Utilities (MCU) in CSS. It's close: for
-Tonal Spot 2025, the median color differs from MCU by 0.13 ΔE (OKLab × 100), and the worst
-measured case, a tertiary color, by 9.3. It costs about 7 KB gzipped, plus the work of computing
+Tonal Spot 2025, the median color differs from MCU by 0.62 ΔE (OKLab × 100), and the worst
+measured case, a tertiary color, by 9.6. It costs about 2.5 KB gzipped, plus the work of computing
 the colors on each page load. Vibrant 2025 is the least accurate style, off by up to 30 ΔE on its
 tertiary colors.
 
