@@ -1,5 +1,11 @@
 ## Button
 
+Notes:
+
+Without `onclick`, a Button is `type="submit"`, so it submits a surrounding form. With `onclick`, it's `type="button"`.
+
+It renders as a link with `href`, a `<label>` with `label` (put an `<input>` inside), or a `<summary>` with `summary`.
+
 Minimal demo:
 
 ```svelte
@@ -320,13 +326,30 @@ let clickable = $state(false);
 
 > Warning: Not updated to M3 Expressive
 
+Notes:
+
+`ListItem` renders its own `<li>`, so put items directly in a `<ul>` or `<ol>`, not in another `<li>`.
+
+Rows have a fixed height, based on `lines`. If you don't set `lines`, it comes from whether there's an `overline` and `supporting`. Long text isn't truncated and can overflow into the next row. To truncate a headline:
+
+```css
+ul :global(.body) {
+  min-width: 0;
+}
+ul :global(.headline) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+```
+
 Minimal demo:
 
 ```svelte
-<div>
+<ul>
   <ListItem headline="Hello" />
   <ListItem headline="Hello" />
-</div>
+</ul>
 ```
 
 Full demo:
@@ -488,6 +511,28 @@ let open = $state(false);
 
 ## Dialog
 
+Notes:
+
+The `buttons` snippet is inside a `<form method="dialog">`. A Button without `onclick` closes the dialog. A Button with `onclick` doesn't, so set `open = false` yourself.
+
+Don't pass `ontoggle`: it replaces the handler that keeps `bind:open` in sync.
+
+For a form, put a real `<form>` in the dialog and point the submit Button at it, so Enter submits too:
+
+```svelte
+<Dialog headline="Add a plant" bind:open>
+  <form id="add-plant" onsubmit={add}>
+    <TextField label="Name" bind:value={name} />
+  </form>
+  {#snippet buttons()}
+    <Button variant="text" onclick={() => (open = false)}>Cancel</Button>
+    <Button form="add-plant">Add</Button>
+  {/snippet}
+</Dialog>
+```
+
+`add` should call `event.preventDefault()` and set `open = false`.
+
 Minimal demo:
 
 ```svelte
@@ -524,6 +569,16 @@ let open = $state(false);
 ```
 
 ## Snackbar
+
+Notes:
+
+Render one `<Snackbar />`, usually in your root layout, then call `snackbar(message, actions, closable, timeout)` from anywhere.
+
+- `actions`: buttons, as `{ Undo: () => restore() }`
+- `closable`: shows a close button
+- `timeout`: milliseconds. The default is 4 seconds, and `-1` means it stays until closed.
+
+Set `--m3v-bottom-offset` to lift snackbars above a FAB or bottom navigation.
 
 Minimal demo:
 
@@ -993,6 +1048,12 @@ let enabled = $state(true);
 ```
 
 ## Text field
+
+Notes:
+
+`enter` runs when the user presses Enter in the field. Inside a Dialog, use a `<form>` instead; see the Dialog page.
+
+Other attributes, like `type` and `min`, go on the `<input>`. `trailing` is a button: `trailing={{ icon: iconAdd, onclick: add }}`.
 
 Minimal demo:
 
@@ -1600,6 +1661,12 @@ Full demo:
 ```
 
 ## Icons
+
+Notes:
+
+Each icon is a file in `@ktibow/iconset-material-symbols`, named after its Material Symbol in kebab-case. To search, run `ls node_modules/@ktibow/iconset-material-symbols | grep water`.
+
+The plain name, like `home`, is filled. Add `-outline` for the outlined style. `-rounded` and `-sharp` are other styles, and combine as `-outline-rounded`.
 
 Minimal demo:
 

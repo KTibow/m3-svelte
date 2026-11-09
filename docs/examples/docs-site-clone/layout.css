@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap");
 
-/* snip: theme snippet */
+@import "m3-svelte/etc/styles.css";
+@import "m3-svelte/etc/recommended-styles.css";
+@import "m3-svelte/etc/livetheme/tonalspot2025.css";
+
+@function --m3-density(--size) {
+  result: var(--size);
+}
 
 :root {
   @apply --m3-body-large;

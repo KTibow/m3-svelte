@@ -7,24 +7,26 @@ export type Demo = {
   fullDemoTs: string;
   fullDemoSvelte: string;
   warning?: string;
+  notes?: string;
 };
 
 export async function loadDemos(): Promise<Demo[]> {
   const demos = await readFile("src/demos.md", "utf8");
   const demosList = [
     ...demos.matchAll(
-      /## (.+)\n(?:\n> Warning: (.+)\n\n|\n)Minimal demo:\n\n```svelte\n([^]+?)\n```\n\nFull demo:\n\n```use\n([^]*?)\n```\n\n```ts\n([^]*?)\n```\n\n```svelte\n([^]+?)\n```/g,
+      /## (.+)\n\n(?:> Warning: (.+)\n\n)?(?:Notes:\n\n([^]*?)\n\n)?Minimal demo:\n\n```svelte\n([^]+?)\n```\n\nFull demo:\n\n```use\n([^]*?)\n```\n\n```ts\n([^]*?)\n```\n\n```svelte\n([^]+?)\n```/g,
     ),
   ];
 
   return demosList.map(
-    ([, friendlyName, warning, minimalDemo, components, fullDemoTs, fullDemoSvelte]) => ({
+    ([, friendlyName, warning, notes, minimalDemo, components, fullDemoTs, fullDemoSvelte]) => ({
       friendlyName,
       minimalDemo,
       components,
       fullDemoTs,
       fullDemoSvelte,
       ...(warning ? { warning } : {}),
+      ...(notes ? { notes } : {}),
     }),
   );
 }

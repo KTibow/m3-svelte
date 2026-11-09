@@ -22,9 +22,10 @@
  * compute for the layer above it rather than against MCU's exact value. Getting
  * that backwards silently bakes in an error the next layer cannot see.
  *
- * What this file does NOT do is fit anything. Every coefficient in the output comes
- * from livetheme-search.py. What is left here is the part that is structure rather than
- * curve: MCU's piecewise hue rotations, which are lookup tables, not functions.
+ * This file doesn't search for formulas: those come from livetheme-search.py. What is
+ * left here is the part that is structure rather than curve, like MCU's piecewise hue
+ * rotations, which are lookup tables rather than functions, and the final trimming of
+ * each fitted formula against the same data.
  *
  * Load-bearing details, each one a bug that actually happened:
  *  - Hues are angles. Every mean, spread and comparison goes through cos/sin; plain
@@ -223,20 +224,6 @@ const evalCss = (expr: string, names: string[]) => {
 };
 
 // --- piecewise hue as arcs on the unit circle --------------------------------
-// "is the hue past this bound" is a half-plane test on (a,b): the sign of the cross
-// product with the bound's own unit vector.
-const sideExpr = (deg: number) =>
-  `clamp(0,(${mul(Math.cos(deg * DEG_TO_RAD), "b")} - ${mul(Math.sin(deg * DEG_TO_RAD), "a")})*1000,1)`;
-/** indicator for the arc [lo, hi) going anticlockwise */
-const arcExpr = (lo: number, hi: number): string => {
-  const len = (((hi - lo) % 360) + 360) % 360;
-  if (len < 1e-6) return "1";
-  // side(lo) - side(hi) is +1 on the arc but -1 on the antipodal one, so an arc
-  // longer than a half turn must be split before the clamp can be trusted.
-  if (len <= 170) return `clamp(0,${sideExpr(lo)} - ${sideExpr(hi)},1)`;
-  const mid = (lo + len / 2) % 360;
-  return `(${arcExpr(lo, mid)} + ${arcExpr(mid, hi)})`;
-};
 /** m bounds -> m arcs; the first and last segments are one wrapped arc */
 const toArcs = (bounds: number[], val: number[]) => {
   const m = bounds.length;
@@ -380,6 +367,188 @@ const fitsPath =
     ? new URL(process.argv[fitsArg + 1], `file://${process.cwd()}/`)
     : new URL("../build/livetheme-fits.json", import.meta.url);
 const FITS: Record<string, Fit> = JSON.parse(await readFile(fitsPath, "utf8").catch(() => "{}"));
+
+// --- simplifying fits --------------------------------------------------------
+// The search stops at the first expression meeting its target, which leaves terms and
+// digits that aren't earning their bytes. Each role curve is hill-climbed here: drop
+// the weakest terms of a sum, refit what remains, then shorten every number, keeping
+// a move only while the error stays within TOLERANCE of the original fit.
+// How much worse a curve's error may get, in the fits' dE units (OKLab x 1000). Chosen
+// by sweeping it against MCU in the browsers: past this, each byte costs more accuracy.
+const TOLERANCE = 4.8;
+const NUMBER = String.raw`-?(?:\d+\.?\d*|\.\d+)`;
+const solve = (m: number[][], v: number[]) => {
+  const n = v.length;
+  const a = m.map((row, i) => [...row, v[i]]);
+  for (let c = 0; c < n; c++) {
+    let p = c;
+    for (let r = c + 1; r < n; r++) if (Math.abs(a[r][c]) > Math.abs(a[p][c])) p = r;
+    [a[c], a[p]] = [a[p], a[c]];
+    if (Math.abs(a[c][c]) < 1e-14) return null;
+    for (let r = c + 1; r < n; r++) {
+      const f = a[r][c] / a[c][c];
+      for (let k = c; k <= n; k++) a[r][k] -= f * a[c][k];
+    }
+  }
+  const x = new Array<number>(n).fill(0);
+  for (let c = n - 1; c >= 0; c--) {
+    let t = a[c][n];
+    for (let k = c + 1; k < n; k++) t -= a[c][k] * x[k];
+    x[c] = t / a[c][c];
+  }
+  return x;
+};
+const splitSum = (s: string) => {
+  const parts: { sign: number; text: string }[] = [];
+  let depth = 0,
+    start = 0,
+    sign = 1;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] == "(") depth++;
+    else if (s[i] == ")") depth--;
+    else if (depth == 0 && (s.startsWith(" + ", i) || s.startsWith(" - ", i))) {
+      parts.push({ sign, text: s.slice(start, i) });
+      sign = s[i + 1] == "+" ? 1 : -1;
+      i += 2;
+      start = i + 1;
+    }
+  }
+  parts.push({ sign, text: s.slice(start) });
+  return parts;
+};
+const shortNum = (x: number, digits: number) =>
+  (+x.toFixed(digits)).toString().replace(/^0\./, ".").replace(/^-0\./, "-.");
+const joinSum = (terms: { coef: number; rest: string; digits: number }[]) => {
+  const text = (t: (typeof terms)[number], abs: boolean) => {
+    const num = shortNum(abs ? Math.abs(t.coef) : t.coef, t.digits);
+    if (!t.rest) return num;
+    if (num == "1") return t.rest;
+    return `${num == "-1" ? "-1" : num}*${t.rest}`;
+  };
+  const live = terms.filter((t) => +t.coef.toFixed(t.digits) != 0);
+  if (!live.length) return "0";
+  const ordered = [...live.filter((t) => t.coef > 0), ...live.filter((t) => t.coef < 0)];
+  return ordered
+    .map((t, i) => (i == 0 ? text(t, false) : `${t.coef < 0 ? "- " : "+ "}${text(t, true)}`))
+    .join(" ");
+};
+const simplify = (
+  css: string,
+  vars: Record<string, number[]>,
+  y: number[],
+  w: number[],
+  scale: number,
+) => {
+  const names = Object.keys(vars);
+  const columns = names.map((k) => vars[k]);
+  const run = (expr: string) => {
+    const f = evalCss(expr, names);
+    return y.map((_, i) => f(...columns.map((c) => c[i])));
+  };
+  const totalW = w.reduce((t, x) => t + x, 0);
+  const meanW = totalW / w.length;
+  const measure = (p: number[]) => {
+    let sq = 0,
+      worst = 0;
+    for (let i = 0; i < y.length; i++) {
+      const d = p[i] - y[i];
+      if (!Number.isFinite(d)) return [Infinity, Infinity];
+      sq += w[i] * d * d;
+      worst = Math.max(worst, Math.abs(d) * Math.sqrt(w[i] / meanW) * scale);
+    }
+    return [Math.sqrt(sq / totalW) * scale, worst];
+  };
+  const [rmse0, worst0] = measure(run(css));
+  if (!Number.isFinite(rmse0)) return css;
+  const okAt = (share: number) => (p: number[]) => {
+    const [r, m] = measure(p);
+    return r <= rmse0 + TOLERANCE * share && m <= worst0 + 3 * TOLERANCE * share;
+  };
+  const ok = okAt(1);
+
+  const parts = splitSum(css);
+  const number = new RegExp(`^(${NUMBER})$`);
+  const scaled = new RegExp(`^(${NUMBER})\\*(.+)$`);
+  let best = css;
+  if (parts.length >= 2) {
+    const terms = parts.map(({ sign, text }) => {
+      const c = text.match(number);
+      if (c) return { coef: sign * +c[1], rest: "" };
+      const m = text.match(scaled);
+      return m ? { coef: sign * +m[1], rest: m[2] } : { coef: sign, rest: text };
+    });
+    const basis = terms.map((t) => (t.rest ? run(t.rest) : y.map(() => 1)));
+    if (basis.every((b) => b.every(Number.isFinite))) {
+      const k = terms.length;
+      const gram = basis.map((p) =>
+        basis.map((q) => p.reduce((t, x, i) => t + w[i] * x * q[i], 0)),
+      );
+      const rhs = basis.map((p) => p.reduce((t, x, i) => t + w[i] * x * y[i], 0));
+      const fit = (keep: number[]) =>
+        solve(
+          keep.map((i) => keep.map((j) => gram[i][j] + (i == j ? 1e-12 : 0))),
+          keep.map((i) => rhs[i]),
+        );
+      const predict = (keep: number[], c: number[]) =>
+        y.map((_, s) => keep.reduce((t, j, n) => t + c[n] * basis[j][s], 0));
+      let keep = terms.map((_, i) => i);
+      let coef = fit(keep) ?? terms.map((t) => t.coef);
+      const dropping = okAt(0.6);
+      for (;;) {
+        let pick: { keep: number[]; c: number[]; r: number } | undefined;
+        for (const out of keep) {
+          const next = keep.filter((i) => i != out);
+          if (!next.length) continue;
+          const c = fit(next);
+          if (!c) continue;
+          const p = predict(next, c);
+          if (!dropping(p)) continue;
+          const r = measure(p)[0];
+          if (!pick || r < pick.r) pick = { keep: next, c, r };
+        }
+        if (!pick) break;
+        keep = pick.keep;
+        coef = pick.c;
+      }
+      if (ok(predict(keep, coef))) {
+        const live = keep.map((j, n) => ({ coef: coef[n], rest: terms[j].rest, digits: 8, j }));
+        const value = () =>
+          y.map((_, s) => live.reduce((t, l) => t + +l.coef.toFixed(l.digits) * basis[l.j][s], 0));
+        // biggest numbers lose digits first, because they have the most to give up
+        for (const l of [...live].sort((p, q) => Math.abs(q.coef) - Math.abs(p.coef))) {
+          for (let d = 0; d < 8; d++) {
+            const before = l.digits;
+            l.digits = d;
+            if (ok(value())) break;
+            l.digits = before;
+          }
+        }
+        const candidate = joinSum(live);
+        if (candidate.length <= best.length && ok(run(candidate))) best = candidate;
+      }
+    }
+  }
+  // Anything else (min, max, hypot, products) can still shed digits.
+  const literal = /(?<![\w.])\d*\.\d+/g;
+  const literals = [...best.matchAll(literal)].map((m) => m[0]);
+  for (const text of new Set(literals.sort((p, q) => q.length - p.length))) {
+    for (let d = 0; d < 6; d++) {
+      const short = shortNum(+text, d);
+      if (short.length >= text.length) break;
+      const next = best.replaceAll(
+        new RegExp(`(?<![\\w.])${text.replace(".", "\\.")}(?![\\d])`, "g"),
+        short,
+      );
+      if (ok(run(next))) {
+        best = next;
+        break;
+      }
+    }
+  }
+  return best;
+};
+let usesH = false;
+const HUE_DIGITS = 1;
 const curves: any[] = [];
 /** record a curve for the search, or return the expression already found for it */
 const curve = (
@@ -392,7 +561,8 @@ const curve = (
   maxsize: number,
 ) => {
   const key = `${variant}/${id}`;
-  if (FITS[key]) return FITS[key].css;
+  if (FITS[key])
+    return id.startsWith("role/") ? simplify(FITS[key].css, vars, y, w, scale) : FITS[key].css;
   curves.push({ id: key, vars, y, w, scale, target, maxsize });
   return null;
 };
@@ -632,7 +802,7 @@ const hoistable = (s: string) => {
   return s;
 };
 const hoistPass = (decls: string[]) => {
-  const seg = [decls.map(x => `  ${x}`).join(";\n")];
+  const seg = [decls.map((x) => `  ${x}`).join(";\n")];
   let i = 0;
   for (const expr of [...new Set(HOIST)].sort((a, b) => b.length - a.length)) {
     let uses = 0;
@@ -658,20 +828,23 @@ for (const [key, palette] of palInfo) {
   if (!usedKeys.has(key)) continue;
   let base = "var(--u)";
   if (!(palette.arcs.length === 1 && palette.arcs[0].all)) {
-    const ax: string[] = [],
-      bx: string[] = [];
-    for (const r of palette.arcs) {
-      const box = arcExpr(r.lo, r.hi);
-      if (palette.absolute) {
-        ax.push(mul(Math.cos(r.v * DEG_TO_RAD), box));
-        bx.push(mul(Math.sin(r.v * DEG_TO_RAD), box));
-      } else {
-        const [ra, rb] = rot(r.v);
-        ax.push(`${box}*(${ra})`);
-        bx.push(`${box}*(${rb})`);
-      }
-    }
-    base = `oklab(from var(--u) l calc(${ax.join(" + ")}) calc(${bx.join(" + ")}))`;
+    // Piecewise-constant in hue, so a sum of steps on h. Only clamp() and arithmetic
+    // touch the channel here, which every engine with relative colours accepts.
+    // Chromium reports hue in (-180,180] here where Firefox uses [0,360), hence --H.
+    usesH = true;
+    const lo = (x: number) => ((x % 360) + 360) % 360;
+    const round = (x: number) => +x.toFixed(HUE_DIGITS);
+    const sorted = [...palette.arcs].sort((x: any, y: any) => lo(x.lo) - lo(y.lo));
+    const values = sorted.map((r: any) => round(r.v));
+    const start = values.at(-1)!;
+    const steps = values.map(
+      (v: number, i: number) =>
+        `${n(round(circularDiff(v, i ? values[i - 1] : start)))}*clamp(0,(var(--H) - ${n(round(lo(sorted[i].lo)))})*1000,1)`,
+    );
+    const hue = [palette.absolute ? n(start) : `h + ${n(start)}`, ...steps]
+      .join(" + ")
+      .replaceAll("+ -", "- ");
+    base = `oklch(from var(--u) l c calc(${hue}))`;
   } else if (palette.absolute) {
     base = `oklab(from var(--u) l ${n(Math.cos(palette.arcs[0].v * DEG_TO_RAD))} ${n(Math.sin(palette.arcs[0].v * DEG_TO_RAD))})`;
   } else if (Math.abs(palette.arcs[0].v) >= 0.5) {
@@ -693,7 +866,8 @@ for (const [key, palette] of palInfo) {
 }
 const byRole: Record<string, any> = {};
 for (const e of entries) (byRole[e.role] ??= {})[e.mode] = e;
-const rd = Object.entries(byRole).map(([rn, m]: [string, any]) => {
+const backing: string[] = [];
+const aliases = Object.entries(byRole).map(([rn, m]: [string, any], i) => {
   const one = (e: any) => {
     if (e.literal) return e.literal;
     // C and D are each used twice (once per output channel), so they are always
@@ -706,11 +880,44 @@ const rd = Object.entries(byRole).map(([rn, m]: [string, any]) => {
   };
   const l = one(m.light),
     d = one(m.dark);
-  return `--m3c-${rn}: ${l === d ? l : `light-dark(${l},${d})`}`;
+  // Literals have nothing to compute, so only fitted colours get a registered backing.
+  const back = (e: any, expr: string, suffix: string) => {
+    if (e.literal) return expr;
+    const name = `--r${i.toString(36)}${suffix}`;
+    backing.push(`${name}:${expr}`);
+    return `var(${name})`;
+  };
+  if (l === d) return `--m3c-${rn}: ${back(m.light, l, "")}`;
+  return `--m3c-${rn}: light-dark(${back(m.light, l, "l")},${back(m.dark, d, "d")})`;
 });
 
-const css = `:root, .m3-theme {
-${hoistPass([...pd, ...rd])}
+// Unregistered, a custom property substitutes as tokens, so every var(--m3c-*) would
+// re-expand and re-evaluate kilobytes of maths on every element that uses it. A
+// registered <color> is computed once where it is declared and inherited as a colour.
+//
+// --m3c-* themselves must stay unregistered: a registered light-dark() resolves where
+// it is declared, which would break a nested color-scheme. Hence one registered colour
+// per mode, with light-dark() choosing between them at the use site.
+//
+// The registered colours stay out of @layer tokens because token-shaker renames what it
+// finds there, which would orphan the @property rules.
+const registered = [...pd, ...backing].map((x) => x.slice(0, x.indexOf(":")));
+const css = `${registered
+  .map((x) => `@property ${x}{syntax:"<color>";inherits:true;initial-value:#000}`)
+  .join("\n")}
+:root {
+  color-scheme: light dark;
+}
+@layer tokens {
+  :root {
+    --m3v-source: AccentColor;
+  }
+  :root, .m3-theme {
+    ${aliases.join(";\n    ")};
+  }
+}
+:root, .m3-theme {
+${usesH ? "  --H:(h + 360*clamp(0,-1000*h,1));\n" : ""}${hoistPass([...pd, ...backing])}
 }
 `;
 // Alongside the library's other stylesheets, so svelte-package ships it and it is

@@ -2,8 +2,6 @@
   import type { Snippet } from "svelte";
   import iconHome from "@ktibow/iconset-material-symbols/home-outline";
   import iconHomeS from "@ktibow/iconset-material-symbols/home";
-  import iconPalette from "@ktibow/iconset-material-symbols/palette-outline";
-  import iconPaletteS from "@ktibow/iconset-material-symbols/palette";
   import iconBook from "@ktibow/iconset-material-symbols/book-2-outline";
   import iconBookS from "@ktibow/iconset-material-symbols/book-2";
   import googleSans from "@fontsource-variable/google-sans-flex/files/google-sans-flex-latin-opsz-normal.woff2";
@@ -13,6 +11,7 @@
   import NavCMLX from "#lib/nav/NavCMLX.svelte";
   import NavCMLXItem from "#lib/nav/NavCMLXItem.svelte";
   import { styling, density } from "./state";
+  import ThemeModal from "./theme/ThemeModal.svelte";
   import "../app.css";
   import "#lib/etc/layer.js";
   import Snackbar from "#lib/containers/Snackbar.svelte";
@@ -27,12 +26,6 @@
       icon: iconHome,
       iconS: iconHomeS,
       label: "Home",
-    },
-    {
-      path: resolve("theme"),
-      icon: iconPalette,
-      iconS: iconPaletteS,
-      label: "Theme",
     },
   ];
   const inDocs = $derived(page.route.id?.startsWith("/docs") ?? false);
@@ -51,6 +44,7 @@
 </svelte:head>
 {@html `<style>${$styling}:root{--density:${$density == "variable" ? 0 : $density};}</style>`}
 <Snackbar />
+<ThemeModal />
 <div class="container">
   <div class="sidebar">
     <NavCMLX variant="auto">
@@ -65,7 +59,7 @@
         />
       {/each}
       {#if inDocs || innerWidth >= 840}
-        {#each [["Quick start", resolve("docs/quick-start")], ["Walkthrough", resolve("docs/detailed-walkthrough")], ["llms.txt", "/llms.txt"]] as [text, href]}
+        {#each [["Quick start", resolve("docs/quick-start")], ["Walkthrough", resolve("docs/detailed-walkthrough")]] as [text, href]}
           <NavCMLXItem
             variant="auto"
             {href}

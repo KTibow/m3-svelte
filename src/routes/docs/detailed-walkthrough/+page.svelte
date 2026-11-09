@@ -2,15 +2,17 @@
   import ConnectedButtons from "#lib/buttons/ConnectedButtons.svelte";
   import Button from "#lib/buttons/Button.svelte";
   import Snippet from "../Snippet.svelte";
-  import { appType } from "../../state";
+  import { resolve } from "$app/paths";
+  import { appType, openThemeModal } from "../../state";
 </script>
 
 <svelte:head><title>Walkthrough</title></svelte:head>
 
 <p>
   Welcome to M3 Svelte! If you haven't already, play around with the components on the home page.
-  It's rather fun. They even adapt to the theme you pick. You should also check out the Discord and
-  GitHub if you want to keep track of this project.
+  It's rather fun. They even adapt to the <a href={resolve("theme")} onclick={openThemeModal}
+    >theme you pick</a
+  >. You should also check out the Discord and GitHub if you want to keep track of this project.
 </p>
 
 <p>
@@ -90,7 +92,7 @@
   >. If you want to change them, nothing's stopping you from overriding them in your own theme.
 </p>
 <p class="theme-defined">
-  Other globals are defined directly in your theme - you can read and write them there.
+  Other globals come from your theme - by default, the live theme you imported.
 </p>
 <h3>Tokens</h3>
 <p>
@@ -107,6 +109,7 @@
 <h3>Variables</h3>
 <p>These start with <code>--m3v-</code>, and let you send information to M3 Svelte.</p>
 <ul>
+  <li>Set <code>--m3v-source</code> to choose the color a live theme is built from</li>
   <li>Set <code>--m3v-bottom-offset</code> to shift up snackbars</li>
   <li>Set <code>--m3v-background</code> to calibrate the color of an outlined field's box</li>
 </ul>
@@ -116,7 +119,9 @@
   <li>
     <code class="styles-defined">--translucent([color], [opacity])</code> makes a color semitransparent
   </li>
-  <li><code class="theme-defined">--m3-density([size])</code> adjusts a size</li>
+  <li>
+    <code>--m3-density([size])</code> adjusts a size. Your app defines it, as in the quick start
+  </li>
 </ul>
 <h3>Mixins</h3>
 <p>

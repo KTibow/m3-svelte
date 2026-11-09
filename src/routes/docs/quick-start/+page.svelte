@@ -11,6 +11,7 @@
 
   import Snippet from "../Snippet.svelte";
   import ConnectedButtons from "#lib/buttons/ConnectedButtons.svelte";
+  import { openThemeModal } from "../../state";
 
   let materialSymbols = $state(true);
   let googleSans = $state(true);
@@ -69,6 +70,7 @@ import { functionsMixins } from "vite-plugin-functions-mixins";
 import { tokenShaker } from "vite-plugin-token-shaker";
 
 export default defineConfig({
+  build: { cssTarget: "esnext" },
   plugins: [svelte(), functionsMixins({ deps: ["m3-svelte"] }), tokenShaker()],
 });`}
         />
@@ -80,6 +82,7 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { functionsMixins } from "vite-plugin-functions-mixins";
 
 export default defineConfig({
+  build: { cssTarget: "esnext" },
   plugins: [svelte(), functionsMixins({ deps: ["m3-svelte"] })],
 });`}
         />
@@ -93,6 +96,7 @@ import { functionsMixins } from "vite-plugin-functions-mixins";
 import { tokenShaker } from "vite-plugin-token-shaker";
 
 export default defineConfig({
+  build: { cssTarget: "esnext" },
   plugins: [sveltekit(), functionsMixins({ deps: ["m3-svelte"] }), tokenShaker()],
 });`}
       />
@@ -104,6 +108,7 @@ import { sveltekit } from "@sveltejs/kit/vite";
 import { functionsMixins } from "vite-plugin-functions-mixins";
 
 export default defineConfig({
+  build: { cssTarget: "esnext" },
   plugins: [sveltekit(), functionsMixins({ deps: ["m3-svelte"] })],
 });`}
       />
@@ -115,7 +120,7 @@ export default defineConfig({
         3
         <Icon icon={iconPalette} />
       </div>
-      <div class="text">Enable your <a href={resolve("theme")}>theme snippet</a></div>
+      <div class="text">Add the styles</div>
     </h2>
     {#if useVite}
       <Snippet name="index.ts" html={/* typescript */ `import "./app.css";`} />
@@ -127,7 +132,20 @@ import "../app.css";
 </${""}script>`}
       />
     {/if}
-    <Snippet name="app.css" html={/* css */ `/* Your theme snippet */`} />
+    <Snippet
+      name="app.css"
+      html={/* css */ `@import "m3-svelte/etc/styles.css";
+@import "m3-svelte/etc/recommended-styles.css";
+@import "m3-svelte/etc/livetheme/tonalspot2025.css";
+
+@function --m3-density(--size) {
+  result: var(--size);
+}`}
+    />
+    <p>
+      Colors follow the user's system accent. To use your own, set <code>--m3v-source</code> or
+      <a href={resolve("theme")} onclick={openThemeModal}>bake a static theme</a>.
+    </p>
   </li>
   <li>
     <h2>
@@ -167,6 +185,10 @@ import "../app.css";
     Keep learning
   </a>
 </div>
+<p class="agents">
+  Using a coding agent? The package includes a Markdown reference for it at
+  <code>node_modules/m3-svelte/docs/README.md</code>.
+</p>
 
 <style>
   ol {
@@ -213,6 +235,12 @@ import "../app.css";
   }
   a {
     color: inherit;
+  }
+  p {
+    margin: 0;
+  }
+  .agents {
+    margin-top: 2rem;
   }
 
   .stack {
